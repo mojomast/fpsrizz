@@ -1,4 +1,4 @@
-import type { SoundDef, SoundLayer } from '../../sdk/contracts/audio.ts';
+import type { SoundDef, SoundLayer } from '../../sdk/index.ts';
 
 type W = 'sine' | 'square' | 'sawtooth' | 'triangle';
 const osc = (wave: W, f0: number, f1: number, g0: number, g1 = 0, extra: Partial<SoundLayer> = {}): SoundLayer => ({

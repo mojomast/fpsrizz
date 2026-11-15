@@ -45,3 +45,38 @@ export interface RenderService {
   readonly stats: { calls: number; triangles: number; geometries: number; textures: number };
 }
 export const Render = defineService<RenderService>('sdk/render');
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Custom actor renderers
+// ---------------------------------------------------------------------------------------------------------------------
+import type { EntityId, Visual } from './index.ts';
+import { defineRegistry } from './core.ts';
+
+/** Per-frame data handed to an actor renderer. Positions are already interpolated between simulation ticks. */
+export interface ActorFrame {
+  x: number;
+  y: number;
+  z: number;
+  yaw: number;
+  /** Yaw of the active view (billboards rotate to this). */
+  viewYaw: number;
+  /** Interpolated simulation time in seconds. */
+  time: number;
+  visual: Readonly<Visual>;
+}
+export interface ActorHandle {
+  /** Root object; the presentation plugin parents it under its actor root and removes it when the entity dies. */
+  readonly object: THREE.Object3D;
+  update(frame: ActorFrame): void;
+  /** Release everything this handle created that is not shared. */
+  dispose(): void;
+}
+/**
+ * Draws entities that carry a Visual component whose `renderer` equals this registry id ("" selects the active
+ * presentation plugin's default billboard). `start` runs once per session in the registering plugin's context.
+ */
+export interface ActorRenderer {
+  description: string;
+  start(ctx: SessionContext): (entity: EntityId, visual: Readonly<Visual>) => ActorHandle;
+}
+export const ActorRenderers = defineRegistry<ActorRenderer>('actor-renderer');

@@ -38,3 +38,9 @@ declare module 'node:path' {
   export function dirname(p: string): string;
 }
 declare module 'node:url' { export function fileURLToPath(u: string | URL): string; }
+declare const process: {
+  argv: string[];
+  env: Record<string, string | undefined>;
+  exit(code?: number): never;
+  cwd(): string;
+};

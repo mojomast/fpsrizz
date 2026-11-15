@@ -631,3 +631,23 @@ export interface ThemeProvider {
   visuals: Readonly<Record<string, VisualDef>>;
 }
 export const ThemeRole = defineRole<ThemeProvider>('sdk/theme');
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Small shared math helpers (yaw convention in one place)
+// ---------------------------------------------------------------------------------------------------------------------
+
+/** Unit forward vector on XZ for a yaw (0 = -Z, positive = turn left). */
+export const yawDirX = (yaw: number): number => -Math.sin(yaw);
+export const yawDirZ = (yaw: number): number => -Math.cos(yaw);
+/** Yaw that faces along (dx, dz). */
+export const yawOf = (dx: number, dz: number): number => Math.atan2(-dx, -dz);
+/** Shortest signed angle from a to b. */
+export function angleDelta(a: number, b: number): number {
+  let d = (b - a) % (Math.PI * 2);
+  if (d > Math.PI) d -= Math.PI * 2;
+  if (d < -Math.PI) d += Math.PI * 2;
+  return d;
+}
+export function makeTransform(x: number, z: number, yaw: number): Transform {
+  return { x, z, yaw, prevX: x, prevZ: z, prevYaw: yaw };
+}
