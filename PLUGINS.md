@@ -338,3 +338,111 @@ game.ticks(60);
 The SDK covers the extension points the reference game exercises. Fundamentally new capabilities — vertical
 movement and stacked floors, non-grid collision, networking, save/load migration, skeletal animation — will need a
 versioned SDK extension, not just JSON. See `SPEC.md` and `devplan.md`.
+
+## Appendix A — API reference (signatures)
+
+The types below are defined by the runtime and re-exported from `src/sdk/index.ts`. They are part of the public
+contract; this appendix exists so plugin authors never need to open `src/kernel`.
+
+```ts
+interface EntityApi {                       // ctx.world
+  create(): EntityId;                       // owned by the calling plugin
+  destroy(id: EntityId): void;
+  isAlive(id: EntityId): boolean;
+  add<T>(id: EntityId, c: ComponentToken<T>, data: T): T;
+  get<T>(id: EntityId, c: ComponentToken<T>): T | undefined;   // undefined for dead/stale ids
+  has(id: EntityId, c: ComponentToken<unknown>): boolean;
+  remove(id: EntityId, c: ComponentToken<unknown>): void;
+  each<T>(c: ComponentToken<T>, fn: (id: EntityId, data: T) => void): void;
+  first(c: ComponentToken<unknown>): EntityId | undefined;
+  count(c?: ComponentToken<unknown>): number;
+  ownerOf(id: EntityId): string | undefined;
+}
+
+interface RegistryReader {                  // ctx.registries, v.registries
+  get<T>(t: RegistryToken<T>, id: string): T | undefined;
+  require<T>(t: RegistryToken<T>, id: string): T;              // throws with the list of known ids
+  has(t: RegistryToken<unknown>, id: string): boolean;
+  ownerOf(t: RegistryToken<unknown>, id: string): string | undefined;
+  entries<T>(t: RegistryToken<T>): { id: string; value: T; owner: string }[];
+  ids(t: RegistryToken<unknown>): string[];
+}
+
+interface ValidationContext {               // ctx.addValidator(v => …)
+  registries: RegistryReader;               // every enabled plugin and pack has registered by now
+  preset: GamePreset;                       // raw preset: preset.config holds overrides only
+  activePlugins: readonly string[];
+  selectedRole(role: RoleToken<unknown>): string | undefined;
+  reporter(source: string, path?: string): Reporter;
+}
+
+class Reporter {                            // path-tracking error sink
+  at(key: string | number): Reporter;       // r.at('spawns').at(3).at('prefab') -> "spawns[3].prefab"
+  error(message: string): undefined;
+}
+// Helpers return the typed value, or undefined after reporting:
+vString(v, r, { max?, nonEmpty? })   vNumber(v, r, { min?, max?, int? })   vBool(v, r)   vId(v, r)
+vObject(v, r)   vArray(v, r, { min?, max? })   vOneOf(v, r, ['a', 'b'] as const)   vJson(v, r)   isObject(v)
+
+interface Rng {                             // ctx.rng (seeded, private stream per plugin), ctx.cosmeticRng
+  next(): number;                           // [0, 1)
+  range(min: number, max: number): number;
+  int(minInclusive: number, maxExclusive: number): number;
+  pick<T>(items: readonly T[]): T;          // do not call with an empty list
+  fork(name: string): Rng;
+}
+```
+
+Notes that the type signatures do not make obvious:
+
+- **`ctx.config` is fully resolved** in both `register` and `activate`: manifest defaults overlaid with the preset's
+  overrides, already validated against type/min/max/options. Validators that need a setting should close over
+  `ctx.config` from `register` (the `ValidationContext` only exposes the raw preset).
+- **Validators run after all registration**, so content from every enabled pack (maps, weapons, …) is visible. The
+  selected map id is `preset.options.map`; `core/world` already reports a missing or unknown map.
+- **Factories start lazily.** A behaviour's `start(ctx)` runs the first time something uses it in a session (first
+  shot, first AI tick), not at activation. Systems it adds appear from the following tick.
+- **Role activation order:** selected providers activate after all plugins, ordered by their owning plugin's
+  activation order, then role id. Do not rely on another role having run: look services up lazily
+  (`ctx.services.tryGet(View)` inside a frame system). The **mode** creates the player
+  (`spawnPrefab(ctx, 'core/player', world.desc.playerStart)`); controller and camera find it via the `Player`
+  component at run time.
+- **`defineContent` from `register`** goes through the same loader as pack content, so the plugin defining the content
+  kind must be a dependency (it registers first). References (ammo type, behaviour, prefab) are checked by validators
+  against all enabled plugins — depend on the pack or plugin that provides them.
+- **`World.raycast`** with a radius is a swept circle against boxes inflated by that radius: `t` is the distance the
+  circle's *centre* travels, `(x, z)` is the centre at contact, and the normal is always axis-aligned (at a convex
+  corner it is the face that was entered). A query that starts overlapping returns `t = 0`. Keep a small offset from
+  surfaces after a bounce.
+- **`Combat.sweepActors`** tests a circle of `radius` against each living collider (radii add). It ignores walls —
+  limit `maxDist` with a wall query first. `AttackShot.x/z` is the shooter's centre.
+- **`Impact`**: `effect` is a theme visual key played once, `sound` a theme sound key, `target` is 0 for walls, and the
+  normal points away from the surface (for actors: opposite to the travel direction).
+- **After death** the entity stays alive as a corpse: `Health.dead` is true, enemies lose their `Collider`, and
+  `Enemy.state` is `"dead"`. Components are still readable in `Died` handlers. Collected pickups are destroyed
+  (`isAlive` becomes false) after `PickupCollected`.
+- **`Flow.end`** marks the run ended and emits `FlowEnded`; the browser host then pauses and shows the result screen.
+  Headless sessions keep ticking — modes must stop spawning once `flow.ended` is true.
+- Weapon switching blocks firing for 0.3 s of simulation time.
+- `Transform.prev*` is maintained for every entity by `core/world` at the start of each tick; set `prev*` yourself
+  only when you teleport something.
+
+## Appendix B — test session API
+
+`game.session()` returns the running session; `game.host` the plugin host.
+
+| Member | Use |
+|---|---|
+| `session.entities` | `first/get/has/add/remove/each/count/isAlive/destroy/snapshot()` (same as `EntityApi`, plus `create(owner)`) |
+| `session.services.get(Token)` | any service, e.g. `World`, `Combat`, `Flow` |
+| `session.registries` | `has/get/require/entries/ids/ownerOf` |
+| `session.events.on(Event, fn, 'test', session.scope)` | observe events |
+| `session.commands.dispatch(Command, payload)` | issue commands |
+| `session.scheduler` | `runTick()`, `advance(seconds)`, `tick`, `time`, `describe()` → `{ id, owner, phase, order, ms }[]` |
+| `session.state`, `session.fault` | `'running'` / `'faulted'` and the responsible plugin |
+| `host.apply(preset, extraCatalogEntries?)` | stage + switch; rejects with `HostError` (`stage`, `issues`, `pluginId`) |
+| `host.restart()`, `host.stop()`, `host.resourceReport()` | lifecycle and leak checks (`byOwner` groups by plugin) |
+
+A catalog entry is `{ manifest, load?: () => import('…/index.ts'), content?: [...] }`. To get a `SessionContext`
+inside a test, add a tiny probe plugin whose `activate` stores `ctx`. To place actors exactly, write their
+`Transform` (`x`, `z`, `prevX`, `prevZ`, `yaw`).

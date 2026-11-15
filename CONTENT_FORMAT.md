@@ -85,6 +85,7 @@ Built-in packs live in `src/plugins/<dir>/manifest.json` + `content.json` (the `
 | `starter` | part of the default loadout (default false) |
 | `behavior` + `params` | a registered attack behaviour and its parameters (validated by the behaviour) |
 | `ammoType` | an `ammo` id, or `""`/omitted for infinite |
+| `ammoPerShot` | rounds per shot, integer 0–100 (default 1) |
 | `cooldown` | seconds between shots, ≥ 0.03 |
 | `auto` | hold to fire |
 | `view`, `fireSound` | theme keys (texture for the first-person sprite, sound) |
@@ -108,7 +109,7 @@ Unknown parameters are rejected.
 
 Effects: `core/heal` `{ amount* }`, `core/give-ammo` `{ ammoType*, amount* }`, `core/give-weapon` `{ weapon*, ammoType, amount }`.
 A prefab with the pickup's id is registered automatically, so maps can spawn it. `name` is shown on the HUD when
-collected.
+collected; `visual` and `sound` are theme keys; `radius` (0.1–4, default 0.5) is the collection distance.
 
 ### `enemy`
 
@@ -141,6 +142,8 @@ collected.
   }
 }
 ```
+
+Ranges: `health` ≥ 1, `speed` 0–30, `radius` 0.1–2, `scale` 0.25–4, `painChance` 0–1, `attack.cooldown` ≥ 0.1.
 
 AI behaviours: `core/chaser` (melee pursuit), `core/ranged` (`aiParams.preferredRange`; attacks only with line of
 sight). `visual` is a theme visual key; on death the visual `<visual>-corpse` is shown. `tint` and `scale` let a
@@ -188,7 +191,8 @@ Rules:
   must be in the `legend`. **The border must be solid.**
 - Legend entries are either solid (`"solid": true` + `wall` texture key) or walkable (`floor`, optional `ceiling`).
 - Positions use `cell: [column, row]` on a walkable cell, plus optional `offset: [dx, dz]` in cell fractions
-  (−0.45…0.45). `yaw` is in degrees: 0 faces north (−Z), 90 faces west, positive turns left.
+  (−0.45…0.45). `yaw` is in degrees (−360…360): 0 faces north (−Z), 90 faces west, positive turns left.
+- `doors`, `triggers`, `spawns`, `lights`, `ambient` and `fog` are optional; `playerStart` is required.
 - `doors`: must sit in a one-cell gap between two walls (west+east or north+south). `locked` doors open only through
   a trigger's `opens`.
 - `triggers`: `switch` is mounted on the `face` (`n`/`s`/`e`/`w`) wall of its cell and fires on Use; `zone` fires

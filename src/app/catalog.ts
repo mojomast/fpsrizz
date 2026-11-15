@@ -22,7 +22,10 @@ import examplePackManifest from '../plugins/example-pack/manifest.json' with { t
 import examplePack from '../plugins/example-pack/content.json' with { type: 'json' };
 import exampleRicochet from '../plugins/example-ricochet/manifest.json' with { type: 'json' };
 import exampleSurvival from '../plugins/example-survival/manifest.json' with { type: 'json' };
+import annexPreset from '../content/presets/annex.json' with { type: 'json' };
 import defaultPreset from '../content/presets/default.json' with { type: 'json' };
+import extendedPreset from '../content/presets/extended.json' with { type: 'json' };
+import survivalPreset from '../content/presets/survival.json' with { type: 'json' };
 
 export const catalog: CatalogEntry[] = [
   { manifest: world, load: () => import('../plugins/core-world/index.ts') },
@@ -42,4 +45,4 @@ export const catalog: CatalogEntry[] = [
 ];
 
 /** Built-in presets offered by the start screen and creator panel. The first one is the default. */
-export const presets: unknown[] = [defaultPreset];
+export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset];

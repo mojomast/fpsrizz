@@ -54,6 +54,7 @@ void main() {
   for (int i = 0; i < uNL; i++) {
     vec3 d = uLP[i] - vW;
     float dist = length(d);
+    if (uLD[i] > 0.0 && dist >= uLD[i]) continue; // out of range: skip the rest of the work for this light
     float att = uLD[i] > 0.0 ? clamp(1.0 - dist / uLD[i], 0.0, 1.0) : 1.0;
     att *= att;
     light += uLC[i] * max(dot(n, d / max(dist, 1e-4)), 0.0) * att;

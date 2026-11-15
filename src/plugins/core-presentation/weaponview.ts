@@ -7,8 +7,8 @@ import { createQuadGeometry, parseColor } from './quads.ts';
 /** Half of the view camera's vertical extent at depth 1 (fov 50). */
 const HALF_H = Math.tan((25 * Math.PI) / 180);
 const DEPTH = 1;
-const SIZE = 0.62; // sprite quad side, in view units (screen height = 2 * HALF_H)
-const BOTTOM = -HALF_H - 0.02;
+const SIZE = 0.5; // sprite quad side, in view units (screen height = 2 * HALF_H)
+const BOTTOM = -HALF_H - 0.09;
 const SWITCH_TIME = 0.25;
 const RECOIL_TIME = 0.15;
 const FLASH_TIME = 0.05;

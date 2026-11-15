@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "id": "example/survival",
+  "name": "Survival \u2014 waves, Visor HUD",
+  "plugins": [
+    "core/world",
+    "core/combat",
+    "core/player",
+    "core/enemies",
+    "core/modes",
+    "core/hud",
+    "core/presentation",
+    "theme/industrial",
+    "core/content",
+    "example/pack",
+    "example/ricochet",
+    "example/hud",
+    "example/survival"
+  ],
+  "roles": {
+    "sdk/controller": "core/fps-controller",
+    "sdk/camera": "core/fp-camera",
+    "sdk/mode": "example/survival",
+    "sdk/hud": "example/visor-hud",
+    "sdk/theme": "theme/industrial"
+  },
+  "options": {
+    "map": "core/arena"
+  },
+  "config": {},
+  "seed": 1337
+}

@@ -363,6 +363,7 @@ function boot(): void {
     ui,
     stats,
     creator,
+    shell,
     get state() {
       return state;
     },

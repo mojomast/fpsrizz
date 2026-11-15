@@ -5,6 +5,20 @@
   "version": "1.0.0",
   "kind": "code",
   "sdk": "^1.0.0",
-  "description": "TODO",
-  "dependencies": {}, "capabilities": ["simulation"]
+  "description": "Survival game mode: escalating waves of the map's enemies spawn out of sight; score kills, survive the last wave.",
+  "dependencies": {
+    "core/world": "^1.0.0",
+    "core/enemies": "^1.0.0"
+  },
+  "capabilities": ["simulation"],
+  "config": {
+    "playerPrefab": { "type": "string", "label": "Player prefab id", "default": "core/player" },
+    "waves": { "type": "number", "label": "Waves to survive", "default": 5, "min": 1, "max": 50 },
+    "baseCount": { "type": "number", "label": "Enemies in wave 1", "default": 3, "min": 1, "max": 20 },
+    "growth": { "type": "number", "label": "Extra enemies per wave", "default": 2, "min": 0, "max": 10 },
+    "minSpawnDistance": { "type": "number", "label": "Min spawn distance from player (m)", "default": 8, "min": 0, "max": 60 },
+    "intermission": { "type": "number", "label": "Seconds between waves", "default": 4, "min": 0, "max": 60 },
+    "spawnInterval": { "type": "number", "label": "Seconds between spawns within a wave", "default": 0.35, "min": 0.05, "max": 5 },
+    "maxAlive": { "type": "number", "label": "Max simultaneous enemies", "default": 24, "min": 1, "max": 100 }
+  }
 }

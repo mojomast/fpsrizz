@@ -1,10 +1,15 @@
 {
   "schema": 1,
   "id": "example/ricochet",
-  "name": "Example ricochet",
+  "name": "Ricochet Rifle",
   "version": "1.0.0",
   "kind": "code",
   "sdk": "^1.0.0",
-  "description": "TODO",
-  "dependencies": {}, "capabilities": ["simulation"]
+  "description": "Adds the example/ricochet attack behaviour (a projectile that bounces off walls) and the Ricochet Rifle weapon (slot 3).",
+  "dependencies": { "core/world": "^1.0.0", "core/combat": "^1.0.0", "core/content": "^1.0.0" },
+  "optionalDependencies": {},
+  "conflicts": [],
+  "capabilities": ["simulation"],
+  "requiresRoles": [],
+  "config": { "bounces": { "type": "number", "label": "Default max bounces", "default": 3, "min": 0, "max": 8 } }
 }

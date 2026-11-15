@@ -1,1 +1,177 @@
-[]
+[
+  {
+    "kind": "weapon",
+    "id": "example/scattergun",
+    "data": {
+      "name": "Scattergun",
+      "slot": 4,
+      "starter": true,
+      "behavior": "core/hitscan",
+      "params": {
+        "damage": 9,
+        "range": 22,
+        "spread": 0.11,
+        "pellets": 7
+      },
+      "ammoType": "core/bullets-ammo",
+      "ammoPerShot": 3,
+      "cooldown": 0.85,
+      "auto": false,
+      "view": "weapon-pistol",
+      "fireSound": "pistol-fire",
+      "recoil": 1,
+      "flash": "#ffb347"
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "example/brute",
+    "data": {
+      "name": "Brute",
+      "health": 160,
+      "speed": 2.4,
+      "radius": 0.55,
+      "sightRange": 16,
+      "ai": "core/chaser",
+      "attack": {
+        "behavior": "core/melee",
+        "params": {
+          "damage": 22,
+          "range": 1.8
+        },
+        "cooldown": 1.3,
+        "range": 1.6,
+        "windup": 0.4,
+        "sound": "enemy-melee"
+      },
+      "visual": "enemy-grunt",
+      "tint": "#7fb0ff",
+      "scale": 1.3,
+      "painChance": 0.15,
+      "score": 300,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "example/shell-box",
+    "data": {
+      "name": "Shell box +30",
+      "effect": "core/give-ammo",
+      "params": {
+        "ammoType": "core/bullets-ammo",
+        "amount": 30
+      },
+      "visual": "pickup-bullets",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "map",
+    "id": "example/annex",
+    "data": {
+      "schema": 1,
+      "format": "core/grid",
+      "name": "Bulkhead Annex",
+      "cellSize": 2,
+      "wallHeight": 3,
+      "legend": {
+        "#": { "solid": true, "wall": "wall-panel" },
+        "B": { "solid": true, "wall": "wall-brick" },
+        "H": { "solid": true, "wall": "wall-hazard" },
+        ".": { "floor": "floor-plate", "ceiling": "ceiling-panel" },
+        ",": { "floor": "floor-concrete", "ceiling": "ceiling-panel" }
+      },
+      "grid": [
+        "BBBBBBBBBBBBBBB",
+        "B......#.....#B",
+        "B......#.....#B",
+        "B......#.....#B",
+        "B......#.....#B",
+        "B............#B",
+        "B......#.....#B",
+        "B......###.###B",
+        "B......#H,,,H#B",
+        "B......#H,,,H#B",
+        "BBBBBBBBBBBBBBB"
+      ],
+      "playerStart": {
+        "cell": [2, 8],
+        "yaw": 270
+      },
+      "doors": [
+        { "id": "annex-link", "cell": [7, 5] },
+        { "id": "annex-vault", "cell": [10, 7], "locked": true }
+      ],
+      "triggers": [
+        {
+          "id": "annex-override",
+          "kind": "switch",
+          "cell": [12, 4],
+          "face": "e",
+          "opens": "annex-vault",
+          "tags": ["objective"]
+        },
+        {
+          "id": "annex-exit",
+          "kind": "zone",
+          "cell": [10, 9],
+          "radius": 0.9,
+          "tags": ["exit"]
+        }
+      ],
+      "spawns": [
+        {
+          "id": "annex-brute-1",
+          "prefab": "example/brute",
+          "cell": [3, 3],
+          "yaw": 0,
+          "tags": ["enemy"]
+        },
+        {
+          "id": "annex-brute-2",
+          "prefab": "example/brute",
+          "cell": [10, 2],
+          "yaw": 180,
+          "tags": ["enemy"]
+        },
+        {
+          "id": "annex-grunt",
+          "prefab": "core/grunt",
+          "cell": [5, 7],
+          "yaw": 90,
+          "tags": ["enemy"]
+        },
+        {
+          "id": "annex-spitter",
+          "prefab": "core/spitter",
+          "cell": [9, 4],
+          "yaw": 180,
+          "tags": ["enemy"]
+        },
+        {
+          "id": "annex-ammo",
+          "prefab": "example/shell-box",
+          "cell": [4, 1]
+        },
+        {
+          "id": "annex-health",
+          "prefab": "core/medkit",
+          "cell": [6, 9]
+        }
+      ],
+      "lights": [
+        { "id": "annex-a", "cell": [3, 2], "color": "#ffb060", "intensity": 1.2, "distance": 9 },
+        { "id": "annex-b", "cell": [10, 3], "color": "#60a0ff", "intensity": 1.1, "distance": 9 },
+        { "id": "annex-link-light", "cell": [7, 5], "color": "#ff5030", "intensity": 0.9, "distance": 6 },
+        { "id": "annex-exit-glow", "cell": [10, 9], "color": "#40ff70", "intensity": 1.4, "distance": 7 }
+      ],
+      "ambient": { "color": "#8a94ad", "intensity": 0.42 },
+      "fog": { "color": "#07090d", "near": 6, "far": 34 }
+    }
+  }
+]

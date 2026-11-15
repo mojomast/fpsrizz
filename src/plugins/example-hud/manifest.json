@@ -1,10 +1,14 @@
 {
   "schema": 1,
   "id": "example/hud",
-  "name": "Example hud",
+  "name": "Visor HUD",
   "version": "1.0.0",
   "kind": "code",
   "sdk": "^1.0.0",
-  "description": "TODO",
-  "dependencies": {}, "capabilities": ["simulation"]
+  "description": "A minimalist helmet-visor HUD: thin line work, segmented arc health gauge, compass strip, red edge glow on damage.",
+  "dependencies": {},
+  "capabilities": ["ui"],
+  "config": {
+    "accent": { "type": "select", "label": "Line colour", "default": "cyan", "options": ["cyan", "amber", "green"] }
+  }
 }
