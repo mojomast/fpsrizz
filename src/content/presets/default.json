@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "id": "core/default",
+  "name": "Bulkhead Station \u2014 Objective",
+  "plugins": [
+    "core/world",
+    "core/combat",
+    "core/player",
+    "core/enemies",
+    "core/modes",
+    "core/hud",
+    "core/presentation",
+    "theme/industrial",
+    "core/content"
+  ],
+  "roles": {
+    "sdk/controller": "core/fps-controller",
+    "sdk/camera": "core/fp-camera",
+    "sdk/mode": "core/objective",
+    "sdk/hud": "core/hud",
+    "sdk/theme": "theme/industrial"
+  },
+  "options": {
+    "map": "core/arena"
+  },
+  "config": {},
+  "seed": 1337
+}

@@ -1,0 +1,655 @@
+[
+  {
+    "kind": "ammo",
+    "id": "core/bullets-ammo",
+    "data": {
+      "name": "Bullets",
+      "max": 200,
+      "start": 48
+    }
+  },
+  {
+    "kind": "ammo",
+    "id": "core/cells-ammo",
+    "data": {
+      "name": "Cells",
+      "max": 40,
+      "start": 8
+    }
+  },
+  {
+    "kind": "weapon",
+    "id": "core/pistol",
+    "data": {
+      "name": "Service Pistol",
+      "slot": 1,
+      "starter": true,
+      "behavior": "core/hitscan",
+      "params": {
+        "damage": 20,
+        "range": 60,
+        "spread": 0.012
+      },
+      "ammoType": "core/bullets-ammo",
+      "cooldown": 0.27,
+      "view": "weapon-pistol",
+      "fireSound": "pistol-fire",
+      "recoil": 0.45,
+      "flash": "#ffd27a"
+    }
+  },
+  {
+    "kind": "weapon",
+    "id": "core/launcher",
+    "data": {
+      "name": "Plasma Launcher",
+      "slot": 2,
+      "starter": true,
+      "behavior": "core/projectile",
+      "params": {
+        "damage": 55,
+        "speed": 17,
+        "radius": 0.18,
+        "range": 60,
+        "kind": "plasma",
+        "visual": "fx-plasma",
+        "impact": "fx-spark",
+        "impactSound": "explosion-small"
+      },
+      "ammoType": "core/cells-ammo",
+      "cooldown": 0.75,
+      "view": "weapon-launcher",
+      "fireSound": "launcher-fire",
+      "recoil": 0.9,
+      "flash": "#7ae8ff"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "core/medkit",
+    "data": {
+      "name": "Medkit +25",
+      "effect": "core/heal",
+      "params": {
+        "amount": 25
+      },
+      "visual": "pickup-health",
+      "sound": "pickup-health"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "core/bullets",
+    "data": {
+      "name": "Bullets +24",
+      "effect": "core/give-ammo",
+      "params": {
+        "ammoType": "core/bullets-ammo",
+        "amount": 24
+      },
+      "visual": "pickup-bullets",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "core/cells",
+    "data": {
+      "name": "Cells +6",
+      "effect": "core/give-ammo",
+      "params": {
+        "ammoType": "core/cells-ammo",
+        "amount": 6
+      },
+      "visual": "pickup-cells",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "core/grunt",
+    "data": {
+      "name": "Grunt",
+      "health": 60,
+      "speed": 3.3,
+      "radius": 0.45,
+      "sightRange": 16,
+      "ai": "core/chaser",
+      "attack": {
+        "behavior": "core/melee",
+        "params": {
+          "damage": 12,
+          "range": 1.5
+        },
+        "cooldown": 0.9,
+        "range": 1.35,
+        "windup": 0.28,
+        "sound": "enemy-melee"
+      },
+      "visual": "enemy-grunt",
+      "painChance": 0.35,
+      "score": 100,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "core/spitter",
+    "data": {
+      "name": "Spitter",
+      "health": 40,
+      "speed": 2.5,
+      "radius": 0.38,
+      "sightRange": 22,
+      "ai": "core/ranged",
+      "aiParams": {
+        "preferredRange": 8
+      },
+      "attack": {
+        "behavior": "core/projectile",
+        "params": {
+          "damage": 10,
+          "speed": 9,
+          "radius": 0.2,
+          "range": 40,
+          "kind": "acid",
+          "visual": "fx-fireball",
+          "impact": "fx-spark",
+          "impactSound": "impact-wall"
+        },
+        "cooldown": 1.7,
+        "range": 15,
+        "windup": 0.45,
+        "sound": "enemy-shoot"
+      },
+      "visual": "enemy-spitter",
+      "painChance": 0.6,
+      "score": 150,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "map",
+    "id": "core/arena",
+    "data": {
+      "schema": 1,
+      "format": "core/grid",
+      "name": "Bulkhead Station",
+      "cellSize": 2,
+      "wallHeight": 3,
+      "legend": {
+        "#": {
+          "solid": true,
+          "wall": "wall-panel"
+        },
+        "B": {
+          "solid": true,
+          "wall": "wall-brick"
+        },
+        "T": {
+          "solid": true,
+          "wall": "wall-tech"
+        },
+        "H": {
+          "solid": true,
+          "wall": "wall-hazard"
+        },
+        "P": {
+          "solid": true,
+          "wall": "wall-hazard"
+        },
+        "R": {
+          "solid": true,
+          "wall": "wall-tech"
+        },
+        ".": {
+          "floor": "floor-plate",
+          "ceiling": "ceiling-panel"
+        },
+        ":": {
+          "floor": "floor-plate",
+          "ceiling": "ceiling-panel"
+        },
+        ",": {
+          "floor": "floor-concrete",
+          "ceiling": "ceiling-panel"
+        },
+        "x": {
+          "floor": "floor-plate",
+          "ceiling": "ceiling-panel"
+        }
+      },
+      "grid": [
+        "BBBBBBBBBBBBB#TTTTTTTTTTTT",
+        "B...........B#T::::::::::T",
+        "B...........B#T::::::::::T",
+        "B..P.....P..B#T::::::::::T",
+        "B.....R.....,,,::::T:::::T",
+        "B.....R.....B#T::::::::::T",
+        "B..P.....P..B#T::::::::::T",
+        "B...........B#T::::::::::T",
+        "B...........B#TTTTTT,TTTTT",
+        "BBBBB,BBBBBBB#######,#####",
+        "#####,##############,HHHHH",
+        "#,,,,,,,,,##########,HxxxH",
+        "#,#,,,,,,,##########,HxxxH",
+        "#,,,,,,,,,##########,HxxxH",
+        "#,,,,,,,,,,,,,,,,,,,,,xxxH",
+        "#,,,,,,,,,###########HxxxH",
+        "#,,,,,,#,,###########HxxxH",
+        "#,,,,,,,,,###########HxxxH",
+        "#,,,,,,,,,###########HHHHH",
+        "##########################"
+      ],
+      "playerStart": {
+        "cell": [
+          3,
+          16
+        ],
+        "yaw": 0
+      },
+      "doors": [
+        {
+          "id": "bay-door",
+          "cell": [
+            5,
+            10
+          ]
+        },
+        {
+          "id": "hall-door",
+          "cell": [
+            13,
+            4
+          ]
+        },
+        {
+          "id": "service-door",
+          "cell": [
+            10,
+            14
+          ]
+        },
+        {
+          "id": "exit-gate",
+          "cell": [
+            21,
+            14
+          ],
+          "locked": true
+        }
+      ],
+      "triggers": [
+        {
+          "id": "override",
+          "kind": "switch",
+          "cell": [
+            22,
+            1
+          ],
+          "face": "n",
+          "opens": "exit-gate",
+          "tags": [
+            "objective"
+          ]
+        },
+        {
+          "id": "exit",
+          "kind": "zone",
+          "cell": [
+            23,
+            14
+          ],
+          "radius": 0.9,
+          "tags": [
+            "exit"
+          ]
+        }
+      ],
+      "spawns": [
+        {
+          "id": "bay-ammo",
+          "prefab": "core/bullets",
+          "cell": [
+            8,
+            12
+          ]
+        },
+        {
+          "id": "bay-health",
+          "prefab": "core/medkit",
+          "cell": [
+            1,
+            18
+          ]
+        },
+        {
+          "id": "hall-grunt-1",
+          "prefab": "core/grunt",
+          "cell": [
+            2,
+            7
+          ],
+          "yaw": 180,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "hall-grunt-2",
+          "prefab": "core/grunt",
+          "cell": [
+            10,
+            2
+          ],
+          "yaw": 180,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "hall-grunt-3",
+          "prefab": "core/grunt",
+          "cell": [
+            7,
+            1
+          ],
+          "yaw": 180,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "hall-spitter",
+          "prefab": "core/spitter",
+          "cell": [
+            1,
+            1
+          ],
+          "yaw": 180,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "hall-cells",
+          "prefab": "core/cells",
+          "cell": [
+            11,
+            8
+          ]
+        },
+        {
+          "id": "hall-health",
+          "prefab": "core/medkit",
+          "cell": [
+            1,
+            4
+          ]
+        },
+        {
+          "id": "hall-ammo",
+          "prefab": "core/bullets",
+          "cell": [
+            6,
+            7
+          ]
+        },
+        {
+          "id": "ctrl-spitter-1",
+          "prefab": "core/spitter",
+          "cell": [
+            23,
+            2
+          ],
+          "yaw": 90,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "ctrl-spitter-2",
+          "prefab": "core/spitter",
+          "cell": [
+            17,
+            6
+          ],
+          "yaw": 90,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "ctrl-grunt",
+          "prefab": "core/grunt",
+          "cell": [
+            18,
+            2
+          ],
+          "yaw": 90,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "ctrl-cells",
+          "prefab": "core/cells",
+          "cell": [
+            24,
+            7
+          ]
+        },
+        {
+          "id": "ctrl-health",
+          "prefab": "core/medkit",
+          "cell": [
+            15,
+            1
+          ]
+        },
+        {
+          "id": "svc-grunt-1",
+          "prefab": "core/grunt",
+          "cell": [
+            20,
+            12
+          ],
+          "yaw": 0,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "svc-grunt-2",
+          "prefab": "core/grunt",
+          "cell": [
+            15,
+            14
+          ],
+          "yaw": 90,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "svc-ammo",
+          "prefab": "core/bullets",
+          "cell": [
+            20,
+            9
+          ]
+        },
+        {
+          "id": "exit-spitter",
+          "prefab": "core/spitter",
+          "cell": [
+            23,
+            17
+          ],
+          "yaw": 0,
+          "tags": [
+            "enemy"
+          ]
+        },
+        {
+          "id": "exit-health",
+          "prefab": "core/medkit",
+          "cell": [
+            24,
+            11
+          ]
+        }
+      ],
+      "lights": [
+        {
+          "id": "bay-a",
+          "cell": [
+            3,
+            13
+          ],
+          "color": "#ffb060",
+          "intensity": 1.3,
+          "distance": 11
+        },
+        {
+          "id": "bay-b",
+          "cell": [
+            7,
+            17
+          ],
+          "color": "#ffa040",
+          "intensity": 1.1,
+          "distance": 10
+        },
+        {
+          "id": "hall-core",
+          "cell": [
+            5,
+            4
+          ],
+          "color": "#ff5030",
+          "intensity": 1.7,
+          "distance": 13
+        },
+        {
+          "id": "hall-core-2",
+          "cell": [
+            7,
+            5
+          ],
+          "color": "#ff7a30",
+          "intensity": 1.4,
+          "distance": 12
+        },
+        {
+          "id": "hall-nw",
+          "cell": [
+            1,
+            1
+          ],
+          "color": "#6080ff",
+          "intensity": 0.9,
+          "distance": 9
+        },
+        {
+          "id": "hall-se",
+          "cell": [
+            11,
+            8
+          ],
+          "color": "#6080ff",
+          "intensity": 0.9,
+          "distance": 9
+        },
+        {
+          "id": "ctrl-a",
+          "cell": [
+            17,
+            3
+          ],
+          "color": "#40e0c0",
+          "intensity": 1.3,
+          "distance": 11
+        },
+        {
+          "id": "ctrl-b",
+          "cell": [
+            22,
+            5
+          ],
+          "color": "#50c0ff",
+          "intensity": 1.3,
+          "distance": 11
+        },
+        {
+          "id": "ctrl-switch",
+          "cell": [
+            22,
+            1
+          ],
+          "color": "#ff3030",
+          "intensity": 1.0,
+          "distance": 5,
+          "y": 1.6
+        },
+        {
+          "id": "link",
+          "cell": [
+            13,
+            4
+          ],
+          "color": "#ffb060",
+          "intensity": 0.8,
+          "distance": 7
+        },
+        {
+          "id": "svc-a",
+          "cell": [
+            20,
+            11
+          ],
+          "color": "#ffb060",
+          "intensity": 0.9,
+          "distance": 8
+        },
+        {
+          "id": "svc-b",
+          "cell": [
+            15,
+            14
+          ],
+          "color": "#ff9040",
+          "intensity": 0.9,
+          "distance": 8
+        },
+        {
+          "id": "exit-glow",
+          "cell": [
+            23,
+            14
+          ],
+          "color": "#40ff70",
+          "intensity": 1.5,
+          "distance": 9
+        }
+      ],
+      "ambient": {
+        "color": "#8a94ad",
+        "intensity": 0.42
+      },
+      "fog": {
+        "color": "#07090d",
+        "near": 6,
+        "far": 38
+      }
+    }
+  }
+]

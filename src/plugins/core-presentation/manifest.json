@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "id": "core/presentation",
+  "name": "Presentation",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^1.0.0",
+  "description": "Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks.",
+  "capabilities": ["render", "audio"],
+  "dependencies": { "core/world": "^1.0.0" },
+  "requiresRoles": ["sdk/theme", "sdk/camera"]
+}

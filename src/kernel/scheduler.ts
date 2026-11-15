@@ -26,6 +26,7 @@ interface Entry<T> {
   owner: string;
   phaseIndex: number;
   ms: number;
+  removed: boolean;
 }
 
 export interface SchedulerHooks {
@@ -51,6 +52,9 @@ export class Scheduler {
   lastFrameTicks = 0;
   private acc = 0;
   private systems: Entry<SystemDef>[] = [];
+  /** Execution snapshot: systems added or removed while a tick is running take effect from the next tick. */
+  private tickList: Entry<SystemDef>[] = [];
+  private dirty = false;
   private frameSystems: Entry<FrameSystemDef>[] = [];
   private hooks: SchedulerHooks;
 
@@ -71,19 +75,22 @@ export class Scheduler {
     if (phaseIndex < 0) throw new Error(`System "${def.id}" (plugin "${owner}") uses unknown phase "${def.phase}". Phases: ${this.phases.join(', ')}`);
     const dup = this.systems.find((s) => s.def.id === def.id);
     if (dup) throw new Error(`System "${def.id}" is already registered by "${dup.owner}"; "${owner}" cannot add it again.`);
-    const entry: Entry<SystemDef> = { def, owner, phaseIndex, ms: 0 };
+    const entry: Entry<SystemDef> = { def, owner, phaseIndex, ms: 0, removed: false };
     this.systems.push(entry);
     this.systems.sort((a, b) => a.phaseIndex - b.phaseIndex || (a.def.order ?? 0) - (b.def.order ?? 0) || (a.def.id < b.def.id ? -1 : 1));
+    this.dirty = true;
     return () => {
       const i = this.systems.indexOf(entry);
       if (i >= 0) this.systems.splice(i, 1);
+      entry.removed = true;
+      this.dirty = true;
     };
   }
 
   addFrameSystem(def: FrameSystemDef, owner: string): () => void {
     const dup = this.frameSystems.find((s) => s.def.id === def.id);
     if (dup) throw new Error(`Frame system "${def.id}" is already registered by "${dup.owner}"; "${owner}" cannot add it again.`);
-    const entry: Entry<FrameSystemDef> = { def, owner, phaseIndex: 0, ms: 0 };
+    const entry: Entry<FrameSystemDef> = { def, owner, phaseIndex: 0, ms: 0, removed: false };
     this.frameSystems.push(entry);
     this.frameSystems.sort((a, b) => (a.def.order ?? 0) - (b.def.order ?? 0) || (a.def.id < b.def.id ? -1 : 1));
     return () => {
@@ -120,9 +127,14 @@ export class Scheduler {
   runTick(): void {
     if (this.faulted) return;
     this.hooks.beforeTick?.(this.tick);
-    const list = this.systems;
+    if (this.dirty) {
+      this.tickList = this.systems.slice();
+      this.dirty = false;
+    }
+    const list = this.tickList;
     for (let i = 0; i < list.length; i++) {
       const s = list[i]!;
+      if (s.removed) continue;
       const t0 = now();
       this.hooks.beforeSystem?.();
       try {
@@ -175,6 +187,7 @@ export class Scheduler {
   }
   clear(): void {
     this.systems.length = 0;
+    this.tickList = [];
     this.frameSystems.length = 0;
   }
 }

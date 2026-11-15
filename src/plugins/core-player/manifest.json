@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "id": "core/player",
+  "name": "First-Person Player",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^1.0.0",
+  "description": "Player prefab, WASD + mouse-yaw controller and fixed-eye-height first-person camera. Movement is planar; jumping and vertical aim belong to future controller/camera providers.",
+  "dependencies": { "core/world": "^1.0.0" },
+  "capabilities": ["simulation", "input"],
+  "requiresRoles": ["sdk/controller", "sdk/camera"],
+  "config": {
+    "maxHealth": { "type": "number", "label": "Player health", "default": 100, "min": 1, "max": 1000 },
+    "moveSpeed": { "type": "number", "label": "Move speed (m/s)", "default": 5.4, "min": 1, "max": 20 },
+    "fov": { "type": "number", "label": "Field of view (degrees)", "default": 74, "min": 50, "max": 110 }
+  }
+}

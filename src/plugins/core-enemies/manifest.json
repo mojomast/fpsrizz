@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "core/enemies",
+  "name": "Enemies",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^1.0.0",
+  "description": "Enemy definitions (data), the enemy state machine, path-following movement, and two AI behaviours: a melee chaser and a ranged attacker that respects line of sight.",
+  "dependencies": { "core/world": "^1.0.0", "core/combat": "^1.0.0" },
+  "capabilities": ["simulation"]
+}

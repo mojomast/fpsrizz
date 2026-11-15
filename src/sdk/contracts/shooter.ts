@@ -364,6 +364,8 @@ export interface WeaponDef {
   cooldown: number;
   /** Hold-to-fire. */
   auto: boolean;
+  /** Part of the default player loadout. */
+  starter: boolean;
   /** Theme keys. */
   view: string;
   fireSound: string;
@@ -377,6 +379,8 @@ export const Weapons = defineRegistry<WeaponDef>('weapon');
 export interface AmmoDef {
   name: string;
   max: number;
+  /** Rounds in the default player loadout. */
+  start: number;
 }
 export const AmmoTypes = defineRegistry<AmmoDef>('ammo');
 

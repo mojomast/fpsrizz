@@ -528,7 +528,8 @@ export class PluginHost {
     try {
       return await this.startSession(staged, this.epoch);
     } catch (e) {
-      this.stop();
+      // A superseded attempt already cleaned up after itself; whatever is active now belongs to the newer request.
+      if (!(e instanceof HostError && e.stage === 'superseded')) this.stop();
       throw e;
     }
   }
@@ -543,7 +544,8 @@ export class PluginHost {
     try {
       return await this.startSession(staged, my);
     } catch (e) {
-      this.stop();
+      // A superseded attempt already cleaned up after itself; whatever is active now belongs to the newer request.
+      if (!(e instanceof HostError && e.stage === 'superseded')) this.stop();
       throw e;
     }
   }

@@ -1,8 +1,4 @@
-export interface Painter {
-  width: number;
-  height: number;
-  paint(ctx: CanvasRenderingContext2D): void;
-}
+import type { Painter } from '../../sdk/index.ts';
 
 // ---------------------------------------------------------------- helpers
 
@@ -29,7 +25,7 @@ function painter(width: number, height: number, seed: number, draw: (c: Ctx, rng
       const cv = document.createElement('canvas');
       cv.width = width;
       cv.height = height;
-      const c = cv.getContext('2d');
+      const c = cv.getContext('2d', { willReadFrequently: true });
       if (!c) return;
       c.imageSmoothingEnabled = false;
       draw(c, mulberry32(seed));
