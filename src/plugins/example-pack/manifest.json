@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "example/pack",
+  "name": "Example Content Pack",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^1.0.0",
+  "description": "TODO",
+  "dependencies": {}
+}

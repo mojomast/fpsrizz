@@ -360,7 +360,7 @@ export class PluginHost {
    * Never touches the active session or registries. Throws HostError with actionable issues on failure,
    * after disposing everything the attempt created.
    */
-  async stage(rawPreset: unknown, extra: readonly CatalogEntry[] = []): Promise<StagedGraph> {
+  async stage(rawPreset: unknown, extra: readonly CatalogEntry[] = [], opts: { skipValidation?: boolean } = {}): Promise<StagedGraph> {
     const issues: Issue[] = [];
     const preset = parsePreset(rawPreset, new Reporter(issues, 'preset'));
     if (!preset) throw new HostError('preset', issues);
@@ -459,6 +459,8 @@ export class PluginHost {
       if (issues.length > 0) fail('register', id);
     }
 
+    if (opts.skipValidation) return { preset, order: graph.order, manifests, modules, registries, scope, configs, contentKinds, extra: [...extra] };
+
     // Cross-reference validation over the complete selection.
     const vctx: ValidationContext = {
       registries: reader,
@@ -497,6 +499,36 @@ export class PluginHost {
     if (issues.length > 0) fail('validate');
 
     return { preset, order: graph.order, manifests, modules, registries, scope, configs, contentKinds, extra: [...extra] };
+  }
+
+  /**
+   * Lists what every installed plugin WOULD contribute (registry kind, id, owner, display name), by registering the
+   * whole catalog into throwaway registries. Used by tooling to offer choices (maps, role providers) for plugins that
+   * are not active. Never touches the running session. Plugins that cannot be registered together are skipped.
+   */
+  async survey(): Promise<{ kind: string; id: string; owner: string; name: string }[]> {
+    let ids = [...this.catalog.keys()].sort();
+    for (let attempt = 0; attempt < 8; attempt++) {
+      try {
+        const staged = await this.stage({ schema: 1, id: 'host/survey', name: 'survey', plugins: ids }, [], { skipValidation: true });
+        const out: { kind: string; id: string; owner: string; name: string }[] = [];
+        for (const kind of Object.keys(staged.registries.summary()))
+          for (const e of staged.registries.entries<unknown>({ kind })) {
+            const n = (e.value as { name?: unknown } | null)?.name;
+            out.push({ kind, id: e.id, owner: e.owner, name: typeof n === 'string' ? n : e.id });
+          }
+        this.discard(staged);
+        return out;
+      } catch (e) {
+        if (!(e instanceof HostError)) throw e;
+        const bad = new Set(e.issues.map((i) => i.source));
+        if (e.pluginId) bad.add(e.pluginId);
+        const next = ids.filter((id) => !bad.has(id));
+        if (next.length === ids.length) return [];
+        ids = next;
+      }
+    }
+    return [];
   }
 
   /** Disposes a staged graph that will not be used. */

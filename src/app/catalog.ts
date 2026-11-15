@@ -17,6 +17,11 @@ import player from '../plugins/core-player/manifest.json' with { type: 'json' };
 import presentation from '../plugins/core-presentation/manifest.json' with { type: 'json' };
 import world from '../plugins/core-world/manifest.json' with { type: 'json' };
 import theme from '../plugins/theme-industrial/manifest.json' with { type: 'json' };
+import exampleHud from '../plugins/example-hud/manifest.json' with { type: 'json' };
+import examplePackManifest from '../plugins/example-pack/manifest.json' with { type: 'json' };
+import examplePack from '../plugins/example-pack/content.json' with { type: 'json' };
+import exampleRicochet from '../plugins/example-ricochet/manifest.json' with { type: 'json' };
+import exampleSurvival from '../plugins/example-survival/manifest.json' with { type: 'json' };
 import defaultPreset from '../content/presets/default.json' with { type: 'json' };
 
 export const catalog: CatalogEntry[] = [
@@ -29,6 +34,11 @@ export const catalog: CatalogEntry[] = [
   { manifest: presentation, load: () => import('../plugins/core-presentation/index.ts') },
   { manifest: theme, load: () => import('../plugins/theme-industrial/index.ts') },
   { manifest: contentManifest, content },
+  // Optional extensions (the four modularity demonstrations). Enabled only by presets that list them.
+  { manifest: examplePackManifest, content: examplePack },
+  { manifest: exampleRicochet, load: () => import('../plugins/example-ricochet/index.ts') },
+  { manifest: exampleHud, load: () => import('../plugins/example-hud/index.ts') },
+  { manifest: exampleSurvival, load: () => import('../plugins/example-survival/index.ts') },
 ];
 
 /** Built-in presets offered by the start screen and creator panel. The first one is the default. */

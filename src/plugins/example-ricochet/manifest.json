@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "example/ricochet",
+  "name": "Example ricochet",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^1.0.0",
+  "description": "TODO",
+  "dependencies": {}, "capabilities": ["simulation"]
+}
