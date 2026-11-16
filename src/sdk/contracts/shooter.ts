@@ -3,7 +3,7 @@
  * Everything here is either plain data (components, definitions, events) or an interface some plugin provides.
  * The runtime kernel knows none of these names.
  */
-import type { EntityId, Json, Reporter, SessionContext, ActivatableProvider } from '../core.ts';
+import type { EntityId, Json, RegistryReader, Reporter, SessionContext, ActivatableProvider } from '../core.ts';
 import { defineCommand, defineComponent, defineEvent, defineRegistry, defineRole, defineService } from '../core.ts';
 import type { AudioService, SoundDef } from './audio.ts';
 
@@ -341,8 +341,8 @@ export type AttackFn = (shot: AttackShot) => void;
  */
 export interface AttackBehavior {
   description: string;
-  /** Validate the params a definition passes. Report on `r`. */
-  validateParams?(params: Params, r: Reporter): void;
+  /** Validate the params a definition passes (shape, ranges, and references via `registries`). Report on `r`. */
+  validateParams?(params: Params, r: Reporter, registries: RegistryReader): void;
   start(ctx: SessionContext): AttackFn;
 }
 export const AttackBehaviors = defineRegistry<AttackBehavior>('attack-behavior');
@@ -436,7 +436,7 @@ export const Combat = defineService<CombatService>('sdk/combat');
 export type PickupEffectFn = (target: EntityId, params: Params) => boolean;
 export interface PickupEffect {
   description: string;
-  validateParams?(params: Params, r: Reporter): void;
+  validateParams?(params: Params, r: Reporter, registries: RegistryReader): void;
   start(ctx: SessionContext): PickupEffectFn;
 }
 export const PickupEffects = defineRegistry<PickupEffect>('pickup-effect');
@@ -478,7 +478,7 @@ export const Enemies = defineRegistry<EnemyDef>('enemy');
 export type AiFn = (self: EntityId, enemy: Enemy, def: EnemyDef, dt: number) => void;
 export interface AiBehavior {
   description: string;
-  validateParams?(params: Params, r: Reporter): void;
+  validateParams?(params: Params, r: Reporter, registries: RegistryReader): void;
   start(ctx: SessionContext): AiFn;
 }
 export const AiBehaviors = defineRegistry<AiBehavior>('ai-behavior');

@@ -205,7 +205,7 @@ Rules:
 Texture keys in the industrial theme: `wall-panel`, `wall-brick`, `wall-tech`, `wall-hazard`, `floor-plate`,
 `floor-concrete`, `ceiling-panel`, `door`. Visual keys: `enemy-grunt`, `enemy-spitter`, `pickup-health`,
 `pickup-bullets`, `pickup-cells`, `fx-plasma`, `fx-fireball`, `fx-ricochet`, `fx-spark`, `fx-blood`.
-An unknown key renders as a magenta checker and logs a warning (it is not a validation error, because themes are
+An unknown *texture* key (including a weapon `view`) renders as a magenta checker and logs a warning; an unknown enemy, pickup or projectile visual key is simply not drawn (warning logged), and an unknown sound key is ignored with one warning (it is not a validation error, because themes are
 swappable).
 
 The grid is an *authoring* format. The `core/world` plugin translates it into the authoritative `WorldDescription`
@@ -265,3 +265,11 @@ Imported packs are held in memory for the session only (planned: persist them al
 (`EntityStore.snapshot()`). A save file will record `{ saveSchema, sdkVersion, preset, plugins: { id: version },
 contentPacks: { id: version }, tick, seed, entities }` and refuse to load when a required plugin or pack is missing or
 outside the saved major version.
+
+## Limits enforced by the validators (quick reference)
+
+- Creator import: files and pasted JSON are limited to 1 MB.
+- Weapon `cooldown`: 0 to 10 seconds.
+- Grid maps: `cellSize` 1 to 8, `wallHeight` 2 to 8.
+- Ids are `namespace/name`; the name part may contain several `/` segments plus `.` and `_`.
+- `core/give-ammo` and `core/give-weapon` pickups must name ammo types and weapons that exist in the installed registries.

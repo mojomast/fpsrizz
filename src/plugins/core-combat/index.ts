@@ -122,7 +122,7 @@ function createCombat(ctx: SessionContext): CombatService {
         }
         const def = inv.current ? ctx.registries.get(Weapons, inv.current) : undefined;
         if (!def || !inv.current) return;
-        const wants = def.auto ? intent.fire : intent.firePressed;
+        const wants = def.auto ? intent.fire || intent.firePressed : intent.firePressed; // a tap shorter than a tick still fires
         if (!wants || now + EPS < inv.nextFireAt) return;
         if (def.ammoType && (inv.ammo[def.ammoType] ?? 0) < def.ammoPerShot) {
           if (intent.firePressed) ctx.events.emit(WeaponDry, { entity: e, weapon: inv.current });

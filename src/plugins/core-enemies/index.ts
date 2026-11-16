@@ -3,6 +3,7 @@ import { AiBehaviors, AttackBehaviors, Collider, Combat, Damaged, DamageModifier
 
 const PATH_INTERVAL = 0.4;
 const PAIN_SECONDS = 0.28;
+const ALARM_RADIUS = 10;
 
 function vParams(v: unknown, r: Reporter): Params | undefined {
   if (v === undefined) return {};
@@ -236,6 +237,16 @@ function createEnemies(ctx: SessionContext): EnemyService {
     const t = ctx.world.get(e, Transform);
     ctx.events.emit(EnemyAlerted, { entity: e, def: enemy.def, x: t?.x ?? 0, z: t?.z ?? 0 });
     void def;
+    if (!t) return;
+    // Raise the alarm: idle enemies nearby that can see this one wake up too (and pass it on).
+    ctx.world.each(Enemy, (other, oe) => {
+      if (other === e || oe.state !== 'idle') return;
+      const ot = ctx.world.get(other, Transform);
+      const od = ctx.registries.get(Enemies, oe.def);
+      if (!ot || !od || Math.hypot(ot.x - t.x, ot.z - t.z) > ALARM_RADIUS || !world.lineOfSight(ot.x, ot.z, t.x, t.z)) return;
+      oe.target = enemy.target;
+      alert(other, oe, od);
+    });
   };
 
   ctx.systems.add({
@@ -372,10 +383,10 @@ export default definePlugin({
         const r = v.reporter(e.owner, `enemy "${e.id}"`);
         const ai = v.registries.get(AiBehaviors, e.value.ai);
         if (!ai) r.at('ai').error(`unknown AI behaviour "${e.value.ai}". Installed: ${v.registries.ids(AiBehaviors).join(', ') || '(none)'}`);
-        else ai.validateParams?.(e.value.aiParams, r.at('aiParams'));
+        else ai.validateParams?.(e.value.aiParams, r.at('aiParams'), v.registries);
         const atk = v.registries.get(AttackBehaviors, e.value.attack.behavior);
         if (!atk) r.at('attack').at('behavior').error(`unknown attack behaviour "${e.value.attack.behavior}". Installed: ${v.registries.ids(AttackBehaviors).join(', ') || '(none)'}`);
-        else atk.validateParams?.(e.value.attack.params, r.at('attack').at('params'));
+        else atk.validateParams?.(e.value.attack.params, r.at('attack').at('params'), v.registries);
       }
     });
   },

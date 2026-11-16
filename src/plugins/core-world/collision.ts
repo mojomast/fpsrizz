@@ -88,7 +88,7 @@ export class CollisionWorld {
   }
 
   /**
-   * Continuous ray (r = 0) or swept-circle (r > 0, boxes inflated by r) query. (dirX, dirZ) must be unit length.
+   * Continuous ray (r = 0) or swept-circle (r > 0: boxes inflated by r, with rounded corners) query. (dirX, dirZ) must be unit length.
    * Returns the nearest hit within maxDist or null. Because it is analytic, speed never lets anything tunnel.
    */
   raycast(x: number, z: number, dirX: number, dirZ: number, maxDist: number, r = 0): RayHit | null {
@@ -135,9 +135,42 @@ export class CollisionWorld {
         if (tf < tExit) tExit = tf;
       }
       if (tEnter >= tExit || tExit <= 0) continue;
+      if (r > 0) {
+        // The inflated box over-covers the four corners: the true swept shape is a rounded rectangle. If the ray
+        // enters (or starts) in a corner region, the only part of the shape it can touch is that corner's arc.
+        const px = tEnter < 0 ? x : x + dirX * tEnter;
+        const pz = tEnter < 0 ? z : z + dirZ * tEnter;
+        const inCornerX = px < b.minX || px > b.maxX;
+        const inCornerZ = pz < b.minZ || pz > b.maxZ;
+        if (inCornerX && inCornerZ) {
+          const cx = px < b.minX ? b.minX : b.maxX;
+          const cz = pz < b.minZ ? b.minZ : b.maxZ;
+          const ox = x - cx;
+          const oz = z - cz;
+          const c = ox * ox + oz * oz - r * r;
+          let t = 0;
+          if (c > 0) {
+            const bq = ox * dirX + oz * dirZ;
+            const disc = bq * bq - c;
+            if (disc < 0) continue;
+            t = -bq - Math.sqrt(disc);
+            if (t < 0) continue;
+          }
+          if (t < best) {
+            best = t;
+            hitBox = b;
+            const hx = x + dirX * t - cx;
+            const hz = z + dirZ * t - cz;
+            const hl = Math.hypot(hx, hz);
+            nx = hl > 1e-9 ? hx / hl : -dirX;
+            nz = hl > 1e-9 ? hz / hl : -dirZ;
+          }
+          continue;
+        }
+      }
       if (tEnter < 0) {
-        // Started inside (touching after a bounce offset is excluded by tExit <= 0 above): report an immediate hit
-        // through the nearest face so callers can back out instead of tunnelling.
+        // Started inside: report an immediate hit through the nearest face so callers can back out instead of
+        // tunnelling.
         const l = x - minX;
         const rr = maxX - x;
         const t = z - minZ;

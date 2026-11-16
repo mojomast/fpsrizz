@@ -87,7 +87,7 @@ export function validateDefinitions(v: ValidationContext): void {
     const r = v.reporter(w.owner, `weapon "${w.id}"`);
     const b = v.registries.get(AttackBehaviors, w.value.attack.behavior);
     if (!b) r.at('behavior').error(`unknown attack behaviour "${w.value.attack.behavior}". Installed: ${v.registries.ids(AttackBehaviors).join(', ') || '(none)'}. A new behaviour needs a trusted code plugin.`);
-    else b.validateParams?.(w.value.attack.params, r.at('params'));
+    else b.validateParams?.(w.value.attack.params, r.at('params'), v.registries);
     if (w.value.ammoType && !v.registries.has(AmmoTypes, w.value.ammoType)) r.at('ammoType').error(`unknown ammo type "${w.value.ammoType}". Installed: ${v.registries.ids(AmmoTypes).join(', ') || '(none)'}`);
     const prev = slots.get(w.value.slot);
     if (prev) r.at('slot').error(`slot ${w.value.slot} is already used by weapon "${prev}"; give each weapon its own slot (1-9)`);
@@ -97,6 +97,6 @@ export function validateDefinitions(v: ValidationContext): void {
     const r = v.reporter(p.owner, `pickup "${p.id}"`);
     const e = v.registries.get(PickupEffects, p.value.effect);
     if (!e) r.at('effect').error(`unknown pickup effect "${p.value.effect}". Installed: ${v.registries.ids(PickupEffects).join(', ') || '(none)'}`);
-    else e.validateParams?.(p.value.params, r.at('params'));
+    else e.validateParams?.(p.value.params, r.at('params'), v.registries);
   }
 }

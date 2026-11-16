@@ -273,9 +273,9 @@ test('param validation rejects unknown and out-of-range params', async () => {
   const reg = t.ctx.registries.require(AttackBehaviors, 'example/ricochet');
   const errors: string[] = [];
   const probe = { error: (m: string) => void errors.push(m) } as never;
-  reg.validateParams?.({ damage: 1, speed: 1, bogus: 1 }, probe);
-  reg.validateParams?.({ damage: 1, speed: 1, bounces: 9 }, probe);
-  reg.validateParams?.({ speed: 1 }, probe);
+  reg.validateParams?.({ damage: 1, speed: 1, bogus: 1 }, probe, t.ctx.registries);
+  reg.validateParams?.({ damage: 1, speed: 1, bounces: 9 }, probe, t.ctx.registries);
+  reg.validateParams?.({ speed: 1 }, probe, t.ctx.registries);
   assert.equal(errors.length, 3, errors.join(' | '));
 });
 

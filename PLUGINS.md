@@ -176,7 +176,7 @@ All tokens are exported from `src/sdk/index.ts`; their TypeScript types are the 
 
 | Token | Value | Who uses it |
 |---|---|---|
-| `AttackBehaviors` | `{ description, validateParams?(params, r), start(ctx) => (shot) => void }` | weapons and enemy attacks select one by id |
+| `AttackBehaviors` | `{ description, validateParams?(params, r, registries), start(ctx) => (shot) => void }` | weapons and enemy attacks select one by id |
 | `AiBehaviors` | `{ description, validateParams?, start(ctx) => (self, enemy, def, dt) => void }` | enemy definitions |
 | `PickupEffects` | `{ description, validateParams?, start(ctx) => (target, params) => boolean }` | pickup definitions |
 | `DamageModifiers` | `{ description, order, start(ctx) => (req, amount) => number }` | additive, ordered |
@@ -410,10 +410,13 @@ Notes that the type signatures do not make obvious:
 - **`defineContent` from `register`** goes through the same loader as pack content, so the plugin defining the content
   kind must be a dependency (it registers first). References (ammo type, behaviour, prefab) are checked by validators
   against all enabled plugins — depend on the pack or plugin that provides them.
-- **`World.raycast`** with a radius is a swept circle against boxes inflated by that radius: `t` is the distance the
-  circle's *centre* travels, `(x, z)` is the centre at contact, and the normal is always axis-aligned (at a convex
-  corner it is the face that was entered). A query that starts overlapping returns `t = 0`. Keep a small offset from
-  surfaces after a bounce.
+- **`World.raycast`** with a radius is an exact swept circle (boxes inflated by the radius, with rounded corners):
+  `t` is the distance the circle's *centre* travels, `(x, z)` is the centre at contact, and the normal is the unit
+  vector from the contact surface to the centre — axis-aligned on faces, diagonal on a convex box corner. A query
+  that starts overlapping returns `t = 0`. Keep a small offset from surfaces after a bounce.
+- **`validateParams(params, r, registries)`** receives the raw params exactly as written in the definition (no
+  defaults filled in). Enforce required params and ranges yourself, reject unknown keys, and use `registries` to check
+  references to other content.
 - **`Combat.sweepActors`** tests a circle of `radius` against each living collider (radii add). It ignores walls —
   limit `maxDist` with a wall query first. `AttackShot.x/z` is the shooter's centre.
 - **`Impact`**: `effect` is a theme visual key played once, `sound` a theme sound key, `target` is 0 for walls, and the
@@ -421,7 +424,7 @@ Notes that the type signatures do not make obvious:
 - **After death** the entity stays alive as a corpse: `Health.dead` is true, enemies lose their `Collider`, and
   `Enemy.state` is `"dead"`. Components are still readable in `Died` handlers. Collected pickups are destroyed
   (`isAlive` becomes false) after `PickupCollected`.
-- **`Flow.end`** marks the run ended and emits `FlowEnded`; the browser host then pauses and shows the result screen.
+- **`Flow.end`** marks the run ended and emits `FlowEnded`; the browser host keeps simulating for about 1.1 s (the `ending` state, so the last hit and death effects play out) and then shows the result screen.
   Headless sessions keep ticking — modes must stop spawning once `flow.ended` is true.
 - Weapon switching blocks firing for 0.3 s of simulation time.
 - `Transform.prev*` is maintained for every entity by `core/world` at the start of each tick; set `prev*` yourself

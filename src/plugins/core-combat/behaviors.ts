@@ -1,5 +1,5 @@
 import type { AttackBehavior, EntityId, Params, PickupEffect, Reporter, SessionContext } from '../../sdk/index.ts';
-import { Combat, Impact, Transform, Visual, World, defineComponent, makeTransform, vId, vNumber, vString } from '../../sdk/index.ts';
+import { AmmoTypes, Combat, Impact, Transform, Visual, Weapons, World, defineComponent, makeTransform, vId, vNumber, vString } from '../../sdk/index.ts';
 
 const num = (p: Params, k: string, fallback: number): number => (typeof p[k] === 'number' ? (p[k] as number) : fallback);
 const str = (p: Params, k: string, fallback: string): string => (typeof p[k] === 'string' ? (p[k] as string) : fallback);
@@ -182,9 +182,10 @@ export const heal: PickupEffect = {
 
 export const giveAmmo: PickupEffect = {
   description: 'Adds ammunition; not consumed when already full. params: ammoType*, amount*',
-  validateParams(p, r) {
+  validateParams(p, r, reg) {
     checkKnown(p, r, ['ammoType', 'amount']);
-    vId(p['ammoType'], r.at('ammoType'));
+    const id = vId(p['ammoType'], r.at('ammoType'));
+    if (id !== undefined && !reg.has(AmmoTypes, id)) r.at('ammoType').error(`unknown ammo type "${id}". Installed: ${reg.ids(AmmoTypes).join(', ') || '(none)'}`);
     checkNum(p, r, 'amount', 1, 10000, true);
   },
   start: (ctx: SessionContext) => (target, p) => ctx.services.get(Combat).giveAmmo(target, str(p, 'ammoType', ''), num(p, 'amount', 0)) > 0,
@@ -192,10 +193,14 @@ export const giveAmmo: PickupEffect = {
 
 export const giveWeapon: PickupEffect = {
   description: 'Grants a weapon (and optionally ammo for it). params: weapon*, ammoType, amount',
-  validateParams(p, r) {
+  validateParams(p, r, reg) {
     checkKnown(p, r, ['weapon', 'ammoType', 'amount']);
-    vId(p['weapon'], r.at('weapon'));
-    if (p['ammoType'] !== undefined) vId(p['ammoType'], r.at('ammoType'));
+    const w = vId(p['weapon'], r.at('weapon'));
+    if (w !== undefined && !reg.has(Weapons, w)) r.at('weapon').error(`unknown weapon "${w}". Installed: ${reg.ids(Weapons).join(', ') || '(none)'}`);
+    if (p['ammoType'] !== undefined) {
+      const a = vId(p['ammoType'], r.at('ammoType'));
+      if (a !== undefined && !reg.has(AmmoTypes, a)) r.at('ammoType').error(`unknown ammo type "${a}". Installed: ${reg.ids(AmmoTypes).join(', ') || '(none)'}`);
+    }
     checkNum(p, r, 'amount', 0, 10000);
   },
   start: (ctx: SessionContext) => (target, p) => {

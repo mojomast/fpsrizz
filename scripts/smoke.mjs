@@ -239,10 +239,10 @@ try {
   await renderFrames(2);
   await shot('07-door-open');
   const before = await ev(() => ({ states: __t.enemies().map((e) => e.state), hp: __t.player().h.hp }));
-  await ev(() => { __t.tp(11, 15, 0); __t.ticks(240); });
+  await ev(() => { __t.tp(11, 5, 0); __t.ticks(150); }); // open north side of the hall: several enemies have line of sight (pillars block the south side)
   await renderFrames(2);
   await shot('08-enemies');
-  const after = await ev(() => ({ chasing: __t.enemies().filter((e) => e.state !== 'idle').length, hp: __t.player().h.hp, near: __t.enemies().filter((e) => Math.hypot(e.t.x - 11, e.t.z - 15) < 2.2).length }));
+  const after = await ev(() => ({ chasing: __t.enemies().filter((e) => e.state !== 'idle').length, hp: __t.player().h.hp, near: __t.enemies().filter((e) => Math.hypot(e.t.x - 11, e.t.z - 5) < 2.2).length }));
   check('enemies notice the player, pursue and deal damage', before.states.every((s) => s === 'idle') && after.chasing >= 2 && after.hp < before.hp, JSON.stringify(after));
   // kill what is nearby with the pistol through the input pipeline
   const kills = await ev(() => {
