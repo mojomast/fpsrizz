@@ -1,0 +1,154 @@
+{
+  "repository": "https://github.com/mojomast/assetrizz",
+  "revision": "05339c228f55ac95ad21b5c947db0c6e36207cd4",
+  "manifestSha256": "7bd35841acdb06c6b21bd882718d7eb63ad936433c383afa8e301ebf3e816e33",
+  "license": "original, generated for Kyle Durepos",
+  "assets": [
+    {
+      "key": "wall-panel",
+      "path": "assets/dark_scifi/tiles/wall/metal_wall_base.png",
+      "sha256": "55fa9e0ccdf7a57977774dbcc36e967b6cf4586c8efe2f3f9db40b73885222b5"
+    },
+    {
+      "key": "wall-brick",
+      "path": "assets/dark_scifi/tiles/wall/brick_wall_base.png",
+      "sha256": "d01e7a7c2ad70efaafa042b52aa8e60cd5af07e9750e1178fcf15c4671be15a1"
+    },
+    {
+      "key": "wall-tech",
+      "path": "assets/dark_scifi/tiles/wall/metal_wall_variant_a.png",
+      "sha256": "04f4d0e19a16145d0e8dd9bc6bf476a74c72b41a7c0e7f7d853a12de6c0d173c"
+    },
+    {
+      "key": "floor-plate",
+      "path": "assets/dark_scifi/tiles/floor/metal_plate_base.png",
+      "sha256": "6d7b68227f925fe623c1ad0e0c6904fee9306630d5c214e6e537ddf493268346"
+    },
+    {
+      "key": "floor-concrete",
+      "path": "assets/dark_scifi/tiles/floor/stone_floor_base.png",
+      "sha256": "102e45463f740e5c9a7732c1af9d677296830a6b23b7cc32441f83ef8088efb0"
+    }
+  ],
+  "enemyStrips": [
+    {
+      "key": "enemy-grunt",
+      "frames": [
+        {
+          "path": "assets/dark_scifi/enemies/creature/living_armor_idle_front.png",
+          "sha256": "6368dcf9f932dc86d1e77cb9017ae428f3aa701103229b006e95d41b9f204e90"
+        },
+        {
+          "path": "assets/dark_scifi/enemies/creature/living_armor_idle_side.png",
+          "sha256": "8f7c0713f58aa18143a6c0d39f55e9713d470f6eaa3ee0e18729eca979fc7ad6"
+        },
+        {
+          "path": "assets/dark_scifi/enemies/creature/living_armor_alert.png",
+          "sha256": "7c97feefff3f80330cfb54beab178517bfce43f65d5a45ddcbfa6600ee361a09"
+        },
+        {
+          "path": "assets/dark_scifi/enemies/creature/living_armor_alert.png",
+          "sha256": "7c97feefff3f80330cfb54beab178517bfce43f65d5a45ddcbfa6600ee361a09",
+          "effect": "hurt"
+        }
+      ]
+    },
+    {
+      "key": "enemy-spitter",
+      "frames": [
+        {
+          "path": "assets/dark_scifi/enemies/creature/small_imp_idle_front.png",
+          "sha256": "12ee94aef9ae538a04643b6f81b1ee6b9e909d66cbc0ed3d40363be29c248b8c"
+        },
+        {
+          "path": "assets/dark_scifi/enemies/creature/small_imp_idle_side.png",
+          "sha256": "346aba85c606985071320450813c750cd1eded98e0de825bfdc093ca9108b607"
+        },
+        {
+          "path": "assets/dark_scifi/enemies/creature/small_imp_alert.png",
+          "sha256": "d5cd4738030a50c652357ee81a48e55d0af9e677c65017c75b52b54e7c2202a4"
+        },
+        {
+          "path": "assets/dark_scifi/enemies/creature/small_imp_alert.png",
+          "sha256": "d5cd4738030a50c652357ee81a48e55d0af9e677c65017c75b52b54e7c2202a4",
+          "effect": "hurt"
+        }
+      ]
+    }
+  ],
+  "fantasy": {
+    "assets": [
+      {
+        "key": "wall-panel",
+        "path": "assets/hand_painted_fantasy/tiles/wall/stone_wall_base.png",
+        "sha256": "328482ba816eccb9cf5c48fa1d5990d2650a7bc4d9ce373f416efd6709de1185"
+      },
+      {
+        "key": "wall-brick",
+        "path": "assets/hand_painted_fantasy/tiles/wall/stone_wall_variant_a.png",
+        "sha256": "ded9890132dbea144d675dc231a1820ea2dbed3920f50162bea3d3e6c888795d"
+      },
+      {
+        "key": "wall-tech",
+        "path": "assets/hand_painted_fantasy/tiles/wall/cave_wall_base.png",
+        "sha256": "93cc8cdf06e2866e3c5c902ac76dee601e6aae9e298c851dc88c756fd92341de"
+      },
+      {
+        "key": "floor-plate",
+        "path": "assets/hand_painted_fantasy/tiles/floor/dungeon_stone_base.png",
+        "sha256": "357ec5f135aae13c5f4a0da21ba877ea52931dbcf314350f7e548e7bfa7d396b"
+      },
+      {
+        "key": "floor-concrete",
+        "path": "assets/hand_painted_fantasy/tiles/floor/mossy_stone_base.png",
+        "sha256": "df2fcaf31335a5fe446531b10e65dc9f07450c451d41cb3f69c103c20da68e72"
+      }
+    ],
+    "enemyStrips": [
+      {
+        "key": "enemy-grunt",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/forest_goblin_idle_front.png",
+            "sha256": "4f958a9a7dd1bda347beb7e4a21f24bd018afc3733ff26432ce28b49eee32e73"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/forest_goblin_idle_side.png",
+            "sha256": "1d9b4f4f38cbfab32ad016b79a8eb7390e24b80e705676920c8b3e29cd5579a6"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/forest_goblin_alert.png",
+            "sha256": "62145023120ad626fede715e77d58215fa66fb0213c2176518c5a1d8200093c6"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/forest_goblin_alert.png",
+            "sha256": "62145023120ad626fede715e77d58215fa66fb0213c2176518c5a1d8200093c6",
+            "effect": "hurt"
+          }
+        ]
+      },
+      {
+        "key": "enemy-spitter",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/small_imp_idle_front.png",
+            "sha256": "695387902ddd26aba03854ab60aa0dd1d5fe66848d518a43f19002a66622054f"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/small_imp_idle_side.png",
+            "sha256": "0db715a75d08b8cf8829efc87e905a5a8a2f790bfffc63c0fab5c48e3af59c9c"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/small_imp_alert.png",
+            "sha256": "3e1d66de17d9f782fda349926bda1268054a67a0c6fdcf209058192ee97e8871"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/small_imp_alert.png",
+            "sha256": "3e1d66de17d9f782fda349926bda1268054a67a0c6fdcf209058192ee97e8871",
+            "effect": "hurt"
+          }
+        ]
+      }
+    ]
+  }
+}
