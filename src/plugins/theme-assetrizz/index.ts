@@ -77,6 +77,11 @@ const burst = (texture: string, size: number): VisualDef => ({
 const visuals: Record<string, VisualDef> = {
   'enemy-grunt': { ...enemy(2.2, 2.2), texture: 'enemy-grunt' },
   'enemy-spitter': { ...enemy(2.3, 2.3), texture: 'enemy-spitter' },
+  'enemy-spider': { ...enemy(1.9, 1.8), texture: 'enemy-spider' },
+  'enemy-skeleton': { ...enemy(2.1, 2.3), texture: 'enemy-skeleton' },
+  'enemy-ghost': { ...enemy(2.0, 2.2), texture: 'enemy-ghost' },
+  'enemy-golem': { ...enemy(2.4, 2.6), texture: 'enemy-golem' },
+  'enemy-bat': { ...enemy(1.7, 1.2), texture: 'enemy-bat' },
   'npc-smith': { ...enemy(2.0, 2.2), texture: 'npc-smith', anims: { idle: anim([0], 1, true), walk: anim([1, 0], 3, true) } },
   'npc-cartographer': { ...enemy(2.0, 2.2), texture: 'npc-cartographer', anims: { idle: anim([0], 1, true), walk: anim([1, 0], 3, true) } },
   'player-knight': { ...enemy(1.7, 2.3), texture: 'player-knight', anims: { idle: anim([0], 1, true), walk: anim([1, 0], 4, true), attack: anim([2], 1, false), hurt: anim([3], 1, false) } },
@@ -109,5 +114,6 @@ export default definePlugin({
     ctx.provideRole(ThemeRole, 'theme/assetrizz', { name: 'Assetrizz Dark Sci-Fi', textures: { ...textures, ...assetrizzTextures, ...weaponTextures }, sounds, visuals });
     ctx.provideRole(ThemeRole, 'theme/assetrizz-fantasy', { name: 'Assetrizz Fantasy', textures: { ...textures, ...fantasyTextures, ...fantasyWeapons }, sounds, visuals });
     ctx.provideRole(ThemeRole, 'theme/assetrizz-cinder', { name: 'Assetrizz Cinder Vault', textures: { ...textures, ...fantasyTextures, ...fantasyWeapons, ...cinderWeapons, ...cinderSurfaces }, sounds, visuals });
+    ctx.provideRole(ThemeRole, 'theme/assetrizz-hollowmere', { name: 'Assetrizz Hollowmere', textures: { ...textures, ...fantasyTextures, ...fantasyWeapons }, sounds, visuals });
   },
 });

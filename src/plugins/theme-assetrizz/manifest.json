@@ -5,6 +5,8 @@
   "version": "1.0.0",
   "kind": "code",
   "sdk": "^2.0.0",
-  "description": "Dark sci-fi Assetrizz tiles, Blender weapon renders, and industrial-derived sprites and sounds.",
-  "capabilities": ["assets"]
+  "description": "Pinned Assetrizz hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops and ornate icons, plus sci-fi and Cinder/Hollowmere theme variants.",
+  "capabilities": [
+    "assets"
+  ]
 }

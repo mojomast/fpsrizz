@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "id": "hollowmere/ascent",
+  "name": "HOLLOWMERE \u2014 The Lantern Below",
+  "plugins": [
+    "theme/assetrizz",
+    "mechanics/platforming",
+    "mechanics/capabilities",
+    "mechanics/room-map",
+    "mechanics/inventory",
+    "hollowmere/game",
+    "hollowmere/presentation",
+    "hollowmere/content"
+  ],
+  "roles": {
+    "sdk/experience": "hollowmere/ascent",
+    "sdk/hud": "hollowmere/hud",
+    "sdk/theme": "theme/assetrizz-hollowmere",
+    "sdk/platformer": "mechanics/platforming",
+    "sdk/capabilities": "mechanics/capabilities",
+    "sdk/room-map": "mechanics/room-map",
+    "sdk/mechanic-inventory": "mechanics/inventory"
+  },
+  "options": {
+    "world": "hollowmere/world"
+  },
+  "seed": 41103
+}

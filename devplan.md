@@ -90,6 +90,16 @@ pack filters, input turns, non-modal boon selection and the complete route. See 
 [classes and loot](docs/cinder-classes.md), [inventory](docs/inventory.md), [crafting](docs/crafting.md),
 [dungeon generator](docs/dungeon-generator.md) and [progression](docs/progression.md).
 
+**Hollowmere** adds an independent side-scrolling metroidvania family. Reusable `mechanics/platforming`,
+`mechanics/capabilities` and `mechanics/room-map` providers supply movement, ability/rank state and explorable room
+state; `mechanics/inventory` supplies items. `hollowmere/game` owns a 12-room Assetrizz world, combat, checkpoints,
+NPCs, save/load, three Sun Sigils and a two-phase boss. `hollowmere/presentation` renders the canvas world and a
+game-owned field journal with map, inventory, capabilities, stats and persisted options. The same wave adds a full-screen
+JSON-first game composition canvas (`src/app/game-graph.ts`, `game-composer.ts`) for humans and agents, with role/provider
+metadata generated from the reuse index, deterministic preset compilation, host-staged validation, import/export and a
+`npm run graph` CLI. Headless tests cover the providers, world/checkpoint/dialogue/pause path and graph round-trips;
+browser acceptance covers Hollowmere and the composer. Final local verification: **771/771 tests**, **25 bundled presets**, Hollowmere **5/5**, composer **3/3**, creator **67**, Cinder **6/6**, smoke **37/37**. See [Hollowmere](docs/hollowmere.md) and [game composer](docs/game-composer.md).
+
 | # | Stage | Status | What it delivered |
 |---|---|---|---|
 | 1 | Shell, SDK, host, lifecycle tests | **Done** | Runtime kernel (scopes, registries, entity store, buses, scheduler, resolver, validation), plugin host with staged loading, public SDK, application shell, import-boundary lint, lifecycle and resolver test suites |

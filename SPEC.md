@@ -96,13 +96,15 @@ Relay Station adds a magazine-fed carbine with manual reload; fire-mode switchin
 
 ### 2.7 Creator tools (`src/app/creator.ts`)
 
-A panel opened with the backquote key or the **Creator tools** button, with three tabs:
+A panel opened with the backquote key or the **Creator tools** button, with four tabs:
 
 - **Plugins & preset:** preset picker, per-plugin enable toggles (disabling a plugin that others require is refused with
   the dependents named), map / role / theme selectors, per-plugin configuration inputs, gameplay seed, **Validate**
   (stages the draft without touching the game), **Apply & restart**, and draft reset.
 - **Content:** import a content pack or preset from a file or pasted JSON (1 MB limit; staged and validated before
   anything changes), export the active preset or any installed pack (copy or download).
+- **Canvas:** opens the full-screen GameGraph composition editor: node/role wiring, catalog palette, inspector, options,
+  typed config, host-staged validation, apply, import/export and deterministic auto-layout.
 - **Debug:** frame timing, render statistics, session state, host resource counts, active systems with average cost,
   entities per owner, resources per plugin, shared assets and their owners, registry contributions, host log.
 
@@ -119,7 +121,7 @@ A panel opened with the backquote key or the **Creator tools** button, with thre
 
 ### 2.9 Independent game families
 
-Seven additional preset graphs run without any shooter player, collision world, combat, enemy, reference-content,
+Eight additional preset graphs run without any shooter player, collision world, combat, enemy, reference-content,
 HUD or presentation plugin. Each has its own simulation authority, presentation plugin, validated content pack and
 theme. They share host lifecycle, services, deterministic scheduling and the public SDK.
 
@@ -132,9 +134,10 @@ theme. They share host lifecycle, services, deterministic scheduling and the pub
 | `sky/salvage` | Lit floating islands, authored matching cargo deliveries, drone flight, moving hazard, boost/repair and touch controls | One route; planar flight in 3D, no rigid-body flight or saved run |
 | `ember/bastion` | Authored 3D lane/pads, tower construction, three enemy waves, repair/pulse, victory/defeat and replay | One defense scenario, one tower type; no campaign or path editing UI |
 | `verdant/relay` | Three 3D island relays, turn-based resource production/conversion/restoration, cooldowns and dry-wind forecast | One season scenario; no offline production, general save or undo |
+| `hollowmere/ascent` | Twelve-room canvas metroidvania, reusable platform/capability/room-map providers, combat, checkpoints, NPCs, tabbed journal and boss | One authored world; physical routes and boss balance need playtesting, no room editor or gamepad |
 
-See [racing](docs/overhead-racing.md), [tactics](docs/turn-tactics.md), [adventure](docs/narrative-adventure.md) and
-[Stonewake](docs/stonewake.md) for
+See [racing](docs/overhead-racing.md), [tactics](docs/turn-tactics.md), [adventure](docs/narrative-adventure.md),
+[Stonewake](docs/stonewake.md) and [Hollowmere](docs/hollowmere.md) for
 content schemas, controls and completion routes. Art directions use curated Assetrizz images and original procedural
 elements; each theme supplies its own synthesized cues. Sampled music and a continuous audio-director API are future work.
 
@@ -144,6 +147,16 @@ changes only on commands: the scheduler can service input while their authoritat
 perspective/orthographic projection and clean restoration when switching games.
 
 ### 2.10 Reusable mechanics across genres
+
+**Hollowmere** is a side-scrolling metroidvania composed from three new cross-genre providers plus the existing
+inventory provider. `mechanics/platforming` supplies AABB movement with coyote/buffered jumps, variable height, double
+jump, dash, wall slide/jump and one-way collision. `mechanics/capabilities` stores named unlocks/ranks;
+`mechanics/room-map` stores current, visited and revealed room state with an authored room graph. Hollowmere itself owns
+the twelve-room world, combat/enemy turns, checkpoints/save, NPC services, item effects, the three Sun Sigils and the
+Hollow King win rule. Its presentation renders a canvas world with pinned Assetrizz backdrops, terrain, enemy and
+character art, plus a game-owned tabbed pause journal (map, inventory, capabilities, stats and persisted options). The
+room graph validates references and map rectangles; physical jump reachability remains a playtest concern. See
+[Hollowmere](docs/hollowmere.md).
 
 **Cinder Vault** is a turn-based shooter-family fantasy roguelite composing resource/action/clock/objective, progression,
 inventory and crafting providers. `dungeon/generator` builds a sealed 94×30 map containing three independent 30-cell wings with
@@ -183,6 +196,13 @@ Movement, target legality, hazards and orchestration remain family responsibilit
 resources/action cooldowns; they do not roll back arbitrary game-local effects. Shooter/tactics/story/puzzle rules
 remain in their family authorities. See [mechanics](docs/reusable-mechanics.md) and
 [dated research](docs/research/reusable-mechanics-2026-11-16.md).
+
+The **game composition canvas** (`src/app/game-composer.ts`) is a JSON-first authoring foundation over the same preset
+schema. Its versioned `GameGraph` model has plugin nodes, manifest dependency projections, exclusive-role nodes and
+authored provider selection edges. Layout is optional and compile-ignored. The pure compiler validates references,
+dependencies, roles and typed config deterministically; the UI then stages through the host before Apply. A generated
+provider catalog supplies role offers, and `npm run graph` exposes the same operations to agents/CLI. See
+[game composer](docs/game-composer.md).
 
 The follow-up general-capability work extracts owned bounded command queues for Stonewake and The Last Light, and
 explicit-clock deadlines for Sky and Verdant. These are SDK helpers used from existing family systems. Queue capacity,

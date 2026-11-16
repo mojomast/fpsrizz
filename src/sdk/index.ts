@@ -26,3 +26,7 @@ export * from './contracts/crafting.ts';
 export * from './contracts/turns.ts';
 export * from './contracts/viewmodes.ts';
 export * from './contracts/cinder.ts';
+export * from './contracts/platforming.ts';
+export * from './contracts/capabilities.ts';
+export * from './contracts/room-map.ts';
+export * from './contracts/metroidvania.ts';

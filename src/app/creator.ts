@@ -7,6 +7,8 @@ import { dependentsOf } from '../kernel/resolver.ts';
 import type { Issue, Json } from '../kernel/validate.ts';
 import { Reporter } from '../kernel/validate.ts';
 import { CREATOR_CSS } from './creator-styles.ts';
+import { createGameComposer } from './game-composer.ts';
+import providerCatalog from './catalog-providers.json' with { type: 'json' };
 
 export interface FrameStats {
   fps: number;
@@ -279,7 +281,7 @@ function createDebugView(api: CreatorApi): DebugView {
 // Panel
 // ---------------------------------------------------------------------------------------------------------------------
 
-type TabId = 'plugins' | 'content' | 'debug';
+type TabId = 'plugins' | 'content' | 'canvas' | 'debug';
 type SurveyItem = { kind: string; id: string; owner: string; name: string };
 
 interface Draft {
@@ -355,7 +357,7 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
   const tabs = h('div', 'creator-tabs');
   tabs.setAttribute('role', 'tablist');
   const tabButtons = new Map<TabId, HTMLButtonElement>();
-  for (const [id, label] of [['plugins', 'Plugins & preset'], ['content', 'Content'], ['debug', 'Debug']] as const) {
+  for (const [id, label] of [['plugins', 'Plugins & preset'], ['content', 'Content'], ['canvas', 'Canvas'], ['debug', 'Debug']] as const) {
     const b = h('button', 'creator-tab', label);
     b.type = 'button';
     b.setAttribute('role', 'tab');
@@ -374,6 +376,7 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
   container.append(root);
 
   const debug = createDebugView(api);
+  const composer = createGameComposer({ host: api.host, builtinPresets: api.builtinPresets, apply: (preset, extra) => api.apply(preset, extra) });
 
   // ---- keyboard ------------------------------------------------------------------------------------------------------
   const isEditable = (t: EventTarget | null): boolean => {
@@ -491,7 +494,15 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
       result = [];
     }
     if (my !== surveyEpoch || disposed) return;
-    survey = result;
+    // The host survey has a 64-plugin staging bound. Merge the generated role-provider catalog so larger builds
+    // still offer every provider, without guessing ownership from provider names.
+    const generated = providerCatalog as unknown as { providers?: Record<string, Record<string, string[]>>; maps?: Record<string, { id: string; name: string }[]> };
+    const merged = new Map(result.map(item => [`${item.kind}\u0000${item.id}\u0000${item.owner}`, item]));
+    for (const [owner, roles] of Object.entries(generated.providers ?? {})) for (const [role, providers] of Object.entries(roles)) for (const id of providers)
+      merged.set(`role:${role}\u0000${id}\u0000${owner}`, { kind: `role:${role}`, id, owner, name: id });
+    for (const [owner, maps] of Object.entries(generated.maps ?? {})) for (const map of maps)
+      merged.set(`map\u0000${map.id}\u0000${owner}`, { kind: 'map', id: map.id, owner, name: map.name });
+    survey = [...merged.values()];
     surveyBusy = false;
     if (isOpen && tab === 'plugins') render();
   }
@@ -1072,6 +1083,29 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
     return el;
   }
 
+  function renderCanvasTab(): HTMLElement {
+    const el = h('div');
+    el.append(h('p', 'creator-note', 'The composition canvas edits the same versioned GameGraph JSON that agents and the CLI use. It composes installed plugins, exclusive roles, options and typed config, then validates through the real host before applying.'));
+    const box = h('div', 'creator-box');
+    box.dataset['k'] = 'info';
+    box.append(h('strong', '', 'CANVAS FOUNDATION'));
+    box.append(h('p', '', 'Drag nodes and role ports, add/remove plugins, inspect typed config and export a graph. Layout is presentation-only and never changes the compiled preset.'));
+    const actions = h('div', 'creator-actions');
+    actions.append(button('Open composition canvas', () => composer.open(), 'creator-primary'));
+    box.append(actions);
+    el.append(box);
+    el.append(heading('Agent-friendly workflow'));
+    const list = h('ul', 'creator-kv');
+    for (const line of [
+      'Stable IDs: plugin:<id>, role:<id>, dependency:from->to, selects:role->owner.',
+      'Compile to preset schema 1; host.stage remains the validation authority.',
+      'Export the .graph.json, or modify it as JSON without coordinates.',
+      'CLI: npm run graph -- validate <file> / to-preset <file> / from-preset <preset>.',
+    ]) list.append(h('li', '', line));
+    el.append(list);
+    return el;
+  }
+
   // ---- render --------------------------------------------------------------------------------------------------------
   function render(): void {
     if (!isOpen || disposed) return;
@@ -1082,6 +1116,7 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
     foot.hidden = tab !== 'plugins';
     if (tab === 'plugins') body.replaceChildren(renderPlugins());
     else if (tab === 'content') body.replaceChildren(renderContent());
+    else if (tab === 'canvas') body.replaceChildren(renderCanvasTab());
     else {
       if (body.firstChild !== debug.el) body.replaceChildren(debug.el);
       debug.update();
@@ -1124,6 +1159,7 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
     if (disposed) return;
     close();
     disposed = true;
+    composer.dispose();
     surveyEpoch++;
     for (const t of timeouts) clearTimeout(t);
     timeouts.clear();

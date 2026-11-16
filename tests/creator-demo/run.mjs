@@ -34,6 +34,7 @@ page.on('console', (m) => {
   if (m.type() === 'error') errors.push(`console.error: ${m.text()}`);
 });
 await page.addInitScript(() => {
+  try { localStorage.removeItem('shooter-foundation/preset'); } catch { /* storage unavailable */ }
   const live = new Set();
   const si = window.setInterval.bind(window);
   const ci = window.clearInterval.bind(window);

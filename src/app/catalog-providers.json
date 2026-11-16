@@ -1,0 +1,290 @@
+{
+  "schema": 1,
+  "providers": {
+    "board/tactics": {
+      "sdk/experience": [
+        "board/tactics"
+      ]
+    },
+    "cinder/game": {
+      "sdk/controller": [
+        "cinder/turn-controller"
+      ],
+      "sdk/experience": [
+        "cinder/experience"
+      ],
+      "sdk/mode": [
+        "cinder/vault"
+      ]
+    },
+    "cinder/hud": {
+      "sdk/hud": [
+        "cinder/hud"
+      ]
+    },
+    "core/hud": {
+      "sdk/hud": [
+        "core/hud"
+      ]
+    },
+    "core/modes": {
+      "sdk/mode": [
+        "core/objective"
+      ]
+    },
+    "core/player": {
+      "sdk/camera": [
+        "core/fp-camera"
+      ],
+      "sdk/controller": [
+        "core/fps-controller"
+      ]
+    },
+    "ember/game": {
+      "sdk/experience": [
+        "ember/bastion"
+      ]
+    },
+    "example/arena": {
+      "sdk/mode": [
+        "example/arena"
+      ]
+    },
+    "example/dash-controller": {
+      "sdk/controller": [
+        "example/dash-controller"
+      ]
+    },
+    "example/escape": {
+      "sdk/mode": [
+        "example/escape"
+      ]
+    },
+    "example/extraction": {
+      "sdk/mode": [
+        "example/extraction"
+      ]
+    },
+    "example/holdout": {
+      "sdk/mode": [
+        "example/holdout"
+      ]
+    },
+    "example/hud": {
+      "sdk/hud": [
+        "example/visor-hud"
+      ]
+    },
+    "example/racing": {
+      "sdk/controller": [
+        "example/racing-controller"
+      ],
+      "sdk/mode": [
+        "example/race"
+      ]
+    },
+    "example/roguelite": {
+      "sdk/mode": [
+        "example/roguelite"
+      ]
+    },
+    "example/survival": {
+      "sdk/mode": [
+        "example/survival"
+      ]
+    },
+    "example/time-trial": {
+      "sdk/mode": [
+        "example/time-trial"
+      ]
+    },
+    "hollowmere/game": {
+      "sdk/experience": [
+        "hollowmere/ascent"
+      ]
+    },
+    "hollowmere/presentation": {
+      "sdk/hud": [
+        "hollowmere/hud"
+      ]
+    },
+    "mechanics/actions": {
+      "sdk/mechanic-actions": [
+        "mechanics/actions"
+      ]
+    },
+    "mechanics/capabilities": {
+      "sdk/capabilities": [
+        "mechanics/capabilities"
+      ]
+    },
+    "mechanics/clock": {
+      "sdk/mechanic-clock": [
+        "mechanics/clock"
+      ]
+    },
+    "mechanics/crafting": {
+      "sdk/mechanic-crafting": [
+        "mechanics/crafting"
+      ]
+    },
+    "mechanics/inventory": {
+      "sdk/mechanic-inventory": [
+        "mechanics/inventory"
+      ]
+    },
+    "mechanics/navigation": {
+      "sdk/mechanic-navigation": [
+        "mechanics/navigation"
+      ]
+    },
+    "mechanics/objectives": {
+      "sdk/mechanic-objectives": [
+        "mechanics/objectives"
+      ]
+    },
+    "mechanics/platforming": {
+      "sdk/platformer": [
+        "mechanics/platforming"
+      ]
+    },
+    "mechanics/progression": {
+      "sdk/mechanic-progression": [
+        "mechanics/progression"
+      ]
+    },
+    "mechanics/resources": {
+      "sdk/mechanic-resources": [
+        "mechanics/resources"
+      ]
+    },
+    "mechanics/room-map": {
+      "sdk/room-map": [
+        "mechanics/room-map"
+      ]
+    },
+    "mechanics/sequence": {
+      "sdk/mechanic-sequence": [
+        "mechanics/sequence"
+      ]
+    },
+    "presentation/camera-modes": {
+      "sdk/camera": [
+        "presentation/camera-modes"
+      ]
+    },
+    "puzzle/rules": {
+      "sdk/experience": [
+        "puzzle/stonewake"
+      ]
+    },
+    "sky/game": {
+      "sdk/experience": [
+        "sky/salvage"
+      ]
+    },
+    "story/adventure": {
+      "sdk/experience": [
+        "story/adventure"
+      ]
+    },
+    "theme/arcade": {
+      "sdk/theme": [
+        "theme/arcade"
+      ]
+    },
+    "theme/assetrizz": {
+      "sdk/theme": [
+        "theme/assetrizz",
+        "theme/assetrizz-cinder",
+        "theme/assetrizz-fantasy",
+        "theme/assetrizz-hollowmere"
+      ]
+    },
+    "theme/board": {
+      "sdk/theme": [
+        "theme/board"
+      ]
+    },
+    "theme/industrial": {
+      "sdk/theme": [
+        "theme/industrial"
+      ]
+    },
+    "theme/story": {
+      "sdk/theme": [
+        "theme/story"
+      ]
+    },
+    "vehicle/racing": {
+      "sdk/experience": [
+        "vehicle/arcade-race"
+      ]
+    },
+    "verdant/game": {
+      "sdk/experience": [
+        "verdant/relay"
+      ]
+    }
+  },
+  "maps": {
+    "cinder/content": [
+      {
+        "id": "cinder/vault",
+        "name": "The Cinder Depths"
+      }
+    ],
+    "core/content": [
+      {
+        "id": "core/arena",
+        "name": "Bulkhead Station"
+      }
+    ],
+    "example/adventure-pack": [
+      {
+        "id": "example/blackout-ward",
+        "name": "Blackout Ward"
+      },
+      {
+        "id": "example/silent-observatory",
+        "name": "Silent Observatory"
+      }
+    ],
+    "example/extraction-map": [
+      {
+        "id": "example/salvage-run",
+        "name": "Salvage Run"
+      }
+    ],
+    "example/key-dungeon": [
+      {
+        "id": "example/key-dungeon",
+        "name": "The Locked Vault"
+      }
+    ],
+    "example/pack": [
+      {
+        "id": "example/annex",
+        "name": "Bulkhead Annex"
+      }
+    ],
+    "example/race-track": [
+      {
+        "id": "example/foundry-circuit",
+        "name": "Foundry Circuit"
+      }
+    ],
+    "example/stealth-map": [
+      {
+        "id": "example/silent-relay",
+        "name": "Silent Relay"
+      }
+    ],
+    "example/tactical-pack": [
+      {
+        "id": "example/relay-station",
+        "name": "Relay Station"
+      }
+    ]
+  }
+}

@@ -58,6 +58,14 @@ How Bulkhead is put together and why. For what is and is not implemented see [SP
   loop, the menus and the creator panel. No gameplay rules live here.
 - **Plugins** (`src/plugins`) and **content** (`src/content/presets`): everything the game actually does.
 
+### Game composition canvas
+
+`src/app/game-composer.ts` is an app-layer authoring tool, not a gameplay plugin. It edits a versioned, layout-optional
+`GameGraph` (`src/app/game-graph.ts`) and compiles to preset schema 1. Manifest dependency edges are projections; authored
+role-selection edges choose provider owners. The UI stages through the real host before apply. `src/app/catalog-providers.json`
+is generated from observed role registrations, and `npm run graph` exposes the same compiler to agents. See
+[game composer](docs/game-composer.md).
+
 ### Authoring-time reuse discovery
 
 `scripts/reuse-lib.mjs` builds an inventory from source manifests, optional plugin-local `reuse.json` sidecars, public SDK
@@ -129,6 +137,12 @@ Reference-shooter plugin ids, with what they own. All use SDK 2 (`"sdk": "^2.0.0
 | `cinder/game` | `cinder-game` | code | `sdk/mode`: `cinder/vault`, `sdk/experience`: `cinder/experience`, `sdk/controller`: `cinder/turn-controller`, `sdk/camera`: `presentation/camera-modes` | three-depth turn-based dungeon orchestration, threat tiers/elite affixes/boss enrage, classes, loot, NPCs/Oracle, forge, fogged map data, boons and run inputs | provides `Cinder`, `TurnControl` |
 | `cinder/hud` | `cinder-hud` | code | `sdk/hud`: `cinder/hud` | class/threat select, transitions, field guide, first-person/isometric view badge, AP hover preview, automap/tactical grid, pack filters/drop, forge, NPC dialogue, AP/intent and boon HUD | uses `Cinder`, `Ui`, `ViewModes` |
 | `cinder/content` | `cinder-content` | content | none | existing ammo, weapon, enemy, map and mechanic-kit content | none |
+| `mechanics/platforming` | `mechanics-platforming` | code | `sdk/platformer`: `mechanics/platforming` | AABB side-scroller movement with coyote/buffered jumps, double jump, dash, wall slide/jump | pure provider; uses `PlatformerRole` |
+| `mechanics/capabilities` | `mechanics-capabilities` | code | `sdk/capabilities`: `mechanics/capabilities` | named capability/rank unlocks with frozen observations | provider-owned handles |
+| `mechanics/room-map` | `mechanics-room-map` | code | `sdk/room-map`: `mechanics/room-map` | explorable room graph with current/visited/revealed state | provider-owned handles |
+| `hollowmere/game` | `hollowmere-game` | code | `sdk/experience`: `hollowmere/ascent` | twelve-room side-scrolling metroidvania, combat, checkpoints, NPC services, save and boss victory | provides `Metroidvania`; composes platforming/capability/room-map/inventory |
+| `hollowmere/presentation` | `hollowmere-presentation` | code | `sdk/hud`: `hollowmere/hud` | canvas world view and tabbed field journal | uses `Metroidvania`, `Ui`, `ThemeRole` |
+| `hollowmere/content` | `hollowmere-content` | content | none | `metroidvania-world` plus five item definitions | none |
 | `example/racing` | `example-racing` | code | `sdk/controller`: `example/racing-controller`, `sdk/mode`: `example/race` | planar driving and ordered swept checkpoints | uses `World`, `Flow`, `Input` |
 | `example/race-track` | `example-race-track` | content | none | Foundry Circuit map | none |
 | `example/extraction` | `example-extraction` | code | `sdk/mode`: `example/extraction` | timed run-only loot extraction | uses `World`, `Flow` |
@@ -146,6 +160,7 @@ reads that contract and treats browser services as optional in headless sessions
 | `board/tactics` / `Tactics` | `board/presentation` | `board/mission` (`board-mission`) / `board-mission` | `theme/board` | [Turn tactics](docs/turn-tactics.md) |
 | `story/adventure` / `Adventure` | `story/presentation` | `story/chapter` (`story-chapter`) / `adventure-chapter` | `theme/story` | [Narrative adventure](docs/narrative-adventure.md) |
 | `puzzle/rules` / `PushPuzzle` | `puzzle/presentation` | `puzzle/chambers` (`puzzle-chambers`) / `push-puzzle` | `theme/board` | [Stonewake](docs/stonewake.md) |
+| `hollowmere/game` / `Metroidvania` | `hollowmere/presentation` | `hollowmere/content` (`metroidvania-world`) / `metroidvania-world` | `theme/assetrizz` (`theme/assetrizz-hollowmere`) | [Hollowmere](docs/hollowmere.md) |
 
 The optional `ExperienceRole` (`sdk/experience`) selects a provider with `name`, `description`, pointer policy
 (`locked`, `free`, `none`) and optional launcher `controls`. Without a selected experience, the launcher retains the
@@ -296,6 +311,8 @@ Independent family systems (default order 0; frame systems run once per rendered
 
 | Phase / cadence | System id | Plugin | Purpose |
 |---|---|---|---|
+| `movement` | `hollowmere/game.update` | `hollowmere/game` | Fixed-tick platform movement, combat, room transitions, pickups, NPCs, checkpoints and boss turns |
+| frame | `hollowmere/presentation` | `hollowmere/presentation` | Canvas world camera, HUD, dialogue and tabbed journal; consumes `Metroidvania` state |
 | `movement` | `vehicle/racing.drive` | `vehicle/racing` | Fixed-tick vehicle motion, ordered directional gates, laps and timeout |
 | frame | `vehicle/presentation.scene` | `vehicle/presentation` | Interpolates the vehicle and updates circuit markers |
 | frame | `vehicle/presentation.hud` | `vehicle/presentation` | Updates lap, speed, remaining time and race status |

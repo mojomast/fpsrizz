@@ -159,7 +159,7 @@ const stopwords = new Set('a an and are as be by can do for from game games have
 function words(text) {
   return [...new Set(String(text).replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().split(/[^a-z0-9]+/).filter(word => word.length > 1 && !stopwords.has(word)).map(word => word.length > 4 && word.endsWith('s') ? word.slice(0, -1) : word))];
 }
-export function searchReuse(index, query, { limit = 12, type, scope } = {}) {
+export function searchReuse(index, query, { limit = 20, type, scope } = {}) {
   const terms = words(query);
   return index.entries.filter(item => (!type || item.type === type) && (!scope || item.scope === scope)).map(item => {
     const fields = [

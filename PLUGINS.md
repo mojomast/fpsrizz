@@ -382,6 +382,20 @@ use `sdk/mechanic-sequence`. Dungeon wings are emitted as room markers by `dunge
 [crafting](docs/crafting.md), [camera modes](docs/camera-modes.md), [dungeon generator](docs/dungeon-generator.md) and
 [progression](docs/progression.md).
 
+#### Hollowmere and the composition canvas
+
+Hollowmere is a side-scrolling metroidvania family. `mechanics/platforming` provides `PlatformerRole` and a pure
+AABB movement handle (coyote/jump buffer, variable jump, double jump, dash, wall slide/jump).
+`mechanics/capabilities` provides `CapabilityRole` and named unlock/rank handles; `mechanics/room-map` provides
+`RoomMapRole` and current/visited/revealed room handles. All three are cross-genre and own no game content. The game
+selects them alongside `mechanics/inventory`. `hollowmere/game` provides `Metroidvania` and the
+`metroidvania-world` content kind; `hollowmere/presentation` provides `sdk/hud`; `hollowmere/content` supplies the
+world and items. See [Hollowmere](docs/hollowmere.md).
+
+The app-level game composition canvas is not a plugin: it edits a versioned `GameGraph` and compiles to a preset. Its pure
+model is `src/app/game-graph.ts`; provider offers come from the generated `src/app/catalog-providers.json`; validation
+is staged through the host. `npm run graph` is the agent/CLI surface. See [game composer](docs/game-composer.md).
+
 #### Selectable building blocks
 
 `NavigationRole` (`sdk/mechanic-navigation`) selects a pure graph-query provider. The bundled `mechanics/navigation`

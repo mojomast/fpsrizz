@@ -1,0 +1,1857 @@
+[
+  {
+    "kind": "item",
+    "id": "hollowmere/moss-tonic",
+    "data": {
+      "name": "Moss Tonic",
+      "description": "Restore 35 health. The green of Hollowmere still remembers how to heal.",
+      "icon": "assetrizz/hollow-icon-tonic.png",
+      "stackMax": 5,
+      "rarity": "uncommon"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "hollowmere/focus-draught",
+    "data": {
+      "name": "Focus Draught",
+      "description": "Restore 30 focus for the Lantern Bolt.",
+      "icon": "assetrizz/hollow-icon-focus.png",
+      "stackMax": 3,
+      "rarity": "rare"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "hollowmere/sun-sigil-moss",
+    "data": {
+      "name": "Sun Sigil of Moss",
+      "description": "One of the three suns. The crown door answers to its green light.",
+      "icon": "assetrizz/hollow-icon-sigil-moss.png",
+      "stackMax": 1,
+      "rarity": "epic"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "hollowmere/sun-sigil-tide",
+    "data": {
+      "name": "Sun Sigil of Tides",
+      "description": "One of the three suns. It is cold, but it burns.",
+      "icon": "assetrizz/hollow-icon-sigil-tide.png",
+      "stackMax": 1,
+      "rarity": "epic"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "hollowmere/sun-sigil-ember",
+    "data": {
+      "name": "Sun Sigil of Embers",
+      "description": "One of the three suns. It remembers the last hearth.",
+      "icon": "assetrizz/hollow-icon-sigil-ember.png",
+      "stackMax": 1,
+      "rarity": "epic"
+    }
+  },
+  {
+    "kind": "metroidvania-world",
+    "id": "hollowmere/world",
+    "data": {
+      "id": "hollowmere/world",
+      "name": "HOLLOWMERE",
+      "subtitle": "The Lantern Below",
+      "intro": "The Lantern Tree is going dark. Three suns sleep in the drowned kingdom, and the Hollow King remembers every trespass. Carry the lantern. Break the crown.",
+      "startRoom": "moss-gate",
+      "regions": [
+        {
+          "id": "mossfall",
+          "name": "Mossfall Approach",
+          "color": "#7ca36a",
+          "background": "assetrizz/hollow-bg-forest.png"
+        },
+        {
+          "id": "rootways",
+          "name": "The Rootways",
+          "color": "#9a734f",
+          "background": "assetrizz/hollow-bg-root.png"
+        },
+        {
+          "id": "archive",
+          "name": "The Sunken Archive",
+          "color": "#5c8fa2",
+          "background": "assetrizz/hollow-bg-archive.png"
+        },
+        {
+          "id": "keep",
+          "name": "Bellows Keep",
+          "color": "#b6654f",
+          "background": "assetrizz/hollow-bg-keep.png"
+        },
+        {
+          "id": "throne",
+          "name": "The Hollow Throne",
+          "color": "#8c6aa3",
+          "background": "assetrizz/hollow-bg-throne.png"
+        }
+      ],
+      "rooms": [
+        {
+          "id": "moss-gate",
+          "name": "Mossgate Threshold",
+          "region": "mossfall",
+          "map": {
+            "x": 0,
+            "y": 4,
+            "w": 2,
+            "h": 1
+          },
+          "tileset": "moss",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#...........................=====......#",
+            "#......................................#",
+            "#.................======...............#",
+            "#......................................#",
+            "#........======........................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "gate-east",
+              "label": "Arch of Moss",
+              "x": 36,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "moss-hall",
+              "entry": {
+                "x": 3,
+                "y": 16
+              }
+            }
+          ],
+          "pickups": [
+            {
+              "id": "lore-gate",
+              "x": 20,
+              "y": 13.1,
+              "kind": "lore",
+              "label": "Wayfarer\u2019s Note",
+              "icon": "assetrizz/hollow-icon-lore.png",
+              "text": "The Lantern Tree dims. Three suns were hidden in the roots, the archive, and the keep."
+            }
+          ],
+          "enemies": [
+            {
+              "id": "gate-goblin",
+              "type": "goblin",
+              "x": 18,
+              "y": 16.6,
+              "patrol": 3
+            }
+          ],
+          "checkpoints": [
+            {
+              "id": "beacon-gate",
+              "name": "Mossgate Beacon",
+              "x": 5,
+              "y": 16
+            }
+          ],
+          "npcs": [
+            {
+              "id": "brann",
+              "name": "Brann Emberhand",
+              "role": "smith",
+              "title": "KEEPER OF THE FIRST FORGE",
+              "line": "Steel remembers every blow. Bring me ember-shards and I will make yours worth remembering.",
+              "portrait": "assetrizz/hollow-portrait-smith.png",
+              "x": 9,
+              "y": 16
+            }
+          ],
+          "props": [
+            {
+              "kind": "arch",
+              "x": 2,
+              "y": 10,
+              "w": 2,
+              "h": 8
+            },
+            {
+              "kind": "torch",
+              "x": 16,
+              "y": 12
+            },
+            {
+              "kind": "statue",
+              "x": 33,
+              "y": 13
+            },
+            {
+              "kind": "banner",
+              "x": 25,
+              "y": 8,
+              "w": 1,
+              "h": 4
+            }
+          ]
+        },
+        {
+          "id": "moss-hall",
+          "name": "The Long Moss",
+          "region": "mossfall",
+          "map": {
+            "x": 2,
+            "y": 4,
+            "w": 2,
+            "h": 1
+          },
+          "tileset": "moss",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#.............................=====....#",
+            "#......................................#",
+            "#...................======.............#",
+            "#......................................#",
+            "#.........======.......................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "hall-west",
+              "label": "West Verge",
+              "x": 1,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "moss-gate",
+              "entry": {
+                "x": 35,
+                "y": 16
+              }
+            },
+            {
+              "id": "hall-east",
+              "label": "Well Stair",
+              "x": 36,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "moss-well",
+              "entry": {
+                "x": 3,
+                "y": 16
+              }
+            },
+            {
+              "id": "hall-thorn",
+              "label": "Thorn Gallery",
+              "x": 33,
+              "y": 10,
+              "w": 2.2,
+              "h": 2.4,
+              "to": "thorn-gallery",
+              "entry": {
+                "x": 30,
+                "y": 10
+              }
+            }
+          ],
+          "pickups": [
+            {
+              "id": "hall-tonic",
+              "x": 13,
+              "y": 15.1,
+              "kind": "item",
+              "label": "Moss Tonic",
+              "icon": "assetrizz/hollow-icon-tonic.png",
+              "key": "hollowmere/moss-tonic"
+            },
+            {
+              "id": "hall-ember",
+              "x": 24,
+              "y": 13.1,
+              "kind": "ember",
+              "label": "Ember Shards",
+              "icon": "assetrizz/hollow-icon-ember.png",
+              "amount": 3
+            }
+          ],
+          "enemies": [
+            {
+              "id": "hall-goblin-a",
+              "type": "goblin",
+              "x": 16,
+              "y": 16.6,
+              "patrol": 4
+            },
+            {
+              "id": "hall-goblin-b",
+              "type": "goblin",
+              "x": 29,
+              "y": 12.6,
+              "patrol": 2
+            },
+            {
+              "id": "hall-bat",
+              "type": "bat",
+              "x": 22,
+              "y": 8,
+              "patrol": 5
+            }
+          ],
+          "checkpoints": [],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "arch",
+              "x": 3,
+              "y": 10,
+              "w": 2,
+              "h": 8
+            },
+            {
+              "kind": "root",
+              "x": 12,
+              "y": 15,
+              "w": 3,
+              "h": 3
+            },
+            {
+              "kind": "torch",
+              "x": 27,
+              "y": 13
+            },
+            {
+              "kind": "rune",
+              "x": 35,
+              "y": 8
+            }
+          ]
+        },
+        {
+          "id": "moss-well",
+          "name": "The Windroot Well",
+          "region": "mossfall",
+          "map": {
+            "x": 4,
+            "y": 3,
+            "w": 1,
+            "h": 2
+          },
+          "tileset": "moss",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#.................====================.#",
+            "#...........======.....................#",
+            "#....======............................#",
+            "#......................................#",
+            "#.................======...............#",
+            "#......................................#",
+            "#....======............................#",
+            "#......................................#",
+            "#...........======.....................#",
+            "#......................................#",
+            "#....======............................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "well-west",
+              "label": "Return to the Long Moss",
+              "x": 1,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "moss-hall",
+              "entry": {
+                "x": 34,
+                "y": 16
+              }
+            },
+            {
+              "id": "well-east",
+              "label": "Windroot Arch",
+              "x": 35,
+              "y": 4,
+              "w": 2.2,
+              "h": 2.4,
+              "to": "root-crossing",
+              "entry": {
+                "x": 3,
+                "y": 16
+              },
+              "requires": "double-jump",
+              "message": "A windroot sigil is needed to ride the high arch."
+            }
+          ],
+          "pickups": [
+            {
+              "id": "ability-double-jump",
+              "x": 27,
+              "y": 5.0,
+              "kind": "ability",
+              "label": "Windroot Sigil",
+              "icon": "assetrizz/hollow-icon-double-jump.png",
+              "key": "double-jump"
+            },
+            {
+              "id": "well-ember",
+              "x": 8,
+              "y": 7.1,
+              "kind": "ember",
+              "label": "Ember Shards",
+              "icon": "assetrizz/hollow-icon-ember.png",
+              "amount": 4
+            }
+          ],
+          "enemies": [
+            {
+              "id": "well-bat-a",
+              "type": "bat",
+              "x": 15,
+              "y": 9,
+              "patrol": 5
+            },
+            {
+              "id": "well-spider",
+              "type": "spider",
+              "x": 7,
+              "y": 17.2,
+              "patrol": 3
+            }
+          ],
+          "checkpoints": [],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "root",
+              "x": 3,
+              "y": 5,
+              "w": 2,
+              "h": 10
+            },
+            {
+              "kind": "root",
+              "x": 18,
+              "y": 12,
+              "w": 2,
+              "h": 6
+            },
+            {
+              "kind": "torch",
+              "x": 24,
+              "y": 10
+            },
+            {
+              "kind": "arch",
+              "x": 34,
+              "y": 2,
+              "w": 2,
+              "h": 3
+            }
+          ]
+        },
+        {
+          "id": "thorn-gallery",
+          "name": "Thorn Gallery",
+          "region": "mossfall",
+          "map": {
+            "x": 2,
+            "y": 6,
+            "w": 2,
+            "h": 1
+          },
+          "tileset": "moss",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#.......................==============.#",
+            "#......................................#",
+            "#.............=======..................#",
+            "#......................................#",
+            "#....======............................#",
+            "#...........^^^^.......................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "thorn-back",
+              "label": "Back to the Long Moss",
+              "x": 35,
+              "y": 10,
+              "w": 2.2,
+              "h": 2.4,
+              "to": "moss-hall",
+              "entry": {
+                "x": 32,
+                "y": 10
+              }
+            }
+          ],
+          "pickups": [
+            {
+              "id": "sigil-moss",
+              "x": 27,
+              "y": 11.0,
+              "kind": "item",
+              "label": "Sun Sigil of Moss",
+              "icon": "assetrizz/hollow-icon-sigil-moss.png",
+              "key": "hollowmere/sun-sigil-moss"
+            },
+            {
+              "id": "health-thorn",
+              "x": 17,
+              "y": 13.0,
+              "kind": "health",
+              "label": "Verdant Vessel",
+              "icon": "assetrizz/hollow-icon-tonic.png",
+              "amount": 20
+            },
+            {
+              "id": "lore-thorn",
+              "x": 31,
+              "y": 11.0,
+              "kind": "lore",
+              "label": "Gallery Tablet",
+              "icon": "assetrizz/hollow-icon-lore.png",
+              "text": "The first sun sleeps where roots wear stone like armor."
+            }
+          ],
+          "enemies": [
+            {
+              "id": "thorn-spider-a",
+              "type": "spider",
+              "x": 10,
+              "y": 16.8,
+              "patrol": 4
+            },
+            {
+              "id": "thorn-spider-b",
+              "type": "spider",
+              "x": 25,
+              "y": 17.2,
+              "patrol": 2
+            },
+            {
+              "id": "thorn-goblin",
+              "type": "goblin",
+              "x": 30,
+              "y": 11.6,
+              "patrol": 3
+            }
+          ],
+          "checkpoints": [],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "root",
+              "x": 6,
+              "y": 8,
+              "w": 2,
+              "h": 8
+            },
+            {
+              "kind": "root",
+              "x": 20,
+              "y": 9,
+              "w": 2,
+              "h": 5
+            },
+            {
+              "kind": "crystal",
+              "x": 33,
+              "y": 13
+            },
+            {
+              "kind": "banner",
+              "x": 2,
+              "y": 9,
+              "w": 1,
+              "h": 4
+            }
+          ]
+        },
+        {
+          "id": "root-crossing",
+          "name": "The Root Crossing",
+          "region": "rootways",
+          "map": {
+            "x": 5,
+            "y": 2,
+            "w": 2,
+            "h": 1
+          },
+          "tileset": "root",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#...........................======.....#",
+            "#......................................#",
+            "#................=======...............#",
+            "#......................................#",
+            "#......======..........................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "cross-west",
+              "label": "Windroot Well",
+              "x": 1,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "moss-well",
+              "entry": {
+                "x": 27,
+                "y": 4.1
+              }
+            },
+            {
+              "id": "cross-east",
+              "label": "Deep Rootway",
+              "x": 36,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "root-depths",
+              "entry": {
+                "x": 3,
+                "y": 16
+              }
+            },
+            {
+              "id": "cross-shrine",
+              "label": "Root Shrine",
+              "x": 30,
+              "y": 10,
+              "w": 2.2,
+              "h": 2.4,
+              "to": "root-shrine",
+              "entry": {
+                "x": 30,
+                "y": 10
+              }
+            }
+          ],
+          "pickups": [
+            {
+              "id": "cross-ember",
+              "x": 22,
+              "y": 13.1,
+              "kind": "ember",
+              "label": "Ember Shards",
+              "icon": "assetrizz/hollow-icon-ember.png",
+              "amount": 4
+            },
+            {
+              "id": "cross-focus",
+              "x": 13,
+              "y": 15.1,
+              "kind": "item",
+              "label": "Focus Draught",
+              "icon": "assetrizz/hollow-icon-focus.png",
+              "key": "hollowmere/focus-draught"
+            }
+          ],
+          "enemies": [
+            {
+              "id": "cross-goblin-a",
+              "type": "goblin",
+              "x": 12,
+              "y": 16.6,
+              "patrol": 4
+            },
+            {
+              "id": "cross-goblin-b",
+              "type": "goblin",
+              "x": 26,
+              "y": 16.6,
+              "patrol": 4
+            },
+            {
+              "id": "cross-spider",
+              "type": "spider",
+              "x": 20,
+              "y": 13.2,
+              "patrol": 3
+            }
+          ],
+          "checkpoints": [
+            {
+              "id": "beacon-cross",
+              "name": "Root Crossing Beacon",
+              "x": 4,
+              "y": 16
+            }
+          ],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "root",
+              "x": 3,
+              "y": 7,
+              "w": 2,
+              "h": 10
+            },
+            {
+              "kind": "root",
+              "x": 22,
+              "y": 9,
+              "w": 2,
+              "h": 6
+            },
+            {
+              "kind": "arch",
+              "x": 35,
+              "y": 2,
+              "w": 2,
+              "h": 3
+            },
+            {
+              "kind": "torch",
+              "x": 15,
+              "y": 11
+            }
+          ]
+        },
+        {
+          "id": "root-shrine",
+          "name": "Root Shrine",
+          "region": "rootways",
+          "map": {
+            "x": 5,
+            "y": 0,
+            "w": 2,
+            "h": 1
+          },
+          "tileset": "root",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#..........................===========.#",
+            "#......................................#",
+            "#...............======.................#",
+            "#......................................#",
+            "#.....======...........................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "shrine-back",
+              "label": "Root Crossing",
+              "x": 35,
+              "y": 10,
+              "w": 2.2,
+              "h": 2.4,
+              "to": "root-crossing",
+              "entry": {
+                "x": 31,
+                "y": 10
+              }
+            }
+          ],
+          "pickups": [
+            {
+              "id": "focus-shrine",
+              "x": 24,
+              "y": 13.0,
+              "kind": "focus",
+              "label": "Deep Focus Vessel",
+              "icon": "assetrizz/hollow-icon-focus.png",
+              "amount": 20
+            },
+            {
+              "id": "lore-shrine",
+              "x": 9,
+              "y": 15.0,
+              "kind": "lore",
+              "label": "Shrine Inscription",
+              "icon": "assetrizz/hollow-icon-lore.png",
+              "text": "To pass the empty crown, carry three suns and no doubt."
+            }
+          ],
+          "enemies": [],
+          "checkpoints": [
+            {
+              "id": "beacon-shrine",
+              "name": "Root Shrine Beacon",
+              "x": 5,
+              "y": 16
+            }
+          ],
+          "npcs": [
+            {
+              "id": "mara",
+              "name": "Mara, Root Scholar",
+              "role": "scholar",
+              "title": "READER OF THE ROOTWAYS",
+              "line": "The archive drowned, but its doors remember. Find the wall-grip and the deep stacks will open for you.",
+              "portrait": "assetrizz/hollow-portrait-scholar.png",
+              "x": 17,
+              "y": 16
+            }
+          ],
+          "props": [
+            {
+              "kind": "root",
+              "x": 2,
+              "y": 3,
+              "w": 2,
+              "h": 13
+            },
+            {
+              "kind": "root",
+              "x": 33,
+              "y": 4,
+              "w": 2,
+              "h": 9
+            },
+            {
+              "kind": "statue",
+              "x": 14,
+              "y": 13
+            },
+            {
+              "kind": "rune",
+              "x": 27,
+              "y": 11
+            }
+          ]
+        },
+        {
+          "id": "root-depths",
+          "name": "The Deep Rootway",
+          "region": "rootways",
+          "map": {
+            "x": 7,
+            "y": 2,
+            "w": 2,
+            "h": 1
+          },
+          "tileset": "root",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#..........................======......#",
+            "#......................................#",
+            "#................=======...............#",
+            "#......................................#",
+            "#......======..........................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "depths-west",
+              "label": "Root Crossing",
+              "x": 1,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "root-crossing",
+              "entry": {
+                "x": 34,
+                "y": 16
+              }
+            },
+            {
+              "id": "depths-east",
+              "label": "Burrow Gate",
+              "x": 36,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "burrow",
+              "entry": {
+                "x": 3,
+                "y": 16
+              },
+              "requires": "dash",
+              "message": "The rootway pinches shut. An emberstep sigil could carry you through."
+            }
+          ],
+          "pickups": [
+            {
+              "id": "ability-dash",
+              "x": 30,
+              "y": 11.0,
+              "kind": "ability",
+              "label": "Emberstep Sigil",
+              "icon": "assetrizz/hollow-icon-dash.png",
+              "key": "dash"
+            },
+            {
+              "id": "lore-depths",
+              "x": 12,
+              "y": 15.0,
+              "kind": "lore",
+              "label": "Rootway Mark",
+              "icon": "assetrizz/hollow-icon-lore.png",
+              "text": "A quick dash leaves the dark one breath behind."
+            }
+          ],
+          "enemies": [
+            {
+              "id": "depths-skeleton",
+              "type": "skeleton",
+              "x": 15,
+              "y": 16.4,
+              "patrol": 4
+            },
+            {
+              "id": "depths-goblin",
+              "type": "goblin",
+              "x": 25,
+              "y": 16.6,
+              "patrol": 4
+            },
+            {
+              "id": "depths-bat",
+              "type": "bat",
+              "x": 20,
+              "y": 10,
+              "patrol": 5
+            }
+          ],
+          "checkpoints": [],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "root",
+              "x": 4,
+              "y": 8,
+              "w": 2,
+              "h": 9
+            },
+            {
+              "kind": "root",
+              "x": 24,
+              "y": 6,
+              "w": 2,
+              "h": 9
+            },
+            {
+              "kind": "rune",
+              "x": 33,
+              "y": 12
+            },
+            {
+              "kind": "torch",
+              "x": 17,
+              "y": 10
+            }
+          ]
+        },
+        {
+          "id": "burrow",
+          "name": "The Burrow of Hands",
+          "region": "rootways",
+          "map": {
+            "x": 9,
+            "y": 2,
+            "w": 2,
+            "h": 1
+          },
+          "tileset": "root",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#.............................========.#",
+            "#......................................#",
+            "#......................................#",
+            "#....................=======...........#",
+            "#......................................#",
+            "#...........======.....................#",
+            "#......................................#",
+            "#....=====.............................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "burrow-west",
+              "label": "Deep Rootway",
+              "x": 1,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "root-depths",
+              "entry": {
+                "x": 34,
+                "y": 16
+              }
+            },
+            {
+              "id": "burrow-east",
+              "label": "Archive Stair",
+              "x": 36,
+              "y": 8,
+              "w": 2.2,
+              "h": 2.4,
+              "to": "archive-stair",
+              "entry": {
+                "x": 3,
+                "y": 16
+              },
+              "requires": "wall-cling",
+              "message": "The wall is too smooth for mortal fingers. Rootgrip would hold."
+            }
+          ],
+          "pickups": [
+            {
+              "id": "ability-wall",
+              "x": 33,
+              "y": 8.0,
+              "kind": "ability",
+              "label": "Rootgrip Sigil",
+              "icon": "assetrizz/hollow-icon-wall.png",
+              "key": "wall-cling"
+            },
+            {
+              "id": "focus-burrow",
+              "x": 18,
+              "y": 11.0,
+              "kind": "focus",
+              "label": "Root Focus Vessel",
+              "icon": "assetrizz/hollow-icon-focus.png",
+              "amount": 20
+            },
+            {
+              "id": "tonic-burrow",
+              "x": 8,
+              "y": 15.0,
+              "kind": "item",
+              "label": "Moss Tonic",
+              "icon": "assetrizz/hollow-icon-tonic.png",
+              "key": "hollowmere/moss-tonic"
+            }
+          ],
+          "enemies": [
+            {
+              "id": "burrow-spider",
+              "type": "spider",
+              "x": 14,
+              "y": 16.8,
+              "patrol": 4
+            },
+            {
+              "id": "burrow-ghost",
+              "type": "ghost",
+              "x": 25,
+              "y": 9,
+              "patrol": 5
+            },
+            {
+              "id": "burrow-goblin",
+              "type": "goblin",
+              "x": 29,
+              "y": 16.6,
+              "patrol": 3
+            }
+          ],
+          "checkpoints": [],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "root",
+              "x": 2,
+              "y": 5,
+              "w": 2,
+              "h": 11
+            },
+            {
+              "kind": "root",
+              "x": 20,
+              "y": 5,
+              "w": 2,
+              "h": 10
+            },
+            {
+              "kind": "crystal",
+              "x": 35,
+              "y": 13
+            },
+            {
+              "kind": "banner",
+              "x": 9,
+              "y": 8,
+              "w": 1,
+              "h": 4
+            }
+          ]
+        },
+        {
+          "id": "archive-stair",
+          "name": "Archive Stair",
+          "region": "archive",
+          "map": {
+            "x": 11,
+            "y": 1,
+            "w": 1,
+            "h": 2
+          },
+          "tileset": "archive",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#...........................==========.#",
+            "#......................................#",
+            "#...======.............................#",
+            "#......................................#",
+            "#.....................=======..........#",
+            "#......................................#",
+            "#....======............................#",
+            "#......................................#",
+            "#..............=======.................#",
+            "#......................................#",
+            "#...======.............................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "stair-west",
+              "label": "Burrow of Hands",
+              "x": 1,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "burrow",
+              "entry": {
+                "x": 33,
+                "y": 7.1
+              }
+            },
+            {
+              "id": "stair-east",
+              "label": "The Wax Vault",
+              "x": 36,
+              "y": 4,
+              "w": 2.2,
+              "h": 2.4,
+              "to": "archive-vault",
+              "entry": {
+                "x": 3,
+                "y": 16
+              }
+            }
+          ],
+          "pickups": [
+            {
+              "id": "lore-stair",
+              "x": 18,
+              "y": 13.0,
+              "kind": "lore",
+              "label": "Archive Plaque",
+              "icon": "assetrizz/hollow-icon-lore.png",
+              "text": "The tide sigil is catalogued beneath the drowned stacks."
+            }
+          ],
+          "enemies": [
+            {
+              "id": "stair-bat",
+              "type": "bat",
+              "x": 17,
+              "y": 9,
+              "patrol": 4
+            },
+            {
+              "id": "stair-skeleton",
+              "type": "skeleton",
+              "x": 6,
+              "y": 15.4,
+              "patrol": 3
+            }
+          ],
+          "checkpoints": [
+            {
+              "id": "beacon-stair",
+              "name": "Archive Stair Beacon",
+              "x": 5,
+              "y": 16
+            }
+          ],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "arch",
+              "x": 3,
+              "y": 2,
+              "w": 2,
+              "h": 3
+            },
+            {
+              "kind": "arch",
+              "x": 35,
+              "y": 2,
+              "w": 2,
+              "h": 3
+            },
+            {
+              "kind": "root",
+              "x": 25,
+              "y": 5,
+              "w": 2,
+              "h": 6
+            },
+            {
+              "kind": "statue",
+              "x": 33,
+              "y": 13
+            }
+          ]
+        },
+        {
+          "id": "archive-vault",
+          "name": "The Wax Vault",
+          "region": "archive",
+          "map": {
+            "x": 12,
+            "y": 2,
+            "w": 2,
+            "h": 1
+          },
+          "tileset": "archive",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#..........................=======.....#",
+            "#......................................#",
+            "#...............=======................#",
+            "#......................................#",
+            "#.....======...........................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "vault-west",
+              "label": "Archive Stair",
+              "x": 1,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "archive-stair",
+              "entry": {
+                "x": 32,
+                "y": 4.1
+              }
+            },
+            {
+              "id": "vault-east",
+              "label": "Bellows Keep",
+              "x": 36,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "keep-bridge",
+              "entry": {
+                "x": 3,
+                "y": 16
+              }
+            }
+          ],
+          "pickups": [
+            {
+              "id": "sigil-tide",
+              "x": 30,
+              "y": 11.0,
+              "kind": "item",
+              "label": "Sun Sigil of Tides",
+              "icon": "assetrizz/hollow-icon-sigil-tide.png",
+              "key": "hollowmere/sun-sigil-tide"
+            },
+            {
+              "id": "ability-bolt",
+              "x": 21,
+              "y": 13.0,
+              "kind": "ability",
+              "label": "Lantern Bolt",
+              "icon": "assetrizz/hollow-icon-bolt.png",
+              "key": "ember-bolt"
+            },
+            {
+              "id": "lore-vault",
+              "x": 10,
+              "y": 15.0,
+              "kind": "lore",
+              "label": "Drowned Catalogue",
+              "icon": "assetrizz/hollow-icon-lore.png",
+              "text": "The second sun was kept beneath water that forgot how to drown."
+            }
+          ],
+          "enemies": [
+            {
+              "id": "vault-ghost",
+              "type": "ghost",
+              "x": 18,
+              "y": 12,
+              "patrol": 5
+            },
+            {
+              "id": "vault-skeleton",
+              "type": "skeleton",
+              "x": 29,
+              "y": 16.4,
+              "patrol": 3
+            },
+            {
+              "id": "vault-spider",
+              "type": "spider",
+              "x": 35,
+              "y": 17.2,
+              "patrol": 2
+            }
+          ],
+          "checkpoints": [],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "statue",
+              "x": 4,
+              "y": 13
+            },
+            {
+              "kind": "arch",
+              "x": 34,
+              "y": 3,
+              "w": 2,
+              "h": 4
+            },
+            {
+              "kind": "rune",
+              "x": 13,
+              "y": 8
+            },
+            {
+              "kind": "crystal",
+              "x": 33,
+              "y": 10
+            }
+          ]
+        },
+        {
+          "id": "keep-bridge",
+          "name": "The Bellows Bridge",
+          "region": "keep",
+          "map": {
+            "x": 14,
+            "y": 2,
+            "w": 2,
+            "h": 1
+          },
+          "tileset": "keep",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#...........................=======....#",
+            "#......................................#",
+            "#......................................#",
+            "#.................=======..............#",
+            "#......................................#",
+            "#.......======.........................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "bridge-west",
+              "label": "The Wax Vault",
+              "x": 1,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "archive-vault",
+              "entry": {
+                "x": 35,
+                "y": 16
+              }
+            },
+            {
+              "id": "bridge-east",
+              "label": "The Hollow Throne",
+              "x": 36,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "hollow-throne",
+              "entry": {
+                "x": 3,
+                "y": 16
+              },
+              "requiresItems": [
+                "hollowmere/sun-sigil-moss",
+                "hollowmere/sun-sigil-tide",
+                "hollowmere/sun-sigil-ember"
+              ],
+              "message": "Three sun sigils must burn in the crown before the throne opens."
+            }
+          ],
+          "pickups": [
+            {
+              "id": "sigil-ember",
+              "x": 31,
+              "y": 10.0,
+              "kind": "item",
+              "label": "Sun Sigil of Embers",
+              "icon": "assetrizz/hollow-icon-sigil-ember.png",
+              "key": "hollowmere/sun-sigil-ember"
+            },
+            {
+              "id": "tonic-keep",
+              "x": 12,
+              "y": 15.0,
+              "kind": "item",
+              "label": "Moss Tonic",
+              "icon": "assetrizz/hollow-icon-tonic.png",
+              "key": "hollowmere/moss-tonic"
+            }
+          ],
+          "enemies": [
+            {
+              "id": "bridge-golem",
+              "type": "golem",
+              "x": 22,
+              "y": 16.2,
+              "patrol": 4
+            },
+            {
+              "id": "bridge-ghost",
+              "type": "ghost",
+              "x": 18,
+              "y": 10,
+              "patrol": 5
+            },
+            {
+              "id": "bridge-skeleton",
+              "type": "skeleton",
+              "x": 33,
+              "y": 16.4,
+              "patrol": 2
+            }
+          ],
+          "checkpoints": [
+            {
+              "id": "beacon-keep",
+              "name": "Bellows Bridge Beacon",
+              "x": 5,
+              "y": 16
+            }
+          ],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "banner",
+              "x": 3,
+              "y": 9,
+              "w": 1,
+              "h": 5
+            },
+            {
+              "kind": "banner",
+              "x": 35,
+              "y": 9,
+              "w": 1,
+              "h": 5
+            },
+            {
+              "kind": "statue",
+              "x": 15,
+              "y": 13
+            },
+            {
+              "kind": "crystal",
+              "x": 29,
+              "y": 9
+            }
+          ]
+        },
+        {
+          "id": "hollow-throne",
+          "name": "The Hollow Throne",
+          "region": "throne",
+          "map": {
+            "x": 16,
+            "y": 2,
+            "w": 1,
+            "h": 1
+          },
+          "tileset": "throne",
+          "rows": [
+            "########################################",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#......................................#",
+            "#..............................======..#",
+            "#......................................#",
+            "#......................................#",
+            "#.....................========.........#",
+            "#......................................#",
+            "#......................................#",
+            "#........=======.......................#",
+            "#......................................#",
+            "#......................................#",
+            "########################################",
+            "########################################",
+            "########################################",
+            "########################################"
+          ],
+          "doors": [
+            {
+              "id": "throne-west",
+              "label": "Bellows Bridge",
+              "x": 1,
+              "y": 16,
+              "w": 2.5,
+              "h": 2.2,
+              "to": "keep-bridge",
+              "entry": {
+                "x": 35,
+                "y": 16
+              }
+            }
+          ],
+          "pickups": [
+            {
+              "id": "lore-throne",
+              "x": 12,
+              "y": 14.0,
+              "kind": "lore",
+              "label": "Throne Inscription",
+              "icon": "assetrizz/hollow-icon-lore.png",
+              "text": "No crown can hold a king who has forgotten his name."
+            }
+          ],
+          "enemies": [
+            {
+              "id": "hollow-king",
+              "type": "hollow-king",
+              "x": 26,
+              "y": 15.8
+            }
+          ],
+          "checkpoints": [],
+          "npcs": [],
+          "props": [
+            {
+              "kind": "statue",
+              "x": 5,
+              "y": 13
+            },
+            {
+              "kind": "statue",
+              "x": 34,
+              "y": 13
+            },
+            {
+              "kind": "arch",
+              "x": 2,
+              "y": 3,
+              "w": 2,
+              "h": 5
+            },
+            {
+              "kind": "arch",
+              "x": 36,
+              "y": 3,
+              "w": 2,
+              "h": 5
+            },
+            {
+              "kind": "banner",
+              "x": 18,
+              "y": 6,
+              "w": 1,
+              "h": 6
+            }
+          ]
+        }
+      ],
+      "abilities": [
+        {
+          "id": "saber",
+          "name": "Lantern Saber",
+          "description": "A three-step blade combination. The third strike lunges through the dark.",
+          "kind": "combat",
+          "icon": "assetrizz/hollow-icon-saber.png",
+          "control": "J"
+        },
+        {
+          "id": "double-jump",
+          "name": "Windroot",
+          "description": "A second leap in the air. The windroot catches your heels.",
+          "kind": "movement",
+          "icon": "assetrizz/hollow-icon-double-jump.png",
+          "control": "Space in air"
+        },
+        {
+          "id": "dash",
+          "name": "Emberstep",
+          "description": "A quick ground or air dash that leaves danger one breath behind.",
+          "kind": "movement",
+          "icon": "assetrizz/hollow-icon-dash.png",
+          "control": "K"
+        },
+        {
+          "id": "wall-cling",
+          "name": "Rootgrip",
+          "description": "Hold into a wall to slow the fall and leap away from it.",
+          "kind": "movement",
+          "icon": "assetrizz/hollow-icon-wall.png",
+          "control": "Hold toward wall"
+        },
+        {
+          "id": "ember-bolt",
+          "name": "Lantern Bolt",
+          "description": "Spend 10 focus to loose a piercing ember of lantern-light.",
+          "kind": "combat",
+          "icon": "assetrizz/hollow-icon-bolt.png",
+          "control": "L"
+        }
+      ],
+      "enemies": [
+        {
+          "id": "goblin",
+          "name": "Moss Goblin",
+          "kind": "walker",
+          "health": 32,
+          "damage": 8,
+          "speed": 4.2,
+          "w": 0.85,
+          "h": 1.4,
+          "sprite": "grunt",
+          "tint": "#b7c58a",
+          "attackRange": 1.5
+        },
+        {
+          "id": "spider",
+          "name": "Thorn Spider",
+          "kind": "charger",
+          "health": 22,
+          "damage": 7,
+          "speed": 5.4,
+          "w": 1.2,
+          "h": 0.9,
+          "sprite": "spider",
+          "tint": "#8a6e51",
+          "attackRange": 1.5
+        },
+        {
+          "id": "bat",
+          "name": "Cave Bat",
+          "kind": "flyer",
+          "health": 18,
+          "damage": 6,
+          "speed": 4.8,
+          "w": 1.2,
+          "h": 1.0,
+          "sprite": "bat",
+          "tint": "#b39fcb",
+          "attackRange": 1.4
+        },
+        {
+          "id": "skeleton",
+          "name": "Bone Archivist",
+          "kind": "walker",
+          "health": 48,
+          "damage": 11,
+          "speed": 3.6,
+          "w": 0.9,
+          "h": 1.8,
+          "sprite": "skeleton",
+          "tint": "#d7d0b6",
+          "attackRange": 1.7
+        },
+        {
+          "id": "ghost",
+          "name": "Drowned Echo",
+          "kind": "flyer",
+          "health": 30,
+          "damage": 9,
+          "speed": 3.8,
+          "w": 1.1,
+          "h": 1.5,
+          "sprite": "ghost",
+          "tint": "#8fc8d1",
+          "attackRange": 7,
+          "projectile": true
+        },
+        {
+          "id": "golem",
+          "name": "Cinder Golem",
+          "kind": "charger",
+          "health": 95,
+          "damage": 16,
+          "speed": 2.9,
+          "w": 1.4,
+          "h": 1.8,
+          "sprite": "golem",
+          "tint": "#d6a276",
+          "attackRange": 2.0
+        },
+        {
+          "id": "hollow-king",
+          "name": "The Hollow King",
+          "kind": "boss",
+          "health": 340,
+          "damage": 18,
+          "speed": 3.6,
+          "w": 1.8,
+          "h": 2.2,
+          "sprite": "golem",
+          "tint": "#b49ad7",
+          "scale": 1.35,
+          "attackRange": 2.4,
+          "boss": true
+        }
+      ],
+      "victory": {
+        "title": "THE LANTERN RISES",
+        "text": "The Hollow King falls, and the three suns answer the lantern. For the first time in an age, morning reaches Hollowmere."
+      }
+    }
+  }
+]

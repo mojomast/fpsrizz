@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "id": "hollowmere/game",
+  "name": "Hollowmere metroidvania",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Side-scrolling exploration, ability-gated traversal, combat, checkpoints, inventory, world-map observation and a final boss for the Hollowmere family.",
+  "dependencies": {
+    "mechanics/platforming": "^1.0.0",
+    "mechanics/capabilities": "^1.0.0",
+    "mechanics/room-map": "^1.0.0",
+    "mechanics/inventory": "^1.0.0"
+  },
+  "capabilities": ["simulation", "input"],
+  "requiresRoles": ["sdk/experience", "sdk/platformer", "sdk/capabilities", "sdk/room-map", "sdk/mechanic-inventory"],
+  "roleDependencies": ["sdk/platformer", "sdk/capabilities", "sdk/room-map", "sdk/mechanic-inventory"]
+}

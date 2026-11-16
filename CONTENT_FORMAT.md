@@ -77,7 +77,8 @@ code/content policy rather than a separate content kind; the Ash Oracle reuses t
 preset selects `cinder/vault` and the resource, clock, action, objective, progression, inventory and crafting roles.
 Optional profile keys `cinder/vault.v1.embers`, `.runs`, `.threat` and `.mastery.<class>` hold nonnegative integers; invalid
 values read as zero. They store legacy, attempt count, best cleared threat rank and persistent class mastery, not a
-resumable run or inventory. See
+resumable run or inventory. Hollowmere uses `hollowmere/save.v1` and `hollowmere/options.v1` JSON strings with schema 1;
+invalid saves are ignored and start a fresh run. See
 [Cinder Vault](docs/cinder-vault.md), [classes and loot](docs/cinder-classes.md), [inventory](docs/inventory.md),
 [crafting](docs/crafting.md) and [seeded dungeon rooms](docs/dungeon-generator.md).
 
@@ -94,6 +95,7 @@ These use the same content-entry envelope and staged `Reporter` validation, with
 | `mechanic-kit` | `mechanics/kits` | Referenced by a game definition | Immutable resources, actions, explicit clock domain and objectives; [schema and limits](docs/reusable-mechanics.md#strict-mechanic-kit-content) |
 | `item` | `mechanics/inventory` | Referenced by inventory consumers | Stackable item definitions with optional equipment slot, rarity and presentation icon; [inventory](docs/inventory.md) |
 | `crafting-recipe` | `mechanics/crafting` | Known by a crafting consumer | 1–6 item inputs and one item output; no currency, failure or discovery in the generic format; [crafting](docs/crafting.md) |
+| `metroidvania-world` | `hollowmere/game` | `options.world` | Twelve-room graph, ability definitions, enemy archetypes, item/ability pickups, doors, checkpoints and NPCs for the Hollowmere family; [Hollowmere](docs/hollowmere.md) |
 | `sky-route` | `sky/game` | `options.route` | `src/plugins/sky-content/content.json`; [flight schema](docs/sky-salvage.md) |
 | `ember-defense` | `ember/game` | `options.defense` | `src/plugins/ember-content/content.json`; [defense schema](docs/ember-bastion.md) |
 | `verdant-world` | `verdant/game` | `options.world` | `src/plugins/verdant-content/content.json`; [colony schema](docs/verdant-relay.md) |

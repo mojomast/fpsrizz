@@ -31,6 +31,13 @@ state the common rule, ownership and timing promises, differing consumer policie
     compiled into the app, not installed as runtime JavaScript.
     It also shows related candidates and creates `reuse.json`; document the new capability's limits and reuse examples.
 
+## Compose visually or from JSON
+
+Creator tools now includes a **Canvas** tab. It edits `GameGraph v1` — plugin nodes, dependency projections, exclusive role slots,
+options and typed config — and compiles to the normal preset before host-staged validation/apply. Humans can drag nodes and role
+ports; agents can edit the same graph JSON without coordinates. See [game-composer.md](docs/game-composer.md) and
+`npm run graph -- --help`. Use this when composing existing plugins and roles; authored content rows/maps still belong in content packs.
+
 ## Assemble the game
 
 1. Create a content pack under `src/plugins/`: a `manifest.json` with `kind: "content"` and a `content.json` array.

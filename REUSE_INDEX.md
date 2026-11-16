@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7`
+Source digest: `6fd7deba7e8ea3736cd0540729f5d2162af46e962637cde6dcc2abddb068fd0f`
 
 ## Composition recipes
 
@@ -71,15 +71,21 @@ Source digest: `c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7
 | `example/tactical-pack` | content | A compact objective mission and magazine-fed carbine using the industrial theme. | [source](src/plugins/example-tactical-pack) |
 | `example/time-trial` | unreviewed | Activate the objective switches and escape before time runs out. | [source](src/plugins/example-time-trial) |
 | `example/ward` | family | Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry. | [source](src/plugins/example-ward) |
+| `hollowmere/content` | content | Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family. | [source](src/plugins/hollowmere-content) |
+| `hollowmere/game` | family | Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss. | [source](src/plugins/hollowmere-game) |
+| `hollowmere/presentation` | presentation | Canvas-rendered room view plus DOM field journal: world map, inventory, capabilities, stats and persisted options. | [source](src/plugins/hollowmere-presentation) |
 | `mechanics/actions` | cross-genre | Data-defined action costs, gains and cooldowns for abilities, crafting, repairs, attacks and production. | [source](src/plugins/mechanics-actions) |
+| `mechanics/capabilities` | cross-genre | Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects. | [source](src/plugins/mechanics-capabilities) |
 | `mechanics/clock` | cross-genre | Explicit, consumer-advanced seconds or turn clocks; the SDK createDeadline helper borrows compatible clocks for pollable duration windows. | [source](src/plugins/mechanics-clock) |
 | `mechanics/crafting` | cross-genre | Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback. | [source](src/plugins/mechanics-crafting) |
 | `mechanics/inventory` | cross-genre | Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations. | [source](src/plugins/mechanics-inventory) |
 | `mechanics/kits` | cross-genre | Validated JSON mechanic kits combine resources, actions, clock domains and objectives without new gameplay code. | [source](src/plugins/mechanics-kits) |
 | `mechanics/navigation` | cross-genre | Pure deterministic unit-edge graph queries returning ordered shortest distances and canonical first steps. | [source](src/plugins/mechanics-navigation) |
 | `mechanics/objectives` | cross-genre | Objective counters, prerequisite unlocks and idempotent progress receipts for quests, deliveries, waves and restoration. | [source](src/plugins/mechanics-objectives) |
+| `mechanics/platforming` | cross-genre | AABB side-scrolling movement with coyote/buffered jumps, variable height, double jump, dash, wall slide and wall jump. | [source](src/plugins/mechanics-platforming) |
 | `mechanics/progression` | cross-genre | Owned XP and level ledgers with deterministic linear curves, multi-level grants, capped levels and pending game-defined level rewards. | [source](src/plugins/mechanics-progression) |
 | `mechanics/resources` | cross-genre | Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation. | [source](src/plugins/mechanics-resources) |
+| `mechanics/room-map` | cross-genre | Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations. | [source](src/plugins/mechanics-room-map) |
 | `mechanics/sequence` | cross-genre | Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion. | [source](src/plugins/mechanics-sequence) |
 | `presentation/camera-modes` | cross-genre | Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service. | [source](src/plugins/presentation-camera-modes) |
 | `presentation/player-avatar` | cross-genre | Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes. | [source](src/plugins/presentation-player-avatar) |
@@ -93,7 +99,7 @@ Source digest: `c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7
 | `story/chapter` | content | A lighthouse mystery in three rooms. | [source](src/plugins/story-chapter) |
 | `story/presentation` | unreviewed | Illustrated point-and-click adventure interface. | [source](src/plugins/story-presentation) |
 | `theme/arcade` | unreviewed | Pinned Assetrizz synth tiles, pennant, city and scooter badge; original top-down vehicle and synthesized arcade cues. | [source](src/plugins/theme-arcade) |
-| `theme/assetrizz` | presentation | Pinned Assetrizz sci-fi/fantasy world tiles, enemy, NPC and class-avatar strips, NPC portraits, six original Gloamforge weapon views/card previews, and a cropped-stone Cinder theme variant. | [source](src/plugins/theme-assetrizz) |
+| `theme/assetrizz` | presentation | Pinned Assetrizz sci-fi and hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops, ornate icons, six original Gloamforge weapon views and Cinder/Hollowmere theme variants. | [source](src/plugins/theme-assetrizz) |
 | `theme/board` | unreviewed | Pinned Assetrizz voxel explorer, chalk golem, rock cover and timber tiles with synthesized tactile board-game cues. | [source](src/plugins/theme-board) |
 | `theme/industrial` | unreviewed | Procedural industrial-sci-fi art, sprites and synthesized sound effects. | [source](src/plugins/theme-industrial) |
 | `theme/story` | unreviewed | Pinned Assetrizz ink-watercolor observatory, keeper and loupe, a hand-painted brass key, and synthesized glass-like story cues. | [source](src/plugins/theme-story) |
@@ -121,6 +127,9 @@ Source digest: `c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7
 | `sdk/AttackFired` | contract | Public SDK value: sdk/attack-fired | [source](src/sdk/contracts/shooter.ts#L359) |
 | `sdk/Audio` | contract | Public SDK value: sdk/audio | [source](src/sdk/contracts/shooter.ts#L640) |
 | `sdk/CameraRole` | contract | Public SDK value: sdk/camera | [source](src/sdk/contracts/shooter.ts#L662) |
+| `sdk/capabilityMechanic` | contract | Public helper/class | [source](src/sdk/contracts/capabilities.ts#L53) |
+| `sdk/CapabilityRole` | contract | Public SDK value: sdk/capabilities | [source](src/sdk/contracts/capabilities.ts#L50) |
+| `sdk/CapabilityUnlocked` | contract | Public SDK value: sdk/capability-unlocked | [source](src/sdk/contracts/capabilities.ts#L51) |
 | `sdk/Cinder` | contract | Public SDK value: cinder/run | [source](src/sdk/contracts/cinder.ts#L196) |
 | `sdk/clockMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L132) |
 | `sdk/ClockMechanicRole` | contract | Public SDK value: sdk/mechanic-clock | [source](src/sdk/contracts/mechanics.ts#L101) |
@@ -135,6 +144,7 @@ Source digest: `c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7
 | `sdk/createDeadline` | contract | Public helper/class | [source](src/sdk/contracts/deadlines.ts#L32) |
 | `sdk/createMechanicKit` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L148) |
 | `sdk/createOwnedInstances` | contract | Public helper/class | [source](src/sdk/contracts/owned-instances.ts#L15) |
+| `sdk/createPlatformerBody` | contract | Public helper/class | [source](src/sdk/contracts/platforming.ts#L123) |
 | `sdk/Damaged` | contract | Public SDK value: sdk/damaged | [source](src/sdk/contracts/shooter.ts#L357) |
 | `sdk/DamageModifiers` | contract | Public SDK value: damage-modifier | [source](src/sdk/contracts/shooter.ts#L439) |
 | `sdk/DealDamage` | contract | Public SDK value: sdk/deal-damage | [source](src/sdk/contracts/shooter.ts#L355) |
@@ -181,6 +191,8 @@ Source digest: `c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7
 | `sdk/MechanicObjectiveChanged` | contract | Public SDK value: mechanics/objective-changed | [source](src/sdk/contracts/mechanics.ts#L107) |
 | `sdk/MechanicProgressionChanged` | contract | Public SDK value: mechanics/progression-changed | [source](src/sdk/contracts/progression.ts#L47) |
 | `sdk/MechanicResourcesChanged` | contract | Public SDK value: mechanics/resources-changed | [source](src/sdk/contracts/mechanics.ts#L105) |
+| `sdk/Metroidvania` | contract | Public SDK value: hollowmere/run | [source](src/sdk/contracts/metroidvania.ts#L237) |
+| `sdk/MetroidvaniaWorlds` | contract | Public SDK value: metroidvania-world | [source](src/sdk/contracts/metroidvania.ts#L235) |
 | `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](src/sdk/contracts/shooter.ts#L664) |
 | `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](src/sdk/contracts/navigation.ts#L34) |
 | `sdk/objectiveMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L142) |
@@ -192,6 +204,9 @@ Source digest: `c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7
 | `sdk/PickupCollected` | contract | Public SDK value: sdk/pickup-collected | [source](src/sdk/contracts/shooter.ts#L364) |
 | `sdk/PickupEffects` | contract | Public SDK value: pickup-effect | [source](src/sdk/contracts/shooter.ts#L492) |
 | `sdk/Pickups` | contract | Public SDK value: pickup | [source](src/sdk/contracts/shooter.ts#L502) |
+| `sdk/PLATFORMER_DEFAULTS` | contract | Public SDK value | [source](src/sdk/contracts/platforming.ts#L29) |
+| `sdk/platformerMechanic` | contract | Public helper/class | [source](src/sdk/contracts/platforming.ts#L139) |
+| `sdk/PlatformerRole` | contract | Public SDK value: sdk/platformer | [source](src/sdk/contracts/platforming.ts#L121) |
 | `sdk/Player` | contract | Public SDK value: sdk/player | [source](src/sdk/contracts/shooter.ts#L70) |
 | `sdk/PlayerAvatar` | contract | Public SDK value: sdk/player-avatar | [source](src/sdk/contracts/shooter.ts#L140) |
 | `sdk/Prefabs` | contract | Public SDK value: prefab | [source](src/sdk/contracts/shooter.ts#L332) |
@@ -209,6 +224,9 @@ Source digest: `c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7
 | `sdk/resourceMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L127) |
 | `sdk/ResourceMechanicRole` | contract | Public SDK value: sdk/mechanic-resources | [source](src/sdk/contracts/mechanics.ts#L100) |
 | `sdk/ResourcePoolProviders` | contract | Public SDK value: mechanic-resource-provider | [source](src/sdk/contracts/mechanics.ts#L96) |
+| `sdk/RoomMapChanged` | contract | Public SDK value: sdk/room-map-changed | [source](src/sdk/contracts/room-map.ts#L44) |
+| `sdk/roomMapMechanic` | contract | Public helper/class | [source](src/sdk/contracts/room-map.ts#L46) |
+| `sdk/RoomMapRole` | contract | Public SDK value: sdk/room-map | [source](src/sdk/contracts/room-map.ts#L43) |
 | `sdk/Scope` | contract | Public helper/class | [source](src/sdk/core.ts#L45) |
 | `sdk/ScopeDisposedError` | contract | Public helper/class | [source](src/kernel/scope.ts#L4) |
 | `sdk/SDK_VERSION` | contract | Public SDK value | [source](src/sdk/core.ts#L10) |

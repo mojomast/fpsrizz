@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "id": "hollowmere/presentation",
+  "name": "Hollowmere canvas presentation",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Canvas-rendered Hollowmere world, Assetrizz HUD, tabbed pause journal, world map, inventory, capabilities, stats and options.",
+  "dependencies": {
+    "hollowmere/game": "^1.0.0"
+  },
+  "capabilities": [
+    "ui"
+  ],
+  "requiresRoles": [
+    "sdk/hud",
+    "sdk/theme"
+  ]
+}

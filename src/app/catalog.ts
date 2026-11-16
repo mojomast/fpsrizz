@@ -118,6 +118,14 @@ import mechanicInventory from '../plugins/mechanics-inventory/manifest.json' wit
 import mechanicCrafting from '../plugins/mechanics-crafting/manifest.json' with { type: 'json' };
 import presentationCameraModes from '../plugins/presentation-camera-modes/manifest.json' with { type: 'json' };
 import presentationPlayerAvatar from '../plugins/presentation-player-avatar/manifest.json' with { type: 'json' };
+import platformingMechanic from '../plugins/mechanics-platforming/manifest.json' with { type: 'json' };
+import capabilitiesMechanic from '../plugins/mechanics-capabilities/manifest.json' with { type: 'json' };
+import roomMapMechanic from '../plugins/mechanics-room-map/manifest.json' with { type: 'json' };
+import hollowmereGame from '../plugins/hollowmere-game/manifest.json' with { type: 'json' };
+import hollowmerePresentation from '../plugins/hollowmere-presentation/manifest.json' with { type: 'json' };
+import hollowmerePack from '../plugins/hollowmere-content/manifest.json' with { type: 'json' };
+import hollowmereContent from '../plugins/hollowmere-content/content.json' with { type: 'json' };
+import hollowmerePreset from '../content/presets/hollowmere-ascent.json' with { type: 'json' };
 
 export const catalog: CatalogEntry[] = [
   { manifest: dungeonGenerator, load: () => import('../plugins/dungeon-generator/index.ts') },
@@ -131,6 +139,12 @@ export const catalog: CatalogEntry[] = [
   { manifest: mechanicCrafting, load: () => import('../plugins/mechanics-crafting/index.ts') },
   { manifest: presentationCameraModes, load: () => import('../plugins/presentation-camera-modes/index.ts') },
   { manifest: presentationPlayerAvatar, load: () => import('../plugins/presentation-player-avatar/index.ts') },
+  { manifest: platformingMechanic, load: () => import('../plugins/mechanics-platforming/index.ts') },
+  { manifest: capabilitiesMechanic, load: () => import('../plugins/mechanics-capabilities/index.ts') },
+  { manifest: roomMapMechanic, load: () => import('../plugins/mechanics-room-map/index.ts') },
+  { manifest: hollowmereGame, load: () => import('../plugins/hollowmere-game/index.ts') },
+  { manifest: hollowmerePresentation, load: () => import('../plugins/hollowmere-presentation/index.ts') },
+  { manifest: hollowmerePack, content: hollowmereContent },
   { manifest: world, load: () => import('../plugins/core-world/index.ts') },
   { manifest: combat, load: () => import('../plugins/core-combat/index.ts') },
   { manifest: player, load: () => import('../plugins/core-player/index.ts') },
@@ -197,4 +211,4 @@ export const catalog: CatalogEntry[] = [
 ];
 
 /** Built-in presets offered by the start screen and creator panel. The first one is the default. */
-export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset];
+export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset, hollowmerePreset];

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7",
+  "sourceDigest": "6fd7deba7e8ea3736cd0540729f5d2162af46e962637cde6dcc2abddb068fd0f",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -6042,6 +6042,372 @@
       "recipes": []
     },
     {
+      "id": "hollowmere/content",
+      "type": "plugin",
+      "name": "Hollowmere world and relics",
+      "scope": "content",
+      "summary": "Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family.",
+      "source": "src/plugins/hollowmere-content",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "metroidvania",
+        "assetrizz",
+        "room graph",
+        "world map",
+        "sun sigil",
+        "ability gate",
+        "moss tonic",
+        "hollow king",
+        "goblin",
+        "golem"
+      ],
+      "entryPoints": [
+        "Items",
+        "MetroidvaniaWorlds"
+      ],
+      "useWhen": "Inspect or extend Hollowmere's authored rooms, item definitions and enemy roster; gameplay policy stays in hollowmere/game.",
+      "limitations": [
+        "Authored content, not a procedural generator. It depends on the family game loader and inventory item registry.",
+        "Map coordinates, room rows and ability-gate references are validated but do not prove every route is physically reachable."
+      ],
+      "docs": [
+        "docs/hollowmere.md"
+      ],
+      "examples": [
+        "src/content/presets/hollowmere-ascent.json"
+      ],
+      "tests": [
+        "tests/hollowmere.test.ts"
+      ],
+      "dependencies": {
+        "hollowmere/game": "^1.0.0",
+        "mechanics/inventory": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "hollowmere/content",
+        "hollowmere/game",
+        "mechanics/capabilities",
+        "mechanics/inventory",
+        "mechanics/platforming",
+        "mechanics/room-map"
+      ],
+      "registrations": [
+        {
+          "kind": "item",
+          "id": "hollowmere/focus-draught",
+          "description": "Restore 30 focus for the Lantern Bolt."
+        },
+        {
+          "kind": "item",
+          "id": "hollowmere/moss-tonic",
+          "description": "Restore 35 health. The green of Hollowmere still remembers how to heal."
+        },
+        {
+          "kind": "item",
+          "id": "hollowmere/sun-sigil-ember",
+          "description": "One of the three suns. It remembers the last hearth."
+        },
+        {
+          "kind": "item",
+          "id": "hollowmere/sun-sigil-moss",
+          "description": "One of the three suns. The crown door answers to its green light."
+        },
+        {
+          "kind": "item",
+          "id": "hollowmere/sun-sigil-tide",
+          "description": "One of the three suns. It is cold, but it burns."
+        },
+        {
+          "kind": "metroidvania-world",
+          "id": "hollowmere/world",
+          "description": "HOLLOWMERE"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "hollowmere/ascent",
+          "name": "HOLLOWMERE — The Lantern Below",
+          "roles": {
+            "sdk/experience": "hollowmere/ascent",
+            "sdk/hud": "hollowmere/hud",
+            "sdk/theme": "theme/assetrizz-hollowmere",
+            "sdk/platformer": "mechanics/platforming",
+            "sdk/capabilities": "mechanics/capabilities",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "hollowmere/game",
+      "type": "plugin",
+      "name": "Hollowmere metroidvania",
+      "scope": "family",
+      "summary": "Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss.",
+      "source": "src/plugins/hollowmere-game",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "metroidvania",
+        "platformer",
+        "side scroller",
+        "combat",
+        "ability gate",
+        "double jump",
+        "dash",
+        "wall jump",
+        "world map",
+        "checkpoint",
+        "boss",
+        "inventory",
+        "save",
+        "exploration",
+        "assetrizz"
+      ],
+      "entryPoints": [
+        "Metroidvania",
+        "MetroidvaniaWorlds",
+        "ExperienceRole",
+        "PlatformerRole",
+        "CapabilityRole",
+        "RoomMapRole"
+      ],
+      "useWhen": "Compose Hollowmere's side-scrolling exploration and combat around replaceable platform, capability, room-map and inventory providers.",
+      "limitations": [
+        "Hollowmere family authority with a hand-authored room graph; not a general level editor or physics engine.",
+        "Physical reachability, room art, dialogue policy and boss balance remain authored content/playtest concerns.",
+        "Save is checkpoint-based and schema-versioned; no mid-room restore or cloud sync."
+      ],
+      "docs": [
+        "docs/hollowmere.md",
+        "docs/research/game-composer-2026-11-16.md"
+      ],
+      "examples": [
+        "src/content/presets/hollowmere-ascent.json",
+        "src/plugins/hollowmere-content/content.json"
+      ],
+      "tests": [
+        "tests/hollowmere.test.ts",
+        "tests/hollowmere-demo/run.mjs"
+      ],
+      "dependencies": {
+        "mechanics/platforming": "^1.0.0",
+        "mechanics/capabilities": "^1.0.0",
+        "mechanics/room-map": "^1.0.0",
+        "mechanics/inventory": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/experience",
+        "sdk/platformer",
+        "sdk/capabilities",
+        "sdk/room-map",
+        "sdk/mechanic-inventory"
+      ],
+      "roleDependencies": [
+        "sdk/platformer",
+        "sdk/capabilities",
+        "sdk/room-map",
+        "sdk/mechanic-inventory"
+      ],
+      "config": {},
+      "enable": [
+        "hollowmere/game",
+        "mechanics/capabilities",
+        "mechanics/inventory",
+        "mechanics/platforming",
+        "mechanics/room-map"
+      ],
+      "registrations": [
+        {
+          "kind": "input-action",
+          "id": "hollowmere/attack",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/bolt",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/dash",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/down",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/interact",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/jump",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/left",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/map",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/pause",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/right",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "hollowmere/up",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/experience",
+          "id": "hollowmere/ascent",
+          "description": "A hand-painted side-scrolling metroidvania. Explore, fight, unlock movement and break the crown."
+        }
+      ],
+      "contentKinds": [
+        {
+          "kind": "metroidvania-world",
+          "description": "An interconnected side-scrolling room graph with abilities, enemies, checkpoints and world-map regions."
+        }
+      ],
+      "presets": [
+        {
+          "id": "hollowmere/ascent",
+          "name": "HOLLOWMERE — The Lantern Below",
+          "roles": {
+            "sdk/experience": "hollowmere/ascent",
+            "sdk/hud": "hollowmere/hud",
+            "sdk/theme": "theme/assetrizz-hollowmere",
+            "sdk/platformer": "mechanics/platforming",
+            "sdk/capabilities": "mechanics/capabilities",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "hollowmere/presentation",
+      "type": "plugin",
+      "name": "Hollowmere canvas presentation",
+      "scope": "presentation",
+      "summary": "Canvas-rendered room view plus DOM field journal: world map, inventory, capabilities, stats and persisted options.",
+      "source": "src/plugins/hollowmere-presentation",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "metroidvania",
+        "canvas",
+        "hud",
+        "pause menu",
+        "world map",
+        "inventory",
+        "capabilities",
+        "stats",
+        "options",
+        "assetrizz",
+        "tabbed journal"
+      ],
+      "entryPoints": [
+        "HudRole",
+        "Metroidvania",
+        "ThemeRole",
+        "Ui",
+        "Profile"
+      ],
+      "useWhen": "Present Hollowmere's state or reuse the tabbed journal pattern around a compatible family service.",
+      "limitations": [
+        "Consumes Hollowmere's observation contract; canvas drawing is not a general scene renderer.",
+        "Keyboard-first pause navigation with optional pointer buttons; no gamepad or remappable bindings yet."
+      ],
+      "docs": [
+        "docs/hollowmere.md"
+      ],
+      "examples": [
+        "src/content/presets/hollowmere-ascent.json"
+      ],
+      "tests": [
+        "tests/hollowmere.test.ts",
+        "tests/hollowmere-demo/run.mjs"
+      ],
+      "dependencies": {
+        "hollowmere/game": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/hud",
+        "sdk/theme"
+      ],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "hollowmere/game",
+        "hollowmere/presentation",
+        "mechanics/capabilities",
+        "mechanics/inventory",
+        "mechanics/platforming",
+        "mechanics/room-map"
+      ],
+      "registrations": [
+        {
+          "kind": "role:sdk/hud",
+          "id": "hollowmere/hud",
+          "description": "Canvas-rendered Assetrizz rooms and a tabbed pause journal for map, inventory, capabilities, stats and options."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "hollowmere/ascent",
+          "name": "HOLLOWMERE — The Lantern Below",
+          "roles": {
+            "sdk/experience": "hollowmere/ascent",
+            "sdk/hud": "hollowmere/hud",
+            "sdk/theme": "theme/assetrizz-hollowmere",
+            "sdk/platformer": "mechanics/platforming",
+            "sdk/capabilities": "mechanics/capabilities",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
       "id": "mechanics/actions",
       "type": "plugin",
       "name": "Resource actions",
@@ -6175,6 +6541,83 @@
         "recipe/resource-actions",
         "recipe/independent-actor-actions"
       ]
+    },
+    {
+      "id": "mechanics/capabilities",
+      "type": "plugin",
+      "name": "Capability ledger",
+      "scope": "cross-genre",
+      "summary": "Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects.",
+      "source": "src/plugins/mechanics-capabilities",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "ability",
+        "capability",
+        "unlock",
+        "gate",
+        "permission",
+        "license",
+        "metroidvania",
+        "upgrade",
+        "rank",
+        "progression",
+        "inventory-free"
+      ],
+      "entryPoints": [
+        "CapabilityRole",
+        "CapabilityUnlocked",
+        "capabilityMechanic"
+      ],
+      "useWhen": "A game needs durable named unlocks that gate traversal, combat, crafting or narrative options without embedding the effects in the ledger.",
+      "limitations": [
+        "Unlocks are session state unless the consumer persists them. Definitions and effect policy remain consumer-owned.",
+        "No dependency graph, prerequisites, costs or automatic rewards; the consumer decides when to call unlock."
+      ],
+      "docs": [
+        "docs/hollowmere.md"
+      ],
+      "examples": [
+        "src/plugins/hollowmere-game/index.ts"
+      ],
+      "tests": [
+        "tests/mechanics-metroidvania-providers.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/capabilities"
+      ],
+      "registrations": [
+        {
+          "kind": "role:sdk/capabilities",
+          "id": "mechanics/capabilities",
+          "description": "Named unlock/rank state with frozen observations and idempotent, non-regressing unlocks."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "hollowmere/ascent",
+          "name": "HOLLOWMERE — The Lantern Below",
+          "roles": {
+            "sdk/experience": "hollowmere/ascent",
+            "sdk/hud": "hollowmere/hud",
+            "sdk/theme": "theme/assetrizz-hollowmere",
+            "sdk/platformer": "mechanics/platforming",
+            "sdk/capabilities": "mechanics/capabilities",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory"
+          }
+        }
+      ],
+      "recipes": []
     },
     {
       "id": "mechanics/clock",
@@ -6503,6 +6946,19 @@
             "sdk/mechanic-progression": "mechanics/progression",
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
+          }
+        },
+        {
+          "id": "hollowmere/ascent",
+          "name": "HOLLOWMERE — The Lantern Below",
+          "roles": {
+            "sdk/experience": "hollowmere/ascent",
+            "sdk/hud": "hollowmere/hud",
+            "sdk/theme": "theme/assetrizz-hollowmere",
+            "sdk/platformer": "mechanics/platforming",
+            "sdk/capabilities": "mechanics/capabilities",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory"
           }
         }
       ],
@@ -6851,6 +7307,87 @@
       ]
     },
     {
+      "id": "mechanics/platforming",
+      "type": "plugin",
+      "name": "Side-scrolling platform physics",
+      "scope": "cross-genre",
+      "summary": "AABB side-scrolling movement with coyote/buffered jumps, variable height, double jump, dash, wall slide and wall jump.",
+      "source": "src/plugins/mechanics-platforming",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "platformer",
+        "side scroller",
+        "movement",
+        "jump",
+        "double jump",
+        "dash",
+        "wall jump",
+        "wall slide",
+        "coyote time",
+        "jump buffer",
+        "gravity",
+        "collision",
+        "AABB",
+        "physics"
+      ],
+      "entryPoints": [
+        "PlatformerRole",
+        "createPlatformerBody",
+        "PLATFORMER_DEFAULTS"
+      ],
+      "useWhen": "A game needs deterministic side-view platform movement but keeps its own collision map, abilities, animation and combat policy.",
+      "limitations": [
+        "Axis-separated AABB collision only; no slopes, moving platforms, ladders or continuous sweep guarantees.",
+        "The consumer supplies collision queries and decides which abilities are unlocked. It owns entities, camera and presentation.",
+        "One-way platforms and drop-through are supported through the collision query, but authored map semantics stay with the game."
+      ],
+      "docs": [
+        "docs/hollowmere.md"
+      ],
+      "examples": [
+        "src/plugins/hollowmere-game/index.ts"
+      ],
+      "tests": [
+        "tests/mechanics-metroidvania-providers.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/platforming"
+      ],
+      "registrations": [
+        {
+          "kind": "role:sdk/platformer",
+          "id": "mechanics/platforming",
+          "description": "Coyote/buffered jumps, variable height, double jump, dash, wall slide/jump and axis-separated AABB collision."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "hollowmere/ascent",
+          "name": "HOLLOWMERE — The Lantern Below",
+          "roles": {
+            "sdk/experience": "hollowmere/ascent",
+            "sdk/hud": "hollowmere/hud",
+            "sdk/theme": "theme/assetrizz-hollowmere",
+            "sdk/platformer": "mechanics/platforming",
+            "sdk/capabilities": "mechanics/capabilities",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
       "id": "mechanics/progression",
       "type": "plugin",
       "name": "Experience and levels",
@@ -7078,6 +7615,82 @@
         "recipe/resource-actions",
         "recipe/independent-actor-actions"
       ]
+    },
+    {
+      "id": "mechanics/room-map",
+      "type": "plugin",
+      "name": "Explorable room map",
+      "scope": "cross-genre",
+      "summary": "Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations.",
+      "source": "src/plugins/mechanics-room-map",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "room map",
+        "world map",
+        "graph",
+        "metroidvania",
+        "map discovery",
+        "visited",
+        "revealed",
+        "exploration",
+        "current room",
+        "adventure"
+      ],
+      "entryPoints": [
+        "RoomMapRole",
+        "RoomMapChanged",
+        "roomMapMechanic"
+      ],
+      "useWhen": "A game has authored rooms and needs consistent visited/revealed/current state for maps and minimaps while keeping transitions local.",
+      "limitations": [
+        "No adjacency auto-linking, shortest paths, transitions, geometry, persistence or map rendering.",
+        "The provider validates room rectangles and links but does not prove spatial reachability or ability gates."
+      ],
+      "docs": [
+        "docs/hollowmere.md"
+      ],
+      "examples": [
+        "src/plugins/hollowmere-game/index.ts"
+      ],
+      "tests": [
+        "tests/mechanics-metroidvania-providers.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/room-map"
+      ],
+      "registrations": [
+        {
+          "kind": "role:sdk/room-map",
+          "id": "mechanics/room-map",
+          "description": "Validated room graph with current/visited/revealed state; consumers own transitions and rendering."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "hollowmere/ascent",
+          "name": "HOLLOWMERE — The Lantern Below",
+          "roles": {
+            "sdk/experience": "hollowmere/ascent",
+            "sdk/hud": "hollowmere/hud",
+            "sdk/theme": "theme/assetrizz-hollowmere",
+            "sdk/platformer": "mechanics/platforming",
+            "sdk/capabilities": "mechanics/capabilities",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory"
+          }
+        }
+      ],
+      "recipes": []
     },
     {
       "id": "mechanics/sequence",
@@ -8077,7 +8690,7 @@
       "type": "plugin",
       "name": "Assetrizz Dark Sci-Fi Theme",
       "scope": "presentation",
-      "summary": "Pinned Assetrizz sci-fi/fantasy world tiles, enemy, NPC and class-avatar strips, NPC portraits, six original Gloamforge weapon views/card previews, and a cropped-stone Cinder theme variant.",
+      "summary": "Pinned Assetrizz sci-fi and hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops, ornate icons, six original Gloamforge weapon views and Cinder/Hollowmere theme variants.",
       "source": "src/plugins/theme-assetrizz",
       "version": "1.0.0",
       "sdk": "^2.0.0",
@@ -8088,14 +8701,21 @@
         "art",
         "assetrizz",
         "avatar",
+        "backdrop",
+        "bat",
         "blacksmith",
         "cartographer",
         "cinder",
         "dungeon",
         "fantasy",
+        "ghost",
         "goblin",
+        "golem",
+        "hollowmere",
+        "icon",
         "imp",
         "knight",
+        "landscape",
         "mage",
         "npc",
         "player",
@@ -8103,7 +8723,9 @@
         "rogue",
         "scholar",
         "scifi",
+        "skeleton",
         "smith",
+        "spider",
         "theme",
         "tiles",
         "weapon"
@@ -8111,21 +8733,27 @@
       "entryPoints": [
         "ThemeRole"
       ],
-      "useWhen": "Select theme/assetrizz, theme/assetrizz-fantasy or theme/assetrizz-cinder for a shooter presentation using the standard theme keys.",
+      "useWhen": "Select a theme/assetrizz role for shooter or canvas presentations using the standard theme keys; Hollowmere also consumes public Assetrizz backdrops, portraits and UI icons.",
       "limitations": [
-        "Shooter-oriented texture/visual vocabulary. Assetrizz art provenance is original, generated for Kyle Durepos; weapon renders and synthesized sound have separate original provenance. NPC world strips are 64px billboard frames; portraits are authored 512px UI busts."
+        "Theme texture painters use the shooter/canvas semantic vocabulary; UI backdrops/portraits/icons are public-size files, not 64px world tiles.",
+        "Assetrizz art provenance is original, generated for Kyle Durepos; weapon renders and synthesized sound have separate original provenance.",
+        "The new region backdrops and expanded enemy strips do not imply a general terrain or animation-graph system."
       ],
       "docs": [
+        "assets/weapons/fantasy/README.md",
         "docs/cinder-vault.md",
-        "assets/weapons/fantasy/README.md"
+        "docs/hollowmere.md"
       ],
       "examples": [
         "src/content/presets/cinder-vault.json",
+        "src/content/presets/hollowmere-ascent.json",
         "src/plugins/core-presentation/index.ts"
       ],
       "tests": [
+        "tests/cinder-demo/run.mjs",
         "tests/cinder-vault.test.ts",
-        "tests/cinder-demo/run.mjs"
+        "tests/hollowmere-demo/run.mjs",
+        "tests/hollowmere.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -8151,6 +8779,11 @@
           "kind": "role:sdk/theme",
           "id": "theme/assetrizz-fantasy",
           "description": "Assetrizz Fantasy"
+        },
+        {
+          "kind": "role:sdk/theme",
+          "id": "theme/assetrizz-hollowmere",
+          "description": "Assetrizz Hollowmere"
         }
       ],
       "contentKinds": [],
@@ -8305,6 +8938,19 @@
             "sdk/mechanic-progression": "mechanics/progression",
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
+          }
+        },
+        {
+          "id": "hollowmere/ascent",
+          "name": "HOLLOWMERE — The Lantern Below",
+          "roles": {
+            "sdk/experience": "hollowmere/ascent",
+            "sdk/hud": "hollowmere/hud",
+            "sdk/theme": "theme/assetrizz-hollowmere",
+            "sdk/platformer": "mechanics/platforming",
+            "sdk/capabilities": "mechanics/capabilities",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory"
           }
         }
       ],
@@ -9354,6 +10000,91 @@
       ]
     },
     {
+      "id": "sdk/capabilityMechanic",
+      "type": "contract",
+      "name": "capabilityMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/capabilities.ts:53",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "capabilityMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/capabilities"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/CapabilityRole",
+      "type": "contract",
+      "name": "CapabilityRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/capabilities",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/capabilities",
+      "source": "src/sdk/contracts/capabilities.ts:50",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CapabilityRole",
+        "sdk/capabilities"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "hollowmere/game",
+        "mechanics/capabilities"
+      ],
+      "recipes": [],
+      "implementations": [
+        "mechanics/capabilities"
+      ]
+    },
+    {
+      "id": "sdk/CapabilityUnlocked",
+      "type": "contract",
+      "name": "CapabilityUnlocked",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/capability-unlocked",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/capability-unlocked",
+      "source": "src/sdk/contracts/capabilities.ts:51",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CapabilityUnlocked",
+        "sdk/capability-unlocked"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/capabilities"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Cinder",
       "type": "contract",
       "name": "Cinder",
@@ -9770,6 +10501,32 @@
       ],
       "documentedBy": [
         "mechanics/clock"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/createPlatformerBody",
+      "type": "contract",
+      "name": "createPlatformerBody",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/platforming.ts:123",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "createPlatformerBody"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/platforming"
       ],
       "recipes": [],
       "implementations": []
@@ -10277,7 +11034,9 @@
       "limitations": [
         "Rendering SDK imports require the render manifest capability."
       ],
-      "documentedBy": [],
+      "documentedBy": [
+        "hollowmere/game"
+      ],
       "recipes": [
         "recipe/scoped-input"
       ],
@@ -10285,6 +11044,7 @@
         "board/tactics",
         "cinder/game",
         "ember/game",
+        "hollowmere/game",
         "puzzle/rules",
         "sky/game",
         "story/adventure",
@@ -10393,13 +11153,15 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [
-        "cinder/hud"
+        "cinder/hud",
+        "hollowmere/presentation"
       ],
       "recipes": [],
       "implementations": [
         "cinder/hud",
         "core/hud",
-        "example/hud"
+        "example/hud",
+        "hollowmere/presentation"
       ]
     },
     {
@@ -10489,6 +11251,7 @@
         "core/player",
         "example/dash-controller",
         "example/racing",
+        "hollowmere/game",
         "presentation/camera-modes",
         "vehicle/racing"
       ]
@@ -10743,13 +11506,15 @@
       ],
       "documentedBy": [
         "cinder/content",
+        "hollowmere/content",
         "mechanics/inventory"
       ],
       "recipes": [
         "recipe/stack-inventory"
       ],
       "implementations": [
-        "cinder/content"
+        "cinder/content",
+        "hollowmere/content"
       ]
     },
     {
@@ -11090,6 +11855,66 @@
       "implementations": []
     },
     {
+      "id": "sdk/Metroidvania",
+      "type": "contract",
+      "name": "Metroidvania",
+      "scope": "contract",
+      "summary": "Public SDK value: hollowmere/run",
+      "importFrom": "src/sdk/index.ts",
+      "token": "hollowmere/run",
+      "source": "src/sdk/contracts/metroidvania.ts:237",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Metroidvania",
+        "hollowmere/run"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "hollowmere/game",
+        "hollowmere/presentation"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/MetroidvaniaWorlds",
+      "type": "contract",
+      "name": "MetroidvaniaWorlds",
+      "scope": "contract",
+      "summary": "Public SDK value: metroidvania-world",
+      "importFrom": "src/sdk/index.ts",
+      "token": "metroidvania-world",
+      "source": "src/sdk/contracts/metroidvania.ts:235",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "MetroidvaniaWorlds",
+        "metroidvania-world"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "hollowmere/content",
+        "hollowmere/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "hollowmere/content"
+      ]
+    },
+    {
       "id": "sdk/ModeRole",
       "type": "contract",
       "name": "ModeRole",
@@ -11422,6 +12247,87 @@
       ]
     },
     {
+      "id": "sdk/PLATFORMER_DEFAULTS",
+      "type": "contract",
+      "name": "PLATFORMER_DEFAULTS",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/platforming.ts:29",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PLATFORMER_DEFAULTS"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/platforming"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/platformerMechanic",
+      "type": "contract",
+      "name": "platformerMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/platforming.ts:139",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "platformerMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/PlatformerRole",
+      "type": "contract",
+      "name": "PlatformerRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/platformer",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/platformer",
+      "source": "src/sdk/contracts/platforming.ts:121",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PlatformerRole",
+        "sdk/platformer"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "hollowmere/game",
+        "mechanics/platforming"
+      ],
+      "recipes": [],
+      "implementations": [
+        "mechanics/platforming"
+      ]
+    },
+    {
       "id": "sdk/Player",
       "type": "contract",
       "name": "Player",
@@ -11541,7 +12447,9 @@
       "limitations": [
         "Rendering SDK imports require the render manifest capability."
       ],
-      "documentedBy": [],
+      "documentedBy": [
+        "hollowmere/presentation"
+      ],
       "recipes": [
         "recipe/profile-storage"
       ],
@@ -11922,6 +12830,91 @@
       "recipes": [],
       "implementations": [
         "mechanics/resources"
+      ]
+    },
+    {
+      "id": "sdk/RoomMapChanged",
+      "type": "contract",
+      "name": "RoomMapChanged",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/room-map-changed",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/room-map-changed",
+      "source": "src/sdk/contracts/room-map.ts:44",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "RoomMapChanged",
+        "sdk/room-map-changed"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/room-map"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/roomMapMechanic",
+      "type": "contract",
+      "name": "roomMapMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/room-map.ts:46",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "roomMapMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/room-map"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/RoomMapRole",
+      "type": "contract",
+      "name": "RoomMapRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/room-map",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/room-map",
+      "source": "src/sdk/contracts/room-map.ts:43",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "RoomMapRole",
+        "sdk/room-map"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "hollowmere/game",
+        "mechanics/room-map"
+      ],
+      "recipes": [],
+      "implementations": [
+        "mechanics/room-map"
       ]
     },
     {
@@ -12339,6 +13332,7 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [
+        "hollowmere/presentation",
         "theme/assetrizz"
       ],
       "recipes": [
@@ -12482,7 +13476,8 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [
-        "cinder/hud"
+        "cinder/hud",
+        "hollowmere/presentation"
       ],
       "recipes": [
         "recipe/owned-3d-presentation"
@@ -13642,6 +14637,29 @@
         "sdk/mechanic-progression": "mechanics/progression",
         "sdk/mechanic-inventory": "mechanics/inventory",
         "sdk/mechanic-crafting": "mechanics/crafting"
+      }
+    },
+    {
+      "id": "hollowmere/ascent",
+      "name": "HOLLOWMERE — The Lantern Below",
+      "plugins": [
+        "theme/assetrizz",
+        "mechanics/platforming",
+        "mechanics/capabilities",
+        "mechanics/room-map",
+        "mechanics/inventory",
+        "hollowmere/game",
+        "hollowmere/presentation",
+        "hollowmere/content"
+      ],
+      "roles": {
+        "sdk/experience": "hollowmere/ascent",
+        "sdk/hud": "hollowmere/hud",
+        "sdk/theme": "theme/assetrizz-hollowmere",
+        "sdk/platformer": "mechanics/platforming",
+        "sdk/capabilities": "mechanics/capabilities",
+        "sdk/room-map": "mechanics/room-map",
+        "sdk/mechanic-inventory": "mechanics/inventory"
       }
     }
   ]

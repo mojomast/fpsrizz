@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations.",
+  "keywords": [
+    "room map",
+    "world map",
+    "graph",
+    "metroidvania",
+    "map discovery",
+    "visited",
+    "revealed",
+    "exploration",
+    "current room",
+    "adventure"
+  ],
+  "entryPoints": [
+    "RoomMapRole",
+    "RoomMapChanged",
+    "roomMapMechanic"
+  ],
+  "useWhen": "A game has authored rooms and needs consistent visited/revealed/current state for maps and minimaps while keeping transitions local.",
+  "limitations": [
+    "No adjacency auto-linking, shortest paths, transitions, geometry, persistence or map rendering.",
+    "The provider validates room rectangles and links but does not prove spatial reachability or ability gates."
+  ],
+  "docs": [
+    "docs/hollowmere.md"
+  ],
+  "examples": [
+    "src/plugins/hollowmere-game/index.ts"
+  ],
+  "tests": [
+    "tests/mechanics-metroidvania-providers.test.ts"
+  ]
+}

@@ -22,7 +22,8 @@
     "index-reuse": "node scripts/index-reuse.mjs",
     "new-plugin": "node scripts/new-plugin.mjs",
     "validate-game": "node scripts/validate-game.mjs",
-    "vendor-three": "node scripts/vendor-three.mjs"
+    "vendor-three": "node scripts/vendor-three.mjs",
+    "graph": "node scripts/game-graph.mjs"
   },
   "devDependencies": {
     "@types/three": "0.187.0",

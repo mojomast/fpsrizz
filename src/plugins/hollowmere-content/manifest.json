@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "hollowmere/content",
+  "name": "Hollowmere world and relics",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^2.0.0",
+  "description": "Twelve-room interconnected Hollowmere world, three Sun Sigils, consumables, five abilities and seven enemy archetypes using Assetrizz art.",
+  "dependencies": {
+    "hollowmere/game": "^1.0.0",
+    "mechanics/inventory": "^1.0.0"
+  }
+}

@@ -1,20 +1,27 @@
 {
   "schema": 1,
   "scope": "presentation",
-  "summary": "Pinned Assetrizz sci-fi/fantasy world tiles, enemy, NPC and class-avatar strips, NPC portraits, six original Gloamforge weapon views/card previews, and a cropped-stone Cinder theme variant.",
+  "summary": "Pinned Assetrizz sci-fi and hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops, ornate icons, six original Gloamforge weapon views and Cinder/Hollowmere theme variants.",
   "keywords": [
     "armory",
     "art",
     "assetrizz",
     "avatar",
+    "backdrop",
+    "bat",
     "blacksmith",
     "cartographer",
     "cinder",
     "dungeon",
     "fantasy",
+    "ghost",
     "goblin",
+    "golem",
+    "hollowmere",
+    "icon",
     "imp",
     "knight",
+    "landscape",
     "mage",
     "npc",
     "player",
@@ -22,7 +29,9 @@
     "rogue",
     "scholar",
     "scifi",
+    "skeleton",
     "smith",
+    "spider",
     "theme",
     "tiles",
     "weapon"
@@ -30,20 +39,26 @@
   "entryPoints": [
     "ThemeRole"
   ],
-  "useWhen": "Select theme/assetrizz, theme/assetrizz-fantasy or theme/assetrizz-cinder for a shooter presentation using the standard theme keys.",
+  "useWhen": "Select a theme/assetrizz role for shooter or canvas presentations using the standard theme keys; Hollowmere also consumes public Assetrizz backdrops, portraits and UI icons.",
   "limitations": [
-    "Shooter-oriented texture/visual vocabulary. Assetrizz art provenance is original, generated for Kyle Durepos; weapon renders and synthesized sound have separate original provenance. NPC world strips are 64px billboard frames; portraits are authored 512px UI busts."
+    "Theme texture painters use the shooter/canvas semantic vocabulary; UI backdrops/portraits/icons are public-size files, not 64px world tiles.",
+    "Assetrizz art provenance is original, generated for Kyle Durepos; weapon renders and synthesized sound have separate original provenance.",
+    "The new region backdrops and expanded enemy strips do not imply a general terrain or animation-graph system."
   ],
   "docs": [
+    "assets/weapons/fantasy/README.md",
     "docs/cinder-vault.md",
-    "assets/weapons/fantasy/README.md"
+    "docs/hollowmere.md"
   ],
   "examples": [
     "src/content/presets/cinder-vault.json",
+    "src/content/presets/hollowmere-ascent.json",
     "src/plugins/core-presentation/index.ts"
   ],
   "tests": [
+    "tests/cinder-demo/run.mjs",
     "tests/cinder-vault.test.ts",
-    "tests/cinder-demo/run.mjs"
+    "tests/hollowmere-demo/run.mjs",
+    "tests/hollowmere.test.ts"
   ]
 }

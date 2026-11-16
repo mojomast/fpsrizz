@@ -121,6 +121,116 @@
       "key": "cinder-npc-cartographer",
       "path": "assets/hand_painted_fantasy/portraits/watch/night_watch_bust.png",
       "sha256": "966675c2233e95487361f23386f94d32096757d16a8dafd0466ba273827a2143"
+    },
+    {
+      "key": "hollow-bg-forest",
+      "path": "assets/hand_painted_fantasy/backgrounds/scene/forest_clearing_wide.png",
+      "sha256": "1bab760b207a7ba99ca1e43cf386bbea46c01d182a05d04375edc50d23082ed2"
+    },
+    {
+      "key": "hollow-bg-root",
+      "path": "assets/hand_painted_fantasy/backgrounds/scene/misty_swamp_wide.png",
+      "sha256": "b2b613938603facbc99ecd048072207aeb429f44cb1a400e31f93d93fe588573"
+    },
+    {
+      "key": "hollow-bg-archive",
+      "path": "assets/hand_painted_fantasy/backgrounds/scene/cave_interior_wide.png",
+      "sha256": "aefb8de755d48e1c16016e0358ec6474e67dc4c8c087816bd37c3bf8f2225501"
+    },
+    {
+      "key": "hollow-bg-keep",
+      "path": "assets/hand_painted_fantasy/backgrounds/scene/volcanic_plain_wide.png",
+      "sha256": "153d83d1da4ffad92fd58434eff53247a7930b4c398785bf0c7e2181b9916a05"
+    },
+    {
+      "key": "hollow-bg-throne",
+      "path": "assets/hand_painted_fantasy/backgrounds/scene/castle_hall_wide.png",
+      "sha256": "3811d5e63181e50330bce8b85bbd5781ca59ac63b02917a5caf0c7dcdbdce725"
+    },
+    {
+      "key": "hollow-icon-saber",
+      "path": "assets/hand_painted_fantasy/icons/weapon/longsword_ornate.png",
+      "sha256": "79e0df26168afd19c54eaa98de4d28268d2ac0aa593178c0f09cb8b725582875"
+    },
+    {
+      "key": "hollow-icon-double-jump",
+      "path": "assets/hand_painted_fantasy/icons/misc/feather_ornate.png",
+      "sha256": "48588dcf0d8a6037943790c713a43d49ed60006a7ab8ecaa7fb677748b882688"
+    },
+    {
+      "key": "hollow-icon-dash",
+      "path": "assets/hand_painted_fantasy/icons/armor/iron_boots_ornate.png",
+      "sha256": "711e92852e0afed6918a0fff59edb19567bf775ff6b86b7ed73ad5f4caf2fcf7"
+    },
+    {
+      "key": "hollow-icon-wall",
+      "path": "assets/hand_painted_fantasy/icons/armor/iron_gauntlet_ornate.png",
+      "sha256": "3c5b5f935843c128b18227f83d5285fd5187b7caeae28eaea6897166771d6c4a"
+    },
+    {
+      "key": "hollow-icon-bolt",
+      "path": "assets/hand_painted_fantasy/icons/weapon/crystal_wand_ornate.png",
+      "sha256": "f3c6e915d1a0dacf87c519197d9d246d8dd29d5a61297c7be49dd95f000c90bb"
+    },
+    {
+      "key": "hollow-icon-tonic",
+      "path": "assets/hand_painted_fantasy/icons/potion/health_potion_ornate.png",
+      "sha256": "f0624b2742cddac0a9119ef105090ff44f433145c76cbfbf9d8b2f7250553c10"
+    },
+    {
+      "key": "hollow-icon-focus",
+      "path": "assets/hand_painted_fantasy/icons/potion/mana_potion_ornate.png",
+      "sha256": "8b0196ca86a87afaa1251eb8603b778b7da1cbe240cf436c0a4a79a0143cc169"
+    },
+    {
+      "key": "hollow-icon-sigil-moss",
+      "path": "assets/hand_painted_fantasy/icons/valuable/cut_emerald_ornate.png",
+      "sha256": "9c0a2b3dc84efa09d3532fa0f73970f1e9adf2cba4706feca0332b3b65ed7cfb"
+    },
+    {
+      "key": "hollow-icon-sigil-tide",
+      "path": "assets/hand_painted_fantasy/icons/valuable/cut_sapphire_ornate.png",
+      "sha256": "3b70d9cd36f932704dd5c9ae9a87dc2c5145dd1eee3c6a605e06640379b4bffd"
+    },
+    {
+      "key": "hollow-icon-sigil-ember",
+      "path": "assets/hand_painted_fantasy/icons/valuable/cut_ruby_ornate.png",
+      "sha256": "09e839a0ceaefc9aa52344c912424cc2c2afe09ad1cf430824d9828ea99c95c3"
+    },
+    {
+      "key": "hollow-icon-ember",
+      "path": "assets/hand_painted_fantasy/icons/valuable/gold_coin_ornate.png",
+      "sha256": "1aad9fa0f9a0dca6302b0b3d24355c7366cb2a99dc9b355221b923fddebd28eb"
+    },
+    {
+      "key": "hollow-icon-lore",
+      "path": "assets/hand_painted_fantasy/icons/valuable/sealed_scroll_ornate.png",
+      "sha256": "eec10d6b8b61be66a9383c81d2edbac901f2c14ab114fd9c90ccceb1b7099cbe"
+    },
+    {
+      "key": "hollow-icon-crown",
+      "path": "assets/hand_painted_fantasy/icons/valuable/simple_crown_ornate.png",
+      "sha256": "2802747d67db7b35a742fd39200e26d29cc7c1320c70bc6ae6571c5815f1e808"
+    },
+    {
+      "key": "hollow-icon-map",
+      "path": "assets/hand_painted_fantasy/icons/valuable/folded_map_ornate.png",
+      "sha256": "fc7f6e3719c8ebb453b527f8f225ff5ef416f3a5139bd51970fa1a0cc914b801"
+    },
+    {
+      "key": "hollow-icon-lantern",
+      "path": "assets/hand_painted_fantasy/icons/tool/oil_lantern_ornate.png",
+      "sha256": "4d1295034186631cdc5c65cf1a6ac24ab8b7701ee1fea0e551712f626505b0e1"
+    },
+    {
+      "key": "hollow-portrait-smith",
+      "path": "assets/hand_painted_fantasy/portraits/trade/dye_merchant_bust.png",
+      "sha256": "a3566d47eaa400257e2b9faa764aa8dd182cebcce0f5aea91809601dca74a333"
+    },
+    {
+      "key": "hollow-portrait-scholar",
+      "path": "assets/hand_painted_fantasy/portraits/watch/night_watch_bust.png",
+      "sha256": "966675c2233e95487361f23386f94d32096757d16a8dafd0466ba273827a2143"
     }
   ],
   "fantasy": {
@@ -149,6 +259,31 @@
         "key": "floor-concrete",
         "path": "assets/hand_painted_fantasy/tiles/floor/mossy_stone_base.png",
         "sha256": "df2fcaf31335a5fe446531b10e65dc9f07450c451d41cb3f69c103c20da68e72"
+      },
+      {
+        "key": "floor-grass",
+        "path": "assets/hand_painted_fantasy/tiles/floor/tall_grass_base.png",
+        "sha256": "a4b567afc69077f46e6c628f359bad4df95c53dd87341d31c018c6331de6fd89"
+      },
+      {
+        "key": "floor-wood",
+        "path": "assets/hand_painted_fantasy/tiles/floor/wood_plank_base.png",
+        "sha256": "139fef9ff9a3245bb91c5150ad4f9a9a5765911222072345e41d9ee3af4f2dcd"
+      },
+      {
+        "key": "floor-cobble",
+        "path": "assets/hand_painted_fantasy/tiles/floor/cobblestone_base.png",
+        "sha256": "39d5344b353f018980804c6372567b071bc0b738b613661fb0de8ab5141ea694"
+      },
+      {
+        "key": "wall-wood",
+        "path": "assets/hand_painted_fantasy/tiles/wall/wood_wall_base.png",
+        "sha256": "fdb322dec681379c20805af6a451443f4661f7edc2de7b11086f453251d64ab5"
+      },
+      {
+        "key": "wall-window",
+        "path": "assets/hand_painted_fantasy/tiles/wall/windowed_wall_base.png",
+        "sha256": "01bb662efc3288513f71e49fc42d3c24856b8a573d11fdaa305d3cd38662bb95"
       }
     ],
     "enemyStrips": [
@@ -298,6 +433,116 @@
           {
             "path": "assets/hand_painted_fantasy/characters/humanoid/rogue_front.png",
             "sha256": "0db2bad6c044d71bb4edd5b099ab2b17e695492a952c3ba459840d5b56d4df46"
+          }
+        ]
+      },
+      {
+        "key": "enemy-spider",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/forest_spider_idle_front.png",
+            "sha256": "e3ec49cb7796a80b1cc7519e834bfdae456e3bec1ba766b78408e13117ff8c03"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/forest_spider_idle_side.png",
+            "sha256": "1aeef39b87a087adaf57eae25454a1960b7da144969235f44cd2384128e02668"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/forest_spider_alert.png",
+            "sha256": "d62ec75b5ca97cb5d7c1b5901b206fca1b3211a8d394c6ee35cd9a1d0abd55ee"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/forest_spider_alert.png",
+            "sha256": "d62ec75b5ca97cb5d7c1b5901b206fca1b3211a8d394c6ee35cd9a1d0abd55ee",
+            "effect": "hurt"
+          }
+        ]
+      },
+      {
+        "key": "enemy-skeleton",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/bone_skeleton_idle_front.png",
+            "sha256": "5875adfbcdf088c88d3587da6d0b82c355c1ba4b74a31df7c95e56195ef52c55"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/bone_skeleton_idle_side.png",
+            "sha256": "f2f0302cb22d9709d3c28fa5a8fc461631dd55453400b05ed0654ad801feaed7"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/bone_skeleton_alert.png",
+            "sha256": "aa61c5953d474c350336fcd4ada4e08004d6d35d691d9a678fc06d65d35ec296"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/bone_skeleton_alert.png",
+            "sha256": "aa61c5953d474c350336fcd4ada4e08004d6d35d691d9a678fc06d65d35ec296",
+            "effect": "hurt"
+          }
+        ]
+      },
+      {
+        "key": "enemy-ghost",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/pale_ghost_idle_front.png",
+            "sha256": "f9346d4b5ee07066323d09c4f9a4e444b8831d39902d1a2f9da01ecc07d8dc82"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/pale_ghost_idle_side.png",
+            "sha256": "eb5579191d0d26049d5eb6159916e4887409e26b823cfb26436d6269d4c02fae"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/pale_ghost_alert.png",
+            "sha256": "8a2ae8185fc240fe10a590addf2bbd3a834008ba32bf9fa0f54c55397eb46fe9"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/pale_ghost_alert.png",
+            "sha256": "8a2ae8185fc240fe10a590addf2bbd3a834008ba32bf9fa0f54c55397eb46fe9",
+            "effect": "hurt"
+          }
+        ]
+      },
+      {
+        "key": "enemy-golem",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/stone_golem_idle_front.png",
+            "sha256": "9f2b8bf7dba3ac52ad3da24f8007ee88d50ebc6bab719425096ae75c0389b28e"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/stone_golem_idle_side.png",
+            "sha256": "945f9c2b2f6b136232865a5228c7ce1cc14de358b84f0dc92bdf4f25aa2dc838"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/stone_golem_alert.png",
+            "sha256": "0e4fc66246bcba1daa18dc7de73ffaa292e386046b5984ad53cbd68a564d615a"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/stone_golem_alert.png",
+            "sha256": "0e4fc66246bcba1daa18dc7de73ffaa292e386046b5984ad53cbd68a564d615a",
+            "effect": "hurt"
+          }
+        ]
+      },
+      {
+        "key": "enemy-bat",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/cave_bat_idle_front.png",
+            "sha256": "62e0efd2d31ec698a3a0050e0b5c3d7234ddb737907ff7d5f67d43059059ea0e"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/cave_bat_idle_side.png",
+            "sha256": "ae78178c17d669b25454355164e1e0c395d923c5d793e6e12d81ecec0d8a34a4"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/cave_bat_alert.png",
+            "sha256": "47ad4acc69b65b3344cb3d79f707fcbf4ff7f0caae632e84acc351048222e258"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/enemies/creature/cave_bat_alert.png",
+            "sha256": "47ad4acc69b65b3344cb3d79f707fcbf4ff7f0caae632e84acc351048222e258",
+            "effect": "hurt"
           }
         ]
       }
