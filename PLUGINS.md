@@ -409,6 +409,19 @@ their different crossing/timeout policies and delegate accepted checkpoint progr
 These are two game compositions within racing; other genre uses are potential compositions, not tested consumers.
 See [sequences](docs/sequences.md).
 
+`OutcomeRatingProviders` factories selected by `OutcomeRatingRole` (`sdk/mechanic-outcome-rating`) classify explicit
+finite metrics against ordered inclusive thresholds. `outcomeRatingMechanic(ctx)` resolves the selected factory;
+the consumer creates an owned evaluator and disposes it after use. The last matching tier wins. Racing supplies elapsed
+time while tactics supplies turns and survivors; games retain outcome, threshold, reward and persistence policy.
+The role is optional for these two consumers and is resolved on victory after role activation. See
+[outcome ratings](docs/portfolio-shared-mechanics.md).
+
+`CardPilesProviders` factories selected by `CardPilesRole` (`sdk/portfolio-card-piles`) own a bounded partition of
+unique card IDs in ordered draw, hand and discard zones. `cardPilesMechanic(ctx)` resolves the selected factory. Ash &
+Ink and Cloud Cartographer supply different actions and outcomes while using the same provider. Draws and discards
+are blocked while `SessionControl` is paused; initialize an opening hand after play starts. No shuffle, card effects,
+turns or reshuffle are provided. See [card games and piles](docs/portfolio-cards.md).
+
 Presets explicitly enable the selected implementations. Navigation consumers require the pure registration-time role;
 sequence consumers using factories during activation declare `roleDependencies`. Updated bundled presets contain the
 new selections. Existing custom presets using the migrated authorities need the matching role/provider fragment;

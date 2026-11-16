@@ -3,12 +3,15 @@ import {
   ExperienceRole,
   Flow,
   NavigationRole,
+  OutcomeRatingRole,
+  OutcomeRatingProviders,
   SessionControl,
   Tactics,
   TacticsMissions,
   TacticsResolved,
   definePlugin,
   isObject,
+  outcomeRatingMechanic,
   vArray,
   vNumber,
   vOneOf,
@@ -97,6 +100,9 @@ export default definePlugin({
       },
     });
     ctx.addValidator((v) => {
+      const rating = v.selectedRole(OutcomeRatingRole);
+      if (rating && !v.registries.has(OutcomeRatingProviders, rating))
+        v.reporter('preset', 'roles.sdk/mechanic-outcome-rating').error('selected rating role needs a registered OutcomeRatingProviders factory');
       const id = v.preset.options['mission'];
       if (typeof id !== 'string' || !v.registries.has(TacticsMissions, id))
         v.reporter('preset', 'options.mission').error('select an installed board mission');
@@ -195,11 +201,21 @@ export default definePlugin({
       else if (!team('squad')) state.outcome = 'defeat';
       if (state.outcome !== 'playing') {
         if (state.outcome === 'victory') ctx.events.emit(TacticsResolved, { cue: 'tactics-victory' });
+        const squadSize = units.filter(u => u.team === 'squad').length;
+        const rating = state.outcome === 'victory' && ctx.role(OutcomeRatingRole) ? outcomeRatingMechanic(ctx).create(ctx, 'board/victory', {
+          tiers: [
+            { id: 'Bronze', conditions: [{ metric: 'survivors', operator: 'at-least', value: 1 }] },
+            { id: 'Silver', conditions: [{ metric: 'survivors', operator: 'at-least', value: squadSize }] },
+            { id: 'Gold', conditions: [{ metric: 'survivors', operator: 'at-least', value: squadSize }, { metric: 'turns', operator: 'at-most', value: 3 }] },
+          ],
+        }) : undefined;
+        const medal = rating?.evaluate({ survivors: units.filter(u => u.team === 'squad' && u.hp > 0).length, turns: state.turn });
+        rating?.dispose();
         ctx.services.tryGet(Flow)?.end({
           outcome: state.outcome,
-          title: state.outcome === 'victory' ? 'Signal secured' : 'Squad lost',
-          detail: state.outcome === 'victory' ? 'The relay is yours.' : 'The defenders held the relay.',
-          stats: [['Turns', String(state.turn)]],
+          title: state.outcome === 'victory' ? (ctx.preset.options['mission'] === 'board/signal-break' ? 'Signal secured' : 'Mission complete') : 'Squad lost',
+          detail: state.outcome === 'victory' ? (ctx.preset.options['mission'] === 'board/signal-break' ? 'The relay is yours.' : `${mission.name}: all hostiles neutralized.`) : 'The defenders held their ground.',
+          stats: [['Turns', String(state.turn)], ...(medal ? [['Medal', medal] as [string, string]] : [])],
         });
       }
     };

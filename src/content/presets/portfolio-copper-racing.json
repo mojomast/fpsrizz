@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "portfolio/copper-racing",
+  "name": "COPPER SWITCHBACK — Canyon Sprint",
+  "plugins": ["mechanics/sequence", "mechanics/outcome-rating", "vehicle/racing", "portfolio/racing", "vehicle/presentation", "theme/arcade"],
+  "roles": { "sdk/experience": "vehicle/arcade-race", "sdk/theme": "theme/arcade", "sdk/mechanic-sequence": "mechanics/sequence", "sdk/mechanic-outcome-rating": "mechanics/outcome-rating" },
+  "options": { "track": "portfolio/copper-switchback" },
+  "config": {},
+  "seed": 1337
+}

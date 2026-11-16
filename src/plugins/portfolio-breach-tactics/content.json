@@ -1,0 +1,18 @@
+[
+  {
+    "kind": "board-mission",
+    "id": "portfolio/glasshouse-breach",
+    "data": {
+      "name": "Glasshouse Breach",
+      "rows": ["....#....", "....#..C.", ".C..#....", ".........", ".C..#....", "....#..C.", "....#...."],
+      "units": [
+        { "id": "fern", "name": "Fern", "team": "squad", "x": 1, "y": 2, "hp": 8, "ap": 2 },
+        { "id": "moss", "name": "Moss", "team": "squad", "x": 1, "y": 4, "hp": 8, "ap": 2 },
+        { "id": "ash", "name": "Ash", "team": "squad", "x": 0, "y": 3, "hp": 8, "ap": 2 },
+        { "id": "warden", "name": "Warden", "team": "enemy", "x": 6, "y": 3, "hp": 4, "ap": 2 },
+        { "id": "thorn", "name": "Thorn", "team": "enemy", "x": 7, "y": 1, "hp": 3, "ap": 2 },
+        { "id": "briar", "name": "Briar", "team": "enemy", "x": 7, "y": 5, "hp": 3, "ap": 2 }
+      ]
+    }
+  }
+]

@@ -23,6 +23,8 @@ npm run find-reuse -- "room map exploration"
 npm run find-reuse -- "inventory stacks equipment loot"
 npm run find-reuse -- "known crafting recipes item output"
 npm run find-reuse -- "isometric camera view toggle"
+npm run find-reuse -- "outcome medal threshold"
+npm run find-reuse -- "deck draw hand discard"
 ```
 
 Results include the matching terms, scope, public SDK entry points, implementation path, limitations, documentation
@@ -39,6 +41,8 @@ npm run find-reuse -- --show recipe/experience-levels
 npm run find-reuse -- --show recipe/stack-inventory
 npm run find-reuse -- --show recipe/known-crafting
 npm run find-reuse -- --show recipe/isometric-camera-toggle
+npm run find-reuse -- --show recipe/outcome-ratings
+npm run find-reuse -- --show recipe/ordered-card-piles
 npm run find-reuse -- --show dungeon/generator
 npm run find-reuse -- --show ResourcePoolProviders
 npm run find-reuse -- --show Render

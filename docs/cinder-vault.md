@@ -295,7 +295,7 @@ movement/fire/end-turn, isometric hover preview, inventory, non-modal boon selec
 transitions, victory and restart. Journey combat encounters are accelerated via the public combat service; controller, turn,
 inventory and HUD behavior is exercised before/during that route.
 
-### Integrated verification — 2026-11-16
+### Cinder/Hollowmere milestone verification — 2026-11-16
 
 - `npm run check`: **773/773 tests**, typecheck, boundaries and reuse-index freshness passed. Coverage now includes
   threat selection and health scaling, guaranteed Ashbound elites, boss enrage, the new enemy/`cinder/manual`
@@ -312,7 +312,7 @@ inventory and HUD behavior is exercised before/during that route.
 - `npm run smoke`: **37/37**; the default shooter passed the headless frame-budget check in the final run (latest
   8.6 FPS, 1.34 ms CPU/frame, 13 draw calls, 1,978 triangles). No threshold was changed.
 - Deployment: GitHub Pages serves **https://mojomast.github.io/fpsrizz/?preset=cinder/vault** from the `gh-pages`
-  branch. The final `dist/assets/main.js` SHA-256 is `3b65fb123f2d8b913d5ddb52e0a7a99171d2991aa31a6a8dd41cb885666a59dd`.
+  branch. That milestone's `dist/assets/main.js` SHA-256 was `3b65fb123f2d8b913d5ddb52e0a7a99171d2991aa31a6a8dd41cb885666a59dd`.
 
 Browser evidence is in `.smoke/cinder-report.json` and `.smoke/cinder-*.png`; smoke evidence is in
 `.smoke/smoke-report.json`. The screenshots include threat/class selection, field guide, isometric AP hover, class/depth

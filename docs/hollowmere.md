@@ -170,7 +170,7 @@ regenerates public art and painters. No audio asset is claimed; the current pres
 - This is a first full family slice: no gamepad, remapping, room editor, quest journal, animation graph, audio/music or
   multiple save slots yet. The composer can modify its preset but not its content rows.
 
-### Integrated verification — 2026-11-16
+### Hollowmere polish milestone verification — 2026-11-16
 
 - `npm run check`: **773/773 tests**, typecheck, boundaries and reuse-index freshness passed. The provider suite,
   production Hollowmere suite, screen-space FX tests and graph-round-trip suite are included.
@@ -180,5 +180,5 @@ regenerates public art and painters. No audio asset is claimed; the current pres
 - `node tests/composer-demo/run.mjs`: **3/3** checks for graph loading, role metadata/inspector, live host staging and close flow.
 - `node tests/creator-demo/run.mjs`: **67** creator-panel checks passed with the Canvas tab and generated map/provider metadata.
 - `node tests/cinder-demo/run.mjs`: **6/6** preserved Cinder acceptance checks.
-- `npm run smoke`: **37/37**; final production bundle hash
+- `npm run smoke`: **37/37**; milestone production bundle hash
   `3b65fb123f2d8b913d5ddb52e0a7a99171d2991aa31a6a8dd41cb885666a59dd`.

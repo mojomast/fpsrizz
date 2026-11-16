@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "portfolio/verdant-resource",
+  "name": "Last Rain Conservatory",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^2.0.0",
+  "description": "Original portfolio scenario and mechanic kit.",
+  "dependencies": {
+    "verdant/game": "^1.0.0",
+    "mechanics/kits": "^1.0.0"
+  }
+}

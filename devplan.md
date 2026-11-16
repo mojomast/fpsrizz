@@ -98,7 +98,13 @@ game-owned field journal with map, inventory, capabilities, stats and persisted 
 JSON-first game composition canvas (`src/app/game-graph.ts`, `game-composer.ts`) for humans and agents, with role/provider
 metadata generated from the reuse index, deterministic preset compilation, host-staged validation, import/export and a
 `npm run graph` CLI. Headless tests cover the providers, world/checkpoint/dialogue/pause path and graph round-trips;
-browser acceptance covers Hollowmere and the composer. Final local verification: **773/773 tests**, **25 bundled presets**, Hollowmere **5/5**, composer **3/3**, creator **67**, Cinder **6/6**, smoke **37/37**. See [Hollowmere](docs/hollowmere.md) and [game composer](docs/game-composer.md).
+browser acceptance covers Hollowmere and the composer. At that milestone local verification was **773/773 tests**, **25 bundled presets**, Hollowmere **5/5**, composer **3/3**, creator **67**, Cinder **6/6**, smoke **37/37**. See [Hollowmere](docs/hollowmere.md) and [game composer](docs/game-composer.md).
+
+The [ten-game portfolio](docs/ten-game-portfolio.md) adds authored puzzle campaigns, racing trials, tactics missions,
+adventures, a courier route and a restoration season. Racing and tactics also consume the shared outcome-rating
+provider; complete routes are exercised headlessly. Two additional card games exercise a shared ordered-piles provider.
+Current portfolio verification: **791/791 tests**, **37 bundled presets staged**, **12 browser action checks** and
+**37/37 smoke checks**. See the portfolio guide for the exact scope and verification.
 
 | # | Stage | Status | What it delivered |
 |---|---|---|---|

@@ -4,12 +4,15 @@ import {
   Flow,
   Input,
   InputActions,
+  OutcomeRatingRole,
+  OutcomeRatingProviders,
   Race,
   RaceTracks,
   SequenceMechanicRole,
   SequenceProviders,
   definePlugin,
   isObject,
+  outcomeRatingMechanic,
   sequenceMechanic,
   vArray,
   vNumber,
@@ -80,7 +83,7 @@ export default definePlugin({
     ctx.register(InputActions, actions.drift, { label: 'Drift', keys: ['Space'] });
     ctx.provideRole(ExperienceRole, EXPERIENCE, {
       name: 'Neon Run',
-      description: 'Drive two laps before the clock runs out.',
+      description: 'Cross the ordered gates and complete the circuit before the clock runs out.',
       pointer: 'none',
       controls: [
         ['W / ↑', 'Accelerate'],
@@ -161,6 +164,9 @@ export default definePlugin({
       },
     });
     ctx.addValidator((v) => {
+      const rating = v.selectedRole(OutcomeRatingRole);
+      if (rating && !v.registries.has(OutcomeRatingProviders, rating))
+        v.reporter('preset', 'roles.sdk/mechanic-outcome-rating').error('selected rating role needs a registered OutcomeRatingProviders factory');
       const sequence = v.selectedRole(SequenceMechanicRole);
       if (!sequence || !v.registries.has(SequenceProviders, sequence))
         v.reporter('preset', 'roles.sdk/mechanic-sequence').error('select a sequence role with a registered SequenceProviders factory');
@@ -280,11 +286,20 @@ export default definePlugin({
           state.revision++;
           if (sequence.complete) {
             state.status = 'won';
+            const rating = ctx.role(OutcomeRatingRole) ? outcomeRatingMechanic(ctx).create(ctx, 'vehicle/finish', {
+              tiers: [
+                { id: 'Bronze', conditions: [{ metric: 'seconds', operator: 'at-least', value: 0 }] },
+                { id: 'Silver', conditions: [{ metric: 'seconds', operator: 'at-most', value: track.timeLimit * 0.75 }] },
+                { id: 'Gold', conditions: [{ metric: 'seconds', operator: 'at-most', value: track.timeLimit * 0.5 }] },
+              ],
+            }) : undefined;
+            const medal = rating?.evaluate({ seconds: state.elapsed + dt });
+            rating?.dispose();
             flow?.end({
               outcome: 'victory',
               title: 'Circuit complete',
               detail: 'All laps cleared.',
-              stats: [['Time', `${(state.elapsed + dt).toFixed(1)}s`]],
+              stats: [['Time', `${(state.elapsed + dt).toFixed(1)}s`], ...(medal ? [['Medal', medal] as [string, string]] : [])],
             });
           }
         }

@@ -1,0 +1,1 @@
+{"schema":1,"id":"portfolio-cards/cloud","name":"Cloud Cartographer","plugins":["portfolio-cards/piles","portfolio-cards/cloud","portfolio-cards/presentation"],"roles":{"sdk/experience":"portfolio-cards/cloud","sdk/portfolio-card-piles":"portfolio-cards/piles"},"options":{},"seed":41}

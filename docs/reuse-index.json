@@ -1,8 +1,105 @@
 {
   "schema": 1,
-  "sourceDigest": "c6c40ba061af71bd4a3659fa1602f84b059240ee2519bded64aee898466cc796",
+  "sourceDigest": "086260fd012c7674b40e0b28bd21d4636732f6823fd3d1644f34380610cb87da",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
+    {
+      "schema": 1,
+      "scope": "cross-genre",
+      "summary": "Own an ordered partition of unique IDs across draw, hand and discard zones.",
+      "keywords": [
+        "card",
+        "deck",
+        "draw",
+        "hand",
+        "discard",
+        "pile"
+      ],
+      "entryPoints": [
+        "CardPilesProviders",
+        "CardPilesRole",
+        "cardPilesMechanic"
+      ],
+      "useWhen": "A game needs deterministic unique-card transfers with an explicit authored draw order.",
+      "limitations": [
+        "No shuffle, reshuffle, effects, deckbuilding or game turns; draw rejects atomically if there are too few cards.",
+        "Mutations are blocked by SessionControl while play is paused; initialize the opening hand after play begins."
+      ],
+      "docs": [
+        "docs/portfolio-cards.md"
+      ],
+      "examples": [
+        "src/plugins/portfolio-cards-ash/index.ts",
+        "src/plugins/portfolio-cards-cloud/index.ts"
+      ],
+      "tests": [
+        "tests/portfolio-cards.test.ts"
+      ],
+      "id": "recipe/ordered-card-piles",
+      "name": "Ordered draw, hand and discard piles",
+      "type": "recipe",
+      "source": "docs/reuse-recipes.json",
+      "plugins": [
+        "portfolio-cards/piles"
+      ],
+      "roles": {
+        "sdk/portfolio-card-piles": "portfolio-cards/piles"
+      },
+      "steps": [
+        "Enable a piles implementation and select sdk/portfolio-card-piles; declare a role dependency when resolving the factory during activation.",
+        "Create an owned pile from distinct authored card IDs, and draw only while the session is playing.",
+        "Validate the game's action before discarding; keep card effects, turns and victory in game policy, and dispose the handle on restart."
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "cross-genre",
+      "summary": "Classify game-supplied finite outcome metrics against ordered tiers of inclusive thresholds.",
+      "keywords": [
+        "medal",
+        "rating",
+        "rank",
+        "threshold",
+        "completion",
+        "time",
+        "survivors"
+      ],
+      "entryPoints": [
+        "OutcomeRatingProviders",
+        "OutcomeRatingRole",
+        "outcomeRatingMechanic"
+      ],
+      "useWhen": "A game has already determined an outcome and wants a reproducible rating from one or more measured metrics.",
+      "limitations": [
+        "The game owns metric collection, thresholds and victory; ratings do not persist records or award rewards.",
+        "All referenced metrics must be finite and supplied for evaluation. The last matching tier wins."
+      ],
+      "docs": [
+        "docs/portfolio-shared-mechanics.md"
+      ],
+      "examples": [
+        "src/plugins/vehicle-racing/index.ts",
+        "src/plugins/board-tactics/index.ts"
+      ],
+      "tests": [
+        "tests/outcome-rating.test.ts"
+      ],
+      "id": "recipe/outcome-ratings",
+      "name": "Rate completed outcomes",
+      "type": "recipe",
+      "source": "docs/reuse-recipes.json",
+      "plugins": [
+        "mechanics/outcome-rating"
+      ],
+      "roles": {
+        "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+      },
+      "steps": [
+        "Enable a provider and select its outcome-rating role. Resolve the factory after role activation, or declare a role dependency if needed during activation.",
+        "Create a consumer-owned evaluator with ordered thresholds, evaluate complete finite metrics after the game determines victory, then dispose it.",
+        "Present or persist the result under game policy; the provider does not own the outcome or storage."
+      ]
+    },
     {
       "schema": 1,
       "scope": "cross-genre",
@@ -898,6 +995,26 @@
             "sdk/theme": "theme/board",
             "sdk/mechanic-navigation": "mechanics/navigation"
           }
+        },
+        {
+          "id": "portfolio/breach-tactics",
+          "name": "Glasshouse Breach",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/crossfire-tactics",
+          "name": "Salt Flats Crossfire",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
         }
       ],
       "recipes": []
@@ -978,6 +1095,26 @@
             "sdk/experience": "board/tactics",
             "sdk/theme": "theme/board",
             "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        },
+        {
+          "id": "portfolio/breach-tactics",
+          "name": "Glasshouse Breach",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/crossfire-tactics",
+          "name": "Salt Flats Crossfire",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
           }
         }
       ],
@@ -6535,6 +6672,30 @@
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
           }
+        },
+        {
+          "id": "portfolio/sky-resource",
+          "name": "Crosswind Dispatch",
+          "roles": {
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/experience": "sky/salvage",
+            "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "portfolio/verdant-resource",
+          "name": "Last Rain Conservatory",
+          "roles": {
+            "sdk/experience": "verdant/relay",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/theme": "theme/board"
+          }
         }
       ],
       "recipes": [
@@ -6750,6 +6911,30 @@
             "sdk/mechanic-progression": "mechanics/progression",
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
+          }
+        },
+        {
+          "id": "portfolio/sky-resource",
+          "name": "Crosswind Dispatch",
+          "roles": {
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/experience": "sky/salvage",
+            "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "portfolio/verdant-resource",
+          "name": "Last Rain Conservatory",
+          "roles": {
+            "sdk/experience": "verdant/relay",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/theme": "theme/board"
           }
         }
       ],
@@ -7082,6 +7267,30 @@
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
           }
+        },
+        {
+          "id": "portfolio/sky-resource",
+          "name": "Crosswind Dispatch",
+          "roles": {
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/experience": "sky/salvage",
+            "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "portfolio/verdant-resource",
+          "name": "Last Rain Conservatory",
+          "roles": {
+            "sdk/experience": "verdant/relay",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/theme": "theme/board"
+          }
         }
       ],
       "recipes": [
@@ -7169,6 +7378,44 @@
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
             "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        },
+        {
+          "id": "portfolio/atelier-puzzle",
+          "name": "The Counterweight Atelier",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        },
+        {
+          "id": "portfolio/watch-puzzle",
+          "name": "The Watchman's Run",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        },
+        {
+          "id": "portfolio/breach-tactics",
+          "name": "Glasshouse Breach",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/crossfire-tactics",
+          "name": "Salt Flats Crossfire",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
           }
         }
       ],
@@ -7299,11 +7546,141 @@
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
           }
+        },
+        {
+          "id": "portfolio/sky-resource",
+          "name": "Crosswind Dispatch",
+          "roles": {
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/experience": "sky/salvage",
+            "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "portfolio/verdant-resource",
+          "name": "Last Rain Conservatory",
+          "roles": {
+            "sdk/experience": "verdant/relay",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/theme": "theme/board"
+          }
         }
       ],
       "recipes": [
         "recipe/resource-actions",
         "recipe/objective-unlocks"
+      ]
+    },
+    {
+      "id": "mechanics/outcome-rating",
+      "type": "plugin",
+      "name": "Outcome ratings",
+      "scope": "cross-genre",
+      "summary": "Deterministic outcome tiers from explicit finite metrics and immutable threshold conditions.",
+      "source": "src/plugins/mechanics-outcome-rating",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "score",
+        "medal",
+        "rating",
+        "outcome",
+        "threshold",
+        "rank"
+      ],
+      "entryPoints": [
+        "OutcomeRatingProviders",
+        "OutcomeRatingRole",
+        "outcomeRatingMechanic"
+      ],
+      "useWhen": "Classify a completed run by ordered tiers and explicit multi-metric thresholds.",
+      "limitations": [
+        "Does not collect metrics, establish victory, persist records, calculate weighted scores or award rewards. Tier precedence is authored order."
+      ],
+      "docs": [
+        "docs/portfolio-shared-mechanics.md"
+      ],
+      "examples": [
+        "src/plugins/vehicle-racing/index.ts",
+        "src/plugins/board-tactics/index.ts"
+      ],
+      "tests": [
+        "tests/outcome-rating.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/outcome-rating"
+      ],
+      "registrations": [
+        {
+          "kind": "mechanic-outcome-rating-provider",
+          "id": "mechanics/outcome-rating",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/mechanic-outcome-rating",
+          "id": "mechanics/outcome-rating",
+          "description": "Best matching tier from explicit metrics"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/salt-racing",
+          "name": "SALT FLATS — Endurance Loop",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/copper-racing",
+          "name": "COPPER SWITCHBACK — Canyon Sprint",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/breach-tactics",
+          "name": "Glasshouse Breach",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/crossfire-tactics",
+          "name": "Salt Flats Crossfire",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        }
+      ],
+      "recipes": [
+        "recipe/outcome-ratings"
       ]
     },
     {
@@ -7609,6 +7986,30 @@
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
           }
+        },
+        {
+          "id": "portfolio/sky-resource",
+          "name": "Crosswind Dispatch",
+          "roles": {
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/experience": "sky/salvage",
+            "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "portfolio/verdant-resource",
+          "name": "Last Rain Conservatory",
+          "roles": {
+            "sdk/experience": "verdant/relay",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/theme": "theme/board"
+          }
         }
       ],
       "recipes": [
@@ -7783,11 +8184,813 @@
             "sdk/theme": "theme/arcade",
             "sdk/mechanic-sequence": "mechanics/sequence"
           }
+        },
+        {
+          "id": "portfolio/salt-racing",
+          "name": "SALT FLATS — Endurance Loop",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/copper-racing",
+          "name": "COPPER SWITCHBACK — Canyon Sprint",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
         }
       ],
       "recipes": [
         "recipe/ordered-rounds"
       ]
+    },
+    {
+      "id": "portfolio-cards/ash",
+      "type": "plugin",
+      "name": "Ash & Ink rules",
+      "scope": "unreviewed",
+      "summary": "A glyph-seal hand management duel.",
+      "source": "src/plugins/portfolio-cards-ash",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/experience",
+        "sdk/portfolio-card-piles"
+      ],
+      "roleDependencies": [
+        "sdk/portfolio-card-piles"
+      ],
+      "config": {},
+      "enable": [
+        "portfolio-cards/ash"
+      ],
+      "registrations": [
+        {
+          "kind": "role:sdk/experience",
+          "id": "portfolio-cards/ash",
+          "description": "Break the clockwork scribe’s seals."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio-cards/ash",
+          "name": "Ash & Ink",
+          "roles": {
+            "sdk/experience": "portfolio-cards/ash",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio-cards/cloud",
+      "type": "plugin",
+      "name": "Cloud Cartographer rules",
+      "scope": "unreviewed",
+      "summary": "A weather-card expedition planning game.",
+      "source": "src/plugins/portfolio-cards-cloud",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/experience",
+        "sdk/portfolio-card-piles"
+      ],
+      "roleDependencies": [
+        "sdk/portfolio-card-piles"
+      ],
+      "config": {},
+      "enable": [
+        "portfolio-cards/cloud"
+      ],
+      "registrations": [
+        {
+          "kind": "role:sdk/experience",
+          "id": "portfolio-cards/cloud",
+          "description": "Survey islands while sheltering from the storm."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio-cards/cloud",
+          "name": "Cloud Cartographer",
+          "roles": {
+            "sdk/experience": "portfolio-cards/cloud",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio-cards/piles",
+      "type": "plugin",
+      "name": "Ordered card piles",
+      "scope": "cross-genre",
+      "summary": "Owned ordered unique-card draw, hand and discard partition.",
+      "source": "src/plugins/portfolio-cards-piles",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "card",
+        "deck",
+        "draw",
+        "discard",
+        "hand",
+        "pile"
+      ],
+      "entryPoints": [
+        "CardPilesProviders",
+        "CardPilesRole",
+        "cardPilesMechanic"
+      ],
+      "useWhen": "A game needs explicit deterministic movement of unique cards between three ordered zones.",
+      "limitations": [
+        "No shuffle, reshuffle, effects, turn rules or deck building.",
+        "Draw rejects atomically when fewer than the requested cards remain."
+      ],
+      "docs": [
+        "docs/portfolio-cards.md"
+      ],
+      "examples": [
+        "src/plugins/portfolio-cards-ash/index.ts",
+        "src/plugins/portfolio-cards-cloud/index.ts"
+      ],
+      "tests": [
+        "tests/portfolio-cards.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "portfolio-cards/piles"
+      ],
+      "registrations": [
+        {
+          "kind": "portfolio-card-piles-provider",
+          "id": "portfolio-cards/piles",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/portfolio-card-piles",
+          "id": "portfolio-cards/piles",
+          "description": "Owned draw, hand and discard partition"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio-cards/ash",
+          "name": "Ash & Ink",
+          "roles": {
+            "sdk/experience": "portfolio-cards/ash",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+          }
+        },
+        {
+          "id": "portfolio-cards/cloud",
+          "name": "Cloud Cartographer",
+          "roles": {
+            "sdk/experience": "portfolio-cards/cloud",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+          }
+        }
+      ],
+      "recipes": [
+        "recipe/ordered-card-piles"
+      ]
+    },
+    {
+      "id": "portfolio-cards/presentation",
+      "type": "plugin",
+      "name": "Portfolio card table",
+      "scope": "unreviewed",
+      "summary": "Accessible browser card table for the portfolio card games.",
+      "source": "src/plugins/portfolio-cards-presentation",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {},
+      "optionalDependencies": {
+        "portfolio-cards/ash": "^1.0.0",
+        "portfolio-cards/cloud": "^1.0.0"
+      },
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "portfolio-cards/presentation"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio-cards/ash",
+          "name": "Ash & Ink",
+          "roles": {
+            "sdk/experience": "portfolio-cards/ash",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+          }
+        },
+        {
+          "id": "portfolio-cards/cloud",
+          "name": "Cloud Cartographer",
+          "roles": {
+            "sdk/experience": "portfolio-cards/cloud",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio/archive-adventure",
+      "type": "plugin",
+      "name": "The Quiet Index",
+      "scope": "content",
+      "summary": "A contested archive and a missing name.",
+      "source": "src/plugins/portfolio-archive-adventure",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "story/adventure": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "portfolio/archive-adventure",
+        "story/adventure"
+      ],
+      "registrations": [
+        {
+          "kind": "adventure-chapter",
+          "id": "portfolio/quiet-index",
+          "description": "The Quiet Index"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/quiet-index",
+          "name": "The Quiet Index",
+          "roles": {
+            "sdk/experience": "story/adventure",
+            "sdk/theme": "theme/story"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio/atelier-puzzle",
+      "type": "plugin",
+      "name": "The Counterweight Atelier",
+      "scope": "content",
+      "summary": "Three quiet chambers of multi-stone positioning.",
+      "source": "src/plugins/portfolio-atelier-puzzle",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "puzzle/rules": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "portfolio/atelier-puzzle",
+        "puzzle/rules"
+      ],
+      "registrations": [
+        {
+          "kind": "push-puzzle",
+          "id": "portfolio/counterweight-atelier",
+          "description": "The Counterweight Atelier"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/atelier-puzzle",
+          "name": "The Counterweight Atelier",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio/breach-tactics",
+      "type": "plugin",
+      "name": "Glasshouse Breach",
+      "scope": "content",
+      "summary": "A three-agent assault through a divided conservatory.",
+      "source": "src/plugins/portfolio-breach-tactics",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "board/tactics": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "board/tactics",
+        "portfolio/breach-tactics"
+      ],
+      "registrations": [
+        {
+          "kind": "board-mission",
+          "id": "portfolio/glasshouse-breach",
+          "description": "Glasshouse Breach"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/breach-tactics",
+          "name": "Glasshouse Breach",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio/crossfire-tactics",
+      "type": "plugin",
+      "name": "Salt Flats Crossfire",
+      "scope": "content",
+      "summary": "A two-scout stand against an encircling raiding party.",
+      "source": "src/plugins/portfolio-crossfire-tactics",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "board/tactics": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "board/tactics",
+        "portfolio/crossfire-tactics"
+      ],
+      "registrations": [
+        {
+          "kind": "board-mission",
+          "id": "portfolio/salt-flats-crossfire",
+          "description": "Salt Flats Crossfire"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/crossfire-tactics",
+          "name": "Salt Flats Crossfire",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio/orchard-adventure",
+      "type": "plugin",
+      "name": "The Night Orchard",
+      "scope": "content",
+      "summary": "A seedship garden and a difficult inheritance.",
+      "source": "src/plugins/portfolio-orchard-adventure",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "story/adventure": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "portfolio/orchard-adventure",
+        "story/adventure"
+      ],
+      "registrations": [
+        {
+          "kind": "adventure-chapter",
+          "id": "portfolio/night-orchard",
+          "description": "The Night Orchard"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/night-orchard",
+          "name": "The Night Orchard",
+          "roles": {
+            "sdk/experience": "story/adventure",
+            "sdk/theme": "theme/story"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio/racing",
+      "type": "plugin",
+      "name": "Portfolio racing tracks",
+      "scope": "content",
+      "summary": "Two independent arcade time-trial tracks.",
+      "source": "src/plugins/portfolio-racing",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "vehicle/racing": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "portfolio/racing",
+        "vehicle/racing"
+      ],
+      "registrations": [
+        {
+          "kind": "vehicle/track",
+          "id": "portfolio/copper-switchback",
+          "description": "COPPER SWITCHBACK — Canyon Sprint"
+        },
+        {
+          "kind": "vehicle/track",
+          "id": "portfolio/salt-flats",
+          "description": "SALT FLATS — Endurance Loop"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/salt-racing",
+          "name": "SALT FLATS — Endurance Loop",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/copper-racing",
+          "name": "COPPER SWITCHBACK — Canyon Sprint",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio/sky-resource",
+      "type": "plugin",
+      "name": "Crosswind Dispatch",
+      "scope": "content",
+      "summary": "Original portfolio scenario and mechanic kit.",
+      "source": "src/plugins/portfolio-sky-resource",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "sky/game": "^1.0.0",
+        "mechanics/kits": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/kits",
+        "portfolio/sky-resource",
+        "sky/game"
+      ],
+      "registrations": [
+        {
+          "kind": "mechanic-kit",
+          "id": "portfolio/crosswind-kit",
+          "description": "Crosswind airframe"
+        },
+        {
+          "kind": "sky-route",
+          "id": "portfolio/crosswind",
+          "description": "Crosswind Dispatch"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/sky-resource",
+          "name": "Crosswind Dispatch",
+          "roles": {
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/experience": "sky/salvage",
+            "sdk/theme": "theme/board"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio/verdant-resource",
+      "type": "plugin",
+      "name": "Last Rain Conservatory",
+      "scope": "content",
+      "summary": "Original portfolio scenario and mechanic kit.",
+      "source": "src/plugins/portfolio-verdant-resource",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "verdant/game": "^1.0.0",
+        "mechanics/kits": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/kits",
+        "portfolio/verdant-resource",
+        "verdant/game"
+      ],
+      "registrations": [
+        {
+          "kind": "mechanic-kit",
+          "id": "portfolio/last-rain-kit",
+          "description": "Last rain reserves"
+        },
+        {
+          "kind": "verdant-world",
+          "id": "portfolio/last-rain",
+          "description": "Last Rain Conservatory"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/verdant-resource",
+          "name": "Last Rain Conservatory",
+          "roles": {
+            "sdk/experience": "verdant/relay",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/theme": "theme/board"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "portfolio/watch-puzzle",
+      "type": "plugin",
+      "name": "The Watchman's Run",
+      "scope": "content",
+      "summary": "Three pursuit chambers with shifting routes around stone and walls.",
+      "source": "src/plugins/portfolio-watch-puzzle",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "puzzle/rules": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "portfolio/watch-puzzle",
+        "puzzle/rules"
+      ],
+      "registrations": [
+        {
+          "kind": "push-puzzle",
+          "id": "portfolio/watchmans-run",
+          "description": "The Watchman's Run"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/watch-puzzle",
+          "name": "The Watchman's Run",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        }
+      ],
+      "recipes": []
     },
     {
       "id": "presentation/camera-modes",
@@ -8126,6 +9329,24 @@
             "sdk/theme": "theme/board",
             "sdk/mechanic-navigation": "mechanics/navigation"
           }
+        },
+        {
+          "id": "portfolio/atelier-puzzle",
+          "name": "The Counterweight Atelier",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        },
+        {
+          "id": "portfolio/watch-puzzle",
+          "name": "The Watchman's Run",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
         }
       ],
       "recipes": []
@@ -8215,6 +9436,24 @@
         {
           "id": "puzzle/stonewake",
           "name": "Stonewake — 3D puzzle",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        },
+        {
+          "id": "portfolio/atelier-puzzle",
+          "name": "The Counterweight Atelier",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        },
+        {
+          "id": "portfolio/watch-puzzle",
+          "name": "The Watchman's Run",
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
@@ -8384,6 +9623,18 @@
             "sdk/experience": "sky/salvage",
             "sdk/theme": "theme/board"
           }
+        },
+        {
+          "id": "portfolio/sky-resource",
+          "name": "Crosswind Dispatch",
+          "roles": {
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/experience": "sky/salvage",
+            "sdk/theme": "theme/board"
+          }
         }
       ],
       "recipes": []
@@ -8431,6 +9682,18 @@
         {
           "id": "sky/salvage",
           "name": "Sky Salvage — Drone Courier",
+          "roles": {
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/experience": "sky/salvage",
+            "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "portfolio/sky-resource",
+          "name": "Crosswind Dispatch",
           "roles": {
             "sdk/mechanic-resources": "mechanics/resources",
             "sdk/mechanic-clock": "mechanics/clock",
@@ -8523,6 +9786,22 @@
         {
           "id": "story/last-light",
           "name": "The Last Light",
+          "roles": {
+            "sdk/experience": "story/adventure",
+            "sdk/theme": "theme/story"
+          }
+        },
+        {
+          "id": "portfolio/quiet-index",
+          "name": "The Quiet Index",
+          "roles": {
+            "sdk/experience": "story/adventure",
+            "sdk/theme": "theme/story"
+          }
+        },
+        {
+          "id": "portfolio/night-orchard",
+          "name": "The Night Orchard",
           "roles": {
             "sdk/experience": "story/adventure",
             "sdk/theme": "theme/story"
@@ -8629,6 +9908,22 @@
             "sdk/experience": "story/adventure",
             "sdk/theme": "theme/story"
           }
+        },
+        {
+          "id": "portfolio/quiet-index",
+          "name": "The Quiet Index",
+          "roles": {
+            "sdk/experience": "story/adventure",
+            "sdk/theme": "theme/story"
+          }
+        },
+        {
+          "id": "portfolio/night-orchard",
+          "name": "The Night Orchard",
+          "roles": {
+            "sdk/experience": "story/adventure",
+            "sdk/theme": "theme/story"
+          }
         }
       ],
       "recipes": []
@@ -8680,6 +9975,26 @@
             "sdk/experience": "vehicle/arcade-race",
             "sdk/theme": "theme/arcade",
             "sdk/mechanic-sequence": "mechanics/sequence"
+          }
+        },
+        {
+          "id": "portfolio/salt-racing",
+          "name": "SALT FLATS — Endurance Loop",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/copper-racing",
+          "name": "COPPER SWITCHBACK — Canyon Sprint",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
           }
         }
       ],
@@ -9037,6 +10352,68 @@
             "sdk/mechanic-objectives": "mechanics/objectives",
             "sdk/theme": "theme/board"
           }
+        },
+        {
+          "id": "portfolio/atelier-puzzle",
+          "name": "The Counterweight Atelier",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        },
+        {
+          "id": "portfolio/watch-puzzle",
+          "name": "The Watchman's Run",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation"
+          }
+        },
+        {
+          "id": "portfolio/sky-resource",
+          "name": "Crosswind Dispatch",
+          "roles": {
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/experience": "sky/salvage",
+            "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "portfolio/verdant-resource",
+          "name": "Last Rain Conservatory",
+          "roles": {
+            "sdk/experience": "verdant/relay",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "portfolio/breach-tactics",
+          "name": "Glasshouse Breach",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/crossfire-tactics",
+          "name": "Salt Flats Crossfire",
+          "roles": {
+            "sdk/experience": "board/tactics",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
         }
       ],
       "recipes": []
@@ -9187,6 +10564,22 @@
             "sdk/experience": "story/adventure",
             "sdk/theme": "theme/story"
           }
+        },
+        {
+          "id": "portfolio/quiet-index",
+          "name": "The Quiet Index",
+          "roles": {
+            "sdk/experience": "story/adventure",
+            "sdk/theme": "theme/story"
+          }
+        },
+        {
+          "id": "portfolio/night-orchard",
+          "name": "The Night Orchard",
+          "roles": {
+            "sdk/experience": "story/adventure",
+            "sdk/theme": "theme/story"
+          }
         }
       ],
       "recipes": []
@@ -9237,6 +10630,26 @@
             "sdk/experience": "vehicle/arcade-race",
             "sdk/theme": "theme/arcade",
             "sdk/mechanic-sequence": "mechanics/sequence"
+          }
+        },
+        {
+          "id": "portfolio/salt-racing",
+          "name": "SALT FLATS — Endurance Loop",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/copper-racing",
+          "name": "COPPER SWITCHBACK — Canyon Sprint",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
           }
         }
       ],
@@ -9325,7 +10738,7 @@
         {
           "kind": "role:sdk/experience",
           "id": "vehicle/arcade-race",
-          "description": "Drive two laps before the clock runs out."
+          "description": "Cross the ordered gates and complete the circuit before the clock runs out."
         }
       ],
       "contentKinds": [
@@ -9342,6 +10755,26 @@
             "sdk/experience": "vehicle/arcade-race",
             "sdk/theme": "theme/arcade",
             "sdk/mechanic-sequence": "mechanics/sequence"
+          }
+        },
+        {
+          "id": "portfolio/salt-racing",
+          "name": "SALT FLATS — Endurance Loop",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+          }
+        },
+        {
+          "id": "portfolio/copper-racing",
+          "name": "COPPER SWITCHBACK — Canyon Sprint",
+          "roles": {
+            "sdk/experience": "vehicle/arcade-race",
+            "sdk/theme": "theme/arcade",
+            "sdk/mechanic-sequence": "mechanics/sequence",
+            "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
           }
         }
       ],
@@ -9564,6 +10997,18 @@
             "sdk/mechanic-objectives": "mechanics/objectives",
             "sdk/theme": "theme/board"
           }
+        },
+        {
+          "id": "portfolio/verdant-resource",
+          "name": "Last Rain Conservatory",
+          "roles": {
+            "sdk/experience": "verdant/relay",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/theme": "theme/board"
+          }
         }
       ],
       "recipes": []
@@ -9611,6 +11056,18 @@
         {
           "id": "verdant/relay",
           "name": "Verdant Relay — 3D colony restoration",
+          "roles": {
+            "sdk/experience": "verdant/relay",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "portfolio/verdant-resource",
+          "name": "Last Rain Conservatory",
           "roles": {
             "sdk/experience": "verdant/relay",
             "sdk/mechanic-resources": "mechanics/resources",
@@ -9793,6 +11250,8 @@
       ],
       "recipes": [],
       "implementations": [
+        "portfolio/archive-adventure",
+        "portfolio/orchard-adventure",
         "story/chapter"
       ]
     },
@@ -10083,6 +11542,98 @@
       ],
       "recipes": [],
       "implementations": []
+    },
+    {
+      "id": "sdk/cardPilesMechanic",
+      "type": "contract",
+      "name": "cardPilesMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/portfolio-cards.ts:18",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "cardPilesMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "portfolio-cards/piles"
+      ],
+      "recipes": [
+        "recipe/ordered-card-piles"
+      ],
+      "implementations": []
+    },
+    {
+      "id": "sdk/CardPilesProviders",
+      "type": "contract",
+      "name": "CardPilesProviders",
+      "scope": "contract",
+      "summary": "Public SDK value: portfolio-card-piles-provider",
+      "importFrom": "src/sdk/index.ts",
+      "token": "portfolio-card-piles-provider",
+      "source": "src/sdk/contracts/portfolio-cards.ts:16",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CardPilesProviders",
+        "portfolio-card-piles-provider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "portfolio-cards/piles"
+      ],
+      "recipes": [
+        "recipe/ordered-card-piles"
+      ],
+      "implementations": [
+        "portfolio-cards/piles"
+      ]
+    },
+    {
+      "id": "sdk/CardPilesRole",
+      "type": "contract",
+      "name": "CardPilesRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/portfolio-card-piles",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/portfolio-card-piles",
+      "source": "src/sdk/contracts/portfolio-cards.ts:17",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CardPilesRole",
+        "sdk/portfolio-card-piles"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "portfolio-cards/piles"
+      ],
+      "recipes": [
+        "recipe/ordered-card-piles"
+      ],
+      "implementations": [
+        "portfolio-cards/piles"
+      ]
     },
     {
       "id": "sdk/Cinder",
@@ -11045,6 +12596,8 @@
         "cinder/game",
         "ember/game",
         "hollowmere/game",
+        "portfolio-cards/ash",
+        "portfolio-cards/cloud",
         "puzzle/rules",
         "sky/game",
         "story/adventure",
@@ -11762,6 +13315,8 @@
       "implementations": [
         "cinder/content",
         "ember/content",
+        "portfolio/sky-resource",
+        "portfolio/verdant-resource",
         "sky/content",
         "verdant/content"
       ]
@@ -12102,6 +13657,98 @@
       "implementations": []
     },
     {
+      "id": "sdk/outcomeRatingMechanic",
+      "type": "contract",
+      "name": "outcomeRatingMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/outcome-rating.ts:24",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "outcomeRatingMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/outcome-rating"
+      ],
+      "recipes": [
+        "recipe/outcome-ratings"
+      ],
+      "implementations": []
+    },
+    {
+      "id": "sdk/OutcomeRatingProviders",
+      "type": "contract",
+      "name": "OutcomeRatingProviders",
+      "scope": "contract",
+      "summary": "Public SDK value: mechanic-outcome-rating-provider",
+      "importFrom": "src/sdk/index.ts",
+      "token": "mechanic-outcome-rating-provider",
+      "source": "src/sdk/contracts/outcome-rating.ts:22",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "OutcomeRatingProviders",
+        "mechanic-outcome-rating-provider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/outcome-rating"
+      ],
+      "recipes": [
+        "recipe/outcome-ratings"
+      ],
+      "implementations": [
+        "mechanics/outcome-rating"
+      ]
+    },
+    {
+      "id": "sdk/OutcomeRatingRole",
+      "type": "contract",
+      "name": "OutcomeRatingRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/mechanic-outcome-rating",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/mechanic-outcome-rating",
+      "source": "src/sdk/contracts/outcome-rating.ts:23",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "OutcomeRatingRole",
+        "sdk/mechanic-outcome-rating"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/outcome-rating"
+      ],
+      "recipes": [
+        "recipe/outcome-ratings"
+      ],
+      "implementations": [
+        "mechanics/outcome-rating"
+      ]
+    },
+    {
       "id": "sdk/PHASES",
       "type": "contract",
       "name": "PHASES",
@@ -12383,6 +14030,32 @@
       "implementations": []
     },
     {
+      "id": "sdk/PortfolioCards",
+      "type": "contract",
+      "name": "PortfolioCards",
+      "scope": "contract",
+      "summary": "Public SDK value: portfolio/cards-game",
+      "importFrom": "src/sdk/index.ts",
+      "token": "portfolio/cards-game",
+      "source": "src/sdk/contracts/portfolio-cards.ts:31",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PortfolioCards",
+        "portfolio/cards-game"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Prefabs",
       "type": "contract",
       "name": "Prefabs",
@@ -12603,6 +14276,8 @@
       ],
       "recipes": [],
       "implementations": [
+        "portfolio/atelier-puzzle",
+        "portfolio/watch-puzzle",
         "puzzle/chambers"
       ]
     },
@@ -12689,6 +14364,7 @@
       ],
       "recipes": [],
       "implementations": [
+        "portfolio/racing",
         "vehicle/track"
       ]
     },
@@ -13196,6 +14872,7 @@
       ],
       "recipes": [],
       "implementations": [
+        "portfolio/sky-resource",
         "sky/content"
       ]
     },
@@ -13278,7 +14955,9 @@
       ],
       "recipes": [],
       "implementations": [
-        "board/mission"
+        "board/mission",
+        "portfolio/breach-tactics",
+        "portfolio/crossfire-tactics"
       ]
     },
     {
@@ -13613,6 +15292,7 @@
       ],
       "recipes": [],
       "implementations": [
+        "portfolio/verdant-resource",
         "verdant/content"
       ]
     },
@@ -14660,6 +16340,210 @@
         "sdk/capabilities": "mechanics/capabilities",
         "sdk/room-map": "mechanics/room-map",
         "sdk/mechanic-inventory": "mechanics/inventory"
+      }
+    },
+    {
+      "id": "portfolio/atelier-puzzle",
+      "name": "The Counterweight Atelier",
+      "plugins": [
+        "mechanics/navigation",
+        "puzzle/rules",
+        "puzzle/presentation",
+        "portfolio/atelier-puzzle",
+        "theme/board"
+      ],
+      "roles": {
+        "sdk/experience": "puzzle/stonewake",
+        "sdk/theme": "theme/board",
+        "sdk/mechanic-navigation": "mechanics/navigation"
+      }
+    },
+    {
+      "id": "portfolio/watch-puzzle",
+      "name": "The Watchman's Run",
+      "plugins": [
+        "mechanics/navigation",
+        "puzzle/rules",
+        "puzzle/presentation",
+        "portfolio/watch-puzzle",
+        "theme/board"
+      ],
+      "roles": {
+        "sdk/experience": "puzzle/stonewake",
+        "sdk/theme": "theme/board",
+        "sdk/mechanic-navigation": "mechanics/navigation"
+      }
+    },
+    {
+      "id": "portfolio/salt-racing",
+      "name": "SALT FLATS — Endurance Loop",
+      "plugins": [
+        "mechanics/sequence",
+        "mechanics/outcome-rating",
+        "vehicle/racing",
+        "portfolio/racing",
+        "vehicle/presentation",
+        "theme/arcade"
+      ],
+      "roles": {
+        "sdk/experience": "vehicle/arcade-race",
+        "sdk/theme": "theme/arcade",
+        "sdk/mechanic-sequence": "mechanics/sequence",
+        "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+      }
+    },
+    {
+      "id": "portfolio/copper-racing",
+      "name": "COPPER SWITCHBACK — Canyon Sprint",
+      "plugins": [
+        "mechanics/sequence",
+        "mechanics/outcome-rating",
+        "vehicle/racing",
+        "portfolio/racing",
+        "vehicle/presentation",
+        "theme/arcade"
+      ],
+      "roles": {
+        "sdk/experience": "vehicle/arcade-race",
+        "sdk/theme": "theme/arcade",
+        "sdk/mechanic-sequence": "mechanics/sequence",
+        "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+      }
+    },
+    {
+      "id": "portfolio/sky-resource",
+      "name": "Crosswind Dispatch",
+      "plugins": [
+        "mechanics/resources",
+        "mechanics/clock",
+        "mechanics/actions",
+        "mechanics/objectives",
+        "mechanics/kits",
+        "sky/game",
+        "sky/presentation",
+        "portfolio/sky-resource",
+        "theme/board"
+      ],
+      "roles": {
+        "sdk/mechanic-resources": "mechanics/resources",
+        "sdk/mechanic-clock": "mechanics/clock",
+        "sdk/mechanic-actions": "mechanics/actions",
+        "sdk/mechanic-objectives": "mechanics/objectives",
+        "sdk/experience": "sky/salvage",
+        "sdk/theme": "theme/board"
+      }
+    },
+    {
+      "id": "portfolio/verdant-resource",
+      "name": "Last Rain Conservatory",
+      "plugins": [
+        "mechanics/resources",
+        "mechanics/clock",
+        "mechanics/actions",
+        "mechanics/objectives",
+        "mechanics/kits",
+        "verdant/game",
+        "verdant/presentation",
+        "portfolio/verdant-resource",
+        "theme/board"
+      ],
+      "roles": {
+        "sdk/experience": "verdant/relay",
+        "sdk/mechanic-resources": "mechanics/resources",
+        "sdk/mechanic-clock": "mechanics/clock",
+        "sdk/mechanic-actions": "mechanics/actions",
+        "sdk/mechanic-objectives": "mechanics/objectives",
+        "sdk/theme": "theme/board"
+      }
+    },
+    {
+      "id": "portfolio/breach-tactics",
+      "name": "Glasshouse Breach",
+      "plugins": [
+        "mechanics/navigation",
+        "mechanics/outcome-rating",
+        "board/tactics",
+        "portfolio/breach-tactics",
+        "board/presentation",
+        "theme/board"
+      ],
+      "roles": {
+        "sdk/experience": "board/tactics",
+        "sdk/theme": "theme/board",
+        "sdk/mechanic-navigation": "mechanics/navigation",
+        "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+      }
+    },
+    {
+      "id": "portfolio/crossfire-tactics",
+      "name": "Salt Flats Crossfire",
+      "plugins": [
+        "mechanics/navigation",
+        "mechanics/outcome-rating",
+        "board/tactics",
+        "portfolio/crossfire-tactics",
+        "board/presentation",
+        "theme/board"
+      ],
+      "roles": {
+        "sdk/experience": "board/tactics",
+        "sdk/theme": "theme/board",
+        "sdk/mechanic-navigation": "mechanics/navigation",
+        "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
+      }
+    },
+    {
+      "id": "portfolio/quiet-index",
+      "name": "The Quiet Index",
+      "plugins": [
+        "story/adventure",
+        "story/presentation",
+        "portfolio/archive-adventure",
+        "theme/story"
+      ],
+      "roles": {
+        "sdk/experience": "story/adventure",
+        "sdk/theme": "theme/story"
+      }
+    },
+    {
+      "id": "portfolio/night-orchard",
+      "name": "The Night Orchard",
+      "plugins": [
+        "story/adventure",
+        "story/presentation",
+        "portfolio/orchard-adventure",
+        "theme/story"
+      ],
+      "roles": {
+        "sdk/experience": "story/adventure",
+        "sdk/theme": "theme/story"
+      }
+    },
+    {
+      "id": "portfolio-cards/ash",
+      "name": "Ash & Ink",
+      "plugins": [
+        "portfolio-cards/piles",
+        "portfolio-cards/ash",
+        "portfolio-cards/presentation"
+      ],
+      "roles": {
+        "sdk/experience": "portfolio-cards/ash",
+        "sdk/portfolio-card-piles": "portfolio-cards/piles"
+      }
+    },
+    {
+      "id": "portfolio-cards/cloud",
+      "name": "Cloud Cartographer",
+      "plugins": [
+        "portfolio-cards/piles",
+        "portfolio-cards/cloud",
+        "portfolio-cards/presentation"
+      ],
+      "roles": {
+        "sdk/experience": "portfolio-cards/cloud",
+        "sdk/portfolio-card-piles": "portfolio-cards/piles"
       }
     }
   ]

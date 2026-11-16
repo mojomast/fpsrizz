@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "portfolio/sky-resource",
+  "name": "Crosswind Dispatch",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^2.0.0",
+  "description": "Original portfolio scenario and mechanic kit.",
+  "dependencies": {
+    "sky/game": "^1.0.0",
+    "mechanics/kits": "^1.0.0"
+  },
+  "capabilities": []
+}

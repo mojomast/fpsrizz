@@ -126,8 +126,57 @@ import hollowmerePresentation from '../plugins/hollowmere-presentation/manifest.
 import hollowmerePack from '../plugins/hollowmere-content/manifest.json' with { type: 'json' };
 import hollowmereContent from '../plugins/hollowmere-content/content.json' with { type: 'json' };
 import hollowmerePreset from '../content/presets/hollowmere-ascent.json' with { type: 'json' };
+import portfolioAtelier from '../plugins/portfolio-atelier-puzzle/manifest.json' with { type: 'json' };
+import portfolioAtelierContent from '../plugins/portfolio-atelier-puzzle/content.json' with { type: 'json' };
+import portfolioWatch from '../plugins/portfolio-watch-puzzle/manifest.json' with { type: 'json' };
+import portfolioWatchContent from '../plugins/portfolio-watch-puzzle/content.json' with { type: 'json' };
+import portfolioAtelierPreset from '../content/presets/portfolio-atelier-puzzle.json' with { type: 'json' };
+import portfolioWatchPreset from '../content/presets/portfolio-watch-puzzle.json' with { type: 'json' };
+import portfolioRacingManifest from '../plugins/portfolio-racing/manifest.json' with { type: 'json' };
+import portfolioRacingContent from '../plugins/portfolio-racing/content.json' with { type: 'json' };
+import portfolioSaltPreset from '../content/presets/portfolio-salt-racing.json' with { type: 'json' };
+import portfolioCopperPreset from '../content/presets/portfolio-copper-racing.json' with { type: 'json' };
+import portfolioSkyPack from '../plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
+import portfolioSkyContent from '../plugins/portfolio-sky-resource/content.json' with { type: 'json' };
+import portfolioVerdantPack from '../plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
+import portfolioVerdantContent from '../plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
+import portfolioSkyPreset from '../content/presets/portfolio-sky-resource.json' with { type: 'json' };
+import portfolioVerdantPreset from '../content/presets/portfolio-verdant-resource.json' with { type: 'json' };
+import outcomeRating from '../plugins/mechanics-outcome-rating/manifest.json' with { type: 'json' };
+import portfolioBreach from '../plugins/portfolio-breach-tactics/manifest.json' with { type: 'json' };
+import portfolioBreachContent from '../plugins/portfolio-breach-tactics/content.json' with { type: 'json' };
+import portfolioCrossfire from '../plugins/portfolio-crossfire-tactics/manifest.json' with { type: 'json' };
+import portfolioCrossfireContent from '../plugins/portfolio-crossfire-tactics/content.json' with { type: 'json' };
+import portfolioBreachPreset from '../content/presets/portfolio-breach-tactics.json' with { type: 'json' };
+import portfolioCrossfirePreset from '../content/presets/portfolio-crossfire-tactics.json' with { type: 'json' };
+import portfolioArchive from '../plugins/portfolio-archive-adventure/manifest.json' with { type: 'json' };
+import portfolioArchiveContent from '../plugins/portfolio-archive-adventure/content.json' with { type: 'json' };
+import portfolioOrchard from '../plugins/portfolio-orchard-adventure/manifest.json' with { type: 'json' };
+import portfolioOrchardContent from '../plugins/portfolio-orchard-adventure/content.json' with { type: 'json' };
+import portfolioArchivePreset from '../content/presets/portfolio-archive-adventure.json' with { type: 'json' };
+import portfolioOrchardPreset from '../content/presets/portfolio-orchard-adventure.json' with { type: 'json' };
+import portfolioCardsPiles from '../plugins/portfolio-cards-piles/manifest.json' with { type: 'json' };
+import portfolioCardsAsh from '../plugins/portfolio-cards-ash/manifest.json' with { type: 'json' };
+import portfolioCardsCloud from '../plugins/portfolio-cards-cloud/manifest.json' with { type: 'json' };
+import portfolioCardsPresentation from '../plugins/portfolio-cards-presentation/manifest.json' with { type: 'json' };
+import portfolioCardsAshPreset from '../content/presets/portfolio-cards-ash.json' with { type: 'json' };
+import portfolioCardsCloudPreset from '../content/presets/portfolio-cards-cloud.json' with { type: 'json' };
 
 export const catalog: CatalogEntry[] = [
+  { manifest: portfolioAtelier, content: portfolioAtelierContent },
+  { manifest: portfolioWatch, content: portfolioWatchContent },
+  { manifest: portfolioRacingManifest, content: portfolioRacingContent },
+  { manifest: portfolioSkyPack, content: portfolioSkyContent },
+  { manifest: portfolioVerdantPack, content: portfolioVerdantContent },
+  { manifest: outcomeRating, load: () => import('../plugins/mechanics-outcome-rating/index.ts') },
+  { manifest: portfolioBreach, content: portfolioBreachContent },
+  { manifest: portfolioCrossfire, content: portfolioCrossfireContent },
+  { manifest: portfolioArchive, content: portfolioArchiveContent },
+  { manifest: portfolioOrchard, content: portfolioOrchardContent },
+  { manifest: portfolioCardsPiles, load: () => import('../plugins/portfolio-cards-piles/index.ts') },
+  { manifest: portfolioCardsAsh, load: () => import('../plugins/portfolio-cards-ash/index.ts') },
+  { manifest: portfolioCardsCloud, load: () => import('../plugins/portfolio-cards-cloud/index.ts') },
+  { manifest: portfolioCardsPresentation, load: () => import('../plugins/portfolio-cards-presentation/index.ts') },
   { manifest: dungeonGenerator, load: () => import('../plugins/dungeon-generator/index.ts') },
   { manifest: cinderGame, load: () => import('../plugins/cinder-game/index.ts') },
   { manifest: cinderHud, load: () => import('../plugins/cinder-hud/index.ts') },
@@ -211,4 +260,4 @@ export const catalog: CatalogEntry[] = [
 ];
 
 /** Built-in presets offered by the start screen and creator panel. The first one is the default. */
-export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset, hollowmerePreset];
+export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset, hollowmerePreset, portfolioAtelierPreset, portfolioWatchPreset, portfolioSaltPreset, portfolioCopperPreset, portfolioSkyPreset, portfolioVerdantPreset, portfolioBreachPreset, portfolioCrossfirePreset, portfolioArchivePreset, portfolioOrchardPreset, portfolioCardsAshPreset, portfolioCardsCloudPreset];

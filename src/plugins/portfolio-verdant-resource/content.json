@@ -1,0 +1,111 @@
+[
+  {
+    "kind": "mechanic-kit",
+    "id": "portfolio/last-rain-kit",
+    "data": {
+      "name": "Last rain reserves",
+      "domain": "turns",
+      "resources": [
+        {
+          "id": "water",
+          "label": "Water",
+          "initial": 3,
+          "max": 12
+        },
+        {
+          "id": "biomass",
+          "label": "Biomass",
+          "initial": 2,
+          "max": 12
+        },
+        {
+          "id": "charge",
+          "label": "Charge",
+          "initial": 0,
+          "max": 12
+        }
+      ],
+      "actions": [
+        {
+          "id": "water",
+          "label": "Collect water",
+          "cooldown": 2,
+          "gain": {
+            "water": 3
+          }
+        },
+        {
+          "id": "biomass",
+          "label": "Harvest biomass",
+          "cooldown": 2,
+          "gain": {
+            "biomass": 3
+          }
+        },
+        {
+          "id": "convert",
+          "label": "Generate charge",
+          "cooldown": 1,
+          "spend": {
+            "water": 1,
+            "biomass": 1
+          },
+          "gain": {
+            "charge": 2
+          }
+        },
+        {
+          "id": "restore",
+          "label": "Restore relay",
+          "cooldown": 1,
+          "spend": {
+            "water": 1,
+            "biomass": 2,
+            "charge": 2
+          }
+        },
+        {
+          "id": "wait",
+          "label": "Wait",
+          "cooldown": 0
+        }
+      ],
+      "objectives": [
+        {
+          "id": "relays",
+          "label": "Revive the conservatories",
+          "target": 3
+        }
+      ]
+    }
+  },
+  {
+    "kind": "verdant-world",
+    "id": "portfolio/last-rain",
+    "data": {
+      "name": "Last Rain Conservatory",
+      "kit": "portfolio/last-rain-kit",
+      "days": 11,
+      "stations": [
+        {
+          "id": "seedbank",
+          "name": "Seedbank",
+          "x": -7,
+          "z": -5
+        },
+        {
+          "id": "aquifer",
+          "name": "Aquifer",
+          "x": 6,
+          "z": -4
+        },
+        {
+          "id": "glasshouse",
+          "name": "Glasshouse",
+          "x": 0,
+          "z": 6
+        }
+      ]
+    }
+  }
+]

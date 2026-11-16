@@ -1,0 +1,84 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { PluginHost } from '../src/kernel/host.ts';
+import { Adventure, PHASES, SDK_VERSION } from '../src/sdk/index.ts';
+import rules from '../src/plugins/story-adventure/manifest.json' with { type: 'json' };
+import presentation from '../src/plugins/story-presentation/manifest.json' with { type: 'json' };
+import theme from '../src/plugins/theme-story/manifest.json' with { type: 'json' };
+import archive from '../src/plugins/portfolio-archive-adventure/manifest.json' with { type: 'json' };
+import archiveContent from '../src/plugins/portfolio-archive-adventure/content.json' with { type: 'json' };
+import orchard from '../src/plugins/portfolio-orchard-adventure/manifest.json' with { type: 'json' };
+import orchardContent from '../src/plugins/portfolio-orchard-adventure/content.json' with { type: 'json' };
+import archivePreset from '../src/content/presets/portfolio-archive-adventure.json' with { type: 'json' };
+import orchardPreset from '../src/content/presets/portfolio-orchard-adventure.json' with { type: 'json' };
+
+function fixture() {
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  host.setCatalog([
+    { manifest: rules, load: () => import('../src/plugins/story-adventure/index.ts') },
+    { manifest: presentation, load: () => import('../src/plugins/story-presentation/index.ts') },
+    { manifest: theme, load: () => import('../src/plugins/theme-story/index.ts') },
+    { manifest: archive, content: archiveContent },
+    { manifest: orchard, content: orchardContent },
+  ]);
+  const service = () => host.session!.services.get(Adventure);
+  const action = (id: string) => {
+    assert.equal(service().enqueue({ type: 'action', id }), true);
+    host.session!.scheduler.runTick();
+  };
+  const route = (ids: string[]) => { for (const id of ids) action(id); };
+  const rejected = (id: string) => {
+    const before = service().state();
+    action(id);
+    assert.deepEqual(service().state(), before);
+  };
+  return { host, service, action, route, rejected };
+}
+
+test('The Quiet Index recovers evidence and supports both public and private outcomes', async () => {
+  const f = fixture();
+  await f.host.apply(archivePreset);
+  f.rejected('enter-stacks');
+  f.route(['ask-iva', 'enter-stacks']);
+  f.rejected('open-cabinet');
+  f.route(['chart', 'take-rubbing', 'open-cabinet', 'to-bindery']);
+  f.rejected('restore');
+  assert.ok(f.service().state().inventory.includes('fragment'));
+  f.route(['take-tissue', 'restore']);
+  assert.ok(f.service().state().inventory.includes('evidence'));
+  assert.equal(f.service().state().inventory.includes('fragment'), false);
+  f.route(['to-stacks', 'to-reading', 'to-hearing', 'public-record']);
+  assert.equal(f.service().state().completed, true);
+  assert.ok(f.service().state().flags.includes('public'));
+  f.rejected('private-record');
+  await f.host.restart();
+  assert.equal(f.service().state().room, 'reading-room');
+  f.route(['challenge-iva', 'enter-stacks', 'chart', 'take-rubbing', 'open-cabinet', 'to-bindery', 'take-tissue', 'restore', 'to-stacks', 'to-reading', 'to-hearing', 'private-record']);
+  assert.equal(f.service().state().completed, true);
+  assert.ok(f.service().state().flags.includes('private'));
+  assert.ok(f.service().state().flags.includes('confronted'));
+  await f.host.stop();
+});
+
+test('The Night Orchard prepares a cutting and offers two distinct specialist outcomes', async () => {
+  const f = fixture();
+  await f.host.apply(orchardPreset);
+  f.route(['to-cryo']);
+  f.rejected('wake-sen');
+  f.route(['cryo-return', 'to-cistern']);
+  f.rejected('take-filter');
+  f.route(['diagram', 'take-filter', 'filter-water', 'cistern-return', 'to-nursery']);
+  f.rejected('prepare');
+  assert.ok(f.service().state().inventory.includes('water'));
+  f.route(['manual', 'take-knife', 'nursery-return', 'cut-shoot', 'to-nursery', 'prepare']);
+  assert.equal(f.service().state().inventory.includes('water'), false);
+  f.route(['nursery-return', 'to-cryo', 'wake-sen']);
+  assert.equal(f.service().state().completed, true);
+  assert.ok(f.service().state().flags.includes('botanist'));
+  f.rejected('wake-sol');
+  await f.host.restart();
+  f.route(['to-nursery', 'manual', 'take-knife', 'nursery-return', 'cut-shoot', 'to-cistern', 'diagram', 'take-filter', 'filter-water', 'cistern-return', 'to-nursery', 'prepare', 'nursery-return', 'to-cryo', 'wake-sol']);
+  assert.equal(f.service().state().completed, true);
+  assert.ok(f.service().state().flags.includes('engineer'));
+  await f.host.stop();
+});

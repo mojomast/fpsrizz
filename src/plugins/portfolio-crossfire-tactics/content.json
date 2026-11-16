@@ -1,0 +1,18 @@
+[
+  {
+    "kind": "board-mission",
+    "id": "portfolio/salt-flats-crossfire",
+    "data": {
+      "name": "Salt Flats Crossfire",
+      "rows": ["..C......C.", "...##.##...", "...........", "C....C....C", "...........", "...##.##...", "..C......C."],
+      "units": [
+        { "id": "dune", "name": "Dune", "team": "squad", "x": 5, "y": 3, "hp": 10, "ap": 2 },
+        { "id": "salt", "name": "Salt", "team": "squad", "x": 5, "y": 4, "hp": 10, "ap": 2 },
+        { "id": "west", "name": "West Raider", "team": "enemy", "x": 0, "y": 3, "hp": 3, "ap": 2 },
+        { "id": "east", "name": "East Raider", "team": "enemy", "x": 10, "y": 3, "hp": 3, "ap": 2 },
+        { "id": "north", "name": "North Raider", "team": "enemy", "x": 5, "y": 0, "hp": 4, "ap": 2 },
+        { "id": "south", "name": "South Raider", "team": "enemy", "x": 5, "y": 6, "hp": 4, "ap": 2 }
+      ]
+    }
+  }
+]

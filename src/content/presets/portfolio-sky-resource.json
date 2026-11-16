@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "id": "portfolio/sky-resource",
+  "name": "Crosswind Dispatch",
+  "plugins": [
+    "mechanics/resources",
+    "mechanics/clock",
+    "mechanics/actions",
+    "mechanics/objectives",
+    "mechanics/kits",
+    "sky/game",
+    "sky/presentation",
+    "portfolio/sky-resource",
+    "theme/board"
+  ],
+  "roles": {
+    "sdk/mechanic-resources": "mechanics/resources",
+    "sdk/mechanic-clock": "mechanics/clock",
+    "sdk/mechanic-actions": "mechanics/actions",
+    "sdk/mechanic-objectives": "mechanics/objectives",
+    "sdk/experience": "sky/salvage",
+    "sdk/theme": "theme/board"
+  },
+  "options": {
+    "mechanicKit": "portfolio/crosswind-kit",
+    "route": "portfolio/crosswind"
+  },
+  "seed": 73
+}

@@ -1,0 +1,1 @@
+{"schema":1,"id":"portfolio/atelier-puzzle","name":"The Counterweight Atelier","plugins":["mechanics/navigation","puzzle/rules","puzzle/presentation","portfolio/atelier-puzzle","theme/board"],"roles":{"sdk/experience":"puzzle/stonewake","sdk/theme":"theme/board","sdk/mechanic-navigation":"mechanics/navigation"},"options":{"campaign":"portfolio/counterweight-atelier"},"seed":37}

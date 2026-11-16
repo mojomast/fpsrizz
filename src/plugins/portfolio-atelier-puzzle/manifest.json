@@ -1,0 +1,1 @@
+{"schema":1,"id":"portfolio/atelier-puzzle","name":"The Counterweight Atelier","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"Three quiet chambers of multi-stone positioning.","dependencies":{"puzzle/rules":"^1.0.0"}}

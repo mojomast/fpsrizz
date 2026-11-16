@@ -73,6 +73,10 @@ runtime exports, built-in presets and isolated default registration snapshots. I
 with concrete dependencies and validation skipped for discovery; it never starts a session or invokes role callbacks.
 Registration metadata is descriptive, not proof of cross-reference validity or arbitrary configuration behavior.
 
+The [ten-game portfolio](docs/ten-game-portfolio.md) composes new authored content packs and presets over existing family
+authorities and presentations. `mechanics/outcome-rating` is a separately selected, owned evaluator for game-supplied
+finite metrics; the racing and tactics authorities use it for result medals without transferring victory policy to it.
+
 `scripts/find-reuse.mjs` searches live inventory by intent and exposes text/JSON inspection. Curated recipes in
 `docs/reuse-recipes.json` link tested composition examples. `scripts/index-reuse.mjs` generates `REUSE_INDEX.md` and
 `docs/reuse-index.json`; source digests and deterministic output comparison make stale references fail `npm run check`.
@@ -132,6 +136,10 @@ Reference-shooter plugin ids, with what they own. All use SDK 2 (`"sdk": "^2.0.0
 | `mechanics/progression` | `mechanics-progression` | code | `sdk/mechanic-progression`: `mechanics/progression` | XP curves, level ledgers and pending rewards | uses `ProgressionProviders` |
 | `mechanics/inventory` | `mechanics-inventory` | code | `sdk/mechanic-inventory`: `mechanics/inventory` | stack inventory, equipment slots and `item` content | uses `InventoryProviders`, `Items` |
 | `mechanics/crafting` | `mechanics-crafting` | code | `sdk/mechanic-crafting`: `mechanics/crafting` | known item recipes and atomic crafting content | uses `CraftingProviders`, `CraftingRecipes` |
+| `mechanics/outcome-rating` | `mechanics-outcome-rating` | code | `sdk/mechanic-outcome-rating`: `mechanics/outcome-rating` | ordered threshold classification for explicit outcome metrics | owned evaluator; racing and tactics consumers |
+| `portfolio-cards/piles` | `portfolio-cards-piles` | code | `sdk/portfolio-card-piles`: `portfolio-cards/piles` | ordered unique-card draw, hand and discard partition | owned factory; two card-game consumers |
+| `portfolio-cards/ash`, `portfolio-cards/cloud` | respective `portfolio-cards-*` folders | code | respective `sdk/experience` roles | separate deterministic glyph and weather card rules | provide `PortfolioCards`, consume selected piles |
+| `portfolio-cards/presentation` | `portfolio-cards-presentation` | code | none | keyboard-accessible card table | consumes `PortfolioCards`, `Ui` |
 | `presentation/camera-modes` | `presentation-camera-modes` | code | `sdk/camera`: `presentation/camera-modes` | first-person and orthographic isometric camera modes; provides `View`, `ViewModes` | renderer optional; uses `Render.setWorldCamera`, `InputActions` |
 | `presentation/player-avatar` | `presentation-player-avatar` | code | `sdk/player-avatar` component consumer | attaches a theme Visual body only in overhead modes | uses `PlayerAvatar`, `ViewModes` |
 | `cinder/game` | `cinder-game` | code | `sdk/mode`: `cinder/vault`, `sdk/experience`: `cinder/experience`, `sdk/controller`: `cinder/turn-controller`, `sdk/camera`: `presentation/camera-modes` | three-depth turn-based dungeon orchestration, threat tiers/elite affixes/boss enrage, classes, loot, NPCs/Oracle, forge, fogged map data, boons and run inputs | provides `Cinder`, `TurnControl` |
@@ -331,6 +339,8 @@ Independent family systems (default order 0; frame systems run once per rendered
 | `control` | `verdant/game.commands` | `verdant/game` | Commits one decision, advances its turn clock, applies dry-wind drain and checks restored relays |
 | frame | `verdant/presentation.scene` | `verdant/presentation` | Fits island bounds around panels and reflects relay growth/selection |
 | frame | `verdant/presentation.ui` | `verdant/presentation` | Displays resources, forecasts and shared action definitions/cooldowns |
+| `control` | `portfolio-cards/ash.commands` / `portfolio-cards/cloud.commands` | selected card game | Commits one queued card action, advances the game's local rules and checks its outcome |
+| frame | `portfolio-cards/presentation.ui` | `portfolio-cards/presentation` | Renders the selected card game's hand, status and actions |
 
 Stonewake's rules own a discrete board independent of the renderer. Its presentation builds real lit mesh geometry,
 maps authored cell coordinates to the XZ plane, ray-picks floor meshes and emits semantic move commands. Camera and

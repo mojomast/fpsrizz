@@ -135,11 +135,14 @@ theme. They share host lifecycle, services, deterministic scheduling and the pub
 | `ember/bastion` | Authored 3D lane/pads, tower construction, three enemy waves, repair/pulse, victory/defeat and replay | One defense scenario, one tower type; no campaign or path editing UI |
 | `verdant/relay` | Three 3D island relays, turn-based resource production/conversion/restoration, cooldowns and dry-wind forecast | One season scenario; no offline production, general save or undo |
 | `hollowmere/ascent` | Twelve-room canvas metroidvania, reusable platform/capability/room-map providers, combat, checkpoints, NPCs, tabbed journal and boss | One authored world; physical routes and boss balance need playtesting, no room editor or gamepad |
+| `portfolio/*` | Ten authored experiences across racing, tactics, adventure, puzzles, drone delivery and colony restoration | Shared family rules, art and presentation; see the portfolio guide for each scenario's specific limits |
+| `portfolio-cards/ash`, `portfolio-cards/cloud` | Two small card games with different actions and outcomes over shared ordered draw/hand/discard piles | Fixed 12-card decks; no shuffle, deckbuilding or persistence |
 
 See [racing](docs/overhead-racing.md), [tactics](docs/turn-tactics.md), [adventure](docs/narrative-adventure.md),
 [Stonewake](docs/stonewake.md) and [Hollowmere](docs/hollowmere.md) for
 content schemas, controls and completion routes. Art directions use curated Assetrizz images and original procedural
 elements; each theme supplies its own synthesized cues. Sampled music and a continuous audio-director API are future work.
+The [ten-game portfolio](docs/ten-game-portfolio.md) documents the authored scenarios and their verified routes.
 
 `ExperienceRole` selects locked/free/no-pointer input policy and launcher controls. `InputContexts` supplies scoped
 priority/consumption and exclusive focus. `SessionControl` gates gameplay ingress from UI. Tactics/adventure/puzzle state

@@ -6,12 +6,14 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `c6c40ba061af71bd4a3659fa1602f84b059240ee2519bded64aee898466cc796`
+Source digest: `086260fd012c7674b40e0b28bd21d4636732f6823fd3d1644f34380610cb87da`
 
 ## Composition recipes
 
 | ID | Scope | What exists | Source |
 |---|---|---|---|
+| `recipe/ordered-card-piles` | cross-genre | Own an ordered partition of unique IDs across draw, hand and discard zones. | [source](docs/reuse-recipes.json) |
+| `recipe/outcome-ratings` | cross-genre | Classify game-supplied finite outcome metrics against ordered tiers of inclusive thresholds. | [source](docs/reuse-recipes.json) |
 | `recipe/ordered-navigation` | cross-genre | Query shortest unit-edge paths over a game-supplied legal graph, preserving neighbor order for deterministic ties. | [source](docs/reuse-recipes.json) |
 | `recipe/ordered-rounds` | cross-genre | Share a canonical ordered step cursor with finite repeated rounds, independently of spatial crossings and game outcomes. | [source](docs/reuse-recipes.json) |
 | `recipe/bounded-command-queue` | cross-genre | Share a bounded FIFO command queue with pause/disposal gating and explicit single-command or snapshot-batch draining. | [source](docs/reuse-recipes.json) |
@@ -82,11 +84,25 @@ Source digest: `c6c40ba061af71bd4a3659fa1602f84b059240ee2519bded64aee898466cc796
 | `mechanics/kits` | cross-genre | Validated JSON mechanic kits combine resources, actions, clock domains and objectives without new gameplay code. | [source](src/plugins/mechanics-kits) |
 | `mechanics/navigation` | cross-genre | Pure deterministic unit-edge graph queries returning ordered shortest distances and canonical first steps. | [source](src/plugins/mechanics-navigation) |
 | `mechanics/objectives` | cross-genre | Objective counters, prerequisite unlocks and idempotent progress receipts for quests, deliveries, waves and restoration. | [source](src/plugins/mechanics-objectives) |
+| `mechanics/outcome-rating` | cross-genre | Deterministic outcome tiers from explicit finite metrics and immutable threshold conditions. | [source](src/plugins/mechanics-outcome-rating) |
 | `mechanics/platforming` | cross-genre | AABB side-scrolling movement with coyote/buffered jumps, variable height, double jump, dash, wall slide and wall jump. | [source](src/plugins/mechanics-platforming) |
 | `mechanics/progression` | cross-genre | Owned XP and level ledgers with deterministic linear curves, multi-level grants, capped levels and pending game-defined level rewards. | [source](src/plugins/mechanics-progression) |
 | `mechanics/resources` | cross-genre | Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation. | [source](src/plugins/mechanics-resources) |
 | `mechanics/room-map` | cross-genre | Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations. | [source](src/plugins/mechanics-room-map) |
 | `mechanics/sequence` | cross-genre | Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion. | [source](src/plugins/mechanics-sequence) |
+| `portfolio-cards/ash` | unreviewed | A glyph-seal hand management duel. | [source](src/plugins/portfolio-cards-ash) |
+| `portfolio-cards/cloud` | unreviewed | A weather-card expedition planning game. | [source](src/plugins/portfolio-cards-cloud) |
+| `portfolio-cards/piles` | cross-genre | Owned ordered unique-card draw, hand and discard partition. | [source](src/plugins/portfolio-cards-piles) |
+| `portfolio-cards/presentation` | unreviewed | Accessible browser card table for the portfolio card games. | [source](src/plugins/portfolio-cards-presentation) |
+| `portfolio/archive-adventure` | content | A contested archive and a missing name. | [source](src/plugins/portfolio-archive-adventure) |
+| `portfolio/atelier-puzzle` | content | Three quiet chambers of multi-stone positioning. | [source](src/plugins/portfolio-atelier-puzzle) |
+| `portfolio/breach-tactics` | content | A three-agent assault through a divided conservatory. | [source](src/plugins/portfolio-breach-tactics) |
+| `portfolio/crossfire-tactics` | content | A two-scout stand against an encircling raiding party. | [source](src/plugins/portfolio-crossfire-tactics) |
+| `portfolio/orchard-adventure` | content | A seedship garden and a difficult inheritance. | [source](src/plugins/portfolio-orchard-adventure) |
+| `portfolio/racing` | content | Two independent arcade time-trial tracks. | [source](src/plugins/portfolio-racing) |
+| `portfolio/sky-resource` | content | Original portfolio scenario and mechanic kit. | [source](src/plugins/portfolio-sky-resource) |
+| `portfolio/verdant-resource` | content | Original portfolio scenario and mechanic kit. | [source](src/plugins/portfolio-verdant-resource) |
+| `portfolio/watch-puzzle` | content | Three pursuit chambers with shifting routes around stone and walls. | [source](src/plugins/portfolio-watch-puzzle) |
 | `presentation/camera-modes` | cross-genre | Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service. | [source](src/plugins/presentation-camera-modes) |
 | `presentation/player-avatar` | cross-genre | Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes. | [source](src/plugins/presentation-player-avatar) |
 | `puzzle/chambers` | content | Three authored chambers introducing weight, pursuit and a double seal. | [source](src/plugins/puzzle-chambers) |
@@ -130,6 +146,9 @@ Source digest: `c6c40ba061af71bd4a3659fa1602f84b059240ee2519bded64aee898466cc796
 | `sdk/capabilityMechanic` | contract | Public helper/class | [source](src/sdk/contracts/capabilities.ts#L53) |
 | `sdk/CapabilityRole` | contract | Public SDK value: sdk/capabilities | [source](src/sdk/contracts/capabilities.ts#L50) |
 | `sdk/CapabilityUnlocked` | contract | Public SDK value: sdk/capability-unlocked | [source](src/sdk/contracts/capabilities.ts#L51) |
+| `sdk/cardPilesMechanic` | contract | Public helper/class | [source](src/sdk/contracts/portfolio-cards.ts#L18) |
+| `sdk/CardPilesProviders` | contract | Public SDK value: portfolio-card-piles-provider | [source](src/sdk/contracts/portfolio-cards.ts#L16) |
+| `sdk/CardPilesRole` | contract | Public SDK value: sdk/portfolio-card-piles | [source](src/sdk/contracts/portfolio-cards.ts#L17) |
 | `sdk/Cinder` | contract | Public SDK value: cinder/run | [source](src/sdk/contracts/cinder.ts#L196) |
 | `sdk/clockMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L132) |
 | `sdk/ClockMechanicRole` | contract | Public SDK value: sdk/mechanic-clock | [source](src/sdk/contracts/mechanics.ts#L101) |
@@ -199,6 +218,9 @@ Source digest: `c6c40ba061af71bd4a3659fa1602f84b059240ee2519bded64aee898466cc796
 | `sdk/ObjectiveMechanicRole` | contract | Public SDK value: sdk/mechanic-objectives | [source](src/sdk/contracts/mechanics.ts#L103) |
 | `sdk/ObjectiveProviders` | contract | Public SDK value: mechanic-objective-provider | [source](src/sdk/contracts/mechanics.ts#L99) |
 | `sdk/opt` | contract | Public helper/class | [source](src/kernel/validate.ts#L81) |
+| `sdk/outcomeRatingMechanic` | contract | Public helper/class | [source](src/sdk/contracts/outcome-rating.ts#L24) |
+| `sdk/OutcomeRatingProviders` | contract | Public SDK value: mechanic-outcome-rating-provider | [source](src/sdk/contracts/outcome-rating.ts#L22) |
+| `sdk/OutcomeRatingRole` | contract | Public SDK value: sdk/mechanic-outcome-rating | [source](src/sdk/contracts/outcome-rating.ts#L23) |
 | `sdk/PHASES` | contract | Public SDK value | [source](src/sdk/core.ts#L25) |
 | `sdk/Pickup` | contract | Public SDK value: sdk/pickup | [source](src/sdk/contracts/shooter.ts#L110) |
 | `sdk/PickupCollected` | contract | Public SDK value: sdk/pickup-collected | [source](src/sdk/contracts/shooter.ts#L364) |
@@ -209,6 +231,7 @@ Source digest: `c6c40ba061af71bd4a3659fa1602f84b059240ee2519bded64aee898466cc796
 | `sdk/PlatformerRole` | contract | Public SDK value: sdk/platformer | [source](src/sdk/contracts/platforming.ts#L121) |
 | `sdk/Player` | contract | Public SDK value: sdk/player | [source](src/sdk/contracts/shooter.ts#L70) |
 | `sdk/PlayerAvatar` | contract | Public SDK value: sdk/player-avatar | [source](src/sdk/contracts/shooter.ts#L140) |
+| `sdk/PortfolioCards` | contract | Public SDK value: portfolio/cards-game | [source](src/sdk/contracts/portfolio-cards.ts#L31) |
 | `sdk/Prefabs` | contract | Public SDK value: prefab | [source](src/sdk/contracts/shooter.ts#L332) |
 | `sdk/Profile` | contract | Public SDK value: sdk/profile | [source](src/sdk/contracts/profile.ts#L15) |
 | `sdk/progressionMechanic` | contract | Public helper/class | [source](src/sdk/contracts/progression.ts#L60) |

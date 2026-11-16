@@ -1,0 +1,1 @@
+{"schema":1,"id":"portfolio-cards/presentation","name":"Portfolio card table","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Accessible browser card table for the portfolio card games.","dependencies":{},"optionalDependencies":{"portfolio-cards/ash":"^1.0.0","portfolio-cards/cloud":"^1.0.0"},"capabilities":["ui"]}

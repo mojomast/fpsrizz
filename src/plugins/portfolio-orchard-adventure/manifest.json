@@ -1,0 +1,1 @@
+{"schema":1,"id":"portfolio/orchard-adventure","name":"The Night Orchard","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"A seedship garden and a difficult inheritance.","dependencies":{"story/adventure":"^1.0.0"}}

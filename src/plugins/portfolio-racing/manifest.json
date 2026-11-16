@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "portfolio/racing",
+  "name": "Portfolio racing tracks",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^2.0.0",
+  "description": "Two independent arcade time-trial tracks.",
+  "dependencies": { "vehicle/racing": "^1.0.0" },
+  "capabilities": [],
+  "requiresRoles": [],
+  "config": {}
+}

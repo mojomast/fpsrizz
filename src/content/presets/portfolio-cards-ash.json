@@ -1,0 +1,1 @@
+{"schema":1,"id":"portfolio-cards/ash","name":"Ash & Ink","plugins":["portfolio-cards/piles","portfolio-cards/ash","portfolio-cards/presentation"],"roles":{"sdk/experience":"portfolio-cards/ash","sdk/portfolio-card-piles":"portfolio-cards/piles"},"options":{},"seed":41}

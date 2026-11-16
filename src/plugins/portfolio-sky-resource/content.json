@@ -1,0 +1,127 @@
+[
+  {
+    "kind": "mechanic-kit",
+    "id": "portfolio/crosswind-kit",
+    "data": {
+      "name": "Crosswind airframe",
+      "domain": "seconds",
+      "resources": [
+        {
+          "id": "energy",
+          "label": "Energy",
+          "initial": 80,
+          "max": 80
+        },
+        {
+          "id": "hull",
+          "label": "Hull",
+          "initial": 100,
+          "max": 100
+        },
+        {
+          "id": "cargo",
+          "label": "Cargo",
+          "initial": 0,
+          "max": 1
+        }
+      ],
+      "actions": [
+        {
+          "id": "collect",
+          "label": "Recover cargo",
+          "cooldown": 0,
+          "gain": {
+            "cargo": 1
+          }
+        },
+        {
+          "id": "deliver",
+          "label": "Unload cargo",
+          "cooldown": 0,
+          "spend": {
+            "cargo": 1
+          }
+        },
+        {
+          "id": "boost",
+          "label": "Boost",
+          "cooldown": 6,
+          "spend": {
+            "energy": 25
+          }
+        },
+        {
+          "id": "repair",
+          "label": "Repair",
+          "cooldown": 10,
+          "spend": {
+            "energy": 20
+          },
+          "gain": {
+            "hull": 20
+          }
+        }
+      ],
+      "objectives": [
+        {
+          "id": "deliveries",
+          "label": "Deliver emergency instruments",
+          "target": 4
+        }
+      ]
+    }
+  },
+  {
+    "kind": "sky-route",
+    "id": "portfolio/crosswind",
+    "data": {
+      "name": "Crosswind Dispatch",
+      "deliveries": [
+        {
+          "id": "barometer",
+          "pickup": {
+            "x": -7,
+            "z": -6
+          },
+          "beacon": {
+            "x": 7,
+            "z": 6
+          }
+        },
+        {
+          "id": "medic",
+          "pickup": {
+            "x": -2,
+            "z": -5
+          },
+          "beacon": {
+            "x": 2,
+            "z": 6
+          }
+        },
+        {
+          "id": "filter",
+          "pickup": {
+            "x": 3,
+            "z": -6
+          },
+          "beacon": {
+            "x": -7,
+            "z": 6
+          }
+        },
+        {
+          "id": "radio",
+          "pickup": {
+            "x": 8,
+            "z": -5
+          },
+          "beacon": {
+            "x": -2,
+            "z": 6
+          }
+        }
+      ]
+    }
+  }
+]

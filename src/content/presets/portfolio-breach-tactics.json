@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "portfolio/breach-tactics",
+  "name": "Glasshouse Breach",
+  "plugins": ["mechanics/navigation", "mechanics/outcome-rating", "board/tactics", "portfolio/breach-tactics", "board/presentation", "theme/board"],
+  "roles": { "sdk/experience": "board/tactics", "sdk/theme": "theme/board", "sdk/mechanic-navigation": "mechanics/navigation", "sdk/mechanic-outcome-rating": "mechanics/outcome-rating" },
+  "options": { "mission": "portfolio/glasshouse-breach" },
+  "config": {},
+  "seed": 42
+}

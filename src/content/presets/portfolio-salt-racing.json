@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "portfolio/salt-racing",
+  "name": "SALT FLATS — Endurance Loop",
+  "plugins": ["mechanics/sequence", "mechanics/outcome-rating", "vehicle/racing", "portfolio/racing", "vehicle/presentation", "theme/arcade"],
+  "roles": { "sdk/experience": "vehicle/arcade-race", "sdk/theme": "theme/arcade", "sdk/mechanic-sequence": "mechanics/sequence", "sdk/mechanic-outcome-rating": "mechanics/outcome-rating" },
+  "options": { "track": "portfolio/salt-flats" },
+  "config": {},
+  "seed": 1337
+}

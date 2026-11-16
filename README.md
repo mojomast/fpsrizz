@@ -63,6 +63,13 @@ pointer lock. The original first-person presets retain captured mouse aiming.
 
 **[Game composition canvas](docs/game-composer.md)** is the creator-tools foundation for wiring games together. It edits versioned, layout-independent `GameGraph` JSON with plugin nodes, dependency projections and authored exclusive-role selections, compiles deterministically to the normal preset format, stages through the real host before Apply, and has an agent-friendly CLI (`npm run graph`).
 
+**[Ten-game portfolio](docs/ten-game-portfolio.md)** adds ten individually selectable, authored experiences: two puzzle
+campaigns, two racing trials, two tactical missions, two narrative adventures, a drone-courier route and a colony
+restoration scenario. They reuse existing family rules and presentations, shared mechanics and the new optional
+`mechanics/outcome-rating` provider; the guide identifies their actual differences, controls and completion routes.
+Two additional small card games, [Ash & Ink and Cloud Cartographer](docs/portfolio-cards.md), share the new ordered-card
+piles provider while keeping their card effects, decisions and win rules independent.
+
 **[CINDER VAULT — Ashbound Roguelite](docs/cinder-vault.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=cinder/vault) — adds a turn-based first-person fantasy run across three
 large generated dungeon depths. Choose a vault threat with **7/8/9** (Pilgrim, Delver or Ashbound), then one of three
 classes. Step one tile per action, read telegraphed intents and manage a filtered 12-stack pack with armor/charm gear,
@@ -322,6 +329,7 @@ relabelled MIT. Synthesized sounds and explicitly labelled procedural fallback a
 | [CONTENT_FORMAT.md](CONTENT_FORMAT.md) | JSON formats: manifests, content packs, maps, presets. |
 | [Cinder Vault](docs/cinder-vault.md) / [classes](docs/cinder-classes.md) / [inventory](docs/inventory.md) / [crafting](docs/crafting.md) / [camera modes](docs/camera-modes.md) / [weapon rig](docs/weapon-rig.md) | Turn-based dungeon rules, threat tiers/elites, class mastery, pack/gear, Ember Shard recipes, NPC/Oracle services, the reusable isometric camera/avatars and bottom-center weapon rig. |
 | [Hollowmere](docs/hollowmere.md) / [game composer](docs/game-composer.md) | Side-scrolling metroidvania rules, platforming/capability/room-map contracts, Assetrizz world presentation, tabbed journal and the JSON-first human/agent composition canvas. |
+| [Ten-game portfolio](docs/ten-game-portfolio.md) / [build plan](docs/ten-game-build-plan.md) / [shared ratings](docs/portfolio-shared-mechanics.md) / [research](docs/research/ten-game-portfolio-2026-11-16.md) | New authored scenarios, shared provider composition, completion routes and design evidence. |
 | [Turn-based research](docs/research/turn-based-roguelite-2026-11-16.md) / [UX/world research](docs/research/ux-world-features-2026-11-16.md) / [difficulty/QoL research](docs/research/difficulty-replayability-qol-2026-11-16.md) / [composer research](docs/research/game-composer-2026-11-16.md) / [UI polish audit](docs/research/ui-polish-2026-11-16.md) | Design sources and decisions behind turns, maps, transitions, inventory, NPCs, crafting, threat tiers, field guide/QoL, the composition canvas and combat/HUD polish. |
 | [devplan.md](devplan.md) | Milestone status and next steps. |
 | [AGENTS.md](AGENTS.md) | Guidance for coding agents working in this repository. |

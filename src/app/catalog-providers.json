@@ -143,6 +143,11 @@
         "mechanics/objectives"
       ]
     },
+    "mechanics/outcome-rating": {
+      "sdk/mechanic-outcome-rating": [
+        "mechanics/outcome-rating"
+      ]
+    },
     "mechanics/platforming": {
       "sdk/platformer": [
         "mechanics/platforming"
@@ -166,6 +171,21 @@
     "mechanics/sequence": {
       "sdk/mechanic-sequence": [
         "mechanics/sequence"
+      ]
+    },
+    "portfolio-cards/ash": {
+      "sdk/experience": [
+        "portfolio-cards/ash"
+      ]
+    },
+    "portfolio-cards/cloud": {
+      "sdk/experience": [
+        "portfolio-cards/cloud"
+      ]
+    },
+    "portfolio-cards/piles": {
+      "sdk/portfolio-card-piles": [
+        "portfolio-cards/piles"
       ]
     },
     "presentation/camera-modes": {

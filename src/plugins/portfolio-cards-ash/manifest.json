@@ -1,0 +1,1 @@
+{"schema":1,"id":"portfolio-cards/ash","name":"Ash & Ink rules","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"A glyph-seal hand management duel.","dependencies":{},"capabilities":["simulation"],"requiresRoles":["sdk/experience","sdk/portfolio-card-piles"],"roleDependencies":["sdk/portfolio-card-piles"]}

@@ -1,0 +1,30 @@
+[
+  {"kind":"adventure-chapter","id":"portfolio/night-orchard","data":{
+    "version":1,"name":"The Night Orchard","subtitle":"A seedship story","tagline":"Listen · Cultivate · Choose","hint":"Investigate the water cycle and nursery; prepare a viable cutting before deciding whom to wake.","start":"atrium","intro":"The seedship's orchard is dying during its long voyage. Its sleeping crew cannot help until you decide which specialist to wake, and the last living tree needs a viable cutting first.",
+    "rooms":[
+      {"id":"atrium","name":"Night Orchard","description":"A single pear tree grows beneath a failing artificial moon. A ship's caretaker terminal blinks among its roots.","art":"story-room","motif":"window"},
+      {"id":"cistern","name":"Dry Cistern","description":"Mineral crust rings the tank. A hand pump and a filter housing sit beside a maintenance diagram.","art":"story-room","motif":"tower"},
+      {"id":"nursery","name":"Seed Nursery","description":"Empty trays line the shelves. A propagation manual lies beside a sterile grafting knife.","art":"story-room","motif":"shelves"},
+      {"id":"cryo","name":"Sleeper Gallery","description":"Two occupied pods wait below the wake console: botanist Sen and engineer Sol. Only one emergency wake charge remains.","art":"story-room","motif":"none"}
+    ],
+    "items":{"filter":{"name":"Clean filter"},"water":{"name":"Filtered water"},"knife":{"name":"Sterile knife"},"cutting":{"name":"Pear cutting"},"viable":{"name":"Viable cutting","icon":"story-lens"}},
+    "actions":[
+      {"id":"consult-terminal","label":"Ask the caretaker about the orchard","room":"atrium","text":"The caretaker explains that saline water poisoned the roots. Filter the cistern, then use clean water to prepare a cutting in the nursery.","flags":["diagnosis"],"journal":"Filter the cistern and prepare a cutting in the nursery."},
+      {"id":"to-cistern","label":"Go to the cistern","room":"atrium","move":"cistern","text":"You follow a dry pipe to the tank."},
+      {"id":"cistern-return","label":"Return to the orchard","room":"cistern","move":"atrium","text":"The tree rustles in the ventilation."},
+      {"id":"diagram","label":"Read the maintenance diagram","room":"cistern","text":"The diagram shows a spare filter stored inside the pump's service hatch. Insert it before drawing water.","flags":["diagram-read"],"journal":"The spare filter is in the pump's service hatch."},
+      {"id":"take-filter","label":"Open the pump service hatch","room":"cistern","require":["diagram-read"],"add":["filter"],"once":"filter-taken","text":"You retrieve the sealed clean filter."},
+      {"id":"filter-water","label":"Filter and draw water","room":"cistern","items":["filter"],"consume":["filter"],"add":["water"],"once":"water-drawn","text":"The hand pump runs clear after the filter catches the salt."},
+      {"id":"to-nursery","label":"Go to the nursery","room":"atrium","move":"nursery","text":"You enter the quiet propagation room."},
+      {"id":"nursery-return","label":"Return to the orchard","room":"nursery","move":"atrium","text":"You return to the old tree."},
+      {"id":"manual","label":"Read the propagation manual","room":"nursery","text":"Cut a living shoot with a sterile knife. Soak it in filtered water; do not water the damaged roots with it.","flags":["manual-read"],"journal":"A sterile cutting and filtered water make a viable graft."},
+      {"id":"take-knife","label":"Take the sterile knife","room":"nursery","add":["knife"],"once":"knife-taken","text":"You take the sealed grafting knife."},
+      {"id":"cut-shoot","label":"Take a living shoot","room":"atrium","require":["manual-read"],"items":["knife"],"add":["cutting"],"once":"shoot-cut","text":"You cut a green shoot above a healthy bud. The old tree still stands."},
+      {"id":"prepare","label":"Soak the cutting in filtered water","room":"nursery","items":["cutting","water"],"consume":["cutting","water"],"add":["viable"],"once":"prepared","text":"The shoot drinks. Its buds uncurl in the nursery light.","journal":"A viable cutting is ready for a waking specialist."},
+      {"id":"to-cryo","label":"Visit the sleeper gallery","room":"atrium","move":"cryo","text":"The wake console counts down its one remaining charge."},
+      {"id":"cryo-return","label":"Return to the orchard","room":"cryo","move":"atrium","text":"You leave the pods undisturbed."},
+      {"id":"wake-sen","label":"Wake botanist Sen","room":"cryo","items":["viable"],"consume":["viable"],"once":"finished","flags":["victory","botanist"],"text":"Sen plants the cutting in a sealed nursery and promises to teach the next generation its care. The ship's failing pump will need a later repair.","journal":"Sen safeguards the tree's living heir."},
+      {"id":"wake-sol","label":"Wake engineer Sol","room":"cryo","items":["viable"],"consume":["viable"],"once":"finished","flags":["victory","engineer"],"text":"Sol secures the cutting in the nursery, then begins rebuilding the pump. The tree's graft will need patient attention from the next crew.","journal":"Sol protects the cutting and begins restoring the water system."}
+    ],"victory":{"flag":"victory","title":"A future takes root","epilogue":"The cutting survives the night and one specialist wakes to tend the ship. Explore, load a save, or start over to make a different choice."}
+  }}
+]

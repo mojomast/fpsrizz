@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Deterministic outcome tiers from explicit finite metrics and immutable threshold conditions.",
+  "keywords": ["score", "medal", "rating", "outcome", "threshold", "rank"],
+  "entryPoints": ["OutcomeRatingProviders", "OutcomeRatingRole", "outcomeRatingMechanic"],
+  "useWhen": "Classify a completed run by ordered tiers and explicit multi-metric thresholds.",
+  "limitations": ["Does not collect metrics, establish victory, persist records, calculate weighted scores or award rewards. Tier precedence is authored order."],
+  "docs": ["docs/portfolio-shared-mechanics.md"],
+  "examples": ["src/plugins/vehicle-racing/index.ts", "src/plugins/board-tactics/index.ts"],
+  "tests": ["tests/outcome-rating.test.ts"]
+}
