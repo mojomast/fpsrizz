@@ -362,14 +362,25 @@ authoritative turn/story state. This is not a universal turn wrapper for existin
 ### Reusable cross-genre mechanics
 
 `Cinder` (`cinder/run`) is a shooter-family service exposing detached `CinderState` observations and bounded semantic
-commands (`choose`, `pulse`). It reports depth, non-blocking in-level `level`/`xp`/`xpToNext`, the current `offers` epoch,
-owned `arsenal`, stacked `boons`, a current `target` beacon and warden/Keeper state. `CinderOffer` is a discriminated union
-of weapon and relic cards; stale offer epochs cannot claim a reward after a newer draw. `cinder/game` composes five
-selected mechanic roles (resources, clock, actions, objectives, progression) beneath this family authority and receives
-replaced-provider evidence; `cinder/hud` consumes its state independently, including a non-modal level-up tray,
-magazine/reload display and depth waypoint. The game does not use `sdk/mechanic-sequence`; dungeon wings are emitted as
-room markers by the `dungeon/generator` map format. See [Cinder Vault](docs/cinder-vault.md),
-[dungeon generator](docs/dungeon-generator.md) and [progression](docs/progression.md).
+commands (`choose`, `pulse`, `choose-class`, `choose-threat`, `end-turn`, `toggle-inventory`, `inventory-move`, `inventory-confirm`,
+`inventory-filter`, `inventory-drop`, `toggle-crafting`, `crafting-move`, `crafting-confirm`, `craft`, `toggle-grid`,
+`iso-click`, `toggle-help`, `dialogue-choice`, `dialogue-close`). It reports class/mastery, selected/best threat, action
+points/round and an isometric hover preview, total/engaged enemy intent counts, depth, non-blocking in-level XP and offers,
+owned weapons, stacked boons, inventory/equipment, known recipes, fogged map state, nearby NPC and dialogue, and
+warden/Keeper enrage state. `CinderOffer` is a discriminated union of weapon and relic
+cards; stale offer epochs cannot claim a reward after a newer draw. `cinder/game` composes seven selected mechanic roles
+(resources, clock, actions, objectives, progression, inventory, crafting) beneath this family authority and owns a one-tile
+action-point turn loop with telegraphed enemy actions, opt-in threat tiers, behavioral elites and boss enrage phases. It also
+owns optional NPCs/Oracle bargains, pack filtering/drop, known-recipe forge, fogged automap/grid data and a selection of
+`presentation/camera-modes` for the reusable first-person/isometric camera. New enemy definitions may select the
+`cinder/manual` AI behavior: a validated metadata/no-op hook (`actions`, `supportHeal`, `preferredRange`) read by Cinder's
+manual enemy turn, not an autonomous AI. `cinder/hud` independently presents the non-modal class/threat select, pack,
+forge, dialogue, field guide, automap/grid, view badge, turn bar, AP/attack hover hint, boon tray and depth waypoint.
+`TurnControl` is installed to suspend real-time enemy AI; the game does not
+use `sdk/mechanic-sequence`. Dungeon wings are emitted as room markers by `dungeon/generator`. See
+[Cinder Vault](docs/cinder-vault.md), [classes/loot](docs/cinder-classes.md), [inventory](docs/inventory.md),
+[crafting](docs/crafting.md), [camera modes](docs/camera-modes.md), [dungeon generator](docs/dungeon-generator.md) and
+[progression](docs/progression.md).
 
 #### Selectable building blocks
 
@@ -399,9 +410,35 @@ level counts and pending game-defined rewards. XP grants can complete several le
 stat/perk effects and calls `consumeLevel` after committing a reward. Cinder Vault uses this for in-level boons that do
 not pause combat. See [experience and levels](docs/progression.md).
 
+`InventoryProviders` factories selected by `InventoryMechanicRole` (`sdk/mechanic-inventory`) own bounded item stacks and
+optional equipment-slot assignments. The plugin registers the `item` content kind. Consumers own item effects, stats,
+loot rolls, UI and persistence; add/remove/equip/unequip are atomic. See [stack inventory](docs/inventory.md).
+
+`presentation/camera-modes` is a reusable `CameraRole` provider with a first-person view and an orthographic isometric
+follow view. It publishes `View` and the optional `ViewModes` service (`mode`, `yaw`, `set`, `toggle`, `rotate`,
+`pickGround`); `ViewModeChanged` reports successful changes. `pickGround` maps a CSS-pixel position through the active
+orthographic camera to the ground plane for consumer click actions. `core-presentation` consumes `ViewModes` to hide ceiling quads, first-person weapon models and fog in
+overhead modes. First-person weapon sprites use a smaller bottom-center pivot; see
+[weapon presentation](docs/weapon-rig.md).
+
+`presentation/player-avatar` is an optional overhead presenter. A consumer adds `PlayerAvatar`
+(`{ visual, scale, y }`) to its player; while `ViewModes` is isometric the plugin attaches a theme `Visual` body and removes
+it in first person. It manages only the body presentation component, not animation graphs, equipment or collision. Cinder
+uses Assetrizz knight/mage/rogue visuals per class. See [camera modes](docs/camera-modes.md).
+
+`CraftingProviders` factories selected by `CraftingMechanicRole` (`sdk/mechanic-crafting`) execute deterministic known
+item-to-item recipes through a selected inventory handle. The plugin registers `crafting-recipe` content. Preview is pure;
+craft rechecks, consumes all inputs and restores them if output placement fails. Cinder owns Ember Shard drops, run-ember
+costs, the NPC forge and pack UI. See [crafting](docs/crafting.md).
+
 `dungeon/generator` is a content-driven map format rather than an exclusive role. It emits one `WorldDescription` with up
 to three isolated dungeon wings, combined with its rooms/corridors and inert `dungeon/marker` spawn points. The consuming
 mode supplies enemies/loot and owns wing transitions. See [seeded dungeon rooms](docs/dungeon-generator.md).
+
+`TurnControl` (`sdk/turn-control`) is a presence-only service for modes that own discrete actions. While installed,
+`core/enemies` suppresses its autonomous think/separation systems; the mode must execute enemy turns. It reports phase,
+round and action points for presentation. Absence restores real-time AI. Cinder Vault uses it for one-tile action-point
+combat; see [Cinder Vault](docs/cinder-vault.md).
 
 #### Resource/action/clock/objective composition
 

@@ -62,9 +62,11 @@ function buildLevelMeshes(desc: WorldDescription): Map<string, Soup> {
         if (solidAt(cx, cz + 1) === false) s.quad([x0, 0, z1], [x1, 0, z1], [x1, H, z1], [x0, H, z1], [0, 0, 1]);
         if (solidAt(cx - 1, cz) === false) s.quad([x0, 0, z0], [x0, 0, z1], [x0, H, z1], [x0, H, z0], [-1, 0, 0]);
         if (solidAt(cx + 1, cz) === false) s.quad([x1, 0, z1], [x1, 0, z0], [x1, H, z0], [x1, H, z1], [1, 0, 0]);
+        // Cap solid cells so overhead/orthographic views see a closed wall silhouette rather than an open column.
+        s.quad([x0, H, z0], [x1, H, z0], [x1, H, z1], [x0, H, z1], [0, 1, 0]);
       } else {
         if (cell.floor) soup(cell.floor).quad([x0, 0, z1], [x1, 0, z1], [x1, 0, z0], [x0, 0, z0], [0, 1, 0]);
-        if (cell.ceiling) soup(cell.ceiling).quad([x0, H, z0], [x1, H, z0], [x1, H, z1], [x0, H, z1], [0, -1, 0]);
+        if (cell.ceiling) soup(`@ceiling:${cell.ceiling}`).quad([x0, H, z0], [x1, H, z0], [x1, H, z1], [x0, H, z1], [0, -1, 0]);
       }
     }
   }
@@ -108,6 +110,8 @@ function buildDoorSoups(d: DoorState['desc'], H: number): { faces: Soup; edges: 
 export interface WorldMeshes {
   /** Per-frame animation: doors sliding, switch panels, exit pads. */
   update(time: number): void;
+  /** Hides ceiling quads for overhead camera modes without changing the floor/wall colliders. */
+  setOverhead(overhead: boolean): void;
 }
 
 export function buildWorldMeshes(ctx: SessionContext, root: THREE.Group, world: WorldService, assets: ThemeAssets): WorldMeshes {
@@ -115,11 +119,14 @@ export function buildWorldMeshes(ctx: SessionContext, root: THREE.Group, world: 
   const desc = world.desc;
   const H = desc.wallHeight;
 
-  // --- static level: one mesh per distinct surface key
+  // --- static level: one mesh per distinct surface key; ceilings stay separate for overhead mode toggles.
+  const ceilings: THREE.Mesh[] = [];
   for (const [key, soup] of buildLevelMeshes(desc)) {
     if (soup.idx.length === 0) continue;
-    const mesh = new THREE.Mesh(render.own(ctx, soup.geometry()), assets.surface(key));
-    mesh.name = `level:${key}`;
+    const ceiling = key.startsWith('@ceiling:'), surface = ceiling ? key.slice('@ceiling:'.length) : key;
+    const mesh = new THREE.Mesh(render.own(ctx, soup.geometry()), assets.surface(surface));
+    mesh.name = ceiling ? `ceiling:${surface}` : `level:${key}`;
+    if (ceiling) ceilings.push(mesh);
     root.add(mesh);
   }
 
@@ -168,6 +175,9 @@ export function buildWorldMeshes(ctx: SessionContext, root: THREE.Group, world: 
   }
 
   return {
+    setOverhead(overhead) {
+      for (const mesh of ceilings) mesh.visible = !overhead;
+    },
     update(time) {
       for (const d of doors) {
         const o = d.state.openness;

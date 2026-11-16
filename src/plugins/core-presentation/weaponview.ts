@@ -7,16 +7,16 @@ import { createQuadGeometry, parseColor } from './quads.ts';
 /** Half of the view camera's vertical extent at depth 1 (fov 50). */
 const HALF_H = Math.tan((25 * Math.PI) / 180);
 const DEPTH = 1;
-const SIZE = 0.44; // sprite quad side, in view units (screen height = 2 * HALF_H)
-/** Keep the aiming corridor clear by framing the viewmodel toward the lower right. */
-const RIGHT = 0.18;
-const BOTTOM = -HALF_H - 0.14;
+const SIZE = 0.28; // smaller sprite footprint; screen height is 2 * HALF_H
+/** Bottom-center viewmodel anchor. The topmost opaque point is still used to place the muzzle flash. */
+const BOTTOM = -HALF_H + 0.004;
 const SWITCH_TIME = 0.25;
 const RECOIL_TIME = 0.15;
 const FLASH_TIME = 0.05;
 
 export interface WeaponView {
   update(view: ViewState | undefined, time: number, frameDt: number): void;
+  setVisible(visible: boolean): void;
 }
 
 /** Where the barrel ends in a sprite: top-most opaque rows, as a fraction of the sprite (u from left, v from top). */
@@ -52,7 +52,11 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
   gun.name = 'weapon';
   gun.visible = false;
   gun.scale.set(SIZE, SIZE, 1);
-  root.add(gun);
+  const pivot = new THREE.Group();
+  pivot.name = 'weapon-bottom-pivot';
+  pivot.position.set(0, BOTTOM, -DEPTH);
+  root.add(pivot);
+  pivot.add(gun);
 
   const flashMat = render.own(ctx, new THREE.MeshBasicMaterial({
     map: assets.texture('fx-muzzle', false), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, fog: false,
@@ -61,7 +65,7 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
   flash.name = 'muzzle-flash';
   flash.visible = false;
   flash.renderOrder = 1;
-  root.add(flash);
+  pivot.add(flash);
 
   // Legacy map lights use artistic intensity/range; no inverse-square decay for this composition.
   const flashLight = new THREE.PointLight(0xffffff, 2.2 * Math.PI, 9, 0);
@@ -75,6 +79,7 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
   let phase = 0;
   let speed = 0;
   let flashColor = '';
+  let enabled = true;
 
   const gunMaterial = (tex: string): THREE.Material => {
     let m = gunMats.get(tex);
@@ -85,14 +90,14 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
     return m;
   };
 
-  const hide = (): void => {
-    gun.visible = false;
-    flash.visible = false;
-    flashLight.visible = false;
-  };
-
+  const hide = (): void => { gun.visible = false; flash.visible = false; flashLight.visible = false; };
   return {
+    setVisible(visible) {
+      enabled = visible;
+      if (!enabled) hide();
+    },
     update(view, time, frameDt) {
+      if (!enabled) { hide(); return; }
       if (!view || view.entity === 0) return hide();
       const inv = ctx.world.get(view.entity, Inventory);
       const hp = ctx.world.get(view.entity, Health);
@@ -115,31 +120,30 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
       const target = player ? Math.max(0, Math.min(1, player.speed)) : 0;
       speed += (target - speed) * Math.min(1, frameDt * 10);
       phase += frameDt * (6 + 4 * speed);
-      let x = Math.sin(phase) * 0.03 * speed + Math.sin(time * 0.9) * 0.003;
-      let y = BOTTOM - Math.abs(Math.sin(phase)) * 0.028 * speed + Math.sin(time * 1.7) * 0.004;
+      const anchor = muzzles.get(shownTex) ?? { u: 0.55, v: 0.2 };
       let kick = 0;
       let swing = 0;
       const sinceFire = time - inv.lastFiredAt;
       if (sinceFire >= 0 && sinceFire < RECOIL_TIME) {
         const k = 1 - sinceFire / RECOIL_TIME;
         kick = k * k * def.recoil;
-        y += kick * 0.06;
       }
       if (melee && sinceFire >= 0 && sinceFire < RECOIL_TIME * 1.6) {
         const k = 1 - sinceFire / (RECOIL_TIME * 1.6);
         swing = k * k;
-        x += swing * 0.18;
-        y -= swing * 0.04;
       }
+      let drop = 0;
       if (sinceSwitch >= 0 && sinceSwitch < SWITCH_TIME) {
         const h = SWITCH_TIME / 2;
         const f = sinceSwitch < h ? sinceSwitch / h : 1 - (sinceSwitch - h) / h;
-        y -= f * f * (SIZE + 0.1);
+        drop = f * f * (SIZE + 0.1);
       }
-      const s = SIZE * (1 + kick * 0.1);
+      const s = SIZE * (1 + kick * 0.06);
       gun.scale.set(s, s, 1);
-      gun.position.set(x + RIGHT, y, -DEPTH);
-      gun.rotation.z = melee ? -swing * 0.9 : 0;
+      // Bottom-center framing: the body grows upward from the lower screen edge while its topmost muzzle point is
+      // horizontally centered. Sway/recoil rotate around the bottom anchor.
+      gun.position.set(-(anchor.u - 0.5) * s, -drop, 0);
+      pivot.rotation.z = (melee ? -swing * 0.9 : 0) + Math.sin(phase) * 0.006 * speed + kick * 0.008;
       gun.material = gunMaterial(shownTex);
       gun.visible = true;
 
@@ -153,10 +157,9 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
           flashMat.color.setHex(parseColor(def.flash, 0xffd070));
           flashLight.color.setHex(parseColor(def.flash, 0xffd070));
         }
-        const m = muzzles.get(shownTex) ?? { u: 0.55, v: 0.2 };
-        const size = 0.34 + 0.12 * (sinceFire / FLASH_TIME);
+        const size = 0.18 + 0.07 * (sinceFire / FLASH_TIME);
         flash.scale.set(size, size, 1);
-        flash.position.set(x + RIGHT + (m.u - 0.5) * s, y + (1 - m.v) * s + 0.01, -DEPTH + 0.01);
+        flash.position.set(0, (1 - anchor.v) * s - drop, 0.01);
         flash.rotation.z = (Math.floor(time * 60) % 4) * 1.3;
         flashLight.position.set(view.x + yawDirX(view.yaw) * 0.7, view.y - 0.1, view.z + yawDirZ(view.yaw) * 0.7);
       }

@@ -1,106 +1,936 @@
 [
-  { "kind": "ammo", "id": "cinder/rounds", "data": { "name": "Rounds", "max": 270, "start": 96 } },
-  { "kind": "ammo", "id": "cinder/sparks", "data": { "name": "Sparks", "max": 30, "start": 0 } },
-  { "kind": "weapon", "id": "cinder/thornwake", "data": {
-    "name": "Thornwake", "slot": 1, "starter": true, "behavior": "core/melee",
-    "params": { "damage": 40, "range": 2, "kind": "blade", "impactActor": "fx-blood", "impactActorSound": "impact-flesh" },
-    "cooldown": 0.34, "view": "cinder-thornwake", "fireSound": "blade-swing", "recoil": 0.3, "flash": "#d8f5e6"
-  } },
-  { "kind": "weapon", "id": "cinder/cinderkey", "data": {
-    "name": "Cinderkey", "slot": 2, "starter": true, "behavior": "core/hitscan",
-    "params": { "damage": 34, "range": 55, "spread": 0.008 }, "ammoType": "cinder/rounds",
-    "magazineSize": 8, "reloadTime": 0.9, "cooldown": 0.3, "view": "cinder-cinderkey",
-    "fireSound": "cinderkey-fire", "recoil": 0.42, "flash": "#edbe71"
-  } },
-  { "kind": "weapon", "id": "cinder/mothspindle", "data": {
-    "name": "Mothspindle", "slot": 3, "starter": false, "behavior": "core/hitscan",
-    "params": { "damage": 13, "range": 42, "spread": 0.05 }, "ammoType": "cinder/rounds",
-    "magazineSize": 28, "reloadTime": 1.5, "cooldown": 0.085, "auto": true, "view": "cinder-mothspindle",
-    "fireSound": "mothspindle-fire", "recoil": 0.24, "flash": "#b8f3d2"
-  } },
-  { "kind": "weapon", "id": "cinder/briarward", "data": {
-    "name": "Briarward", "slot": 4, "starter": false, "behavior": "core/hitscan",
-    "params": { "damage": 25, "range": 62, "spread": 0.018 }, "ammoType": "cinder/rounds",
-    "magazineSize": 20, "reloadTime": 1.8, "cooldown": 0.15, "auto": true, "view": "cinder-briarward",
-    "fireSound": "briarward-fire", "recoil": 0.4, "flash": "#ffcd8a"
-  } },
-  { "kind": "weapon", "id": "cinder/faroracle", "data": {
-    "name": "Far Oracle", "slot": 5, "starter": false, "behavior": "core/hitscan",
-    "params": { "damage": 90, "range": 90, "spread": 0.002 }, "ammoType": "cinder/rounds",
-    "magazineSize": 5, "reloadTime": 2, "cooldown": 0.95, "view": "cinder-faroracle",
-    "fireSound": "oracle-fire", "recoil": 0.9, "flash": "#d8efff"
-  } },
-  { "kind": "weapon", "id": "cinder/ashbell", "data": {
-    "name": "Ashbell", "slot": 6, "starter": false, "behavior": "core/projectile",
-    "params": { "damage": 95, "speed": 24, "radius": 0.32, "range": 70, "kind": "ember", "visual": "fx-fireball", "impact": "fx-spark", "impactSound": "explosion-small" },
-    "ammoType": "cinder/sparks", "magazineSize": 2, "reloadTime": 2.3, "cooldown": 1.15,
-    "view": "cinder-ashbell", "fireSound": "ashbell-fire", "recoil": 1, "flash": "#ffae55"
-  } },
-  { "kind": "enemy", "id": "cinder/thrall", "data": {
-    "name": "Ash Thrall", "health": 45, "speed": 2.5, "radius": 0.42, "sightRange": 70, "ai": "core/chaser",
-    "attack": { "behavior": "core/melee", "params": { "damage": 9, "range": 1.5 }, "cooldown": 1.1, "range": 1.3, "windup": 0.4, "sound": "enemy-melee" },
-    "visual": "enemy-grunt", "painChance": 0.5, "score": 100, "sounds": { "alert": "enemy-alert", "hurt": "enemy-hurt", "die": "enemy-die" }
-  } },
-  { "kind": "enemy", "id": "cinder/imp", "data": {
-    "name": "Candle Imp", "health": 40, "speed": 2, "radius": 0.38, "sightRange": 70, "ai": "core/ranged", "aiParams": { "preferredRange": 7 },
-    "attack": { "behavior": "core/projectile", "params": { "damage": 9, "speed": 8, "radius": 0.2, "range": 40, "kind": "cinder", "visual": "fx-fireball", "impact": "fx-spark", "impactSound": "impact-wall" }, "cooldown": 2, "range": 18, "windup": 0.6, "sound": "enemy-shoot" },
-    "visual": "enemy-spitter", "painChance": 0.6, "score": 150, "sounds": { "alert": "enemy-alert", "hurt": "enemy-hurt", "die": "enemy-die" }
-  } },
-  { "kind": "enemy", "id": "cinder/warden", "data": {
-    "name": "Ash Warden", "health": 220, "speed": 2.6, "radius": 0.55, "scale": 1.25, "tint": "#ffcf8a", "sightRange": 80,
-    "ai": "core/chaser",
-    "attack": { "behavior": "core/melee", "params": { "damage": 18, "range": 2 }, "cooldown": 1, "range": 1.8, "windup": 0.5, "sound": "enemy-melee" },
-    "visual": "enemy-grunt", "painChance": 0.15, "score": 800, "sounds": { "alert": "enemy-alert", "hurt": "enemy-hurt", "die": "enemy-die" }
-  } },
-  { "kind": "enemy", "id": "cinder/keeper", "data": {
-    "name": "The Cinder Keeper", "health": 900, "speed": 2.4, "radius": 0.85, "scale": 1.7, "tint": "#ffc36d", "sightRange": 90,
-    "ai": "core/ranged", "aiParams": { "preferredRange": 7 },
-    "attack": { "behavior": "core/projectile", "params": { "damage": 22, "speed": 12, "radius": 0.34, "range": 55, "kind": "cinder", "visual": "fx-fireball", "impact": "fx-spark", "impactSound": "explosion-small" }, "cooldown": 1, "range": 28, "windup": 0.4, "sound": "enemy-shoot" },
-    "visual": "enemy-spitter", "painChance": 0.03, "score": 3000, "sounds": { "alert": "enemy-alert", "hurt": "enemy-hurt", "die": "enemy-die" }
-  } },
-  { "kind": "pickup", "id": "cinder/medkit", "data": {
-    "name": "Ash Medkit +35", "effect": "core/heal", "params": { "amount": 35 }, "visual": "pickup-health", "sound": "pickup-health"
-  } },
-  { "kind": "pickup", "id": "cinder/rounds-cache", "data": {
-    "name": "Bolt Cache +42", "effect": "core/give-ammo", "params": { "ammoType": "cinder/rounds", "amount": 42 }, "visual": "pickup-bullets", "sound": "pickup-ammo"
-  } },
-  { "kind": "pickup", "id": "cinder/sparks-cache", "data": {
-    "name": "Ember Cache +4", "effect": "core/give-ammo", "params": { "ammoType": "cinder/sparks", "amount": 4 }, "visual": "pickup-cells", "sound": "pickup-ammo"
-  } },
-  { "kind": "pickup", "id": "cinder/cache-mothspindle", "data": {
-    "name": "Mothspindle Cache", "effect": "core/give-weapon", "params": { "weapon": "cinder/mothspindle", "ammoType": "cinder/rounds", "amount": 56 }, "visual": "pickup-bullets", "sound": "pickup-ammo"
-  } },
-  { "kind": "pickup", "id": "cinder/cache-briarward", "data": {
-    "name": "Briarward Cache", "effect": "core/give-weapon", "params": { "weapon": "cinder/briarward", "ammoType": "cinder/rounds", "amount": 40 }, "visual": "pickup-bullets", "sound": "pickup-ammo"
-  } },
-  { "kind": "pickup", "id": "cinder/cache-faroracle", "data": {
-    "name": "Far Oracle Cache", "effect": "core/give-weapon", "params": { "weapon": "cinder/faroracle", "ammoType": "cinder/rounds", "amount": 10 }, "visual": "pickup-cells", "sound": "pickup-ammo"
-  } },
-  { "kind": "pickup", "id": "cinder/cache-ashbell", "data": {
-    "name": "Ashbell Cache", "effect": "core/give-weapon", "params": { "weapon": "cinder/ashbell", "ammoType": "cinder/sparks", "amount": 4 }, "visual": "pickup-cells", "sound": "pickup-ammo"
-  } },
-  { "kind": "mechanic-kit", "id": "cinder/kit", "data": {
-    "name": "Cinder run economy", "domain": "seconds",
-    "resources": [{ "id": "embers", "label": "Embers", "initial": 0, "max": 99999 }],
-    "actions": [
-      { "id": "pulse", "label": "Ember pulse", "cooldown": 8 }
-    ],
-    "objectives": [{ "id": "depths", "label": "Depths reached", "target": 3 }]
-  } },
-  { "kind": "map", "id": "cinder/vault", "data": {
-    "schema": 1, "format": "dungeon/generator", "name": "The Cinder Depths",
-    "seed": 27841, "cellSize": 2, "wallHeight": 4, "floorWidth": 30, "floorHeight": 30, "gap": 2,
-    "floors": [
-      { "name": "The Ash Gate", "rooms": 7 },
-      { "name": "The Hollow Court", "rooms": 8 },
-      { "name": "The Cinder Sanctum", "rooms": 9 }
-    ],
-    "surfaces": {
-      "border": "wall-brick", "wall": "wall-panel", "room": "floor-concrete",
-      "corridor": "floor-plate", "ceiling": "ceiling-panel"
-    },
-    "ambient": { "color": "#c9b89b", "intensity": 0.9 },
-    "fog": { "color": "#241e1b", "near": 8, "far": 46 },
-    "torch": { "color": "#ffbc64", "intensity": 1.5, "distance": 12 }
-  } }
+  {
+    "kind": "item",
+    "id": "cinder/draught",
+    "data": {
+      "name": "Ember Draught",
+      "description": "Restore 35 health. Costs 1 action.",
+      "icon": "assetrizz/cinder-vitality.png",
+      "stackMax": 5,
+      "rarity": "common"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/ember-flask",
+    "data": {
+      "name": "Ember Flask",
+      "description": "Deal 45 damage to visible foes within 6m. Costs 1 action.",
+      "icon": "assetrizz/cinder-pulse.png",
+      "stackMax": 3,
+      "rarity": "uncommon"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/ashplate",
+    "data": {
+      "name": "Ashplate",
+      "description": "Armor: 8% incoming damage reduction.",
+      "icon": "assetrizz/cinder-shell.png",
+      "slot": "armor",
+      "stackMax": 1,
+      "rarity": "uncommon"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/warden-plate",
+    "data": {
+      "name": "Warden Plate",
+      "description": "Armor: 12% incoming damage reduction.",
+      "icon": "assetrizz/cinder-shell.png",
+      "slot": "armor",
+      "stackMax": 1,
+      "rarity": "epic"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/oracle-lens",
+    "data": {
+      "name": "Oracle Lens",
+      "description": "Charm: +15% weapon damage.",
+      "icon": "assetrizz/cinder-power.png",
+      "slot": "charm",
+      "stackMax": 1,
+      "rarity": "rare"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/hunters-charm",
+    "data": {
+      "name": "Hunter's Charm",
+      "description": "Charm: +8% weapon damage; heal 1 per kill.",
+      "icon": "assetrizz/cinder-siphon.png",
+      "slot": "charm",
+      "stackMax": 1,
+      "rarity": "uncommon"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/gilded-chain",
+    "data": {
+      "name": "Gilded Chain",
+      "description": "Charm: +2 embers per kill.",
+      "icon": "assetrizz/cinder-bounty.png",
+      "slot": "charm",
+      "stackMax": 1,
+      "rarity": "rare"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/obsidian-edge",
+    "data": {
+      "name": "Obsidian Edge",
+      "description": "Charm: +12% weapon damage.",
+      "icon": "assetrizz/cinder-power.png",
+      "stackMax": 1,
+      "rarity": "rare",
+      "slot": "charm"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/iron-band",
+    "data": {
+      "name": "Iron Band",
+      "description": "Armor: 5% incoming damage reduction.",
+      "icon": "assetrizz/cinder-shell.png",
+      "stackMax": 1,
+      "rarity": "common",
+      "slot": "armor"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/shard-bomb",
+    "data": {
+      "name": "Shard Bomb",
+      "description": "Deal 35 damage to visible foes within 4m. Costs 1 action.",
+      "icon": "assetrizz/cinder-pulse.png",
+      "stackMax": 3,
+      "rarity": "uncommon"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/ember-tonic",
+    "data": {
+      "name": "Ember Tonic",
+      "description": "Restore 20 health and gain 1 action. Costs 1 action.",
+      "icon": "assetrizz/cinder-vitality.png",
+      "stackMax": 3,
+      "rarity": "rare"
+    }
+  },
+  {
+    "kind": "item",
+    "id": "cinder/ember-shard",
+    "data": {
+      "name": "Ember Shard",
+      "description": "A warm shard of the old flame. Used in NPC and portable crafting.",
+      "icon": "assetrizz/cinder-siphon.png",
+      "stackMax": 20,
+      "rarity": "uncommon"
+    }
+  },
+  {
+    "kind": "ammo",
+    "id": "cinder/rounds",
+    "data": {
+      "name": "Rounds",
+      "max": 270,
+      "start": 96
+    }
+  },
+  {
+    "kind": "ammo",
+    "id": "cinder/sparks",
+    "data": {
+      "name": "Sparks",
+      "max": 30,
+      "start": 0
+    }
+  },
+  {
+    "kind": "weapon",
+    "id": "cinder/thornwake",
+    "data": {
+      "name": "Thornwake",
+      "slot": 1,
+      "starter": true,
+      "behavior": "core/melee",
+      "params": {
+        "damage": 40,
+        "range": 2.5,
+        "kind": "blade",
+        "impactActor": "fx-blood",
+        "impactActorSound": "impact-flesh"
+      },
+      "cooldown": 0.34,
+      "view": "cinder-thornwake",
+      "fireSound": "blade-swing",
+      "recoil": 0.3,
+      "flash": "#d8f5e6"
+    }
+  },
+  {
+    "kind": "weapon",
+    "id": "cinder/cinderkey",
+    "data": {
+      "name": "Cinderkey",
+      "slot": 2,
+      "starter": true,
+      "behavior": "core/hitscan",
+      "params": {
+        "damage": 34,
+        "range": 55,
+        "spread": 0.008
+      },
+      "ammoType": "cinder/rounds",
+      "magazineSize": 8,
+      "reloadTime": 0.9,
+      "cooldown": 0.3,
+      "view": "cinder-cinderkey",
+      "fireSound": "cinderkey-fire",
+      "recoil": 0.42,
+      "flash": "#edbe71"
+    }
+  },
+  {
+    "kind": "weapon",
+    "id": "cinder/mothspindle",
+    "data": {
+      "name": "Mothspindle",
+      "slot": 3,
+      "starter": false,
+      "behavior": "core/hitscan",
+      "params": {
+        "damage": 13,
+        "range": 42,
+        "spread": 0.05
+      },
+      "ammoType": "cinder/rounds",
+      "magazineSize": 28,
+      "reloadTime": 1.5,
+      "cooldown": 0.085,
+      "auto": true,
+      "view": "cinder-mothspindle",
+      "fireSound": "mothspindle-fire",
+      "recoil": 0.24,
+      "flash": "#b8f3d2"
+    }
+  },
+  {
+    "kind": "weapon",
+    "id": "cinder/briarward",
+    "data": {
+      "name": "Briarward",
+      "slot": 4,
+      "starter": false,
+      "behavior": "core/hitscan",
+      "params": {
+        "damage": 25,
+        "range": 62,
+        "spread": 0.018
+      },
+      "ammoType": "cinder/rounds",
+      "magazineSize": 20,
+      "reloadTime": 1.8,
+      "cooldown": 0.15,
+      "auto": true,
+      "view": "cinder-briarward",
+      "fireSound": "briarward-fire",
+      "recoil": 0.4,
+      "flash": "#ffcd8a"
+    }
+  },
+  {
+    "kind": "weapon",
+    "id": "cinder/faroracle",
+    "data": {
+      "name": "Far Oracle",
+      "slot": 5,
+      "starter": false,
+      "behavior": "core/hitscan",
+      "params": {
+        "damage": 90,
+        "range": 90,
+        "spread": 0.002
+      },
+      "ammoType": "cinder/rounds",
+      "magazineSize": 5,
+      "reloadTime": 2,
+      "cooldown": 0.95,
+      "view": "cinder-faroracle",
+      "fireSound": "oracle-fire",
+      "recoil": 0.9,
+      "flash": "#d8efff"
+    }
+  },
+  {
+    "kind": "weapon",
+    "id": "cinder/ashbell",
+    "data": {
+      "name": "Ashbell",
+      "slot": 6,
+      "starter": false,
+      "behavior": "core/projectile",
+      "params": {
+        "damage": 95,
+        "speed": 24,
+        "radius": 0.32,
+        "range": 70,
+        "kind": "ember",
+        "visual": "fx-fireball",
+        "impact": "fx-spark",
+        "impactSound": "explosion-small"
+      },
+      "ammoType": "cinder/sparks",
+      "magazineSize": 2,
+      "reloadTime": 2.3,
+      "cooldown": 1.15,
+      "view": "cinder-ashbell",
+      "fireSound": "ashbell-fire",
+      "recoil": 1,
+      "flash": "#ffae55"
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "cinder/thrall",
+    "data": {
+      "name": "Ash Thrall",
+      "health": 45,
+      "speed": 2.5,
+      "radius": 0.42,
+      "sightRange": 70,
+      "ai": "core/chaser",
+      "attack": {
+        "behavior": "core/melee",
+        "params": {
+          "damage": 9,
+          "range": 2.2
+        },
+        "cooldown": 1.1,
+        "range": 2.2,
+        "windup": 0.4,
+        "sound": "enemy-melee"
+      },
+      "visual": "enemy-grunt",
+      "painChance": 0.5,
+      "score": 100,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "cinder/imp",
+    "data": {
+      "name": "Candle Imp",
+      "health": 40,
+      "speed": 2,
+      "radius": 0.38,
+      "sightRange": 70,
+      "ai": "core/ranged",
+      "aiParams": {
+        "preferredRange": 7
+      },
+      "attack": {
+        "behavior": "core/projectile",
+        "params": {
+          "damage": 9,
+          "speed": 8,
+          "radius": 0.2,
+          "range": 40,
+          "kind": "cinder",
+          "visual": "fx-fireball",
+          "impact": "fx-spark",
+          "impactSound": "impact-wall"
+        },
+        "cooldown": 2,
+        "range": 18,
+        "windup": 0.6,
+        "sound": "enemy-shoot"
+      },
+      "visual": "enemy-spitter",
+      "painChance": 0.6,
+      "score": 150,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "cinder/hound",
+    "data": {
+      "name": "Ash Hound",
+      "health": 52,
+      "speed": 3.3,
+      "radius": 0.42,
+      "sightRange": 70,
+      "ai": "cinder/manual",
+      "aiParams": {
+        "actions": 2
+      },
+      "attack": {
+        "behavior": "core/melee",
+        "params": {
+          "damage": 10,
+          "range": 2.2
+        },
+        "cooldown": 1,
+        "range": 2.2,
+        "windup": 0.32,
+        "sound": "enemy-melee"
+      },
+      "visual": "enemy-grunt",
+      "tint": "#c98b6d",
+      "scale": 0.86,
+      "painChance": 0.45,
+      "score": 140,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "cinder/acolyte",
+    "data": {
+      "name": "Ember Acolyte",
+      "health": 58,
+      "speed": 2.1,
+      "radius": 0.4,
+      "sightRange": 72,
+      "ai": "cinder/manual",
+      "aiParams": {
+        "preferredRange": 8,
+        "supportHeal": 12,
+        "actions": 1
+      },
+      "attack": {
+        "behavior": "core/projectile",
+        "params": {
+          "damage": 8,
+          "speed": 8,
+          "radius": 0.2,
+          "range": 40,
+          "kind": "cinder",
+          "visual": "fx-fireball",
+          "impact": "fx-spark",
+          "impactSound": "impact-wall"
+        },
+        "cooldown": 2,
+        "range": 18,
+        "windup": 0.55,
+        "sound": "enemy-shoot"
+      },
+      "visual": "enemy-spitter",
+      "tint": "#91b6ff",
+      "scale": 0.95,
+      "painChance": 0.55,
+      "score": 220,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "cinder/brute",
+    "data": {
+      "name": "Cinder Brute",
+      "health": 128,
+      "speed": 2.15,
+      "radius": 0.58,
+      "sightRange": 74,
+      "ai": "cinder/manual",
+      "aiParams": {
+        "actions": 1
+      },
+      "attack": {
+        "behavior": "core/melee",
+        "params": {
+          "damage": 16,
+          "range": 2.5
+        },
+        "cooldown": 0.95,
+        "range": 2.5,
+        "windup": 0.5,
+        "sound": "enemy-melee"
+      },
+      "visual": "enemy-grunt",
+      "tint": "#dc9d67",
+      "scale": 1.28,
+      "painChance": 0.2,
+      "score": 320,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "cinder/warden",
+    "data": {
+      "name": "Ash Warden",
+      "health": 220,
+      "speed": 2.6,
+      "radius": 0.55,
+      "scale": 1.25,
+      "tint": "#ffcf8a",
+      "sightRange": 80,
+      "ai": "core/chaser",
+      "attack": {
+        "behavior": "core/melee",
+        "params": {
+          "damage": 18,
+          "range": 2.4
+        },
+        "cooldown": 1,
+        "range": 2.4,
+        "windup": 0.5,
+        "sound": "enemy-melee"
+      },
+      "visual": "enemy-grunt",
+      "painChance": 0.15,
+      "score": 800,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "enemy",
+    "id": "cinder/keeper",
+    "data": {
+      "name": "The Cinder Keeper",
+      "health": 900,
+      "speed": 2.4,
+      "radius": 0.85,
+      "scale": 1.7,
+      "tint": "#ffc36d",
+      "sightRange": 90,
+      "ai": "core/ranged",
+      "aiParams": {
+        "preferredRange": 7
+      },
+      "attack": {
+        "behavior": "core/projectile",
+        "params": {
+          "damage": 22,
+          "speed": 12,
+          "radius": 0.34,
+          "range": 55,
+          "kind": "cinder",
+          "visual": "fx-fireball",
+          "impact": "fx-spark",
+          "impactSound": "explosion-small"
+        },
+        "cooldown": 1,
+        "range": 28,
+        "windup": 0.4,
+        "sound": "enemy-shoot"
+      },
+      "visual": "enemy-spitter",
+      "painChance": 0.03,
+      "score": 3000,
+      "sounds": {
+        "alert": "enemy-alert",
+        "hurt": "enemy-hurt",
+        "die": "enemy-die"
+      }
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "cinder/medkit",
+    "data": {
+      "name": "Ash Medkit +35",
+      "effect": "core/heal",
+      "params": {
+        "amount": 35
+      },
+      "visual": "pickup-health",
+      "sound": "pickup-health"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "cinder/rounds-cache",
+    "data": {
+      "name": "Bolt Cache +42",
+      "effect": "core/give-ammo",
+      "params": {
+        "ammoType": "cinder/rounds",
+        "amount": 42
+      },
+      "visual": "pickup-bullets",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "cinder/sparks-cache",
+    "data": {
+      "name": "Ember Cache +4",
+      "effect": "core/give-ammo",
+      "params": {
+        "ammoType": "cinder/sparks",
+        "amount": 4
+      },
+      "visual": "pickup-cells",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "cinder/cache-mothspindle",
+    "data": {
+      "name": "Mothspindle Cache",
+      "effect": "core/give-weapon",
+      "params": {
+        "weapon": "cinder/mothspindle",
+        "ammoType": "cinder/rounds",
+        "amount": 56
+      },
+      "visual": "pickup-bullets",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "cinder/cache-briarward",
+    "data": {
+      "name": "Briarward Cache",
+      "effect": "core/give-weapon",
+      "params": {
+        "weapon": "cinder/briarward",
+        "ammoType": "cinder/rounds",
+        "amount": 40
+      },
+      "visual": "pickup-bullets",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "cinder/cache-faroracle",
+    "data": {
+      "name": "Far Oracle Cache",
+      "effect": "core/give-weapon",
+      "params": {
+        "weapon": "cinder/faroracle",
+        "ammoType": "cinder/rounds",
+        "amount": 10
+      },
+      "visual": "pickup-cells",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "cinder/cache-ashbell",
+    "data": {
+      "name": "Ashbell Cache",
+      "effect": "core/give-weapon",
+      "params": {
+        "weapon": "cinder/ashbell",
+        "ammoType": "cinder/sparks",
+        "amount": 4
+      },
+      "visual": "pickup-cells",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "mechanic-kit",
+    "id": "cinder/kit",
+    "data": {
+      "name": "Cinder run economy",
+      "domain": "turns",
+      "resources": [
+        {
+          "id": "embers",
+          "label": "Embers",
+          "initial": 0,
+          "max": 99999
+        }
+      ],
+      "actions": [
+        {
+          "id": "pulse",
+          "label": "Ember pulse",
+          "cooldown": 3
+        }
+      ],
+      "objectives": [
+        {
+          "id": "depths",
+          "label": "Depths reached",
+          "target": 3
+        }
+      ]
+    }
+  },
+  {
+    "kind": "map",
+    "id": "cinder/vault",
+    "data": {
+      "schema": 1,
+      "format": "dungeon/generator",
+      "name": "The Cinder Depths",
+      "seed": 27841,
+      "cellSize": 2,
+      "wallHeight": 4,
+      "floorWidth": 30,
+      "floorHeight": 30,
+      "gap": 2,
+      "floors": [
+        {
+          "name": "The Ash Gate",
+          "rooms": 7
+        },
+        {
+          "name": "The Hollow Court",
+          "rooms": 8
+        },
+        {
+          "name": "The Cinder Sanctum",
+          "rooms": 9
+        }
+      ],
+      "surfaces": {
+        "border": "wall-brick",
+        "wall": "wall-panel",
+        "room": "floor-concrete",
+        "corridor": "floor-plate",
+        "ceiling": "ceiling-panel"
+      },
+      "ambient": {
+        "color": "#c9b89b",
+        "intensity": 0.9
+      },
+      "fog": {
+        "color": "#241e1b",
+        "near": 8,
+        "far": 46
+      },
+      "torch": {
+        "color": "#ffbc64",
+        "intensity": 1.5,
+        "distance": 12
+      }
+    }
+  },
+  {
+    "kind": "crafting-recipe",
+    "id": "cinder/brew-draught",
+    "data": {
+      "name": "Brew Ember Draught",
+      "description": "Render two shards into a restorative draught.",
+      "inputs": [
+        {
+          "item": "cinder/ember-shard",
+          "count": 2
+        }
+      ],
+      "output": {
+        "item": "cinder/draught",
+        "count": 1
+      }
+    }
+  },
+  {
+    "kind": "crafting-recipe",
+    "id": "cinder/brew-flask",
+    "data": {
+      "name": "Brew Ember Flask",
+      "description": "Bind a draught and a shard into a volatile flask.",
+      "inputs": [
+        {
+          "item": "cinder/draught",
+          "count": 1
+        },
+        {
+          "item": "cinder/ember-shard",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "cinder/ember-flask",
+        "count": 1
+      }
+    }
+  },
+  {
+    "kind": "crafting-recipe",
+    "id": "cinder/forge-ashplate",
+    "data": {
+      "name": "Forge Ashplate",
+      "description": "Beat two shards and a draught into serviceable armor.",
+      "inputs": [
+        {
+          "item": "cinder/ember-shard",
+          "count": 2
+        },
+        {
+          "item": "cinder/draught",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "cinder/ashplate",
+        "count": 1
+      }
+    }
+  },
+  {
+    "kind": "crafting-recipe",
+    "id": "cinder/forge-warden-plate",
+    "data": {
+      "name": "Forge Warden Plate",
+      "description": "Reforge Ashplate with three shards into a warden's shell.",
+      "inputs": [
+        {
+          "item": "cinder/ashplate",
+          "count": 1
+        },
+        {
+          "item": "cinder/ember-shard",
+          "count": 3
+        }
+      ],
+      "output": {
+        "item": "cinder/warden-plate",
+        "count": 1
+      }
+    }
+  },
+  {
+    "kind": "crafting-recipe",
+    "id": "cinder/cut-oracle-lens",
+    "data": {
+      "name": "Cut Oracle Lens",
+      "description": "Turn Hunter's Charm and two shards into a focused lens.",
+      "inputs": [
+        {
+          "item": "cinder/hunters-charm",
+          "count": 1
+        },
+        {
+          "item": "cinder/ember-shard",
+          "count": 2
+        }
+      ],
+      "output": {
+        "item": "cinder/oracle-lens",
+        "count": 1
+      }
+    }
+  },
+  {
+    "kind": "crafting-recipe",
+    "id": "cinder/gild-chain",
+    "data": {
+      "name": "Gild a Chain",
+      "description": "Melt two flasks and a shard into a gilded charm.",
+      "inputs": [
+        {
+          "item": "cinder/ember-flask",
+          "count": 2
+        },
+        {
+          "item": "cinder/ember-shard",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "cinder/gilded-chain",
+        "count": 1
+      }
+    }
+  },
+  {
+    "kind": "crafting-recipe",
+    "id": "cinder/brew-tonic",
+    "data": {
+      "name": "Brew Ember Tonic",
+      "description": "Distill a draught and shard into a restorative surge.",
+      "inputs": [
+        {
+          "item": "cinder/draught",
+          "count": 1
+        },
+        {
+          "item": "cinder/ember-shard",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "cinder/ember-tonic",
+        "count": 1
+      }
+    }
+  },
+  {
+    "kind": "crafting-recipe",
+    "id": "cinder/forge-iron-band",
+    "data": {
+      "name": "Forge Iron Band",
+      "description": "Bind two shards into a simple protective band.",
+      "inputs": [
+        {
+          "item": "cinder/ember-shard",
+          "count": 2
+        }
+      ],
+      "output": {
+        "item": "cinder/iron-band",
+        "count": 1
+      }
+    }
+  },
+  {
+    "kind": "crafting-recipe",
+    "id": "cinder/cut-obsidian-edge",
+    "data": {
+      "name": "Cut Obsidian Edge",
+      "description": "Set a shard into a charm that sharpens every strike.",
+      "inputs": [
+        {
+          "item": "cinder/ember-shard",
+          "count": 2
+        },
+        {
+          "item": "cinder/hunters-charm",
+          "count": 1
+        }
+      ],
+      "output": {
+        "item": "cinder/obsidian-edge",
+        "count": 1
+      }
+    }
+  }
 ]

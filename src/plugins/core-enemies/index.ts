@@ -1,5 +1,5 @@
 import type { AiBehavior, AiFn, ContentKind, EnemyDef, EnemyService, EntityId, Json, Params, Prefab, Reporter, SessionContext } from '../../sdk/index.ts';
-import { AiBehaviors, AttackBehaviors, Collider, Combat, Damaged, DamageModifiers, Died, Enemies, Enemy, EnemyAi, EnemyAlerted, Health, Player, Prefabs, Transform, Visual, World, definePlugin, isObject, makeTransform, vId, vJson, vNumber, vObject, vString, yawOf } from '../../sdk/index.ts';
+import { AiBehaviors, AttackBehaviors, Collider, Combat, Damaged, DamageModifiers, Died, Enemies, Enemy, EnemyAi, EnemyAlerted, Health, Player, Prefabs, Transform, TurnControl, Visual, World, definePlugin, isObject, makeTransform, vId, vJson, vNumber, vObject, vString, yawOf } from '../../sdk/index.ts';
 
 const PATH_INTERVAL = 0.4;
 const PAIN_SECONDS = 0.28;
@@ -253,6 +253,8 @@ function createEnemies(ctx: SessionContext): EnemyService {
     id: 'core/enemies.think',
     phase: 'ai',
     update(dt) {
+      // A turn-control mode owns actor decisions and calls attacks/moves itself.
+      if (ctx.services.tryGet(TurnControl)) return;
       const now = ctx.time.now;
       ctx.world.each(Enemy, (e, enemy) => {
         if (enemy.state === 'dead') return;
@@ -297,6 +299,7 @@ function createEnemies(ctx: SessionContext): EnemyService {
     phase: 'ai',
     order: 10,
     update() {
+      if (ctx.services.tryGet(TurnControl)) return;
       ctx.world.each(Enemy, (a, ea) => {
         if (ea.state === 'dead') return;
         const ta = ctx.world.get(a, Transform);

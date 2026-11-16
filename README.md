@@ -12,6 +12,8 @@
 
 ### [▶ Play it in your browser](https://mojomast.github.io/fpsrizz/)
 
+**Direct:** [Cinder Vault](https://mojomast.github.io/fpsrizz/?preset=cinder/vault) · [Bulkhead Station](https://mojomast.github.io/fpsrizz/?preset=core/default)
+
 <img src="docs/img/enemies.png" alt="Bulkhead gameplay: a brute charging down a corridor" width="780">
 
 </div>
@@ -57,11 +59,18 @@ pointer lock. The original first-person presets retain captured mouse aiming.
 
 ### Mechanics shared across genres
 
-**[CINDER VAULT — Ashbound Roguelite](docs/cinder-vault.md)** adds a first-person fantasy run across three large
-generated dungeon depths. Kills grant XP and non-blocking level-up boons while combat continues; wardens open descents
-to deeper wings and the Cinder Keeper ends the run. Six discoverable weapons, weapon caches and persistent legacy give
-each attempt more depth. Open `?preset=cinder/vault`, press Play; use 1–6 for weapons, R to reload, 7/8/9 for level
-boons, and V for ember pulse.
+**[CINDER VAULT — Ashbound Roguelite](docs/cinder-vault.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=cinder/vault) — adds a turn-based first-person fantasy run across three
+large generated dungeon depths. Choose a vault threat with **7/8/9** (Pilgrim, Delver or Ashbound), then one of three
+classes. Step one tile per action, read telegraphed intents and manage a filtered 12-stack pack with armor/charm gear,
+consumables, Ember Shards, nine recipes and six weapons. The deeper wings add Ash Hounds, support Acolytes, Cinder Brutes
+and behavioral elites; Wardens and the Keeper enrage below half health. Optional Assetrizz NPCs open the forge, chart the
+wing, or offer the Oracle’s blood/ember bargains. `M` shows a fogged automap/tactical grid and `O` toggles an orthographic
+isometric view with class avatars; `Z`/`X` rotate it, isometric WASD follows the camera, and hovering previews move/attack
+AP. First-person weapons stay bottom-center with a smaller footprint. Kills grant XP and non-blocking level-up boons;
+wardens open descents, the Cinder Keeper ends the run, and class mastery, best threat plus legacy embers persist. Open
+`?preset=cinder/vault`, press Play; choose threat with 7/8/9 and class with 1/2/3, use WASD to step, click to attack,
+Enter to end turn, I for the pack, E to talk, C to craft, M for the grid, O for isometric view, H for the field guide,
+7/8/9 for boons, and V for ember pulse.
 
 Sky Salvage, Ember Bastion and Verdant Relay use the **same resource, action, clock and objective implementations**.
 Only the games' spatial rules, targets and outcomes differ. Costs/gains and cooldowns are declarative kit content;
@@ -140,6 +149,9 @@ Each is a preset you can switch to live from the creator panel (press `` ` ``):
 
 Play online: **https://mojomast.github.io/fpsrizz/** (served from the `gh-pages` branch).
 
+- [Cinder Vault — direct preset link](https://mojomast.github.io/fpsrizz/?preset=cinder/vault)
+- [Bulkhead Station — default preset](https://mojomast.github.io/fpsrizz/?preset=core/default)
+
 Or run it locally (Node >= 22.18):
 
 ```bash
@@ -209,6 +221,7 @@ The presets in `src/content/presets/` include the reference game, extensions and
 | Sky Salvage (`sky/salvage`) | 3D drone cargo recovery and delivery | `sky/game`, `sky/content`, `sky/presentation`, shared `mechanics/*` |
 | Ember Bastion (`ember/bastion`) | 3D tower construction and wave defense | `ember/game`, `ember/content`, `ember/presentation`, shared `mechanics/*` |
 | Verdant Relay (`verdant/relay`) | Turn-based 3D colony restoration | `verdant/game`, `verdant/content`, `verdant/presentation`, shared `mechanics/*` |
+| Cinder Vault (`cinder/vault`) | Turn-based three-depth dungeon roguelite with selectable threats and behavioral elites, classes, loot, pack/gear, fogged automap/grid, toggleable first-person/isometric view, NPCs/Oracle, crafting, telegraphed enemy turns, boss enrage, in-level boons and class mastery | `cinder/game`, `cinder/content`, `cinder/hud`, `dungeon/generator`, `mechanics/inventory`, `mechanics/crafting`, `mechanics/progression` |
 
 To switch: press `` ` `` (or use **Creator tools** on the start or pause screen), open **Plugins & preset**, pick a preset
 in the **Load** dropdown, then press **Apply & restart**. The selection is saved in `localStorage` and restored on the
@@ -302,6 +315,8 @@ relabelled MIT. Synthesized sounds and explicitly labelled procedural fallback a
 | [BUILD_ORDER.md](BUILD_ORDER.md) | Cross-genre implementation dependencies and acceptance gates. |
 | [assets/weapons/README.md](assets/weapons/README.md) | Low-poly weapon sets, source models, previews and integration notes. |
 | [CONTENT_FORMAT.md](CONTENT_FORMAT.md) | JSON formats: manifests, content packs, maps, presets. |
+| [Cinder Vault](docs/cinder-vault.md) / [classes](docs/cinder-classes.md) / [inventory](docs/inventory.md) / [crafting](docs/crafting.md) / [camera modes](docs/camera-modes.md) / [weapon rig](docs/weapon-rig.md) | Turn-based dungeon rules, threat tiers/elites, class mastery, pack/gear, Ember Shard recipes, NPC/Oracle services, the reusable isometric camera/avatars and bottom-center weapon rig. |
+| [Turn-based research](docs/research/turn-based-roguelite-2026-11-16.md) / [UX/world research](docs/research/ux-world-features-2026-11-16.md) / [difficulty/QoL research](docs/research/difficulty-replayability-qol-2026-11-16.md) | Design sources and decisions behind turns, maps, transitions, inventory, NPCs, crafting, threat tiers, elites and field-guide/AP-preview QoL. |
 | [devplan.md](devplan.md) | Milestone status and next steps. |
 | [AGENTS.md](AGENTS.md) | Guidance for coding agents working in this repository. |
 | [HANDOFF.md](HANDOFF.md) | Verification results and open items. |

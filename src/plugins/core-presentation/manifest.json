@@ -5,8 +5,16 @@
   "version": "1.0.0",
   "kind": "code",
   "sdk": "^2.0.0",
-  "description": "Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks.",
-  "capabilities": ["render", "audio"],
-  "dependencies": { "core/world": "^1.0.0" },
-  "requiresRoles": ["sdk/theme", "sdk/camera"]
+  "description": "Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks. Honors optional ViewModes to hide ceilings, first-person view models and fog for overhead presentations.",
+  "capabilities": [
+    "render",
+    "audio"
+  ],
+  "dependencies": {
+    "core/world": "^1.0.0"
+  },
+  "requiresRoles": [
+    "sdk/theme",
+    "sdk/camera"
+  ]
 }

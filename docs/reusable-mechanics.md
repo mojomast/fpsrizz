@@ -155,11 +155,18 @@ Additional selectable providers are described in their own contracts:
 | `sdk/mechanic-navigation` | `mechanics/navigation` | Pure ordered unit-edge graph search; Stonewake pursuit and Signal Break reachability |
 | `sdk/mechanic-sequence` | `mechanics/sequence` | Owned ordered step/round cursors; NEON RUN and Foundry Circuit |
 | `sdk/mechanic-progression` | `mechanics/progression` | XP curves, level ledgers and pending rewards; Cinder Vault's in-level boons |
+| `sdk/mechanic-inventory` | `mechanics/inventory` | Bounded stacks and equipment slots; Cinder Vault's pack, gear and loot |
+| `sdk/mechanic-crafting` | `mechanics/crafting` | Known atomic item recipes over the selected inventory; Cinder Vault's forge and Ember Shards |
 
-See [navigation](navigation.md), [sequences](sequences.md) and [progression](progression.md) for exact composition and
-evidence. Navigation is a pure registration-time role; sequence and progression are owner-bound factories. None is
-added implicitly to a `MechanicKit`. Clock, sequence and progression factories reuse
-[owned-instance leases](owned-instances.md) for identity and disposal.
+See [navigation](navigation.md), [sequences](sequences.md), [progression](progression.md), [inventory](inventory.md) and
+[crafting](crafting.md) for exact composition and evidence. Navigation is a pure registration-time role; sequence,
+progression and inventory are owner-bound factories. None is added implicitly to a `MechanicKit`. Clock, sequence,
+progression and inventory factories reuse [owned-instance leases](owned-instances.md) for identity and disposal.
+
+`TurnControl` (`sdk/turn-control`) is a presence-only service for modes that own discrete actor actions. While it is
+installed, `core/enemies` suppresses its autonomous think/separation systems; the mode must perform enemy turns itself.
+Cinder Vault provides it for one-tile action-point turns and telegraphed enemy actions. Absence restores real-time AI for
+all other games.
 
 The SDK also exports two consumer-owned helpers used by different families, without new plugin selections or systems:
 

@@ -17,6 +17,9 @@ npm run find-reuse -- "graph shortest path"
 npm run find-reuse -- "ordered steps rounds"
 npm run find-reuse -- "xp levels pending rewards"
 npm run find-reuse -- "seeded dungeon rooms"
+npm run find-reuse -- "inventory stacks equipment loot"
+npm run find-reuse -- "known crafting recipes item output"
+npm run find-reuse -- "isometric camera view toggle"
 ```
 
 Results include the matching terms, scope, public SDK entry points, implementation path, limitations, documentation
@@ -30,6 +33,9 @@ test paths and related recipes:
 npm run find-reuse -- --show mechanics/actions
 npm run find-reuse -- --show recipe/resource-actions
 npm run find-reuse -- --show recipe/experience-levels
+npm run find-reuse -- --show recipe/stack-inventory
+npm run find-reuse -- --show recipe/known-crafting
+npm run find-reuse -- --show recipe/isometric-camera-toggle
 npm run find-reuse -- --show dungeon/generator
 npm run find-reuse -- --show ResourcePoolProviders
 npm run find-reuse -- --show Render

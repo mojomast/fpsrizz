@@ -159,7 +159,7 @@ const stopwords = new Set('a an and are as be by can do for from game games have
 function words(text) {
   return [...new Set(String(text).replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase().split(/[^a-z0-9]+/).filter(word => word.length > 1 && !stopwords.has(word)).map(word => word.length > 4 && word.endsWith('s') ? word.slice(0, -1) : word))];
 }
-export function searchReuse(index, query, { limit = 8, type, scope } = {}) {
+export function searchReuse(index, query, { limit = 12, type, scope } = {}) {
   const terms = words(query);
   return index.entries.filter(item => (!type || item.type === type) && (!scope || item.scope === scope)).map(item => {
     const fields = [
@@ -176,6 +176,8 @@ export function searchReuse(index, query, { limit = 8, type, scope } = {}) {
     if (item.id.toLowerCase() === query.toLowerCase() || item.name.toLowerCase() === query.toLowerCase()) score += 100;
     if (score) score += matched.length === terms.length ? 12 : 0;
     if (score && item.scope === 'cross-genre') score += 3;
+    // Contract aliases help exact ID lookup but should not crowd out working implementations and family alternatives.
+    if (score && item.type === 'contract') score -= 8;
     return { ...item, score, matched, matchedFields: [...reasons] };
   }).filter(item => item.score > 0).sort((a, b) => b.score - a.score || a.id.localeCompare(b.id, 'en')).slice(0, limit);
 }

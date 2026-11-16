@@ -5,8 +5,14 @@
   "version": "1.0.0",
   "kind": "code",
   "sdk": "^2.0.0",
-  "description": "Dungeon HUD with depth guidance, a non-blocking level-up boon tray, armory rack and magazine display.",
-  "dependencies": { "cinder/game": "^1.0.0" },
-  "capabilities": ["ui"],
-  "requiresRoles": ["sdk/hud"]
+  "description": "Turn-based HUD with class/threat select, field guide, first-person/isometric view state, AP hover preview, automap/tactical grid, pack filters/drop, forge, NPC dialogue, AP/intent and magazines.",
+  "dependencies": {
+    "cinder/game": "^1.0.0"
+  },
+  "capabilities": [
+    "ui"
+  ],
+  "requiresRoles": [
+    "sdk/hud"
+  ]
 }

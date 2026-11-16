@@ -40,6 +40,24 @@ test('orthographic resize preserves framing and zoom; perspective resize updates
   assert.ok(Math.abs(perspective.projectionMatrix.elements[0]! - oldX / 2) < 1e-12);
 });
 
+test('one camera provider replaces its own world-camera lease when toggling projections', async () => {
+  const fallback = new THREE.PerspectiveCamera();
+  const selection = createWorldCameraSelection(fallback, () => 2);
+  const first = new THREE.PerspectiveCamera();
+  const second = new THREE.OrthographicCamera(-1, 1, 5, -5);
+  let ctx!: SessionContext;
+  const host = newHost([codePlugin('test/toggle-camera', { activate(context) { ctx = context; selection.set(context, first); } })]);
+  await host.apply(presetOf('test/camera-toggle', ['test/toggle-camera']));
+  assert.equal(selection.current(), first);
+  selection.set(ctx, second);
+  assert.equal(selection.current(), second);
+  selection.set(ctx, first);
+  assert.equal(selection.current(), first);
+  ctx.scope.dispose();
+  assert.equal(selection.current(), fallback, 'disposed replaces must not leave extra leases behind');
+  host.stop();
+});
+
 test('world camera leases survive out-of-order cleanup, restore fallback, and reset on restart', async () => {
   const fallback = new THREE.PerspectiveCamera();
   let aspect = 2;

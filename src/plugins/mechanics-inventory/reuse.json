@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations.",
+  "keywords": ["inventory", "item", "loot", "stack", "equipment", "equip", "bag", "consumable", "gear", "rarity"],
+  "entryPoints": ["InventoryProviders", "InventoryMechanicRole", "inventoryMechanic", "Items", "MechanicInventoryChanged"],
+  "useWhen": "A game needs stackable item storage and optional equipment slots without inventing slot, capacity and swap bookkeeping.",
+  "limitations": ["Stores item IDs/counts and equipment-slot assignments only. Effects, stats, loot rolls, UI and persistence remain game-owned.", "Capacity is measured in distinct item stacks; equipment items are stored outside the bag. No weight, grid shape, sockets, durability or transactions across inventories."],
+  "docs": ["docs/inventory.md"],
+  "examples": ["src/plugins/cinder-game/index.ts", "src/plugins/cinder-content/content.json"],
+  "tests": ["tests/mechanics-inventory.test.ts", "tests/cinder-vault.test.ts"]
+}

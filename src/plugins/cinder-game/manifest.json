@@ -5,9 +5,31 @@
   "version": "1.0.0",
   "kind": "code",
   "sdk": "^2.0.0",
-  "description": "A three-depth seeded dungeon roguelite with in-level XP, boon choices, a six-weapon armory and persistent ember mastery.",
-  "dependencies": { "core/world": "^1.0.0", "core/combat": "^1.0.0", "core/player": "^1.0.0", "core/enemies": "^1.0.0", "dungeon/generator": "^1.0.0", "mechanics/kits": "^1.0.0" },
-  "capabilities": ["simulation", "input"],
-  "requiresRoles": ["sdk/mechanic-progression"],
-  "roleDependencies": ["sdk/mechanic-resources", "sdk/mechanic-clock", "sdk/mechanic-actions", "sdk/mechanic-objectives", "sdk/mechanic-progression"]
+  "description": "A turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, action-point combat, loot/equipment, NPC forge/Oracle, fogged automap/grid, first-person/isometric view with class avatars, field guide/AP hover, in-level boons and persistent mastery.",
+  "dependencies": {
+    "core/world": "^1.0.0",
+    "core/combat": "^1.0.0",
+    "core/player": "^1.0.0",
+    "core/enemies": "^1.0.0",
+    "dungeon/generator": "^1.0.0",
+    "mechanics/kits": "^1.0.0"
+  },
+  "capabilities": [
+    "simulation",
+    "input"
+  ],
+  "requiresRoles": [
+    "sdk/mechanic-progression",
+    "sdk/mechanic-inventory",
+    "sdk/mechanic-crafting"
+  ],
+  "roleDependencies": [
+    "sdk/mechanic-resources",
+    "sdk/mechanic-clock",
+    "sdk/mechanic-actions",
+    "sdk/mechanic-objectives",
+    "sdk/mechanic-progression",
+    "sdk/mechanic-inventory",
+    "sdk/mechanic-crafting"
+  ]
 }

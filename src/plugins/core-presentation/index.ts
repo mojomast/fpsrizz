@@ -1,4 +1,4 @@
-import { Audio, ThemeRole, View, World, definePlugin, Impact } from '../../sdk/index.ts';
+import { Audio, ThemeRole, View, ViewModes, World, definePlugin, Impact } from '../../sdk/index.ts';
 import { ActorRenderers, Render, THREE } from '../../sdk/render.ts';
 import { createActors, billboardRenderer, DEFAULT_RENDERER_ID } from './actors.ts';
 import { installAudioHooks } from './audiohooks.ts';
@@ -49,12 +49,20 @@ export default definePlugin({
 
     const cam = render.camera;
     cam.rotation.order = 'YXZ';
+    let overhead = false;
     ctx.systems.addFrame({
       id: 'core/presentation.frame',
       order: 100, // after the camera provider has published this frame's View
       update(alpha, frameDt) {
         const time = ctx.time.now + alpha * ctx.time.step;
         const view = ctx.services.tryGet(View); // provided by the camera role, which activates after plugins
+        const nextOverhead = ctx.services.tryGet(ViewModes)?.mode === 'isometric';
+        if (nextOverhead !== overhead) {
+          overhead = nextOverhead;
+          meshes.setOverhead(overhead);
+          weapon.setVisible(!overhead);
+          render.setEnvironment({ background: desc.fog.color, fog: overhead ? null : desc.fog });
+        }
         if (view) {
           cam.position.set(view.x, view.y, view.z);
           cam.rotation.set(view.pitch, view.yaw, view.roll);

@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066`
+Source digest: `c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7`
 
 ## Composition recipes
 
@@ -24,6 +24,9 @@ Source digest: `37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066
 | `recipe/profile-storage` | cross-genre | Use the host Profile service for small namespaced persistent JSON values and Settings for browser preferences. | [source](docs/reuse-recipes.json) |
 | `recipe/semantic-audio` | cross-genre | Play existing semantic sound cues through Audio and theme providers with scoped lifecycle. | [source](docs/reuse-recipes.json) |
 | `recipe/experience-levels` | cross-genre | Track XP and deterministic level thresholds, complete multiple levels atomically and acknowledge game-defined level rewards. | [source](docs/reuse-recipes.json) |
+| `recipe/stack-inventory` | cross-genre | Store bounded item stacks and optional equipment-slot assignments with atomic add/remove/equip/unequip behavior. | [source](docs/reuse-recipes.json) |
+| `recipe/known-crafting` | cross-genre | Execute deterministic item-to-item recipes over a selected inventory, restoring inputs if output placement fails. | [source](docs/reuse-recipes.json) |
+| `recipe/isometric-camera-toggle` | cross-genre | Replace the shooter camera provider with first-person and orthographic isometric modes, plus optional class/theme player bodies for overhead view. | [source](docs/reuse-recipes.json) |
 
 ## All source plugins
 
@@ -32,16 +35,16 @@ Source digest: `37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066
 | `board/mission` | content | A compact authored tactical encounter. | [source](src/plugins/board-mission) |
 | `board/presentation` | unreviewed | Orthographic board and tactical command interface. | [source](src/plugins/board-presentation) |
 | `board/tactics` | family | Turn-tactics authority composing selected graph reachability with local occupancy, AP spending, attacks and deterministic enemy turns. | [source](src/plugins/board-tactics) |
-| `cinder/content` | content | Cinder Vault dungeon content: a seeded three-wing dungeon recipe, six-weapon armory, wardens, keeper, caches and shared run economy. | [source](src/plugins/cinder-content) |
-| `cinder/game` | family | Three-depth seeded dungeon shooter roguelite with non-blocking in-level XP/boon choices, six weapons, wardens, a keeper and persistent legacy. | [source](src/plugins/cinder-game) |
-| `cinder/hud` | presentation | Cinder Vault dungeon HUD with depth/waypoint guidance, non-blocking level-up boon tray, armory rack, magazine display and reload state. | [source](src/plugins/cinder-hud) |
+| `cinder/content` | content | Cinder Vault content: seeded dungeon, six-weapon armory, twelve gear/consumable/Ember Shard items, nine forge recipes, seven enemy archetypes, threat caches and turn kit. | [source](src/plugins/cinder-content) |
+| `cinder/game` | family | Turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, telegraphed enemies, loot/inventory, NPC forge and Oracle bargains, fogged automap/grid, first-person/isometric view, field guide/AP hover preview and persistent mastery. | [source](src/plugins/cinder-game) |
+| `cinder/hud` | presentation | Cinder turn-based HUD: class/threat selection and transitions, field guide, first-person/isometric view badge, automap/tactical grid, action points/intents, AP hover preview, pack filters/drop, forge, NPC dialogue, boons and weapons. | [source](src/plugins/cinder-hud) |
 | `core/combat` | family | Shooter damage pipeline, weapons/ammo, hitscan/projectile/melee attacks, pickups and damage modifiers. | [source](src/plugins/core-combat) |
 | `core/content` | content | Data-only reference content: two weapons, two enemies, three pickups, two ammo types and the Bulkhead Station arena. | [source](src/plugins/core-content) |
 | `core/enemies` | unreviewed | Enemy definitions (data), the enemy state machine, path-following movement, and two AI behaviours: a melee chaser and a ranged attacker that respects line of sight. | [source](src/plugins/core-enemies) |
 | `core/hud` | unreviewed | Retro-industrial heads-up display: health, ammo, weapon bar, objective, status lines, notices, crosshair and damage feedback. | [source](src/plugins/core-hud) |
 | `core/modes` | unreviewed | The default game mode: restore the override switch, then reach the exit. Owns spawning of the map's actors and the win/lose conditions. | [source](src/plugins/core-modes) |
 | `core/player` | unreviewed | Player prefab, WASD + mouse-yaw controller and fixed-eye-height first-person camera. Movement is planar; jumping and vertical aim belong to future controller/camera providers. | [source](src/plugins/core-player) |
-| `core/presentation` | unreviewed | Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks. | [source](src/plugins/core-presentation) |
+| `core/presentation` | unreviewed | Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks. Honors optional ViewModes to hide ceilings, first-person view models and fog for overhead presentations. | [source](src/plugins/core-presentation) |
 | `core/world` | family | Shooter-family planar collision, ray/sweep queries, pathfinding, doors, switches and trigger zones. | [source](src/plugins/core-world) |
 | `dungeon/generator` | family | Seeded room-and-corridor dungeon map format. It emits multiple isolated wings in one bounded grid, with room markers, descent pads and lights for a game mode to populate. | [source](src/plugins/dungeon-generator) |
 | `ember/content` | content | Ash lane and three enemy waves. | [source](src/plugins/ember-content) |
@@ -70,23 +73,27 @@ Source digest: `37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066
 | `example/ward` | family | Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry. | [source](src/plugins/example-ward) |
 | `mechanics/actions` | cross-genre | Data-defined action costs, gains and cooldowns for abilities, crafting, repairs, attacks and production. | [source](src/plugins/mechanics-actions) |
 | `mechanics/clock` | cross-genre | Explicit, consumer-advanced seconds or turn clocks; the SDK createDeadline helper borrows compatible clocks for pollable duration windows. | [source](src/plugins/mechanics-clock) |
+| `mechanics/crafting` | cross-genre | Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback. | [source](src/plugins/mechanics-crafting) |
+| `mechanics/inventory` | cross-genre | Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations. | [source](src/plugins/mechanics-inventory) |
 | `mechanics/kits` | cross-genre | Validated JSON mechanic kits combine resources, actions, clock domains and objectives without new gameplay code. | [source](src/plugins/mechanics-kits) |
 | `mechanics/navigation` | cross-genre | Pure deterministic unit-edge graph queries returning ordered shortest distances and canonical first steps. | [source](src/plugins/mechanics-navigation) |
 | `mechanics/objectives` | cross-genre | Objective counters, prerequisite unlocks and idempotent progress receipts for quests, deliveries, waves and restoration. | [source](src/plugins/mechanics-objectives) |
 | `mechanics/progression` | cross-genre | Owned XP and level ledgers with deterministic linear curves, multi-level grants, capped levels and pending game-defined level rewards. | [source](src/plugins/mechanics-progression) |
 | `mechanics/resources` | cross-genre | Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation. | [source](src/plugins/mechanics-resources) |
 | `mechanics/sequence` | cross-genre | Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion. | [source](src/plugins/mechanics-sequence) |
+| `presentation/camera-modes` | cross-genre | Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service. | [source](src/plugins/presentation-camera-modes) |
+| `presentation/player-avatar` | cross-genre | Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes. | [source](src/plugins/presentation-player-avatar) |
 | `puzzle/chambers` | content | Three authored chambers introducing weight, pursuit and a double seal. | [source](src/plugins/puzzle-chambers) |
 | `puzzle/presentation` | unreviewed | Lit low-poly ruins, articulated explorer and golems, orbiting camera, picking and puzzle HUD. | [source](src/plugins/puzzle-presentation) |
 | `puzzle/rules` | family | Grid push puzzles composing selected graph navigation for deterministic pursuit, bounded command ingress and reversible turns. | [source](src/plugins/puzzle-rules) |
 | `sky/content` | content | Courier resources, actions and delivery objectives. | [source](src/plugins/sky-content) |
 | `sky/game` | family | Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines. | [source](src/plugins/sky-game) |
 | `sky/presentation` | unreviewed | Volumetric floating islands and drone cockpit HUD. | [source](src/plugins/sky-presentation) |
-| `story/adventure` | family | Narrative room graph, dialogue, item combinations, flags, journal and chapter save/load. | [source](src/plugins/story-adventure) |
+| `story/adventure` | family | Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load. | [source](src/plugins/story-adventure) |
 | `story/chapter` | content | A lighthouse mystery in three rooms. | [source](src/plugins/story-chapter) |
 | `story/presentation` | unreviewed | Illustrated point-and-click adventure interface. | [source](src/plugins/story-presentation) |
 | `theme/arcade` | unreviewed | Pinned Assetrizz synth tiles, pennant, city and scooter badge; original top-down vehicle and synthesized arcade cues. | [source](src/plugins/theme-arcade) |
-| `theme/assetrizz` | presentation | Pinned Assetrizz sci-fi/fantasy world tiles and enemy strips, six original Gloamforge weapon views and card previews, and a cropped-stone Cinder theme variant. | [source](src/plugins/theme-assetrizz) |
+| `theme/assetrizz` | presentation | Pinned Assetrizz sci-fi/fantasy world tiles, enemy, NPC and class-avatar strips, NPC portraits, six original Gloamforge weapon views/card previews, and a cropped-stone Cinder theme variant. | [source](src/plugins/theme-assetrizz) |
 | `theme/board` | unreviewed | Pinned Assetrizz voxel explorer, chalk golem, rock cover and timber tiles with synthesized tactile board-game cues. | [source](src/plugins/theme-board) |
 | `theme/industrial` | unreviewed | Procedural industrial-sci-fi art, sprites and synthesized sound effects. | [source](src/plugins/theme-industrial) |
 | `theme/story` | unreviewed | Pinned Assetrizz ink-watercolor observatory, keeper and loupe, a hand-painted brass key, and synthesized glass-like story cues. | [source](src/plugins/theme-story) |
@@ -103,30 +110,34 @@ Source digest: `37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066
 |---|---|---|---|
 | `sdk/actionMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L137) |
 | `sdk/ActionMechanicRole` | contract | Public SDK value: sdk/mechanic-actions | [source](src/sdk/contracts/mechanics.ts#L102) |
-| `sdk/ActorRenderers` | contract | Public SDK value: actor-renderer | [source](src/sdk/render.ts#L88) |
+| `sdk/ActorRenderers` | contract | Public SDK value: actor-renderer | [source](src/sdk/render.ts#L89) |
 | `sdk/Adventure` | contract | Public SDK value: sdk/adventure | [source](src/sdk/contracts/adventure.ts#L66) |
 | `sdk/AdventureActionResolved` | contract | Public SDK value: sdk/adventure-action-resolved | [source](src/sdk/contracts/adventure.ts#L64) |
 | `sdk/AdventureChapters` | contract | Public SDK value: adventure-chapter | [source](src/sdk/contracts/adventure.ts#L65) |
-| `sdk/AiBehaviors` | contract | Public SDK value: ai-behavior | [source](src/sdk/contracts/shooter.ts#L523) |
-| `sdk/AmmoTypes` | contract | Public SDK value: ammo | [source](src/sdk/contracts/shooter.ts#L420) |
-| `sdk/angleDelta` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L716) |
-| `sdk/AttackBehaviors` | contract | Public SDK value: attack-behavior | [source](src/sdk/contracts/shooter.ts#L379) |
-| `sdk/AttackFired` | contract | Public SDK value: sdk/attack-fired | [source](src/sdk/contracts/shooter.ts#L348) |
-| `sdk/Audio` | contract | Public SDK value: sdk/audio | [source](src/sdk/contracts/shooter.ts#L629) |
-| `sdk/CameraRole` | contract | Public SDK value: sdk/camera | [source](src/sdk/contracts/shooter.ts#L651) |
-| `sdk/Cinder` | contract | Public SDK value: cinder/run | [source](src/sdk/contracts/cinder.ts#L69) |
+| `sdk/AiBehaviors` | contract | Public SDK value: ai-behavior | [source](src/sdk/contracts/shooter.ts#L534) |
+| `sdk/AmmoTypes` | contract | Public SDK value: ammo | [source](src/sdk/contracts/shooter.ts#L431) |
+| `sdk/angleDelta` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L727) |
+| `sdk/AttackBehaviors` | contract | Public SDK value: attack-behavior | [source](src/sdk/contracts/shooter.ts#L390) |
+| `sdk/AttackFired` | contract | Public SDK value: sdk/attack-fired | [source](src/sdk/contracts/shooter.ts#L359) |
+| `sdk/Audio` | contract | Public SDK value: sdk/audio | [source](src/sdk/contracts/shooter.ts#L640) |
+| `sdk/CameraRole` | contract | Public SDK value: sdk/camera | [source](src/sdk/contracts/shooter.ts#L662) |
+| `sdk/Cinder` | contract | Public SDK value: cinder/run | [source](src/sdk/contracts/cinder.ts#L196) |
 | `sdk/clockMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L132) |
 | `sdk/ClockMechanicRole` | contract | Public SDK value: sdk/mechanic-clock | [source](src/sdk/contracts/mechanics.ts#L101) |
 | `sdk/Collider` | contract | Public SDK value: sdk/collider | [source](src/sdk/contracts/shooter.ts#L36) |
-| `sdk/Combat` | contract | Public SDK value: sdk/combat | [source](src/sdk/contracts/shooter.ts#L468) |
-| `sdk/ControllerRole` | contract | Public SDK value: sdk/controller | [source](src/sdk/contracts/shooter.ts#L649) |
+| `sdk/Combat` | contract | Public SDK value: sdk/combat | [source](src/sdk/contracts/shooter.ts#L479) |
+| `sdk/ControllerRole` | contract | Public SDK value: sdk/controller | [source](src/sdk/contracts/shooter.ts#L660) |
+| `sdk/craftingMechanic` | contract | Public helper/class | [source](src/sdk/contracts/crafting.ts#L33) |
+| `sdk/CraftingMechanicRole` | contract | Public SDK value: sdk/mechanic-crafting | [source](src/sdk/contracts/crafting.ts#L31) |
+| `sdk/CraftingProviders` | contract | Public SDK value: mechanic-crafting-provider | [source](src/sdk/contracts/crafting.ts#L30) |
+| `sdk/CraftingRecipes` | contract | Public SDK value: crafting-recipe | [source](src/sdk/contracts/crafting.ts#L17) |
 | `sdk/createCommandQueue` | contract | Public helper/class | [source](src/sdk/contracts/command-queue.ts#L33) |
 | `sdk/createDeadline` | contract | Public helper/class | [source](src/sdk/contracts/deadlines.ts#L32) |
 | `sdk/createMechanicKit` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L148) |
 | `sdk/createOwnedInstances` | contract | Public helper/class | [source](src/sdk/contracts/owned-instances.ts#L15) |
-| `sdk/Damaged` | contract | Public SDK value: sdk/damaged | [source](src/sdk/contracts/shooter.ts#L346) |
-| `sdk/DamageModifiers` | contract | Public SDK value: damage-modifier | [source](src/sdk/contracts/shooter.ts#L428) |
-| `sdk/DealDamage` | contract | Public SDK value: sdk/deal-damage | [source](src/sdk/contracts/shooter.ts#L344) |
+| `sdk/Damaged` | contract | Public SDK value: sdk/damaged | [source](src/sdk/contracts/shooter.ts#L357) |
+| `sdk/DamageModifiers` | contract | Public SDK value: damage-modifier | [source](src/sdk/contracts/shooter.ts#L439) |
+| `sdk/DealDamage` | contract | Public SDK value: sdk/deal-damage | [source](src/sdk/contracts/shooter.ts#L355) |
 | `sdk/defineCommand` | contract | Public helper/class | [source](src/sdk/core.ts#L30) |
 | `sdk/defineComponent` | contract | Public helper/class | [source](src/sdk/core.ts#L28) |
 | `sdk/defineEvent` | contract | Public helper/class | [source](src/sdk/core.ts#L29) |
@@ -134,38 +145,43 @@ Source digest: `37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066
 | `sdk/defineRegistry` | contract | Public helper/class | [source](src/sdk/core.ts#L32) |
 | `sdk/defineRole` | contract | Public helper/class | [source](src/sdk/core.ts#L33) |
 | `sdk/defineService` | contract | Public helper/class | [source](src/sdk/core.ts#L31) |
-| `sdk/Died` | contract | Public SDK value: sdk/died | [source](src/sdk/contracts/shooter.ts#L347) |
-| `sdk/DoorChanged` | contract | Public SDK value: sdk/door-changed | [source](src/sdk/contracts/shooter.ts#L301) |
+| `sdk/Died` | contract | Public SDK value: sdk/died | [source](src/sdk/contracts/shooter.ts#L358) |
+| `sdk/DoorChanged` | contract | Public SDK value: sdk/door-changed | [source](src/sdk/contracts/shooter.ts#L312) |
 | `sdk/Ember` | contract | Public SDK value: ember/bastion | [source](src/sdk/contracts/ember.ts#L52) |
 | `sdk/EmberConfigs` | contract | Public SDK value: ember-defense | [source](src/sdk/contracts/ember.ts#L18) |
-| `sdk/Enemies` | contract | Public SDK value: enemy | [source](src/sdk/contracts/shooter.ts#L514) |
+| `sdk/Enemies` | contract | Public SDK value: enemy | [source](src/sdk/contracts/shooter.ts#L525) |
 | `sdk/Enemy` | contract | Public SDK value: sdk/enemy | [source](src/sdk/contracts/shooter.ts#L105) |
-| `sdk/EnemyAi` | contract | Public SDK value: sdk/enemies | [source](src/sdk/contracts/shooter.ts#L542) |
-| `sdk/EnemyAlerted` | contract | Public SDK value: sdk/enemy-alerted | [source](src/sdk/contracts/shooter.ts#L354) |
+| `sdk/EnemyAi` | contract | Public SDK value: sdk/enemies | [source](src/sdk/contracts/shooter.ts#L553) |
+| `sdk/EnemyAlerted` | contract | Public SDK value: sdk/enemy-alerted | [source](src/sdk/contracts/shooter.ts#L365) |
 | `sdk/ExperienceRole` | contract | Public SDK value: sdk/experience | [source](src/sdk/contracts/experience.ts#L10) |
-| `sdk/Flow` | contract | Public SDK value: sdk/flow | [source](src/sdk/contracts/shooter.ts#L620) |
-| `sdk/FlowEnded` | contract | Public SDK value: sdk/flow-ended | [source](src/sdk/contracts/shooter.ts#L621) |
+| `sdk/Flow` | contract | Public SDK value: sdk/flow | [source](src/sdk/contracts/shooter.ts#L631) |
+| `sdk/FlowEnded` | contract | Public SDK value: sdk/flow-ended | [source](src/sdk/contracts/shooter.ts#L632) |
 | `sdk/Health` | contract | Public SDK value: sdk/health | [source](src/sdk/contracts/shooter.ts#L43) |
-| `sdk/HudRole` | contract | Public SDK value: sdk/hud | [source](src/sdk/contracts/shooter.ts#L655) |
-| `sdk/Impact` | contract | Public SDK value: sdk/impact | [source](src/sdk/contracts/shooter.ts#L350) |
-| `sdk/Input` | contract | Public SDK value: sdk/input | [source](src/sdk/contracts/shooter.ts#L569) |
-| `sdk/InputActions` | contract | Public SDK value: input-action | [source](src/sdk/contracts/shooter.ts#L553) |
-| `sdk/InputContexts` | contract | Public SDK value: sdk/input-contexts | [source](src/sdk/contracts/shooter.ts#L595) |
+| `sdk/HudRole` | contract | Public SDK value: sdk/hud | [source](src/sdk/contracts/shooter.ts#L666) |
+| `sdk/Impact` | contract | Public SDK value: sdk/impact | [source](src/sdk/contracts/shooter.ts#L361) |
+| `sdk/Input` | contract | Public SDK value: sdk/input | [source](src/sdk/contracts/shooter.ts#L580) |
+| `sdk/InputActions` | contract | Public SDK value: input-action | [source](src/sdk/contracts/shooter.ts#L564) |
+| `sdk/InputContexts` | contract | Public SDK value: sdk/input-contexts | [source](src/sdk/contracts/shooter.ts#L606) |
 | `sdk/Intent` | contract | Public SDK value: sdk/intent | [source](src/sdk/contracts/shooter.ts#L60) |
-| `sdk/Interactions` | contract | Public SDK value: sdk/interactions | [source](src/sdk/contracts/shooter.ts#L282) |
+| `sdk/Interactions` | contract | Public SDK value: sdk/interactions | [source](src/sdk/contracts/shooter.ts#L293) |
 | `sdk/Inventory` | contract | Public SDK value: sdk/inventory | [source](src/sdk/contracts/shooter.ts#L84) |
+| `sdk/inventoryMechanic` | contract | Public helper/class | [source](src/sdk/contracts/inventory.ts#L58) |
+| `sdk/InventoryMechanicRole` | contract | Public SDK value: sdk/mechanic-inventory | [source](src/sdk/contracts/inventory.ts#L48) |
+| `sdk/InventoryProviders` | contract | Public SDK value: mechanic-inventory-provider | [source](src/sdk/contracts/inventory.ts#L47) |
 | `sdk/isObject` | contract | Public helper/class | [source](src/kernel/validate.ts#L36) |
-| `sdk/makeTransform` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L722) |
-| `sdk/MapFormats` | contract | Public SDK value: map-format | [source](src/sdk/contracts/shooter.ts#L299) |
-| `sdk/Maps` | contract | Public SDK value: map | [source](src/sdk/contracts/shooter.ts#L292) |
+| `sdk/Items` | contract | Public SDK value: item | [source](src/sdk/contracts/inventory.ts#L16) |
+| `sdk/makeTransform` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L733) |
+| `sdk/MapFormats` | contract | Public SDK value: map-format | [source](src/sdk/contracts/shooter.ts#L310) |
+| `sdk/Maps` | contract | Public SDK value: map | [source](src/sdk/contracts/shooter.ts#L303) |
 | `sdk/MechanicActionCommitted` | contract | Public SDK value: mechanics/action-committed | [source](src/sdk/contracts/mechanics.ts#L106) |
 | `sdk/MechanicActionProviders` | contract | Public SDK value: mechanic-action-provider | [source](src/sdk/contracts/mechanics.ts#L98) |
 | `sdk/MechanicClockProviders` | contract | Public SDK value: mechanic-clock-provider | [source](src/sdk/contracts/mechanics.ts#L97) |
+| `sdk/MechanicInventoryChanged` | contract | Public SDK value: mechanics/inventory-changed | [source](src/sdk/contracts/inventory.ts#L49) |
 | `sdk/MechanicKits` | contract | Public SDK value: mechanic-kit | [source](src/sdk/contracts/mechanics.ts#L116) |
 | `sdk/MechanicObjectiveChanged` | contract | Public SDK value: mechanics/objective-changed | [source](src/sdk/contracts/mechanics.ts#L107) |
 | `sdk/MechanicProgressionChanged` | contract | Public SDK value: mechanics/progression-changed | [source](src/sdk/contracts/progression.ts#L47) |
 | `sdk/MechanicResourcesChanged` | contract | Public SDK value: mechanics/resources-changed | [source](src/sdk/contracts/mechanics.ts#L105) |
-| `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](src/sdk/contracts/shooter.ts#L653) |
+| `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](src/sdk/contracts/shooter.ts#L664) |
 | `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](src/sdk/contracts/navigation.ts#L34) |
 | `sdk/objectiveMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L142) |
 | `sdk/ObjectiveMechanicRole` | contract | Public SDK value: sdk/mechanic-objectives | [source](src/sdk/contracts/mechanics.ts#L103) |
@@ -173,11 +189,12 @@ Source digest: `37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066
 | `sdk/opt` | contract | Public helper/class | [source](src/kernel/validate.ts#L81) |
 | `sdk/PHASES` | contract | Public SDK value | [source](src/sdk/core.ts#L25) |
 | `sdk/Pickup` | contract | Public SDK value: sdk/pickup | [source](src/sdk/contracts/shooter.ts#L110) |
-| `sdk/PickupCollected` | contract | Public SDK value: sdk/pickup-collected | [source](src/sdk/contracts/shooter.ts#L353) |
-| `sdk/PickupEffects` | contract | Public SDK value: pickup-effect | [source](src/sdk/contracts/shooter.ts#L481) |
-| `sdk/Pickups` | contract | Public SDK value: pickup | [source](src/sdk/contracts/shooter.ts#L491) |
+| `sdk/PickupCollected` | contract | Public SDK value: sdk/pickup-collected | [source](src/sdk/contracts/shooter.ts#L364) |
+| `sdk/PickupEffects` | contract | Public SDK value: pickup-effect | [source](src/sdk/contracts/shooter.ts#L492) |
+| `sdk/Pickups` | contract | Public SDK value: pickup | [source](src/sdk/contracts/shooter.ts#L502) |
 | `sdk/Player` | contract | Public SDK value: sdk/player | [source](src/sdk/contracts/shooter.ts#L70) |
-| `sdk/Prefabs` | contract | Public SDK value: prefab | [source](src/sdk/contracts/shooter.ts#L321) |
+| `sdk/PlayerAvatar` | contract | Public SDK value: sdk/player-avatar | [source](src/sdk/contracts/shooter.ts#L140) |
+| `sdk/Prefabs` | contract | Public SDK value: prefab | [source](src/sdk/contracts/shooter.ts#L332) |
 | `sdk/Profile` | contract | Public SDK value: sdk/profile | [source](src/sdk/contracts/profile.ts#L15) |
 | `sdk/progressionMechanic` | contract | Public helper/class | [source](src/sdk/contracts/progression.ts#L60) |
 | `sdk/ProgressionMechanicRole` | contract | Public SDK value: sdk/mechanic-progression | [source](src/sdk/contracts/progression.ts#L45) |
@@ -187,7 +204,7 @@ Source digest: `37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066
 | `sdk/PuzzleResolved` | contract | Public SDK value: puzzle/resolved | [source](src/sdk/contracts/puzzle.ts#L46) |
 | `sdk/Race` | contract | Public SDK value: vehicle/race | [source](src/sdk/contracts/racing.ts#L41) |
 | `sdk/RaceTracks` | contract | Public SDK value: vehicle/track | [source](src/sdk/contracts/racing.ts#L21) |
-| `sdk/Render` | contract | Public SDK value: sdk/render | [source](src/sdk/render.ts#L53) |
+| `sdk/Render` | contract | Public SDK value: sdk/render | [source](src/sdk/render.ts#L54) |
 | `sdk/Reporter` | contract | Public helper/class | [source](src/sdk/core.ts#L47) |
 | `sdk/resourceMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L127) |
 | `sdk/ResourceMechanicRole` | contract | Public SDK value: sdk/mechanic-resources | [source](src/sdk/contracts/mechanics.ts#L100) |
@@ -199,36 +216,39 @@ Source digest: `37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066
 | `sdk/SequenceMechanicRole` | contract | Public SDK value: sdk/mechanic-sequence | [source](src/sdk/contracts/sequence.ts#L38) |
 | `sdk/SequenceProviders` | contract | Public SDK value: mechanic-sequence-provider | [source](src/sdk/contracts/sequence.ts#L37) |
 | `sdk/SessionControl` | contract | Public SDK value: sdk/session-control | [source](src/sdk/contracts/experience.ts#L16) |
-| `sdk/Settings` | contract | Public SDK value: sdk/settings | [source](src/sdk/contracts/shooter.ts#L627) |
+| `sdk/Settings` | contract | Public SDK value: sdk/settings | [source](src/sdk/contracts/shooter.ts#L638) |
 | `sdk/Sky` | contract | Public SDK value: sky/salvage | [source](src/sdk/contracts/sky.ts#L16) |
 | `sdk/SkyRoutes` | contract | Public SDK value: sky-route | [source](src/sdk/contracts/sky.ts#L7) |
-| `sdk/spawnPrefab` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L324) |
+| `sdk/spawnPrefab` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L335) |
 | `sdk/Tactics` | contract | Public SDK value: board/tactics | [source](src/sdk/contracts/tactics.ts#L42) |
 | `sdk/TacticsMissions` | contract | Public SDK value: board-mission | [source](src/sdk/contracts/tactics.ts#L17) |
 | `sdk/TacticsResolved` | contract | Public SDK value: board/resolved | [source](src/sdk/contracts/tactics.ts#L44) |
-| `sdk/ThemeRole` | contract | Public SDK value: sdk/theme | [source](src/sdk/contracts/shooter.ts#L704) |
+| `sdk/ThemeRole` | contract | Public SDK value: sdk/theme | [source](src/sdk/contracts/shooter.ts#L715) |
 | `sdk/THREE` | contract | Public SDK value | [source](src/sdk/render.ts#L12) |
 | `sdk/Transform` | contract | Public SDK value: sdk/transform | [source](src/sdk/contracts/shooter.ts#L26) |
-| `sdk/TriggerFired` | contract | Public SDK value: sdk/trigger-fired | [source](src/sdk/contracts/shooter.ts#L302) |
-| `sdk/Ui` | contract | Public SDK value: sdk/ui | [source](src/sdk/contracts/shooter.ts#L638) |
-| `sdk/UseFailed` | contract | Public SDK value: sdk/use-failed | [source](src/sdk/contracts/shooter.ts#L304) |
+| `sdk/TriggerFired` | contract | Public SDK value: sdk/trigger-fired | [source](src/sdk/contracts/shooter.ts#L313) |
+| `sdk/TurnControl` | contract | Public SDK value: sdk/turn-control | [source](src/sdk/contracts/turns.ts#L15) |
+| `sdk/Ui` | contract | Public SDK value: sdk/ui | [source](src/sdk/contracts/shooter.ts#L649) |
+| `sdk/UseFailed` | contract | Public SDK value: sdk/use-failed | [source](src/sdk/contracts/shooter.ts#L315) |
 | `sdk/vArray` | contract | Public helper/class | [source](src/kernel/validate.ts#L69) |
 | `sdk/vBool` | contract | Public helper/class | [source](src/kernel/validate.ts#L65) |
 | `sdk/Verdant` | contract | Public SDK value: verdant/relay | [source](src/sdk/contracts/verdant.ts#L38) |
 | `sdk/VerdantWorlds` | contract | Public SDK value: verdant-world | [source](src/sdk/contracts/verdant.ts#L16) |
 | `sdk/vId` | contract | Public helper/class | [source](src/kernel/validate.ts#L51) |
-| `sdk/View` | contract | Public SDK value: sdk/view | [source](src/sdk/contracts/shooter.ts#L669) |
+| `sdk/View` | contract | Public SDK value: sdk/view | [source](src/sdk/contracts/shooter.ts#L680) |
+| `sdk/ViewModeChanged` | contract | Public SDK value: sdk/view-mode-changed | [source](src/sdk/contracts/viewmodes.ts#L24) |
+| `sdk/ViewModes` | contract | Public SDK value: sdk/view-modes | [source](src/sdk/contracts/viewmodes.ts#L23) |
 | `sdk/Visual` | contract | Public SDK value: sdk/visual | [source](src/sdk/contracts/shooter.ts#L130) |
 | `sdk/vJson` | contract | Public helper/class | [source](src/kernel/validate.ts#L86) |
 | `sdk/vNumber` | contract | Public helper/class | [source](src/kernel/validate.ts#L57) |
 | `sdk/vObject` | contract | Public helper/class | [source](src/kernel/validate.ts#L40) |
 | `sdk/vOneOf` | contract | Public helper/class | [source](src/kernel/validate.ts#L76) |
 | `sdk/vString` | contract | Public helper/class | [source](src/kernel/validate.ts#L44) |
-| `sdk/WeaponDry` | contract | Public SDK value: sdk/weapon-dry | [source](src/sdk/contracts/shooter.ts#L352) |
+| `sdk/WeaponDry` | contract | Public SDK value: sdk/weapon-dry | [source](src/sdk/contracts/shooter.ts#L363) |
 | `sdk/WeaponRuntime` | contract | Public SDK value: sdk/weapon-runtime | [source](src/sdk/contracts/shooter.ts#L91) |
-| `sdk/Weapons` | contract | Public SDK value: weapon | [source](src/sdk/contracts/shooter.ts#L412) |
-| `sdk/WeaponSwitched` | contract | Public SDK value: sdk/weapon-switched | [source](src/sdk/contracts/shooter.ts#L351) |
-| `sdk/World` | contract | Public SDK value: sdk/world | [source](src/sdk/contracts/shooter.ts#L260) |
-| `sdk/yawDirX` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L711) |
-| `sdk/yawDirZ` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L712) |
-| `sdk/yawOf` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L714) |
+| `sdk/Weapons` | contract | Public SDK value: weapon | [source](src/sdk/contracts/shooter.ts#L423) |
+| `sdk/WeaponSwitched` | contract | Public SDK value: sdk/weapon-switched | [source](src/sdk/contracts/shooter.ts#L362) |
+| `sdk/World` | contract | Public SDK value: sdk/world | [source](src/sdk/contracts/shooter.ts#L271) |
+| `sdk/yawDirX` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L722) |
+| `sdk/yawDirZ` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L723) |
+| `sdk/yawOf` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L725) |

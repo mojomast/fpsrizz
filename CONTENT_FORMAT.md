@@ -63,14 +63,23 @@ content kinds. See [building-block composition](docs/building-block-plugins.md).
 
 ## 2. Content kinds
 
-Cinder Vault uses existing ammo, weapon, enemy, map and mechanic-kit formats plus the `dungeon/generator` map format.
-Its six weapon entries demonstrate shared ammo, magazine/reload fields and both automatic and semi-automatic weapons. The
-generated map recipe declares 1–3 dungeon wings; each emits `dungeon-room` markers tagged by depth and role
-(`start`, `exit`, `warden`, `loot`) plus `dungeon-exit` zone triggers. Encounter composition and cache placement remain
-game policy. `cinder-spawn` is no longer required. The preset selects `cinder/vault` and the resource, clock, action,
-objective and progression roles. Optional profile keys `cinder/vault.v1.embers` and `cinder/vault.v1.runs` hold integers
-from 0 to 1,000,000; invalid values read as zero. They store legacy rewards/attempt count, not a resumable run or
-inventory. See [Cinder Vault](docs/cinder-vault.md) and [seeded dungeon rooms](docs/dungeon-generator.md).
+Cinder Vault uses existing ammo, weapon, enemy, map and mechanic-kit formats plus `dungeon/generator`, `item` and
+`crafting-recipe` content. Its six weapon entries demonstrate shared ammo, magazine/reload fields and
+automatic/semi-automatic weapons. The generated map recipe declares 1–3 dungeon wings; each emits `dungeon-room` markers
+tagged by depth and role (`start`, `exit`, `warden`, `loot`) plus `dungeon-exit` zone triggers. Enemy entries use the normal
+shooter schema; Cinder's Ash Hound, Ember Acolyte and Cinder Brute select `ai: "cinder/manual"` with validated
+`actions` / `supportHeal` metadata for the mode-owned discrete enemy turn. Item definitions use the normal `item` kind:
+name, description, icon, stackMax, optional equipment slot and rarity. The pack contains twelve item definitions, including
+the rare Ember Tonic and Shard Bomb and the Iron Band/Obsidian Edge gear. Crafting recipes declare 1–6 item inputs and one
+item output; Cinder ships nine known recipes, while run-ember costs remain game policy. Encounter composition, loot
+weights, threat tiers, elite affixes and item effects remain game policy. NPCs and their portraits/dialogue are
+code/content policy rather than a separate content kind; the Ash Oracle reuses the night-watch portrait/world strip. The
+preset selects `cinder/vault` and the resource, clock, action, objective, progression, inventory and crafting roles.
+Optional profile keys `cinder/vault.v1.embers`, `.runs`, `.threat` and `.mastery.<class>` hold nonnegative integers; invalid
+values read as zero. They store legacy, attempt count, best cleared threat rank and persistent class mastery, not a
+resumable run or inventory. See
+[Cinder Vault](docs/cinder-vault.md), [classes and loot](docs/cinder-classes.md), [inventory](docs/inventory.md),
+[crafting](docs/crafting.md) and [seeded dungeon rooms](docs/dungeon-generator.md).
 
 ### Independent game-family kinds
 
@@ -83,6 +92,8 @@ These use the same content-entry envelope and staged `Reporter` validation, with
 | `adventure-chapter` | `story/adventure` | `options.chapter` | `src/plugins/story-chapter/content.json`; [adventure schema and save format](docs/narrative-adventure.md) |
 | `push-puzzle` | `puzzle/rules` | `options.campaign` | `src/plugins/puzzle-chambers/content.json`; [Stonewake schema](docs/stonewake.md) |
 | `mechanic-kit` | `mechanics/kits` | Referenced by a game definition | Immutable resources, actions, explicit clock domain and objectives; [schema and limits](docs/reusable-mechanics.md#strict-mechanic-kit-content) |
+| `item` | `mechanics/inventory` | Referenced by inventory consumers | Stackable item definitions with optional equipment slot, rarity and presentation icon; [inventory](docs/inventory.md) |
+| `crafting-recipe` | `mechanics/crafting` | Known by a crafting consumer | 1–6 item inputs and one item output; no currency, failure or discovery in the generic format; [crafting](docs/crafting.md) |
 | `sky-route` | `sky/game` | `options.route` | `src/plugins/sky-content/content.json`; [flight schema](docs/sky-salvage.md) |
 | `ember-defense` | `ember/game` | `options.defense` | `src/plugins/ember-content/content.json`; [defense schema](docs/ember-bastion.md) |
 | `verdant-world` | `verdant/game` | `options.world` | `src/plugins/verdant-content/content.json`; [colony schema](docs/verdant-relay.md) |

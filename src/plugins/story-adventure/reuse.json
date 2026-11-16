@@ -1,7 +1,46 @@
 {
-  "schema": 1, "scope": "family", "summary": "Narrative room graph, dialogue, item combinations, flags, journal and chapter save/load.",
-  "keywords": ["dialogue", "conversation", "story", "inventory", "item", "combine", "crafting", "flag", "journal", "save", "load", "command queue", "bounded FIFO", "snapshot batch"],
-  "entryPoints": ["Adventure", "AdventureChapters", "AdventureActionResolved", "createCommandQueue"], "useWhen": "Create another chapter with the existing narrative rules and validated data format; inspect the authority as a snapshot-batch consumer of shared bounded ingress.",
-  "limitations": ["Item/flag rules and replay-validated saves are chapter-specific, not a general inventory or arbitrary game-state save system.", "Only the SDK command queue is genre-neutral: capacity 128, action validation and save/load/reset ordering remain Story policy."],
-  "docs": ["docs/narrative-adventure.md", "docs/command-queues.md"], "examples": ["src/plugins/story-chapter/content.json", "src/content/presets/narrative-adventure.json", "src/plugins/story-adventure/index.ts"], "tests": ["tests/narrative-adventure.test.ts", "tests/command-queue.test.ts", "tests/command-queue-consumers.test.ts"]
+  "schema": 1,
+  "scope": "family",
+  "summary": "Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load.",
+  "keywords": [
+    "dialogue",
+    "conversation",
+    "story",
+    "inventory",
+    "item",
+    "combine",
+    "crafting",
+    "flag",
+    "journal",
+    "save",
+    "load",
+    "command queue",
+    "bounded FIFO",
+    "snapshot batch"
+  ],
+  "entryPoints": [
+    "Adventure",
+    "AdventureChapters",
+    "AdventureActionResolved",
+    "createCommandQueue"
+  ],
+  "useWhen": "Create another narrative chapter, inspect item/inventory combination rules, or study the authority as a snapshot-batch consumer of shared bounded ingress.",
+  "limitations": [
+    "Item/flag rules and replay-validated saves are chapter-specific, not a general inventory or arbitrary game-state save system.",
+    "Only the SDK command queue is genre-neutral: capacity 128, action validation and save/load/reset ordering remain Story policy."
+  ],
+  "docs": [
+    "docs/narrative-adventure.md",
+    "docs/command-queues.md"
+  ],
+  "examples": [
+    "src/plugins/story-chapter/content.json",
+    "src/content/presets/narrative-adventure.json",
+    "src/plugins/story-adventure/index.ts"
+  ],
+  "tests": [
+    "tests/narrative-adventure.test.ts",
+    "tests/command-queue.test.ts",
+    "tests/command-queue-consumers.test.ts"
+  ]
 }

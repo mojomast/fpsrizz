@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback.",
+  "keywords": [
+    "crafting",
+    "recipe",
+    "item",
+    "inventory",
+    "consume",
+    "output",
+    "upgrade",
+    "forge",
+    "combine",
+    "material"
+  ],
+  "entryPoints": [
+    "CraftingProviders",
+    "CraftingMechanicRole",
+    "craftingMechanic",
+    "CraftingRecipes"
+  ],
+  "useWhen": "A game needs data-defined item transforms without writing inventory removal, output placement and rollback bookkeeping.",
+  "limitations": [
+    "No currency costs, recipe discovery/unlocks, crafting skills, failure chance, stations, effects or UI; those remain consumer policy. Inputs and output must be item IDs from the selected inventory provider."
+  ],
+  "docs": [
+    "docs/crafting.md"
+  ],
+  "examples": [
+    "src/plugins/cinder-game/index.ts",
+    "src/plugins/cinder-content/content.json"
+  ],
+  "tests": [
+    "tests/mechanics-crafting.test.ts",
+    "tests/cinder-vault.test.ts"
+  ]
+}

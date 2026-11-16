@@ -67,12 +67,27 @@ genre editors, full vertical gameplay and multiplayer have not been delivered by
 
 ## Milestones
 
-**Cinder Vault** now runs as a three-depth generated dungeon roguelite. `dungeon/generator` emits a 94×30 map with
-7–9-room wings; `mechanics/progression` owns XP levels and pending boons while combat continues. Wardens gate descents,
-weapon caches and a six-weapon armory supply loadout depth, and the Keeper closes the run. It composes the shared
-resource/action/clock/objective providers and existing shooter stack. Headless acceptance covers in-level leveling,
-queued rewards, all three depths and independent progression replacement; browser acceptance covers live movement/fire,
-non-modal boon selection and the complete depth route. See [the game guide](docs/cinder-vault.md),
+**Cinder Vault** now runs as a turn-based three-depth generated dungeon roguelite. `dungeon/generator` emits a 94×30
+map with 7–9-room wings; `mechanics/progression` owns XP levels and pending boons while turns continue;
+`mechanics/inventory` provides the 12-stack pack with filters/drop and gear slots; `mechanics/crafting` executes nine
+known Ember Shard recipes. Start-of-run Pilgrim/Delver/Ashbound threats scale enemy damage/health, elite frequency, healing,
+loot and legacy without hidden scaling. Three classes spend 3–4 action points on one-tile steps, attacks, reloads, pulses,
+items or gear; `TurnControl` suspends real-time enemy AI and the mode telegraphs enemy actions. New Ash Hounds, support
+Ember Acolytes and Cinder Brutes widen the depth pools; Warded/Swift/Emberbound/Siphoned elites add behavior, and
+wardens/Keeper enrage below half health. `presentation/camera-modes` adds a
+reusable `O`-toggled orthographic isometric view with `ViewModes` presentation adaptation, a floor player marker and
+class-specific knight/mage/rogue avatar bodies. First-person weapon sprites use a bottom-center pivot at 0.28 scale
+instead of the previous lower-right 0.44 framing.
+Optional Assetrizz NPCs (Ember Smith, Lantern Cartographer, Ash Oracle) provide forge/mend, paid map reveal or
+health/ember bargains; a fogged automap and `M` tactical grid expose explored layout and AP reach; `H` opens a movement-blocking
+field guide. `Z`/`X` rotate the orthographic camera, isometric WASD follows its azimuth, pointer hover previews move/attack AP,
+and clicks spend AP on movement or attacks. Wardens gate descents, loot, four new relics and a six-weapon armory supply build
+depth; class mastery, best threat and legacy persist, and the Keeper closes the run. Headless acceptance covers class/threat
+selection, AP turns, elite/boss scaling, Oracle pact, intent damage, inventory/equipment, map/grid, field guide,
+camera-view toggle, NPC/forge, in-level leveling, all depths and independent progression replacement; browser acceptance covers
+class/threat selection, transitions, field guide, first-person/isometric screenshots, hover preview, grid, NPC dialogue, forge,
+pack filters, input turns, non-modal boon selection and the complete route. See [the game guide](docs/cinder-vault.md),
+[classes and loot](docs/cinder-classes.md), [inventory](docs/inventory.md), [crafting](docs/crafting.md),
 [dungeon generator](docs/dungeon-generator.md) and [progression](docs/progression.md).
 
 | # | Stage | Status | What it delivered |

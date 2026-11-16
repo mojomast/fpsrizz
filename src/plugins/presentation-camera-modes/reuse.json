@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service.",
+  "keywords": [
+    "camera",
+    "isometric",
+    "orthographic",
+    "top down",
+    "view mode",
+    "toggle",
+    "first person",
+    "overview",
+    "presentation"
+  ],
+  "entryPoints": [
+    "ViewModes",
+    "ViewModeChanged",
+    "CameraRole"
+  ],
+  "useWhen": "A shooter-family game needs a toggleable overhead/isometric presentation over the same world while retaining its player controller and simulation.",
+  "limitations": [
+    "Shooter-family camera role. The isometric view is an orthographic 3D projection of existing billboard actors, not a separate 2D renderer. It provides a generic floor marker but no player sprite, cutaway shader, wall transparency, zoom, pan or click picking. Pair with presentation/player-avatar for a body; core presentation must honor ViewModes to hide first-person-only view models and ceilings."
+  ],
+  "docs": [
+    "docs/camera-modes.md",
+    "docs/cinder-vault.md"
+  ],
+  "examples": [
+    "src/content/presets/cinder-vault.json",
+    "src/plugins/core-presentation/index.ts"
+  ],
+  "tests": [
+    "tests/cinder-vault.test.ts",
+    "tests/render-three.test.ts",
+    "tests/cinder-demo/run.mjs"
+  ]
+}

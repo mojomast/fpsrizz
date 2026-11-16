@@ -77,6 +77,11 @@ const burst = (texture: string, size: number): VisualDef => ({
 const visuals: Record<string, VisualDef> = {
   'enemy-grunt': { ...enemy(2.2, 2.2), texture: 'enemy-grunt' },
   'enemy-spitter': { ...enemy(2.3, 2.3), texture: 'enemy-spitter' },
+  'npc-smith': { ...enemy(2.0, 2.2), texture: 'npc-smith', anims: { idle: anim([0], 1, true), walk: anim([1, 0], 3, true) } },
+  'npc-cartographer': { ...enemy(2.0, 2.2), texture: 'npc-cartographer', anims: { idle: anim([0], 1, true), walk: anim([1, 0], 3, true) } },
+  'player-knight': { ...enemy(1.7, 2.3), texture: 'player-knight', anims: { idle: anim([0], 1, true), walk: anim([1, 0], 4, true), attack: anim([2], 1, false), hurt: anim([3], 1, false) } },
+  'player-mage': { ...enemy(1.7, 2.3), texture: 'player-mage', anims: { idle: anim([0], 1, true), walk: anim([1, 0], 4, true), attack: anim([2], 1, false), hurt: anim([3], 1, false) } },
+  'player-rogue': { ...enemy(1.7, 2.3), texture: 'player-rogue', anims: { idle: anim([0], 1, true), walk: anim([1, 0], 4, true), attack: anim([2], 1, false), hurt: anim([3], 1, false) } },
   'enemy-grunt-corpse': corpse(0, 2.2),
   'enemy-spitter-corpse': corpse(1, 2.3),
   'pickup-health': pickup('pickup-health'),

@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "id": "presentation/camera-modes",
+  "name": "First-person and isometric camera modes",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Selectable CameraRole provider with a first-person view and an orthographic isometric follow view, a player floor marker, and ViewModes service ingress.",
+  "dependencies": {},
+  "capabilities": [
+    "simulation",
+    "render",
+    "input"
+  ],
+  "config": {
+    "toggleKey": {
+      "type": "string",
+      "label": "Toggle key",
+      "default": "KeyO"
+    },
+    "fov": {
+      "type": "number",
+      "label": "First-person FOV (degrees)",
+      "default": 74,
+      "min": 50,
+      "max": 110
+    },
+    "halfHeight": {
+      "type": "number",
+      "label": "Isometric half-height (metres)",
+      "default": 10,
+      "min": 5,
+      "max": 24
+    },
+    "cameraHeight": {
+      "type": "number",
+      "label": "Isometric camera height (metres)",
+      "default": 11,
+      "min": 4,
+      "max": 40
+    },
+    "cameraDistance": {
+      "type": "number",
+      "label": "Isometric horizontal distance (metres)",
+      "default": 13,
+      "min": 2,
+      "max": 45
+    },
+    "isometricYaw": {
+      "type": "number",
+      "label": "Isometric azimuth (radians)",
+      "default": 0.785398,
+      "min": -3.14159,
+      "max": 3.14159
+    },
+    "rotateStep": {
+      "type": "number",
+      "label": "Camera rotation step (radians)",
+      "default": 0.392699,
+      "min": 0.05,
+      "max": 3.14159
+    },
+    "rotateLeftKey": {
+      "type": "string",
+      "label": "Rotate camera left key",
+      "default": "KeyZ"
+    },
+    "rotateRightKey": {
+      "type": "string",
+      "label": "Rotate camera right key",
+      "default": "KeyX"
+    }
+  }
+}

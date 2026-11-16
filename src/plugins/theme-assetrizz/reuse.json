@@ -1,11 +1,49 @@
 {
-  "schema": 1, "scope": "presentation",
-  "summary": "Pinned Assetrizz sci-fi/fantasy world tiles and enemy strips, six original Gloamforge weapon views and card previews, and a cropped-stone Cinder theme variant.",
-  "keywords": ["assetrizz", "fantasy", "scifi", "tiles", "goblin", "imp", "dungeon", "cinder", "weapon", "armory", "theme", "art"],
-  "entryPoints": ["ThemeRole"],
+  "schema": 1,
+  "scope": "presentation",
+  "summary": "Pinned Assetrizz sci-fi/fantasy world tiles, enemy, NPC and class-avatar strips, NPC portraits, six original Gloamforge weapon views/card previews, and a cropped-stone Cinder theme variant.",
+  "keywords": [
+    "armory",
+    "art",
+    "assetrizz",
+    "avatar",
+    "blacksmith",
+    "cartographer",
+    "cinder",
+    "dungeon",
+    "fantasy",
+    "goblin",
+    "imp",
+    "knight",
+    "mage",
+    "npc",
+    "player",
+    "portrait",
+    "rogue",
+    "scholar",
+    "scifi",
+    "smith",
+    "theme",
+    "tiles",
+    "weapon"
+  ],
+  "entryPoints": [
+    "ThemeRole"
+  ],
   "useWhen": "Select theme/assetrizz, theme/assetrizz-fantasy or theme/assetrizz-cinder for a shooter presentation using the standard theme keys.",
-  "limitations": ["Shooter-oriented texture/visual vocabulary. Assetrizz art provenance is original, generated for Kyle Durepos; weapon renders and synthesized sound have separate original provenance."],
-  "docs": ["docs/cinder-vault.md", "assets/weapons/fantasy/README.md"],
-  "examples": ["src/content/presets/cinder-vault.json", "src/plugins/core-presentation/index.ts"],
-  "tests": ["tests/cinder-vault.test.ts", "tests/cinder-demo/run.mjs"]
+  "limitations": [
+    "Shooter-oriented texture/visual vocabulary. Assetrizz art provenance is original, generated for Kyle Durepos; weapon renders and synthesized sound have separate original provenance. NPC world strips are 64px billboard frames; portraits are authored 512px UI busts."
+  ],
+  "docs": [
+    "docs/cinder-vault.md",
+    "assets/weapons/fantasy/README.md"
+  ],
+  "examples": [
+    "src/content/presets/cinder-vault.json",
+    "src/plugins/core-presentation/index.ts"
+  ],
+  "tests": [
+    "tests/cinder-vault.test.ts",
+    "tests/cinder-demo/run.mjs"
+  ]
 }

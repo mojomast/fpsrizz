@@ -27,8 +27,9 @@ export interface RenderService {
   /** World camera. The presentation plugin copies the active View into it each frame. */
   readonly camera: THREE.PerspectiveCamera;
   /**
-   * Selects a scoped primary world camera. Most recently acquired live selection wins; cleanup restores the previous
-   * selection, or `camera` when none remain. Does not own/dispose the camera. Resizing preserves an orthographic
+   * Selects a scoped primary world camera. Most recently set live selection wins; repeated calls from the same context
+   * replace that context's camera and move it to the top. Cleanup restores the previous selection, or `camera` when none
+   * remain. Does not own/dispose the camera. Resizing preserves an orthographic
    * camera's vertical extent, horizontal center and zoom, adjusting left/right to the canvas aspect ratio.
    */
   setWorldCamera(ctx: SessionContext, camera: THREE.PerspectiveCamera | THREE.OrthographicCamera): void;

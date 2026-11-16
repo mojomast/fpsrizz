@@ -21,4 +21,8 @@ export * from './contracts/owned-instances.ts';
 export * from './contracts/navigation.ts';
 export * from './contracts/sequence.ts';
 export * from './contracts/progression.ts';
+export * from './contracts/inventory.ts';
+export * from './contracts/crafting.ts';
+export * from './contracts/turns.ts';
+export * from './contracts/viewmodes.ts';
 export * from './contracts/cinder.ts';

@@ -145,15 +145,30 @@ perspective/orthographic projection and clean restoration when switching games.
 
 ### 2.10 Reusable mechanics across genres
 
-**Cinder Vault** is a shooter-family fantasy roguelite composing resource/action/clock/objective and progression
-providers. `dungeon/generator` builds a sealed 94×30 map containing three independent 30-cell wings with 7–9 rooms,
-corridors, room markers, lights and descent pads. Cinder consumes those markers, spawns each depth's encounters and
-wardens, and teleports through its descent pads. XP is earned during a floor; completed levels queue three-card boon
-offers that can be selected with 7/8/9 **without pausing combat**. A non-modal HUD tray presents them. A six-weapon
-Gloamforge armory, weapon caches, a cooldown pulse and a 900-health final Keeper replace the previous five-trial loop.
-Optional versioned profile values track attempts and legacy embers; run embers, weapons and boons reset on death. The
-generated layout is content-seeded while encounter composition varies by attempt. See
-[rules, provenance and limits](docs/cinder-vault.md), [dungeon generator](docs/dungeon-generator.md) and
+**Cinder Vault** is a turn-based shooter-family fantasy roguelite composing resource/action/clock/objective, progression,
+inventory and crafting providers. `dungeon/generator` builds a sealed 94×30 map containing three independent 30-cell wings with
+7–9 rooms, corridors, room markers, lights and descent pads. Cinder consumes those markers, spawns each depth's
+encounters and wardens, and teleports through its descent pads. At the class screen the player selects an explicit Pilgrim,
+Delver or Ashbound threat, then one of three classes. Threat scales enemy damage/health, elite chance, healing, loot and
+legacy without hidden mid-run scaling. Encounters widen from thralls/imps/hounds to support acolytes and heavy brutes;
+behavioral elites add Warded, Swift, Emberbound or Siphoned rules, and wardens/Keeper enrage below half health. The player
+spends 3 actions per turn (4 for Vaultrunner) on one-tile steps, attacks, reloads, pulse, consumables or gear changes. `TurnControl`
+suspends autonomous real-time enemy AI; engaged enemies telegraph attack/advance intent and act after End Turn. The
+reusable `presentation/camera-modes` CameraRole adds an `O`-toggled orthographic isometric view with a player floor marker
+and class-specific Assetrizz body avatars; its `ViewModes` service supports rotation and ground-plane picking so Cinder can
+move camera-relative with WASD and spend AP on clicked movement or enemy attacks; hovering previews path/attack cost in the turn bar, and `H` opens a
+movement-blocking field guide. Presentation hides first-person-only view models, ceilings and fog without changing
+simulation. First-person weapon sprites use a smaller bottom-center viewmodel rig. XP is earned during a floor; completed
+levels queue three-card boon offers selected with 7/8/9 **without pausing turns**. Four additional relics reward execution,
+regeneration, shard hunting and action refunds. The 12-stack pack supports armor/charm gear and consumables with
+All/Gear/Items filters and free dropping; weighted depth caches and enemy drops provide loot and Ember Shards, and wardens
+guarantee equipment. Optional Assetrizz NPCs open a known-recipe nine-recipe forge, reveal a fogged automap, or offer the
+Oracle's health/ember bargains; `M` provides a tactical AP-reach grid. A six-weapon Gloamforge armory, a cooldown pulse and
+a base 900-health final Keeper (threat-scaled) round out the run. Optional versioned profile values track attempts, legacy embers, best cleared
+threat and per-class mastery; run embers, weapons, boons, gear and pack reset on death. The
+generated layout is content-seeded while encounters/loot vary by attempt. See
+[rules](docs/cinder-vault.md), [classes and loot](docs/cinder-classes.md), [inventory](docs/inventory.md),
+[crafting](docs/crafting.md), [camera modes](docs/camera-modes.md), [dungeon generator](docs/dungeon-generator.md) and
 [progression](docs/progression.md).
 
 Sky, Ember and Verdant use identical `mechanics/resources`, `mechanics/clock`, `mechanics/actions` and
@@ -181,10 +196,16 @@ tactics reachability. Games construct legal ordered graphs and retain movement/o
 `mechanics/sequence` provider supplies ordered cursors and finite repeated rounds to NEON RUN and Foundry Circuit;
 their crossing geometry, per-tick crossing policy, timeout precedence and presentation stay local. The selectable
 `mechanics/progression` provider supplies linear XP curves, atomic multi-level grants and pending game-defined rewards;
-Cinder Vault keeps boons, stats and the non-pausing tray local. `dungeon/generator` is a seeded shooter-family map format
-that emits three isolated room/corridor wings and inert room markers; Cinder owns encounters, warden gates, caches,
-teleports and victory. None of these installs automatic simulation systems or changes authored family content formats.
-See [navigation](docs/navigation.md), [sequences](docs/sequences.md), [progression](docs/progression.md) and
+`mechanics/inventory` supplies bounded item stacks and optional equipment slots plus `item` content; `mechanics/crafting`
+supplies deterministic known item-to-item recipes. Cinder Vault keeps threat definitions, elite affixes, boon effects,
+gear stats, loot weights, ember costs, pack filters/drop and the non-pausing tray local. Its `cinder/manual` AI behavior is
+a validated metadata/no-op hook for Cinder's discrete multi-action and support enemy turns; it does not add autonomous AI. `dungeon/generator` is a seeded shooter-family map
+format that emits three isolated room/corridor wings and inert room markers; Cinder owns encounters, warden gates,
+caches, teleports and victory. `TurnControl` is a presence-only service: when a mode provides it, core autonomous enemy
+AI is suspended and the mode executes discrete enemy turns. `ViewModes` is an optional presentation service from the
+reusable first-person/isometric camera provider; core presentation adapts first-person-only layers, but simulation does
+not change. None of these installs automatic simulation systems or changes authored family content formats. See [navigation](docs/navigation.md), [sequences](docs/sequences.md),
+[progression](docs/progression.md), [inventory](docs/inventory.md), [crafting](docs/crafting.md) and
 [dungeon generator](docs/dungeon-generator.md).
 
 ### 2.11 Agent-facing reuse discovery
@@ -310,9 +331,9 @@ compatible range in `sdk`).
 
 ## 7. Asset provenance
 
-The reference theme's visual and audio content is generated by code in this repository. The optional Assetrizz themes
-each include five pinned upstream image tiles and two sprite strips, converted into synchronous pixel-backed painters; source PNGs and their
-license note are in `public/assetrizz/`, with provenance in `scripts/assetrizz.json`. No runtime network fetch is needed.
+The reference theme's visual and audio content is generated by code in this repository. The optional Assetrizz themes include pinned upstream image tiles, enemy/NPC/class-avatar sprite strips and original-size
+UI plates/portraits, converted into synchronous pixel-backed painters where applicable; source PNGs and their license note
+are in `public/assetrizz/`, with provenance in `scripts/assetrizz.json`. No runtime network fetch is needed.
 
 The independent arcade, board and story themes add twelve pinned source images and explicitly labelled procedural
 elements. `scripts/experience-assets.json` and `assets/experiences/provenance.json` record source/output/pixel hashes,

@@ -96,7 +96,7 @@ Reference-shooter plugin ids, with what they own. All use SDK 2 (`"sdk": "^2.0.0
 |---|---|---|---|---|---|
 | `core/world` | `core-world` | code | none; requires role `sdk/mode` | content kind `map`; map format `core/grid` | provides `World` |
 | `core/combat` | `core-combat` | code | none | content kinds `ammo`, `weapon`, `pickup`; attack behaviours `core/hitscan`, `core/projectile`, `core/melee`; pickup effects `core/heal`, `core/give-ammo`, `core/give-weapon`; handles command `DealDamage` | provides `Combat` |
-| `core/player` | `core-player` | code | `sdk/controller`: `core/fps-controller`; `sdk/camera`: `core/fp-camera`; requires both roles | prefab `core/player`; input actions (move, turn, fire, use, weapon next/previous, weapon slots 1 to 5) | camera provider supplies `View` |
+| `core/player` | `core-player` | code | `sdk/controller`: `core/fps-controller`; `sdk/camera`: `core/fp-camera`; requires both roles | prefab `core/player`; input actions (move, turn, fire, use, weapon next/previous, weapon slots 1 to 9) | camera provider supplies `View` |
 | `core/enemies` | `core-enemies` | code | none | content kind `enemy`; AI behaviours `core/chaser`, `core/ranged`; damage modifier `core/team-immunity` | provides `EnemyAi` |
 | `core/modes` | `core-modes` | code | `sdk/mode`: `core/objective` | none | uses `Flow` |
 | `core/hud` | `core-hud` | code | `sdk/hud`: `core/hud` | setting `showCrosshair` | uses `Ui`, `Flow` |
@@ -122,8 +122,12 @@ Reference-shooter plugin ids, with what they own. All use SDK 2 (`"sdk": "^2.0.0
 | `example/roguelite` | `example-roguelite` | code | `sdk/mode`: `example/roguelite` | seeded encounters and run-only upgrades | uses `World`, `Flow` |
 | `dungeon/generator` | `dungeon-generator` | code | none | registers map format `dungeon/generator` and inert `dungeon/marker` prefab for seeded dungeon wings | uses `MapFormats`, `Prefabs` |
 | `mechanics/progression` | `mechanics-progression` | code | `sdk/mechanic-progression`: `mechanics/progression` | XP curves, level ledgers and pending rewards | uses `ProgressionProviders` |
-| `cinder/game` | `cinder-game` | code | `sdk/mode`: `cinder/vault`, `sdk/experience`: `cinder/experience` | three-depth dungeon orchestration, in-level boons, damage modifier and run inputs; composes shared mechanic providers | provides `Cinder` |
-| `cinder/hud` | `cinder-hud` | code | `sdk/hud`: `cinder/hud` | depth guidance, non-modal level-up boon tray, armory rack and magazine-aware combat HUD | uses `Cinder`, `Ui` |
+| `mechanics/inventory` | `mechanics-inventory` | code | `sdk/mechanic-inventory`: `mechanics/inventory` | stack inventory, equipment slots and `item` content | uses `InventoryProviders`, `Items` |
+| `mechanics/crafting` | `mechanics-crafting` | code | `sdk/mechanic-crafting`: `mechanics/crafting` | known item recipes and atomic crafting content | uses `CraftingProviders`, `CraftingRecipes` |
+| `presentation/camera-modes` | `presentation-camera-modes` | code | `sdk/camera`: `presentation/camera-modes` | first-person and orthographic isometric camera modes; provides `View`, `ViewModes` | renderer optional; uses `Render.setWorldCamera`, `InputActions` |
+| `presentation/player-avatar` | `presentation-player-avatar` | code | `sdk/player-avatar` component consumer | attaches a theme Visual body only in overhead modes | uses `PlayerAvatar`, `ViewModes` |
+| `cinder/game` | `cinder-game` | code | `sdk/mode`: `cinder/vault`, `sdk/experience`: `cinder/experience`, `sdk/controller`: `cinder/turn-controller`, `sdk/camera`: `presentation/camera-modes` | three-depth turn-based dungeon orchestration, threat tiers/elite affixes/boss enrage, classes, loot, NPCs/Oracle, forge, fogged map data, boons and run inputs | provides `Cinder`, `TurnControl` |
+| `cinder/hud` | `cinder-hud` | code | `sdk/hud`: `cinder/hud` | class/threat select, transitions, field guide, first-person/isometric view badge, AP hover preview, automap/tactical grid, pack filters/drop, forge, NPC dialogue, AP/intent and boon HUD | uses `Cinder`, `Ui`, `ViewModes` |
 | `cinder/content` | `cinder-content` | content | none | existing ammo, weapon, enemy, map and mechanic-kit content | none |
 | `example/racing` | `example-racing` | code | `sdk/controller`: `example/racing-controller`, `sdk/mode`: `example/race` | planar driving and ordered swept checkpoints | uses `World`, `Flow`, `Input` |
 | `example/race-track` | `example-race-track` | content | none | Foundry Circuit map | none |
@@ -264,8 +268,8 @@ Systems present in the default preset, in execution order:
 |---|---|---|---|---|
 | `input` | -100 | `core/world.snapshot-poses` | `core/world` | Copies every `Transform` to its `prev*` fields (render interpolation) |
 | `control` | 0 | `core/player.controller` | `core/player` | Turns the input snapshot into `Intent`, yaw and planar movement |
-| `ai` | 0 | `core/enemies.think` | `core/enemies` | Enemy state machine and AI behaviours |
-| `ai` | 10 | `core/enemies.separate` | `core/enemies` | Nudges enemies apart from other solid actors |
+| `ai` | 0 | `core/enemies.think` | `core/enemies` | Enemy state machine and AI behaviours; skipped when a `TurnControl` service is installed |
+| `ai` | 10 | `core/enemies.separate` | `core/enemies` | Nudges enemies apart from other solid actors; skipped when a `TurnControl` service is installed |
 | `movement` | 0 | `core/combat.projectiles` | `core/combat` | Advances projectiles with continuous sweeps; added when the projectile behaviour is first used |
 | `combat` | 0 | `core/combat.weapons` | `core/combat` | Weapon switching, ammo, cooldowns, firing |
 | `damage` | 0 | `core/combat.damage` | `core/combat` | Resolves the queued damage requests |
@@ -276,16 +280,17 @@ Systems present in the default preset, in execution order:
 Extension systems: `example/ricochet.move` (`movement`, added on first use of the behaviour), `example/survival.waves`,
 `example/time-trial.timer`, `example/arena.rules`, `example/holdout.defense`, and `example/ward.expire` (`rules`),
 `example/stealth.vision` (`ai`, added on first guard spawn), plus
-`example/roguelite.progress`, `cinder/game.run`, `example/racing.rules` and `example/extraction.rules` (`rules`), `example/racing.drive` and
-`example/dash-controller.control` (`control`, replacing the FPS controller when selected). `core/objective` registers no system; it works through events (`TriggerFired`, `Died`,
-`UseFailed`). Frame systems, once per rendered frame, in execution order:
+`example/roguelite.progress`, `cinder/game.run`, `example/racing.rules` and `example/extraction.rules` (`rules`), `example/racing.drive`,
+`cinder/game.control` and `example/dash-controller.control` (`control`, replacing the FPS controller when selected; Cinder's control
+also routes pack/forge/grid/dialogue ingress and suspends autonomous enemy AI through `TurnControl`). `core/objective` registers no system; it works through events
+(`TriggerFired`, `Died`, `UseFailed`). Frame systems, once per rendered frame, in execution order:
 
 | Order | System id | Plugin | Purpose |
 |---|---|---|---|
 | -100 | `core/player.camera` | `core/player` | Publishes the interpolated `View` (position, yaw, bob, death roll) |
 | 0 | `core/hud.update` or `example/visor-hud.frame` | the selected HUD | Updates the DOM HUD |
 | 100 | `core/presentation.frame` | `core/presentation` | Copies `View` into the camera, animates doors and switches, updates actors, effects and the weapon sprite |
-| 150 | `cinder/hud.draw` | `cinder/hud` (when selected) | Reflects Cinder depth/waypoint, XP, non-blocking boon tray, owned-weapon rack and magazine-aware combat instruments; no pointer interaction |
+| 150 | `cinder/hud.draw` | `cinder/hud` (when selected) | Reflects Cinder class select/transitions, AP/round/intents, view mode, pack/forge/grid/dialogue, depth, non-modal boon tray and weapons; no pointer interaction |
 
 Independent family systems (default order 0; frame systems run once per rendered frame rather than spending turns):
 
@@ -344,11 +349,29 @@ and shooter-backed racing delegate checkpoint progression while retaining distin
 
 `mechanics/progression` offers a role-selected factory for linear XP curves, level counts and pending game-defined
 rewards. Cinder Vault grants XP from kills, applies its own health/boon effects and keeps a three-card tray open while
-combat continues; the provider never pauses or applies perks. `dungeon/generator` registers a map format and inert marker
-prefab. It emits one bounded `WorldDescription` with up to three isolated room/corridor wings; Cinder supplies encounters
-and owns all descent/teleport rules. The shared SDK `createOwnedInstances` composes scopes and consumer-local IDs for
-clock, sequence and progression factories. None of these providers/map formats installs simulation systems; family
-systems remain the authorities.
+turns continue; the provider never pauses or applies perks. `mechanics/inventory` offers bounded stacks and optional
+equipment slots and registers item content; `mechanics/crafting` executes known item recipes atomically. Cinder owns
+threat definitions, elite affixes, boss enrage, effects, loot, filters/drop, ember costs, NPC/Oracle services and UI. New
+enemy content may use Cinder's `cinder/manual` AI metadata hook; it is a no-op in autonomous core AI. `dungeon/generator` registers a map format
+and inert marker prefab. It emits one bounded `WorldDescription` with up to three isolated room/corridor wings; Cinder
+supplies encounters and owns all descent/teleport rules.
+
+`TurnControl` is a presence-only SDK service. When Cinder provides it, `core/enemies` suppresses autonomous AI and
+separation; Cinder executes engaged enemy actions after the player's action-point turn. Base enemies get one action,
+Ash Hounds and Swift elites two, support Acolytes may heal instead, and enraged bosses gain one. This keeps the shooter
+family's existing real-time games unchanged when the service is absent.
+
+`ViewModes` is an optional presentation service. `presentation/camera-modes` publishes first-person and orthographic
+isometric projections, replaces its own `Render.setWorldCamera` lease on toggle, and exposes the player floor marker.
+`presentation/player-avatar` attaches a `Visual` class body only in isometric mode; core-presentation hides ceilings,
+first-person view models and fog while an overhead mode is active. `ViewModes.rotate` drives `Z`/`X` camera steps and
+`pickGround` supports Cinder's AP-spending clicked movement/attacks and hover previews. First-person weapon sprites use a smaller bottom-center
+pivot. The world camera
+selection keeps one lease per consumer context, so toggling cannot accumulate stale selections.
+
+The shared SDK `createOwnedInstances` composes scopes and consumer-local IDs for clock, sequence, progression and
+inventory factories. None of these providers/map formats installs simulation systems; family systems remain the
+authorities.
 
 Validation can inspect `v.roleProviders(role)` for enabled provider IDs, owners and values. Board/puzzle composition
 checks reject foreign experience authorities through this role metadata, not entire `story/`, `vehicle/` or `board/`

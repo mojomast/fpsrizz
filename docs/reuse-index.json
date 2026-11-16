@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "37be5a79d6517c7369822cbf398b612acba71660a37b7eb1681222c16c09f066",
+  "sourceDigest": "c1b083a70dfceb9212198fbbd81bccec345f0baa0d80ac2e2bfa4e16864627c7",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -633,6 +633,172 @@
       ]
     },
     {
+      "schema": 1,
+      "scope": "cross-genre",
+      "summary": "Store bounded item stacks and optional equipment-slot assignments with atomic add/remove/equip/unequip behavior.",
+      "keywords": [
+        "inventory",
+        "item",
+        "loot",
+        "stack",
+        "equipment",
+        "equip",
+        "bag",
+        "consumable",
+        "gear"
+      ],
+      "entryPoints": [
+        "InventoryProviders",
+        "InventoryMechanicRole",
+        "inventoryMechanic",
+        "Items",
+        "MechanicInventoryChanged"
+      ],
+      "useWhen": "Items need stack capacity and optional equipment slots, while effects, loot rolls and UI remain game-specific.",
+      "limitations": [
+        "No weight, grid shape, sockets, durability, persistence, loot tables, item effects or stat application. Capacity counts distinct stacks, not total quantity."
+      ],
+      "docs": [
+        "docs/inventory.md"
+      ],
+      "examples": [
+        "src/plugins/cinder-game/index.ts",
+        "src/plugins/cinder-content/content.json"
+      ],
+      "tests": [
+        "tests/mechanics-inventory.test.ts",
+        "tests/cinder-vault.test.ts"
+      ],
+      "id": "recipe/stack-inventory",
+      "name": "Stack inventory and equipment slots",
+      "type": "recipe",
+      "source": "docs/reuse-recipes.json",
+      "plugins": [
+        "mechanics/inventory"
+      ],
+      "roles": {
+        "sdk/mechanic-inventory": "mechanics/inventory"
+      },
+      "steps": [
+        "Declare an item content kind from the selected inventory plugin; items have name/description/icon, stackMax, optional slot and rarity.",
+        "Create an owned inventory handle with capacity and equipment slot names. Add/remove full counts atomically; equip/unequip one item into its declared slot.",
+        "Read detached slot/equipment snapshots for UI and apply all effects, loot and persistence in the consumer.",
+        "Dispose through the consumer/provider scopes or restart; retained handles cannot mutate a replacement."
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "cross-genre",
+      "summary": "Execute deterministic item-to-item recipes over a selected inventory, restoring inputs if output placement fails.",
+      "keywords": [
+        "crafting",
+        "recipe",
+        "item",
+        "inventory",
+        "consume",
+        "output",
+        "upgrade",
+        "forge",
+        "combine",
+        "material"
+      ],
+      "entryPoints": [
+        "CraftingProviders",
+        "CraftingMechanicRole",
+        "craftingMechanic",
+        "CraftingRecipes"
+      ],
+      "useWhen": "A game needs data-defined known recipes and wants inventory removal/output rollback handled centrally.",
+      "limitations": [
+        "No currency costs, recipe discovery/unlocks, skills, failure chance, stations, effects or UI. Inputs/output must use the selected inventory provider's item IDs."
+      ],
+      "docs": [
+        "docs/crafting.md"
+      ],
+      "examples": [
+        "src/plugins/cinder-game/index.ts",
+        "src/plugins/cinder-content/content.json"
+      ],
+      "tests": [
+        "tests/mechanics-crafting.test.ts",
+        "tests/cinder-vault.test.ts"
+      ],
+      "id": "recipe/known-crafting",
+      "name": "Known item recipes and atomic crafting",
+      "type": "recipe",
+      "source": "docs/reuse-recipes.json",
+      "plugins": [
+        "mechanics/inventory",
+        "mechanics/crafting"
+      ],
+      "roles": {
+        "sdk/mechanic-inventory": "mechanics/inventory",
+        "sdk/mechanic-crafting": "mechanics/crafting"
+      },
+      "steps": [
+        "Select inventory and crafting providers and declare both role dependencies when resolving them during activation.",
+        "Declare crafting-recipe content with 1-6 input item/count pairs and one output pair. Validate item IDs against Items.",
+        "Call preview for a pure advisory result, then craft to recheck and commit. Keep currency costs, recipe unlocks and effects in the consumer.",
+        "If output placement fails, the provider restores consumed inputs; inspect the returned reason and keep UI state local."
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "cross-genre",
+      "summary": "Replace the shooter camera provider with first-person and orthographic isometric modes, plus optional class/theme player bodies for overhead view.",
+      "keywords": [
+        "camera",
+        "isometric",
+        "orthographic",
+        "top down",
+        "view mode",
+        "toggle",
+        "overview",
+        "presentation",
+        "first person"
+      ],
+      "entryPoints": [
+        "ViewModes",
+        "ViewModeChanged",
+        "CameraRole"
+      ],
+      "useWhen": "A shooter-family game wants a tactical/overhead presentation over the same world and controller without a second simulation or renderer.",
+      "limitations": [
+        "Orthographic projection of the existing 3D world, not a separate sprite engine. No pan, zoom, click picking or cutaway shaders. Pair with presentation/player-avatar and a PlayerAvatar component for a body; presentation must opt into hiding first-person-only layers."
+      ],
+      "docs": [
+        "docs/camera-modes.md",
+        "docs/weapon-rig.md"
+      ],
+      "examples": [
+        "src/content/presets/cinder-vault.json",
+        "src/plugins/core-presentation/index.ts"
+      ],
+      "tests": [
+        "tests/render-three.test.ts",
+        "tests/cinder-vault.test.ts",
+        "tests/cinder-demo/run.mjs"
+      ],
+      "id": "recipe/isometric-camera-toggle",
+      "name": "Toggleable first-person / isometric camera",
+      "type": "recipe",
+      "source": "docs/reuse-recipes.json",
+      "plugins": [
+        "presentation/camera-modes",
+        "presentation/player-avatar"
+      ],
+      "roles": {
+        "sdk/camera": "presentation/camera-modes"
+      },
+      "steps": [
+        "Enable presentation/camera-modes and select sdk/camera. Keep the existing controller, player prefab and presentation.",
+        "Read optional ViewModes in HUD/presentation consumers to hide first-person-only chrome, ceilings or viewmodels; restore defaults in first-person mode.",
+        "Call set/toggle for programmatic mode changes; the provider also registers its configured toggle key.",
+        "Treat the isometric view as presentation only: simulation, collision and input semantics must remain unchanged.",
+        "Add PlayerAvatar to the player and enable presentation/player-avatar when a visible overhead body is needed; it attaches a theme Visual only in isometric mode."
+      ]
+    },
+    {
       "id": "board/mission",
       "type": "plugin",
       "name": "Signal Break",
@@ -822,38 +988,59 @@
       "type": "plugin",
       "name": "Cinder Vault dungeon content",
       "scope": "content",
-      "summary": "Cinder Vault dungeon content: a seeded three-wing dungeon recipe, six-weapon armory, wardens, keeper, caches and shared run economy.",
+      "summary": "Cinder Vault content: seeded dungeon, six-weapon armory, twelve gear/consumable/Ember Shard items, nine forge recipes, seven enemy archetypes, threat caches and turn kit.",
       "source": "src/plugins/cinder-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
       "reviewed": true,
       "keywords": [
-        "roguelite",
-        "dungeon",
-        "depth",
-        "floor",
-        "fantasy",
-        "knife",
-        "pistol",
-        "smg",
-        "rifle",
-        "sniper",
-        "rocket",
-        "warden",
-        "keeper",
+        "acolyte",
+        "assetrizz",
+        "bomb",
         "boss",
-        "cache",
-        "assetrizz"
+        "brute",
+        "crafting",
+        "depth",
+        "dungeon",
+        "ember",
+        "enemy pool",
+        "fantasy",
+        "floor",
+        "forge",
+        "gear",
+        "hound",
+        "ingredient",
+        "iron band",
+        "item",
+        "keeper",
+        "knife",
+        "loot",
+        "obsidian edge",
+        "pistol",
+        "recipe",
+        "rifle",
+        "rocket",
+        "roguelite",
+        "shard",
+        "smg",
+        "sniper",
+        "tonic",
+        "warden"
       ],
-      "entryPoints": [],
-      "useWhen": "Use Cinder's generated dungeon map, six-weapon content, wardens, caches and mechanic kit with its mode and fantasy theme.",
+      "entryPoints": [
+        "Items"
+      ],
+      "useWhen": "Use Cinder's generated map, weapons, item/recipe definitions, wardens, caches and turn-domain kit with its mode/theme.",
       "limitations": [
-        "Authored generator recipe and content, not runtime map swapping. Gameplay policy, encounter composition and boons live in cinder/game."
+        "Authored generator recipe and content, not runtime map swapping. Gameplay policy, threat tiers, elite affixes, encounter composition, loot rolls, ember costs, item effects, NPCs and boons live in cinder/game."
       ],
       "docs": [
+        "docs/cinder-classes.md",
         "docs/cinder-vault.md",
-        "docs/dungeon-generator.md"
+        "docs/crafting.md",
+        "docs/dungeon-generator.md",
+        "docs/inventory.md"
       ],
       "examples": [
         "src/content/presets/cinder-vault.json"
@@ -866,7 +1053,9 @@
         "core/combat": "^1.0.0",
         "core/enemies": "^1.0.0",
         "dungeon/generator": "^1.0.0",
-        "mechanics/kits": "^1.0.0"
+        "mechanics/kits": "^1.0.0",
+        "mechanics/inventory": "^1.0.0",
+        "mechanics/crafting": "^1.0.0"
       },
       "optionalDependencies": {},
       "conflicts": [],
@@ -879,6 +1068,8 @@
         "core/enemies",
         "core/world",
         "dungeon/generator",
+        "mechanics/crafting",
+        "mechanics/inventory",
         "mechanics/kits"
       ],
       "registrations": [
@@ -891,6 +1082,66 @@
           "kind": "ammo",
           "id": "cinder/sparks",
           "description": "Sparks"
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "cinder/brew-draught",
+          "description": "Render two shards into a restorative draught."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "cinder/brew-flask",
+          "description": "Bind a draught and a shard into a volatile flask."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "cinder/brew-tonic",
+          "description": "Distill a draught and shard into a restorative surge."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "cinder/cut-obsidian-edge",
+          "description": "Set a shard into a charm that sharpens every strike."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "cinder/cut-oracle-lens",
+          "description": "Turn Hunter's Charm and two shards into a focused lens."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "cinder/forge-ashplate",
+          "description": "Beat two shards and a draught into serviceable armor."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "cinder/forge-iron-band",
+          "description": "Bind two shards into a simple protective band."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "cinder/forge-warden-plate",
+          "description": "Reforge Ashplate with three shards into a warden's shell."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "cinder/gild-chain",
+          "description": "Melt two flasks and a shard into a gilded charm."
+        },
+        {
+          "kind": "enemy",
+          "id": "cinder/acolyte",
+          "description": "Ember Acolyte"
+        },
+        {
+          "kind": "enemy",
+          "id": "cinder/brute",
+          "description": "Cinder Brute"
+        },
+        {
+          "kind": "enemy",
+          "id": "cinder/hound",
+          "description": "Ash Hound"
         },
         {
           "kind": "enemy",
@@ -911,6 +1162,66 @@
           "kind": "enemy",
           "id": "cinder/warden",
           "description": "Ash Warden"
+        },
+        {
+          "kind": "item",
+          "id": "cinder/ashplate",
+          "description": "Armor: 8% incoming damage reduction."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/draught",
+          "description": "Restore 35 health. Costs 1 action."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/ember-flask",
+          "description": "Deal 45 damage to visible foes within 6m. Costs 1 action."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/ember-shard",
+          "description": "A warm shard of the old flame. Used in NPC and portable crafting."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/ember-tonic",
+          "description": "Restore 20 health and gain 1 action. Costs 1 action."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/gilded-chain",
+          "description": "Charm: +2 embers per kill."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/hunters-charm",
+          "description": "Charm: +8% weapon damage; heal 1 per kill."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/iron-band",
+          "description": "Armor: 5% incoming damage reduction."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/obsidian-edge",
+          "description": "Charm: +12% weapon damage."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/oracle-lens",
+          "description": "Charm: +15% weapon damage."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/shard-bomb",
+          "description": "Deal 35 damage to visible foes within 4m. Costs 1 action."
+        },
+        {
+          "kind": "item",
+          "id": "cinder/warden-plate",
+          "description": "Armor: 12% incoming damage reduction."
         },
         {
           "kind": "map",
@@ -959,6 +1270,16 @@
         },
         {
           "kind": "prefab",
+          "id": "cinder/acolyte",
+          "description": "Enemy: Ember Acolyte"
+        },
+        {
+          "kind": "prefab",
+          "id": "cinder/brute",
+          "description": "Enemy: Cinder Brute"
+        },
+        {
+          "kind": "prefab",
           "id": "cinder/cache-ashbell",
           "description": "Pickup: Ashbell Cache"
         },
@@ -976,6 +1297,11 @@
           "kind": "prefab",
           "id": "cinder/cache-mothspindle",
           "description": "Pickup: Mothspindle Cache"
+        },
+        {
+          "kind": "prefab",
+          "id": "cinder/hound",
+          "description": "Enemy: Ash Hound"
         },
         {
           "kind": "prefab",
@@ -1047,11 +1373,11 @@
       "presets": [
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -1059,7 +1385,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -1070,49 +1398,98 @@
       "type": "plugin",
       "name": "Cinder Vault roguelite",
       "scope": "family",
-      "summary": "Three-depth seeded dungeon shooter roguelite with non-blocking in-level XP/boon choices, six weapons, wardens, a keeper and persistent legacy.",
+      "summary": "Turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, telegraphed enemies, loot/inventory, NPC forge and Oracle bargains, fogged automap/grid, first-person/isometric view, field guide/AP hover preview and persistent mastery.",
       "source": "src/plugins/cinder-game",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
       "reviewed": true,
       "keywords": [
-        "roguelite",
-        "roguelike",
-        "dungeon",
-        "depth",
-        "floor",
-        "level up",
-        "experience",
-        "xp",
+        "action points",
+        "action preview",
+        "ash hound",
+        "automap",
+        "avatar",
+        "blood pact",
         "boon",
-        "draft",
-        "relic",
-        "weapon",
-        "armory",
-        "warden",
         "boss",
-        "embers",
+        "boss enrage",
+        "camera toggle",
+        "cinder brute",
+        "class",
+        "class avatar",
+        "crafting",
+        "depth",
+        "dialogue",
+        "difficulty",
+        "drop",
+        "dungeon",
+        "elite affix",
+        "ember acolyte",
+        "experience",
+        "field guide",
+        "filter",
+        "first person",
+        "fog of war",
+        "forge",
+        "gear",
+        "grid",
+        "guaranteed elite",
+        "high risk",
+        "hover",
+        "inventory",
+        "isometric",
+        "level up",
+        "loot",
+        "map",
+        "mastery",
+        "npc",
+        "oracle",
+        "roguelike",
+        "roguelite",
         "seeded",
-        "legacy",
-        "pulse"
+        "sight anchor",
+        "threat tier",
+        "transition",
+        "turn based",
+        "view mode",
+        "warden",
+        "weapon",
+        "weapon sights",
+        "xp"
       ],
       "entryPoints": [
         "Cinder",
-        "createMechanicKit",
-        "progressionMechanic",
+        "CraftingRecipes",
         "DamageModifiers",
-        "createCommandQueue"
+        "PlayerAvatar",
+        "TurnControl",
+        "ViewModeChanged",
+        "ViewModes",
+        "createCommandQueue",
+        "createMechanicKit",
+        "inventoryMechanic",
+        "progressionMechanic"
       ],
-      "useWhen": "Compose Cinder Vault's three-depth dungeon rules with replaceable resource/action/clock/objective/progression providers and separate content/HUD packs.",
+      "useWhen": "Compose Cinder Vault's threat-tiered turn-based dungeon rules with replaceable resource/action/clock/objective/progression/inventory providers and separate content/HUD packs.",
       "limitations": [
-        "Shooter-family authority with one generated three-wing dungeon and one arena tile theme; no runtime map replacement or run save/restore.",
-        "Each depth is a generated static seed; encounters, boons and caches vary by attempt, not layout. Weapons/boons reset with the run; legacy persistence is optional."
+        "Threats are three broad start-of-run tiers, not a full unlockable ascension ladder; no mid-run difficulty switch.",
+        "Camera mode is a presentation-only CameraRole/ViewModes composition; gameplay remains first-person-equivalent in simulation and aiming.",
+        "Each depth is a generated static seed; encounters, loot, NPC services, boons and class mastery vary by attempt, not layout. Items/gear/weapons/boons reset with the run; class mastery, best threat and legacy persist via optional profile.",
+        "NPC dialogue is a small fixed service hub, the map is a fixed 2D canvas with no pan/zoom, and crafting has no discovery/failure/skill system.",
+        "Shooter-family authority with one generated three-wing dungeon and one arena tile theme; no runtime map replacement or run save/restore."
       ],
       "docs": [
+        "docs/camera-modes.md",
+        "docs/cinder-classes.md",
         "docs/cinder-vault.md",
+        "docs/crafting.md",
         "docs/dungeon-generator.md",
-        "docs/progression.md"
+        "docs/inventory.md",
+        "docs/progression.md",
+        "docs/research/difficulty-replayability-qol-2026-11-16.md",
+        "docs/research/turn-based-roguelite-2026-11-16.md",
+        "docs/research/ux-world-features-2026-11-16.md"
       ],
       "examples": [
         "src/content/presets/cinder-vault.json",
@@ -1133,14 +1510,18 @@
       "optionalDependencies": {},
       "conflicts": [],
       "requiresRoles": [
-        "sdk/mechanic-progression"
+        "sdk/mechanic-progression",
+        "sdk/mechanic-inventory",
+        "sdk/mechanic-crafting"
       ],
       "roleDependencies": [
         "sdk/mechanic-resources",
         "sdk/mechanic-clock",
         "sdk/mechanic-actions",
         "sdk/mechanic-objectives",
-        "sdk/mechanic-progression"
+        "sdk/mechanic-progression",
+        "sdk/mechanic-inventory",
+        "sdk/mechanic-crafting"
       ],
       "config": {},
       "enable": [
@@ -1154,9 +1535,14 @@
       ],
       "registrations": [
         {
+          "kind": "ai-behavior",
+          "id": "cinder/manual",
+          "description": "Cinder manual-turn metadata. Autonomous movement is disabled; actions/supportHeal describe enemy turn behavior."
+        },
+        {
           "kind": "damage-modifier",
           "id": "cinder/relics",
-          "description": "Cinder weapon power and iron protection."
+          "description": "Class, gear and boon damage/armor modifiers."
         },
         {
           "kind": "input-action",
@@ -1175,29 +1561,124 @@
         },
         {
           "kind": "input-action",
+          "id": "cinder/class-1",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/class-2",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/class-3",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/crafting",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/dialogue-1",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/dialogue-2",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/dialogue-3",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/dialogue-4",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/end-turn",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/grid",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/help",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/inventory",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/inventory-down",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/inventory-drop",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/inventory-filter",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/inventory-up",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "cinder/iso-click",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
           "id": "cinder/pulse",
           "description": ""
         },
         {
+          "kind": "prefab",
+          "id": "cinder/npc",
+          "description": "A friendly Cinder NPC with dialogue and a role-specific service."
+        },
+        {
+          "kind": "role:sdk/controller",
+          "id": "cinder/turn-controller",
+          "description": "One-tile steps, free aim and action-point turns owned by the mode."
+        },
+        {
           "kind": "role:sdk/experience",
           "id": "cinder/experience",
-          "description": "A three-depth dungeon roguelite with in-level XP and non-blocking boon choices."
+          "description": "A turn-based three-depth dungeon roguelite with classes, loot and persistent mastery."
         },
         {
           "kind": "role:sdk/mode",
           "id": "cinder/vault",
-          "description": "A three-depth dungeon roguelite. Explore, level up and unmake the keeper."
+          "description": "A turn-based three-depth dungeon roguelite with classes, loot and persistent mastery."
         }
       ],
       "contentKinds": [],
       "presets": [
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -1205,7 +1686,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -1216,35 +1699,60 @@
       "type": "plugin",
       "name": "Cinder Vault illustrated HUD",
       "scope": "presentation",
-      "summary": "Cinder Vault dungeon HUD with depth/waypoint guidance, non-blocking level-up boon tray, armory rack, magazine display and reload state.",
+      "summary": "Cinder turn-based HUD: class/threat selection and transitions, field guide, first-person/isometric view badge, automap/tactical grid, action points/intents, AP hover preview, pack filters/drop, forge, NPC dialogue, boons and weapons.",
       "source": "src/plugins/cinder-hud",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
       "reviewed": true,
       "keywords": [
-        "roguelite",
-        "dungeon",
+        "action points",
+        "action preview",
         "assetrizz",
-        "relic",
-        "weapon",
-        "armory",
+        "automap",
         "boon",
-        "level up",
+        "camera toggle",
+        "class",
+        "crafting",
+        "dialogue",
+        "drop",
+        "dungeon",
+        "elite",
+        "field guide",
+        "filter",
+        "first person",
+        "fog of war",
+        "forge",
+        "gear",
+        "grid",
+        "hover",
         "hud",
-        "fantasy"
+        "intent",
+        "inventory",
+        "isometric",
+        "map",
+        "npc",
+        "oracle",
+        "roguelite",
+        "threat",
+        "transition",
+        "turn based",
+        "view mode"
       ],
       "entryPoints": [
         "Cinder",
         "HudRole",
-        "Ui"
+        "Ui",
+        "ViewModes"
       ],
-      "useWhen": "Present Cinder's dungeon run, depth waypoint, experience and keyboard-operable 7/8/9 boon choices without pausing combat.",
+      "useWhen": "Present Cinder's class/threat choice, discrete turns, field guide, AP hover preview, fogged map/grid, pack/forge/NPC overlays and keyboard boon choices.",
       "limitations": [
-        "Consumes the Cinder family service; pointer-locked play uses keyboard selections. Desktop keyboard/mouse controls; the boon tray is intentionally non-modal."
+        "Consumes the Cinder family service; pointer-locked play uses keyboard selections. Desktop keyboard/mouse controls; automap is hidden on narrow screens while the tactical grid remains available. Camera-mode chrome is presentation-only and depends on an optional ViewModes service."
       ],
       "docs": [
-        "docs/cinder-vault.md"
+        "docs/camera-modes.md",
+        "docs/cinder-vault.md",
+        "docs/research/difficulty-replayability-qol-2026-11-16.md"
       ],
       "examples": [
         "src/content/presets/cinder-vault.json"
@@ -1277,18 +1785,18 @@
         {
           "kind": "role:sdk/hud",
           "id": "cinder/hud",
-          "description": "Dungeon combat HUD with non-blocking level-up boons, depth guidance and a magazine-aware weapon rack."
+          "description": "Turn-based class/transition/map/pack/forge/dialogue HUD with AP, enemy intent, non-modal boons and magazine-aware weapons."
         }
       ],
       "contentKinds": [],
       "presets": [
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -1296,7 +1804,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -1595,11 +2105,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -1607,7 +2117,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -2149,11 +2661,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -2161,7 +2673,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -2901,11 +3415,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -2913,7 +3427,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -2924,7 +3440,7 @@
       "type": "plugin",
       "name": "Presentation",
       "scope": "unreviewed",
-      "summary": "Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks.",
+      "summary": "Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks. Honors optional ViewModes to hide ceilings, first-person view models and fog for overhead presentations.",
       "source": "src/plugins/core-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
@@ -3144,11 +3660,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -3156,7 +3672,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -3415,11 +3933,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -3427,7 +3945,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -3507,11 +4027,11 @@
       "presets": [
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -3519,7 +4039,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -4076,23 +4598,6 @@
             "sdk/mode": "example/roguelite",
             "sdk/hud": "core/hud",
             "sdk/theme": "theme/assetrizz"
-          }
-        },
-        {
-          "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
-          "roles": {
-            "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
-            "sdk/mode": "cinder/vault",
-            "sdk/hud": "cinder/hud",
-            "sdk/theme": "theme/assetrizz-cinder",
-            "sdk/mechanic-resources": "mechanics/resources",
-            "sdk/mechanic-clock": "mechanics/clock",
-            "sdk/mechanic-actions": "mechanics/actions",
-            "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
           }
         }
       ],
@@ -5648,11 +6153,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -5660,7 +6165,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -5785,11 +6292,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -5797,7 +6304,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -5805,6 +6314,201 @@
         "recipe/explicit-deadlines",
         "recipe/resource-actions",
         "recipe/independent-actor-actions"
+      ]
+    },
+    {
+      "id": "mechanics/crafting",
+      "type": "plugin",
+      "name": "Known item recipes",
+      "scope": "cross-genre",
+      "summary": "Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback.",
+      "source": "src/plugins/mechanics-crafting",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "crafting",
+        "recipe",
+        "item",
+        "inventory",
+        "consume",
+        "output",
+        "upgrade",
+        "forge",
+        "combine",
+        "material"
+      ],
+      "entryPoints": [
+        "CraftingProviders",
+        "CraftingMechanicRole",
+        "craftingMechanic",
+        "CraftingRecipes"
+      ],
+      "useWhen": "A game needs data-defined item transforms without writing inventory removal, output placement and rollback bookkeeping.",
+      "limitations": [
+        "No currency costs, recipe discovery/unlocks, crafting skills, failure chance, stations, effects or UI; those remain consumer policy. Inputs and output must be item IDs from the selected inventory provider."
+      ],
+      "docs": [
+        "docs/crafting.md"
+      ],
+      "examples": [
+        "src/plugins/cinder-game/index.ts",
+        "src/plugins/cinder-content/content.json"
+      ],
+      "tests": [
+        "tests/mechanics-crafting.test.ts",
+        "tests/cinder-vault.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/crafting"
+      ],
+      "registrations": [
+        {
+          "kind": "mechanic-crafting-provider",
+          "id": "mechanics/crafting",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/mechanic-crafting",
+          "id": "mechanics/crafting",
+          "description": "Atomic item-to-item crafting with known recipe definitions"
+        }
+      ],
+      "contentKinds": [
+        {
+          "kind": "crafting-recipe",
+          "description": "A known item-to-item recipe: { name, description, inputs: [{item,count}], output: {item,count} }."
+        }
+      ],
+      "presets": [
+        {
+          "id": "cinder/vault",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
+          "roles": {
+            "sdk/experience": "cinder/experience",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
+            "sdk/mode": "cinder/vault",
+            "sdk/hud": "cinder/hud",
+            "sdk/theme": "theme/assetrizz-cinder",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
+          }
+        }
+      ],
+      "recipes": [
+        "recipe/known-crafting"
+      ]
+    },
+    {
+      "id": "mechanics/inventory",
+      "type": "plugin",
+      "name": "Stack inventory",
+      "scope": "cross-genre",
+      "summary": "Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations.",
+      "source": "src/plugins/mechanics-inventory",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "inventory",
+        "item",
+        "loot",
+        "stack",
+        "equipment",
+        "equip",
+        "bag",
+        "consumable",
+        "gear",
+        "rarity"
+      ],
+      "entryPoints": [
+        "InventoryProviders",
+        "InventoryMechanicRole",
+        "inventoryMechanic",
+        "Items",
+        "MechanicInventoryChanged"
+      ],
+      "useWhen": "A game needs stackable item storage and optional equipment slots without inventing slot, capacity and swap bookkeeping.",
+      "limitations": [
+        "Stores item IDs/counts and equipment-slot assignments only. Effects, stats, loot rolls, UI and persistence remain game-owned.",
+        "Capacity is measured in distinct item stacks; equipment items are stored outside the bag. No weight, grid shape, sockets, durability or transactions across inventories."
+      ],
+      "docs": [
+        "docs/inventory.md"
+      ],
+      "examples": [
+        "src/plugins/cinder-game/index.ts",
+        "src/plugins/cinder-content/content.json"
+      ],
+      "tests": [
+        "tests/mechanics-inventory.test.ts",
+        "tests/cinder-vault.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/inventory"
+      ],
+      "registrations": [
+        {
+          "kind": "mechanic-inventory-provider",
+          "id": "mechanics/inventory",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/mechanic-inventory",
+          "id": "mechanics/inventory",
+          "description": "Bounded stacks and equipment slots"
+        }
+      ],
+      "contentKinds": [
+        {
+          "kind": "item",
+          "description": "A stackable inventory item; optional equipment slot and presentation metadata."
+        }
+      ],
+      "presets": [
+        {
+          "id": "cinder/vault",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
+          "roles": {
+            "sdk/experience": "cinder/experience",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
+            "sdk/mode": "cinder/vault",
+            "sdk/hud": "cinder/hud",
+            "sdk/theme": "theme/assetrizz-cinder",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
+          }
+        }
+      ],
+      "recipes": [
+        "recipe/stack-inventory",
+        "recipe/known-crafting"
       ]
     },
     {
@@ -5906,11 +6610,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -5918,7 +6622,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -6121,11 +6827,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -6133,7 +6839,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -6211,11 +6919,11 @@
       "presets": [
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -6223,7 +6931,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -6346,11 +7056,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -6358,7 +7068,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -6462,6 +7174,241 @@
       ],
       "recipes": [
         "recipe/ordered-rounds"
+      ]
+    },
+    {
+      "id": "presentation/camera-modes",
+      "type": "plugin",
+      "name": "First-person and isometric camera modes",
+      "scope": "cross-genre",
+      "summary": "Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service.",
+      "source": "src/plugins/presentation-camera-modes",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "camera",
+        "isometric",
+        "orthographic",
+        "top down",
+        "view mode",
+        "toggle",
+        "first person",
+        "overview",
+        "presentation"
+      ],
+      "entryPoints": [
+        "ViewModes",
+        "ViewModeChanged",
+        "CameraRole"
+      ],
+      "useWhen": "A shooter-family game needs a toggleable overhead/isometric presentation over the same world while retaining its player controller and simulation.",
+      "limitations": [
+        "Shooter-family camera role. The isometric view is an orthographic 3D projection of existing billboard actors, not a separate 2D renderer. It provides a generic floor marker but no player sprite, cutaway shader, wall transparency, zoom, pan or click picking. Pair with presentation/player-avatar for a body; core presentation must honor ViewModes to hide first-person-only view models and ceilings."
+      ],
+      "docs": [
+        "docs/camera-modes.md",
+        "docs/cinder-vault.md"
+      ],
+      "examples": [
+        "src/content/presets/cinder-vault.json",
+        "src/plugins/core-presentation/index.ts"
+      ],
+      "tests": [
+        "tests/cinder-vault.test.ts",
+        "tests/render-three.test.ts",
+        "tests/cinder-demo/run.mjs"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {
+        "toggleKey": {
+          "type": "string",
+          "label": "Toggle key",
+          "default": "KeyO"
+        },
+        "fov": {
+          "type": "number",
+          "label": "First-person FOV (degrees)",
+          "default": 74,
+          "min": 50,
+          "max": 110
+        },
+        "halfHeight": {
+          "type": "number",
+          "label": "Isometric half-height (metres)",
+          "default": 10,
+          "min": 5,
+          "max": 24
+        },
+        "cameraHeight": {
+          "type": "number",
+          "label": "Isometric camera height (metres)",
+          "default": 11,
+          "min": 4,
+          "max": 40
+        },
+        "cameraDistance": {
+          "type": "number",
+          "label": "Isometric horizontal distance (metres)",
+          "default": 13,
+          "min": 2,
+          "max": 45
+        },
+        "isometricYaw": {
+          "type": "number",
+          "label": "Isometric azimuth (radians)",
+          "default": 0.785398,
+          "min": -3.14159,
+          "max": 3.14159
+        },
+        "rotateStep": {
+          "type": "number",
+          "label": "Camera rotation step (radians)",
+          "default": 0.392699,
+          "min": 0.05,
+          "max": 3.14159
+        },
+        "rotateLeftKey": {
+          "type": "string",
+          "label": "Rotate camera left key",
+          "default": "KeyZ"
+        },
+        "rotateRightKey": {
+          "type": "string",
+          "label": "Rotate camera right key",
+          "default": "KeyX"
+        }
+      },
+      "enable": [
+        "presentation/camera-modes"
+      ],
+      "registrations": [
+        {
+          "kind": "input-action",
+          "id": "presentation/camera-modes.rotate-left",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "presentation/camera-modes.rotate-right",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "presentation/camera-modes.toggle",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/camera",
+          "id": "presentation/camera-modes",
+          "description": "Fixed-eye first-person view or an orthographic isometric follow camera with a player marker."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "cinder/vault",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
+          "roles": {
+            "sdk/experience": "cinder/experience",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
+            "sdk/mode": "cinder/vault",
+            "sdk/hud": "cinder/hud",
+            "sdk/theme": "theme/assetrizz-cinder",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
+          }
+        }
+      ],
+      "recipes": [
+        "recipe/isometric-camera-toggle"
+      ]
+    },
+    {
+      "id": "presentation/player-avatar",
+      "type": "plugin",
+      "name": "Overhead player avatar",
+      "scope": "cross-genre",
+      "summary": "Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes.",
+      "source": "src/plugins/presentation-player-avatar",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "avatar",
+        "player",
+        "body",
+        "isometric",
+        "third person",
+        "view mode",
+        "billboard",
+        "presentation"
+      ],
+      "entryPoints": [
+        "PlayerAvatar",
+        "ViewModes"
+      ],
+      "useWhen": "A shooter-family overhead mode needs a visible player body while first-person must stay bodyless.",
+      "limitations": [
+        "Needs a consumer to add PlayerAvatar and a ViewModes provider; the selected theme must define the visual key. It only manages a Visual component, not animation graphs, equipment visuals or collision."
+      ],
+      "docs": [
+        "docs/camera-modes.md"
+      ],
+      "examples": [
+        "src/plugins/cinder-game/index.ts",
+        "src/content/presets/cinder-vault.json"
+      ],
+      "tests": [
+        "tests/cinder-vault.test.ts",
+        "tests/cinder-demo/run.mjs"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "presentation/player-avatar"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "cinder/vault",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
+          "roles": {
+            "sdk/experience": "cinder/experience",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
+            "sdk/mode": "cinder/vault",
+            "sdk/hud": "cinder/hud",
+            "sdk/theme": "theme/assetrizz-cinder",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
+          }
+        }
+      ],
+      "recipes": [
+        "recipe/isometric-camera-toggle"
       ]
     },
     {
@@ -6888,7 +7835,7 @@
       "type": "plugin",
       "name": "Adventure rules",
       "scope": "family",
-      "summary": "Narrative room graph, dialogue, item combinations, flags, journal and chapter save/load.",
+      "summary": "Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load.",
       "source": "src/plugins/story-adventure",
       "version": "1.0.0",
       "sdk": "^2.0.0",
@@ -6916,7 +7863,7 @@
         "AdventureActionResolved",
         "createCommandQueue"
       ],
-      "useWhen": "Create another chapter with the existing narrative rules and validated data format; inspect the authority as a snapshot-batch consumer of shared bounded ingress.",
+      "useWhen": "Create another narrative chapter, inspect item/inventory combination rules, or study the authority as a snapshot-batch consumer of shared bounded ingress.",
       "limitations": [
         "Item/flag rules and replay-validated saves are chapter-specific, not a general inventory or arbitrary game-state save system.",
         "Only the SDK command queue is genre-neutral: capacity 128, action validation and save/load/reset ordering remain Story policy."
@@ -7130,32 +8077,43 @@
       "type": "plugin",
       "name": "Assetrizz Dark Sci-Fi Theme",
       "scope": "presentation",
-      "summary": "Pinned Assetrizz sci-fi/fantasy world tiles and enemy strips, six original Gloamforge weapon views and card previews, and a cropped-stone Cinder theme variant.",
+      "summary": "Pinned Assetrizz sci-fi/fantasy world tiles, enemy, NPC and class-avatar strips, NPC portraits, six original Gloamforge weapon views/card previews, and a cropped-stone Cinder theme variant.",
       "source": "src/plugins/theme-assetrizz",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
       "reviewed": true,
       "keywords": [
+        "armory",
+        "art",
         "assetrizz",
+        "avatar",
+        "blacksmith",
+        "cartographer",
+        "cinder",
+        "dungeon",
         "fantasy",
-        "scifi",
-        "tiles",
         "goblin",
         "imp",
-        "dungeon",
-        "cinder",
-        "weapon",
-        "armory",
+        "knight",
+        "mage",
+        "npc",
+        "player",
+        "portrait",
+        "rogue",
+        "scholar",
+        "scifi",
+        "smith",
         "theme",
-        "art"
+        "tiles",
+        "weapon"
       ],
       "entryPoints": [
         "ThemeRole"
       ],
       "useWhen": "Select theme/assetrizz, theme/assetrizz-fantasy or theme/assetrizz-cinder for a shooter presentation using the standard theme keys.",
       "limitations": [
-        "Shooter-oriented texture/visual vocabulary. Assetrizz art provenance is original, generated for Kyle Durepos; weapon renders and synthesized sound have separate original provenance."
+        "Shooter-oriented texture/visual vocabulary. Assetrizz art provenance is original, generated for Kyle Durepos; weapon renders and synthesized sound have separate original provenance. NPC world strips are 64px billboard frames; portraits are authored 512px UI busts."
       ],
       "docs": [
         "docs/cinder-vault.md",
@@ -7332,11 +8290,11 @@
         },
         {
           "id": "cinder/vault",
-          "name": "CINDER VAULT — Ashbound Roguelite",
+          "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
           "roles": {
             "sdk/experience": "cinder/experience",
-            "sdk/controller": "example/dash-controller",
-            "sdk/camera": "core/fp-camera",
+            "sdk/controller": "cinder/turn-controller",
+            "sdk/camera": "presentation/camera-modes",
             "sdk/mode": "cinder/vault",
             "sdk/hud": "cinder/hud",
             "sdk/theme": "theme/assetrizz-cinder",
@@ -7344,7 +8302,9 @@
             "sdk/mechanic-clock": "mechanics/clock",
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
-            "sdk/mechanic-progression": "mechanics/progression"
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting"
           }
         }
       ],
@@ -8084,7 +9044,7 @@
       "summary": "Public SDK value: actor-renderer",
       "importFrom": "src/sdk/render.ts",
       "token": "actor-renderer",
-      "source": "src/sdk/render.ts:88",
+      "source": "src/sdk/render.ts:89",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8198,7 +9158,7 @@
       "summary": "Public SDK value: ai-behavior",
       "importFrom": "src/sdk/index.ts",
       "token": "ai-behavior",
-      "source": "src/sdk/contracts/shooter.ts:523",
+      "source": "src/sdk/contracts/shooter.ts:534",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8215,6 +9175,7 @@
       "documentedBy": [],
       "recipes": [],
       "implementations": [
+        "cinder/game",
         "core/enemies"
       ]
     },
@@ -8226,7 +9187,7 @@
       "summary": "Public SDK value: ammo",
       "importFrom": "src/sdk/index.ts",
       "token": "ammo",
-      "source": "src/sdk/contracts/shooter.ts:420",
+      "source": "src/sdk/contracts/shooter.ts:431",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8257,7 +9218,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:716",
+      "source": "src/sdk/contracts/shooter.ts:727",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8282,7 +9243,7 @@
       "summary": "Public SDK value: attack-behavior",
       "importFrom": "src/sdk/index.ts",
       "token": "attack-behavior",
-      "source": "src/sdk/contracts/shooter.ts:379",
+      "source": "src/sdk/contracts/shooter.ts:390",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8313,7 +9274,7 @@
       "summary": "Public SDK value: sdk/attack-fired",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/attack-fired",
-      "source": "src/sdk/contracts/shooter.ts:348",
+      "source": "src/sdk/contracts/shooter.ts:359",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8339,7 +9300,7 @@
       "summary": "Public SDK value: sdk/audio",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/audio",
-      "source": "src/sdk/contracts/shooter.ts:629",
+      "source": "src/sdk/contracts/shooter.ts:640",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8367,7 +9328,7 @@
       "summary": "Public SDK value: sdk/camera",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/camera",
-      "source": "src/sdk/contracts/shooter.ts:651",
+      "source": "src/sdk/contracts/shooter.ts:662",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8381,10 +9342,15 @@
       "limitations": [
         "Rendering SDK imports require the render manifest capability."
       ],
-      "documentedBy": [],
-      "recipes": [],
+      "documentedBy": [
+        "presentation/camera-modes"
+      ],
+      "recipes": [
+        "recipe/isometric-camera-toggle"
+      ],
       "implementations": [
-        "core/player"
+        "core/player",
+        "presentation/camera-modes"
       ]
     },
     {
@@ -8395,7 +9361,7 @@
       "summary": "Public SDK value: cinder/run",
       "importFrom": "src/sdk/index.ts",
       "token": "cinder/run",
-      "source": "src/sdk/contracts/cinder.ts:69",
+      "source": "src/sdk/contracts/cinder.ts:196",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8511,7 +9477,7 @@
       "summary": "Public SDK value: sdk/combat",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/combat",
-      "source": "src/sdk/contracts/shooter.ts:468",
+      "source": "src/sdk/contracts/shooter.ts:479",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8539,7 +9505,7 @@
       "summary": "Public SDK value: sdk/controller",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/controller",
-      "source": "src/sdk/contracts/shooter.ts:649",
+      "source": "src/sdk/contracts/shooter.ts:660",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8559,9 +9525,135 @@
       ],
       "recipes": [],
       "implementations": [
+        "cinder/game",
         "core/player",
         "example/dash-controller",
         "example/racing"
+      ]
+    },
+    {
+      "id": "sdk/craftingMechanic",
+      "type": "contract",
+      "name": "craftingMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/crafting.ts:33",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "craftingMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/crafting"
+      ],
+      "recipes": [
+        "recipe/known-crafting"
+      ],
+      "implementations": []
+    },
+    {
+      "id": "sdk/CraftingMechanicRole",
+      "type": "contract",
+      "name": "CraftingMechanicRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/mechanic-crafting",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/mechanic-crafting",
+      "source": "src/sdk/contracts/crafting.ts:31",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CraftingMechanicRole",
+        "sdk/mechanic-crafting"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/crafting"
+      ],
+      "recipes": [
+        "recipe/known-crafting"
+      ],
+      "implementations": [
+        "mechanics/crafting"
+      ]
+    },
+    {
+      "id": "sdk/CraftingProviders",
+      "type": "contract",
+      "name": "CraftingProviders",
+      "scope": "contract",
+      "summary": "Public SDK value: mechanic-crafting-provider",
+      "importFrom": "src/sdk/index.ts",
+      "token": "mechanic-crafting-provider",
+      "source": "src/sdk/contracts/crafting.ts:30",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CraftingProviders",
+        "mechanic-crafting-provider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/crafting"
+      ],
+      "recipes": [
+        "recipe/known-crafting"
+      ],
+      "implementations": [
+        "mechanics/crafting"
+      ]
+    },
+    {
+      "id": "sdk/CraftingRecipes",
+      "type": "contract",
+      "name": "CraftingRecipes",
+      "scope": "contract",
+      "summary": "Public SDK value: crafting-recipe",
+      "importFrom": "src/sdk/index.ts",
+      "token": "crafting-recipe",
+      "source": "src/sdk/contracts/crafting.ts:17",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CraftingRecipes",
+        "crafting-recipe"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "cinder/game",
+        "mechanics/crafting"
+      ],
+      "recipes": [
+        "recipe/known-crafting"
+      ],
+      "implementations": [
+        "cinder/content"
       ]
     },
     {
@@ -8690,7 +9782,7 @@
       "summary": "Public SDK value: sdk/damaged",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/damaged",
-      "source": "src/sdk/contracts/shooter.ts:346",
+      "source": "src/sdk/contracts/shooter.ts:357",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8718,7 +9810,7 @@
       "summary": "Public SDK value: damage-modifier",
       "importFrom": "src/sdk/index.ts",
       "token": "damage-modifier",
-      "source": "src/sdk/contracts/shooter.ts:428",
+      "source": "src/sdk/contracts/shooter.ts:439",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8753,7 +9845,7 @@
       "summary": "Public SDK value: sdk/deal-damage",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/deal-damage",
-      "source": "src/sdk/contracts/shooter.ts:344",
+      "source": "src/sdk/contracts/shooter.ts:355",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8949,7 +10041,7 @@
       "summary": "Public SDK value: sdk/died",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/died",
-      "source": "src/sdk/contracts/shooter.ts:347",
+      "source": "src/sdk/contracts/shooter.ts:358",
       "docs": [
         "PLUGINS.md"
       ],
@@ -8977,7 +10069,7 @@
       "summary": "Public SDK value: sdk/door-changed",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/door-changed",
-      "source": "src/sdk/contracts/shooter.ts:301",
+      "source": "src/sdk/contracts/shooter.ts:312",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9063,7 +10155,7 @@
       "summary": "Public SDK value: enemy",
       "importFrom": "src/sdk/index.ts",
       "token": "enemy",
-      "source": "src/sdk/contracts/shooter.ts:514",
+      "source": "src/sdk/contracts/shooter.ts:525",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9119,7 +10211,7 @@
       "summary": "Public SDK value: sdk/enemies",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/enemies",
-      "source": "src/sdk/contracts/shooter.ts:542",
+      "source": "src/sdk/contracts/shooter.ts:553",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9145,7 +10237,7 @@
       "summary": "Public SDK value: sdk/enemy-alerted",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/enemy-alerted",
-      "source": "src/sdk/contracts/shooter.ts:354",
+      "source": "src/sdk/contracts/shooter.ts:365",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9208,7 +10300,7 @@
       "summary": "Public SDK value: sdk/flow",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/flow",
-      "source": "src/sdk/contracts/shooter.ts:620",
+      "source": "src/sdk/contracts/shooter.ts:631",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9234,7 +10326,7 @@
       "summary": "Public SDK value: sdk/flow-ended",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/flow-ended",
-      "source": "src/sdk/contracts/shooter.ts:621",
+      "source": "src/sdk/contracts/shooter.ts:632",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9286,7 +10378,7 @@
       "summary": "Public SDK value: sdk/hud",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/hud",
-      "source": "src/sdk/contracts/shooter.ts:655",
+      "source": "src/sdk/contracts/shooter.ts:666",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9318,7 +10410,7 @@
       "summary": "Public SDK value: sdk/impact",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/impact",
-      "source": "src/sdk/contracts/shooter.ts:350",
+      "source": "src/sdk/contracts/shooter.ts:361",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9344,7 +10436,7 @@
       "summary": "Public SDK value: sdk/input",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/input",
-      "source": "src/sdk/contracts/shooter.ts:569",
+      "source": "src/sdk/contracts/shooter.ts:580",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9374,7 +10466,7 @@
       "summary": "Public SDK value: input-action",
       "importFrom": "src/sdk/index.ts",
       "token": "input-action",
-      "source": "src/sdk/contracts/shooter.ts:553",
+      "source": "src/sdk/contracts/shooter.ts:564",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9397,6 +10489,7 @@
         "core/player",
         "example/dash-controller",
         "example/racing",
+        "presentation/camera-modes",
         "vehicle/racing"
       ]
     },
@@ -9408,7 +10501,7 @@
       "summary": "Public SDK value: sdk/input-contexts",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/input-contexts",
-      "source": "src/sdk/contracts/shooter.ts:595",
+      "source": "src/sdk/contracts/shooter.ts:606",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9462,7 +10555,7 @@
       "summary": "Public SDK value: sdk/interactions",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/interactions",
-      "source": "src/sdk/contracts/shooter.ts:282",
+      "source": "src/sdk/contracts/shooter.ts:293",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9510,6 +10603,99 @@
       "implementations": []
     },
     {
+      "id": "sdk/inventoryMechanic",
+      "type": "contract",
+      "name": "inventoryMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/inventory.ts:58",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "inventoryMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "cinder/game",
+        "mechanics/inventory"
+      ],
+      "recipes": [
+        "recipe/stack-inventory"
+      ],
+      "implementations": []
+    },
+    {
+      "id": "sdk/InventoryMechanicRole",
+      "type": "contract",
+      "name": "InventoryMechanicRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/mechanic-inventory",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/mechanic-inventory",
+      "source": "src/sdk/contracts/inventory.ts:48",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "InventoryMechanicRole",
+        "sdk/mechanic-inventory"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/inventory"
+      ],
+      "recipes": [
+        "recipe/stack-inventory"
+      ],
+      "implementations": [
+        "mechanics/inventory"
+      ]
+    },
+    {
+      "id": "sdk/InventoryProviders",
+      "type": "contract",
+      "name": "InventoryProviders",
+      "scope": "contract",
+      "summary": "Public SDK value: mechanic-inventory-provider",
+      "importFrom": "src/sdk/index.ts",
+      "token": "mechanic-inventory-provider",
+      "source": "src/sdk/contracts/inventory.ts:47",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "InventoryProviders",
+        "mechanic-inventory-provider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/inventory"
+      ],
+      "recipes": [
+        "recipe/stack-inventory"
+      ],
+      "implementations": [
+        "mechanics/inventory"
+      ]
+    },
+    {
       "id": "sdk/isObject",
       "type": "contract",
       "name": "isObject",
@@ -9534,13 +10720,46 @@
       "implementations": []
     },
     {
+      "id": "sdk/Items",
+      "type": "contract",
+      "name": "Items",
+      "scope": "contract",
+      "summary": "Public SDK value: item",
+      "importFrom": "src/sdk/index.ts",
+      "token": "item",
+      "source": "src/sdk/contracts/inventory.ts:16",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Items",
+        "item"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "cinder/content",
+        "mechanics/inventory"
+      ],
+      "recipes": [
+        "recipe/stack-inventory"
+      ],
+      "implementations": [
+        "cinder/content"
+      ]
+    },
+    {
       "id": "sdk/makeTransform",
       "type": "contract",
       "name": "makeTransform",
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:722",
+      "source": "src/sdk/contracts/shooter.ts:733",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9565,7 +10784,7 @@
       "summary": "Public SDK value: map-format",
       "importFrom": "src/sdk/index.ts",
       "token": "map-format",
-      "source": "src/sdk/contracts/shooter.ts:299",
+      "source": "src/sdk/contracts/shooter.ts:310",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9597,7 +10816,7 @@
       "summary": "Public SDK value: map",
       "importFrom": "src/sdk/index.ts",
       "token": "map",
-      "source": "src/sdk/contracts/shooter.ts:292",
+      "source": "src/sdk/contracts/shooter.ts:303",
       "docs": [
         "PLUGINS.md"
       ],
@@ -9716,6 +10935,36 @@
       "implementations": [
         "mechanics/clock"
       ]
+    },
+    {
+      "id": "sdk/MechanicInventoryChanged",
+      "type": "contract",
+      "name": "MechanicInventoryChanged",
+      "scope": "contract",
+      "summary": "Public SDK value: mechanics/inventory-changed",
+      "importFrom": "src/sdk/index.ts",
+      "token": "mechanics/inventory-changed",
+      "source": "src/sdk/contracts/inventory.ts:49",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "MechanicInventoryChanged",
+        "mechanics/inventory-changed"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/inventory"
+      ],
+      "recipes": [
+        "recipe/stack-inventory"
+      ],
+      "implementations": []
     },
     {
       "id": "sdk/MechanicKits",
@@ -9848,7 +11097,7 @@
       "summary": "Public SDK value: sdk/mode",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/mode",
-      "source": "src/sdk/contracts/shooter.ts:653",
+      "source": "src/sdk/contracts/shooter.ts:664",
       "docs": [
         "PLUGINS.md"
       ],
@@ -10085,7 +11334,7 @@
       "summary": "Public SDK value: sdk/pickup-collected",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/pickup-collected",
-      "source": "src/sdk/contracts/shooter.ts:353",
+      "source": "src/sdk/contracts/shooter.ts:364",
       "docs": [
         "PLUGINS.md"
       ],
@@ -10111,7 +11360,7 @@
       "summary": "Public SDK value: pickup-effect",
       "importFrom": "src/sdk/index.ts",
       "token": "pickup-effect",
-      "source": "src/sdk/contracts/shooter.ts:481",
+      "source": "src/sdk/contracts/shooter.ts:492",
       "docs": [
         "PLUGINS.md"
       ],
@@ -10146,7 +11395,7 @@
       "summary": "Public SDK value: pickup",
       "importFrom": "src/sdk/index.ts",
       "token": "pickup",
-      "source": "src/sdk/contracts/shooter.ts:491",
+      "source": "src/sdk/contracts/shooter.ts:502",
       "docs": [
         "PLUGINS.md"
       ],
@@ -10199,6 +11448,35 @@
       "implementations": []
     },
     {
+      "id": "sdk/PlayerAvatar",
+      "type": "contract",
+      "name": "PlayerAvatar",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/player-avatar",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/player-avatar",
+      "source": "src/sdk/contracts/shooter.ts:140",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PlayerAvatar",
+        "sdk/player-avatar"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "cinder/game",
+        "presentation/player-avatar"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Prefabs",
       "type": "contract",
       "name": "Prefabs",
@@ -10206,7 +11484,7 @@
       "summary": "Public SDK value: prefab",
       "importFrom": "src/sdk/index.ts",
       "token": "prefab",
-      "source": "src/sdk/contracts/shooter.ts:321",
+      "source": "src/sdk/contracts/shooter.ts:332",
       "docs": [
         "PLUGINS.md"
       ],
@@ -10228,6 +11506,7 @@
       "recipes": [],
       "implementations": [
         "cinder/content",
+        "cinder/game",
         "core/content",
         "core/player",
         "dungeon/generator",
@@ -10513,7 +11792,7 @@
       "summary": "Public SDK value: sdk/render",
       "importFrom": "src/sdk/render.ts",
       "token": "sdk/render",
-      "source": "src/sdk/render.ts:53",
+      "source": "src/sdk/render.ts:54",
       "docs": [
         "PLUGINS.md"
       ],
@@ -10849,7 +12128,7 @@
       "summary": "Public SDK value: sdk/settings",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/settings",
-      "source": "src/sdk/contracts/shooter.ts:627",
+      "source": "src/sdk/contracts/shooter.ts:638",
       "docs": [
         "PLUGINS.md"
       ],
@@ -10934,7 +12213,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:324",
+      "source": "src/sdk/contracts/shooter.ts:335",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11045,7 +12324,7 @@
       "summary": "Public SDK value: sdk/theme",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/theme",
-      "source": "src/sdk/contracts/shooter.ts:704",
+      "source": "src/sdk/contracts/shooter.ts:715",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11132,7 +12411,7 @@
       "summary": "Public SDK value: sdk/trigger-fired",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/trigger-fired",
-      "source": "src/sdk/contracts/shooter.ts:302",
+      "source": "src/sdk/contracts/shooter.ts:313",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11153,6 +12432,34 @@
       "implementations": []
     },
     {
+      "id": "sdk/TurnControl",
+      "type": "contract",
+      "name": "TurnControl",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/turn-control",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/turn-control",
+      "source": "src/sdk/contracts/turns.ts:15",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "TurnControl",
+        "sdk/turn-control"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "cinder/game"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Ui",
       "type": "contract",
       "name": "Ui",
@@ -11160,7 +12467,7 @@
       "summary": "Public SDK value: sdk/ui",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/ui",
-      "source": "src/sdk/contracts/shooter.ts:638",
+      "source": "src/sdk/contracts/shooter.ts:649",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11190,7 +12497,7 @@
       "summary": "Public SDK value: sdk/use-failed",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/use-failed",
-      "source": "src/sdk/contracts/shooter.ts:304",
+      "source": "src/sdk/contracts/shooter.ts:315",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11346,7 +12653,7 @@
       "summary": "Public SDK value: sdk/view",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/view",
-      "source": "src/sdk/contracts/shooter.ts:669",
+      "source": "src/sdk/contracts/shooter.ts:680",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11362,6 +12669,70 @@
       ],
       "documentedBy": [],
       "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/ViewModeChanged",
+      "type": "contract",
+      "name": "ViewModeChanged",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/view-mode-changed",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/view-mode-changed",
+      "source": "src/sdk/contracts/viewmodes.ts:24",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "ViewModeChanged",
+        "sdk/view-mode-changed"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "cinder/game",
+        "presentation/camera-modes"
+      ],
+      "recipes": [
+        "recipe/isometric-camera-toggle"
+      ],
+      "implementations": []
+    },
+    {
+      "id": "sdk/ViewModes",
+      "type": "contract",
+      "name": "ViewModes",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/view-modes",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/view-modes",
+      "source": "src/sdk/contracts/viewmodes.ts:23",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "ViewModes",
+        "sdk/view-modes"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "cinder/game",
+        "cinder/hud",
+        "presentation/camera-modes",
+        "presentation/player-avatar"
+      ],
+      "recipes": [
+        "recipe/isometric-camera-toggle"
+      ],
       "implementations": []
     },
     {
@@ -11518,7 +12889,7 @@
       "summary": "Public SDK value: sdk/weapon-dry",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/weapon-dry",
-      "source": "src/sdk/contracts/shooter.ts:352",
+      "source": "src/sdk/contracts/shooter.ts:363",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11570,7 +12941,7 @@
       "summary": "Public SDK value: weapon",
       "importFrom": "src/sdk/index.ts",
       "token": "weapon",
-      "source": "src/sdk/contracts/shooter.ts:412",
+      "source": "src/sdk/contracts/shooter.ts:423",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11604,7 +12975,7 @@
       "summary": "Public SDK value: sdk/weapon-switched",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/weapon-switched",
-      "source": "src/sdk/contracts/shooter.ts:351",
+      "source": "src/sdk/contracts/shooter.ts:362",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11630,7 +13001,7 @@
       "summary": "Public SDK value: sdk/world",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/world",
-      "source": "src/sdk/contracts/shooter.ts:260",
+      "source": "src/sdk/contracts/shooter.ts:271",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11659,7 +13030,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:711",
+      "source": "src/sdk/contracts/shooter.ts:722",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11683,7 +13054,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:712",
+      "source": "src/sdk/contracts/shooter.ts:723",
       "docs": [
         "PLUGINS.md"
       ],
@@ -11707,7 +13078,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:714",
+      "source": "src/sdk/contracts/shooter.ts:725",
       "docs": [
         "PLUGINS.md"
       ],
@@ -12234,21 +13605,24 @@
     },
     {
       "id": "cinder/vault",
-      "name": "CINDER VAULT — Ashbound Roguelite",
+      "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
       "plugins": [
         "core/world",
         "core/combat",
         "core/player",
         "core/enemies",
         "core/presentation",
+        "presentation/camera-modes",
+        "presentation/player-avatar",
         "theme/assetrizz",
-        "example/dash-controller",
         "dungeon/generator",
         "mechanics/resources",
         "mechanics/clock",
         "mechanics/actions",
         "mechanics/objectives",
         "mechanics/progression",
+        "mechanics/inventory",
+        "mechanics/crafting",
         "mechanics/kits",
         "cinder/content",
         "cinder/game",
@@ -12256,8 +13630,8 @@
       ],
       "roles": {
         "sdk/experience": "cinder/experience",
-        "sdk/controller": "example/dash-controller",
-        "sdk/camera": "core/fp-camera",
+        "sdk/controller": "cinder/turn-controller",
+        "sdk/camera": "presentation/camera-modes",
         "sdk/mode": "cinder/vault",
         "sdk/hud": "cinder/hud",
         "sdk/theme": "theme/assetrizz-cinder",
@@ -12265,7 +13639,9 @@
         "sdk/mechanic-clock": "mechanics/clock",
         "sdk/mechanic-actions": "mechanics/actions",
         "sdk/mechanic-objectives": "mechanics/objectives",
-        "sdk/mechanic-progression": "mechanics/progression"
+        "sdk/mechanic-progression": "mechanics/progression",
+        "sdk/mechanic-inventory": "mechanics/inventory",
+        "sdk/mechanic-crafting": "mechanics/crafting"
       }
     }
   ]

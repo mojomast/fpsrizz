@@ -114,6 +114,10 @@ import cinderContent from '../plugins/cinder-content/content.json' with { type: 
 import cinderPreset from '../content/presets/cinder-vault.json' with { type: 'json' };
 import dungeonGenerator from '../plugins/dungeon-generator/manifest.json' with { type: 'json' };
 import mechanicProgression from '../plugins/mechanics-progression/manifest.json' with { type: 'json' };
+import mechanicInventory from '../plugins/mechanics-inventory/manifest.json' with { type: 'json' };
+import mechanicCrafting from '../plugins/mechanics-crafting/manifest.json' with { type: 'json' };
+import presentationCameraModes from '../plugins/presentation-camera-modes/manifest.json' with { type: 'json' };
+import presentationPlayerAvatar from '../plugins/presentation-player-avatar/manifest.json' with { type: 'json' };
 
 export const catalog: CatalogEntry[] = [
   { manifest: dungeonGenerator, load: () => import('../plugins/dungeon-generator/index.ts') },
@@ -123,6 +127,10 @@ export const catalog: CatalogEntry[] = [
   { manifest: mechanicNavigation, load: () => import('../plugins/mechanics-navigation/index.ts') },
   { manifest: mechanicSequence, load: () => import('../plugins/mechanics-sequence/index.ts') },
   { manifest: mechanicProgression, load: () => import('../plugins/mechanics-progression/index.ts') },
+  { manifest: mechanicInventory, load: () => import('../plugins/mechanics-inventory/index.ts') },
+  { manifest: mechanicCrafting, load: () => import('../plugins/mechanics-crafting/index.ts') },
+  { manifest: presentationCameraModes, load: () => import('../plugins/presentation-camera-modes/index.ts') },
+  { manifest: presentationPlayerAvatar, load: () => import('../plugins/presentation-player-avatar/index.ts') },
   { manifest: world, load: () => import('../plugins/core-world/index.ts') },
   { manifest: combat, load: () => import('../plugins/core-combat/index.ts') },
   { manifest: player, load: () => import('../plugins/core-player/index.ts') },

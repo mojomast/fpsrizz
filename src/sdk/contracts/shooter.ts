@@ -128,6 +128,17 @@ export interface Visual {
   renderer: string;
 }
 export const Visual = defineComponent<Visual>('sdk/visual');
+/** Optional player-body presentation used by overhead/third-person avatar presenters. */
+export interface AvatarVisual {
+  /** Theme visual key for the player body. */
+  visual: string;
+  /** World-space scale multiplier. */
+  scale: number;
+  /** Vertical offset above the floor. */
+  y: number;
+}
+export const PlayerAvatar = defineComponent<AvatarVisual>('sdk/player-avatar');
+
 
 // ---------------------------------------------------------------------------------------------------------------------
 // World
