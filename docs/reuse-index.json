@@ -1,8 +1,108 @@
 {
   "schema": 1,
-  "sourceDigest": "6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5",
+  "sourceDigest": "57bac8a68a6574998009662a4fd8432a2f0215e298a8e6532d25b57f137a97c3",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
+    {
+      "schema": 1,
+      "scope": "cross-genre",
+      "summary": "Track explicitly authored unordered actor-pair scores within shared bounds.",
+      "keywords": [
+        "relationships",
+        "friendship",
+        "bonds",
+        "social",
+        "pairs"
+      ],
+      "entryPoints": [
+        "RelationshipProviders",
+        "RelationshipMechanicRole",
+        "relationshipMechanic"
+      ],
+      "useWhen": "A game needs symmetric relationship scores while retaining its own social rules and consequences.",
+      "limitations": [
+        "Pairs and bounds are explicit; no automatic actor creation, dialogue, social simulation, or persistence.",
+        "Changes clamp to the bounds and reject while paused."
+      ],
+      "docs": [
+        "src/plugins/mechanics-relationships/README.md"
+      ],
+      "examples": [
+        "src/plugins/common-ground-game/index.ts",
+        "src/plugins/salt-rpg-game/index.ts"
+      ],
+      "tests": [
+        "tests/mechanics-relationships.test.ts",
+        "tests/common-ground-simulation.test.ts",
+        "tests/salt-ledger.test.ts"
+      ],
+      "id": "recipe/symmetric-relationships",
+      "name": "Bounded actor relationships",
+      "type": "recipe",
+      "source": "docs/reuse-recipes.json",
+      "plugins": [
+        "mechanics/relationships"
+      ],
+      "roles": {
+        "sdk/mechanic-relationships": "mechanics/relationships"
+      },
+      "steps": [
+        "Enable a relationship provider and select its role; declare a role dependency when resolving the factory during activation.",
+        "Create a consumer-owned ledger with bounds and distinct explicit actor pairs.",
+        "Validate interactions in game policy, apply score changes only while playing, and dispose the ledger on restart."
+      ]
+    },
+    {
+      "schema": 1,
+      "scope": "cross-genre",
+      "summary": "Track refreshable named target conditions over a borrowed explicit clock.",
+      "keywords": [
+        "status",
+        "condition",
+        "effect",
+        "duration",
+        "clock"
+      ],
+      "entryPoints": [
+        "ConditionProviders",
+        "ConditionMechanicRole",
+        "conditionMechanic",
+        "clockMechanic"
+      ],
+      "useWhen": "A consumer needs multiple independently named effect windows and retains policy for their consequences.",
+      "limitations": [
+        "The consumer advances the borrowed clock and owns targeting, effect consequences and persistence.",
+        "There are no automatic callbacks or periodic damage; application and removal reject while paused."
+      ],
+      "docs": [
+        "src/plugins/mechanics-conditions/README.md",
+        "docs/deadlines.md"
+      ],
+      "examples": [
+        "src/plugins/silt-game/index.ts"
+      ],
+      "tests": [
+        "tests/mechanics-conditions.test.ts",
+        "tests/silt-archive-combat.test.ts"
+      ],
+      "id": "recipe/timed-conditions",
+      "name": "Named temporary conditions",
+      "type": "recipe",
+      "source": "docs/reuse-recipes.json",
+      "plugins": [
+        "mechanics/clock",
+        "mechanics/conditions"
+      ],
+      "roles": {
+        "sdk/mechanic-clock": "mechanics/clock",
+        "sdk/mechanic-conditions": "mechanics/conditions"
+      },
+      "steps": [
+        "Select the clock and conditions providers and create an owned explicit clock and condition ledger.",
+        "Apply or refresh a named condition on a validated target; advance the clock only according to the game's accepted-turn or seconds policy.",
+        "Read live conditions to implement game-owned effects; dispose the ledger before its borrowed clock."
+      ]
+    },
     {
       "schema": 1,
       "scope": "cross-genre",
@@ -1944,6 +2044,230 @@
             "sdk/mechanic-progression": "mechanics/progression",
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "common/content",
+      "type": "plugin",
+      "name": "Common Ground household",
+      "scope": "content",
+      "summary": "Original Common Ground residents, visitors and furnishings.",
+      "source": "src/plugins/common-ground-content",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "household",
+        "residents",
+        "furnishings"
+      ],
+      "entryPoints": [],
+      "useWhen": "Authoring the Common Ground household.",
+      "limitations": [
+        "Requires the family-specific hearth-household loader and selected Common Ground mechanic roles."
+      ],
+      "docs": [
+        "src/plugins/common-ground-content/README.md"
+      ],
+      "examples": [
+        "src/plugins/common-ground-content/content.json"
+      ],
+      "tests": [
+        "tests/common-ground-content.test.ts"
+      ],
+      "dependencies": {
+        "common/game": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "common/content",
+        "common/game"
+      ],
+      "registrations": [
+        {
+          "kind": "hearth-household",
+          "id": "common/household",
+          "description": "Common Ground"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "common/game",
+      "type": "plugin",
+      "name": "Common Ground Rules",
+      "scope": "family",
+      "summary": "Turn-based household simulation with editable house lot, furnishing placement, needs, careers and relationships.",
+      "source": "src/plugins/common-ground-game",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "household",
+        "house building",
+        "floor plan",
+        "placement",
+        "residents",
+        "furnishings",
+        "needs",
+        "relationships",
+        "career"
+      ],
+      "entryPoints": [
+        "Hearth",
+        "HearthHouseholds"
+      ],
+      "useWhen": "Compose a Common Ground household from its validated content and selected mechanic roles.",
+      "limitations": [
+        "Family-specific rules; house editing is session-only, with abstract resident movement and no in-progress save."
+      ],
+      "docs": [
+        "docs/common-ground.md",
+        "src/plugins/common-ground-game/README.md"
+      ],
+      "examples": [
+        "src/content/presets/common-ground.json"
+      ],
+      "tests": [
+        "tests/common-ground-content.test.ts",
+        "tests/common-ground-simulation.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/mechanic-resources",
+        "sdk/mechanic-clock",
+        "sdk/mechanic-actions",
+        "sdk/mechanic-objectives",
+        "sdk/mechanic-relationships"
+      ],
+      "roleDependencies": [
+        "sdk/mechanic-resources",
+        "sdk/mechanic-clock",
+        "sdk/mechanic-actions",
+        "sdk/mechanic-objectives",
+        "sdk/mechanic-relationships"
+      ],
+      "config": {},
+      "enable": [
+        "common/game"
+      ],
+      "registrations": [],
+      "contentKinds": [
+        {
+          "kind": "hearth-household",
+          "description": "A Common Ground household."
+        }
+      ],
+      "presets": [
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "common/presentation",
+      "type": "plugin",
+      "name": "Common Ground presentation",
+      "scope": "presentation",
+      "summary": "Responsive dollhouse and accessible controls for the Common Ground household.",
+      "source": "src/plugins/common-ground-presentation",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "household",
+        "dollhouse",
+        "ui",
+        "residents"
+      ],
+      "entryPoints": [
+        "Hearth",
+        "Ui",
+        "ExperienceRole",
+        "SessionControl"
+      ],
+      "useWhen": "Present a Common Ground household with browser controls.",
+      "limitations": [
+        "Specific to the Hearth household contract; the scene is illustrative rather than spatial simulation."
+      ],
+      "docs": [
+        "docs/common-ground.md"
+      ],
+      "examples": [
+        "src/plugins/common-ground-presentation/index.ts"
+      ],
+      "tests": [],
+      "dependencies": {
+        "common/game": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "common/game",
+        "common/presentation"
+      ],
+      "registrations": [
+        {
+          "kind": "role:sdk/experience",
+          "id": "common/presentation",
+          "description": "A cozy, turn-based household."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
           }
         }
       ],
@@ -6179,6 +6503,105 @@
       "recipes": []
     },
     {
+      "id": "expedition/assist",
+      "type": "plugin",
+      "name": "Expedition assist",
+      "scope": "presentation",
+      "summary": "Optional state-aware, progressively requested hints for Silt, Salt and Common Ground.",
+      "source": "src/plugins/expedition-assist",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "assistance",
+        "contextual hints",
+        "next action",
+        "silt",
+        "salt",
+        "common ground",
+        "accessibility"
+      ],
+      "entryPoints": [
+        "Silt",
+        "SaltLedger",
+        "Hearth",
+        "hintMechanic"
+      ],
+      "useWhen": "Offer opt-in guidance using the detached observations of one supported game family.",
+      "limitations": [
+        "Family-specific heuristics are not a solver and issue no commands.",
+        "Silt has no run identifier, so an unobserved restart to an identical snapshot is indistinguishable."
+      ],
+      "docs": [
+        "docs/expedition-assist.md",
+        "src/plugins/expedition-assist/README.md"
+      ],
+      "examples": [
+        "src/plugins/expedition-assist/index.ts"
+      ],
+      "tests": [
+        "tests/expedition-assist.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [
+        "sdk/mechanic-hints"
+      ],
+      "config": {},
+      "enable": [
+        "expedition/assist"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        },
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        },
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
       "id": "hollowmere/content",
       "type": "plugin",
       "name": "Hollowmere world and relics",
@@ -6696,6 +7119,19 @@
             "sdk/mechanic-objectives": "mechanics/objectives",
             "sdk/theme": "theme/board"
           }
+        },
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
         }
       ],
       "recipes": [
@@ -6936,12 +7372,123 @@
             "sdk/mechanic-objectives": "mechanics/objectives",
             "sdk/theme": "theme/board"
           }
+        },
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        },
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
+          }
         }
       ],
       "recipes": [
+        "recipe/timed-conditions",
         "recipe/explicit-deadlines",
         "recipe/resource-actions",
         "recipe/independent-actor-actions"
+      ]
+    },
+    {
+      "id": "mechanics/conditions",
+      "type": "plugin",
+      "name": "Timed conditions",
+      "scope": "cross-genre",
+      "summary": "Owner-scoped named target conditions with refreshable explicit-clock expiration.",
+      "source": "src/plugins/mechanics-conditions",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "status",
+        "condition",
+        "effect",
+        "duration",
+        "turns",
+        "seconds",
+        "debuff",
+        "buff",
+        "expiry"
+      ],
+      "entryPoints": [
+        "ConditionProviders",
+        "ConditionMechanicRole",
+        "conditionMechanic"
+      ],
+      "useWhen": "Track named temporary states for targets using a consumer-advanced clock.",
+      "limitations": [
+        "Game code owns effect policy, periodic effects, target legality and clock advancement. Reapplication replaces duration rather than stacking; no persistence or callbacks."
+      ],
+      "docs": [
+        "src/plugins/mechanics-conditions/README.md"
+      ],
+      "examples": [
+        "src/plugins/silt-game/index.ts"
+      ],
+      "tests": [
+        "tests/mechanics-conditions.test.ts",
+        "tests/silt-archive-combat.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/conditions"
+      ],
+      "registrations": [
+        {
+          "kind": "mechanic-condition-provider",
+          "id": "mechanics/conditions",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/mechanic-conditions",
+          "id": "mechanics/conditions",
+          "description": "Named target conditions over an explicit clock"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
+          }
+        }
+      ],
+      "recipes": [
+        "recipe/timed-conditions"
       ]
     },
     {
@@ -7033,6 +7580,20 @@
             "sdk/mechanic-progression": "mechanics/progression",
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
+          }
+        },
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
           }
         }
       ],
@@ -7137,6 +7698,47 @@
             "sdk/experience": "portfolio-cards/cloud",
             "sdk/portfolio-card-piles": "portfolio-cards/piles",
             "sdk/mechanic-hints": "mechanics/hints"
+          }
+        },
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        },
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        },
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
           }
         }
       ],
@@ -7246,6 +7848,34 @@
             "sdk/capabilities": "mechanics/capabilities",
             "sdk/room-map": "mechanics/room-map",
             "sdk/mechanic-inventory": "mechanics/inventory"
+          }
+        },
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        },
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
           }
         }
       ],
@@ -7521,6 +8151,20 @@
             "sdk/mechanic-navigation": "mechanics/navigation",
             "sdk/mechanic-outcome-rating": "mechanics/outcome-rating"
           }
+        },
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
         }
       ],
       "recipes": [
@@ -7673,6 +8317,33 @@
             "sdk/mechanic-actions": "mechanics/actions",
             "sdk/mechanic-objectives": "mechanics/objectives",
             "sdk/theme": "theme/board"
+          }
+        },
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        },
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
           }
         }
       ],
@@ -7953,10 +8624,131 @@
             "sdk/mechanic-inventory": "mechanics/inventory",
             "sdk/mechanic-crafting": "mechanics/crafting"
           }
+        },
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        },
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
+          }
         }
       ],
       "recipes": [
         "recipe/experience-levels"
+      ]
+    },
+    {
+      "id": "mechanics/relationships",
+      "type": "plugin",
+      "name": "Relationships",
+      "scope": "cross-genre",
+      "summary": "Owned bounded symmetric scores for explicit actor pairs.",
+      "source": "src/plugins/mechanics-relationships",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "relationship",
+        "friendship",
+        "social",
+        "bonds",
+        "reputation",
+        "pair"
+      ],
+      "entryPoints": [
+        "RelationshipProviders",
+        "RelationshipMechanicRole",
+        "relationshipMechanic"
+      ],
+      "useWhen": "A game tracks bounded symmetric numeric scores between explicit actor pairs.",
+      "limitations": [
+        "No directed relationships, implicit pairs, interaction policy, milestones, time or persistence."
+      ],
+      "docs": [
+        "src/plugins/mechanics-relationships/README.md"
+      ],
+      "examples": [
+        "src/plugins/common-ground-game/index.ts"
+      ],
+      "tests": [
+        "tests/mechanics-relationships.test.ts",
+        "tests/common-ground-simulation.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/relationships"
+      ],
+      "registrations": [
+        {
+          "kind": "mechanic-relationship-provider",
+          "id": "mechanics/relationships",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/mechanic-relationships",
+          "id": "mechanics/relationships",
+          "description": "Bounded symmetric pair scores"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        },
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        }
+      ],
+      "recipes": [
+        "recipe/symmetric-relationships"
       ]
     },
     {
@@ -8114,6 +8906,19 @@
             "sdk/mechanic-objectives": "mechanics/objectives",
             "sdk/theme": "theme/board"
           }
+        },
+        {
+          "id": "common/ground",
+          "name": "Common Ground",
+          "roles": {
+            "sdk/experience": "common/presentation",
+            "sdk/mechanic-resources": "mechanics/resources",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-actions": "mechanics/actions",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
         }
       ],
       "recipes": [
@@ -8192,6 +8997,20 @@
             "sdk/capabilities": "mechanics/capabilities",
             "sdk/room-map": "mechanics/room-map",
             "sdk/mechanic-inventory": "mechanics/inventory"
+          }
+        },
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
           }
         }
       ],
@@ -9672,6 +10491,608 @@
       "recipes": []
     },
     {
+      "id": "salt/content",
+      "type": "plugin",
+      "name": "The Salt Ledger campaign",
+      "scope": "content",
+      "summary": "Salt Ledger's Tern campaign locations, journal and endings.",
+      "source": "src/plugins/salt-rpg-content",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "rpg",
+        "salt",
+        "campaign",
+        "story"
+      ],
+      "entryPoints": [
+        "SaltCampaigns"
+      ],
+      "useWhen": "Run the Salt Ledger campaign.",
+      "limitations": [
+        "Campaign-specific decisions and encounters are implemented by salt/game."
+      ],
+      "docs": [
+        "docs/salt-ledger.md"
+      ],
+      "examples": [
+        "src/plugins/salt-rpg-content/content.json"
+      ],
+      "tests": [
+        "tests/salt-ledger.test.ts"
+      ],
+      "dependencies": {
+        "salt/game": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "salt/content",
+        "salt/game"
+      ],
+      "registrations": [
+        {
+          "kind": "salt-campaign",
+          "id": "salt/tern",
+          "description": "The Salt Ledger"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "salt/game",
+      "type": "plugin",
+      "name": "The Salt Ledger rules",
+      "scope": "family",
+      "summary": "Salt Ledger party campaign, tracked side quests, equipment, party bonds and tactical battles with cover, hazards and obstacles.",
+      "source": "src/plugins/salt-rpg-game",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "party",
+        "rpg",
+        "evidence",
+        "tactical",
+        "branching",
+        "journal",
+        "equipment",
+        "consumables",
+        "command queue",
+        "cover",
+        "hazard",
+        "terrain",
+        "bonds",
+        "relationships"
+      ],
+      "entryPoints": [
+        "SaltLedger",
+        "SaltCampaigns",
+        "createCommandQueue",
+        "NavigationRole",
+        "objectiveMechanic",
+        "inventoryMechanic",
+        "relationshipMechanic"
+      ],
+      "useWhen": "Run or extend the Salt Ledger family campaign.",
+      "limitations": [
+        "Combat, terrain, bond training, evidence and quest policies are family-specific; this is not a general RPG toolkit.",
+        "No save/load or crafting is implemented."
+      ],
+      "docs": [
+        "src/plugins/salt-rpg-game/README.md"
+      ],
+      "examples": [
+        "src/plugins/salt-rpg-game/quests.ts",
+        "src/content/presets/salt-ledger.json"
+      ],
+      "tests": [
+        "tests/salt-ledger.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/experience",
+        "sdk/mechanic-navigation",
+        "sdk/mechanic-progression",
+        "sdk/mechanic-objectives",
+        "sdk/mechanic-inventory",
+        "sdk/mechanic-relationships"
+      ],
+      "roleDependencies": [
+        "sdk/mechanic-progression",
+        "sdk/mechanic-objectives",
+        "sdk/mechanic-inventory",
+        "sdk/mechanic-relationships"
+      ],
+      "config": {},
+      "enable": [
+        "salt/game"
+      ],
+      "registrations": [
+        {
+          "kind": "item",
+          "id": "salt/basic",
+          "description": "A serviceable short blade."
+        },
+        {
+          "kind": "item",
+          "id": "salt/brine-tonic",
+          "description": "Restore one action point to a living actor in battle."
+        },
+        {
+          "kind": "item",
+          "id": "salt/coat",
+          "description": "A simple travelling coat."
+        },
+        {
+          "kind": "item",
+          "id": "salt/conductor-mail",
+          "description": "Reduces incoming damage by two."
+        },
+        {
+          "kind": "item",
+          "id": "salt/guard-coat",
+          "description": "Reduces incoming damage by one."
+        },
+        {
+          "kind": "item",
+          "id": "salt/healing-draught",
+          "description": "Restore six health to a living party member."
+        },
+        {
+          "kind": "item",
+          "id": "salt/hook-spear",
+          "description": "Attacks at range two."
+        },
+        {
+          "kind": "item",
+          "id": "salt/longbow",
+          "description": "Attacks at range three."
+        },
+        {
+          "kind": "item",
+          "id": "salt/pilgrim-coat",
+          "description": "Reduces incoming damage by one."
+        },
+        {
+          "kind": "item",
+          "id": "salt/reed-bow",
+          "description": "Attacks at range three."
+        },
+        {
+          "kind": "item",
+          "id": "salt/salt-blade",
+          "description": "Adds one damage."
+        },
+        {
+          "kind": "item",
+          "id": "salt/salt-bomb",
+          "description": "Deal five damage to an enemy within range three."
+        },
+        {
+          "kind": "item",
+          "id": "salt/vigil-blade",
+          "description": "Adds two damage."
+        },
+        {
+          "kind": "role:sdk/experience",
+          "id": "salt/ledger",
+          "description": "Party-led tactical RPG"
+        }
+      ],
+      "contentKinds": [
+        {
+          "kind": "salt-campaign",
+          "description": "Salt Ledger authored campaign"
+        }
+      ],
+      "presets": [
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "salt/presentation",
+      "type": "plugin",
+      "name": "Salt Ledger presentation",
+      "scope": "presentation",
+      "summary": "Responsive Salt Ledger party and tactical board interface.",
+      "source": "src/plugins/salt-rpg-presentation",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "rpg",
+        "party",
+        "tactical",
+        "ui"
+      ],
+      "entryPoints": [
+        "SaltLedger",
+        "Ui"
+      ],
+      "useWhen": "Present a Salt Ledger session with DOM controls.",
+      "limitations": [
+        "The interface is specific to Salt Ledger's command vocabulary."
+      ],
+      "docs": [
+        "docs/salt-ledger.md"
+      ],
+      "examples": [
+        "src/plugins/salt-rpg-presentation/index.ts"
+      ],
+      "tests": [
+        "tests/salt-ledger.test.ts"
+      ],
+      "dependencies": {
+        "salt/game": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "salt/game",
+        "salt/presentation"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "silt/content",
+      "type": "plugin",
+      "name": "The Silt Archive Chambers",
+      "scope": "content",
+      "summary": "Three districts of four-socket chambers for The Silt Archive.",
+      "source": "src/plugins/silt-content",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "silt",
+        "archive",
+        "flood",
+        "chambers",
+        "district"
+      ],
+      "entryPoints": [
+        "SiltArchives"
+      ],
+      "useWhen": "Compose The Silt Archive with authored chamber geometry.",
+      "limitations": [
+        "Chamber templates are interpreted by silt/game; they do not define encounters or new mechanics."
+      ],
+      "docs": [
+        "docs/silt-archive.md"
+      ],
+      "examples": [
+        "src/plugins/silt-content/content.json"
+      ],
+      "tests": [],
+      "dependencies": {
+        "silt/game": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "silt/content",
+        "silt/game"
+      ],
+      "registrations": [
+        {
+          "kind": "silt-archive",
+          "id": "silt/archive",
+          "description": "The Silt Archive"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "silt/game",
+      "type": "plugin",
+      "name": "The Silt Archive Rules",
+      "scope": "family",
+      "summary": "Turn-based flooded archive exploration with room graphs, encounters, tide, equipment and extraction.",
+      "source": "src/plugins/silt-game",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "dungeon crawler",
+        "turn based",
+        "tide",
+        "exploration",
+        "combat"
+      ],
+      "entryPoints": [
+        "Silt",
+        "SiltArchives"
+      ],
+      "useWhen": "Compose the Silt Archive family with its authored districts and selected mechanic providers.",
+      "limitations": [
+        "Family-specific expedition policy and chamber format; no in-progress save or generic dungeon generator."
+      ],
+      "docs": [
+        "docs/silt-archive.md",
+        "src/plugins/silt-game/README.md"
+      ],
+      "examples": [
+        "src/content/presets/silt-archive.json"
+      ],
+      "tests": [
+        "tests/silt-archive-bundled.test.ts",
+        "tests/silt-archive-combat.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/experience",
+        "sdk/room-map"
+      ],
+      "roleDependencies": [
+        "sdk/room-map",
+        "sdk/mechanic-inventory",
+        "sdk/mechanic-crafting",
+        "sdk/mechanic-progression",
+        "sdk/mechanic-clock",
+        "sdk/mechanic-conditions"
+      ],
+      "config": {},
+      "enable": [
+        "silt/game"
+      ],
+      "registrations": [
+        {
+          "kind": "crafting-recipe",
+          "id": "silt/make-air",
+          "description": "Make Air supply at a cleared pump."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "silt/make-bandage",
+          "description": "Make Bandage at a cleared pump."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "silt/make-conductor",
+          "description": "Make Conductor at a cleared pump."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "silt/make-cutter",
+          "description": "Make Cutter at a cleared pump."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "silt/make-diving-suit",
+          "description": "Make Diving suit at a cleared pump."
+        },
+        {
+          "kind": "crafting-recipe",
+          "id": "silt/make-plate-suit",
+          "description": "Make Plate suit at a cleared pump."
+        },
+        {
+          "kind": "item",
+          "id": "silt/air",
+          "description": "Restore five air."
+        },
+        {
+          "kind": "item",
+          "id": "silt/bandage",
+          "description": "Restore eight health."
+        },
+        {
+          "kind": "item",
+          "id": "silt/conductor",
+          "description": "Arc attacks deal three additional damage."
+        },
+        {
+          "kind": "item",
+          "id": "silt/cutter",
+          "description": "Adds two strike damage."
+        },
+        {
+          "kind": "item",
+          "id": "silt/diving-suit",
+          "description": "Prevents air loss on entering flooded tiles."
+        },
+        {
+          "kind": "item",
+          "id": "silt/fiber",
+          "description": "Recovered seals for supplies and suits."
+        },
+        {
+          "kind": "item",
+          "id": "silt/plate-suit",
+          "description": "Reduces incoming damage by one."
+        },
+        {
+          "kind": "item",
+          "id": "silt/scrap",
+          "description": "Recovered metal for the pump workbench."
+        },
+        {
+          "kind": "role:sdk/experience",
+          "id": "silt/archive",
+          "description": "Explore flooded archive districts and choose when to extract."
+        }
+      ],
+      "contentKinds": [
+        {
+          "kind": "silt-archive",
+          "description": "Three districts of validated archive chambers."
+        }
+      ],
+      "presets": [
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "silt/presentation",
+      "type": "plugin",
+      "name": "The Silt Archive Presentation",
+      "scope": "presentation",
+      "summary": "Responsive top-down chamber, district map and controls for The Silt Archive.",
+      "source": "src/plugins/silt-presentation",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "silt",
+        "archive",
+        "grid",
+        "turn",
+        "map",
+        "keyboard",
+        "pointer"
+      ],
+      "entryPoints": [
+        "Silt",
+        "Ui",
+        "InputContexts"
+      ],
+      "useWhen": "Present the Silt authority in a browser with keyboard and pointer controls.",
+      "limitations": [
+        "Requires the Silt family service and does not implement gameplay."
+      ],
+      "docs": [
+        "docs/silt-archive.md"
+      ],
+      "examples": [
+        "src/plugins/silt-presentation/index.ts"
+      ],
+      "tests": [],
+      "dependencies": {
+        "silt/game": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/experience"
+      ],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "silt/game",
+        "silt/presentation"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "silt/archive",
+          "name": "The Silt Archive",
+          "roles": {
+            "sdk/experience": "silt/archive",
+            "sdk/room-map": "mechanics/room-map",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/mechanic-crafting": "mechanics/crafting",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-clock": "mechanics/clock",
+            "sdk/mechanic-conditions": "mechanics/conditions"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
       "id": "sky/content",
       "type": "plugin",
       "name": "Sky Salvage Flight Kit",
@@ -10790,6 +12211,20 @@
             "sdk/experience": "story/adventure",
             "sdk/theme": "theme/story"
           }
+        },
+        {
+          "id": "salt/ledger",
+          "name": "The Salt Ledger",
+          "roles": {
+            "sdk/experience": "salt/ledger",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-progression": "mechanics/progression",
+            "sdk/mechanic-objectives": "mechanics/objectives",
+            "sdk/mechanic-inventory": "mechanics/inventory",
+            "sdk/theme": "theme/story",
+            "sdk/mechanic-hints": "mechanics/hints",
+            "sdk/mechanic-relationships": "mechanics/relationships"
+          }
         }
       ],
       "recipes": []
@@ -11898,6 +13333,7 @@
         "mechanics/clock"
       ],
       "recipes": [
+        "recipe/timed-conditions",
         "recipe/explicit-deadlines",
         "recipe/independent-actor-actions"
       ],
@@ -11988,6 +13424,98 @@
       ],
       "recipes": [],
       "implementations": []
+    },
+    {
+      "id": "sdk/conditionMechanic",
+      "type": "contract",
+      "name": "conditionMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/conditions.ts:23",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "conditionMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/conditions"
+      ],
+      "recipes": [
+        "recipe/timed-conditions"
+      ],
+      "implementations": []
+    },
+    {
+      "id": "sdk/ConditionMechanicRole",
+      "type": "contract",
+      "name": "ConditionMechanicRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/mechanic-conditions",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/mechanic-conditions",
+      "source": "src/sdk/contracts/conditions.ts:22",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "ConditionMechanicRole",
+        "sdk/mechanic-conditions"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/conditions"
+      ],
+      "recipes": [
+        "recipe/timed-conditions"
+      ],
+      "implementations": [
+        "mechanics/conditions"
+      ]
+    },
+    {
+      "id": "sdk/ConditionProviders",
+      "type": "contract",
+      "name": "ConditionProviders",
+      "scope": "contract",
+      "summary": "Public SDK value: mechanic-condition-provider",
+      "importFrom": "src/sdk/index.ts",
+      "token": "mechanic-condition-provider",
+      "source": "src/sdk/contracts/conditions.ts:21",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "ConditionProviders",
+        "mechanic-condition-provider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/conditions"
+      ],
+      "recipes": [
+        "recipe/timed-conditions"
+      ],
+      "implementations": [
+        "mechanics/conditions"
+      ]
     },
     {
       "id": "sdk/ControllerRole",
@@ -12145,7 +13673,8 @@
         "recipe/known-crafting"
       ],
       "implementations": [
-        "cinder/content"
+        "cinder/content",
+        "silt/game"
       ]
     },
     {
@@ -12171,6 +13700,7 @@
       "documentedBy": [
         "cinder/game",
         "puzzle/rules",
+        "salt/game",
         "story/adventure"
       ],
       "recipes": [
@@ -12796,6 +14326,7 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [
+        "common/presentation",
         "hollowmere/game"
       ],
       "recipes": [
@@ -12804,11 +14335,14 @@
       "implementations": [
         "board/tactics",
         "cinder/game",
+        "common/presentation",
         "ember/game",
         "hollowmere/game",
         "portfolio-cards/ash",
         "portfolio-cards/cloud",
         "puzzle/rules",
+        "salt/game",
+        "silt/game",
         "sky/game",
         "story/adventure",
         "vehicle/racing",
@@ -12894,6 +14428,66 @@
       "implementations": []
     },
     {
+      "id": "sdk/Hearth",
+      "type": "contract",
+      "name": "Hearth",
+      "scope": "contract",
+      "summary": "Public SDK value: common/hearth",
+      "importFrom": "src/sdk/index.ts",
+      "token": "common/hearth",
+      "source": "src/sdk/contracts/hearth-sim.ts:20",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Hearth",
+        "common/hearth"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "common/game",
+        "common/presentation",
+        "expedition/assist"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/HearthHouseholds",
+      "type": "contract",
+      "name": "HearthHouseholds",
+      "scope": "contract",
+      "summary": "Public SDK value: hearth-household",
+      "importFrom": "src/sdk/index.ts",
+      "token": "hearth-household",
+      "source": "src/sdk/contracts/hearth-sim.ts:7",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "HearthHouseholds",
+        "hearth-household"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "common/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "common/content"
+      ]
+    },
+    {
       "id": "sdk/hintMechanic",
       "type": "contract",
       "name": "hintMechanic",
@@ -12914,6 +14508,7 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [
+        "expedition/assist",
         "mechanics/hints",
         "portfolio/assist"
       ],
@@ -13128,7 +14723,9 @@
       "limitations": [
         "Rendering SDK imports require the render manifest capability."
       ],
-      "documentedBy": [],
+      "documentedBy": [
+        "silt/presentation"
+      ],
       "recipes": [
         "recipe/scoped-input"
       ],
@@ -13237,7 +14834,8 @@
       ],
       "documentedBy": [
         "cinder/game",
-        "mechanics/inventory"
+        "mechanics/inventory",
+        "salt/game"
       ],
       "recipes": [
         "recipe/stack-inventory"
@@ -13364,7 +14962,9 @@
       ],
       "implementations": [
         "cinder/content",
-        "hollowmere/content"
+        "hollowmere/content",
+        "salt/game",
+        "silt/game"
       ]
     },
     {
@@ -13830,7 +15430,8 @@
       "documentedBy": [
         "board/tactics",
         "mechanics/navigation",
-        "puzzle/rules"
+        "puzzle/rules",
+        "salt/game"
       ],
       "recipes": [
         "recipe/ordered-navigation"
@@ -13860,7 +15461,8 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [
-        "mechanics/objectives"
+        "mechanics/objectives",
+        "salt/game"
       ],
       "recipes": [
         "recipe/objective-unlocks"
@@ -14669,6 +16271,99 @@
       ]
     },
     {
+      "id": "sdk/relationshipMechanic",
+      "type": "contract",
+      "name": "relationshipMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/relationships.ts:30",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "relationshipMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/relationships",
+        "salt/game"
+      ],
+      "recipes": [
+        "recipe/symmetric-relationships"
+      ],
+      "implementations": []
+    },
+    {
+      "id": "sdk/RelationshipMechanicRole",
+      "type": "contract",
+      "name": "RelationshipMechanicRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/mechanic-relationships",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/mechanic-relationships",
+      "source": "src/sdk/contracts/relationships.ts:29",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "RelationshipMechanicRole",
+        "sdk/mechanic-relationships"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/relationships"
+      ],
+      "recipes": [
+        "recipe/symmetric-relationships"
+      ],
+      "implementations": [
+        "mechanics/relationships"
+      ]
+    },
+    {
+      "id": "sdk/RelationshipProviders",
+      "type": "contract",
+      "name": "RelationshipProviders",
+      "scope": "contract",
+      "summary": "Public SDK value: mechanic-relationship-provider",
+      "importFrom": "src/sdk/index.ts",
+      "token": "mechanic-relationship-provider",
+      "source": "src/sdk/contracts/relationships.ts:28",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "RelationshipProviders",
+        "mechanic-relationship-provider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/relationships"
+      ],
+      "recipes": [
+        "recipe/symmetric-relationships"
+      ],
+      "implementations": [
+        "mechanics/relationships"
+      ]
+    },
+    {
       "id": "sdk/Render",
       "type": "contract",
       "name": "Render",
@@ -14894,6 +16589,67 @@
       ]
     },
     {
+      "id": "sdk/SaltCampaigns",
+      "type": "contract",
+      "name": "SaltCampaigns",
+      "scope": "contract",
+      "summary": "Public SDK value: salt-campaign",
+      "importFrom": "src/sdk/index.ts",
+      "token": "salt-campaign",
+      "source": "src/sdk/contracts/salt-ledger.ts:16",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SaltCampaigns",
+        "salt-campaign"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "salt/content",
+        "salt/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "salt/content"
+      ]
+    },
+    {
+      "id": "sdk/SaltLedger",
+      "type": "contract",
+      "name": "SaltLedger",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/salt-ledger",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/salt-ledger",
+      "source": "src/sdk/contracts/salt-ledger.ts:17",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SaltLedger",
+        "sdk/salt-ledger"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "expedition/assist",
+        "salt/game",
+        "salt/presentation"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Scope",
       "type": "contract",
       "name": "Scope",
@@ -15081,7 +16837,9 @@
       "limitations": [
         "Rendering SDK imports require the render manifest capability."
       ],
-      "documentedBy": [],
+      "documentedBy": [
+        "common/presentation"
+      ],
       "recipes": [
         "recipe/bounded-command-queue",
         "recipe/scoped-input",
@@ -15116,6 +16874,67 @@
         "recipe/profile-storage"
       ],
       "implementations": []
+    },
+    {
+      "id": "sdk/Silt",
+      "type": "contract",
+      "name": "Silt",
+      "scope": "contract",
+      "summary": "Public SDK value: silt/archive",
+      "importFrom": "src/sdk/index.ts",
+      "token": "silt/archive",
+      "source": "src/sdk/contracts/silt-archive.ts:44",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Silt",
+        "silt/archive"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "expedition/assist",
+        "silt/game",
+        "silt/presentation"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SiltArchives",
+      "type": "contract",
+      "name": "SiltArchives",
+      "scope": "contract",
+      "summary": "Public SDK value: silt-archive",
+      "importFrom": "src/sdk/index.ts",
+      "token": "silt-archive",
+      "source": "src/sdk/contracts/silt-archive.ts:13",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SiltArchives",
+        "silt-archive"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "silt/content",
+        "silt/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "silt/content"
+      ]
     },
     {
       "id": "sdk/Sky",
@@ -15456,7 +17275,10 @@
       ],
       "documentedBy": [
         "cinder/hud",
-        "hollowmere/presentation"
+        "common/presentation",
+        "hollowmere/presentation",
+        "salt/presentation",
+        "silt/presentation"
       ],
       "recipes": [
         "recipe/owned-3d-presentation"
@@ -16856,6 +18678,85 @@
         "sdk/experience": "portfolio-cards/cloud",
         "sdk/portfolio-card-piles": "portfolio-cards/piles",
         "sdk/mechanic-hints": "mechanics/hints"
+      }
+    },
+    {
+      "id": "common/ground",
+      "name": "Common Ground",
+      "plugins": [
+        "mechanics/resources",
+        "mechanics/clock",
+        "mechanics/actions",
+        "mechanics/objectives",
+        "common/game",
+        "common/content",
+        "common/presentation",
+        "mechanics/hints",
+        "expedition/assist",
+        "mechanics/relationships"
+      ],
+      "roles": {
+        "sdk/experience": "common/presentation",
+        "sdk/mechanic-resources": "mechanics/resources",
+        "sdk/mechanic-clock": "mechanics/clock",
+        "sdk/mechanic-actions": "mechanics/actions",
+        "sdk/mechanic-objectives": "mechanics/objectives",
+        "sdk/mechanic-hints": "mechanics/hints",
+        "sdk/mechanic-relationships": "mechanics/relationships"
+      }
+    },
+    {
+      "id": "salt/ledger",
+      "name": "The Salt Ledger",
+      "plugins": [
+        "salt/game",
+        "salt/content",
+        "salt/presentation",
+        "mechanics/navigation",
+        "mechanics/progression",
+        "mechanics/objectives",
+        "mechanics/inventory",
+        "theme/story",
+        "mechanics/hints",
+        "expedition/assist",
+        "mechanics/relationships"
+      ],
+      "roles": {
+        "sdk/experience": "salt/ledger",
+        "sdk/mechanic-navigation": "mechanics/navigation",
+        "sdk/mechanic-progression": "mechanics/progression",
+        "sdk/mechanic-objectives": "mechanics/objectives",
+        "sdk/mechanic-inventory": "mechanics/inventory",
+        "sdk/theme": "theme/story",
+        "sdk/mechanic-hints": "mechanics/hints",
+        "sdk/mechanic-relationships": "mechanics/relationships"
+      }
+    },
+    {
+      "id": "silt/archive",
+      "name": "The Silt Archive",
+      "plugins": [
+        "silt/game",
+        "silt/content",
+        "silt/presentation",
+        "mechanics/room-map",
+        "mechanics/inventory",
+        "mechanics/crafting",
+        "mechanics/progression",
+        "mechanics/hints",
+        "expedition/assist",
+        "mechanics/clock",
+        "mechanics/conditions"
+      ],
+      "roles": {
+        "sdk/experience": "silt/archive",
+        "sdk/room-map": "mechanics/room-map",
+        "sdk/mechanic-inventory": "mechanics/inventory",
+        "sdk/mechanic-crafting": "mechanics/crafting",
+        "sdk/mechanic-progression": "mechanics/progression",
+        "sdk/mechanic-hints": "mechanics/hints",
+        "sdk/mechanic-clock": "mechanics/clock",
+        "sdk/mechanic-conditions": "mechanics/conditions"
       }
     }
   ]

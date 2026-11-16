@@ -1,0 +1,32 @@
+[{"kind":"salt-campaign","id":"salt/tern","data":{"name":"The Salt Ledger","locations":[
+{"id":"ledger-hall","region":"Tern Harbour","name":"Ledger Hall","description":"Magistrate Orr studies a map of the barrier beneath cracked glass.","exits":["flood-market","old-quay","reed-ferry","switchback","pilgrim-gate","breakwater-engine"]},
+{"id":"flood-market","region":"Tern Harbour","name":"Flood Market","description":"Stallholders lift their wares above the tide line. A trader offers a stolen name.","exits":["ledger-hall","old-quay"]},
+{"id":"old-quay","region":"Tern Harbour","name":"Old Quay","description":"Names scratched from the quay stones lead to a collector's broken cart.","exits":["ledger-hall","flood-market"]},
+{"id":"breakwater-engine","region":"Tern Harbour","name":"Breakwater Engine","description":"The storm engine consumes names in a blue and windless flame.","exits":["ledger-hall"]},
+{"id":"reed-ferry","region":"Glass Fen","name":"Reed Ferry","description":"Neri poles a boat through reeds hung with mourning ribbons.","exits":["ledger-hall","salt-orchard","silt-shrine"]},
+{"id":"salt-orchard","region":"Glass Fen","name":"Salt Orchard","description":"Collectors have stacked tablets beneath drowned trees.","exits":["reed-ferry","drowned-archive"]},
+{"id":"silt-shrine","region":"Glass Fen","name":"Silt Shrine","description":"Empty bowls remember passengers lost between the banks.","exits":["reed-ferry","drowned-archive"]},
+{"id":"drowned-archive","region":"Glass Fen","name":"Drowned Archive","description":"Preserved testimony reveals what the engine does to a name.","exits":["salt-orchard","silt-shrine"]},
+{"id":"switchback","region":"Bellwether Ridge","name":"Switchback","description":"Wind hums through abandoned conductor wires.","exits":["ledger-hall","bell-foundry","miners-rest"]},
+{"id":"bell-foundry","region":"Bellwether Ridge","name":"Bell Foundry","description":"Striking workers have banked the furnaces.","exits":["switchback","wind-cairn"]},
+{"id":"miners-rest","region":"Bellwether Ridge","name":"Miners' Rest","description":"Sable tends the injured in a crowded bunkhouse.","exits":["switchback","wind-cairn"]},
+{"id":"wind-cairn","region":"Bellwether Ridge","name":"Wind Cairn","description":"A damaged vent could redirect wind to the foundry.","exits":["bell-foundry","miners-rest"]},
+{"id":"pilgrim-gate","region":"The White Scar","name":"Pilgrim Gate","description":"Pilgrims leave their shoes at a gate of tablet fragments.","exits":["ledger-hall","ossuary-steps","empty-basilica"]},
+{"id":"ossuary-steps","region":"The White Scar","name":"Ossuary Steps","description":"Pell recognises a warrant nailed above a collector's cache.","exits":["pilgrim-gate","storm-mouth"]},
+{"id":"empty-basilica","region":"The White Scar","name":"Empty Basilica","description":"A single bell hangs above pews worn smooth by waiting families.","exits":["pilgrim-gate","storm-mouth"]},
+{"id":"storm-mouth","region":"The White Scar","name":"Storm Mouth","description":"The Cantor holds the last seal at the edge of a roaring chasm.","exits":["ossuary-steps","empty-basilica"]}
+],"quests":[
+{"id":"first-contract","title":"A Name on the Tide","target":"old-quay","brief":"Resolve the quay confrontation."},
+{"id":"fen-seal","title":"The Ferry's Due","target":"salt-orchard","brief":"Decide where the seized names belong."},
+{"id":"ridge-seal","title":"The Bell and the Burden","target":"bell-foundry","brief":"Resolve the foundry dispute."},
+{"id":"scar-seal","title":"The Keeper's Claim","target":"storm-mouth","brief":"Persuade or defeat the Cantor."},
+{"id":"engine","title":"The Last Account","target":"breakwater-engine","brief":"Confront the custodian and decide the future."},
+{"id":"manifest","title":"A Passenger List","target":"silt-shrine","brief":"Find Neri's lost manifest."},
+{"id":"vent","title":"A Breath for the Bell","target":"wind-cairn","brief":"Repair the wind conductor."},
+{"id":"archive","title":"The Drowned Testimony","target":"drowned-archive","brief":"Learn the engine's true cost."},
+{"id":"warrant","title":"Warrant of Collection","target":"ossuary-steps","brief":"Recover Pell's warrant."}
+],"endings":[
+{"id":"barrier","title":"Keep the Barrier","text":"Tern keeps burning the names. The wall holds while the families mourn a second time."},
+{"id":"return","title":"Return the Names","text":"The names go home. Tern evacuates beneath a failing wall."},
+{"id":"covenant","title":"Shared Covenant","text":"The testimony and workers' wind conductors let city and families share the burden."}
+]}}]

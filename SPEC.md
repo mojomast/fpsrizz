@@ -137,6 +137,9 @@ theme. They share host lifecycle, services, deterministic scheduling and the pub
 | `hollowmere/ascent` | Twelve-room canvas metroidvania, reusable platform/capability/room-map providers, combat, checkpoints, NPCs, tabbed journal and boss | One authored world; physical routes and boss balance need playtesting, no room editor or gamepad |
 | `portfolio/*` | Ten authored experiences across racing, tactics, adventure, puzzles, drone delivery and colony restoration | Shared family rules, art and presentation; see the portfolio guide for each scenario's specific limits |
 | `portfolio-cards/ash`, `portfolio-cards/cloud` | Two small card games with different actions and outcomes over shared ordered draw/hand/discard piles | Fixed 12-card decks; no shuffle, deckbuilding or persistence |
+| `silt/archive` | Three-district dungeon expedition with room exploration, combat, tide, equipment and extraction | Session-only; room assembly and expedition policy are family-specific |
+| `salt/ledger` | Party RPG across 16 locations with tactical battles, side quests and three endings | Session-only; no terrain tactics, crafting or persistent save |
+| `common/ground` | Three-resident household with needs, work, relationships, editable floor plan and furniture, projects and gathering | Turn-based; no spatial pathfinding or in-progress household save |
 
 See [racing](docs/overhead-racing.md), [tactics](docs/turn-tactics.md), [adventure](docs/narrative-adventure.md),
 [Stonewake](docs/stonewake.md) and [Hollowmere](docs/hollowmere.md) for

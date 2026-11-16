@@ -33,3 +33,8 @@ export * from './contracts/metroidvania.ts';
 export * from './contracts/outcome-rating.ts';
 export * from './contracts/portfolio-cards.ts';
 export * from './contracts/hints.ts';
+export * from './contracts/silt-archive.ts';
+export * from './contracts/salt-ledger.ts';
+export * from './contracts/hearth-sim.ts';
+export * from './contracts/relationships.ts';
+export * from './contracts/conditions.ts';

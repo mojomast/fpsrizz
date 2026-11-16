@@ -342,6 +342,14 @@ Independent family systems (default order 0; frame systems run once per rendered
 | `control` | `portfolio-cards/ash.commands` / `portfolio-cards/cloud.commands` | selected card game | Commits one queued card action, advances the game's local rules and checks its outcome |
 | frame | `portfolio-cards/presentation.ui` | `portfolio-cards/presentation` | Renders the selected card game's hand, status and actions |
 | frame | `portfolio/assist.refresh` | `portfolio/assist` | Refreshes optional contextual hints from puzzle or card state without issuing gameplay commands |
+| `control` | `common/game.turn` | `common/game` | Commits household actions and advances the explicit turn clock and resident simulation |
+| frame | `common/presentation.frame` | `common/presentation` | Renders household state and optionally queues paced wait commands while playing |
+| `control` | `silt/game.commands` | `silt/game` | Commits expedition commands, enemy turns and district tide |
+| `input` | `silt/presentation.input` | `silt/presentation` | Converts scoped keyboard presses into expedition commands |
+| frame | `silt/presentation.ui` | `silt/presentation` | Renders the current chamber, survey and controls from the game service |
+| `rules` | `salt/game.commands` | `salt/game` | Commits queued campaign, quest and tactical commands |
+| frame | `salt/presentation.frame` | `salt/presentation` | Renders the campaign, tracked journal and tactical board |
+| frame | `expedition/assist.refresh` | `expedition/assist` | Refreshes optional contextual hints without submitting gameplay commands |
 
 Stonewake's rules own a discrete board independent of the renderer. Its presentation builds real lit mesh geometry,
 maps authored cell coordinates to the XZ plane, ray-picks floor meshes and emits semantic move commands. Camera and

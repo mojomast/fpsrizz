@@ -22,6 +22,11 @@
         "cinder/hud"
       ]
     },
+    "common/presentation": {
+      "sdk/experience": [
+        "common/presentation"
+      ]
+    },
     "core/hud": {
       "sdk/hud": [
         "core/hud"
@@ -123,6 +128,11 @@
         "mechanics/clock"
       ]
     },
+    "mechanics/conditions": {
+      "sdk/mechanic-conditions": [
+        "mechanics/conditions"
+      ]
+    },
     "mechanics/crafting": {
       "sdk/mechanic-crafting": [
         "mechanics/crafting"
@@ -163,6 +173,11 @@
         "mechanics/progression"
       ]
     },
+    "mechanics/relationships": {
+      "sdk/mechanic-relationships": [
+        "mechanics/relationships"
+      ]
+    },
     "mechanics/resources": {
       "sdk/mechanic-resources": [
         "mechanics/resources"
@@ -201,6 +216,16 @@
     "puzzle/rules": {
       "sdk/experience": [
         "puzzle/stonewake"
+      ]
+    },
+    "salt/game": {
+      "sdk/experience": [
+        "salt/ledger"
+      ]
+    },
+    "silt/game": {
+      "sdk/experience": [
+        "silt/archive"
       ]
     },
     "sky/game": {

@@ -1,0 +1,1 @@
+{"schema":1,"id":"mechanics/relationships","name":"Relationships","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Bounded symmetric actor-pair scores.","dependencies":{},"capabilities":["simulation"],"requiresRoles":[],"roleDependencies":[]}

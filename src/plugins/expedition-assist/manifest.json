@@ -1,0 +1,5 @@
+{
+  "schema": 1, "id": "expedition/assist", "name": "Expedition assist", "version": "1.0.0",
+  "kind": "code", "sdk": "^2.0.0", "description": "Optional requested contextual guidance for Silt, Salt and Common Ground.",
+  "dependencies": {}, "roleDependencies": ["sdk/mechanic-hints"], "capabilities": ["ui"]
+}

@@ -1,0 +1,7 @@
+# Salt Ledger presentation
+
+`salt/presentation` provides the responsive DOM interface for the `SaltLedger` service. Its HUD accepts pointer input and uses native buttons for keyboard navigation; the tactical board labels coordinates, occupants and actions. The party panel, quest journal and inventory reflect the service state, and the live notice reports game feedback. It requires `salt/game` and is optional in headless sessions.
+
+The journal shows each tracked quest's status, completed stages, destination, instruction and reward. At the current location, an active stage offers its interaction as a button. Optional market, cairn and basilica encounters appear alongside the other exploration actions. The party panel offers available equipment and out-of-battle healing draughts. In combat, select an actor to see consumable buttons for eligible targets: draughts heal within two cells, tonics transfer AP to another ally within two cells, and bombs damage enemies within three cells. Each combat use costs one AP. Tab and Enter or Space operate all these buttons; focus returns to the location heading when an action removes the focused control.
+
+Decorative location plates use the pinned Assetrizz `hollow-bg-forest.png`, `hollow-bg-archive.png` and `hollow-bg-throne.png` files from `public/assetrizz/`, resolved relative to the application page. Their provenance is recorded in `public/assetrizz/provenance.json`.

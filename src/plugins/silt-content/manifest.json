@@ -1,0 +1,1 @@
+{"schema":1,"id":"silt/content","name":"The Silt Archive Chambers","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"Three districts of authored flooded archive chambers.","dependencies":{"silt/game":"^1.0.0"}}

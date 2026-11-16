@@ -8,6 +8,21 @@ built on the API described here. Third-party authors get exactly the same API.
 - **Enforced:** `npm run lint` (`scripts/boundaries.ts`) fails if a plugin imports anything else — the kernel,
   platform adapters, the app, another plugin's files, or an npm package.
 
+The independent Silt Archive, Salt Ledger and Common Ground families expose `Silt`, `SaltLedger` and `Hearth`
+respectively through the SDK entry point. Their services provide game-specific observations and bounded semantic
+command ingress; the selected family authority owns command legality and simulation policy. See the
+[Silt](docs/silt-archive.md), [Salt](docs/salt-ledger.md) and [Common Ground](docs/common-ground.md) guides for
+composition, controls and limitations.
+`Hearth` exposes the editable house lot as detached floor and placement snapshots; build commands are validated and
+committed by `common/game` against its owned resource pool. See [Common Ground](docs/common-ground.md#build-your-house).
+
+`mechanics/relationships` supplies consumer-owned, bounded symmetric actor-pair scores through
+`RelationshipMechanicRole` and `relationshipMechanic`. The consumer defines pairs and bounds and owns social behavior,
+thresholds, and consequences; see [its plugin guide](src/plugins/mechanics-relationships/README.md).
+`mechanics/conditions` manages named, refreshable target conditions over a borrowed explicit clock using
+`ConditionMechanicRole` and `conditionMechanic`. Consumers advance the clock and decide the effects; see
+[the conditions plugin guide](src/plugins/mechanics-conditions/README.md).
+
 ## 1. Two kinds of extension
 
 | | Trusted code plugin | Data-only content pack |

@@ -1,0 +1,1 @@
+{"schema":1,"id":"mechanics/conditions","name":"Timed conditions","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Named conditions over a borrowed explicit clock.","dependencies":{},"capabilities":["simulation"]}

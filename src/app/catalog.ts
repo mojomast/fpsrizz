@@ -163,8 +163,38 @@ import portfolioCardsCloud from '../plugins/portfolio-cards-cloud/manifest.json'
 import portfolioCardsPresentation from '../plugins/portfolio-cards-presentation/manifest.json' with { type: 'json' };
 import portfolioCardsAshPreset from '../content/presets/portfolio-cards-ash.json' with { type: 'json' };
 import portfolioCardsCloudPreset from '../content/presets/portfolio-cards-cloud.json' with { type: 'json' };
+import commonGroundGame from '../plugins/common-ground-game/manifest.json' with { type: 'json' };
+import commonGroundPresentation from '../plugins/common-ground-presentation/manifest.json' with { type: 'json' };
+import commonGroundPack from '../plugins/common-ground-content/manifest.json' with { type: 'json' };
+import commonGroundContent from '../plugins/common-ground-content/content.json' with { type: 'json' };
+import commonGroundPreset from '../content/presets/common-ground.json' with { type: 'json' };
+import saltGame from '../plugins/salt-rpg-game/manifest.json' with { type: 'json' };
+import saltPresentation from '../plugins/salt-rpg-presentation/manifest.json' with { type: 'json' };
+import saltPack from '../plugins/salt-rpg-content/manifest.json' with { type: 'json' };
+import saltContent from '../plugins/salt-rpg-content/content.json' with { type: 'json' };
+import saltPreset from '../content/presets/salt-ledger.json' with { type: 'json' };
+import siltGame from '../plugins/silt-game/manifest.json' with { type: 'json' };
+import siltPresentation from '../plugins/silt-presentation/manifest.json' with { type: 'json' };
+import siltPack from '../plugins/silt-content/manifest.json' with { type: 'json' };
+import siltContent from '../plugins/silt-content/content.json' with { type: 'json' };
+import siltPreset from '../content/presets/silt-archive.json' with { type: 'json' };
+import expeditionAssist from '../plugins/expedition-assist/manifest.json' with { type: 'json' };
+import mechanicRelationships from '../plugins/mechanics-relationships/manifest.json' with { type: 'json' };
+import mechanicConditions from '../plugins/mechanics-conditions/manifest.json' with { type: 'json' };
 
 export const catalog: CatalogEntry[] = [
+  { manifest: mechanicConditions, load: () => import('../plugins/mechanics-conditions/index.ts') },
+  { manifest: mechanicRelationships, load: () => import('../plugins/mechanics-relationships/index.ts') },
+  { manifest: expeditionAssist, load: () => import('../plugins/expedition-assist/index.ts') },
+  { manifest: siltGame, load: () => import('../plugins/silt-game/index.ts') },
+  { manifest: siltPresentation, load: () => import('../plugins/silt-presentation/index.ts') },
+  { manifest: siltPack, content: siltContent },
+  { manifest: saltGame, load: () => import('../plugins/salt-rpg-game/index.ts') },
+  { manifest: saltPresentation, load: () => import('../plugins/salt-rpg-presentation/index.ts') },
+  { manifest: saltPack, content: saltContent },
+  { manifest: commonGroundGame, load: () => import('../plugins/common-ground-game/index.ts') },
+  { manifest: commonGroundPresentation, load: () => import('../plugins/common-ground-presentation/index.ts') },
+  { manifest: commonGroundPack, content: commonGroundContent },
   { manifest: portfolioAtelier, content: portfolioAtelierContent },
   { manifest: portfolioWatch, content: portfolioWatchContent },
   { manifest: portfolioRacingManifest, content: portfolioRacingContent },
@@ -264,4 +294,4 @@ export const catalog: CatalogEntry[] = [
 ];
 
 /** Built-in presets offered by the start screen and creator panel. The first one is the default. */
-export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset, hollowmerePreset, portfolioAtelierPreset, portfolioWatchPreset, portfolioSaltPreset, portfolioCopperPreset, portfolioSkyPreset, portfolioVerdantPreset, portfolioBreachPreset, portfolioCrossfirePreset, portfolioArchivePreset, portfolioOrchardPreset, portfolioCardsAshPreset, portfolioCardsCloudPreset];
+export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset, hollowmerePreset, portfolioAtelierPreset, portfolioWatchPreset, portfolioSaltPreset, portfolioCopperPreset, portfolioSkyPreset, portfolioVerdantPreset, portfolioBreachPreset, portfolioCrossfirePreset, portfolioArchivePreset, portfolioOrchardPreset, portfolioCardsAshPreset, portfolioCardsCloudPreset, commonGroundPreset, saltPreset, siltPreset];

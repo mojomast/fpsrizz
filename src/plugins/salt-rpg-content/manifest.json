@@ -1,0 +1,1 @@
+{"schema":1,"id":"salt/content","name":"The Salt Ledger campaign","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"The shores and testimony of Tern.","dependencies":{"salt/game":"^1.0.0"}}

@@ -312,6 +312,24 @@ Creator panel (**`** key) → *Content*:
 
 Out of scope for this milestone: archives, new art/sound assets inside packs, scripts, remote installation.
 
+## Additional independent-family content
+
+`silt-archive` content, loaded by `silt/game`, contains a name and exactly three districts. Each district names one to
+64 chamber templates. A template has a name and nine rows of nine cells: `#` wall, `.` dry floor, `~` flood, `^` vent,
+and `D` door. The four doors must occupy the cardinal edge sockets; the center and spawn must be dry and connected to
+the dry door network. See [The Silt Archive](docs/silt-archive.md) and its bundled content for the full composition.
+
+`hearth-household` content, loaded by `common/game`, contains a name, introduction, exactly three uniquely identified
+residents with occupations, descriptions and shift start minutes, two distinct visitor names, and 18 uniquely identified
+furnishings. Exactly three furnishings belong to each of `sleep`, `cooking`, `hygiene`, `seating`, `work`, and `decor`;
+each includes a positive price and description. See [Common Ground](docs/common-ground.md) for the household rules.
+
+`salt-campaign`, loaded by `salt/game`, supplies a name, one to 64 locations with unique local IDs, descriptions,
+regions and valid exit IDs, plus at most 64 journal prompts and endings. The current Salt Ledger authority requires its
+16 named campaign locations and three named endings; it validates connected reachability from Ledger Hall. The tracked
+side quests and combat rules are family-owned rather than generic fields in this content kind. See
+[The Salt Ledger](docs/salt-ledger.md).
+
 ## 5. Persistence
 
 `localStorage` keys `shooter-foundation/settings` (`{ schema: 1, sensitivity, volume, pixelRatioCap }`) and

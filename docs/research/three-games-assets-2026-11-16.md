@@ -1,0 +1,51 @@
+# Assetrizz research: dungeon crawler, RPG and household life sim
+
+Audit date: 2026-11-16. This is a presentation feasibility study, not an asset import. The strongest ready-to-use direction is hand-painted fantasy for the first two games. The household game can start with an intentionally limited fantasy cottage look, but a coherent furnished house needs additional art and its own simulation/presentation.
+
+## Availability and rights
+
+`scripts/assetrizz.json` and `public/assetrizz/provenance.json` pin `https://github.com/mojomast/assetrizz` revision `05339c228f55ac95ad21b5c947db0c6e36207cd4`, manifest SHA-256 `7bd35841acdb06c6b21bd882718d7eb63ad936433c383afa8e301ebf3e816e33`. `public/assetrizz/LICENSE.txt` and the manifest describe an original generated private project library made for Kyle Durepos, not a general MIT license grant; confirm permission for intended distribution and derivatives. The repository's code license does not establish those rights.
+
+Files under `public/assetrizz/` exist locally and are served as `/assetrizz/<filename>` by the app's static-public pipeline. `assets/experiences/` contains curated source artifacts, not public URLs; its generated painters are registered by existing themes. An image file or theme key alone does not implement a new game's presentation. Conversely, manifest-only paths below are upstream catalog entries, **not** installed images or guaranteed publicly accessible URLs. The locally available `/home/mojo/projects/assetrizz-showcase/reference/assets/manifest.jsonl` hashes to the pinned value, but its directory contains no PNG tree. Manifest candidates have not been visually reviewed.
+
+## Dungeon crawler: ruined vault
+
+Use the existing `theme/assetrizz-cinder` or `theme/assetrizz-fantasy` with a game-specific mapping for world and HUD keys. `src/plugins/theme-assetrizz/index.ts` registers fantasy surface painters and visual definitions. Its textures are synchronous generated painters, separate from the original-size public images. Existing `cinder/game` and `cinder/content` provide a substantial turn-based dungeon example; compose or extend through their supported interfaces rather than treating assets as mechanics.
+
+| Checked-in image | Practical use and caveat |
+| --- | --- |
+| `public/assetrizz/cinder-hall.png` | 1280×720, 1,748,297 bytes; visually inspected ruined arched hall with torches. Good title, depth briefing or encounter backdrop; the depicted fixed door is not a procedural map. |
+| `public/assetrizz/fantasy-floor-plate.png`, `fantasy-floor-concrete.png`, `fantasy-wall-panel.png` | Stone/moss/cave palette for a tile-based dungeon; check seams, crop and contrast at intended scale. Generated theme painters use 64×64 resampling. |
+| `public/assetrizz/fantasy-enemy-skeleton.png`, `fantasy-enemy-spider.png`, `fantasy-enemy-golem.png`, `fantasy-enemy-bat.png` | 256×64 four-frame strips, not 256px character portraits. The theme's 64×64 frame convention maps idle, walk, attack, hurt; source poses are approximations and hurt is red-tinted. Do not depend on animation alone to convey danger. |
+| `public/assetrizz/cinder-power.png`, `cinder-vitality.png`, `cinder-shell.png`, `hollow-icon-map.png`, `hollow-icon-lantern.png` | Object icons for labeled gear, health, exploration and inventory. `cinder-power.png` is 256×256, 25,666 bytes. |
+
+`dungeon/generator` is shooter-family `WorldDescription` only: one bounded map with up to three isolated wings, inert markers and no runtime map swap. `cinder/game` populates its own enemies, loot and transitions and has a fixed seed per depth, not fully rerolled layouts. For an independent room-graph crawler, `mechanics/room-map` supplies visited/revealed state but not geometry, traversal or rendering. Existing assets do not imply either design is already implemented for a new game.
+
+## RPG: forest, ruins and character-led quests
+
+For a more narrative RPG, keep the painterly fantasy palette but distinguish regions with `public/assetrizz/hollow-bg-forest.png` (1280×720, 2,027,480 bytes), `hollow-bg-archive.png` (1280×720 cave interior, 1,880,041 bytes), and `hollow-bg-throne.png` (1280×720 castle hall, 1,778,913 bytes). Use as location/encounter plates, not traversable geometry. `public/assetrizz/fantasy-player-knight.png`, `fantasy-player-mage.png` and `fantasy-player-rogue.png` are 256×64 strips of 64px poses; the fourth player frame repeats the front, not a unique hurt drawing. `hollow-portrait-smith.png` is a 512×512, 238,176-byte bust; its upstream subject is a dye merchant, so name the character to suit the visual rather than assuming the existing game role. `hollow-portrait-scholar.png` comes from a night-watch bust. `hollow-icon-saber.png`, `hollow-icon-tonic.png`, `hollow-icon-lore.png` and `hollow-icon-map.png` can supplement textual equipment, status and quest labels.
+
+Reuse `mechanics/inventory` for bounded stacks and equipment slots, `mechanics/progression` for linear XP and pending rewards, `mechanics/crafting` for known item transformations, and `mechanics/objectives` for counters and prerequisites. Effects, stats, branching dialogue, quest consequences, UI and persistence remain game policy; crafting has no discovery or stations. `story/adventure` supports authored chapters, rooms, flags, dialogue and item combinations, but its authority and replay-validated saves are chapter-specific, not a general RPG runtime. `src/plugins/theme-story` is an alternative coherent ink/watercolor story theme: `assets/experiences/story/story-room.png` is a 480×270 exterior observatory, not an interior, and `story-portrait.png` is 128×128. Do not assume its painter keys match RPG consumers without explicit mapping.
+
+## Household life sim: cottage prototype, then coherent furnishings
+
+For an immediately available prototype, use `public/assetrizz/fantasy-floor-wood.png` and `fantasy-wall-window.png` (both 256×256) as warm interior accents, `hollow-bg-forest.png` as a garden vista and a labeled narrative portrait for a resident. The visually inspected wood image has transparent margins: it is not automatically a seamless repeating floor. Check tiling and backing; don't present knight/mage/rogue strips as a complete everyday resident set. `theme/story`'s observatory is an exterior and is unsuitable as a living room plate. Existing images supply no coherent checked-in bed, appliance and furniture set or household character animation.
+
+The pinned manifest offers a possible single-style **future import** shortlist, all 384×384, marked non-tileable with bottom-center pivots and license `original, generated for Kyle Durepos`:
+
+| Upstream manifest path | SHA-256 | Intended role, subject to image review |
+| --- | --- | --- |
+| `assets/cozy_cartoon/furniture/large/four_poster_bed_plain.png` | `dbc9d9f761eb63694ad82515f6033f4bc8310f4d7442f6e6001b820ae4cc3548` | Sleep interaction |
+| `assets/cozy_cartoon/furniture/medium/kitchen_hutch_plain.png` | `cac41b1c33c7e1e1a7f6d2bd331acc3220a845debb0169df52d5600a94e679b5` | Kitchen storage |
+| `assets/cozy_cartoon/furniture/medium/dining_table_plain.png` | `501a34e60d7fab765f7468988f30b7fac88d237e7f992eb41886e23f6d0360d6` | Shared meals |
+| `assets/cozy_cartoon/props/object/cooking_pot_plain.png` | `4e57048c2ee6720ee0fe4ce78b0ec0f7f0dad9cf4727e1b055486e56ee162f0d` | Cooking interaction |
+
+These manifest metadata describe assets, not verified alpha, viewpoint, effective resolution or visual quality. Review actual PNGs and compatible viewpoints before selecting a camera or promising furniture rotation. An isometric/dollhouse layer would need placement footprints, depth sorting, targetable objects and interaction states; static images do not provide those. `mechanics/resources`, `mechanics/actions` and `mechanics/clock` can model bounded needs, costs and explicit time, with `mechanics/inventory` and `mechanics/crafting` for possessions and recipes. They do not provide autonomous schedules, relationships, placement, household AI, save/load or a life-sim game. Separate handles can give residents independent action cooldowns; game code must decide legality and outcomes.
+
+## Import, accessibility and performance
+
+Search the verified upstream catalog with `python3 scripts/assetrizz.py search MANIFEST QUERY`. `scripts/assetrizz.py import [--library DIRECTORY]` checks manifest hash, source hashes, license fields, PNG signature and dimensions, then rewrites configured public assets, provenance and generated theme painters; it requires Pillow and may fetch the pinned source when no local library is supplied. It resizes world painters to 64×64 and assembles strips, while UI images retain authored dimensions. Coordinate changes to its configuration and outputs; it is not a read-only verification command. `scripts/import-experience-assets.mjs` has a separate curated crop/painter workflow and `--check` verifies checked-in images, pixel hashes and generated modules offline. That check passed in this audit. Record source revision, manifest and file hashes, license, orientation, crop, dimensions, pixel/output hashes and generator details for every derivative; keep original provenance rather than overwriting it with filenames alone.
+
+Use gameplay IDs and selected theme/presentation mappings, not source filenames as authoritative state. Keep names, stats, actions, furniture functions and objectives as real text; pair colors and animation with labels or shapes. Provide keyboard-operable controls, visible focus, descriptive alternatives for meaningful images and empty alternatives for decoration, readable contrast over a stable backing, and reduced-motion handling. Test narrow layouts, zoom, missing images and dark dungeon scenes.
+
+Load large 1280×720 plates only where needed: each decodes to roughly 3.5 MiB RGBA before GPU copies, despite compressed sizes around 1.7–2.0 MB. Reserve image dimensions and share cached textures. A smaller recorded derivative can reduce transfer and decode cost; preserve crop and hash lineage. Embedded generated painters avoid runtime requests but add bundle and decoding work; measure startup, memory and draw cost. Character strips are low resolution and have few actual poses, so scaling, filtering and animation quality require real-screen review.

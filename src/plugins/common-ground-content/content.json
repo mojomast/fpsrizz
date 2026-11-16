@@ -1,0 +1,32 @@
+[
+  {"kind":"hearth-household","id":"common/household","data":{
+    "name":"Common Ground",
+    "intro":"Three people, one small home, and a neighborhood worth bringing together.",
+    "residents":[
+      {"id":"mira","name":"Mira","occupation":"Repair technician","shiftStart":480,"description":"A meticulous fixer who believes a well-kept home leaves room for surprises."},
+      {"id":"sol","name":"Sol","occupation":"Community cook","shiftStart":600,"description":"A generous cook, happiest when a meal makes someone feel welcome."},
+      {"id":"ren","name":"Ren","occupation":"Freelance illustrator","shiftStart":720,"description":"An observant illustrator collecting the little stories of the neighborhood."}
+    ],
+    "visitors":["Ari","Bea"],
+    "objects":[
+      {"id":"cot","name":"Simple cot","category":"sleep","cost":35,"description":"A practical place to get some rest."},
+      {"id":"bed","name":"Oak bed","category":"sleep","cost":70,"description":"A sturdy bed with a warm quilt."},
+      {"id":"daybed","name":"Window daybed","category":"sleep","cost":95,"description":"A broad seat that doubles as a restful nook."},
+      {"id":"stove","name":"Compact stove","category":"cooking","cost":60,"description":"A reliable cooker for everyday meals."},
+      {"id":"range","name":"Community range","category":"cooking","cost":110,"description":"Room to cook something worth sharing."},
+      {"id":"hotplate","name":"Little hotplate","category":"cooking","cost":40,"description":"A modest start for a tiny kitchen."},
+      {"id":"sink","name":"Porcelain sink","category":"hygiene","cost":45,"description":"A clean start for a busy day."},
+      {"id":"basin","name":"Enamel basin","category":"hygiene","cost":30,"description":"A cheerful, inexpensive wash basin."},
+      {"id":"washstand","name":"Oak washstand","category":"hygiene","cost":75,"description":"A little more room for a morning routine."},
+      {"id":"table","name":"Welcome table","category":"seating","cost":55,"description":"A place to invite the neighborhood in."},
+      {"id":"bench","name":"Garden bench","category":"seating","cost":35,"description":"A place to sit together in the yard."},
+      {"id":"sofa","name":"Patchwork sofa","category":"seating","cost":85,"description":"A soft landing after a long shift."},
+      {"id":"workbench","name":"Repair workbench","category":"work","cost":65,"description":"Tools and space for making useful things last."},
+      {"id":"desk","name":"Drawing desk","category":"work","cost":60,"description":"A clear surface for an unfinished idea."},
+      {"id":"counter","name":"Prep counter","category":"work","cost":50,"description":"Extra elbow room for plans and recipes."},
+      {"id":"plant","name":"Potted fern","category":"decor","cost":15,"description":"A small piece of green for the household."},
+      {"id":"print","name":"Neighborhood print","category":"decor","cost":20,"description":"A reminder of the people just outside."},
+      {"id":"lamp","name":"Amber lamp","category":"decor","cost":25,"description":"A warm light for a shared evening."}
+    ]
+  }}
+]

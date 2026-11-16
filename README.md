@@ -71,6 +71,11 @@ Two additional small card games, [Ash & Ink and Cloud Cartographer](docs/portfol
 piles provider while keeping their card effects, decisions and win rules independent. The puzzle and card presets also
 select [optional progressive assistance](docs/portfolio-assist.md), and each bundled plugin has a local README for authors.
 
+Three further games are available as independent compositions: **[The Silt Archive](docs/silt-archive.md)** is a
+turn-based flooded dungeon expedition; **[The Salt Ledger](docs/salt-ledger.md)** is a party RPG with tactical encounters,
+quests and consequential endings; and **[Common Ground](docs/common-ground.md)** is a turn-based household simulation
+with residents, needs, work, relationships, an editable house lot and neighborhood projects. Each guide records its implemented scope and limits.
+
 **[CINDER VAULT — Ashbound Roguelite](docs/cinder-vault.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=cinder/vault) — adds a turn-based first-person fantasy run across three
 large generated dungeon depths. Choose a vault threat with **7/8/9** (Pilgrim, Delver or Ashbound), then one of three
 classes. Step one tile per action, read telegraphed intents and manage a filtered 12-stack pack with armor/charm gear,

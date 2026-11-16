@@ -6,12 +6,14 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5`
+Source digest: `57bac8a68a6574998009662a4fd8432a2f0215e298a8e6532d25b57f137a97c3`
 
 ## Composition recipes
 
 | ID | Scope | What exists | Source |
 |---|---|---|---|
+| `recipe/symmetric-relationships` | cross-genre | Track explicitly authored unordered actor-pair scores within shared bounds. | [source](docs/reuse-recipes.json) |
+| `recipe/timed-conditions` | cross-genre | Track refreshable named target conditions over a borrowed explicit clock. | [source](docs/reuse-recipes.json) |
 | `recipe/ordered-card-piles` | cross-genre | Own an ordered partition of unique IDs across draw, hand and discard zones. | [source](docs/reuse-recipes.json) |
 | `recipe/outcome-ratings` | cross-genre | Classify game-supplied finite outcome metrics against ordered tiers of inclusive thresholds. | [source](docs/reuse-recipes.json) |
 | `recipe/ordered-navigation` | cross-genre | Query shortest unit-edge paths over a game-supplied legal graph, preserving neighbor order for deterministic ties. | [source](docs/reuse-recipes.json) |
@@ -40,6 +42,9 @@ Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5
 | `cinder/content` | content | Cinder Vault content: seeded dungeon, six-weapon armory, twelve gear/consumable/Ember Shard items, nine forge recipes, seven enemy archetypes, threat caches and turn kit. | [source](src/plugins/cinder-content) |
 | `cinder/game` | family | Turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, telegraphed enemies, loot/inventory, NPC forge and Oracle bargains, fogged automap/grid, first-person/isometric view, field guide/AP hover preview and persistent mastery. | [source](src/plugins/cinder-game) |
 | `cinder/hud` | presentation | Cinder turn-based HUD: class/threat selection and transitions, field guide, first-person/isometric view badge, automap/tactical grid, action points/intents, AP hover preview, pack filters/drop, forge, NPC dialogue, boons and weapons. | [source](src/plugins/cinder-hud) |
+| `common/content` | content | Original Common Ground residents, visitors and furnishings. | [source](src/plugins/common-ground-content) |
+| `common/game` | family | Turn-based household simulation with editable house lot, furnishing placement, needs, careers and relationships. | [source](src/plugins/common-ground-game) |
+| `common/presentation` | presentation | Responsive dollhouse and accessible controls for the Common Ground household. | [source](src/plugins/common-ground-presentation) |
 | `core/combat` | family | Shooter damage pipeline, weapons/ammo, hitscan/projectile/melee attacks, pickups and damage modifiers. | [source](src/plugins/core-combat) |
 | `core/content` | content | Data-only reference content: two weapons, two enemies, three pickups, two ammo types and the Bulkhead Station arena. | [source](src/plugins/core-content) |
 | `core/enemies` | unreviewed | Enemy definitions (data), the enemy state machine, path-following movement, and two AI behaviours: a melee chaser and a ranged attacker that respects line of sight. | [source](src/plugins/core-enemies) |
@@ -73,12 +78,14 @@ Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5
 | `example/tactical-pack` | content | A compact objective mission and magazine-fed carbine using the industrial theme. | [source](src/plugins/example-tactical-pack) |
 | `example/time-trial` | unreviewed | Activate the objective switches and escape before time runs out. | [source](src/plugins/example-time-trial) |
 | `example/ward` | family | Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry. | [source](src/plugins/example-ward) |
+| `expedition/assist` | presentation | Optional state-aware, progressively requested hints for Silt, Salt and Common Ground. | [source](src/plugins/expedition-assist) |
 | `hollowmere/content` | content | Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family. | [source](src/plugins/hollowmere-content) |
 | `hollowmere/game` | family | Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss. | [source](src/plugins/hollowmere-game) |
 | `hollowmere/presentation` | presentation | Canvas-rendered room view plus DOM field journal: world map, inventory, capabilities, stats and persisted options. | [source](src/plugins/hollowmere-presentation) |
 | `mechanics/actions` | cross-genre | Data-defined action costs, gains and cooldowns for abilities, crafting, repairs, attacks and production. | [source](src/plugins/mechanics-actions) |
 | `mechanics/capabilities` | cross-genre | Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects. | [source](src/plugins/mechanics-capabilities) |
 | `mechanics/clock` | cross-genre | Explicit, consumer-advanced seconds or turn clocks; the SDK createDeadline helper borrows compatible clocks for pollable duration windows. | [source](src/plugins/mechanics-clock) |
+| `mechanics/conditions` | cross-genre | Owner-scoped named target conditions with refreshable explicit-clock expiration. | [source](src/plugins/mechanics-conditions) |
 | `mechanics/crafting` | cross-genre | Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback. | [source](src/plugins/mechanics-crafting) |
 | `mechanics/hints` | cross-genre | Owned independent ordered reveal levels with explicit per-topic reset. | [source](src/plugins/mechanics-hints) |
 | `mechanics/inventory` | cross-genre | Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations. | [source](src/plugins/mechanics-inventory) |
@@ -88,6 +95,7 @@ Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5
 | `mechanics/outcome-rating` | cross-genre | Deterministic outcome tiers from explicit finite metrics and immutable threshold conditions. | [source](src/plugins/mechanics-outcome-rating) |
 | `mechanics/platforming` | cross-genre | AABB side-scrolling movement with coyote/buffered jumps, variable height, double jump, dash, wall slide and wall jump. | [source](src/plugins/mechanics-platforming) |
 | `mechanics/progression` | cross-genre | Owned XP and level ledgers with deterministic linear curves, multi-level grants, capped levels and pending game-defined level rewards. | [source](src/plugins/mechanics-progression) |
+| `mechanics/relationships` | cross-genre | Owned bounded symmetric scores for explicit actor pairs. | [source](src/plugins/mechanics-relationships) |
 | `mechanics/resources` | cross-genre | Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation. | [source](src/plugins/mechanics-resources) |
 | `mechanics/room-map` | cross-genre | Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations. | [source](src/plugins/mechanics-room-map) |
 | `mechanics/sequence` | cross-genre | Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion. | [source](src/plugins/mechanics-sequence) |
@@ -110,6 +118,12 @@ Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5
 | `puzzle/chambers` | content | Three authored chambers introducing weight, pursuit and a double seal. | [source](src/plugins/puzzle-chambers) |
 | `puzzle/presentation` | unreviewed | Lit low-poly ruins, articulated explorer and golems, orbiting camera, picking and puzzle HUD. | [source](src/plugins/puzzle-presentation) |
 | `puzzle/rules` | family | Grid push puzzles composing selected graph navigation for deterministic pursuit, bounded command ingress and reversible turns. | [source](src/plugins/puzzle-rules) |
+| `salt/content` | content | Salt Ledger's Tern campaign locations, journal and endings. | [source](src/plugins/salt-rpg-content) |
+| `salt/game` | family | Salt Ledger party campaign, tracked side quests, equipment, party bonds and tactical battles with cover, hazards and obstacles. | [source](src/plugins/salt-rpg-game) |
+| `salt/presentation` | presentation | Responsive Salt Ledger party and tactical board interface. | [source](src/plugins/salt-rpg-presentation) |
+| `silt/content` | content | Three districts of four-socket chambers for The Silt Archive. | [source](src/plugins/silt-content) |
+| `silt/game` | family | Turn-based flooded archive exploration with room graphs, encounters, tide, equipment and extraction. | [source](src/plugins/silt-game) |
+| `silt/presentation` | presentation | Responsive top-down chamber, district map and controls for The Silt Archive. | [source](src/plugins/silt-presentation) |
 | `sky/content` | content | Courier resources, actions and delivery objectives. | [source](src/plugins/sky-content) |
 | `sky/game` | family | Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines. | [source](src/plugins/sky-game) |
 | `sky/presentation` | unreviewed | Volumetric floating islands and drone cockpit HUD. | [source](src/plugins/sky-presentation) |
@@ -156,6 +170,9 @@ Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5
 | `sdk/ClockMechanicRole` | contract | Public SDK value: sdk/mechanic-clock | [source](src/sdk/contracts/mechanics.ts#L101) |
 | `sdk/Collider` | contract | Public SDK value: sdk/collider | [source](src/sdk/contracts/shooter.ts#L36) |
 | `sdk/Combat` | contract | Public SDK value: sdk/combat | [source](src/sdk/contracts/shooter.ts#L479) |
+| `sdk/conditionMechanic` | contract | Public helper/class | [source](src/sdk/contracts/conditions.ts#L23) |
+| `sdk/ConditionMechanicRole` | contract | Public SDK value: sdk/mechanic-conditions | [source](src/sdk/contracts/conditions.ts#L22) |
+| `sdk/ConditionProviders` | contract | Public SDK value: mechanic-condition-provider | [source](src/sdk/contracts/conditions.ts#L21) |
 | `sdk/ControllerRole` | contract | Public SDK value: sdk/controller | [source](src/sdk/contracts/shooter.ts#L660) |
 | `sdk/craftingMechanic` | contract | Public helper/class | [source](src/sdk/contracts/crafting.ts#L33) |
 | `sdk/CraftingMechanicRole` | contract | Public SDK value: sdk/mechanic-crafting | [source](src/sdk/contracts/crafting.ts#L31) |
@@ -188,6 +205,8 @@ Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5
 | `sdk/Flow` | contract | Public SDK value: sdk/flow | [source](src/sdk/contracts/shooter.ts#L631) |
 | `sdk/FlowEnded` | contract | Public SDK value: sdk/flow-ended | [source](src/sdk/contracts/shooter.ts#L632) |
 | `sdk/Health` | contract | Public SDK value: sdk/health | [source](src/sdk/contracts/shooter.ts#L43) |
+| `sdk/Hearth` | contract | Public SDK value: common/hearth | [source](src/sdk/contracts/hearth-sim.ts#L20) |
+| `sdk/HearthHouseholds` | contract | Public SDK value: hearth-household | [source](src/sdk/contracts/hearth-sim.ts#L7) |
 | `sdk/hintMechanic` | contract | Public helper/class | [source](src/sdk/contracts/hints.ts#L22) |
 | `sdk/HintMechanicRole` | contract | Public SDK value: sdk/mechanic-hints | [source](src/sdk/contracts/hints.ts#L21) |
 | `sdk/HintProviders` | contract | Public SDK value: mechanic-hint-provider | [source](src/sdk/contracts/hints.ts#L20) |
@@ -247,6 +266,9 @@ Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5
 | `sdk/PuzzleResolved` | contract | Public SDK value: puzzle/resolved | [source](src/sdk/contracts/puzzle.ts#L46) |
 | `sdk/Race` | contract | Public SDK value: vehicle/race | [source](src/sdk/contracts/racing.ts#L41) |
 | `sdk/RaceTracks` | contract | Public SDK value: vehicle/track | [source](src/sdk/contracts/racing.ts#L21) |
+| `sdk/relationshipMechanic` | contract | Public helper/class | [source](src/sdk/contracts/relationships.ts#L30) |
+| `sdk/RelationshipMechanicRole` | contract | Public SDK value: sdk/mechanic-relationships | [source](src/sdk/contracts/relationships.ts#L29) |
+| `sdk/RelationshipProviders` | contract | Public SDK value: mechanic-relationship-provider | [source](src/sdk/contracts/relationships.ts#L28) |
 | `sdk/Render` | contract | Public SDK value: sdk/render | [source](src/sdk/render.ts#L54) |
 | `sdk/Reporter` | contract | Public helper/class | [source](src/sdk/core.ts#L47) |
 | `sdk/resourceMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L127) |
@@ -255,6 +277,8 @@ Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5
 | `sdk/RoomMapChanged` | contract | Public SDK value: sdk/room-map-changed | [source](src/sdk/contracts/room-map.ts#L44) |
 | `sdk/roomMapMechanic` | contract | Public helper/class | [source](src/sdk/contracts/room-map.ts#L46) |
 | `sdk/RoomMapRole` | contract | Public SDK value: sdk/room-map | [source](src/sdk/contracts/room-map.ts#L43) |
+| `sdk/SaltCampaigns` | contract | Public SDK value: salt-campaign | [source](src/sdk/contracts/salt-ledger.ts#L16) |
+| `sdk/SaltLedger` | contract | Public SDK value: sdk/salt-ledger | [source](src/sdk/contracts/salt-ledger.ts#L17) |
 | `sdk/Scope` | contract | Public helper/class | [source](src/sdk/core.ts#L45) |
 | `sdk/ScopeDisposedError` | contract | Public helper/class | [source](src/kernel/scope.ts#L4) |
 | `sdk/SDK_VERSION` | contract | Public SDK value | [source](src/sdk/core.ts#L10) |
@@ -263,6 +287,8 @@ Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5
 | `sdk/SequenceProviders` | contract | Public SDK value: mechanic-sequence-provider | [source](src/sdk/contracts/sequence.ts#L37) |
 | `sdk/SessionControl` | contract | Public SDK value: sdk/session-control | [source](src/sdk/contracts/experience.ts#L16) |
 | `sdk/Settings` | contract | Public SDK value: sdk/settings | [source](src/sdk/contracts/shooter.ts#L638) |
+| `sdk/Silt` | contract | Public SDK value: silt/archive | [source](src/sdk/contracts/silt-archive.ts#L44) |
+| `sdk/SiltArchives` | contract | Public SDK value: silt-archive | [source](src/sdk/contracts/silt-archive.ts#L13) |
 | `sdk/Sky` | contract | Public SDK value: sky/salvage | [source](src/sdk/contracts/sky.ts#L16) |
 | `sdk/SkyRoutes` | contract | Public SDK value: sky-route | [source](src/sdk/contracts/sky.ts#L7) |
 | `sdk/spawnPrefab` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L335) |

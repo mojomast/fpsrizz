@@ -1,0 +1,129 @@
+{
+  "repository": "https://github.com/mojomast/assetrizz",
+  "revision": "05339c228f55ac95ad21b5c947db0c6e36207cd4",
+  "manifestSha256": "7bd35841acdb06c6b21bd882718d7eb63ad936433c383afa8e301ebf3e816e33",
+  "license": "original, generated for Kyle Durepos",
+  "transformation": "None; byte-for-byte PNG copies.",
+  "assets": [
+    {
+      "output": "common-ground-bed.png",
+      "sourcePath": "assets/cozy_cartoon/furniture/large/four_poster_bed_plain.png",
+      "sourceSha256": "dbc9d9f761eb63694ad82515f6033f4bc8310f4d7442f6e6001b820ae4cc3548",
+      "outputSha256": "dbc9d9f761eb63694ad82515f6033f4bc8310f4d7442f6e6001b820ae4cc3548",
+      "dimensions": [
+        384,
+        384
+      ],
+      "pivot": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "tileable": false
+    },
+    {
+      "output": "common-ground-hutch.png",
+      "sourcePath": "assets/cozy_cartoon/furniture/medium/kitchen_hutch_plain.png",
+      "sourceSha256": "cac41b1c33c7e1e1a7f6d2bd331acc3220a845debb0169df52d5600a94e679b5",
+      "outputSha256": "cac41b1c33c7e1e1a7f6d2bd331acc3220a845debb0169df52d5600a94e679b5",
+      "dimensions": [
+        384,
+        384
+      ],
+      "pivot": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "tileable": false
+    },
+    {
+      "output": "common-ground-dining-table.png",
+      "sourcePath": "assets/cozy_cartoon/furniture/medium/dining_table_plain.png",
+      "sourceSha256": "501a34e60d7fab765f7468988f30b7fac88d237e7f992eb41886e23f6d0360d6",
+      "outputSha256": "501a34e60d7fab765f7468988f30b7fac88d237e7f992eb41886e23f6d0360d6",
+      "dimensions": [
+        384,
+        384
+      ],
+      "pivot": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "tileable": false
+    },
+    {
+      "output": "common-ground-cooking-pot.png",
+      "sourcePath": "assets/cozy_cartoon/props/object/cooking_pot_plain.png",
+      "sourceSha256": "4e57048c2ee6720ee0fe4ce78b0ec0f7f0dad9cf4727e1b055486e56ee162f0d",
+      "outputSha256": "4e57048c2ee6720ee0fe4ce78b0ec0f7f0dad9cf4727e1b055486e56ee162f0d",
+      "dimensions": [
+        384,
+        384
+      ],
+      "pivot": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "tileable": false
+    },
+    {
+      "output": "common-ground-armchair.png",
+      "sourcePath": "assets/cozy_cartoon/furniture/medium/armchair_plain.png",
+      "sourceSha256": "d54358c82b8361050fa2771943f130507508679e96c9704cb5aee66f342750a8",
+      "outputSha256": "d54358c82b8361050fa2771943f130507508679e96c9704cb5aee66f342750a8",
+      "dimensions": [
+        384,
+        384
+      ],
+      "pivot": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "tileable": false
+    },
+    {
+      "output": "common-ground-bookshelf.png",
+      "sourcePath": "assets/cozy_cartoon/furniture/medium/tall_bookshelf_plain.png",
+      "sourceSha256": "0a7d3406f807e5603e41b5dbd7a9e99c78149a343abdb96542b56b237a02dfe2",
+      "outputSha256": "0a7d3406f807e5603e41b5dbd7a9e99c78149a343abdb96542b56b237a02dfe2",
+      "dimensions": [
+        384,
+        384
+      ],
+      "pivot": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "tileable": false
+    },
+    {
+      "output": "common-ground-wooden-chair.png",
+      "sourcePath": "assets/cozy_cartoon/props/object/wooden_chair_plain.png",
+      "sourceSha256": "69d5c474dfd6bf44c3a9ff84fb53cd0979eab121649c39e60d97d6cdccd1ba40",
+      "outputSha256": "69d5c474dfd6bf44c3a9ff84fb53cd0979eab121649c39e60d97d6cdccd1ba40",
+      "dimensions": [
+        384,
+        384
+      ],
+      "pivot": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "tileable": false
+    },
+    {
+      "output": "common-ground-simple-bed.png",
+      "sourcePath": "assets/cozy_cartoon/props/object/simple_bed_plain.png",
+      "sourceSha256": "30f9bd51a564cfaeb9350ee95ab751a97b133f277952867abe0dee9e0224845a",
+      "outputSha256": "30f9bd51a564cfaeb9350ee95ab751a97b133f277952867abe0dee9e0224845a",
+      "dimensions": [
+        384,
+        384
+      ],
+      "pivot": {
+        "x": 0.5,
+        "y": 1.0
+      },
+      "tileable": false
+    }
+  ]
+}
