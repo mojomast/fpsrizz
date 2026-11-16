@@ -1,9 +1,57 @@
-# Bulkhead
+<div align="center">
 
-Bulkhead is a modular, plugin-driven, Doom-inspired 2.5D first-person shooter foundation written in TypeScript. A small
-runtime kernel loads plugins and content packs, and the playable reference game ("Bulkhead Station") is built entirely
-from them: the world, combat, enemies, game mode, HUD, rendering, art and sound are all plugins that use the same public
-SDK a third party would use.
+# BULKHEAD
+
+**A modular, plugin-driven, Doom-inspired 2.5D first-person shooter foundation, and the playable game built on it.**
+
+[![CI](https://github.com/mojomast/fpsrizz/actions/workflows/ci.yml/badge.svg)](https://github.com/mojomast/fpsrizz/actions/workflows/ci.yml)
+[![Deploy](https://github.com/mojomast/fpsrizz/actions/workflows/pages.yml/badge.svg)](https://github.com/mojomast/fpsrizz/actions/workflows/pages.yml)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
+![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-0-brightgreen)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
+### [▶ Play it in your browser](https://mojomast.github.io/fpsrizz/)
+
+<img src="docs/img/enemies.png" alt="Bulkhead gameplay: a brute charging down a corridor" width="780">
+
+</div>
+
+---
+
+## Why this exists
+
+Most hobby shooters are a single tangled game loop. Bulkhead is the opposite: a **small runtime kernel** that knows nothing
+about shooters, plus **plugins** for everything else. The reference game ("Bulkhead Station") is made only of plugins that
+use the same public SDK a third party would use, so adding a weapon, an enemy, a HUD or a whole game mode never means
+editing the engine.
+
+- **Three layers.** Runtime kernel (scopes, ECS, fixed-step scheduler, typed registries, command and event buses, plugin
+  host) → platform adapters (rendering, input, audio, storage, UI) → gameplay plugins and content packs.
+- **Safe by construction.** Manifests are validated before any plugin code is imported. Registration and content run in
+  staged registries and are committed only if everything validates, so a bad preset leaves the running game untouched.
+- **Clean restarts.** Every resource is owned by a scope and disposed in reverse order. The browser test applies 12
+  preset switches and 12 restarts and asserts that owned-resource counts never grow.
+- **Two kinds of extension.** Trusted code plugins, and data-only JSON content packs with semantic validation.
+- **Zero runtime dependencies.** Even the WebGL2 renderer is in the repo.
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Start screen](docs/img/menu.png) **Start screen** with controls and active preset | ![Pistol and launcher](docs/img/launcher.png) **Projectile weapons** and hitscan |
+| ![Ricochet rifle](docs/img/ricochet.png) **Extension: ricochet rifle** (new attack behaviour plugin) | ![Annex map](docs/img/annex.png) **Extension: data-only pack** (new map, brute enemy, scattergun) |
+| ![Survival and visor HUD](docs/img/survival-visor.png) **Extensions: survival mode + replacement HUD** | ![Creator panel](docs/img/creator.png) **Creator panel**: plugins, presets, import/export, debug |
+
+## The four extension proofs
+
+Each is a preset you can switch to live from the creator panel (press `` ` ``):
+
+| Extension | Kind | What it demonstrates |
+|---|---|---|
+| `example/pack` | Data-only JSON pack | New weapon, enemy, pickup and map with **zero code** |
+| `example/ricochet` | Code plugin | A new attack behaviour registered through the SDK, used by a weapon defined in data |
+| `example/hud` | Code plugin | A complete replacement HUD that fully removes the original |
+| `example/survival` | Code plugin | A different game mode (waves, score, win and lose) using only public services |
 
 > **Stack deviation: read this first.** The original brief asked for Three.js + Vite + Vitest. This build was produced
 > in an environment with no network access to the npm registry, so none of them could be installed. Instead:
@@ -24,6 +72,10 @@ SDK a third party would use.
 > and [devplan.md](devplan.md).
 
 ## Quick start
+
+Play online: **https://mojomast.github.io/fpsrizz/** (deployed from `main` by GitHub Actions).
+
+Or run it locally (Node >= 22.18):
 
 ```bash
 npm install        # devDependencies only; also creates package-lock.json on a networked machine
@@ -129,4 +181,32 @@ index.html     Page shell.
 | [CONTENT_FORMAT.md](CONTENT_FORMAT.md) | JSON formats: manifests, content packs, maps, presets. |
 | [devplan.md](devplan.md) | Milestone status and next steps. |
 | [AGENTS.md](AGENTS.md) | Guidance for coding agents working in this repository. |
-| `HANDOFF.md` | Verification results and open items from the final milestone (written separately). |
+| [HANDOFF.md](HANDOFF.md) | Verification results and open items. |
+
+## Testing and verification
+
+`npm run check` runs the strict type check, the import-boundary lint and 401 node tests (kernel, host lifecycle,
+collision, combat, content validation, fixed-step determinism, restart cycles, the four extensions). `npm run smoke`
+plays the real game in headless Chrome (37 checks: movement, wall sliding, weapons, doors, enemies, pickups, objective,
+victory and defeat, restart, extensions, preset switching with leak counts). The creator panel has its own 67-check
+browser test (`node tests/creator-demo/run.mjs`). CI runs the checks and the build on every push.
+
+## Known limitations
+
+Stated plainly; the full list is in [SPEC.md](SPEC.md) and [HANDOFF.md](HANDOFF.md).
+
+- Rendering uses the in-repo *mini3* renderer, not Three.js (see the box above).
+- GPU performance has not been measured; the only numbers are from software rendering in headless Chrome.
+- Pointer lock and audio were not exercised by automation. Try them by hand.
+- Imported content packs live in memory only, and there are no save games.
+- Code plugins are discovered at build time and are trusted; there is no sandbox.
+- Art and sound are procedural placeholders, all generated in code (no third-party assets).
+
+## Contributing
+
+Read [AGENTS.md](AGENTS.md) for conventions and [PLUGINS.md](PLUGINS.md) to write a plugin
+(`npm run new-plugin -- my/plugin "My Plugin"`). Keep `npm run check` green. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[MIT](LICENSE)

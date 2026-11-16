@@ -1,5 +1,9 @@
 {
-  "name": "bulkhead-shooter-foundation",
+  "name": "fpsrizz",
+  "version": "1.0.0",
+  "description": "Bulkhead: a modular, plugin-driven 2.5D first-person shooter foundation",
+  "license": "MIT",
+  "repository": "github:mojomast/fpsrizz",
   "private": true,
   "type": "module",
   "engines": {
