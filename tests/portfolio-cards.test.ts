@@ -7,12 +7,16 @@ import { codePlugin } from './helpers/host.ts';
 import pilesManifest from '../src/plugins/portfolio-cards-piles/manifest.json' with { type: 'json' };
 import ashManifest from '../src/plugins/portfolio-cards-ash/manifest.json' with { type: 'json' };
 import cloudManifest from '../src/plugins/portfolio-cards-cloud/manifest.json' with { type: 'json' };
+import hintsManifest from '../src/plugins/mechanics-hints/manifest.json' with { type: 'json' };
+import assistManifest from '../src/plugins/portfolio-assist/manifest.json' with { type: 'json' };
 import ashPreset from '../src/content/presets/portfolio-cards-ash.json' with { type: 'json' };
 import cloudPreset from '../src/content/presets/portfolio-cards-cloud.json' with { type: 'json' };
 
 const pilesEntry = { manifest: pilesManifest, load: () => import('../src/plugins/portfolio-cards-piles/index.ts') };
 const ashEntry = { manifest: ashManifest, load: () => import('../src/plugins/portfolio-cards-ash/index.ts') };
 const cloudEntry = { manifest: cloudManifest, load: () => import('../src/plugins/portfolio-cards-cloud/index.ts') };
+const hintsEntry = { manifest: hintsManifest, load: () => import('../src/plugins/mechanics-hints/index.ts') };
+const assistEntry = { manifest: assistManifest, load: () => import('../src/plugins/portfolio-assist/index.ts') };
 
 test('ordered piles conserve unique IDs, reject invalid moves, isolate owners and restart', async () => {
   const handles: CardPiles[] = [], owners: SessionContext[] = [];
@@ -52,7 +56,7 @@ for (const [name, preset, entry] of [['ash', ashPreset, ashEntry], ['cloud', clo
     const gate = codePlugin('aaa/control', { activate(ctx) {
       ctx.services.provide(SessionControl, { get playing() { return playing; } });
     } });
-    const game = createHeadlessGame([pilesEntry, entry, gate]);
+    const game = createHeadlessGame([pilesEntry, entry, hintsEntry, assistEntry, gate]);
     try {
       await game.host.apply({ ...preset, plugins: [...preset.plugins.filter(id => id !== 'portfolio-cards/presentation'), 'aaa/control'] });
       const cards = game.session().services.get(PortfolioCards);
@@ -68,13 +72,45 @@ for (const [name, preset, entry] of [['ash', ashPreset, ashEntry], ['cloud', clo
   });
 }
 
+test('ash transcribes a mismatched glyph at a higher ink cost and can run dry', async () => {
+  const game = createHeadlessGame([pilesEntry, ashEntry, hintsEntry, assistEntry]);
+  try {
+    await game.host.apply({ ...ashPreset, plugins: ashPreset.plugins.filter(id => id !== 'portfolio-cards/presentation') });
+    const cards = game.session().services.get(PortfolioCards);
+    game.ticks(1);
+    assert.match(cards.state().actions.find(a => a.id === 'transcribe:ink-1')!.detail, /5 → 3/);
+    cards.enqueue('transcribe:ink-1'); game.ticks(1);
+    assert.match(cards.state().summary, /Glyphs 1\/6.*ink 3\/7/);
+    cards.enqueue('transcribe:ash-1'); game.ticks(1);
+    cards.enqueue('transcribe:ink-2'); game.ticks(1);
+    assert.equal(cards.state().status, 'lost');
+  } finally { await game.host.stop(); }
+});
+
+test('cloud bold surveys trade storm for progress and completed islands reject them', async () => {
+  const game = createHeadlessGame([pilesEntry, cloudEntry, hintsEntry, assistEntry]);
+  try {
+    await game.host.apply({ ...cloudPreset, plugins: cloudPreset.plugins.filter(id => id !== 'portfolio-cards/presentation') });
+    const cards = game.session().services.get(PortfolioCards);
+    game.ticks(1);
+    assert.match(cards.state().actions.find(a => a.id === 'bold:sun-1')!.detail, /2 mark.*0 → 2/);
+    cards.enqueue('bold:sun-1'); game.ticks(1);
+    assert.match(cards.state().summary, /Sun 2\/2.*storm 2\/4.*turn 1\/10/);
+    cards.enqueue('bold:sun-2'); game.ticks(1);
+    assert.match(cards.state().summary, /turn 1\/10/);
+    assert.match(cards.state().message, /already charted/);
+    cards.enqueue('bold:wind-1'); game.ticks(1);
+    assert.equal(cards.state().status, 'lost');
+  } finally { await game.host.stop(); }
+});
+
 for (const [name, preset, entry, route, loss] of [
   ['ash', ashPreset, ashEntry, ['play:ash-1','play:ink-1','play:ink-2','play:ember-1','restore:ash-3','play:ember-2','play:ash-2'], ['restore:ash-1','restore:ink-1','restore:ink-2','restore:ember-1','restore:ember-2','restore:ash-2','restore:ash-3','restore:ink-3']],
   ['cloud', cloudPreset, cloudEntry, ['survey:sun-1','survey:wind-1','survey:rain-1','shelter:sun-2','survey:wind-2','survey:rain-2','shelter:wind-3','survey:sun-3'], ['survey:sun-1','survey:wind-1','survey:rain-1','survey:sun-2']],
 ] as const) {
   test(`${name} winning and losing routes and in-game restart`, async () => {
     // Presentation is browser-only; gameplay is exercised with the same selected provider.
-    const game = createHeadlessGame([pilesEntry, entry]);
+    const game = createHeadlessGame([pilesEntry, entry, hintsEntry, assistEntry]);
     try {
       await game.host.apply({ ...preset, plugins: preset.plugins.filter(id => id !== 'portfolio-cards/presentation') });
       const service = game.session().services.get(PortfolioCards);

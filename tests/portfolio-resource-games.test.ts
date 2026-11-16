@@ -54,32 +54,58 @@ test('Crosswind completes four crossed deliveries and rejects delivery at the wr
       assert.fail('destination not reached');
     };
     assert.equal(sky.route.deliveries.length, 4);
+    const initial = sky.state();
+    sky.enqueue({ type: 'repair' }); g.ticks(1);
+    assert.equal(sky.state().energy, initial.energy);
+    // The storm may hit on this tick, but a rejected full-hull repair spends no energy.
+    sky.enqueue({ type: 'boost' }); g.ticks(1);
+    assert.equal(sky.state().energy, initial.energy - 25);
+    sky.enqueue({ type: 'boost' }); g.ticks(1);
+    assert.equal(sky.state().energy, initial.energy - 25);
+    sky.enqueue({ type: 'restart' }); g.ticks(1);
+    assert.equal(sky.state().energy, initial.energy);
+    assert.equal(sky.state().boostRemaining, 0);
+    commits.length = 0;
     for (let i = 0; i < sky.route.deliveries.length; i++) {
       const delivery = sky.route.deliveries[i]!;
       move(delivery.pickup.x, delivery.pickup.z);
       sky.enqueue({ type: 'collect' }); g.ticks(1); assert.equal(sky.state().cargo, i);
       if (i === 0) {
         const wrong = sky.route.deliveries[1]!.beacon;
-        move(wrong.x, wrong.z); sky.enqueue({ type: 'deliver' }); g.ticks(1);
-        assert.equal(sky.state().cargo, 0); assert.deepEqual(progress, []);
+        move(wrong.x, wrong.z); const energy = sky.state().energy;
+        sky.enqueue({ type: 'deliver' }); g.ticks(1);
+        assert.equal(sky.state().cargo, 0); assert.equal(sky.state().energy, energy); assert.deepEqual(progress, []);
+        assert.deepEqual(commits, ['collect']);
       }
       move(delivery.beacon.x, delivery.beacon.z);
       sky.enqueue({ type: 'deliver' }); g.ticks(1); assert.equal(sky.state().delivered[i], true);
     }
     assert.equal(sky.state().status, 'won'); assert.deepEqual(progress, [1, 2, 3, 4]);
     assert.deepEqual(commits, ['collect', 'deliver', 'collect', 'deliver', 'collect', 'deliver', 'collect', 'deliver']);
+    sky.enqueue({ type: 'restart' }); g.ticks(1);
+    assert.equal(sky.state().status, 'playing');
+    assert.equal(sky.state().cargo, null);
+    assert.deepEqual(sky.state().delivered, [false, false, false, false]);
+    assert.equal(sky.state().energy, initial.energy);
   } finally { g.host.stop(); }
 });
 
-test('Last Rain wins on the final day through harvest, conversion and dry-wind budgeting', async () => {
+test('Last Rain wins through harvest, conversion and dry-wind budgeting', async () => {
   const g = game();
   try {
     await g.host.apply(verdantPreset);
     const verdant = g.session().services.get(Verdant), progress: number[] = [];
     g.session().events.on(MechanicObjectiveChanged, e => { if (e.owner === 'verdant/game') progress.push(e.value); }, 'test', g.session().scope);
     const send = (command: VerdantCommand) => { assert.equal(verdant.enqueue(command), true); g.ticks(1); return verdant.state(); };
+    const initial = verdant.state();
     const rejected = send({ type: 'act', action: 'restore', station: 'seedbank' });
     assert.equal(rejected.turn, 0); assert.equal(rejected.resources.charge, 0);
+    assert.deepEqual(rejected.resources, initial.resources);
+    const harvested = send({ type: 'act', action: 'biomass' });
+    const cooling = send({ type: 'act', action: 'biomass' });
+    assert.equal(cooling.turn, harvested.turn);
+    assert.deepEqual(cooling.resources, harvested.resources);
+    send({ type: 'restart' });
     const route: VerdantCommand[] = [
       { type: 'act', action: 'biomass' }, { type: 'act', action: 'convert' },
       { type: 'act', action: 'restore', station: 'seedbank' }, { type: 'act', action: 'water' },
@@ -93,7 +119,16 @@ test('Last Rain wins on the final day through harvest, conversion and dry-wind b
     assert.deepEqual(verdant.state().restored, ['seedbank', 'aquifer', 'glasshouse']);
     assert.deepEqual(progress, [1, 2, 3]);
     send({ type: 'restart' });
-    for (let i = 0; i < 11 && verdant.state().status === 'playing'; i++) send({ type: 'act', action: 'wait' });
+    assert.equal(verdant.state().turn, 0);
+    assert.deepEqual(verdant.state().resources, initial.resources);
+    assert.deepEqual(verdant.state().restored, []);
+    // A spare day allows a second legal plan; the last restoration wins on day 12.
+    send({ type: 'act', action: 'wait' });
+    route.forEach(command => send(command));
+    assert.equal(verdant.state().status, 'won');
+    assert.equal(verdant.state().turn, 12);
+    send({ type: 'restart' });
+    for (let i = 0; i < 12 && verdant.state().status === 'playing'; i++) send({ type: 'act', action: 'wait' });
     assert.equal(verdant.state().status, 'lost');
   } finally { g.host.stop(); }
 });

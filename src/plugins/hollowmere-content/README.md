@@ -1,0 +1,5 @@
+# Hollowmere world and relics
+
+`hollowmere/content` is an authored content pack for [hollowmere/game](../hollowmere-game/README.md) and [mechanics/inventory](../mechanics-inventory/README.md). It defines `hollowmere/world` as `metroidvania-world` plus five `item` definitions: an interconnected twelve-room world, five abilities, consumables, three Sun Sigils and seven enemy archetypes. See [content.json](content.json) and the [world guide](../../../docs/hollowmere.md).
+
+Enable the pack with both manifest dependencies, select the required provider roles and set `options.world` to `hollowmere/world`; the full [preset](../../content/presets/hollowmere-ascent.json) also supplies the presentation and theme. The game's loader validates the world and inventory registers items; the pack has no runtime state or independent ownership. Graph and references are validated, but physical route reachability and balance require playtesting; the layout is authored, not procedural. Evidence: [Hollowmere tests](../../../tests/hollowmere.test.ts).

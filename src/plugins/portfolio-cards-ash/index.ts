@@ -17,10 +17,10 @@ export default definePlugin({
     let message = 'The first seal awaits ash.';
     const queue = createCommandQueue<string>(ctx, { capacity: 16, normalize: x => typeof x === 'string' && x.length < 160 ? x : undefined });
     ctx.services.provide(PortfolioCards, { state: () => {
-      const hand = piles.snapshot().hand;
-      return { title: 'Ash & Ink', instructions: 'Break all three two-glyph seals in order. Play a matching glyph for 1 ink, or sacrifice any card to restore 2 ink. Each play takes one turn; finish by turn 8 before ink runs out.', status,
-        summary: `Seal ${Math.min(3, Math.floor(step / 2) + 1)} / 3 · next ${seals[step] ?? 'complete'} · ink ${ink} · turn ${turns} / 8`, message, hand,
-        actions: hand.flatMap(card => [{ id: `play:${card}`, label: `Inscribe ${glyph(card)}`, detail: card }, { id: `restore:${card}`, label: 'Restore 2 ink', detail: `Sacrifice ${card}` }]), revision };
+      const { hand, draw, discard } = piles.snapshot();
+      return { title: 'Ash & Ink', instructions: 'Break the six glyphs in order. Inscribe a matching card for 1 ink, or transcribe any card for 2 ink. Sacrifice a card to restore 2 ink (maximum 7). Each action costs a turn; finish by turn 8 with ink remaining.', status,
+        summary: `Glyphs ${step}/6 · next ${seals[step] ?? 'complete'} · remaining ${seals.slice(step).join(' → ') || 'none'} · ink ${ink}/7 · turn ${turns}/8 · draw ${draw.length} · discard ${discard.length}`, message, hand,
+        actions: hand.flatMap(card => [{ id: `play:${card}`, label: `Inscribe ${glyph(card)}`, detail: glyph(card) === seals[step] ? `Advance one glyph; ink ${ink} → ${ink - 1}.` : `Requires ${seals[step] ?? 'no glyph'}; no turn spent.` }, { id: `transcribe:${card}`, label: 'Transcribe any glyph', detail: `Advance ${seals[step] ?? 'the seal'}; ink ${ink} → ${ink - 2}. Ink must remain above zero.` }, { id: `restore:${card}`, label: 'Restore ink', detail: `Sacrifice ${card}; ink ${ink} → ${Math.min(7, ink + 2)}.` }]), revision };
     }, enqueue: value => queue.enqueue(value) });
     ctx.systems.add({ id: 'portfolio-cards/ash.commands', phase: 'control', update() {
       // Activation can occur behind the paused launcher; wait until gameplay permits mutations.
@@ -32,11 +32,11 @@ export default definePlugin({
       }
       if (status !== 'playing') return;
       const [action, card, extra] = command.split(':');
-      if (extra !== undefined || !card || !piles.snapshot().hand.includes(card) || (action !== 'play' && action !== 'restore')) return;
+      if (extra !== undefined || !card || !piles.snapshot().hand.includes(card) || (action !== 'play' && action !== 'restore' && action !== 'transcribe')) return;
       if (action === 'play' && glyph(card) !== seals[step]) { message = `Wrong glyph: the seal requires ${seals[step]}. No turn spent.`; revision++; return; }
       if (!piles.discard(card).ok) return;
       turns++;
-      if (action === 'play') { step++; ink--; message = 'The glyph cracks the seal.'; }
+      if (action === 'play' || action === 'transcribe') { step++; ink -= action === 'play' ? 1 : 2; message = action === 'play' ? 'The glyph cracks the seal.' : 'The scribe transcribes the glyph at a cost of 2 ink.'; }
       else { ink = Math.min(7, ink + 2); message = 'The scribe distills a card into ink.'; }
       if (ink <= 0) { status = 'lost'; message = 'Defeat — the ink ran dry.'; }
       else if (step === seals.length) { status = 'won'; message = 'Victory — all three seals are broken.'; }

@@ -133,6 +133,8 @@ export default definePlugin({
 .tactics-side {
   pointer-events: auto;
   width: 250px;
+  max-height: 100%;
+  overflow-y: auto;
   background: #101e29ef;
   border: 1px solid #42645f;
   border-radius: 10px;
@@ -271,6 +273,35 @@ export default definePlugin({
   font-size: 10px;
   line-height: 1;
 }
+.tactics-cell .terrain-badge {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  padding: 1px 3px;
+  border-radius: 3px;
+  background: #332916eF;
+  color: #ffdf91;
+  font-size: 10px;
+  line-height: 1.2;
+  pointer-events: none;
+}
+.tactics-cell .cost-badge {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  color: #d8ffeb;
+  background: #143e31;
+  padding: 1px 3px;
+  font-size: 10px;
+  pointer-events: none;
+}
+.tactics-roster { display: grid; gap: 4px; margin: 10px 0; }
+.tactics-roster button {
+  text-align: left; color: #f7e4d8; background: #482c2c;
+  border: 1px solid #875f57; border-radius: 4px; padding: 6px; cursor: pointer;
+}
+.tactics-roster button[aria-pressed="true"] { outline: 2px solid #ffd293; }
+.tactics-legend { font-size: 11px !important; }
 .tactics-cell.enemy .badge {
   background: #612d2d;
   color: #fff0de;
@@ -313,9 +344,10 @@ export default definePlugin({
           : null;
       const focusCell = focused?.dataset.cell;
       const focusAction = focused?.dataset.action;
+      const focusTarget = focused?.dataset.target;
       const s = tactics.state;
       const unit = s.units.find((u) => u.id === selected && u.hp > 0);
-      const reachable = tactics.reachable(selected);
+      const reachable = mode === 'move' ? tactics.reachable(selected) : [];
       const target = s.units.find((u) => u.id === hover && u.hp > 0);
       const f = target && unit && target.team === 'enemy' ? tactics.forecast(unit.id, target.id) : null;
       const cells = s.mission.rows
@@ -332,22 +364,29 @@ export default definePlugin({
             ].join(' ');
             const label = escapeHtml(
               u
-                ? `${u.name}, ${u.team}, ${u.hp} health, ${u.ap} AP`
+                ? `${u.name}, ${u.team}, ${u.hp} health, ${u.ap} AP${tile === 'C' ? ', in cover' : ''}`
                 : tile === '#'
                   ? 'Wall'
                   : tile === 'C'
                     ? 'Cover'
                     : 'Floor',
             );
-            return `<button class="${classes}" data-cell="${x},${y}" aria-label="${label}, column ${x + 1}, row ${y + 1}" title="${label}${reach ? ` · ${reach.cost} AP` : ''}">${u ? `<span class="piece ${u.team}"></span><span class="badge">${u.team === 'squad' ? '◆' : '▲'} ${u.hp}</span>` : tile === '#' ? '▨' : ''}</button>`;
+            return `<button class="${classes}" data-cell="${x},${y}" aria-label="${label}, column ${x + 1}, row ${y + 1}${reach ? `, move ${reach.cost} AP` : ''}" title="${label}${reach ? ` · ${reach.cost} AP` : ''}">${u ? `<span class="piece ${u.team}"></span><span class="badge">${u.team === 'squad' ? '◆' : '▲'} ${u.hp}</span>` : tile === '#' ? '▨' : ''}${tile === 'C' ? '<span class="terrain-badge" aria-hidden="true">C</span>' : ''}${reach ? `<span class="cost-badge" aria-hidden="true">${reach.cost} AP</span>` : ''}</button>`;
           }),
         )
         .join('');
-      root.innerHTML = `<header class="tactics-head"><div><div class="tactics-kicker">TACTICAL OPERATIONS / 01</div><h1>${escapeHtml(s.mission.name)}</h1></div><div class="tactics-turn">TURN <strong>${s.turn}</strong> · ${s.outcome.toUpperCase()}</div></header><main class="tactics-main"><div class="tactics-grid" role="grid" aria-label="Tactical board" style="grid-template-columns:repeat(${s.mission.rows[0]!.length},1fr)">${cells}</div><aside class="tactics-side"><div class="tactics-kicker">SQUAD / SELECTED</div><h2>${escapeHtml(unit?.name ?? 'No unit selected')}</h2><p>${unit ? `${unit.hp} HP &nbsp; / &nbsp; ${unit.ap} AP` : 'Select a living squad member.'}</p><div class="tactics-actions"><button data-action="move" class="${mode === 'move' ? 'active' : ''}">Move · M</button><button data-action="attack" class="${mode === 'attack' ? 'active' : ''}">Attack · A</button><button data-action="end">End turn · E</button></div><p>Move up to 3 cells per AP. Attacks cost 1 AP; cover reduces damage from 2 to 1.</p><p class="tactics-status" data-testid="tactics-forecast">${escapeHtml(f ? `${target!.name}: ${f.reason}${f.legal ? ` · ${f.damage} damage / 1 AP` : ''}` : s.message)}</p><p>Click a unit to select. Hover an enemy to forecast; attack mode then click to fire.</p></aside></main><footer class="tactics-footer">ARROWS navigate cells &nbsp;·&nbsp; ENTER selects &nbsp;·&nbsp; M move &nbsp;·&nbsp; A attack &nbsp;·&nbsp; E end turn</footer>`;
+      const enemies = s.units.filter(u => u.team === 'enemy' && u.hp > 0);
+      const roster = enemies.map(enemy => {
+        const shot = unit ? tactics.forecast(unit.id, enemy.id) : null;
+        return `<button data-target="${escapeHtml(enemy.id)}" aria-pressed="${enemy.id === hover}" title="Inspect forecast">${escapeHtml(enemy.name)} · ${enemy.hp} HP · ${escapeHtml(shot ? (shot.legal ? `${shot.damage} dmg` : shot.reason) : 'select squad')}</button>`;
+      }).join('');
+      root.innerHTML = `<header class="tactics-head"><div><div class="tactics-kicker">TACTICAL OPERATIONS / 01</div><h1>${escapeHtml(s.mission.name)}</h1></div><div class="tactics-turn">TURN <strong>${s.turn}</strong> · ${s.outcome.toUpperCase()}</div></header><main class="tactics-main"><div class="tactics-grid" role="grid" aria-label="Tactical board" style="grid-template-columns:repeat(${s.mission.rows[0]!.length},1fr)">${cells}</div><aside class="tactics-side"><div class="tactics-kicker">SQUAD / SELECTED</div><h2>${escapeHtml(unit?.name ?? 'No unit selected')}</h2><p>${unit ? `${unit.hp} HP &nbsp; / &nbsp; ${unit.ap} AP` : 'Select a living squad member.'}</p><div class="tactics-actions"><button data-action="move" aria-pressed="${mode === 'move'}" class="${mode === 'move' ? 'active' : ''}">Move · M</button><button data-action="attack" aria-pressed="${mode === 'attack'}" class="${mode === 'attack' ? 'active' : ''}">Attack · A</button><button data-action="end">End turn · E</button></div><p class="tactics-legend">C = cover (1 damage); open ground takes 2. Move costs 1 AP per 3 steps. Attacks cost 1 AP, range 7.</p><div class="tactics-kicker">HOSTILES / ${enemies.length} REMAINING</div><div class="tactics-roster" aria-label="Enemy forecasts">${roster}</div><p class="tactics-status" data-testid="tactics-forecast" aria-live="polite">${escapeHtml(f ? `${target!.name}: ${f.reason}${f.legal ? ` · ${f.damage} damage / 1 AP` : ''}` : s.message)}</p><p>Focus or hover an enemy to inspect. In attack mode, click its board cell to fire.</p></aside></main><footer class="tactics-footer">ARROWS navigate cells &nbsp;·&nbsp; ENTER selects &nbsp;·&nbsp; M move &nbsp;·&nbsp; A attack &nbsp;·&nbsp; E end turn</footer>`;
       lastRevision = s.revision;
       if (focusCell) root.querySelector<HTMLElement>(`[data-cell="${focusCell}"]`)?.focus({ preventScroll: true });
       else if (focusAction)
         root.querySelector<HTMLElement>(`[data-action="${focusAction}"]`)?.focus({ preventScroll: true });
+      else if (focusTarget)
+        [...root.querySelectorAll<HTMLElement>('[data-target]')].find(el => el.dataset.target === focusTarget)?.focus({ preventScroll: true });
     };
     const cell = (x: number, y: number) => {
       const u = tactics.state.units.find((v) => v.hp > 0 && v.x === x && v.y === y);
@@ -363,7 +402,7 @@ export default definePlugin({
     };
     const click = (e: Event) => {
       if (!allowed()) return;
-      const el = (e.target as HTMLElement).closest<HTMLElement>('[data-cell],[data-action]');
+      const el = (e.target as HTMLElement).closest<HTMLElement>('[data-cell],[data-action],[data-target]');
       if (!el) return;
       if (el.dataset.cell) {
         const [x, y] = el.dataset.cell.split(',').map(Number);
@@ -371,6 +410,9 @@ export default definePlugin({
           cursor = { x, y };
           cell(x, y);
         }
+      } else if (el.dataset.target) {
+        hover = el.dataset.target;
+        draw();
       } else if (el.dataset.action === 'end') command({ type: 'end-turn' });
       else if (el.dataset.action === 'move' || el.dataset.action === 'attack') {
         mode = el.dataset.action;
@@ -378,10 +420,10 @@ export default definePlugin({
       }
     };
     const over = (e: Event) => {
-      const el = (e.target as HTMLElement).closest<HTMLElement>('[data-cell]');
+      const el = (e.target as HTMLElement).closest<HTMLElement>('[data-cell],[data-target]');
       if (!el) return;
-      const [x, y] = el.dataset.cell!.split(',').map(Number);
-      const id = tactics.state.units.find((u) => u.x === x && u.y === y && u.team === 'enemy' && u.hp > 0)?.id ?? '';
+      const [x, y] = (el.dataset.cell ?? '').split(',').map(Number);
+      const id = el.dataset.target ?? tactics.state.units.find((u) => u.x === x && u.y === y && u.team === 'enemy' && u.hp > 0)?.id ?? '';
       if (id !== hover) {
         hover = id;
         draw();
@@ -410,10 +452,12 @@ export default definePlugin({
     };
     root.addEventListener('click', click);
     root.addEventListener('mouseover', over);
+    root.addEventListener('focusin', over);
     window.addEventListener('keydown', key);
     ctx.scope.add(() => {
       root.removeEventListener('click', click);
       root.removeEventListener('mouseover', over);
+      root.removeEventListener('focusin', over);
       window.removeEventListener('keydown', key);
     }, 'board-input');
     draw();

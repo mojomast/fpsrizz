@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `086260fd012c7674b40e0b28bd21d4636732f6823fd3d1644f34380610cb87da`
+Source digest: `6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5`
 
 ## Composition recipes
 
@@ -80,6 +80,7 @@ Source digest: `086260fd012c7674b40e0b28bd21d4636732f6823fd3d1644f34380610cb87da
 | `mechanics/capabilities` | cross-genre | Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects. | [source](src/plugins/mechanics-capabilities) |
 | `mechanics/clock` | cross-genre | Explicit, consumer-advanced seconds or turn clocks; the SDK createDeadline helper borrows compatible clocks for pollable duration windows. | [source](src/plugins/mechanics-clock) |
 | `mechanics/crafting` | cross-genre | Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback. | [source](src/plugins/mechanics-crafting) |
+| `mechanics/hints` | cross-genre | Owned independent ordered reveal levels with explicit per-topic reset. | [source](src/plugins/mechanics-hints) |
 | `mechanics/inventory` | cross-genre | Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations. | [source](src/plugins/mechanics-inventory) |
 | `mechanics/kits` | cross-genre | Validated JSON mechanic kits combine resources, actions, clock domains and objectives without new gameplay code. | [source](src/plugins/mechanics-kits) |
 | `mechanics/navigation` | cross-genre | Pure deterministic unit-edge graph queries returning ordered shortest distances and canonical first steps. | [source](src/plugins/mechanics-navigation) |
@@ -95,6 +96,7 @@ Source digest: `086260fd012c7674b40e0b28bd21d4636732f6823fd3d1644f34380610cb87da
 | `portfolio-cards/piles` | cross-genre | Owned ordered unique-card draw, hand and discard partition. | [source](src/plugins/portfolio-cards-piles) |
 | `portfolio-cards/presentation` | unreviewed | Accessible browser card table for the portfolio card games. | [source](src/plugins/portfolio-cards-presentation) |
 | `portfolio/archive-adventure` | content | A contested archive and a missing name. | [source](src/plugins/portfolio-archive-adventure) |
+| `portfolio/assist` | presentation | Optional on-demand contextual assistance for public card and puzzle services. | [source](src/plugins/portfolio-assist) |
 | `portfolio/atelier-puzzle` | content | Three quiet chambers of multi-stone positioning. | [source](src/plugins/portfolio-atelier-puzzle) |
 | `portfolio/breach-tactics` | content | A three-agent assault through a divided conservatory. | [source](src/plugins/portfolio-breach-tactics) |
 | `portfolio/crossfire-tactics` | content | A two-scout stand against an encircling raiding party. | [source](src/plugins/portfolio-crossfire-tactics) |
@@ -186,6 +188,9 @@ Source digest: `086260fd012c7674b40e0b28bd21d4636732f6823fd3d1644f34380610cb87da
 | `sdk/Flow` | contract | Public SDK value: sdk/flow | [source](src/sdk/contracts/shooter.ts#L631) |
 | `sdk/FlowEnded` | contract | Public SDK value: sdk/flow-ended | [source](src/sdk/contracts/shooter.ts#L632) |
 | `sdk/Health` | contract | Public SDK value: sdk/health | [source](src/sdk/contracts/shooter.ts#L43) |
+| `sdk/hintMechanic` | contract | Public helper/class | [source](src/sdk/contracts/hints.ts#L22) |
+| `sdk/HintMechanicRole` | contract | Public SDK value: sdk/mechanic-hints | [source](src/sdk/contracts/hints.ts#L21) |
+| `sdk/HintProviders` | contract | Public SDK value: mechanic-hint-provider | [source](src/sdk/contracts/hints.ts#L20) |
 | `sdk/HudRole` | contract | Public SDK value: sdk/hud | [source](src/sdk/contracts/shooter.ts#L666) |
 | `sdk/Impact` | contract | Public SDK value: sdk/impact | [source](src/sdk/contracts/shooter.ts#L361) |
 | `sdk/Input` | contract | Public SDK value: sdk/input | [source](src/sdk/contracts/shooter.ts#L580) |

@@ -22,6 +22,8 @@ const styles = `
   border: 1px solid #a5c6a6; border-radius: 8px; color: #234939; cursor: pointer; font-size: 12px; }
 .verdant-actions button small { display: block; font-size: 10px; }
 .verdant-actions button:hover, .verdant-actions button.selected { background: #42856a; color: white; }
+.verdant-actions button:focus-visible { outline: 3px solid #b47417; outline-offset: 2px; }
+.verdant-actions button[aria-disabled="true"] { border-style: dashed; color: #735b46; }
 .verdant-actions button:disabled { opacity: .5; }
 .verdant-status { margin-top: 10px; background: #173d32; color: #f4f8e6; padding: 10px 12px;
   border-radius: 12px; text-align: center; font-size: 12px; pointer-events: none; }
@@ -34,7 +36,7 @@ const styles = `
   .verdant-stats span { padding: 3px; }
   .verdant-stats b { display: inline; margin-left: 5px; font-size: 14px; }
   .verdant-panel p { display: inline-block; margin: 4px 10px 0 0; font-size: 11px; }
-  .verdant-actions { top: auto; bottom: 6px; left: 6px; right: 6px; width: auto; height: 266px; padding: 8px; }
+  .verdant-actions { top: auto; bottom: 6px; left: 6px; right: 6px; width: auto; max-height: 48vh; overflow-y: auto; padding: 8px; }
   .verdant-actions h2 { font-size: 14px; margin: 3px 0; }
   .verdant-actions .verdant-kicker { display: none; }
   .verdant-stations, .verdant-operation-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
@@ -109,12 +111,17 @@ export default definePlugin({
         root.querySelector('.verdant-status')!.textContent = state.message;
         root.querySelectorAll<HTMLButtonElement>('[data-station]').forEach(button => {
           button.classList.toggle('selected', button.dataset.station === selected);
+          button.setAttribute('aria-pressed', String(button.dataset.station === selected));
           const station = game.world.stations.find(item => item.id === button.dataset.station);
           button.textContent = `${station?.name ?? ''}${state.restored.includes(button.dataset.station!) ? ' ✓' : ''}`;
         });
         root.querySelectorAll<HTMLButtonElement>('[data-action]').forEach(button => {
           const definition = game.actionDefinitions.find(item => item.id === button.dataset.action)!;
-          button.querySelector('small')!.textContent = actionCaption(definition, state.cooldowns[definition.id] ?? 0);
+          const remaining = state.cooldowns[definition.id] ?? 0;
+          const missing = Object.entries(definition.spend ?? {}).filter(([id, amount]) => (state.resources[id] ?? 0) < amount).map(([id, amount]) => `${amount - (state.resources[id] ?? 0)} ${id}`);
+          const reason = definition.id === 'restore' && state.restored.includes(selected) ? 'Already restored' : remaining > 0 ? `Cooling down: ${remaining} day${remaining === 1 ? '' : 's'}` : missing.length ? `Need ${missing.join(', ')}` : '';
+          button.querySelector('small')!.textContent = `${actionCaption(definition, remaining)}${reason ? ` · ${reason}` : ''}`;
+          button.setAttribute('aria-disabled', String(Boolean(reason) || state.status !== 'playing'));
           button.disabled = state.status !== 'playing';
         });
       };

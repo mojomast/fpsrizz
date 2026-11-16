@@ -17,10 +17,10 @@ export default definePlugin({
     let message = 'A clear horizon. Choose your first survey.';
     const queue = createCommandQueue<string>(ctx, { capacity: 16, normalize: x => typeof x === 'string' && x.length < 160 ? x : undefined });
     ctx.services.provide(PortfolioCards, { state: () => {
-      const hand = piles.snapshot().hand;
-      return { title: 'Cloud Cartographer', instructions: 'Chart each of three islands twice with matching weather cards. Every survey raises the storm by 1; sacrifice any card to shelter and lower it by 2. Storm 4 or ten turns ends the expedition.', status,
-        summary: `Sun ${marks[0]}/2 · Wind ${marks[1]}/2 · Rain ${marks[2]}/2 · storm ${storm}/4 · turn ${turns}/10`, message, hand,
-        actions: hand.flatMap(card => [{ id: `survey:${card}`, label: `Survey ${weather(card)} island`, detail: card }, { id: `shelter:${card}`, label: 'Shelter −2 storm', detail: `Sacrifice ${card}` }]), revision };
+      const { hand, draw, discard } = piles.snapshot();
+      return { title: 'Cloud Cartographer', instructions: 'Chart each island twice with matching weather. Survey adds one mark and one storm; a bold survey adds up to two marks and two storm. Sacrifice any card to shelter and lower storm by 2. Storm 4 or ten turns ends the expedition.', status,
+        summary: `Sun ${marks[0]}/2 · Wind ${marks[1]}/2 · Rain ${marks[2]}/2 · storm ${storm}/4 · turn ${turns}/10 · draw ${draw.length} · discard ${discard.length}`, message, hand,
+        actions: hand.flatMap(card => { const target = islands.indexOf(weather(card)); const remaining = 2 - marks[target]!; return [{ id: `survey:${card}`, label: `Survey ${weather(card)}`, detail: remaining > 0 ? `Add 1 mark; storm ${storm} → ${storm + 1}.` : 'Island complete; no turn spent.' }, { id: `bold:${card}`, label: 'Bold survey', detail: remaining > 0 ? `Add ${Math.min(2, remaining)} mark(s); storm ${storm} → ${storm + 2}. Storm 4 loses.` : 'Island complete; no turn spent.' }, { id: `shelter:${card}`, label: 'Shelter', detail: `Sacrifice ${card}; storm ${storm} → ${Math.max(0, storm - 2)}.` }]; }), revision };
     }, enqueue: value => queue.enqueue(value) });
     ctx.systems.add({ id: 'portfolio-cards/cloud.commands', phase: 'control', update() {
       // Activation can occur behind the paused launcher; wait until gameplay permits mutations.
@@ -32,12 +32,12 @@ export default definePlugin({
       }
       if (status !== 'playing') return;
       const [action, card, extra] = command.split(':');
-      if (extra !== undefined || !card || !piles.snapshot().hand.includes(card) || (action !== 'survey' && action !== 'shelter')) return;
+      if (extra !== undefined || !card || !piles.snapshot().hand.includes(card) || (action !== 'survey' && action !== 'bold' && action !== 'shelter')) return;
       const target = islands.indexOf(weather(card));
-      if (action === 'survey' && (target < 0 || marks[target]! >= 2)) { message = 'That island is already charted. No turn spent.'; revision++; return; }
+      if ((action === 'survey' || action === 'bold') && (target < 0 || marks[target]! >= 2)) { message = 'That island is already charted. No turn spent.'; revision++; return; }
       if (!piles.discard(card).ok) return;
       turns++;
-      if (action === 'survey') { marks[target] = marks[target]! + 1; storm++; message = `Survey recorded for the ${islands[target]} island.`; }
+      if (action === 'survey' || action === 'bold') { const amount = action === 'bold' ? 2 : 1; marks[target] = Math.min(2, marks[target]! + amount); storm += amount; message = `${action === 'bold' ? 'Bold survey' : 'Survey'} recorded for the ${islands[target]} island.`; }
       else { storm = Math.max(0, storm - 2); message = 'The crew shelters until the storm eases.'; }
       if (storm >= 4) { status = 'lost'; message = 'Defeat — the storm overwhelmed the expedition.'; }
       else if (marks.every(n => n === 2)) { status = 'won'; message = 'Victory — all three islands are charted.'; }

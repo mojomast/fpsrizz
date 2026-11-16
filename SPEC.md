@@ -143,6 +143,8 @@ See [racing](docs/overhead-racing.md), [tactics](docs/turn-tactics.md), [adventu
 content schemas, controls and completion routes. Art directions use curated Assetrizz images and original procedural
 elements; each theme supplies its own synthesized cues. Sampled music and a continuous audio-director API are future work.
 The [ten-game portfolio](docs/ten-game-portfolio.md) documents the authored scenarios and their verified routes.
+The two puzzle and two card presets select an optional shared hint ledger and contextual assistance; hints are requested
+by the player and do not submit game commands. See [portfolio assistance](docs/portfolio-assist.md).
 
 `ExperienceRole` selects locked/free/no-pointer input policy and launcher controls. `InputContexts` supplies scoped
 priority/consumption and exclusive focus. `SessionControl` gates gameplay ingress from UI. Tactics/adventure/puzzle state

@@ -184,6 +184,9 @@ export default definePlugin({
       flow = ctx.services.tryGet(Flow);
     const steps = track.gates.map((_, i) => `gate-${i}`);
     const sequence = sequenceMechanic(ctx).create(ctx, 'vehicle/race', { steps, rounds: track.laps });
+    let lapStarted = 0;
+    let bestLap = Infinity;
+    let offRoadTime = 0;
     const state = {
       track,
       x: track.start.x,
@@ -263,7 +266,8 @@ export default definePlugin({
         let forward = state.vx * fx + state.vz * fz;
         const steer = Number(tick.held(actions.left)) - Number(tick.held(actions.right));
         state.drifting = tick.held(actions.drift) && Math.abs(forward) > 3;
-        state.yaw += steer * 2.05 * Math.min(1, Math.abs(forward) / 4) * Math.sign(forward) * dt;
+        // Drifting buys a tighter rotation at speed, at the cost of sustained lateral slide.
+        state.yaw += steer * (state.drifting ? 2.65 : 2.05) * Math.min(1, Math.abs(forward) / 4) * Math.sign(forward) * dt;
         fx = -Math.sin(state.yaw);
         fz = -Math.cos(state.yaw);
         forward = state.vx * fx + state.vz * fz;
@@ -280,10 +284,16 @@ export default definePlugin({
         state.x += state.vx * dt;
         state.z += state.vz * dt;
         state.offTrack = distanceToRoad(state.x, state.z, track.points) > track.width / 2;
+        if (state.offTrack) offRoadTime += dt;
         state.speed = Math.hypot(state.vx, state.vz);
         const gate = track.gates[sequence.index]!;
+        const lastGate = sequence.index === track.gates.length - 1;
         if (crosses(gate, state.prevX, state.prevZ, state.x, state.z) && sequence.advance(steps[sequence.index]!).ok) {
           state.revision++;
+          if (lastGate) {
+            bestLap = Math.min(bestLap, state.elapsed + dt - lapStarted);
+            lapStarted = state.elapsed + dt;
+          }
           if (sequence.complete) {
             state.status = 'won';
             const rating = ctx.role(OutcomeRatingRole) ? outcomeRatingMechanic(ctx).create(ctx, 'vehicle/finish', {
@@ -298,8 +308,8 @@ export default definePlugin({
             flow?.end({
               outcome: 'victory',
               title: 'Circuit complete',
-              detail: 'All laps cleared.',
-              stats: [['Time', `${(state.elapsed + dt).toFixed(1)}s`], ...(medal ? [['Medal', medal] as [string, string]] : [])],
+              detail: 'All gates cleared in order. Chase a faster medal on your next run.',
+              stats: [['Time', `${(state.elapsed + dt).toFixed(1)}s`], ...(medal ? [['Medal', medal] as [string, string]] : []), ['Best lap', `${bestLap.toFixed(1)}s`], ['Off road', `${offRoadTime.toFixed(1)}s`]],
             });
           }
         }
@@ -311,7 +321,7 @@ export default definePlugin({
             outcome: 'defeat',
             title: 'Time expired',
             detail: 'Restart and find a faster line.',
-            stats: [['Lap', `${sequence.round} / ${track.laps}`]],
+            stats: [['Lap', `${sequence.round} / ${track.laps}`], ['Next gate', `${sequence.index + 1} / ${track.gates.length}`], ['Off road', `${offRoadTime.toFixed(1)}s`]],
           });
         }
       },

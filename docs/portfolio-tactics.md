@@ -2,6 +2,8 @@
 
 Two standalone, small tactical encounters reuse the board family. Select a squad unit, use **M** to move or **A** to attack, and press **E** to end the turn; clicking or arrow keys and Enter operate the board. Eliminate every enemy to win. Movement costs one AP per three orthogonal steps, walls block movement and shots, and a target standing on cover takes one damage instead of two. Attacks cost one AP and have a seven-cell Manhattan range. Enemy turns are deterministic.
 
+The operations panel lists living hostiles and the selected squad member's current shot against each, including blocked or out-of-range shots. Hover or keyboard-focus a hostile on the board, or inspect it in the roster, for the detailed forecast; firing still requires attack mode and the board cell. Reachable cells display their AP cost in move mode, and the **C** marker remains visible even under a unit. Cover protects whoever occupies the tile; it is not directional. Enemy forecasts describe the selected unit's current shot, not a prediction of the enemy's next turn.
+
 ## Glasshouse Breach
 
 Three agents assault a conservatory divided by an impassable wall with one central opening. Kill the central Warden before crossing and manage the two defenders, including Thorn on cover. The narrow gap restricts the squad's approach and line of sight.
@@ -26,4 +28,4 @@ Both games share elimination as the only implemented victory objective, the same
 
 ## Integration
 
-Both content packs and presets are registered in the bundled catalog. `tests/portfolio-tactics.test.ts` activates the complete presets and exercises the routes against an explicit headless catalog.
+Both content packs and presets are registered in the bundled catalog. `tests/portfolio-tactics.test.ts` activates the complete presets, exercises the routes, checks rejected moves and blocked shots without AP loss, and verifies fresh mission state after restart against an explicit headless catalog.

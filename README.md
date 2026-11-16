@@ -68,7 +68,8 @@ campaigns, two racing trials, two tactical missions, two narrative adventures, a
 restoration scenario. They reuse existing family rules and presentations, shared mechanics and the new optional
 `mechanics/outcome-rating` provider; the guide identifies their actual differences, controls and completion routes.
 Two additional small card games, [Ash & Ink and Cloud Cartographer](docs/portfolio-cards.md), share the new ordered-card
-piles provider while keeping their card effects, decisions and win rules independent.
+piles provider while keeping their card effects, decisions and win rules independent. The puzzle and card presets also
+select [optional progressive assistance](docs/portfolio-assist.md), and each bundled plugin has a local README for authors.
 
 **[CINDER VAULT — Ashbound Roguelite](docs/cinder-vault.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=cinder/vault) — adds a turn-based first-person fantasy run across three
 large generated dungeon depths. Choose a vault threat with **7/8/9** (Pilgrim, Delver or Ashbound), then one of three

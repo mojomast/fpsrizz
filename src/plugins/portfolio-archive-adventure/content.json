@@ -1,29 +1,333 @@
 [
-  {"kind":"adventure-chapter","id":"portfolio/quiet-index","data":{
-    "version":1,"name":"The Quiet Index","subtitle":"An archive mystery","tagline":"Investigate · Restore · Remember","hint":"Read the catalogue, reconstruct the evidence, then decide how the missing name should be remembered.","start":"reading-room","intro":"Tomorrow the city will demolish the river quarter. Tonight its archive claims nobody ever lived there. Archivist Iva asks you to find the missing register before the hearing.",
-    "rooms":[
-      {"id":"reading-room","name":"Reading Room","description":"The public catalogue ends abruptly at the letter R. Iva waits beside an empty display case.","art":"story-room","motif":"shelves"},
-      {"id":"stacks","name":"Closed Stacks","description":"Dusty boxes lean against a locked cabinet. A handwritten filing chart hangs by the door.","art":"story-room","motif":"shelves"},
-      {"id":"bindery","name":"Bindery","description":"A press, a shallow water tray and a roll of archival tissue occupy the old worktable.","art":"story-room","motif":"window"},
-      {"id":"hearing","name":"Hearing Chamber","description":"A microphone faces the council's sealed demolition order. Residents gather outside.","art":"story-room","motif":"none"}
-    ],
-    "items":{"pass":{"name":"Stacks pass","icon":"story-key"},"fragment":{"name":"Torn register fragment"},"rubbing":{"name":"Cabinet impression"},"tissue":{"name":"Archival tissue"},"evidence":{"name":"Restored register"}},
-    "actions":[
-      {"id":"ask-iva","label":"Iva: ask for help","room":"reading-room","text":"Iva admits she hid the register from a former director. She gives you her stacks pass and says the cabinet code is impressed on the old chart.","add":["pass"],"flags":["trust"],"once":"approached","journal":"The filing chart bears a cabinet impression."},
-      {"id":"challenge-iva","label":"Iva: challenge the silence","room":"reading-room","text":"Iva says the director ordered the register concealed. She gives you her stacks pass, ashamed she obeyed. Look for an impression on the filing chart, she says.","add":["pass"],"flags":["confronted"],"once":"approached","journal":"The filing chart bears a cabinet impression."},
-      {"id":"enter-stacks","label":"Enter the closed stacks","room":"reading-room","items":["pass"],"move":"stacks","text":"The pass opens the gate."},
-      {"id":"to-reading","label":"Return to the reading room","room":"stacks","move":"reading-room","text":"You return to the catalogue."},
-      {"id":"chart","label":"Examine the filing chart","room":"stacks","text":"Pressure marks on the chart spell REED, the cabinet's letter setting. A rubbing will preserve them.","flags":["chart-seen"],"journal":"Set the cabinet to REED."},
-      {"id":"take-rubbing","label":"Make a rubbing of the chart","room":"stacks","require":["chart-seen"],"text":"Using a scrap from the chart's edge, you copy the marks.","add":["rubbing"],"once":"rubbed"},
-      {"id":"open-cabinet","label":"Set the cabinet to REED","room":"stacks","items":["rubbing"],"text":"The cabinet clicks open. Inside is a water-damaged fragment listing the river quarter's families.","add":["fragment"],"once":"cabinet-open","journal":"The fragment needs careful repair before it can be submitted."},
-      {"id":"to-bindery","label":"Go to the bindery","room":"stacks","move":"bindery","text":"You carry the evidence to the worktable."},
-      {"id":"to-stacks","label":"Return to the stacks","room":"bindery","move":"stacks","text":"You return between the shelves."},
-      {"id":"take-tissue","label":"Take archival tissue","room":"bindery","text":"The thin tissue can support fragile paper without obscuring the ink.","add":["tissue"],"once":"tissue-taken"},
-      {"id":"restore","label":"Repair the fragment with tissue","room":"bindery","items":["fragment","tissue"],"consume":["fragment","tissue"],"add":["evidence"],"once":"restored","text":"You mend the torn register. The name of the quarter's community land trust is legible again.","journal":"The register proves the land belongs to a community trust."},
-      {"id":"to-hearing","label":"Enter the hearing chamber","room":"reading-room","move":"hearing","text":"The hearing is about to begin."},
-      {"id":"from-hearing","label":"Return to the reading room","room":"hearing","move":"reading-room","text":"There is still time to search."},
-      {"id":"public-record","label":"Submit the register publicly","room":"hearing","items":["evidence"],"consume":["evidence"],"once":"finished","flags":["victory","public"],"text":"You read the names aloud. The council suspends demolition while the trust's claim is heard. Iva adds her own account to the public record.","journal":"The names are public; the community has time to defend its land."},
-      {"id":"private-record","label":"Give the register to the residents' advocate","room":"hearing","items":["evidence"],"consume":["evidence"],"once":"finished","flags":["victory","private"],"text":"The advocate files the deed under seal at the residents' request. The council suspends demolition; the families will choose when to tell their story.","journal":"The claim is protected and the residents retain control of their names."}
-    ],"victory":{"flag":"victory","title":"The record survives","epilogue":"The river quarter has a hearing and its people have a voice. Explore, load a save, or start over to choose another record."}
-  }}
+  {
+    "kind": "adventure-chapter",
+    "id": "portfolio/quiet-index",
+    "data": {
+      "version": 2,
+      "name": "The Quiet Index",
+      "subtitle": "An archive mystery",
+      "tagline": "Investigate · Restore · Remember",
+      "hint": "The chart opens the cabinet. Compare the restored register with an independent boundary record, then ask the residents how they want their names handled.",
+      "start": "reading-room",
+      "intro": "Tomorrow the city will demolish the river quarter. Tonight its archive claims nobody ever lived there. Archivist Iva asks you to find the missing register before the hearing.",
+      "rooms": [
+        {
+          "id": "reading-room",
+          "name": "Reading Room",
+          "description": "The public catalogue ends abruptly at the letter R. Iva waits beside an empty display case.",
+          "art": "story-room",
+          "motif": "shelves"
+        },
+        {
+          "id": "stacks",
+          "name": "Closed Stacks",
+          "description": "Dusty boxes lean against a locked cabinet. A handwritten filing chart hangs by the door.",
+          "art": "story-room",
+          "motif": "shelves"
+        },
+        {
+          "id": "bindery",
+          "name": "Bindery",
+          "description": "A press, a shallow water tray and a roll of archival tissue occupy the old worktable.",
+          "art": "story-room",
+          "motif": "window"
+        },
+        {
+          "id": "hearing",
+          "name": "Hearing Chamber",
+          "description": "A microphone faces the council's sealed demolition order. Residents gather outside.",
+          "art": "story-room",
+          "motif": "none"
+        }
+      ],
+      "items": {
+        "pass": {
+          "name": "Stacks pass",
+          "icon": "story-key"
+        },
+        "fragment": {
+          "name": "Torn register fragment"
+        },
+        "rubbing": {
+          "name": "Cabinet impression"
+        },
+        "tissue": {
+          "name": "Archival tissue"
+        },
+        "evidence": {
+          "name": "Restored register"
+        },
+        "boundary": {
+          "name": "Boundary survey copy"
+        }
+      },
+      "actions": [
+        {
+          "id": "ask-iva",
+          "label": "Iva: ask for help",
+          "room": "reading-room",
+          "text": "Iva admits she hid the register from a former director. She gives you her stacks pass and says the cabinet code is impressed on the old chart.",
+          "add": [
+            "pass"
+          ],
+          "flags": [
+            "trust"
+          ],
+          "once": "approached",
+          "journal": "The filing chart bears a cabinet impression."
+        },
+        {
+          "id": "challenge-iva",
+          "label": "Iva: challenge the silence",
+          "room": "reading-room",
+          "text": "Iva says the director ordered the register concealed. She gives you her stacks pass, ashamed she obeyed. Look for an impression on the filing chart, she says.",
+          "add": [
+            "pass"
+          ],
+          "flags": [
+            "confronted"
+          ],
+          "once": "approached",
+          "journal": "The filing chart bears a cabinet impression."
+        },
+        {
+          "id": "enter-stacks",
+          "label": "Enter the closed stacks",
+          "room": "reading-room",
+          "items": [
+            "pass"
+          ],
+          "move": "stacks",
+          "text": "The pass opens the gate."
+        },
+        {
+          "id": "to-reading",
+          "label": "Return to the reading room",
+          "room": "stacks",
+          "move": "reading-room",
+          "text": "You return to the catalogue."
+        },
+        {
+          "id": "chart",
+          "label": "Examine the filing chart",
+          "room": "stacks",
+          "text": "The chart says the river plants are filed by their four-letter name. Pressure marks spell REED; make a rubbing to read the setting at the cabinet.",
+          "flags": [
+            "chart-seen"
+          ],
+          "journal": "Set the cabinet to REED."
+        },
+        {
+          "id": "take-rubbing",
+          "label": "Make a rubbing of the chart",
+          "room": "stacks",
+          "require": [
+            "chart-seen"
+          ],
+          "text": "Using a scrap from the chart's edge, you copy the marks.",
+          "add": [
+            "rubbing"
+          ],
+          "once": "rubbed"
+        },
+        {
+          "id": "open-cabinet",
+          "label": "Set the cabinet to REED",
+          "room": "stacks",
+          "items": [
+            "rubbing"
+          ],
+          "text": "The cabinet clicks open. Inside is a water-damaged fragment listing the river quarter's families.",
+          "add": [
+            "fragment"
+          ],
+          "once": "cabinet-open",
+          "journal": "The fragment needs careful repair before it can be submitted."
+        },
+        {
+          "id": "survey-index",
+          "label": "Inspect the survey index",
+          "room": "stacks",
+          "text": "A note cross-references the river trust to survey 14, filed in the bindery under maps. A name alone will not prove the boundary.",
+          "flags": [
+            "survey-clue"
+          ],
+          "journal": "Survey 14 in the bindery connects the trust to the river boundary."
+        },
+        {
+          "id": "to-bindery",
+          "label": "Go to the bindery",
+          "room": "stacks",
+          "move": "bindery",
+          "text": "You carry the evidence to the worktable."
+        },
+        {
+          "id": "to-stacks",
+          "label": "Return to the stacks",
+          "room": "bindery",
+          "move": "stacks",
+          "text": "You return between the shelves."
+        },
+        {
+          "id": "find-survey",
+          "label": "Find survey 14 among the maps",
+          "room": "bindery",
+          "require": [
+            "survey-clue"
+          ],
+          "add": [
+            "boundary"
+          ],
+          "once": "survey-found",
+          "text": "Survey 14 bears the trust seal and outlines the quarter in the demolition order. You copy it for the hearing.",
+          "journal": "Survey 14 independently identifies the threatened land as trust property."
+        },
+        {
+          "id": "take-tissue",
+          "label": "Take archival tissue",
+          "room": "bindery",
+          "text": "The thin tissue can support fragile paper without obscuring the ink.",
+          "add": [
+            "tissue"
+          ],
+          "once": "tissue-taken"
+        },
+        {
+          "id": "restore",
+          "label": "Repair the fragment with tissue",
+          "room": "bindery",
+          "items": [
+            "fragment",
+            "tissue"
+          ],
+          "consume": [
+            "fragment",
+            "tissue"
+          ],
+          "add": [
+            "evidence"
+          ],
+          "once": "restored",
+          "text": "You support the fragile sheet with tissue. It names the river community land trust, but a separate boundary survey would connect that trust to the threatened land.",
+          "journal": "The register proves the land belongs to a community trust."
+        },
+        {
+          "id": "to-hearing",
+          "label": "Enter the hearing chamber",
+          "room": "reading-room",
+          "move": "hearing",
+          "text": "The hearing is about to begin."
+        },
+        {
+          "id": "from-hearing",
+          "label": "Return to the reading room",
+          "room": "hearing",
+          "move": "reading-room",
+          "text": "There is still time to search."
+        },
+        {
+          "id": "ask-residents",
+          "label": "Ask residents about the names",
+          "room": "hearing",
+          "text": "The residents disagree about publicity. Their advocate explains that a redacted public claim can expose the land record while withholding family names; the full register must still be filed under seal.",
+          "flags": [
+            "consent-heard"
+          ],
+          "journal": "A redacted claim and a sealed register are a third option; residents disagree on publicity."
+        },
+        {
+          "id": "compare-records",
+          "label": "Compare the register with survey 14",
+          "room": "hearing",
+          "items": [
+            "evidence",
+            "boundary"
+          ],
+          "flags": [
+            "corroborated"
+          ],
+          "once": "compared",
+          "text": "The seal and boundary match. The advocate can now distinguish the trust claim from an unsupported list of names.",
+          "journal": "The restored register and survey 14 corroborate the trust claim."
+        },
+        {
+          "id": "public-record",
+          "label": "Submit the register publicly",
+          "room": "hearing",
+          "items": [
+            "evidence",
+            "boundary"
+          ],
+          "consume": [
+            "evidence",
+            "boundary"
+          ],
+          "once": "finished",
+          "flags": [
+            "victory",
+            "public"
+          ],
+          "text": "Despite some residents’ reservations, you read the names aloud. The council suspends demolition pending a hearing; the exposed families cannot take their names back. Iva adds her account to the public record.",
+          "journal": "The names are public, despite disagreement; the community has time to defend its land.",
+          "require": [
+            "corroborated",
+            "consent-heard"
+          ]
+        },
+        {
+          "id": "redacted-record",
+          "label": "Publish the boundary, seal the names",
+          "room": "hearing",
+          "require": [
+            "corroborated",
+            "consent-heard"
+          ],
+          "items": [
+            "evidence",
+            "boundary"
+          ],
+          "consume": [
+            "evidence",
+            "boundary"
+          ],
+          "once": "finished",
+          "flags": [
+            "victory",
+            "redacted"
+          ],
+          "text": "The advocate files the full register under seal and publishes the survey and a redacted claim. The council suspends demolition pending a hearing. The public sees the boundary, but must trust the sealed evidence.",
+          "journal": "The boundary is public; the names remain sealed, and the claim still awaits a hearing."
+        },
+        {
+          "id": "private-record",
+          "label": "Give the register to the residents' advocate",
+          "room": "hearing",
+          "items": [
+            "evidence",
+            "boundary"
+          ],
+          "consume": [
+            "evidence",
+            "boundary"
+          ],
+          "once": "finished",
+          "flags": [
+            "victory",
+            "private"
+          ],
+          "text": "The advocate files the deed under seal at the residents' request. The council suspends demolition; the families will choose when to tell their story.",
+          "journal": "The claim is protected and the residents retain control of their names.",
+          "require": [
+            "corroborated",
+            "consent-heard"
+          ]
+        }
+      ],
+      "victory": {
+        "flag": "victory",
+        "title": "The record survives",
+        "epilogue": "The demolition is suspended pending a hearing. The record of your decision remains below and in the journal."
+      }
+    }
+  }
 ]

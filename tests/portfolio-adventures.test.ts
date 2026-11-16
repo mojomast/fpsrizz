@@ -35,50 +35,66 @@ function fixture() {
   return { host, service, action, route, rejected };
 }
 
-test('The Quiet Index recovers evidence and supports both public and private outcomes', async () => {
+test('The Quiet Index recovers evidence and supports three evidence-disclosure outcomes', async () => {
   const f = fixture();
   await f.host.apply(archivePreset);
   f.rejected('enter-stacks');
   f.route(['ask-iva', 'enter-stacks']);
   f.rejected('open-cabinet');
-  f.route(['chart', 'take-rubbing', 'open-cabinet', 'to-bindery']);
+  f.route(['chart', 'take-rubbing', 'open-cabinet', 'survey-index', 'to-bindery']);
   f.rejected('restore');
   assert.ok(f.service().state().inventory.includes('fragment'));
-  f.route(['take-tissue', 'restore']);
+  f.route(['find-survey', 'take-tissue', 'restore']);
   assert.ok(f.service().state().inventory.includes('evidence'));
   assert.equal(f.service().state().inventory.includes('fragment'), false);
-  f.route(['to-stacks', 'to-reading', 'to-hearing', 'public-record']);
+  f.route(['to-stacks', 'to-reading', 'to-hearing', 'ask-residents', 'compare-records', 'public-record']);
   assert.equal(f.service().state().completed, true);
   assert.ok(f.service().state().flags.includes('public'));
   f.rejected('private-record');
   await f.host.restart();
   assert.equal(f.service().state().room, 'reading-room');
-  f.route(['challenge-iva', 'enter-stacks', 'chart', 'take-rubbing', 'open-cabinet', 'to-bindery', 'take-tissue', 'restore', 'to-stacks', 'to-reading', 'to-hearing', 'private-record']);
+  f.route(['challenge-iva', 'enter-stacks', 'chart', 'take-rubbing', 'open-cabinet', 'survey-index', 'to-bindery', 'find-survey', 'take-tissue', 'restore', 'to-stacks', 'to-reading', 'to-hearing', 'ask-residents', 'compare-records', 'private-record']);
   assert.equal(f.service().state().completed, true);
   assert.ok(f.service().state().flags.includes('private'));
   assert.ok(f.service().state().flags.includes('confronted'));
+  await f.host.restart();
+  f.route(['ask-iva', 'enter-stacks', 'chart', 'take-rubbing', 'open-cabinet', 'survey-index', 'to-bindery', 'find-survey', 'take-tissue', 'restore', 'to-stacks', 'to-reading', 'to-hearing']);
+  f.rejected('redacted-record');
+  f.route(['ask-residents', 'compare-records', 'redacted-record']);
+  assert.ok(f.service().state().completed);
+  assert.ok(f.service().state().flags.includes('redacted'));
+  assert.match(f.service().state().message, /under seal/);
+  f.rejected('public-record');
   await f.host.stop();
 });
 
-test('The Night Orchard prepares a cutting and offers two distinct specialist outcomes', async () => {
+test('The Night Orchard prepares a cutting and offers three distinct care outcomes', async () => {
   const f = fixture();
   await f.host.apply(orchardPreset);
   f.route(['to-cryo']);
   f.rejected('wake-sen');
   f.route(['cryo-return', 'to-cistern']);
   f.rejected('take-filter');
-  f.route(['diagram', 'take-filter', 'filter-water', 'cistern-return', 'to-nursery']);
+  f.route(['diagram', 'take-filter']);
+  f.rejected('filter-water');
+  f.route(['inspect-salinity', 'filter-water', 'cistern-return', 'to-nursery']);
   f.rejected('prepare');
   assert.ok(f.service().state().inventory.includes('water'));
   f.route(['manual', 'take-knife', 'nursery-return', 'cut-shoot', 'to-nursery', 'prepare']);
   assert.equal(f.service().state().inventory.includes('water'), false);
-  f.route(['nursery-return', 'to-cryo', 'wake-sen']);
+  f.route(['nursery-return', 'to-cryo', 'specialist-logs', 'wake-sen']);
   assert.equal(f.service().state().completed, true);
   assert.ok(f.service().state().flags.includes('botanist'));
   f.rejected('wake-sol');
   await f.host.restart();
-  f.route(['to-nursery', 'manual', 'take-knife', 'nursery-return', 'cut-shoot', 'to-cistern', 'diagram', 'take-filter', 'filter-water', 'cistern-return', 'to-nursery', 'prepare', 'nursery-return', 'to-cryo', 'wake-sol']);
+  f.route(['to-nursery', 'manual', 'take-knife', 'nursery-return', 'cut-shoot', 'to-cistern', 'diagram', 'take-filter', 'inspect-salinity', 'filter-water', 'cistern-return', 'to-nursery', 'prepare', 'nursery-return', 'to-cryo', 'specialist-logs', 'wake-sol']);
   assert.equal(f.service().state().completed, true);
   assert.ok(f.service().state().flags.includes('engineer'));
+  await f.host.restart();
+  f.route(['power-log', 'to-cistern', 'diagram', 'bypass', 'take-filter', 'inspect-salinity', 'filter-water', 'cistern-return', 'to-nursery', 'manual', 'take-knife', 'nursery-return', 'cut-shoot', 'to-nursery', 'prepare', 'nursery-return', 'to-cryo', 'specialist-logs', 'keep-watch']);
+  assert.ok(f.service().state().completed);
+  assert.ok(f.service().state().flags.includes('watch'));
+  assert.match(f.service().state().message, /continued care/);
+  f.rejected('wake-sen');
   await f.host.stop();
 });

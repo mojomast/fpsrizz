@@ -32,3 +32,4 @@ export * from './contracts/room-map.ts';
 export * from './contracts/metroidvania.ts';
 export * from './contracts/outcome-rating.ts';
 export * from './contracts/portfolio-cards.ts';
+export * from './contracts/hints.ts';

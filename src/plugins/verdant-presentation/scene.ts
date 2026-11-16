@@ -1,3 +1,4 @@
+import { ThemeRole } from '../../sdk/index.ts';
 import type { SessionContext, VerdantService } from '../../sdk/index.ts';
 import { THREE } from '../../sdk/render.ts';
 import type { RenderService } from '../../sdk/render.ts';
@@ -24,6 +25,8 @@ export function createScene(ctx: SessionContext, render: RenderService, game: Ve
   const water = mat(0x579e9b), earth = mat(0x617c64), grass = mat(0x9bb982);
   const ivory = mat(0xe8e3ca), dark = mat(0x365b50), leaf = mat(0x5fa967);
   const gold = mat(0xe7b95e), off = mat(0x657a70), on = mat(0xa4f5a0);
+  const painter = ctx.role(ThemeRole)?.provider.textures['puzzle-floor'];
+  const islandTop = painter ? render.own(ctx, new THREE.MeshStandardMaterial({ map: render.texture(ctx, 'verdant/island-floor', painter), color: 0xb8d9a6, roughness: 0.9 })) : grass;
   const selectorMaterial = render.own(ctx, new THREE.MeshBasicMaterial({ color: 0xffef9b }));
   const mesh = (geo: THREE.BufferGeometry, material: THREE.Material, x: number, y: number, z: number,
     sx: number, sy: number, sz: number, parent: THREE.Object3D = root) => {
@@ -40,7 +43,7 @@ export function createScene(ctx: SessionContext, render: RenderService, game: Ve
     island.position.set(station.x, 0, station.z);
     root.add(island);
     const ground = mesh(cylinder, earth, 0, -0.38, 0, 2.25, 1.05, 1.85, island);
-    const top = mesh(cylinder, grass, 0, 0.16, 0, 2.18, 0.18, 1.78, island);
+    const top = mesh(cylinder, islandTop, 0, 0.16, 0, 2.18, 0.18, 1.78, island);
     ground.userData.station = station.id;
     top.userData.station = station.id;
     islands.push(ground, top);

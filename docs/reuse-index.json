@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "086260fd012c7674b40e0b28bd21d4636732f6823fd3d1644f34380610cb87da",
+  "sourceDigest": "6517d4e002105a2bba47bf5a8fcc50145bb8d7a459f333ecb3fd4a826dcf8cc5",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -7041,6 +7041,108 @@
       ]
     },
     {
+      "id": "mechanics/hints",
+      "type": "plugin",
+      "name": "Hint reveal ledger",
+      "scope": "cross-genre",
+      "summary": "Owned independent ordered reveal levels with explicit per-topic reset.",
+      "source": "src/plugins/mechanics-hints",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "hints",
+        "assist",
+        "reveal",
+        "graduated",
+        "reset",
+        "ledger"
+      ],
+      "entryPoints": [
+        "HintProviders",
+        "HintMechanicRole",
+        "hintMechanic"
+      ],
+      "useWhen": "Track how many hints have been requested independently for consumer-selected topics.",
+      "limitations": [
+        "The consumer owns hint text, ordering, eligibility, persistence and context-change policy; no automatic reveal or game rules."
+      ],
+      "docs": [
+        "docs/portfolio-assist.md",
+        "src/plugins/mechanics-hints/README.md"
+      ],
+      "examples": [
+        "src/plugins/portfolio-assist/index.ts"
+      ],
+      "tests": [
+        "tests/portfolio-assist.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "mechanics/hints"
+      ],
+      "registrations": [
+        {
+          "kind": "mechanic-hint-provider",
+          "id": "mechanics/hints",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/mechanic-hints",
+          "id": "mechanics/hints",
+          "description": "Consumer-local ordered reveal levels and reset"
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/atelier-puzzle",
+          "name": "The Counterweight Atelier",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
+          }
+        },
+        {
+          "id": "portfolio/watch-puzzle",
+          "name": "The Watchman's Run",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
+          }
+        },
+        {
+          "id": "portfolio-cards/ash",
+          "name": "Ash & Ink",
+          "roles": {
+            "sdk/experience": "portfolio-cards/ash",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
+          }
+        },
+        {
+          "id": "portfolio-cards/cloud",
+          "name": "Cloud Cartographer",
+          "roles": {
+            "sdk/experience": "portfolio-cards/cloud",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
       "id": "mechanics/inventory",
       "type": "plugin",
       "name": "Stack inventory",
@@ -7386,7 +7488,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         },
         {
@@ -7395,7 +7498,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         },
         {
@@ -8260,7 +8364,8 @@
           "name": "Ash & Ink",
           "roles": {
             "sdk/experience": "portfolio-cards/ash",
-            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         }
       ],
@@ -8316,7 +8421,8 @@
           "name": "Cloud Cartographer",
           "roles": {
             "sdk/experience": "portfolio-cards/cloud",
-            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         }
       ],
@@ -8389,7 +8495,8 @@
           "name": "Ash & Ink",
           "roles": {
             "sdk/experience": "portfolio-cards/ash",
-            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         },
         {
@@ -8397,7 +8504,8 @@
           "name": "Cloud Cartographer",
           "roles": {
             "sdk/experience": "portfolio-cards/cloud",
-            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         }
       ],
@@ -8447,7 +8555,8 @@
           "name": "Ash & Ink",
           "roles": {
             "sdk/experience": "portfolio-cards/ash",
-            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         },
         {
@@ -8455,7 +8564,8 @@
           "name": "Cloud Cartographer",
           "roles": {
             "sdk/experience": "portfolio-cards/cloud",
-            "sdk/portfolio-card-piles": "portfolio-cards/piles"
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         }
       ],
@@ -8516,6 +8626,98 @@
       "recipes": []
     },
     {
+      "id": "portfolio/assist",
+      "type": "plugin",
+      "name": "Portfolio assist",
+      "scope": "presentation",
+      "summary": "Optional on-demand contextual assistance for public card and puzzle services.",
+      "source": "src/plugins/portfolio-assist",
+      "version": "1.0.0",
+      "sdk": "^2.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "assist",
+        "hints",
+        "cards",
+        "puzzle",
+        "accessibility"
+      ],
+      "entryPoints": [
+        "PortfolioCards",
+        "PushPuzzle",
+        "hintMechanic"
+      ],
+      "useWhen": "Add requested-only hints to supported portfolio card or push-puzzle compositions.",
+      "limitations": [
+        "Presentation-specific heuristics are limited to existing card summaries and puzzle campaign/state; no solver or gameplay mutation."
+      ],
+      "docs": [
+        "docs/portfolio-assist.md",
+        "src/plugins/portfolio-assist/README.md"
+      ],
+      "examples": [
+        "src/plugins/portfolio-assist/index.ts"
+      ],
+      "tests": [
+        "tests/portfolio-assist.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [
+        "sdk/mechanic-hints"
+      ],
+      "config": {},
+      "enable": [
+        "portfolio/assist"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "portfolio/atelier-puzzle",
+          "name": "The Counterweight Atelier",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
+          }
+        },
+        {
+          "id": "portfolio/watch-puzzle",
+          "name": "The Watchman's Run",
+          "roles": {
+            "sdk/experience": "puzzle/stonewake",
+            "sdk/theme": "theme/board",
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
+          }
+        },
+        {
+          "id": "portfolio-cards/ash",
+          "name": "Ash & Ink",
+          "roles": {
+            "sdk/experience": "portfolio-cards/ash",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
+          }
+        },
+        {
+          "id": "portfolio-cards/cloud",
+          "name": "Cloud Cartographer",
+          "roles": {
+            "sdk/experience": "portfolio-cards/cloud",
+            "sdk/portfolio-card-piles": "portfolio-cards/piles",
+            "sdk/mechanic-hints": "mechanics/hints"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
       "id": "portfolio/atelier-puzzle",
       "type": "plugin",
       "name": "The Counterweight Atelier",
@@ -8564,7 +8766,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         }
       ],
@@ -8986,7 +9189,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         }
       ],
@@ -9336,7 +9540,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         },
         {
@@ -9345,7 +9550,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         }
       ],
@@ -9448,7 +9654,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         },
         {
@@ -9457,7 +9664,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         }
       ],
@@ -10359,7 +10567,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         },
         {
@@ -10368,7 +10577,8 @@
           "roles": {
             "sdk/experience": "puzzle/stonewake",
             "sdk/theme": "theme/board",
-            "sdk/mechanic-navigation": "mechanics/navigation"
+            "sdk/mechanic-navigation": "mechanics/navigation",
+            "sdk/mechanic-hints": "mechanics/hints"
           }
         },
         {
@@ -12684,6 +12894,93 @@
       "implementations": []
     },
     {
+      "id": "sdk/hintMechanic",
+      "type": "contract",
+      "name": "hintMechanic",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/hints.ts:22",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "hintMechanic"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/hints",
+        "portfolio/assist"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/HintMechanicRole",
+      "type": "contract",
+      "name": "HintMechanicRole",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/mechanic-hints",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/mechanic-hints",
+      "source": "src/sdk/contracts/hints.ts:21",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "HintMechanicRole",
+        "sdk/mechanic-hints"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/hints"
+      ],
+      "recipes": [],
+      "implementations": [
+        "mechanics/hints"
+      ]
+    },
+    {
+      "id": "sdk/HintProviders",
+      "type": "contract",
+      "name": "HintProviders",
+      "scope": "contract",
+      "summary": "Public SDK value: mechanic-hint-provider",
+      "importFrom": "src/sdk/index.ts",
+      "token": "mechanic-hint-provider",
+      "source": "src/sdk/contracts/hints.ts:20",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "HintProviders",
+        "mechanic-hint-provider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "mechanics/hints"
+      ],
+      "recipes": [],
+      "implementations": [
+        "mechanics/hints"
+      ]
+    },
+    {
       "id": "sdk/HudRole",
       "type": "contract",
       "name": "HudRole",
@@ -14051,7 +14348,9 @@
       "limitations": [
         "Rendering SDK imports require the render manifest capability."
       ],
-      "documentedBy": [],
+      "documentedBy": [
+        "portfolio/assist"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -14244,6 +14543,7 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [
+        "portfolio/assist",
         "puzzle/rules"
       ],
       "recipes": [],
@@ -16350,12 +16650,15 @@
         "puzzle/rules",
         "puzzle/presentation",
         "portfolio/atelier-puzzle",
-        "theme/board"
+        "theme/board",
+        "mechanics/hints",
+        "portfolio/assist"
       ],
       "roles": {
         "sdk/experience": "puzzle/stonewake",
         "sdk/theme": "theme/board",
-        "sdk/mechanic-navigation": "mechanics/navigation"
+        "sdk/mechanic-navigation": "mechanics/navigation",
+        "sdk/mechanic-hints": "mechanics/hints"
       }
     },
     {
@@ -16366,12 +16669,15 @@
         "puzzle/rules",
         "puzzle/presentation",
         "portfolio/watch-puzzle",
-        "theme/board"
+        "theme/board",
+        "mechanics/hints",
+        "portfolio/assist"
       ],
       "roles": {
         "sdk/experience": "puzzle/stonewake",
         "sdk/theme": "theme/board",
-        "sdk/mechanic-navigation": "mechanics/navigation"
+        "sdk/mechanic-navigation": "mechanics/navigation",
+        "sdk/mechanic-hints": "mechanics/hints"
       }
     },
     {
@@ -16526,11 +16832,14 @@
       "plugins": [
         "portfolio-cards/piles",
         "portfolio-cards/ash",
-        "portfolio-cards/presentation"
+        "portfolio-cards/presentation",
+        "mechanics/hints",
+        "portfolio/assist"
       ],
       "roles": {
         "sdk/experience": "portfolio-cards/ash",
-        "sdk/portfolio-card-piles": "portfolio-cards/piles"
+        "sdk/portfolio-card-piles": "portfolio-cards/piles",
+        "sdk/mechanic-hints": "mechanics/hints"
       }
     },
     {
@@ -16539,11 +16848,14 @@
       "plugins": [
         "portfolio-cards/piles",
         "portfolio-cards/cloud",
-        "portfolio-cards/presentation"
+        "portfolio-cards/presentation",
+        "mechanics/hints",
+        "portfolio/assist"
       ],
       "roles": {
         "sdk/experience": "portfolio-cards/cloud",
-        "sdk/portfolio-card-piles": "portfolio-cards/piles"
+        "sdk/portfolio-card-piles": "portfolio-cards/piles",
+        "sdk/mechanic-hints": "mechanics/hints"
       }
     }
   ]

@@ -34,6 +34,11 @@ it can import data packs.
 examples and scope limits. See [REUSE.md](REUSE.md) and [the generated inventory](REUSE_INDEX.md). This authoring tool
 observes isolated default registrations, without activating sessions; it does not replace preset validation.
 
+Each bundled plugin's directory includes a `README.md` describing its purpose, composition, relevant contracts,
+verification and limits. Start there for a concrete provider or content pack, then consult its manifest, linked family
+guide and current SDK declarations for the authoritative details. Role selection and enabling the provider are
+separate steps; validate the complete composition with `npm run validate-game -- --bundled`.
+
 ## 2. Anatomy
 
 ```
@@ -42,6 +47,7 @@ src/plugins/my-plugin/
   index.ts          # default export: definePlugin({ register, activate })
   content.json      # optional: declarative content entries shipped with the plugin
   reuse.json        # optional: authoring-only capability/scope/examples metadata; not a runtime manifest field
+  README.md         # purpose, composition, public interfaces, verification and limits
 ```
 
 ### manifest.json (schema 1)

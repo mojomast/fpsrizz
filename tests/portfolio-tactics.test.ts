@@ -38,6 +38,12 @@ test('Glasshouse breach: walls force a central approach, then the squad clears t
   };
   assert.equal(t.forecast('fern', 'thorn').legal, false);
   assert.equal(t.reachable('fern').some(p => p.x === 4 && p.y === 2), false);
+  run({ type: 'move', unit: 'fern', x: 4, y: 2 });
+  assert.equal(t.state.message, 'Destination unreachable.');
+  assert.equal(t.state.units.find(u => u.id === 'fern')!.ap, 2);
+  run({ type: 'attack', unit: 'fern', target: 'thorn' });
+  assert.equal(t.state.message, 'Line of sight blocked');
+  assert.equal(t.state.units.find(u => u.id === 'fern')!.ap, 2);
   run({ type: 'move', unit: 'fern', x: 3, y: 3 });
   assert.equal(t.state.units.find(u => u.id === 'fern')!.ap, 1);
   run({ type: 'attack', unit: 'fern', target: 'warden' });
@@ -57,7 +63,10 @@ test('Glasshouse breach: walls force a central approach, then the squad clears t
   assert.equal(t.state.outcome, 'victory');
   assert.equal(t.enqueue({ id: 'late', type: 'end-turn' }), false);
   await game.host.restart();
-  assert.equal(game.session().services.get(Tactics).state.outcome, 'playing');
+  const restarted = game.session().services.get(Tactics);
+  assert.equal(restarted.state.outcome, 'playing');
+  assert.equal(restarted.state.turn, 1);
+  assert.deepEqual(restarted.state.units, restarted.state.mission.units);
   await game.host.stop();
 });
 
@@ -89,5 +98,10 @@ test('Salt Flats crossfire: cover and surrounding opponents change the opening p
   attack('dune', 'east');
   attack('dune', 'east');
   assert.equal(t.state.outcome, 'victory');
+  await game.host.restart();
+  const restarted = game.session().services.get(Tactics);
+  assert.equal(restarted.state.turn, 1);
+  assert.equal(restarted.state.outcome, 'playing');
+  assert.deepEqual(restarted.state.units, restarted.state.mission.units);
   await game.host.stop();
 });

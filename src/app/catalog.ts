@@ -143,6 +143,8 @@ import portfolioVerdantContent from '../plugins/portfolio-verdant-resource/conte
 import portfolioSkyPreset from '../content/presets/portfolio-sky-resource.json' with { type: 'json' };
 import portfolioVerdantPreset from '../content/presets/portfolio-verdant-resource.json' with { type: 'json' };
 import outcomeRating from '../plugins/mechanics-outcome-rating/manifest.json' with { type: 'json' };
+import mechanicHints from '../plugins/mechanics-hints/manifest.json' with { type: 'json' };
+import portfolioAssist from '../plugins/portfolio-assist/manifest.json' with { type: 'json' };
 import portfolioBreach from '../plugins/portfolio-breach-tactics/manifest.json' with { type: 'json' };
 import portfolioBreachContent from '../plugins/portfolio-breach-tactics/content.json' with { type: 'json' };
 import portfolioCrossfire from '../plugins/portfolio-crossfire-tactics/manifest.json' with { type: 'json' };
@@ -169,6 +171,8 @@ export const catalog: CatalogEntry[] = [
   { manifest: portfolioSkyPack, content: portfolioSkyContent },
   { manifest: portfolioVerdantPack, content: portfolioVerdantContent },
   { manifest: outcomeRating, load: () => import('../plugins/mechanics-outcome-rating/index.ts') },
+  { manifest: mechanicHints, load: () => import('../plugins/mechanics-hints/index.ts') },
+  { manifest: portfolioAssist, load: () => import('../plugins/portfolio-assist/index.ts') },
   { manifest: portfolioBreach, content: portfolioBreachContent },
   { manifest: portfolioCrossfire, content: portfolioCrossfireContent },
   { manifest: portfolioArchive, content: portfolioArchiveContent },

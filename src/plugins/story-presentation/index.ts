@@ -45,6 +45,9 @@ export default definePlugin({
     const roomDescription = node('p', '', sceneContent);
     const actions = node('div', 'story-actions', sceneContent);
     actions.setAttribute('data-testid', 'story-actions');
+    actions.setAttribute('role', 'group');
+    actions.setAttribute('aria-label', 'Actions in this location');
+    roomName.tabIndex = -1;
     const side = node('aside', 'story-side', wrap);
     node('h2', '', side, 'Your satchel');
     const inventory = node('ul', '', side);
@@ -65,6 +68,7 @@ export default definePlugin({
       button.addEventListener('click', () => send({ type }));
     }
     const narrative = node('section', 'story-narrative', wrap);
+    wrap.insertBefore(narrative, side);
     narrative.setAttribute('aria-live', 'polite');
     if (adventure.chapter.portrait && theme?.textures[adventure.chapter.portrait]) {
       const canvas = doc.createElement('canvas');
@@ -78,6 +82,7 @@ export default definePlugin({
     const completion = node('section', 'story-completion', narrative);
     completion.dataset.testid = 'story-completion';
     node('h3', '', completion, adventure.chapter.victory.title);
+    const outcome = node('p', 'story-outcome', completion);
     node('p', '', completion, adventure.chapter.victory.epilogue);
     completion.hidden = true;
     ctx.events.on(AdventureActionResolved, result => {
@@ -104,6 +109,9 @@ export default definePlugin({
         message.textContent = state.message;
         message.classList.toggle('story-win', state.completed);
         completion.hidden = !state.completed;
+        const ending = adventure.chapter.actions.find(action => action.flags?.includes(adventure.chapter.victory.flag) &&
+          action.flags.every(flag => state.flags.includes(flag)) && (!action.once || state.flags.includes(action.once)));
+        outcome.textContent = ending?.text ?? '';
         inventory.replaceChildren();
         for (const item of state.inventory) {
           const li = node('li', '', inventory);
@@ -122,7 +130,9 @@ export default definePlugin({
         journal.replaceChildren();
         for (const entry of state.journal) node('li', '', journal, entry);
         if (!state.journal.length) node('li', '', journal, 'No clues recorded yet.');
+        const focusedAction = actions.contains(doc.activeElement) ? (doc.activeElement as HTMLElement).dataset.testid : undefined;
         actions.replaceChildren();
+        let restoredFocus = false;
         for (const action of adventure.chapter.actions.filter(x => x.room === state.room && (!x.once || !state.flags.includes(x.once)))) {
           const ready = !(action.require?.some(x => !state.flags.includes(x)) || action.missing?.some(x => state.flags.includes(x)) ||
             action.items?.some(x => !state.inventory.includes(x)) || action.add?.some(x => state.inventory.includes(x)));
@@ -131,14 +141,17 @@ export default definePlugin({
           button.dataset.testid = `story-action-${action.id}`;
           if (!ready) {
             button.setAttribute('aria-disabled', 'true');
-            button.title = 'You need another clue or item first.';
+            const missingItems = action.items?.filter(x => !state.inventory.includes(x)).map(x => adventure.chapter.items[x]?.name ?? x) ?? [];
+            button.title = missingItems.length ? `Needed: ${missingItems.join(', ')}. Other clues may also be needed.` : 'Another clue or condition is needed first.';
           }
           button.addEventListener('click', () => {
             if (ctx.services.tryGet(SessionControl)?.playing === false) return;
-            if (!ready) { message.textContent = 'You need another clue or item first.'; return; }
+            if (!ready) { message.textContent = button.title; return; }
             send({ type: 'action', id: action.id });
           });
+          if (focusedAction === button.dataset.testid) { button.focus(); restoredFocus = true; }
         }
+        if (focusedAction && !restoredFocus) roomName.focus();
       },
     });
   },

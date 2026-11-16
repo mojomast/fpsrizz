@@ -20,6 +20,7 @@ export default definePlugin({
       root.innerHTML = `
         <header class="puzzle-head"><div><div class="puzzle-eyebrow">An expedition in chalk & timber</div><h1></h1><p>The sleeping ruins · A 3D escape puzzle</p></div><div class="puzzle-edition">THINK. PUSH. ESCAPE.<br><span data-label="edition"></span></div></header>
         <div class="puzzle-mobile-goal"></div>
+        <details class="puzzle-field-guide"><summary>Hint &amp; accessible board</summary><p data-label="field-hint"></p><p>North is up. # wall, . floor, O plate, B boulder, * weighted plate, G golem, P explorer, E exit.</p><pre data-label="board-map" aria-label="Board map"></pre></details>
         <aside class="puzzle-side" aria-label="Chamber objectives">
           <div class="puzzle-eyebrow" data-label="chapter"></div><h2 data-label="chamber"></h2>
           <div class="puzzle-stats"><div><strong data-label="turns">0</strong><small>Steps</small></div><div><strong data-label="pushes">0</strong><small>Pushes</small></div><div><strong data-label="par">10</strong><small>Target</small></div></div>
@@ -59,6 +60,13 @@ export default definePlugin({
         label('beat', s.golems.length ? `${2 - s.turns % 2} ${s.turns % 2 ? 'step' : 'steps'} until they move` : 'The ruins are sleeping');
         label('watch', s.golems.length ? `${s.golems.length} ${s.golems.length === 1 ? 'golem is' : 'golems are'} hunting you` : 'Explore at your own pace');
         label('hint', level.hint);
+        label('field-hint', level.hint);
+        label('board-map', level.rows.map((row, y) => [...row].map((tile, x) => {
+          if (s.player.x === x && s.player.y === y) return 'P';
+          if (s.golems.some(p => p.x === x && p.y === y)) return 'G';
+          if (s.rocks.some(p => p.x === x && p.y === y)) return tile === 'O' ? '*' : 'B';
+          return tile;
+        }).join(' ')).join('\n'));
         root.querySelector('.puzzle-watch')!.classList.toggle('imminent', !!s.golems.length && s.turns % 2 === 1);
         const image = root.querySelector<HTMLImageElement>('.puzzle-watch img')!;
         const src = s.golems.length ? golemArt : explorerArt;
@@ -78,7 +86,7 @@ export default definePlugin({
             : `${level.name}: ${s.turns} steps, ${s.pushes} pushes. ${s.turns <= level.par ? 'Within the expedition target.' : `Target: ${level.par} steps. Try a tighter route, or continue.`}`);
         result.querySelector<HTMLElement>('[data-command="next"]')!.hidden = s.status !== 'cleared' || last;
         result.querySelector<HTMLElement>('[data-command="replay"]')!.hidden = s.status !== 'cleared' || !last;
-        label('board-description', `Explorer column ${s.player.x + 1}, row ${s.player.y + 1}. Boulders: ${s.rocks.map(p => `${p.x + 1},${p.y + 1}`).join('; ')}. Golems: ${s.golems.map(p => `${p.x + 1},${p.y + 1}`).join('; ') || 'none'}.`);
+        label('board-description', `Explorer column ${s.player.x + 1}, row ${s.player.y + 1}. Boulders: ${s.rocks.map(p => `${p.x + 1},${p.y + 1}`).join('; ')}. Golems: ${s.golems.map(p => `${p.x + 1},${p.y + 1}`).join('; ') || 'none'}. ${count} of ${plates.length} plates weighted. ${count === plates.length ? 'Gate open.' : 'Gate closed.'}`);
         if (wasHidden && !result.hidden && allowed()) result.querySelector<HTMLButtonElement>('button:not([hidden]):not(:disabled)')?.focus({ preventScroll: true });
         if (!wasHidden && result.hidden && root.contains(document.activeElement) && result.contains(document.activeElement)) root.querySelector<HTMLButtonElement>('[data-direction="north"]')?.focus({ preventScroll: true });
       };

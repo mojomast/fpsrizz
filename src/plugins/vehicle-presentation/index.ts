@@ -99,6 +99,7 @@ export default definePlugin({
           );
       }
       if (theme?.textures['race-backdrop']) box(17, 0.04, 9.5, 0x77839e, centerX, 0, centerZ, 0, root, 'race-backdrop');
+      if (theme?.textures['race-vehicle-badge']) box(6, 0.04, 4.5, 0xffffff, centerX, 0.04, centerZ + 7, 0, root, 'race-vehicle-badge');
       const markers = race.track.gates.map((g, i) => {
         const group = new THREE.Group();
         root.add(group);
@@ -151,50 +152,52 @@ export default definePlugin({
     if (ui) {
       ui.addStyles(
         ctx,
-        `.vehicle-hud {
-          position: absolute; inset: 0; pointer-events: none; color: #fff;
-          font-family: system-ui, sans-serif; text-transform: uppercase; text-shadow: 0 2px 12px #00b8dc;
-        }
-        .vehicle-hud .brand {
-          position: absolute; top: 4%; left: 4%; font-weight: 900;
-          font-size: clamp(20px, 3vw, 42px); letter-spacing: .15em;
-        }
-        .vehicle-hud .brand small { display: block; color: #52fff2; font-size: 11px; letter-spacing: .35em; }
-        .vehicle-hud .data {
-          position: absolute; right: 4%; top: 4%; text-align: right;
-          font-weight: 900; font-size: clamp(22px, 4vw, 52px);
-        }
-        .vehicle-hud .data small { display: block; font-size: 12px; color: #fc70c4; letter-spacing: .2em; }
-        .vehicle-hud .bottom {
-          position: absolute; bottom: 5%; left: 4%; font-size: 14px;
-          font-weight: 800; letter-spacing: .16em; color: #8efdf6;
-        }
-        .vehicle-hud .speed {
-          position: absolute; right: 4%; bottom: 4%; font-size: clamp(38px, 7vw, 84px);
-          font-weight: 900; font-style: italic; line-height: .8;
-        }
-        .vehicle-hud .speed small { font-size: 12px; letter-spacing: .2em; color: #ff75d2; }
-        .vehicle-hud .alert { color: #ff8abe; }`,
+        `.vehicle-hud { position:absolute; inset:0; pointer-events:none; color:#f8fdff;
+          font-family:system-ui,sans-serif; text-transform:uppercase; }
+        .vehicle-hud .brand, .vehicle-hud .data, .vehicle-hud .bottom, .vehicle-hud .speed {
+          position:absolute; background:rgba(5,12,28,.88); border:1px solid #477384; border-radius:8px;
+          padding:10px 14px; box-shadow:0 4px 20px #0008; }
+        .vehicle-hud .brand { top:3%; left:3%; max-width:52%; font-weight:850;
+          font-size:clamp(14px,2vw,24px); letter-spacing:.05em; }
+        .vehicle-hud small { display:block; color:#a8f9f0; font-size:11px; letter-spacing:.08em; font-weight:700; }
+        .vehicle-hud .brand small { margin-bottom:4px; }
+        .vehicle-hud .data { right:3%; top:3%; text-align:right; font-weight:850; font-size:clamp(17px,2.5vw,28px); }
+        .vehicle-hud .bottom { bottom:3%; left:3%; max-width:65%; font-size:clamp(12px,1.3vw,15px); font-weight:800; }
+        .vehicle-hud .bottom small { margin-top:5px; line-height:1.4; text-transform:none; }
+        .vehicle-hud .speed { right:3%; bottom:3%; font-size:clamp(24px,4vw,44px); font-weight:900; line-height:1; text-align:right; }
+        .vehicle-hud .speed small { margin-top:4px; }
+        .vehicle-hud .alert { border-color:#ff9baf; color:#ffd0d9; }
+        @media (max-width:600px), (max-height:500px) {
+          .vehicle-hud .brand, .vehicle-hud .data, .vehicle-hud .bottom, .vehicle-hud .speed { padding:6px 8px; }
+          .vehicle-hud .brand { max-width:55%; font-size:12px; }
+          .vehicle-hud small { font-size:10px; letter-spacing:0; }
+        }`,
       );
       const root = ui.mount(ctx, 'hud', 'vehicle-hud');
       root.innerHTML = `
-        <div class="brand"><span></span><small>CIRCUIT TRIAL</small></div>
-        <div class="data"></div><div class="bottom"></div><div class="speed"></div>
+        <div class="brand"><small>TIME TRIAL</small><span></span></div>
+        <div class="data"></div><div class="bottom"><div class="guidance"></div><small>W / ↑ accelerate · S / ↓ brake &amp; reverse<br>A D / ← → steer · Space drift</small></div><div class="speed"></div>
       `;
       root.querySelector('.brand span')!.textContent = race.track.name;
       const data = root.querySelector('.data')!,
         bottom = root.querySelector('.bottom')!,
+        guidance = root.querySelector('.guidance')!,
         speed = root.querySelector('.speed')!;
       ctx.systems.addFrame({
         id: 'vehicle/presentation.hud',
         update() {
-          data.innerHTML = `LAP ${race.lap} / ${race.track.laps}<small>${Math.max(0, race.track.timeLimit - race.elapsed).toFixed(1)} SEC REMAINING</small>`;
-          bottom.textContent =
+          const remaining = Math.max(0, race.track.timeLimit - race.elapsed);
+          data.innerHTML = `LAP ${race.lap} / ${race.track.laps}<small>${remaining.toFixed(1)}s remaining · Gold ≤ ${(race.track.timeLimit * .5).toFixed(0)}s</small>`;
+          data.classList.toggle('alert', remaining <= 10);
+          const gate = race.track.gates[race.nextGate];
+          const distance = gate ? Math.round(Math.hypot(gate.x - race.x, gate.z - race.z)) : 0;
+          const wrongSide = gate && (race.x - gate.x) * gate.dx + (race.z - gate.z) * gate.dz >= 0;
+          guidance.textContent =
             race.status === 'won'
               ? 'CIRCUIT COMPLETE'
               : race.status === 'lost'
                 ? 'TIME EXPIRED'
-                : `${race.offTrack ? 'OFF TRACK • ' : race.drifting ? 'DRIFT • ' : ''}NEXT GATE ${race.nextGate + 1} / ${race.track.gates.length}`;
+                : `${race.offTrack ? 'OFF ROAD — SLOW DOWN · ' : race.drifting ? 'DRIFT · ' : ''}GATE ${race.nextGate + 1} / ${race.track.gates.length} · ${distance}m${wrongSide ? ' · APPROACH FROM OTHER SIDE' : ''}`;
           bottom.classList.toggle('alert', race.offTrack);
           speed.innerHTML = `${Math.round(race.speed * 3.6)} <small>KM/H</small>`;
         },

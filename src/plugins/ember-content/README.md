@@ -1,0 +1,5 @@
+# Ember Bastion content
+
+`ember/content` contains `ember/forge-kit` (`mechanic-kit`) and `ember/ash-lane` (`ember-defense`): six build pads, one lane and three manually launched waves. The kit defines scrap, integrity, build/repair/pulse transactions and wave objectives; the defense definition specifies enemy waves, tower range, damage and rewards. Inspect [content.json](content.json) for exact values.
+
+Enable it with its manifest dependencies [ember/game](../ember-game/README.md) and [mechanics/kits](../mechanics-kits/README.md), plus selected mechanic providers; [ember/bastion](../../content/presets/ember-bastion.json) is a complete preset with `options.defense` set to `ember/ash-lane`. The loaders validate and register the data; this pack has no runtime state. Rules, transactions and presentation remain with their respective plugins, and this single authored lane is not a procedural generator. See the [game guide](../../../docs/ember-bastion.md) and [tests](../../../tests/ember-bastion.test.ts).

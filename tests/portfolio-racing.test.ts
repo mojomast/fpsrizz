@@ -62,3 +62,49 @@ for (const preset of [salt, copper]) {
     }
   });
 }
+
+test('drift turns more sharply but retains more sideways motion', async () => {
+  const normal = createHeadlessGame(catalog);
+  const drift = createHeadlessGame(catalog);
+  try {
+    await normal.host.apply(salt);
+    await drift.host.apply(salt);
+    for (const game of [normal, drift]) {
+      game.input.press('vehicle/gas');
+      game.ticks(55);
+      game.input.press('vehicle/left');
+    }
+    drift.input.press('vehicle/drift');
+    normal.ticks(20);
+    drift.ticks(20);
+    const a = normal.session().services.get(Race);
+    const b = drift.session().services.get(Race);
+    const sideways = (r: typeof a): number => Math.abs(r.vx * -Math.cos(r.yaw) - r.vz * -Math.sin(r.yaw));
+    assert.ok(b.drifting);
+    assert.ok(b.yaw > a.yaw);
+    assert.ok(sideways(b) > sideways(a));
+  } finally {
+    await normal.host.stop();
+    await drift.host.stop();
+  }
+});
+
+test('fractional deadline stops simulation on the first tick at or beyond the limit', async () => {
+  const shortContent = content.map(entry => entry.id === 'portfolio/salt-flats'
+    ? { ...entry, data: { ...entry.data, timeLimit: 5.005 } }
+    : entry);
+  const game = createHeadlessGame(catalog.map(entry => entry.manifest.id === pack.id ? { manifest: pack, content: shortContent } : entry));
+  try {
+    await game.host.apply(salt);
+    game.input.press('vehicle/gas');
+    game.ticks(400);
+    const race = game.session().services.get(Race);
+    assert.equal(race.status, 'lost');
+    assert.ok(race.elapsed >= 5.005 && race.elapsed < 5.005 + 1 / 60);
+    const position = [race.x, race.z];
+    game.ticks(20);
+    assert.deepEqual([race.x, race.z], position);
+  } finally {
+    await game.host.stop();
+  }
+});

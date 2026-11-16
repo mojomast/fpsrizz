@@ -6,8 +6,8 @@ victory routes and family limitations are documented below. Select them from the
 
 | Game | Preset ID | Player's challenge | Guide |
 |---|---|---|---|
-| The Counterweight Atelier | `portfolio/atelier-puzzle` | Solve three multi-stone plate-and-gate chambers without pursuit. | [Puzzles](portfolio-puzzles.md) |
-| The Watchman's Run | `portfolio/watch-puzzle` | Open gates and escape three chambers under golem pursuit. | [Puzzles](portfolio-puzzles.md) |
+| The Counterweight Atelier | `portfolio/atelier-puzzle` | Solve four multi-stone plate-and-gate chambers without pursuit. | [Puzzles](portfolio-puzzles.md) |
+| The Watchman's Run | `portfolio/watch-puzzle` | Open gates and escape four chambers under golem pursuit. | [Puzzles](portfolio-puzzles.md) |
 | Salt Flats — Endurance Loop | `portfolio/salt-racing` | Drive three timed laps on a wide circuit, crossing gates in order. | [Racing](portfolio-racing.md) |
 | Copper Switchback — Canyon Sprint | `portfolio/copper-racing` | Drive one timed lap of a narrower, asymmetric circuit. | [Racing](portfolio-racing.md) |
 | Glasshouse Breach | `portfolio/breach-tactics` | Lead three agents through a defended central bottleneck. | [Tactics](portfolio-tactics.md) |
@@ -15,7 +15,7 @@ victory routes and family limitations are documented below. Select them from the
 | The Quiet Index | `portfolio/quiet-index` | Reconstruct a concealed register and choose how to disclose it. | [Adventures](portfolio-adventures.md) |
 | The Night Orchard | `portfolio/night-orchard` | Save a seedship cutting and choose which specialist to wake. | [Adventures](portfolio-adventures.md) |
 | Crosswind Dispatch | `portfolio/sky-resource` | Deliver four matched emergency instruments while conserving energy. | [Resource games](portfolio-resource-games.md) |
-| Last Rain Conservatory | `portfolio/verdant-resource` | Restore three stations by budgeting resources over an eleven-day season. | [Resource games](portfolio-resource-games.md) |
+| Last Rain Conservatory | `portfolio/verdant-resource` | Restore three stations by budgeting resources over a twelve-day season. | [Resource games](portfolio-resource-games.md) |
 
 For local development append `?preset=<preset-id>` to the app URL. The paired games share their respective family rules,
 interfaces and art; in particular, the racing games are time trials rather than opponent races, the tactical missions
@@ -40,6 +40,9 @@ the game retains its own victory, scoring thresholds and presentation policy. Se
 [shared outcome ratings](portfolio-shared-mechanics.md), [reuse discovery](../REUSE.md), the
 [build plan](ten-game-build-plan.md), and [research](research/ten-game-portfolio-2026-11-16.md).
 
+The puzzle and card presets also select `mechanics/hints` and `portfolio/assist`, which offer contextual, progressively
+revealed hints without taking actions for the player. See [portfolio assistance](portfolio-assist.md).
+
 ## Verification
 
 `tests/portfolio-racing.test.ts`, `tests/portfolio-tactics.test.ts`, `tests/portfolio-adventures.test.ts`,
@@ -49,7 +52,12 @@ real racing and tactics consumers. `tests/portfolio-demo/run.mjs` launches selec
 `tests/portfolio-cards.test.ts` tests both additional card games and their shared piles. The browser harness checks a
 player action in each portfolio preset; this evidence must be distinguished from full subjective playtesting.
 
-On the integrated build, `npm run check` passed **791/791 tests**; bundled validation staged **37 presets**; the browser
+On the initial portfolio build, `npm run check` passed **791/791 tests**; bundled validation staged **37 presets**; the browser
 runner activated and exercised an action in all **12** new presets; and `npm run smoke` passed **37/37 checks**. The
 browser runner exercises the input/presentation connection, while the complete winning routes are headless tests. These
 checks do not establish subjective balance, game feel or a full human playthrough.
+
+After the enrichment pass, `npm run check` passed **798/798 tests** and bundled validation staged all **37 presets**.
+The additional [portfolio QoL browser runner](../tests/portfolio-qol-demo/run.mjs) exercises desktop and narrow layouts,
+representative player actions, pause/resume and restart; its checks are not full human playthroughs.
+On the integrated build it passed **24/24** preset-and-viewport cases, and browser smoke passed **37/37** checks.

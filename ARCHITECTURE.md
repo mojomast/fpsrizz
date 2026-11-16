@@ -341,6 +341,7 @@ Independent family systems (default order 0; frame systems run once per rendered
 | frame | `verdant/presentation.ui` | `verdant/presentation` | Displays resources, forecasts and shared action definitions/cooldowns |
 | `control` | `portfolio-cards/ash.commands` / `portfolio-cards/cloud.commands` | selected card game | Commits one queued card action, advances the game's local rules and checks its outcome |
 | frame | `portfolio-cards/presentation.ui` | `portfolio-cards/presentation` | Renders the selected card game's hand, status and actions |
+| frame | `portfolio/assist.refresh` | `portfolio/assist` | Refreshes optional contextual hints from puzzle or card state without issuing gameplay commands |
 
 Stonewake's rules own a discrete board independent of the renderer. Its presentation builds real lit mesh geometry,
 maps authored cell coordinates to the XZ plane, ray-picks floor meshes and emits semantic move commands. Camera and

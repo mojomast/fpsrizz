@@ -20,10 +20,13 @@ export const STORY_CSS = `
   padding: 24px;
   display: grid;
   grid-template-columns: minmax(0,2fr) minmax(250px,1fr);
+  grid-template-areas: 'header header' 'scene side' 'narrative side';
+  align-items: start;
   gap: 18px;
 }
 
 .story-header {
+  grid-area: header;
   grid-column: 1/-1;
   display: flex;
   justify-content: space-between;
@@ -50,6 +53,7 @@ export const STORY_CSS = `
   box-shadow: 0 8px 30px #050d1388;
 }
 .story-scene {
+  grid-area: scene;
   position: relative;
   min-height: 320px;
   overflow: hidden;
@@ -89,7 +93,7 @@ export const STORY_CSS = `
 }
 
 .story-motif-shelves .story-plate,.story-motif-window .story-plate {
-  opacity: .16;
+  opacity: .32;
 }
 .story-motif-shelves .story-illustration:before {
   content: '';
@@ -123,6 +127,7 @@ export const STORY_CSS = `
   flex-direction: column;
   justify-content: end;
   padding: 24px;
+  background: linear-gradient(0deg, #101d28 0%, #101d28e8 38%, #101d2877 100%);
 }
 .story-scene h2 {
   font-size: 30px;
@@ -166,6 +171,7 @@ export const STORY_CSS = `
   opacity: .65;
 }
 .story-side {
+  grid-area: side;
   padding: 20px;
 }
 .story-side h2,.story-narrative h2 {
@@ -182,6 +188,7 @@ export const STORY_CSS = `
   margin-bottom: 8px;
 }
 .story-narrative {
+  grid-area: narrative;
   padding: 20px;
   min-height: 100px;
 }
@@ -204,7 +211,7 @@ export const STORY_CSS = `
   margin: 22px 0;
 }
 .story-hint {
-  font: 12px/1.5 sans-serif;
+  font: 14px/1.5 sans-serif;
   color: #c5c5b6;
 }
 .story-portrait {
@@ -233,8 +240,9 @@ export const STORY_CSS = `
   display: block;
 }
 .story-ui {
-  font-size: 15px;
+  font-size: 16px;
 }
+.story-ui button { min-height: 44px; }
 
 }
 

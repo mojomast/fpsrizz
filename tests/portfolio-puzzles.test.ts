@@ -13,8 +13,8 @@ import { createHeadlessGame } from './helpers/game.ts';
 
 const directions: Record<string, PuzzleDirection> = { N: 'north', E: 'east', S: 'south', W: 'west' };
 const games = [
-  { preset: atelierPreset, manifest: atelierManifest, content: atelierContent, routes: ['NNWNENEEEE', 'NWNNEEEESSWNNENNE', 'NNNSSWWNNEEESSENNENNE'] },
-  { preset: watchPreset, manifest: watchManifest, content: watchContent, routes: ['NNSEENNEEEEE', 'NENSEEENEESWWNNEEE', 'NEENNEEEESEEEN'] },
+  { preset: atelierPreset, manifest: atelierManifest, content: atelierContent, routes: ['NNWNENEEEE', 'NWNNEEEESSWNNENNE', 'NNNSSWWNNEEESSENNENNE', 'WSEEEWNNWNEEENNEEE'] },
+  { preset: watchPreset, manifest: watchManifest, content: watchContent, routes: ['NNSEENNEEEEE', 'NENSEEENEESWWNNEEE', 'NEENNEEEESEEEN', 'NNSSWSEEEENNEENNNE'] },
 ];
 
 for (const game of games) test(`${game.preset.name}: every chamber completes through the real command queue`, async () => {
@@ -27,11 +27,27 @@ for (const game of games) test(`${game.preset.name}: every chamber completes thr
     assert.equal(puzzle().campaign.chambers.length, game.routes.length);
     for (const [index, route] of game.routes.entries()) {
       assert.equal(puzzle().state().chamber, index);
-      for (const letter of route) {
+      const board = () => {
+        const { player, rocks, golems, turns, pushes, status, chamber, totalTurns, canUndo } = puzzle().state();
+        return { player, rocks, golems, turns, pushes, status, chamber, totalTurns, canUndo };
+      };
+      const initial = board();
+      send({ type: 'move', direction: directions[route[0]!]! });
+      send({ type: 'restart' });
+      assert.deepEqual(board(), initial, `restart chamber ${index + 1}`);
+      for (const [step, letter] of [...route].entries()) {
         const before = puzzle().state();
+        const beforeBoard = board();
         const after = send({ type: 'move', direction: directions[letter]! });
         assert.equal(after.turns, before.turns + 1, `rejected move ${letter} in ${game.preset.name} chamber ${index + 1}`);
         assert.notEqual(after.status, 'caught');
+        if (step === Math.floor(route.length / 2) || step === route.length - 1) {
+          const completedBoard = board();
+          send({ type: 'undo' });
+          assert.deepEqual(board(), beforeBoard, `undo chamber ${index + 1} step ${step + 1}`);
+          send({ type: 'move', direction: directions[letter]! });
+          assert.deepEqual(board(), completedBoard, `redo chamber ${index + 1} step ${step + 1}`);
+        }
       }
       assert.equal(puzzle().state().status, 'cleared');
       assert.ok(puzzle().state().turns <= puzzle().campaign.chambers[index]!.par);
