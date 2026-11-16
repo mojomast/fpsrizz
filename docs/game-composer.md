@@ -115,6 +115,6 @@ promise activation, and the kernel remains the authority.
 - `tests/game-graph.test.ts`: 18 deterministic model/compiler/round-trip/validation tests.
 - `tests/composer-demo/run.mjs`: production-browser graph loading, role metadata/inspector, host staging and close flow.
 - `tests/creator-demo/run.mjs`: 67 creator checks including the Canvas tab and generated map/provider metadata.
-- Full `npm run check` on 2026-11-16: **771/771 tests**.
+- Full `npm run check` on 2026-11-16: **773/773 tests**.
 
 Research and sources are in [the composer research note](research/game-composer-2026-11-16.md).

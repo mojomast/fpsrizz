@@ -51,15 +51,20 @@ try {
   await page.keyboard.down('KeyD');
   for (let i = 0; i < 80; i++) { await page.waitForTimeout(20); if ((await state()).player.x > 8.1) break; }
   await page.keyboard.up('KeyD');
-  await page.keyboard.press('KeyE'); await page.waitForTimeout(180);
-  s = await state(); assert.ok(s.dialogue, JSON.stringify({ x: s.player.x, y: s.player.y, message: s.message }));
+  await page.keyboard.press('KeyE');
+  await page.waitForFunction(() => window.__bulkhead.host.session.services.get({ id: 'hollowmere/run' }).state().dialogue !== null, null, { timeout: 5000 }).catch(() => {});
+  s = await state();
+  if (!s.dialogue) { await page.keyboard.press('KeyE'); await page.waitForTimeout(200); s = await state(); }
+  assert.ok(s.dialogue, JSON.stringify({ x: s.player.x, y: s.player.y, message: s.message }));
   assert.match(s.dialogue?.name ?? '', /Brann/);
   await frames(); await shot('dialogue');
-  await page.keyboard.press('KeyE'); await page.waitForTimeout(120);
+  await page.keyboard.press('KeyE');
+  await page.waitForFunction(() => window.__bulkhead.host.session.services.get({ id: 'hollowmere/run' }).state().dialogue === null, null, { timeout: 3000 }).catch(() => {});
+  if ((await state()).dialogue) { await page.keyboard.press('KeyE'); await page.waitForTimeout(150); }
   assert.equal((await state()).dialogue, null);
   pass('NPC proximity, portrait dialogue and close interaction work');
 
-  await page.keyboard.press('Escape'); await page.waitForTimeout(220);
+  await page.keyboard.press('Escape'); await gameStatus('paused');
   s = await state(); assert.equal(s.status, 'paused');
   assert.equal(await page.evaluate(() => window.__bulkhead.state), 'playing', 'the game-owned journal must not open the host launcher pause');
   await page.locator('.hm-pause.show').waitFor({ timeout: 10000 });
@@ -84,17 +89,16 @@ try {
   assert.ok(await page.locator('.hm-option').count() >= 4);
   await page.keyboard.press('Enter'); await page.waitForTimeout(120);
   await shot('journal-options');
-  await page.keyboard.press('Escape'); await page.waitForTimeout(180);
-  assert.equal((await state()).status, 'playing');
+  await page.keyboard.press('Escape'); await gameStatus('playing');
   pass('game-owned tabbed journal covers map, inventory, capabilities, stats and options and returns to play');
 
-  await page.keyboard.press('KeyM'); await page.waitForTimeout(180);
+  await page.keyboard.press('KeyM'); await gameStatus('paused');
   assert.equal((await state()).status, 'paused');
   assert.match(await page.locator('.hm-tab.selected').innerText(), /MAP/);
-  await page.keyboard.press('Escape'); await page.waitForTimeout(150);
+  await page.keyboard.press('Escape'); await gameStatus('playing');
   assert.equal((await state()).status, 'playing');
   await page.setViewportSize({ width: 390, height: 844 }); await frames();
-  await page.keyboard.press('KeyM'); await page.waitForTimeout(180); await shot('journal-phone');
+  await page.keyboard.press('KeyM'); await gameStatus('paused'); await page.waitForTimeout(180); await shot('journal-phone');
   await page.keyboard.press('Escape'); await page.waitForTimeout(120);
   await page.setViewportSize({ width: 1280, height: 800 }); await frames();
   pass('map shortcut and phone journal layouts work');

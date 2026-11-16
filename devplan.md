@@ -98,7 +98,7 @@ game-owned field journal with map, inventory, capabilities, stats and persisted 
 JSON-first game composition canvas (`src/app/game-graph.ts`, `game-composer.ts`) for humans and agents, with role/provider
 metadata generated from the reuse index, deterministic preset compilation, host-staged validation, import/export and a
 `npm run graph` CLI. Headless tests cover the providers, world/checkpoint/dialogue/pause path and graph round-trips;
-browser acceptance covers Hollowmere and the composer. Final local verification: **771/771 tests**, **25 bundled presets**, Hollowmere **5/5**, composer **3/3**, creator **67**, Cinder **6/6**, smoke **37/37**. See [Hollowmere](docs/hollowmere.md) and [game composer](docs/game-composer.md).
+browser acceptance covers Hollowmere and the composer. Final local verification: **773/773 tests**, **25 bundled presets**, Hollowmere **5/5**, composer **3/3**, creator **67**, Cinder **6/6**, smoke **37/37**. See [Hollowmere](docs/hollowmere.md) and [game composer](docs/game-composer.md).
 
 | # | Stage | Status | What it delivered |
 |---|---|---|---|

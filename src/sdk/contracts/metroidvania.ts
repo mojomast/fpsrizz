@@ -162,6 +162,8 @@ export interface MetroEnemyView {
   readonly maxHealth: number;
   readonly facing: 1 | -1;
   readonly state: 'idle' | 'patrol' | 'chase' | 'windup' | 'attack' | 'hurt' | 'dead';
+  /** 0..1 telegraph progress while winding up; 0 otherwise. */
+  readonly windup: number;
   readonly elite: boolean;
   readonly boss: boolean;
 }

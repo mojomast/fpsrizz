@@ -56,8 +56,9 @@ game supplies room collision, unlocked abilities and animation.
 
 The Lantern Saber has a three-step combo. A side strike has a short lunge on the third hit, an up strike covers aerial
 space, and a down strike in the air bounces the bearer off a struck enemy. Enemy contact is not damage; telegraphed
-strikes and projectiles are. Player invulnerability, hitstop-like feedback, damage numbers, screen shake and focus
-regeneration are presentation/combat policy in `hollowmere/game`.
+strikes and projectiles are. Player invulnerability, screen-space damage labels, hit flashes, windup telegraphs, screen
+shake and focus regeneration are presentation/combat policy; the canvas feedback module keeps labels at 11–14px and
+caps simultaneous effects.
 
 The bestiary is deliberately behavior-first rather than a single health slider:
 
@@ -114,6 +115,15 @@ saves start a fresh run; there is no in-room snapshot or cloud save.
 Both use Assetrizz night-watch/dye-merchant portraits and blacksmith/scholar world strips. Dialogue freezes the room
 until a choice or close command; options are disabled when the cost or state is invalid. NPCs are optional.
 
+## Presentation and feedback
+
+The canvas feedback layer is deliberately separate from the camera transform. `effects.ts` projects world effects and
+renders damage/heal text in screen space at 11–14 CSS px with a dark outline, deterministic rise/fade and hard caps
+(12 labels, 16 impacts, 60 particles). Enemy windups show a progress ring and ground wedge; player damage gets a short
+edge flash, low-health vignette and a persistent invulnerability rim rather than disappearing. World shadows, a
+screen-space ground haze, drifting motes and a darker varied terrain pass add depth without changing collision or
+simulation. The journal uses the same presentation contract with safe-area-aware responsive HUD and tab layouts.
+
 ## Composition and reuse
 
 | Need | Provider / decision |
@@ -162,8 +172,8 @@ regenerates public art and painters. No audio asset is claimed; the current pres
 
 ### Integrated verification — 2026-11-16
 
-- `npm run check`: **771/771 tests**, typecheck, boundaries and reuse-index freshness passed. The provider suite,
-  production Hollowmere suite and graph-round-trip suite are included.
+- `npm run check`: **773/773 tests**, typecheck, boundaries and reuse-index freshness passed. The provider suite,
+  production Hollowmere suite, screen-space FX tests and graph-round-trip suite are included.
 - `npm run validate-game -- --bundled`: **25 presets staged**, including `hollowmere/ascent`.
 - `node tests/hollowmere-demo/run.mjs`: **5/5** production-browser checks for Assetrizz canvas/movement/jump, NPC dialogue,
   all five journal tabs, map shortcut and phone layout.
@@ -171,4 +181,4 @@ regenerates public art and painters. No audio asset is claimed; the current pres
 - `node tests/creator-demo/run.mjs`: **67** creator-panel checks passed with the Canvas tab and generated map/provider metadata.
 - `node tests/cinder-demo/run.mjs`: **6/6** preserved Cinder acceptance checks.
 - `npm run smoke`: **37/37**; final production bundle hash
-  `0bd7ffc546e7ea3628355744e4b9bad747870cc396bb1c049fbc513530da9778`.
+  `3b65fb123f2d8b913d5ddb52e0a7a99171d2991aa31a6a8dd41cb885666a59dd`.

@@ -267,7 +267,7 @@ export default definePlugin({
     const enemyView = (enemy: EnemyRuntime): MetroEnemyView => Object.freeze({
       id: enemy.spawnId, type: enemy.def.id, name: enemy.def.name, kind: enemy.def.kind,
       x: enemy.x, y: enemy.y, w: enemy.w, h: enemy.h, health: enemy.health, maxHealth: enemy.maxHealth,
-      facing: enemy.facing, state: enemy.state, elite: enemy.elite, boss: enemy.def.boss === true,
+      facing: enemy.facing, state: enemy.state, windup: enemy.state === 'windup' ? Math.max(0, Math.min(1, 1 - enemy.timer / (enemy.def.boss ? .5 : .35))) : 0, elite: enemy.elite, boss: enemy.def.boss === true,
     });
     const bossView = (): MetroBossView | null => {
       const boss = enemies.find(enemy => enemy.def.boss && enemy.health > 0);
@@ -349,7 +349,6 @@ export default definePlugin({
       health = Math.max(0, health - amount);
       invulnerable = 0.9;
       addEffect('damage', x, y, 0.7, `-${amount}`, '#ff8b75');
-      message = `The dark bites for ${amount}.`;
       if (health <= 0) {
         status = 'dying'; deathTimer = 1.15; player.vx = 0; player.vy = 0;
         message = 'The lantern gutters…';

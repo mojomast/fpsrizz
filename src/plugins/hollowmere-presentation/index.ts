@@ -1,6 +1,7 @@
 import type { MetroState, Painter, SessionContext } from '../../sdk/index.ts';
 import { HudRole, Metroidvania, Profile, SessionControl, ThemeRole, Ui, definePlugin } from '../../sdk/index.ts';
 import { styles } from './styles.ts';
+import { drawScreenEffects, projectWorld } from './effects.ts';
 
 const SPRITES: Readonly<Record<string, string>> = Object.freeze({
   grunt: 'enemy-grunt', spitter: 'enemy-spitter', spider: 'enemy-spider',
@@ -113,7 +114,7 @@ function mount(ctx: SessionContext): void {
   const optionsFoot = element('div', 'hm-pause-foot', pauseShell);
   optionsFoot.innerHTML = '<span><kbd>↑ ↓</kbd> SELECT &nbsp; <kbd>ENTER</kbd> USE/TOGGLE &nbsp; <kbd>TAB</kbd> TAB &nbsp; <kbd>1–5</kbd> DIRECT</span><span><kbd>ESC / P</kbd> RETURN TO THE DARK</span>';
   const pauseMobile = element('div', 'hm-pause-mobile', pauseShell);
-  pauseMobile.textContent = 'TAP A TAB · THE JOURNAL IS READ-ONLY WHILE THE LANTERN HOLDS';
+  pauseMobile.textContent = 'TAP A TAB · TAP AN ITEM TO USE · THE WORLD IS PAUSED';
   // The panel body stays visible; only its tab-specific child panels are swapped.
   panel.hidden = false;
   mapWrap.hidden = false;
@@ -152,10 +153,11 @@ function mount(ctx: SessionContext): void {
   };
   let lastState = game.state();
   let cameraX = 0, cameraY = 0, cameraRoom = '';
-  let shake = 0, lastMessage = '', messageUntil = 0;
+  let shake = 0, hitFlash = 0, lastMessage = '', messageUntil = 0;
   let pauseOpen = false, pauseTab = 0, itemCursor = 0, optionCursor = 0;
   let lastPauseRevision = -1;
   let options = loadOptions();
+  const prefersReducedMotion = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const canvasContext = canvas.getContext('2d');
   const resize = (): void => {
     const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -210,6 +212,14 @@ function mount(ctx: SessionContext): void {
   const chooseTab = (index: number): void => {
     pauseTab = (index + 5) % 5; renderPause(lastState);
   };
+  const mapLabel = (roomId: string, name: string): string => {
+    const short: Record<string, string> = {
+      'moss-gate': 'Mossgate', 'moss-hall': 'Long Moss', 'moss-well': 'Windroot', 'thorn-gallery': 'Thorn Gallery',
+      'root-crossing': 'Crossing', 'root-shrine': 'Shrine', 'root-depths': 'Depths', burrow: 'Burrow',
+      'archive-stair': 'Stair', 'archive-vault': 'Vault', 'keep-bridge': 'Bridge', 'hollow-throne': 'Throne',
+    };
+    return short[roomId] ?? name.split(' ').slice(0, 2).join(' ');
+  };
   const drawMap = (state: MetroState): void => {
     const context = mapCanvas.getContext('2d'); if (!context) return;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -218,6 +228,12 @@ function mount(ctx: SessionContext): void {
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
     context.clearRect(0, 0, width, height);
     context.fillStyle = '#08110c'; context.fillRect(0, 0, width, height);
+    const wash = context.createRadialGradient(width * .5, height * .45, 10, width * .5, height * .45, Math.max(width, height) * .7);
+    wash.addColorStop(0, '#18302033'); wash.addColorStop(1, '#030906ff');
+    context.fillStyle = wash; context.fillRect(0, 0, width, height);
+    context.strokeStyle = 'rgba(202,184,128,.055)'; context.lineWidth = 1;
+    for (let gx = 22; gx < width; gx += 42) { context.beginPath(); context.moveTo(gx, 0); context.lineTo(gx, height); context.stroke(); }
+    for (let gy = 22; gy < height; gy += 42) { context.beginPath(); context.moveTo(0, gy); context.lineTo(width, gy); context.stroke(); }
     const map = state.map;
     const rooms = map.rooms;
     const minX = Math.min(...rooms.map(room => room.x)), minY = Math.min(...rooms.map(room => room.y));
@@ -240,18 +256,21 @@ function mount(ctx: SessionContext): void {
     }
     for (const room of rooms) {
       const x = ox + room.x * scale, y = oy + room.y * scale, w = room.w * scale, h = room.h * scale;
-      context.fillStyle = room.current ? '#c7b06c' : room.visited ? '#3d5b47' : room.revealed ? '#273d31' : '#15221a';
+      const regionColor = game.world.regions.find(entry => entry.id === room.region)?.color ?? '#7ca36a';
+      context.fillStyle = room.current ? '#c7b06c' : room.visited ? regionColor : room.revealed ? '#273d31' : '#15221a';
+      context.globalAlpha = room.current ? .9 : room.visited ? .56 : room.revealed ? .7 : .9;
       context.fillRect(x, y, w, h);
+      context.globalAlpha = 1;
       context.strokeStyle = room.current ? '#f1dda1' : room.visited ? '#85a77c' : '#3a503c';
       context.lineWidth = room.current ? 2 : 1;
       context.strokeRect(x + .5, y + .5, w - 1, h - 1);
-      if (room.revealed && w >= 58) {
+      if (room.revealed && w >= 30) {
         context.save();
         context.beginPath(); context.rect(x + 2, y + 2, Math.max(1, w - 4), Math.max(1, h - 4)); context.clip();
         context.fillStyle = room.current ? '#1d2415' : '#d4c79c';
-        context.font = `${Math.max(7, Math.min(11, scale * 1.1))}px ui-monospace, monospace`;
+        context.font = `${Math.max(6, Math.min(10, scale * 1.05))}px ui-monospace, monospace`;
         context.textAlign = 'center'; context.textBaseline = 'middle';
-        context.fillText(room.name, x + w / 2, y + h / 2);
+        context.fillText(mapLabel(room.id, room.name), x + w / 2, y + h / 2);
         context.restore();
       }
       if (room.current) { context.fillStyle = '#16200f'; context.beginPath(); context.arc(x + w - 8, y + 8, 4, 0, Math.PI * 2); context.fill(); }
@@ -399,7 +418,17 @@ function mount(ctx: SessionContext): void {
       if (tile === '.') continue;
       if (tile === '#') {
         const source = y >= 17 ? floor : wall;
-        if (source) canvasContext.drawImage(source, 0, 0, 64, 64, x, y, 1.02, 1.02);
+        if (source) {
+          const variation = .68 + ((x * 17 + y * 29) % 5) * .024;
+          canvasContext.globalAlpha = variation;
+          canvasContext.drawImage(source, 0, 0, 64, 64, x, y, 1.02, 1.02);
+          canvasContext.globalAlpha = 1;
+          canvasContext.fillStyle = 'rgba(4,11,7,.29)'; canvasContext.fillRect(x, y, 1.02, 1.02);
+          if (y > 0 && room.rows[y - 1]?.[x] !== '#') {
+            canvasContext.fillStyle = 'rgba(229,207,154,.3)'; canvasContext.fillRect(x, y, 1.02, .065);
+            if ((x * 7 + y * 11) % 7 === 0) { canvasContext.strokeStyle = 'rgba(58,84,48,.6)'; canvasContext.lineWidth = .035; canvasContext.beginPath(); canvasContext.moveTo(x + .16, y + .01); canvasContext.lineTo(x + .26, y - .18); canvasContext.moveTo(x + .5, y + .01); canvasContext.lineTo(x + .47, y - .14); canvasContext.stroke(); }
+          }
+        }
       } else if (tile === '=') {
         if (edge) canvasContext.drawImage(edge, 0, 0, 64, 64, x, y + 0.66, 1.02, 0.38);
       } else if (tile === '^') {
@@ -432,19 +461,34 @@ function mount(ctx: SessionContext): void {
     }
     for (const door of room.doors) {
       const locked = (door.requires && !state.abilities.some(ability => ability.id === door.requires && ability.unlocked)) || (door.requiresItems?.some(item => !state.inventory.some(entry => entry.id === item)));
-      canvasContext.fillStyle = locked ? '#201b17bb' : `${regionColor}aa`; canvasContext.fillRect(door.x, door.y, door.w, door.h);
-      canvasContext.strokeStyle = locked ? '#aa8460' : '#e0ca8c'; canvasContext.lineWidth = .12; canvasContext.strokeRect(door.x + .1, door.y + .1, door.w - .2, door.h - .2);
-      canvasContext.fillStyle = locked ? '#c9a473' : '#e7d69c'; canvasContext.font = '9px monospace'; canvasContext.fillText(locked ? '⌑' : '↦', door.x + door.w / 2 - .2, door.y + door.h / 2 + .2);
+      const doorGlow = canvasContext.createLinearGradient(door.x, door.y, door.x, door.y + door.h);
+      doorGlow.addColorStop(0, locked ? '#120e0bee' : '#d8c17b44'); doorGlow.addColorStop(.6, locked ? '#1c1711dd' : `${regionColor}55`); doorGlow.addColorStop(1, locked ? '#080705ee' : '#e8d69b22');
+      canvasContext.fillStyle = doorGlow; canvasContext.fillRect(door.x, door.y, door.w, door.h);
+      canvasContext.strokeStyle = locked ? '#8c6d4d' : '#e0ca8c'; canvasContext.lineWidth = .1; canvasContext.strokeRect(door.x + .08, door.y + .08, door.w - .16, door.h - .16);
+      canvasContext.strokeStyle = locked ? '#5f4a36' : '#f4e6b0aa'; canvasContext.lineWidth = .04; canvasContext.strokeRect(door.x + .2, door.y + .2, door.w - .4, door.h - .4);
+      canvasContext.strokeStyle = locked ? '#7e5d43' : '#e2c98a'; canvasContext.lineWidth = .07;
+      canvasContext.beginPath(); canvasContext.arc(door.x + door.w / 2, door.y + .08, door.w * .4, Math.PI, 0); canvasContext.stroke();
+      canvasContext.beginPath();
+      canvasContext.moveTo(door.x + door.w / 2, door.y + door.h * .26);
+      canvasContext.lineTo(door.x + door.w / 2, door.y + door.h * .74);
+      canvasContext.strokeStyle = locked ? '#c9a473' : '#f1dda1';
+      canvasContext.lineWidth = .07;
+      canvasContext.stroke();
       void door;
     }
     for (const checkpoint of room.checkpoints) {
       const active = state.checkpoints.some(entry => entry.id === checkpoint.id && entry.activated);
-      canvasContext.fillStyle = active ? '#9ccf9e' : '#7e8b69'; canvasContext.fillRect(checkpoint.x + .25, checkpoint.y + .1, .12, 1.8);
-      canvasContext.beginPath(); canvasContext.arc(checkpoint.x + .31, checkpoint.y - .05, .22, 0, Math.PI * 2); canvasContext.fill();
-      canvasContext.fillStyle = active ? '#c9edac66' : '#c9d1a044'; canvasContext.beginPath(); canvasContext.arc(checkpoint.x + .31, checkpoint.y - .05, 1.1, 0, Math.PI * 2); canvasContext.fill();
+      const glow = canvasContext.createRadialGradient(checkpoint.x + .31, checkpoint.y + .25, 0, checkpoint.x + .31, checkpoint.y + .25, 1.2);
+      glow.addColorStop(0, active ? '#d8efb766' : '#d7d7a044'); glow.addColorStop(1, '#00000000');
+      canvasContext.fillStyle = glow; canvasContext.beginPath(); canvasContext.arc(checkpoint.x + .31, checkpoint.y + .25, 1.2, 0, Math.PI * 2); canvasContext.fill();
+      canvasContext.fillStyle = active ? '#a6cea2' : '#748067'; canvasContext.fillRect(checkpoint.x + .25, checkpoint.y + .1, .12, 1.8);
+      const lantern = images('assetrizz/hollow-icon-lantern.png');
+      if (lantern.complete) canvasContext.drawImage(lantern, checkpoint.x - .08, checkpoint.y - .72, .8, .8);
+      else { canvasContext.beginPath(); canvasContext.arc(checkpoint.x + .31, checkpoint.y - .05, .22, 0, Math.PI * 2); canvasContext.fill(); }
     }
     for (const npc of room.npcs) {
       const key = npc.role === 'smith' ? 'npc-smith' : 'npc-cartographer';
+      canvasContext.fillStyle = 'rgba(2,7,4,.34)'; canvasContext.beginPath(); canvasContext.ellipse(npc.x + .3, npc.y + 2.01, .7, .11, 0, 0, Math.PI * 2); canvasContext.fill();
       drawSprite(canvasContext, key, 0, npc.x - .55, npc.y - .2, 1.7, 2.1, false);
     }
     for (const pickup of state.pickups) {
@@ -458,6 +502,19 @@ function mount(ctx: SessionContext): void {
       const texture = SPRITES[enemy.type === 'hollow-king' ? 'golem' : (game.world.enemies.find(entry => entry.id === enemy.type)?.sprite ?? 'grunt')] ?? 'enemy-grunt';
       const frameIndex = enemy.state === 'hurt' ? 3 : enemy.state === 'windup' || enemy.state === 'attack' ? 2 : enemy.state === 'chase' ? 1 : 0;
       const tint = game.world.enemies.find(entry => entry.id === enemy.type)?.tint;
+      if (enemy.state === 'windup') {
+        const cx = enemy.x + enemy.w / 2, cy = enemy.y + enemy.h / 2;
+        canvasContext.save();
+        canvasContext.strokeStyle = enemy.boss ? '#e7a07b' : '#ff8b6d'; canvasContext.lineWidth = enemy.boss ? .1 : .07;
+        canvasContext.globalAlpha = .42;
+        canvasContext.beginPath(); canvasContext.arc(cx, cy, enemy.w * .78, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * enemy.windup); canvasContext.stroke();
+        canvasContext.globalAlpha = .1; canvasContext.fillStyle = enemy.boss ? '#e7a07b' : '#ff8b6d';
+        canvasContext.beginPath(); canvasContext.arc(cx, cy, enemy.w * .78, 0, Math.PI * 2); canvasContext.fill();
+        canvasContext.globalAlpha = .24;
+        canvasContext.beginPath(); canvasContext.moveTo(cx, cy); canvasContext.lineTo(cx + Math.cos(-Math.PI / 2) * enemy.w * 1.25, cy + Math.sin(-Math.PI / 2) * enemy.w * 1.25); canvasContext.lineTo(cx + Math.cos(-Math.PI / 2 + Math.PI * 2 * enemy.windup) * enemy.w * 1.25, cy + Math.sin(-Math.PI / 2 + Math.PI * 2 * enemy.windup) * enemy.w * 1.25); canvasContext.closePath(); canvasContext.fill();
+        canvasContext.restore();
+      }
+      canvasContext.fillStyle = 'rgba(2,7,4,.32)'; canvasContext.beginPath(); canvasContext.ellipse(enemy.x + enemy.w / 2, enemy.y + enemy.h, enemy.w * .58, .1, 0, 0, Math.PI * 2); canvasContext.fill();
       drawSprite(canvasContext, texture, frameIndex, enemy.x, enemy.y, enemy.w * (enemy.boss ? 1.15 : 1), enemy.h * (enemy.boss ? 1.25 : 1), enemy.facing === -1, tint);
       if (enemy.boss || enemy.elite) {
         canvasContext.fillStyle = '#1a100ddd'; canvasContext.fillRect(enemy.x, enemy.y - .24, enemy.w, .09);
@@ -465,34 +522,53 @@ function mount(ctx: SessionContext): void {
       }
     }
     const playerFrame = state.player.attack.kind !== 'none' ? 2 : Math.abs(state.player.vx) > .2 ? 1 : 0;
-    const blink = state.player.invulnerable > 0 && !options.reduceFlashes && Math.floor(state.stats.playTime * 20) % 2 === 0;
-    if (!blink) drawSprite(canvasContext, 'player-knight', playerFrame, state.player.x - .45, state.player.y - .48, 1.7, 2.35, state.player.facing === -1);
-    if (state.player.attack.kind !== 'none') {
-      const progress = state.player.attack.progress;
-      canvasContext.strokeStyle = `rgba(239,220,151,${.7 - progress * .35})`; canvasContext.lineWidth = .12;
-      canvasContext.beginPath();
-      if (state.player.attack.kind === 'side') canvasContext.arc(state.player.x + state.player.w / 2, state.player.y + 1, 1.1 + progress * .45, state.player.facing === 1 ? -1.2 : Math.PI - 0.3, state.player.facing === 1 ? 1.2 : Math.PI + 1.2);
-      else if (state.player.attack.kind === 'up') canvasContext.arc(state.player.x + state.player.w / 2, state.player.y + .6, 1.0, Math.PI, Math.PI * 2);
-      else canvasContext.arc(state.player.x + state.player.w / 2, state.player.y + 1.3, 1.0, 0, Math.PI);
-      canvasContext.stroke();
-    }
-    for (const projectile of state.projectiles) {
-      canvasContext.fillStyle = projectile.kind === 'bolt' ? '#f0d28b' : '#c8786d';
-      canvasContext.beginPath(); canvasContext.arc(projectile.x, projectile.y, .16, 0, Math.PI * 2); canvasContext.fill();
-      canvasContext.globalAlpha = .25; canvasContext.beginPath(); canvasContext.arc(projectile.x, projectile.y, .45, 0, Math.PI * 2); canvasContext.fill(); canvasContext.globalAlpha = 1;
-    }
-    for (const effect of state.effects) {
-      const alpha = 1 - effect.age / effect.life;
-      if (effect.kind === 'damage' || effect.text) {
-        if (!options.damage && effect.kind === 'damage') continue;
-        canvasContext.fillStyle = effect.color ?? '#f5db9e'; canvasContext.globalAlpha = alpha;
-        canvasContext.font = '11px ui-monospace, monospace'; canvasContext.fillText(effect.text ?? '', effect.x, effect.y - effect.age * 1.2); canvasContext.globalAlpha = 1;
-      } else {
-        canvasContext.fillStyle = effect.color ?? '#e3c775'; canvasContext.globalAlpha = alpha * .8;
-        canvasContext.beginPath(); canvasContext.arc(effect.x, effect.y, .18 + effect.age * .8, 0, Math.PI * 2); canvasContext.fill(); canvasContext.globalAlpha = 1;
-      }
+    const blink = state.player.invulnerable > 0 && !options.reduceFlashes && !prefersReducedMotion && Math.floor(state.stats.playTime * 6) % 2 === 0;
+    canvasContext.fillStyle = 'rgba(2,7,4,.36)'; canvasContext.beginPath(); canvasContext.ellipse(state.player.x + state.player.w / 2, state.player.y + state.player.h, .46, .1, 0, 0, Math.PI * 2); canvasContext.fill();
+    canvasContext.save(); if (blink) canvasContext.globalAlpha = .68;
+    drawSprite(canvasContext, 'player-knight', playerFrame, state.player.x - .45, state.player.y - .48, 1.7, 2.35, state.player.facing === -1);
+    canvasContext.restore();
+    if (state.player.invulnerable > 0) {
+      canvasContext.strokeStyle = 'rgba(213,238,183,.55)'; canvasContext.lineWidth = .045;
+      canvasContext.beginPath(); canvasContext.arc(state.player.x + state.player.w / 2, state.player.y + state.player.h / 2, .85, 0, Math.PI * 2); canvasContext.stroke();
     }
     canvasContext.restore();
+    // Everything below is screen-space: the camera transform must never scale typography or HUD feedback.
+    const projection = { width, height, scale, cameraX, cameraY };
+    const haze = canvasContext.createLinearGradient(0, height * .48, 0, height);
+    haze.addColorStop(0, '#07100b00'); haze.addColorStop(1, '#07100b88');
+    canvasContext.fillStyle = haze; canvasContext.fillRect(0, height * .48, width, height * .52);
+    for (const projectile of state.projectiles) {
+      const p = projectWorld(projection, projectile.x, projectile.y);
+      canvasContext.save();
+      canvasContext.shadowBlur = 14; canvasContext.shadowColor = projectile.kind === 'bolt' ? '#f4d88d' : '#df806d';
+      canvasContext.fillStyle = projectile.kind === 'bolt' ? '#f0d28b' : '#c8786d';
+      canvasContext.beginPath(); canvasContext.arc(p.x, p.y, projectile.kind === 'bolt' ? 4 : 3, 0, Math.PI * 2); canvasContext.fill();
+      canvasContext.globalAlpha = .22; canvasContext.beginPath(); canvasContext.arc(p.x, p.y, 12, 0, Math.PI * 2); canvasContext.fill(); canvasContext.restore();
+    }
+    drawScreenEffects(canvasContext, state.effects, projection, {
+      showDamage: options.damage,
+      reduceFlashes: options.reduceFlashes || prefersReducedMotion,
+      reducedMotion: prefersReducedMotion,
+      time: state.stats.playTime,
+      health: { health: state.player.health, maxHealth: state.player.maxHealth, hitFlash },
+      attack: state.player.attack.kind === 'none' ? undefined : {
+        kind: state.player.attack.kind, progress: state.player.attack.progress,
+        x: state.player.x + state.player.w / 2, y: state.player.y + 1, facing: state.player.facing,
+      },
+    });
+    hitFlash = Math.max(0, hitFlash - dt * 2.8);
+    // Tiny drifting motes add depth without becoming gameplay noise.
+    if (!options.reduceFlashes && !prefersReducedMotion) {
+      canvasContext.save();
+      for (let i = 0; i < 18; i++) {
+        const phase = state.stats.playTime * (.12 + (i % 4) * .03);
+        const px = ((i * 173 + Math.sin(phase + i) * 50 + state.stats.playTime * (4 + i % 5)) % (width + 80)) - 40;
+        const py = ((i * 97 + Math.cos(phase * .8 + i) * 35 - state.stats.playTime * (2 + i % 3)) % (height + 80)) - 40;
+        canvasContext.globalAlpha = .16 + (i % 4) * .035; canvasContext.fillStyle = i % 3 === 0 ? '#f2dc9c' : '#c7d8a5';
+        canvasContext.beginPath(); canvasContext.arc(px, py, 1.1 + (i % 3) * .6, 0, Math.PI * 2); canvasContext.fill();
+      }
+      canvasContext.restore();
+    }
   };
   const playerCameraTarget = (state: MetroState, width: number, height: number): { x: number; y: number } => {
     const room = game.world.rooms.find(entry => entry.id === state.roomId);
@@ -576,7 +652,7 @@ function mount(ctx: SessionContext): void {
       lastState = state;
       const previousHealth = drawHudHealth;
       drawHudHealth = state.player.health;
-      if (previousHealth !== undefined && state.player.health < previousHealth && options.shake) shake = .18;
+      if (previousHealth !== undefined && state.player.health < previousHealth) { if (options.shake) shake = .2; hitFlash = .55; }
       drawWorld(state, dt);
       drawHud(state);
       renderDialogue(state);

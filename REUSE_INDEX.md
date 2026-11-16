@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `6fd7deba7e8ea3736cd0540729f5d2162af46e962637cde6dcc2abddb068fd0f`
+Source digest: `c6c40ba061af71bd4a3659fa1602f84b059240ee2519bded64aee898466cc796`
 
 ## Composition recipes
 
@@ -191,8 +191,8 @@ Source digest: `6fd7deba7e8ea3736cd0540729f5d2162af46e962637cde6dcc2abddb068fd0f
 | `sdk/MechanicObjectiveChanged` | contract | Public SDK value: mechanics/objective-changed | [source](src/sdk/contracts/mechanics.ts#L107) |
 | `sdk/MechanicProgressionChanged` | contract | Public SDK value: mechanics/progression-changed | [source](src/sdk/contracts/progression.ts#L47) |
 | `sdk/MechanicResourcesChanged` | contract | Public SDK value: mechanics/resources-changed | [source](src/sdk/contracts/mechanics.ts#L105) |
-| `sdk/Metroidvania` | contract | Public SDK value: hollowmere/run | [source](src/sdk/contracts/metroidvania.ts#L237) |
-| `sdk/MetroidvaniaWorlds` | contract | Public SDK value: metroidvania-world | [source](src/sdk/contracts/metroidvania.ts#L235) |
+| `sdk/Metroidvania` | contract | Public SDK value: hollowmere/run | [source](src/sdk/contracts/metroidvania.ts#L239) |
+| `sdk/MetroidvaniaWorlds` | contract | Public SDK value: metroidvania-world | [source](src/sdk/contracts/metroidvania.ts#L237) |
 | `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](src/sdk/contracts/shooter.ts#L664) |
 | `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](src/sdk/contracts/navigation.ts#L34) |
 | `sdk/objectiveMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L142) |
