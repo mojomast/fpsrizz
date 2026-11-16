@@ -229,7 +229,7 @@ export function createShell(root: HTMLElement, cb: ShellCallbacks, initial: Shel
     showStart(info) {
       lastControls = info.controls.map(([k, a]) => [k, a]);
       const p = panel('bh-wide');
-      p.append(el('h1', 'bh-title', 'Bulkhead'), el('div', 'bh-sub', 'modular shooter foundation'));
+      p.append(el('h1', 'bh-title', 'Bulkhead'), el('div', 'bh-sub', 'modular game platform'));
       const pre = el('p', 'bh-preset');
       pre.append('Preset: ', el('b', undefined, info.presetName));
       p.append(pre, el('p', 'bh-objective', info.objective));
@@ -245,7 +245,7 @@ export function createShell(root: HTMLElement, cb: ShellCallbacks, initial: Shel
       play.autofocus = true;
       const row = el('div', 'bh-btns');
       row.append(play, btn('Creator tools', () => cb.onOpenCreator(), 'bh-small'));
-      p.append(row, el('p', 'bh-foot', 'Esc releases the mouse and pauses.'));
+      p.append(row, el('p', 'bh-foot', 'Esc pauses. Open Creator tools to switch experiences.'));
       mount('start', p, play);
     },
     showPause() {

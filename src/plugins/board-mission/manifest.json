@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "board/mission",
+  "name": "Signal Break",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^2.0.0",
+  "description": "A compact authored tactical encounter.",
+  "dependencies": { "board/tactics": "^1.0.0" },
+  "capabilities": []
+}

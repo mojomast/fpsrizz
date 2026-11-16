@@ -84,7 +84,7 @@ const pack = {
     name: 'Test Pack',
     version: '1.0.0',
     kind: 'content',
-    sdk: '^1.0.0',
+    sdk: '^2.0.0',
     description: 'Creator panel verification pack',
     dependencies: { 'core/combat': '^1.0.0', 'core/content': '^1.0.0' },
   },

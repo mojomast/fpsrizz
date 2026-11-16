@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "id": "ember/game",
+  "name": "Ember Bastion Rules",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Tower defense using shared mechanic providers.",
+  "dependencies": {
+    "mechanics/kits": "^1.0.0"
+  },
+  "capabilities": [
+    "simulation"
+  ],
+  "requiresRoles": [
+    "sdk/experience",
+    "sdk/mechanic-resources",
+    "sdk/mechanic-clock",
+    "sdk/mechanic-actions",
+    "sdk/mechanic-objectives"
+  ],
+  "roleDependencies": [
+    "sdk/mechanic-resources",
+    "sdk/mechanic-clock",
+    "sdk/mechanic-actions",
+    "sdk/mechanic-objectives"
+  ]
+}

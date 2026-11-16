@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "vehicle/track",
+  "name": "Neon circuit",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^2.0.0",
+  "description": "An authored neon circuit.",
+  "dependencies": { "vehicle/racing": "^1.0.0" },
+  "capabilities": [],
+  "requiresRoles": [],
+  "config": {}
+}

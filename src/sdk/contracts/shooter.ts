@@ -459,6 +459,10 @@ export interface CombatService {
   /** Runs a registered attack behaviour for `shooter`. Emits AttackFired. */
   fireAttack(shot: AttackShot, behavior: string, sound: string): void;
   giveAmmo(entity: EntityId, ammoType: string, amount: number): number;
+  /**
+   * Adds an unowned weapon. Magazine weapons immediately chamber what the shared reserve can supply;
+   * granting never duplicates reserve ammo. Returns false for a missing weapon, inventory or duplicate.
+   */
   giveWeapon(entity: EntityId, weaponId: string): boolean;
 }
 export const Combat = defineService<CombatService>('sdk/combat');
@@ -556,11 +560,39 @@ export interface TickInput {
   /** Mouse movement in pixels accumulated since the previous tick (consumed once). */
   readonly lookX: number;
   readonly lookY: number;
+  /** Absolute CSS-pixel position relative to the input surface; absent on older/headless adapters. */
+  readonly pointer?: Readonly<{ x: number; y: number; inside: boolean }>;
 }
 export interface InputService {
   readonly tick: TickInput;
 }
 export const Input = defineService<InputService>('sdk/input');
+
+export interface InputBinding {
+  action: string;
+  keys: readonly string[];
+}
+export interface InputContextOptions {
+  bindings: readonly InputBinding[];
+  /** Higher priorities route first; equal priorities use creation order. Default 0. */
+  priority?: number;
+  /** Matching keys stop at this context by default. False also routes them to lower contexts and legacy Input. */
+  consume?: boolean;
+  /** Claim all keyboard/pointer input, including unmapped keys, from lower contexts. Default false. */
+  exclusive?: boolean;
+  enabled?: boolean;
+}
+export interface InputContext extends InputService {
+  readonly enabled: boolean;
+  /** Context changes cancel all held actions/edges. Previously held keys must be released before reuse. */
+  setEnabled(enabled: boolean): void;
+  dispose(): void;
+}
+export interface InputContextsService {
+  /** Bindings are copied on creation. The owner scope disposes the context automatically. */
+  create(ctx: Pick<SessionContext, 'scope'>, options: InputContextOptions): InputContext;
+}
+export const InputContexts = defineService<InputContextsService>('sdk/input-contexts');
 
 export interface FlowResult {
   outcome: 'victory' | 'defeat';

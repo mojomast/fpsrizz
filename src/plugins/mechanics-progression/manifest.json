@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "mechanics/progression",
+  "name": "Experience and levels",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Deterministic XP curves, level ledgers and pending level rewards for RPG, roguelite and mission progression.",
+  "dependencies": {},
+  "capabilities": ["simulation"]
+}

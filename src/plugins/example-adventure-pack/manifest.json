@@ -4,7 +4,7 @@
   "name": "Abandoned Places",
   "version": "1.0.0",
   "kind": "content",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Two small objective maps: a quiet switch hunt and a dark survival encounter.",
   "dependencies": {
     "core/world": "^1.0.0",

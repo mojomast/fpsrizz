@@ -7,8 +7,10 @@ import { createQuadGeometry, parseColor } from './quads.ts';
 /** Half of the view camera's vertical extent at depth 1 (fov 50). */
 const HALF_H = Math.tan((25 * Math.PI) / 180);
 const DEPTH = 1;
-const SIZE = 0.5; // sprite quad side, in view units (screen height = 2 * HALF_H)
-const BOTTOM = -HALF_H - 0.09;
+const SIZE = 0.44; // sprite quad side, in view units (screen height = 2 * HALF_H)
+/** Keep the aiming corridor clear by framing the viewmodel toward the lower right. */
+const RIGHT = 0.18;
+const BOTTOM = -HALF_H - 0.14;
 const SWITCH_TIME = 0.25;
 const RECOIL_TIME = 0.15;
 const FLASH_TIME = 0.05;
@@ -46,7 +48,7 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
   const render = assets.render;
   const root = render.createRoot(ctx, 'view');
   const geo = render.own(ctx, createQuadGeometry(0));
-  const gun = new THREE.Mesh(geo, assets.unlit('switch-off'));
+  const gun = new THREE.Mesh<THREE.BufferGeometry, THREE.Material>(geo, assets.unlit('switch-off'));
   gun.name = 'weapon';
   gun.visible = false;
   gun.scale.set(SIZE, SIZE, 1);
@@ -61,7 +63,8 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
   flash.renderOrder = 1;
   root.add(flash);
 
-  const flashLight = new THREE.PointLight(0xffffff, 2.2, 9);
+  // Legacy map lights use artistic intensity/range; no inverse-square decay for this composition.
+  const flashLight = new THREE.PointLight(0xffffff, 2.2 * Math.PI, 9, 0);
   flashLight.visible = false;
   worldRoot.add(flashLight);
 
@@ -106,19 +109,27 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
       }
       const def: WeaponDef | undefined = shown === null ? undefined : ctx.registries.get(Weapons, shown);
       if (!def || shownTex === '') return hide();
+      const melee = def.attack.behavior === 'core/melee';
 
       // Motion
       const target = player ? Math.max(0, Math.min(1, player.speed)) : 0;
       speed += (target - speed) * Math.min(1, frameDt * 10);
       phase += frameDt * (6 + 4 * speed);
-      const x = Math.sin(phase) * 0.03 * speed + Math.sin(time * 0.9) * 0.003;
+      let x = Math.sin(phase) * 0.03 * speed + Math.sin(time * 0.9) * 0.003;
       let y = BOTTOM - Math.abs(Math.sin(phase)) * 0.028 * speed + Math.sin(time * 1.7) * 0.004;
       let kick = 0;
+      let swing = 0;
       const sinceFire = time - inv.lastFiredAt;
       if (sinceFire >= 0 && sinceFire < RECOIL_TIME) {
         const k = 1 - sinceFire / RECOIL_TIME;
         kick = k * k * def.recoil;
         y += kick * 0.06;
+      }
+      if (melee && sinceFire >= 0 && sinceFire < RECOIL_TIME * 1.6) {
+        const k = 1 - sinceFire / (RECOIL_TIME * 1.6);
+        swing = k * k;
+        x += swing * 0.18;
+        y -= swing * 0.04;
       }
       if (sinceSwitch >= 0 && sinceSwitch < SWITCH_TIME) {
         const h = SWITCH_TIME / 2;
@@ -127,24 +138,25 @@ export function createWeaponView(ctx: SessionContext, assets: ThemeAssets, world
       }
       const s = SIZE * (1 + kick * 0.1);
       gun.scale.set(s, s, 1);
-      gun.position.set(x, y, -DEPTH);
+      gun.position.set(x + RIGHT, y, -DEPTH);
+      gun.rotation.z = melee ? -swing * 0.9 : 0;
       gun.material = gunMaterial(shownTex);
       gun.visible = true;
 
-      // Muzzle flash
-      const on = sinceFire >= 0 && sinceFire < FLASH_TIME;
+      // Muzzle flash belongs to ranged attacks; a blade shows its procedural swing instead.
+      const on = !melee && sinceFire >= 0 && sinceFire < FLASH_TIME;
       flash.visible = on;
       flashLight.visible = on;
       if (on) {
         if (def.flash !== flashColor) {
           flashColor = def.flash;
-          flashMat.color = parseColor(def.flash, 0xffd070);
-          flashLight.color = parseColor(def.flash, 0xffd070);
+          flashMat.color.setHex(parseColor(def.flash, 0xffd070));
+          flashLight.color.setHex(parseColor(def.flash, 0xffd070));
         }
         const m = muzzles.get(shownTex) ?? { u: 0.55, v: 0.2 };
         const size = 0.34 + 0.12 * (sinceFire / FLASH_TIME);
         flash.scale.set(size, size, 1);
-        flash.position.set(x + (m.u - 0.5) * s, y + (1 - m.v) * s + 0.01, -DEPTH + 0.01);
+        flash.position.set(x + RIGHT + (m.u - 0.5) * s, y + (1 - m.v) * s + 0.01, -DEPTH + 0.01);
         flash.rotation.z = (Math.floor(time * 60) % 4) * 1.3;
         flashLight.position.set(view.x + yawDirX(view.yaw) * 0.7, view.y - 0.1, view.z + yawDirZ(view.yaw) * 0.7);
       }

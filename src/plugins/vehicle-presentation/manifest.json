@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "vehicle/presentation",
+  "name": "Neon race presentation",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Overhead race scene, HUD and sound.",
+  "dependencies": { "vehicle/racing": "^1.0.0" },
+  "capabilities": ["render", "audio"],
+  "requiresRoles": ["sdk/theme"],
+  "config": {}
+}

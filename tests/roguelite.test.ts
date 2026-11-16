@@ -87,7 +87,7 @@ test('a map without enemy spawn templates is rejected before replacing the sessi
   const game = await setup(7);
   const previous = game.session();
   const emptyMap = {
-    manifest: { schema: 1, id: 'test/empty-map', name: 'Empty map', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0' } },
+    manifest: { schema: 1, id: 'test/empty-map', name: 'Empty map', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } },
     content: [{ kind: 'map', id: 'test/empty', data: {
       schema: 1, format: 'core/grid', name: 'Empty', cellSize: 2, wallHeight: 3,
       legend: { '#': { solid: true, wall: 'wall-panel' }, '.': { floor: 'floor-plate', ceiling: 'ceiling-panel' } },

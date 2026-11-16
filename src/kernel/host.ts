@@ -56,6 +56,8 @@ export interface ValidationContext {
   readonly activePlugins: readonly string[];
   /** Selected provider id for a role, if the preset chose one. */
   selectedRole(role: RoleToken<unknown>): string | undefined;
+  /** All enabled providers for a role, including their registering owner, for composition validation. */
+  roleProviders<T>(role: RoleToken<T>): RegistryEntry<T>[];
   reporter(source: string, path?: string): Reporter;
 }
 
@@ -259,7 +261,10 @@ export class Session {
 
 export interface StagedGraph {
   readonly preset: GamePreset;
+  /** Concrete dependency order used for loading and registration. */
   readonly order: string[];
+  /** Dependency order augmented with selected roleDependencies provider owners. */
+  readonly activationOrder: string[];
   readonly manifests: Map<string, PluginManifest>;
   readonly modules: Map<string, PluginModule>;
   readonly registries: RegistrySet;
@@ -287,6 +292,50 @@ export interface HostOptions {
 }
 
 const roleKind = (roleId: string): RegistryToken<unknown> => ({ kind: `role:${roleId}` });
+
+/** Roles are resolved only after registration; they affect session startup, never registration. */
+function sessionActivationOrder(order: readonly string[], manifests: ReadonlyMap<string, PluginManifest>, preset: GamePreset, registries: RegistrySet, issues: Issue[]): string[] {
+  const enabled = new Set(order);
+  const edges = new Map<string, Map<string, string>>();
+  for (const id of order) {
+    const manifest = manifests.get(id)!;
+    const deps = new Map<string, string>();
+    for (const dep of Object.keys(manifest.dependencies)) deps.set(dep, `dependencies.${dep}`);
+    for (const dep of Object.keys(manifest.optionalDependencies)) if (enabled.has(dep)) deps.set(dep, `optionalDependencies.${dep}`);
+    for (const role of manifest.roleDependencies ?? []) {
+      const provider = preset.roles[role]!;
+      const owner = registries.ownerOf(roleKind(role), provider)!;
+      if (owner !== id) deps.set(owner, `roleDependencies (${role} selects ${provider}, owned by ${owner})`);
+    }
+    edges.set(id, deps);
+  }
+  const remaining = new Map([...edges].map(([id, deps]) => [id, new Set(deps.keys())]));
+  const result: string[] = [];
+  while (remaining.size) {
+    const ready = [...remaining.keys()].filter(id => remaining.get(id)!.size === 0).sort();
+    if (!ready.length) {
+      // Follow blocked edges to identify an actual cycle, excluding downstream dependents.
+      const path: string[] = [];
+      let current = [...remaining.keys()].sort()[0]!;
+      while (!path.includes(current)) {
+        path.push(current);
+        current = [...remaining.get(current)!].sort()[0]!;
+      }
+      const cycle = path.slice(path.indexOf(current));
+      const details = cycle.map((id, i) => {
+        const dep = cycle[(i + 1) % cycle.length]!;
+        return `"${id}" waits for "${dep}" via ${edges.get(id)!.get(dep)}`;
+      });
+      new Reporter(issues, cycle[0]!, 'roleDependencies').error(`Session activation cycle: ${details.join('; ')}. Select a different role provider or remove a dependency/roleDependencies edge to break the cycle.`);
+      break;
+    }
+    const id = ready[0]!;
+    result.push(id);
+    remaining.delete(id);
+    for (const deps of remaining.values()) deps.delete(id);
+  }
+  return result;
+}
 
 export class PluginHost {
   readonly options: HostOptions;
@@ -459,7 +508,7 @@ export class PluginHost {
       if (issues.length > 0) fail('register', id);
     }
 
-    if (opts.skipValidation) return { preset, order: graph.order, manifests, modules, registries, scope, configs, contentKinds, extra: [...extra] };
+    if (opts.skipValidation) return { preset, order: graph.order, activationOrder: [...graph.order], manifests, modules, registries, scope, configs, contentKinds, extra: [...extra] };
 
     // Cross-reference validation over the complete selection.
     const vctx: ValidationContext = {
@@ -467,10 +516,14 @@ export class PluginHost {
       preset,
       activePlugins: graph.order,
       selectedRole: (role) => preset.roles[role.id],
+      roleProviders: <T>(role: RoleToken<T>) => reader.entries<T>({ kind: `role:${role.id}` }),
       reporter: (source, path) => new Reporter(issues, source, path),
     };
     const requiredRoles = new Map<string, string>();
-    for (const id of graph.order) for (const role of manifests.get(id)!.requiresRoles) if (!requiredRoles.has(role)) requiredRoles.set(role, id);
+    for (const id of graph.order) {
+      const manifest = manifests.get(id)!;
+      for (const role of [...manifest.requiresRoles, ...(manifest.roleDependencies ?? [])]) if (!requiredRoles.has(role)) requiredRoles.set(role, id);
+    }
     const offered = new Map<string, RegistryEntry<unknown>[]>();
     for (const kind of Object.keys(registries.summary())) if (kind.startsWith('role:')) offered.set(kind.slice(5), registries.entries({ kind }));
     for (const [role, by] of requiredRoles) {
@@ -498,7 +551,9 @@ export class PluginHost {
     }
     if (issues.length > 0) fail('validate');
 
-    return { preset, order: graph.order, manifests, modules, registries, scope, configs, contentKinds, extra: [...extra] };
+    const activationOrder = sessionActivationOrder(graph.order, manifests, preset, registries, issues);
+    if (issues.length > 0) fail('validate');
+    return { preset, order: graph.order, activationOrder, manifests, modules, registries, scope, configs, contentKinds, extra: [...extra] };
   }
 
   /**
@@ -596,7 +651,7 @@ export class PluginHost {
   }
 
   private async startSession(staged: StagedGraph, epoch: number): Promise<Session> {
-    const session = new Session(++this.generation, staged.preset, staged.order, staged.registries, this.options.phases, this.sink);
+    const session = new Session(++this.generation, staged.preset, staged.activationOrder, staged.registries, this.options.phases, this.sink);
     this.session = session;
     const reader = readerOf(staged.registries);
     const contexts = session.contexts;
@@ -604,7 +659,7 @@ export class PluginHost {
     let current = 'host';
     try {
       this.options.installHostServices?.(session, session.scope);
-      for (const id of staged.order) {
+      for (const id of staged.activationOrder) {
         current = id;
         const ctx = this.makeContext(session, staged, id, reader);
         contexts.set(id, ctx);
@@ -614,7 +669,7 @@ export class PluginHost {
       // Selected role providers start after every plugin is active: owner order first, then role id.
       const selected = Object.entries(staged.preset.roles)
         .map(([role, pid]) => ({ role, pid, owner: staged.registries.ownerOf(roleKind(role), pid)! }))
-        .sort((a, b) => staged.order.indexOf(a.owner) - staged.order.indexOf(b.owner) || (a.role < b.role ? -1 : 1));
+        .sort((a, b) => staged.activationOrder.indexOf(a.owner) - staged.activationOrder.indexOf(b.owner) || (a.role < b.role ? -1 : 1));
       for (const s of selected) {
         current = s.owner;
         const provider = staged.registries.get(roleKind(s.role), s.pid) as Partial<ActivatableProvider> | undefined;

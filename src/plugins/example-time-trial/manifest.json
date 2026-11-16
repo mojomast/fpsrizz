@@ -4,7 +4,7 @@
   "name": "Time Trial Raid",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Activate the objective switches and escape before time runs out.",
   "dependencies": { "core/world": "^1.0.0", "core/player": "^1.0.0" },
   "capabilities": ["simulation"],

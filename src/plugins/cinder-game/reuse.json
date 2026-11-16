@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "family",
+  "summary": "Three-depth seeded dungeon shooter roguelite with non-blocking in-level XP/boon choices, six weapons, wardens, a keeper and persistent legacy.",
+  "keywords": ["roguelite", "roguelike", "dungeon", "depth", "floor", "level up", "experience", "xp", "boon", "draft", "relic", "weapon", "armory", "warden", "boss", "embers", "seeded", "legacy", "pulse"],
+  "entryPoints": ["Cinder", "createMechanicKit", "progressionMechanic", "DamageModifiers", "createCommandQueue"],
+  "useWhen": "Compose Cinder Vault's three-depth dungeon rules with replaceable resource/action/clock/objective/progression providers and separate content/HUD packs.",
+  "limitations": ["Shooter-family authority with one generated three-wing dungeon and one arena tile theme; no runtime map replacement or run save/restore.", "Each depth is a generated static seed; encounters, boons and caches vary by attempt, not layout. Weapons/boons reset with the run; legacy persistence is optional."],
+  "docs": ["docs/cinder-vault.md", "docs/dungeon-generator.md", "docs/progression.md"],
+  "examples": ["src/content/presets/cinder-vault.json", "src/plugins/cinder-content/content.json"],
+  "tests": ["tests/cinder-vault.test.ts", "tests/cinder-demo/run.mjs"]
+}

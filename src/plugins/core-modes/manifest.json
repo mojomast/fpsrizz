@@ -4,7 +4,7 @@
   "name": "Objective Mode",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "The default game mode: restore the override switch, then reach the exit. Owns spawning of the map's actors and the win/lose conditions.",
   "dependencies": { "core/world": "^1.0.0" },
   "capabilities": ["simulation"],

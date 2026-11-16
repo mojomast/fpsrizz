@@ -4,7 +4,7 @@
   "name": "First-Person Player",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Player prefab, WASD + mouse-yaw controller and fixed-eye-height first-person camera. Movement is planar; jumping and vertical aim belong to future controller/camera providers.",
   "dependencies": { "core/world": "^1.0.0" },
   "capabilities": ["simulation", "input"],

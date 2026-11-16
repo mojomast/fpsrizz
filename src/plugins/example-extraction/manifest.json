@@ -4,7 +4,7 @@
   "name": "Extraction Prototype",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Collect loot and reach an exit before time runs out in a single session.",
   "dependencies": { "core/world": "^1.0.0", "core/combat": "^1.0.0", "core/player": "^1.0.0" },
   "capabilities": ["simulation"],

@@ -24,6 +24,38 @@ export const sounds: Record<string, SoundDef> = {
     noise(0.7, 'lowpass', 2500, 200, { duration: 0.55 }, 1.5),
     osc('square', 600, 1400, 0.15, 0, { duration: 0.2 }),
   ] },
+  'blade-swing': { duration: 0.24, gain: 0.7, layers: [
+    noise(0.8, 'bandpass', 3200, 700, { duration: 0.16 }, 1.4),
+    osc('sine', 240, 90, 0.25, 0, { duration: 0.18 }),
+    noise(0.35, 'highpass', 5500, 2500, { duration: 0.08, delay: 0.03 }),
+  ] },
+  'cinderkey-fire': { duration: 0.3, gain: 0.9, layers: [
+    noise(1, 'highpass', 3000, 1100, { duration: 0.08 }),
+    noise(0.55, 'bandpass', 1600, 320, { duration: 0.2 }, 1.2),
+    osc('square', 740, 110, 0.4, 0, { duration: 0.1 }),
+    osc('sine', 1880, 1240, 0.18, 0, { duration: 0.22, delay: 0.02 }),
+  ] },
+  'mothspindle-fire': { duration: 0.12, gain: 0.62, layers: [
+    noise(0.8, 'highpass', 3800, 1500, { duration: 0.05 }),
+    osc('square', 620, 180, 0.28, 0, { duration: 0.06 }),
+  ] },
+  'briarward-fire': { duration: 0.24, gain: 0.85, layers: [
+    noise(0.9, 'bandpass', 2300, 500, { duration: 0.1 }, 0.9),
+    osc('sawtooth', 430, 90, 0.5, 0, { duration: 0.14 }),
+    osc('sine', 120, 55, 0.45, 0, { duration: 0.15 }),
+  ] },
+  'oracle-fire': { duration: 0.5, gain: 1, layers: [
+    noise(1, 'highpass', 5200, 1100, { duration: 0.12 }),
+    osc('sawtooth', 980, 75, 0.5, 0, { duration: 0.18 }),
+    osc('sine', 2100, 1500, 0.22, 0, { duration: 0.45 }),
+    noise(0.4, 'lowpass', 1200, 180, { duration: 0.4, delay: 0.04 }),
+  ] },
+  'ashbell-fire': { duration: 0.9, gain: 0.95, layers: [
+    osc('sawtooth', 150, 34, 0.75, 0, { duration: 0.65 }),
+    osc('sine', 78, 26, 0.85, 0, { duration: 0.6 }),
+    noise(0.75, 'lowpass', 2200, 160, { duration: 0.75 }, 1.3),
+    ...notes('sine', [784, 523, 392], 0.22, 0.5, 0.22),
+  ] },
   'ricochet-fire': { duration: 0.35, gain: 0.8, layers: [
     osc('sawtooth', 2400, 300, 0.5, 0, { duration: 0.25 }),
     osc('square', 1200, 1800, 0.25, 0, { duration: 0.3, delay: 0.02 }),

@@ -1,0 +1,13 @@
+[
+  { "kind": "push-puzzle", "id": "puzzle/sleeping-ruins", "data": {
+    "name": "Stonewake",
+    "chambers": [
+      { "name": "The First Weight", "hint": "Push the boulder east onto the glowing plate. The golden gate opens when every plate is weighted.", "par": 10,
+        "rows": ["#########", "#......E#", "#..#....#", "#..B.O..#", "#.P.....#", "#.......#", "#########"] },
+      { "name": "The Waking Watch", "hint": "Golems take one step for every two of yours. They find routes around walls, but cannot cross boulders. Space waits; Z undoes.", "par": 12,
+        "rows": ["###########", "#...#....E#", "#...#.....#", "#...B.O...#", "#..P#.....#", "#...#..G..#", "#.........#", "###########"] },
+      { "name": "The Twin Seal", "hint": "Two stones, two seals, two watchers. Weight the northern plate, then approach the lower boulder from its west side. Watch the golem beat.", "par": 24,
+        "rows": ["###########", "#....#...E#", "#..O.#....#", "#..B....G.#", "#....#....#", "#..P.#....#", "#..B...O..#", "#G...#....#", "###########"] }
+    ]
+  } }
+]

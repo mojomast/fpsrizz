@@ -205,8 +205,9 @@ export const giveWeapon: PickupEffect = {
   },
   start: (ctx: SessionContext) => (target, p) => {
     const combat = ctx.services.get(Combat);
-    const got = combat.giveWeapon(target, str(p, 'weapon', ''));
+    // Grant the optional reserve first so a newly granted magazine weapon can chamber it.
     const ammo = typeof p['ammoType'] === 'string' ? combat.giveAmmo(target, p['ammoType'], num(p, 'amount', 0)) : 0;
+    const got = combat.giveWeapon(target, str(p, 'weapon', ''));
     return got || ammo > 0;
   },
 };

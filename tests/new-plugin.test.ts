@@ -35,6 +35,12 @@ test('scaffolder safely serializes display names and suggests valid identifiers'
     const manifest = JSON.parse(readFileSync(join(dir, 'manifest.json'), 'utf8'));
     assert.equal(manifest.id, '9space/2...--foo_');
     assert.equal(manifest.name, name);
+    const reuse = JSON.parse(readFileSync(join(dir, 'reuse.json'), 'utf8'));
+    assert.equal(reuse.summary, name);
+    assert.equal(reuse.scope, 'unreviewed');
+    assert.deepEqual(reuse.entryPoints, []);
+    assert.match(result.stdout, /npm run find-reuse/);
+    assert.match(result.stdout, /npm run index-reuse/);
     const source: string = readFileSync(join(dir, 'index.ts'), 'utf8');
     const notification = source.match(/\.notify\(([\s\S]+?)\);/);
     assert.ok(notification?.[1]);

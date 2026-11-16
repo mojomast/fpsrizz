@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "source": "assets/weapons/fantasy",
+  "license": "original, created for this project; see assets/weapons/fantasy/README.md",
+  "size": 192,
+  "margin": 0.12,
+  "weapons": [
+    { "id": "cinder/thornwake", "stem": "01_thornwake", "sourceSha256": "b1a405c11e118d721c223149816011723e5415d133a0392923fec6c056220a6f" },
+    { "id": "cinder/cinderkey", "stem": "02_cinderkey", "sourceSha256": "4d83ee03fe20467a1cfcfe40e8780e35e748a783316aeb64f1814e3704ab54ee" },
+    { "id": "cinder/mothspindle", "stem": "03_mothspindle", "sourceSha256": "3e41e33b4e0fb34a2849b8d79278403030128dd96170a0a609d2eabbfb778809" },
+    { "id": "cinder/briarward", "stem": "04_briarward", "sourceSha256": "368320bedbe8d0d946db2eccf63bd6cc39a14358c3806c37e1629338af882fbb" },
+    { "id": "cinder/faroracle", "stem": "05_faroracle", "sourceSha256": "d480203be32316e79757b4c209253acb1f50ab18cea0408552691e49a927cff8" },
+    { "id": "cinder/ashbell", "stem": "06_ashbell", "sourceSha256": "590e1402d408f6b6f0c8fac5b8c45c8038d5e6cc0e418c058428c4789ddfe64b" }
+  ]
+}

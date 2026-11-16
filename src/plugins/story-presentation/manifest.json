@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "id": "story/presentation",
+  "name": "Adventure presentation",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Illustrated point-and-click adventure interface.",
+  "dependencies": {
+    "story/adventure": "^1.0.0"
+  },
+  "capabilities": [
+    "ui",
+    "audio"
+  ]
+}

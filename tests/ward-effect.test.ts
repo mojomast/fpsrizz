@@ -9,7 +9,7 @@ const plugins = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'co
 
 function pack(params: Record<string, unknown>): CatalogEntry {
   return {
-    manifest: { schema: 1, id: 'test/wards', name: 'Wards', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/combat': '^1.0.0', 'example/ward': '^1.0.0' } },
+    manifest: { schema: 1, id: 'test/wards', name: 'Wards', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/combat': '^1.0.0', 'example/ward': '^1.0.0' } },
     content: [
       { kind: 'pickup', id: 'test/ward', data: { name: 'Ward', effect: 'example/ward', params, visual: 'pickup-health' } },
       { kind: 'pickup', id: 'test/strong-ward', data: { name: 'Strong ward', effect: 'example/ward', params: { duration: 1, multiplier: 0.25 }, visual: 'pickup-health' } },
@@ -20,7 +20,7 @@ function pack(params: Record<string, unknown>): CatalogEntry {
 function setup(params: Record<string, unknown> = { duration: 1, multiplier: 0.5 }) {
   let ctx: SessionContext;
   const probe = {
-    manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^1.0.0' },
+    manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^2.0.0' },
     load: async () => ({ default: definePlugin({ activate(c) { ctx = c; } }) }),
   } as CatalogEntry;
   const game = createHeadlessGame([{ manifest, load: () => import('../src/plugins/example-ward/index.ts') }, pack(params), probe]);

@@ -4,7 +4,7 @@
   "name": "Dash Controller",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Planar first-person movement with sprint and a directional, cooldown-limited dash.",
   "dependencies": { "core/player": "^1.0.0", "core/world": "^1.0.0" },
   "capabilities": ["simulation", "input"],

@@ -6,7 +6,7 @@ import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import manifest from '../src/plugins/example-dash-controller/manifest.json' with { type: 'json' };
 
 const map: CatalogEntry = {
-  manifest: { schema: 1, id: 'test/dash-map', name: 'Dash map', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0' } },
+  manifest: { schema: 1, id: 'test/dash-map', name: 'Dash map', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } },
   content: [{ kind: 'map', id: 'test/dash-box', data: {
     schema: 1, format: 'core/grid', name: 'Box', cellSize: 2, wallHeight: 3,
     legend: { '#': { solid: true, wall: 'wall-panel' }, '.': { floor: 'floor-plate', ceiling: 'ceiling-panel' } },

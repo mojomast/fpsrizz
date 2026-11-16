@@ -9,7 +9,7 @@ const base = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/
 
 function content(door = 'gate', key: unknown = 'blue', extra: Record<string, unknown> = {}): CatalogEntry {
   return {
-    manifest: { schema: 1, id: 'test/keys-content', name: 'Keys test', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0', 'core/combat': '^1.0.0', 'example/keys': '^1.0.0' } },
+    manifest: { schema: 1, id: 'test/keys-content', name: 'Keys test', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0', 'core/combat': '^1.0.0', 'example/keys': '^1.0.0' } },
     content: [
       { kind: 'pickup', id: 'test/blue-key', data: { name: 'Blue key', effect: 'example/give-key', params: { key }, visual: 'pickup-key' } },
       { kind: 'map', id: 'test/gate-map', data: {
@@ -30,7 +30,7 @@ function content(door = 'gate', key: unknown = 'blue', extra: Record<string, unk
 
 async function setup(entry = content()) {
   let context: SessionContext | undefined;
-  const probe = { manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^1.0.0' }, load: async () => ({ default: definePlugin({ activate(ctx) { context = ctx; } }) }) } as unknown as CatalogEntry;
+  const probe = { manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^2.0.0' }, load: async () => ({ default: definePlugin({ activate(ctx) { context = ctx; } }) }) } as unknown as CatalogEntry;
   const game = createHeadlessGame([entry, probe, { manifest, load: () => import('../src/plugins/example-keys/index.ts') }]);
   const preset = headlessPreset({ plugins: base, options: { map: 'test/gate-map' } });
   await game.host.apply(preset as never);

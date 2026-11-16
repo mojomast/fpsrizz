@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "id": "board/turn-tactics",
+  "name": "Signal Break — Turn Tactics",
+  "plugins": [
+    "mechanics/navigation",
+    "board/tactics",
+    "board/mission",
+    "board/presentation",
+    "theme/board"
+  ],
+  "roles": { "sdk/experience": "board/tactics", "sdk/theme": "theme/board", "sdk/mechanic-navigation": "mechanics/navigation" },
+  "options": { "mission": "board/signal-break" },
+  "config": {},
+  "seed": 42
+}

@@ -4,7 +4,7 @@
   "name": "Arcade Racing",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Planar time-trial racing controller and ordered checkpoint mode.",
   "dependencies": { "core/world": "^1.0.0", "core/player": "^1.0.0" },
   "capabilities": ["simulation"],

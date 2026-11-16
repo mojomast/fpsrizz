@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "story/adventure",
+  "name": "Adventure rules",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Independent room, dialogue and inventory adventure rules.",
+  "capabilities": [
+    "simulation"
+  ],
+  "requiresRoles": [
+    "sdk/experience"
+  ]
+}

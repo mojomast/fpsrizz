@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "mechanics/navigation",
+  "name": "Deterministic graph navigation",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Pure ordered graph queries for shortest unit-edge distances and canonical first steps.",
+  "dependencies": {},
+  "capabilities": ["simulation"]
+}

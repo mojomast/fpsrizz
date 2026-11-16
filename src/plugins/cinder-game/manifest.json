@@ -1,0 +1,13 @@
+{
+  "schema": 1,
+  "id": "cinder/game",
+  "name": "Cinder Vault roguelite",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "A three-depth seeded dungeon roguelite with in-level XP, boon choices, a six-weapon armory and persistent ember mastery.",
+  "dependencies": { "core/world": "^1.0.0", "core/combat": "^1.0.0", "core/player": "^1.0.0", "core/enemies": "^1.0.0", "dungeon/generator": "^1.0.0", "mechanics/kits": "^1.0.0" },
+  "capabilities": ["simulation", "input"],
+  "requiresRoles": ["sdk/mechanic-progression"],
+  "roleDependencies": ["sdk/mechanic-resources", "sdk/mechanic-clock", "sdk/mechanic-actions", "sdk/mechanic-objectives", "sdk/mechanic-progression"]
+}

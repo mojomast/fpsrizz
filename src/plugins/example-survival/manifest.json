@@ -4,7 +4,7 @@
   "name": "Example survival",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Survival game mode: escalating waves of the map's enemies spawn out of sight; score kills, survive the last wave.",
   "dependencies": {
     "core/world": "^1.0.0",

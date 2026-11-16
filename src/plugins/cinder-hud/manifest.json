@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "id": "cinder/hud",
+  "name": "Cinder Vault illustrated HUD",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Dungeon HUD with depth guidance, a non-blocking level-up boon tray, armory rack and magazine display.",
+  "dependencies": { "cinder/game": "^1.0.0" },
+  "capabilities": ["ui"],
+  "requiresRoles": ["sdk/hud"]
+}

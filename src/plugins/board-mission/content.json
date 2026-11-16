@@ -1,0 +1,56 @@
+[
+  {
+    "kind": "board-mission",
+    "id": "board/signal-break",
+    "data": {
+      "name": "Signal Break",
+      "rows": [
+        "........",
+        "...#....",
+        "...#..C.",
+        ".C......",
+        "....#...",
+        "....#...",
+        "........"
+      ],
+      "units": [
+        {
+          "id": "raven",
+          "name": "Raven",
+          "team": "squad",
+          "x": 1,
+          "y": 5,
+          "hp": 6,
+          "ap": 2
+        },
+        {
+          "id": "rook",
+          "name": "Rook",
+          "team": "squad",
+          "x": 2,
+          "y": 6,
+          "hp": 6,
+          "ap": 2
+        },
+        {
+          "id": "guard",
+          "name": "Guard",
+          "team": "enemy",
+          "x": 6,
+          "y": 1,
+          "hp": 4,
+          "ap": 2
+        },
+        {
+          "id": "sentry",
+          "name": "Sentry",
+          "team": "enemy",
+          "x": 6,
+          "y": 3,
+          "hp": 4,
+          "ap": 2
+        }
+      ]
+    }
+  }
+]

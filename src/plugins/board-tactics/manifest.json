@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "id": "board/tactics",
+  "name": "Tactics Rules",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Deterministic squad turn rules and mission content.",
+  "dependencies": {},
+  "capabilities": ["simulation"],
+  "requiresRoles": ["sdk/experience", "sdk/mechanic-navigation"]
+}

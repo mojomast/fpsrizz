@@ -5,7 +5,7 @@ import type { CatalogEntry, DoorState, InteractionCandidate, SessionContext, Tri
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const map: CatalogEntry = {
-  manifest: { schema: 1, id: 'test/maps', name: 'Maps', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0' } },
+  manifest: { schema: 1, id: 'test/maps', name: 'Maps', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } },
   content: [{ kind: 'map', id: 'test/room', data: {
     schema: 1, format: 'core/grid', name: 'Room', cellSize: 2, wallHeight: 3,
     legend: { '#': { solid: true, wall: 'wall' }, '.': { floor: 'floor', ceiling: 'ceiling' } },
@@ -18,7 +18,7 @@ const map: CatalogEntry = {
 async function setup() {
   let ctx!: SessionContext;
   const probe = {
-    manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0' } },
+    manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } },
     load: async () => ({ default: definePlugin({ register(c) { c.provideRole(ModeRole, 'test/mode', { name: 'Test', description: 'Test', activate() {} }); }, activate(c) { ctx = c; } }) }),
   } as unknown as CatalogEntry;
   const game = createHeadlessGame([map, probe]);

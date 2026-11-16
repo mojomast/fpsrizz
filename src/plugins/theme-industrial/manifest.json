@@ -4,7 +4,7 @@
   "name": "Industrial Theme",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Procedural industrial-sci-fi art, sprites and synthesized sound effects.",
   "capabilities": ["assets"]
 }

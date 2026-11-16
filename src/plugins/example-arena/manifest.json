@@ -4,7 +4,7 @@
   "name": "Example arena score attack",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Score points by eliminating enemies before the kill or time limit.",
   "dependencies": {
     "core/world": "^1.0.0",

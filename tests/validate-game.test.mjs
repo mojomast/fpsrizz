@@ -47,7 +47,7 @@ test('validates wrapped external content through the real host and rejects code 
   const game = preset();
   game.plugins.push('test/pack');
   const gamePath = write(dir, 'game.json', game);
-  const pack = { schema: 1, manifest: { schema: 1, id: 'test/pack', name: 'Test pack', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/combat': '^1.0.0' } }, content: [] };
+  const pack = { schema: 1, manifest: { schema: 1, id: 'test/pack', name: 'Test pack', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/combat': '^1.0.0' } }, content: [] };
   const packPath = write(dir, 'pack.json', pack);
   let result = run(gamePath, '--pack', packPath);
   assert.equal(result.status, 0, result.stderr);

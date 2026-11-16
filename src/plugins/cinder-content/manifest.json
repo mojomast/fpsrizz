@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "cinder/content",
+  "name": "Cinder Vault dungeon content",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^2.0.0",
+  "description": "A seeded three-depth dungeon, a six-weapon Gloamforge armory, wardens, caches, enemies and a shared mechanic kit.",
+  "dependencies": { "core/world": "^1.0.0", "core/combat": "^1.0.0", "core/enemies": "^1.0.0", "dungeon/generator": "^1.0.0", "mechanics/kits": "^1.0.0" }
+}

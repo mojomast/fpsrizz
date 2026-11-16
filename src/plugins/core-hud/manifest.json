@@ -4,7 +4,7 @@
   "name": "Standard HUD",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Retro-industrial heads-up display: health, ammo, weapon bar, objective, status lines, notices, crosshair and damage feedback.",
   "capabilities": ["ui"],
   "config": {

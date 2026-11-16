@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "vehicle/racing",
+  "name": "Neon racing",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Independent arcade vehicle and ordered race rules.",
+  "dependencies": {},
+  "capabilities": ["simulation"],
+  "requiresRoles": ["sdk/experience"],
+  "roleDependencies": ["sdk/mechanic-sequence"],
+  "config": {}
+}

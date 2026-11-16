@@ -1,0 +1,1 @@
+{"schema":1,"id":"mechanics/clock","name":"Explicit mechanic clocks","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Consumer-advanced seconds and turn clocks.","dependencies":{},"capabilities":["simulation"]}

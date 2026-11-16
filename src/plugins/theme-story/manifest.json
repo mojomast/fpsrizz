@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "theme/story",
+  "name": "The Indigo Observatory Story Theme",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Pinned Assetrizz ink-watercolor observatory, keeper and loupe, a hand-painted brass key, and synthesized glass-like story cues.",
+  "capabilities": ["assets", "audio"]
+}

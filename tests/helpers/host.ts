@@ -7,7 +7,7 @@ export { PluginHost, HostError, PHASES, SDK_VERSION };
 
 /** Fully-populated, already-parsed manifest (for pure resolver tests). */
 export function fullManifest(id: string, over: Partial<PluginManifest> = {}): PluginManifest {
-  return { schema: 1, id, name: id, version: '1.0.0', kind: 'code', sdk: '^1.0.0', description: '', dependencies: {}, optionalDependencies: {}, conflicts: [], capabilities: [], requiresRoles: [], config: {}, ...over };
+  return { schema: 1, id, name: id, version: '1.0.0', kind: 'code', sdk: `^${SDK_VERSION}`, description: '', dependencies: {}, optionalDependencies: {}, conflicts: [], capabilities: [], requiresRoles: [], config: {}, ...over };
 }
 
 export function manifestMap(list: readonly PluginManifest[]): Map<string, PluginManifest> {
@@ -16,7 +16,7 @@ export function manifestMap(list: readonly PluginManifest[]): Map<string, Plugin
 
 /** Raw manifest JSON as a plugin author would write it; `over` may add dependencies, config, kind, ... */
 export function rawManifest(id: string, over: Record<string, unknown> = {}): Record<string, unknown> {
-  return { schema: 1, id, name: id, version: '1.0.0', kind: 'code', sdk: '^1.0.0', ...over };
+  return { schema: 1, id, name: id, version: '1.0.0', kind: 'code', sdk: `^${SDK_VERSION}`, ...over };
 }
 
 /** In-memory code plugin. */

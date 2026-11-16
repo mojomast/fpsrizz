@@ -48,9 +48,25 @@ specific weapons, generation command and export details.
    python3 tests/weapon-painters.test.py
    ```
 
+   The Cinder Vault theme uses all six fantasy renders:
+
+   ```sh
+   python3 scripts/weapon-painters.py --force --output src/plugins/theme-assetrizz/cinder-weapons.ts \
+     --sprite cinder-thornwake=assets/weapons/fantasy/01_thornwake.png \
+     --sprite cinder-cinderkey=assets/weapons/fantasy/02_cinderkey.png \
+     --sprite cinder-mothspindle=assets/weapons/fantasy/03_mothspindle.png \
+     --sprite cinder-briarward=assets/weapons/fantasy/04_briarward.png \
+     --sprite cinder-faroracle=assets/weapons/fantasy/05_faroracle.png \
+     --sprite cinder-ashbell=assets/weapons/fantasy/06_ashbell.png
+   python3 scripts/import-weapon-previews.py
+   ```
+
    The generator preserves image dimensions and visible RGBA, compressing transparent runs. A raw 512×512 RGBA sprite
-   takes about 1 MiB before encoding, so measure bundle size before scaling to whole arsenals. Preview the packaged
-   build and exercise switching, fire, flash and restart; run `npm run check`, `npm run build` and browser smoke.
+   takes about 1 MiB before encoding, so measure bundle size before scaling to whole arsenals. `import-weapon-previews.py`
+   verifies the source hashes in `scripts/weapon-previews.json`, crops alpha bounds with padding, and writes 192px
+   card thumbnails plus `public/weapons/provenance.json`; `--check` verifies both without modifying them. Preview the
+   packaged build and exercise switching, fire, flash, reload and restart; run `npm run check`, `npm run build` and
+   browser smoke.
 
 For future automation, standardize a per-asset manifest (theme key, sources and hashes, author/license, Blender
 version, root, axis convention, output paths, triangle budget and muzzle coordinates), support clean `--out` builds,

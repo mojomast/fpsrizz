@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "dungeon/generator",
+  "name": "Seeded dungeon rooms",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "A seeded multi-wing grid dungeon map format with interconnected rooms, corridors, room markers, descent pads and lights.",
+  "dependencies": { "core/world": "^1.0.0" },
+  "capabilities": ["simulation"]
+}

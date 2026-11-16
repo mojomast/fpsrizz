@@ -1,7 +1,7 @@
 import { AmmoTypes, Health, Inventory, Player, Transform, Weapons, definePlugin, makeTransform } from '../../src/sdk/index.ts';
 import type { EntityId, WeaponDef } from '../../src/sdk/index.ts';
 
-export const demoManifest = { schema: 1, id: 'demo/game', name: 'Demo Game', version: '1.0.0', kind: 'code', sdk: '^1.0.0' };
+export const demoManifest = { schema: 1, id: 'demo/game', name: 'Demo Game', version: '1.0.0', kind: 'code', sdk: '^2.0.0' };
 
 const weapon = (name: string, slot: number, ammoType: string): WeaponDef => ({
   name, slot, attack: { behavior: 'x', params: {} }, ammoType, ammoPerShot: 1, cooldown: 0.2, auto: false, starter: false, view: '', fireSound: '', recoil: 0.3, flash: '#ffcc66',

@@ -1,0 +1,15 @@
+# Ember Bastion
+
+A 3D tower-defense experience built from original lit obsidian, copper and ember geometry. Defend the core against three manually launched waves. Enemies travel along the ash lane; towers automatically attack the most advanced enemy within range. Enemy health bars and core integrity make each breach visible.
+
+## Controls and strategy
+
+Click a glowing pad in the 3D scene, or use its numbered button, to forge a tower for 40 scrap. Launch each wave with the button. Kills award 8 scrap, capped at 200. Repair costs 25 scrap and restores 2 integrity (5-second cooldown); it is rejected if it would overflow the core. Pulse costs 30 scrap, damages all current enemies for 6, and has an 8-second cooldown; it requires at least one enemy. The HUD reads costs and availability from the selected action provider and displays remaining pulse and repair cooldowns. Escape pauses. On victory or defeat use Play again for a fresh run. The HUD provides button alternatives to canvas picking and a live status message.
+
+A tested completion route: build pads **3 and 4** (zero-based indices 2 and 3), launch wave 1, build pad **1** (index 0) after wave 1 with salvage, then launch waves 2 and 3. No pulse or repair is required. Leaving the lane undefended and launching wave 1 loses when five enemies breach the 10-integrity core. Other placements and spending choices change the outcome; scrap cannot be spent twice.
+
+## Composition and authority
+
+Preset `ember/bastion` combines `ember/game`, `ember/presentation`, `ember/content`, `theme/industrial`, and the five `mechanics/*` plugins. It selects `ember/bastion` as `sdk/experience` and the default four mechanic providers. The game requires provider roles rather than specific implementations, with role dependencies for activation order. The pack defines `ember/ash-lane` (`ember-defense`) and `ember/forge-kit` (`mechanic-kit`).
+
+The `Ember` SDK service (`ember/bastion`) exposes `config`, `revision`, `state()` and `enqueue(command)`. The state includes provider action definitions, remaining cooldowns and transaction readiness; target and pad legality remain game rules. Commands are `{type:'build',pad}` with zero-based pad index, or `{type:'launch'|'repair'|'pulse'|'replay'}`. The bounded queue is gated by `SessionControl`, checked again in fixed-tick system `ember/game.defense`. Spatial legality is checked before shared action transactions; rejected commands do not change local state or spend. The selected shared kit provides scrap, integrity, clock, actions, and wave objectives. Each tower uses its own no-cost shared `fire` action bound to the kit clock, so towers can fire independently. Replay disposes those handles before replacing the kit. The game's clock advances only during simulation; kills explicitly cap resource credits. The frozen `ember-defense` content specifies the lane polyline, pads and waves; the scene draws the authored segments and endpoints. Scene and HUD are optional and use `ember/presentation.frame`; owned Three.js resources are disposed with the presentation scope.

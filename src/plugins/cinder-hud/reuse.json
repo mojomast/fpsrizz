@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "presentation",
+  "summary": "Cinder Vault dungeon HUD with depth/waypoint guidance, non-blocking level-up boon tray, armory rack, magazine display and reload state.",
+  "keywords": ["roguelite", "dungeon", "assetrizz", "relic", "weapon", "armory", "boon", "level up", "hud", "fantasy"],
+  "entryPoints": ["Cinder", "HudRole", "Ui"],
+  "useWhen": "Present Cinder's dungeon run, depth waypoint, experience and keyboard-operable 7/8/9 boon choices without pausing combat.",
+  "limitations": ["Consumes the Cinder family service; pointer-locked play uses keyboard selections. Desktop keyboard/mouse controls; the boon tray is intentionally non-modal."],
+  "docs": ["docs/cinder-vault.md"],
+  "examples": ["src/content/presets/cinder-vault.json"],
+  "tests": ["tests/cinder-vault.test.ts", "tests/cinder-demo/run.mjs"]
+}

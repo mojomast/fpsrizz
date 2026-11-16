@@ -38,7 +38,7 @@ function controller(ctx: SessionContext): void {
           player.speed = 0;
           return;
         }
-        for (let slot = 1; slot <= 5; slot++) if (tick.pressed(`core/weapon-${slot}`)) intent.weaponSlot = slot;
+        for (let slot = 1; slot <= 9; slot++) if (tick.pressed(`core/weapon-${slot}`)) intent.weaponSlot = slot;
         if (tick.pressed('core/weapon-next')) intent.weaponCycle = 1;
         else if (tick.pressed('core/weapon-prev')) intent.weaponCycle = -1;
         t.yaw -= tick.lookX * (settings?.lookSensitivity ?? 0.0024);

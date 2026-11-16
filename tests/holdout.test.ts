@@ -75,7 +75,7 @@ test('selected mode validates exit zone and enemy points before replacing a runn
     legend: { '#': { solid: true, wall: 'wall-panel' }, '.': { floor: 'floor-plate', ceiling: 'ceiling-panel' } },
     grid: ['#####', '#...#', '#...#', '#####'], playerStart: { cell: [1, 1], yaw: 0 }, spawns: [],
   };
-  const pack = { manifest: { schema: 1, id: 'test/empty-map', name: 'Empty map', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0' } }, content: [{ kind: 'map', id: 'test/empty', data: map }] };
+  const pack = { manifest: { schema: 1, id: 'test/empty-map', name: 'Empty map', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } }, content: [{ kind: 'map', id: 'test/empty', data: map }] };
   const game = createHeadlessGame([entry, pack]);
   try {
     await game.host.apply(headlessPreset());

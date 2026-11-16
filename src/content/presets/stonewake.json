@@ -1,0 +1,6 @@
+{
+  "schema": 1, "id": "puzzle/stonewake", "name": "Stonewake — 3D puzzle",
+  "plugins": ["mechanics/navigation", "puzzle/rules", "puzzle/presentation", "puzzle/chambers", "theme/board"],
+  "roles": { "sdk/experience": "puzzle/stonewake", "sdk/theme": "theme/board", "sdk/mechanic-navigation": "mechanics/navigation" },
+  "options": { "campaign": "puzzle/sleeping-ruins" }, "seed": 37
+}

@@ -149,7 +149,7 @@ export const testPackManifest = (over: Obj = {}): Obj => ({
   name: 'Test maps',
   version: '1.0.0',
   kind: 'content',
-  sdk: '^1.0.0',
+  sdk: '^2.0.0',
   dependencies: { 'core/world': '^1.0.0', 'core/combat': '^1.0.0', 'core/enemies': '^1.0.0', 'core/content': '^1.0.0' },
   ...over,
 });

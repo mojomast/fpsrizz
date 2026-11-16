@@ -3,7 +3,7 @@
 Everything in the reference game — weapons, enemies, maps, rules, HUD, rendering — is a plugin or a content pack
 built on the API described here. Third-party authors get exactly the same API.
 
-- **SDK version:** `1.0.0` (`SDK_VERSION`). Manifests declare a compatible range in `sdk`.
+- **SDK version:** `2.0.0` (`SDK_VERSION`). Manifests declare a compatible range in `sdk`.
 - **One entry point:** `src/sdk/index.ts`. Rendering plugins may additionally import `src/sdk/render.ts`.
 - **Enforced:** `npm run lint` (`scripts/boundaries.ts`) fails if a plugin imports anything else — the kernel,
   platform adapters, the app, another plugin's files, or an npm package.
@@ -29,6 +29,11 @@ plugin that registers a behaviour, after which data can select it by id.
 adding its folder and one catalog line (plus naming it in a preset). A deployed build cannot install new JavaScript;
 it can import data packs.
 
+**Authoring discovery:** use `npm run find-reuse -- "capability words"` before implementing another mechanic.
+`--show <id>` explains entry points, concrete enable dependencies, required role selections, registered behaviors,
+examples and scope limits. See [REUSE.md](REUSE.md) and [the generated inventory](REUSE_INDEX.md). This authoring tool
+observes isolated default registrations, without activating sessions; it does not replace preset validation.
+
 ## 2. Anatomy
 
 ```
@@ -36,6 +41,7 @@ src/plugins/my-plugin/
   manifest.json     # validated before any code is imported
   index.ts          # default export: definePlugin({ register, activate })
   content.json      # optional: declarative content entries shipped with the plugin
+  reuse.json        # optional: authoring-only capability/scope/examples metadata; not a runtime manifest field
 ```
 
 ### manifest.json (schema 1)
@@ -47,13 +53,14 @@ src/plugins/my-plugin/
   "name": "Ricochet Rifle",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "…",
   "dependencies": { "core/combat": "^1.0.0" },
   "optionalDependencies": {},
   "conflicts": [],
   "capabilities": ["simulation"],
   "requiresRoles": [],
+  "roleDependencies": [],
   "config": { "bounces": { "type": "number", "label": "Max bounces", "default": 3, "min": 0, "max": 8 } }
 }
 ```
@@ -65,7 +72,12 @@ src/plugins/my-plugin/
   `optionalDependencies` may be absent; if enabled, the range must match and the plugin activates after them.
 - `conflicts`: ids that cannot be enabled together with this plugin.
 - `capabilities`: free-form intent labels. `"render"` is required to import `src/sdk/render.ts`.
-- `requiresRoles`: exclusive roles that must have a selected provider whenever this plugin is active.
+- `requiresRoles`: exclusive roles that must have a selected provider whenever this plugin is active. This is a
+  selection requirement; it does not order plugin activation.
+- `roleDependencies` (optional, default `[]`): roles whose selected provider-owning plugins must activate before this
+  plugin. Also requires a valid selection. Use this when resolving an owner-bound factory in `activate`; the consumer
+  depends on the role contract rather than a concrete implementation ID. Self-owner edges are ignored, and cycles
+  are rejected during staging before the previous session is replaced.
 - `config`: typed settings (`number` | `boolean` | `string` | `select` with `options`). A preset overrides them under
   `config["<plugin id>"]`; plugins read `ctx.config`.
 
@@ -73,8 +85,9 @@ Ranges support `^ ~ >= > <= < =`, `x`/`*` wildcards, space-separated AND and `||
 
 ### Resolution rules
 
-Activation order is a topological sort of the enabled plugins; among plugins that are ready, the lexicographically
-smallest id goes first. Disposal is the exact reverse. The host rejects, naming the plugins involved: missing or
+Loading/registration follow concrete dependency order. Session activation additionally follows selected
+`roleDependencies` provider owners; among plugins that are ready, the lexicographically smallest id goes first.
+Session disposal is the exact reverse of activation. The host rejects, naming the plugins involved: missing or
 disabled dependencies, version or SDK mismatches, cycles, duplicate ids, conflicts, unknown role providers and
 ambiguous exclusive roles.
 
@@ -209,6 +222,9 @@ The preset picks exactly one provider per role under `roles`. Replacing means se
 `activate(ctx)` of a selected provider runs after every plugin has activated, with the providing plugin's context.
 Unselected providers never run.
 
+`roleDependencies` orders the provider's **plugin activation**, not this later role callback. Prefer lazily
+instantiated factories when consumers need a selected implementation during their own `activate`.
+
 ### Services
 
 | Token | Provided by | Use |
@@ -259,7 +275,7 @@ HUDs and modes read these directly: `ctx.world.get(playerId, Health)`.
 import { Render, THREE, ActorRenderers } from '../../sdk/render.ts'; // manifest needs "render" in capabilities
 ```
 
-`THREE` is the project's Three.js-style rendering namespace (scene graph, `Mesh`, `BufferGeometry`, `PlaneGeometry`,
+`THREE` is official Three.js r187 (scene graph, `Mesh`, `BufferGeometry`, `PlaneGeometry`,
 `BoxGeometry`, `MeshBasicMaterial`, `MeshLambertMaterial`, `CanvasTexture`, `PointLight`, …). You get real scene-graph
 access inside roots you own:
 
@@ -269,11 +285,165 @@ access inside roots you own:
 - `render.shared(ctx, key, create)` — reference-counted resource shared across plugins; disposed with its last owner.
 - `render.texture(ctx, key, painter, { repeat })` — shared nearest-filtered texture from a theme `Painter`.
 - `render.camera`, `render.viewCamera`, `render.setEnvironment`, `render.stats`.
+- `render.setWorldCamera(ctx, camera)` — select an owned `PerspectiveCamera` or `OrthographicCamera`. The most recently
+  acquired live camera lease is active. Disposal restores the previous live lease or the default perspective camera;
+  disposing an older lease cannot steal a newer view. Resize preserves an orthographic camera's vertical span and zoom.
 
 Removing a mesh from the scene does **not** free GPU memory — always route resources through `own`/`shared`.
 
 Gameplay refers to **theme keys** (`"enemy-grunt"`, `"pistol-fire"`), never to files or textures. The selected
 `ThemeRole` provider maps keys to painters, visuals and sounds, so a different art pack needs no gameplay change.
+
+### Migrating rendering plugins to SDK 2
+
+The host's registration, services, entities and shooter tokens retain their identity. The rendering namespace changed
+incompatibly from mini3 to official Three.js, so bundled manifests now declare `"sdk": "^2.0.0"`. SDK-1-only plugins are
+rejected by staging rather than silently run with incompatible rendering semantics.
+
+- Set colors through `material.color.setHex(value)`, `material.emissive.setHex(value)` and `light.color.setHex(value)`;
+  scene backgrounds use `new THREE.Color(value)`. Constructor color parameters still accept numeric colors.
+- Three.js defaults to XYZ Euler order; the host's legacy cameras explicitly use YXZ. Set an appropriate order on
+  custom cameras/objects when relying on the original convention.
+- Painted color textures use `SRGBColorSpace`; the render host outputs sRGB with no tone mapping. Lighting and colors
+  need visual review: the old renderer's point-light attenuation is not Three.js's lighting model.
+- Keep ownership through `render.own/shared/texture/createRoot`. Removing a mesh still does not dispose its resources.
+- Core Three.js facilities such as orthographic cameras, raycasting and animation are available. Addon loaders such as
+  `GLTFLoader` still need a boundary-compliant SDK/adapter integration; a general async model/asset service is not supplied.
+
+### Experience and contextual input contracts
+
+`ExperienceRole` (`sdk/experience`) is an optional metadata-only role:
+
+```ts
+ctx.provideRole(ExperienceRole, 'my-game/experience', {
+  name: 'My game', description: 'Select a unit and plan your move.', pointer: 'free',
+  controls: [['Click', 'Select'], ['Enter', 'Commit']],
+});
+```
+
+`pointer` is `locked`, `free` or `none`. Without the role the app preserves first-person capture behavior. A selected
+controls list replaces the launcher's default FPS controls. Native UI focus owns its keys/clicks; pause remains available.
+`SessionControl.playing` is a read-only host gate for gameplay ingress. Presentation callbacks reject requests when it is
+false, and family authorities commit accepted semantic commands in their simulation systems.
+
+The optional host service `InputContexts` creates owner-scoped input snapshots:
+
+```ts
+const context = ctx.services.get(InputContexts).create(ctx, {
+  priority: 10, consume: true, exclusive: true,
+  bindings: [{ action: 'confirm', keys: ['Enter', 'Space'] }],
+});
+// context.tick.held/pressed/released, lookX/lookY, pointer
+context.setEnabled(false); // Cancels held state; re-enable after closing the overlay.
+```
+
+Contexts run in descending priority. A consuming context claims matching keys; an exclusive context also blocks
+unmapped keys and pointer input from lower contexts and legacy actions. Context transitions cancel held input and
+require a physical release before a held key can enter its new context. `dispose()` releases early; scope disposal does
+it automatically. `Input.tick.pointer` is an optional sampled `{ x, y, inside }` in canvas-local CSS pixels, allowing
+older headless input fakes to omit it. These APIs provide contextual bindings, not a shipped user rebinding/gamepad UI.
+
+### Independent family contracts
+
+| Contract | Authority | Separate consumers and authoring |
+|---|---|---|
+| `Race`, `RaceTracks` | `vehicle/racing` owns motion, gates, laps and deadline | `vehicle/presentation`, `vehicle-track` content; [guide](docs/overhead-racing.md) |
+| `Tactics`, `TacticsMissions` | `board/tactics` owns units, AP and queued turn commands | `board/presentation`, `board-mission` content; [guide](docs/turn-tactics.md) |
+| `Adventure`, `AdventureChapters` | `story/adventure` owns room/item/flag state and queued actions | `story/presentation`, `adventure-chapter` content; [guide](docs/narrative-adventure.md) |
+| `PushPuzzle`, `PuzzleCampaigns` | `puzzle/rules` owns stones, plates, deterministic pursuit, undo and chamber progression | `puzzle/presentation`, `push-puzzle` content; [guide](docs/stonewake.md) |
+| `Sky`, `SkyRoutes` | `sky/game` composes recovery, matching deliveries and moving hazards | `sky/presentation`, `sky-route` content; [guide](docs/sky-salvage.md) |
+| `Ember`, `EmberConfigs` | `ember/game` composes construction, lanes, waves and per-tower firing | `ember/presentation`, `ember-defense` content; [guide](docs/ember-bastion.md) |
+| `Verdant`, `VerdantWorlds` | `verdant/game` composes restoration decisions and environmental drain | `verdant/presentation`, `verdant-world` content; [guide](docs/verdant-relay.md) |
+
+These contracts are exported by `src/sdk/index.ts`; consumers never import another plugin. The families omit shooter
+systems entirely. Tactics/adventure/puzzles retain the 60 Hz scheduler for ingress, but idle ticks do not advance their
+authoritative turn/story state. This is not a universal turn wrapper for existing shooter systems.
+
+### Reusable cross-genre mechanics
+
+`Cinder` (`cinder/run`) is a shooter-family service exposing detached `CinderState` observations and bounded semantic
+commands (`choose`, `pulse`). It reports depth, non-blocking in-level `level`/`xp`/`xpToNext`, the current `offers` epoch,
+owned `arsenal`, stacked `boons`, a current `target` beacon and warden/Keeper state. `CinderOffer` is a discriminated union
+of weapon and relic cards; stale offer epochs cannot claim a reward after a newer draw. `cinder/game` composes five
+selected mechanic roles (resources, clock, actions, objectives, progression) beneath this family authority and receives
+replaced-provider evidence; `cinder/hud` consumes its state independently, including a non-modal level-up tray,
+magazine/reload display and depth waypoint. The game does not use `sdk/mechanic-sequence`; dungeon wings are emitted as
+room markers by the `dungeon/generator` map format. See [Cinder Vault](docs/cinder-vault.md),
+[dungeon generator](docs/dungeon-generator.md) and [progression](docs/progression.md).
+
+#### Selectable building blocks
+
+`NavigationRole` (`sdk/mechanic-navigation`) selects a pure graph-query provider. The bundled `mechanics/navigation`
+implementation searches finite directed graphs with unit-cost edges, preserving caller-specified neighbor order for
+equal-length ties. Stonewake supplies legal pursuit graphs; Signal Break supplies movement graphs and converts step
+distances to AP locally. The provider owns no session state and installs no systems. See [navigation](docs/navigation.md).
+
+`SequenceProviders` factories selected by `SequenceMechanicRole` (`sdk/mechanic-sequence`) own ordered cursors with
+finite repeated rounds. `sequenceMechanic(ctx)` resolves the selected factory. NEON RUN and Foundry Circuit retain
+their different crossing/timeout policies and delegate accepted checkpoint progression to the same implementation.
+These are two game compositions within racing; other genre uses are potential compositions, not tested consumers.
+See [sequences](docs/sequences.md).
+
+Presets explicitly enable the selected implementations. Navigation consumers require the pure registration-time role;
+sequence consumers using factories during activation declare `roleDependencies`. Updated bundled presets contain the
+new selections. Existing custom presets using the migrated authorities need the matching role/provider fragment;
+their game service signatures and authored track/chamber/mission formats remain unchanged.
+
+`createOwnedInstances(provider, kind)` shares provider/consumer lifetime and live-ID bookkeeping for stateful factories.
+Use one pool per factory namespace; validate definitions before `acquire(owner, id)`. Leases release both scope entries
+on early disposal and prevent stale handles from affecting a replacement. It owns identity/lifetime, not state, pause
+policy or notifications. Clock, sequence and progression providers use it. See [owned instances](docs/owned-instances.md).
+
+`ProgressionProviders` factories selected by `ProgressionMechanicRole` (`sdk/mechanic-progression`) own linear XP curves,
+level counts and pending game-defined rewards. XP grants can complete several levels atomically; the game applies its own
+stat/perk effects and calls `consumeLevel` after committing a reward. Cinder Vault uses this for in-level boons that do
+not pause combat. See [experience and levels](docs/progression.md).
+
+`dungeon/generator` is a content-driven map format rather than an exclusive role. It emits one `WorldDescription` with up
+to three isolated dungeon wings, combined with its rooms/corridors and inert `dungeon/marker` spawn points. The consuming
+mode supplies enemies/loot and owns wing transitions. See [seeded dungeon rooms](docs/dungeon-generator.md).
+
+#### Resource/action/clock/objective composition
+
+`ResourcePoolProviders`, `MechanicClockProviders`, `MechanicActionProviders` and `ObjectiveProviders` expose independent
+factories selected by `ResourceMechanicRole`, `ClockMechanicRole`, `ActionMechanicRole` and `ObjectiveMechanicRole`.
+`createMechanicKit(ctx, definitionId, instanceId)` assembles them from a validated `MechanicKits` definition.
+`resourceMechanic`, `clockMechanic`, `actionMechanic` and `objectiveMechanic` also resolve each independently. All handles
+are per-consumer, explicitly disposable, and reject paused/stale writes. Replacing a selected factory needs no game
+source change. Sky, Ember and Verdant share the implementations and use different orchestration/time domains.
+
+Read [the complete mechanic API, transaction semantics, limits and substitution examples](docs/reusable-mechanics.md).
+The typed events `MechanicResourcesChanged`, `MechanicActionCommitted` and `MechanicObjectiveChanged` carry owner and
+instance IDs. No new gameplay logic lives in the generic kernel.
+
+Two additive SDK helpers share orchestration below the family services:
+
+- `createCommandQueue` owns bounded semantic ingress, pause/disposal gating and explicit FIFO draining. The consumer
+  normalizes/copies input and chooses single-command or snapshot-batch processing. Stonewake and The Last Light use the
+  same helper with different processing policies. See [command queue API and semantics](docs/command-queues.md).
+- `createDeadline` borrows a `MechanicClock` for arm/cancel/due/remaining queries in its seconds or turns domain. It does
+  not advance or dispose that clock. Sky uses deadlines for temporary flight effects; Verdant uses them for environmental
+  and season boundaries. See [deadline API and boundary behavior](docs/deadlines.md).
+
+These helpers require no new exclusive roles and install no systems. Resolve any needed clock through its existing role.
+Game authorities retain command legality, drain cadence, time advancement and local effects. Action cooldowns continue
+to belong to `MechanicActions`. A queue's accepted ingress is distinct from an action's resource/cooldown commitment,
+which is distinct from a completed game-local outcome.
+
+Provider compatibility includes observable behavior as well as TypeScript signatures. Use
+[resource conformance cases](docs/mechanic-conformance.md) and the
+[capability design/evidence template](docs/reusable-capability-template.md) when extending a public seam. Optional
+services need an explicit absence policy; observation snapshots are not automatically complete saves.
+
+Validators can call `v.roleProviders(role)` to obtain enabled `{ id, owner, value }` registry entries. Prefer checking
+actual provided contracts over rejecting a plugin's namespace. `v.selectedRole(role)` still returns the preset's
+selected provider ID only.
+
+`PushPuzzle` exposes a frozen `campaign`, a monotonically increasing `revision`, detached `state()` snapshots and
+`enqueue(PuzzleCommand): boolean`. Commands are `move` with a cardinal `direction`, `wait`, `undo`, `restart`, `next`
+and `replay`; at most 32 are queued, one commits per `control` tick. Paused/disposed services reject ingress. The
+`PuzzleResolved` event carries a semantic sound cue only after a turn or undo commits. See
+`src/sdk/contracts/puzzle.ts` for types and the game guide for rules and limits. This is additive to SDK 2.
 
 ## 7. How do I…
 

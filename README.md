@@ -2,12 +2,12 @@
 
 # BULKHEAD
 
-**A modular, plugin-driven, Doom-inspired 2.5D first-person shooter foundation, and the playable game built on it.**
+**A modular TypeScript game platform with a shooter, racing, tactics, adventure, and 3D games that share reusable mechanics across genres.**
 
 [![CI](https://github.com/mojomast/fpsrizz/actions/workflows/ci.yml/badge.svg)](https://github.com/mojomast/fpsrizz/actions/workflows/ci.yml)
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
-![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-0-brightgreen)
+![Three.js](https://img.shields.io/badge/renderer-Three.js%20r187-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 ### [▶ Play it in your browser](https://mojomast.github.io/fpsrizz/)
@@ -32,7 +32,80 @@ editing the engine.
 - **Clean restarts.** Every resource is owned by a scope and disposed in reverse order. The browser test applies 12
   preset switches and 12 restarts and asserts that owned-resource counts never grow.
 - **Two kinds of extension.** Trusted code plugins, and data-only JSON content packs with semantic validation.
-- **Zero runtime dependencies.** Even the WebGL2 renderer is in the repo.
+- **Contained rendering backend.** Official Three.js is pinned and reproducibly vendored behind the rendering SDK;
+  plugins use the SDK and keep their import boundaries.
+
+## Independent game experiences
+
+Open **Creator tools → Load**, select a preset, then **Apply & restart → Play**.
+
+| Experience | Defining loop | Controls and guide |
+|---|---|---|
+| **NEON RUN — Circuit Trial** | Accelerate, brake and drift a visible car through two ordered laps | W/S or ↑/↓, A/D or ←/→, Space to drift; [racing guide](docs/overhead-racing.md) |
+| **Signal Break — Turn Tactics** | Select a squad member, preview moves/attacks, spend AP, then end the turn | Cursor or keyboard, M/A for action mode, E to end turn; [tactics guide](docs/turn-tactics.md) |
+| **The Last Light** | Explore three rooms, talk to the keeper, combine items and restore a beacon | Click or Tab/Enter; explicit chapter Save/Load; [adventure guide](docs/narrative-adventure.md) |
+| **Stonewake — 3D puzzle** | Push boulders onto seals, block pursuing golems and escape three volumetric chambers | WASD/arrows to step, Space to wait, Z undo, R retry, Q/E orbit; [Stonewake guide](docs/stonewake.md) |
+| **Sky Salvage — 3D courier** | Fly between floating islands, recover cargo and supply matching beacons while avoiding a storm drone | WASD/arrows or held direction buttons, E collect/deliver, Space boost, F repair; [flight guide](docs/sky-salvage.md) |
+| **Ember Bastion — 3D tower defense** | Spend scrap on towers, defend three waves, repair the core or trigger a pulse | Click 3D pads or numbered buttons, then Launch wave; [defense guide](docs/ember-bastion.md) |
+| **Verdant Relay — 3D colony restoration** | Balance water, biomass and charge to restore three relays before drought or the season ends | Select a station in 3D or its button, then collect, convert, restore or wait; [colony guide](docs/verdant-relay.md) |
+
+Each consists of independent simulation, presentation, authored content and theme plugins. None enables the shooter
+player, world, combat, enemies, content pack, HUD or presentation. Racing and tactics use their own camera/board
+presentation; adventure uses illustrated DOM scenes, while Stonewake has lit 3D meshes, an orbiting orthographic camera
+and ray-picked floor controls. These games run with a free cursor or keyboard policy, without
+pointer lock. The original first-person presets retain captured mouse aiming.
+
+### Mechanics shared across genres
+
+**[CINDER VAULT — Ashbound Roguelite](docs/cinder-vault.md)** adds a first-person fantasy run across three large
+generated dungeon depths. Kills grant XP and non-blocking level-up boons while combat continues; wardens open descents
+to deeper wings and the Cinder Keeper ends the run. Six discoverable weapons, weapon caches and persistent legacy give
+each attempt more depth. Open `?preset=cinder/vault`, press Play; use 1–6 for weapons, R to reload, 7/8/9 for level
+boons, and V for ember pulse.
+
+Sky Salvage, Ember Bastion and Verdant Relay use the **same resource, action, clock and objective implementations**.
+Only the games' spatial rules, targets and outcomes differ. Costs/gains and cooldowns are declarative kit content;
+clocks explicitly use seconds or turns. Each tower has its own shared fire-action instance. Per-consumer state is scoped,
+and providers can be replaced by preset role selection without editing a game. Headless integration tests complete all
+three games with both the default resource provider and an independent test implementation, comparing committed events
+and final states. See [mechanics and composition](docs/reusable-mechanics.md) and the
+[2026-11-16 best-practice research](docs/research/reusable-mechanics-2026-11-16.md).
+
+Shared [bounded command queues](docs/command-queues.md) serve Stonewake's single-command ticks and The Last Light's
+batch processing. Shared [explicit-clock deadlines](docs/deadlines.md) serve Sky's temporary effects and Verdant's turn
+boundaries. [Resource conformance tests](docs/mechanic-conformance.md) exercise both resource implementations through the
+public contract. The [capability design/evidence template](docs/reusable-capability-template.md) records the promises and
+verification behind future extractions.
+
+Two selectable building-block plugins also serve existing games:
+
+- **[`mechanics/navigation`](docs/navigation.md):** deterministic unit-edge graph reachability and canonical first
+  steps, shared by Stonewake pursuit and Signal Break movement.
+- **[`mechanics/sequence`](docs/sequences.md):** ordered steps with finite repeated rounds, shared by NEON RUN and
+  Foundry Circuit. Crossing geometry, timing and race outcomes remain in each game.
+
+Their presets select implementations through public roles. Custom presets using the migrated game authorities need
+the corresponding provider/role selections; the bundled presets already include them.
+
+### Find existing capabilities before adding plugins
+
+Agents and authors can search by intent rather than remembering plugin names:
+
+```bash
+npm run find-reuse -- "stamina costs cooldowns"
+npm run find-reuse -- --show recipe/resource-actions
+npm run -s find-reuse -- "keyed door" --json
+npm run find-reuse -- "bounded command queue"
+npm run find-reuse -- "temporary effect deadline"
+npm run find-reuse -- "graph shortest path"
+npm run find-reuse -- "ordered steps rounds"
+```
+
+Results show scope, SDK entry points, dependencies/roles, real registrations and working examples. The generated
+inventory covers every source plugin and public SDK runtime value; curated recipes cover shared mechanics, input,
+rendering, storage and audio. The scaffolder suggests existing candidates and creates capability metadata for new
+plugins. `npm run check` rejects stale references and broken metadata. Start with [REUSE.md](REUSE.md) or browse
+[REUSE_INDEX.md](REUSE_INDEX.md).
 
 ## Screenshots
 
@@ -53,22 +126,15 @@ Each is a preset you can switch to live from the creator panel (press `` ` ``):
 | `example/hud` | Code plugin | A complete replacement HUD that fully removes the original |
 | `example/survival` | Code plugin | A different game mode (waves, score, win and lose) using only public services |
 
-> **Stack deviation: read this first.** The original brief asked for Three.js + Vite + Vitest. This build was produced
-> in an environment with no network access to the npm registry, so none of them could be installed. Instead:
->
-> - **Rendering** uses *mini3* (`src/platform/render/mini3`), an in-repo WebGL2 renderer that mirrors a subset of the
->   Three.js API (same class and property names). It sits behind the render adapter
->   (`src/platform/render/service.ts`) and the rendering SDK (`src/sdk/render.ts`, exported there as `THREE`).
-> - **Bundling and dev server** use esbuild (`scripts/build.mjs`, `scripts/dev.mjs`).
-> - **Tests** use Node's built-in runner (`node --test`), executing TypeScript directly (type stripping, Node >= 22.18).
-> - **Type checking** is a separate `tsc --noEmit` (TypeScript 7).
-> - There are **no runtime dependencies**.
-> - Development dependencies are locked in `package-lock.json` for reproducible installation.
-> - Dev tools (esbuild, Playwright) are resolved by `scripts/tools.mjs` from the project's `node_modules`, then from
->   `TOOLS_NODE_MODULES`, then `/opt/npm-tools/node_modules`. `tsc` is taken from `node_modules/.bin` or the `PATH`.
->
-> Moving to real Three.js + Vite + Vitest is a contained change; see [ARCHITECTURE.md](ARCHITECTURE.md) (mini3 section)
-> and [devplan.md](devplan.md).
+### Stack
+
+- **Rendering:** official Three.js **0.187.0**, exposed as `THREE` by `src/sdk/render.ts`. The historical `mini3/index.ts`
+  path is now a compatibility entry to the vendored upstream runtime. The old engine remains an isolated test fixture.
+- **Bundling/dev server:** esbuild. **Tests:** `node:test` with Node >= 22.18 type stripping. **Types:** strict TypeScript.
+- `npm run vendor-three` reproduces the checked-in renderer and declaration files from locked npm packages, retaining
+  MIT licenses and hashes. Plugins never import npm packages directly; boundary rules remain enforced.
+- **SDK 2.0:** the Three.js namespace has real `Color` objects and upstream rendering semantics. Existing rendering
+  plugins need migration before declaring compatibility; see [PLUGINS.md](PLUGINS.md).
 
 ## Quick start
 
@@ -92,7 +158,7 @@ npm run preview    # serves dist/ at http://127.0.0.1:4173/
 
 ## How to play
 
-Click **Play** on the start screen; the browser captures the mouse (pointer lock).
+For **Bulkhead Station**, click **Play** on the start screen; the browser captures the mouse (pointer lock).
 
 **Objective:** find the override switch, then reach the green exit pad. The switch is on the north wall of the
 control room (north-east of the arena). Using it unlocks the exit gate that seals the exit chamber (south-east). You
@@ -133,9 +199,16 @@ The presets in `src/content/presets/` include the reference game, extensions and
 | Key Dungeon (`example/key-dungeon-game`) | Find a key, unlock the gate, and escape | `example/keys`, `example/key-dungeon` |
 | Silent Relay (`example/silent-relay-game`) | Avoid stationary guards, activate the override, and escape | `example/stealth`, `example/stealth-map` |
 | Seeded Gauntlet (`example/gauntlet-game`) | Clear three encounters and receive automatic run-only upgrades | `example/roguelite` |
-| Foundry Circuit (`example/foundry-race`) | Drive through checkpoints in order before time expires; W accelerates, S brakes/reverses, A/D steer | `example/racing`, `example/race-track` |
+| Foundry Circuit (`example/foundry-race`) | Drive through checkpoints in order before time expires; W accelerates, S brakes/reverses, A/D steer | `example/racing`, `example/race-track`, `mechanics/sequence` |
 | Salvage Run (`example/salvage-game`) | Collect loot and extract before the timer expires | `example/extraction`, `example/extraction-map` |
 | Relay Station (`example/relay-tactical`) | Objective combat with a magazine-fed carbine; 3 selects it and R reloads | `example/tactical-pack` |
+| NEON RUN (`vehicle/neon-run`) | Independent overhead vehicle handling and two-lap time trial | `vehicle/racing`, `vehicle/track`, `vehicle/presentation`, `theme/arcade`, `mechanics/sequence` |
+| Signal Break (`board/turn-tactics`) | Independent squad/AP board tactics, forecasts and enemy turns | `board/tactics`, `board/mission`, `board/presentation`, `theme/board`, `mechanics/navigation` |
+| The Last Light (`story/last-light`) | Independent room/dialogue/inventory puzzle with explicit chapter saving | `story/adventure`, `story/chapter`, `story/presentation`, `theme/story` |
+| Stonewake (`puzzle/stonewake`) | Three 3D push-puzzle chambers, pressure plates, pursuing golems, reversible turns and orbit camera | `puzzle/rules`, `puzzle/chambers`, `puzzle/presentation`, `theme/board`, `mechanics/navigation` |
+| Sky Salvage (`sky/salvage`) | 3D drone cargo recovery and delivery | `sky/game`, `sky/content`, `sky/presentation`, shared `mechanics/*` |
+| Ember Bastion (`ember/bastion`) | 3D tower construction and wave defense | `ember/game`, `ember/content`, `ember/presentation`, shared `mechanics/*` |
+| Verdant Relay (`verdant/relay`) | Turn-based 3D colony restoration | `verdant/game`, `verdant/content`, `verdant/presentation`, shared `mechanics/*` |
 
 To switch: press `` ` `` (or use **Creator tools** on the start or pause screen), open **Plugins & preset**, pick a preset
 in the **Load** dropdown, then press **Apply & restart**. The selection is saved in `localStorage` and restored on the
@@ -148,10 +221,10 @@ next page load. Plugins can also be toggled individually, and content packs impo
 src/
   kernel/      Runtime kernel: plugin host, registries, entity store, event/command buses, scheduler, scopes, validation.
                Knows no game concepts and touches no DOM.
-  sdk/         Public plugin API: core.ts (generic host surface), contracts/ (shared shooter vocabulary), render.ts.
-  platform/    Browser adapters: input, audio, storage, UI mounting, flow service, render host and the mini3 renderer.
+  sdk/         Public plugin API: core.ts, contracts/ (experience and game-family vocabulary), render.ts.
+  platform/    Browser adapters: contextual input, audio, storage, UI, flow and the Three.js render host.
   app/         Composition root: main.ts (frame loop), catalog.ts, shell.ts (menus), creator.ts (creator panel).
-  plugins/     Reference game, theme and the four extension demonstrations (one folder per plugin or content pack).
+  plugins/     Shooter, vehicle, board and story families, presentation, themes and data-only content packs.
   content/     Presets (presets/*.json).
 scripts/       build, dev, preview, smoke test, boundary checker, plugin scaffolder, tool resolution.
 tests/         node:test suites and helpers; subfolders with browser demo scripts (run manually, not by npm test).
@@ -172,8 +245,13 @@ index.html     Page shell.
 | `npm run lint` | Import-boundary checker (`scripts/boundaries.ts`). |
 | `npm test` | Node unit and integration tests, including tooling tests. |
 | `npm run smoke` | Browser acceptance run against `dist/` (headless Chrome, software WebGL2). Run `npm run build` first. Uses `/usr/bin/google-chrome` if present, otherwise Playwright's Chromium (`npx playwright install chromium`); set `CHROME_PATH` to override. Writes screenshots and `smoke-report.json` to `.smoke/`. |
-| `npm run check` | `typecheck`, `lint` and `test` in sequence. |
+| `npm run check` | Typecheck, boundaries, reuse-index freshness and tests in sequence. |
+| `npm run vendor-three` | Reproduces the pinned upstream renderer and declarations, licenses and hash manifest. |
+| `node tests/experience-demo/run.mjs` | Plays the independent racer, tactics and adventure against `dist/`, without the pointer-lock bypass. |
+| `node tests/reusable-games-demo/run.mjs` | Plays Sky Salvage, Ember Bastion and Verdant Relay against `dist/`; checks 3D scenes, viewports, pause and scoped switching. |
 | `npm run new-plugin -- <ns/name> ["Name"]` | Scaffolds `src/plugins/<ns>-<name>/` from the starter template. |
+| `npm run find-reuse -- "capability words"` | Searches existing mechanics, contracts and recipes; `--show <id>` gives composition details, `--json` supports agents. |
+| `npm run index-reuse` | Regenerates the checked-in reuse inventory; `-- --check` verifies freshness and metadata references. |
 | `npm run validate-game -- <preset.json> [--pack <pack.json> ...]` | Stages a preset against the app catalog and optional wrapped JSON packs; use `--bundled` to validate shipped presets. Does not activate or play the game. |
 
 ### Assetrizz art
@@ -194,9 +272,16 @@ The tool verifies the pinned manifest and PNG hashes. `scripts/assetrizz.json` r
 the shipped images and upstream license note are in `public/assetrizz/`. Search requires the pinned manifest, and
 the generated game assets need no network connection at runtime. After changing files in `public/`, restart the dev server.
 
+The independent games add twelve curated source images across synth, voxel and watercolor directions. Their lockfile is
+`scripts/experience-assets.json`; output/provenance lives in `assets/experiences/`, with generated synchronous painters
+inside the three theme plugins. Reproduce with `node scripts/import-experience-assets.mjs --library /path/to/assetrizz`
+or omit `--library` to fetch the pinned selection. `--check` verifies existing hashes/pixels offline. This tooling also
+requires Python 3/Pillow. Source art retains the upstream note “original, generated for Kyle Durepos”; it is not
+relabelled MIT. Synthesized sounds and explicitly labelled procedural fallback art are separate authored assets.
+
 ## Supported environment
 
-- A browser with **WebGL2** and **pointer lock**. Web Audio is used for sound; without it the game runs silently.
+- A browser with **WebGL2**; the first-person experiences also need **pointer lock**. Web Audio is used for sound; without it the game runs silently.
   The repository's browser checks drive Chrome only.
 - **Node >= 22.18** for tooling (`engines` in `package.json`).
 - Opening the page with `?test` removes the pointer-lock requirement so automated browsers can drive the game (see
@@ -212,6 +297,8 @@ the generated game assets need no network connection at runtime. After changing 
 | [PLUGINS.md](PLUGINS.md) | Public SDK and plugin authoring guide with API reference. |
 | [CREATE_GAME.md](CREATE_GAME.md) | End-to-end game, content and plugin authoring workflow. |
 | [GAME_PLUGIN_ROADMAP.md](GAME_PLUGIN_ROADMAP.md) | Proposed reusable mechanics, game recipes and engine prerequisites. |
+| [GAME_PLATFORM_STRATEGY.md](GAME_PLATFORM_STRATEGY.md) | Research-backed plan for genuinely different genres, complete presentation stacks and broader platform capabilities. |
+| [PARALLEL_BUILD_PLAN.md](PARALLEL_BUILD_PLAN.md) | Parallel workstreams, model allocation, shared contracts and acceptance gates for the independent game families. |
 | [BUILD_ORDER.md](BUILD_ORDER.md) | Cross-genre implementation dependencies and acceptance gates. |
 | [assets/weapons/README.md](assets/weapons/README.md) | Low-poly weapon sets, source models, previews and integration notes. |
 | [CONTENT_FORMAT.md](CONTENT_FORMAT.md) | JSON formats: manifests, content packs, maps, presets. |
@@ -221,20 +308,26 @@ the generated game assets need no network connection at runtime. After changing 
 
 ## Testing and verification
 
-`npm run check` runs the strict type check, import-boundary lint and Node tests. After `npm run build`, `npm run smoke`
+`npm run check` runs the strict type check, import-boundary lint, reuse-index freshness check and Node tests. Regenerate
+the inventory with `npm run index-reuse` after source/catalog/metadata changes. After `npm run build`, `npm run smoke`
 plays the real game in headless Chrome, including gameplay, restart, extensions and resource counts. The creator panel
 has its own browser test (`node tests/creator-demo/run.mjs`), which builds its own bundle. Both write to `.smoke/`.
 CI runs check and build; it does not run either browser suite. Browser performance depends on the available renderer.
-Run `node tests/genre-demo/run.mjs` after a build for browser startup, HUD and control checks on the new genre presets.
+Run `node tests/genre-demo/run.mjs` after a build for browser startup, HUD and control checks on the earlier shooter-mode
+slices. `node tests/experience-demo/run.mjs` covers the independent games' completion routes and switching;
+`node tests/render-three-demo/run.mjs` checks native Three.js pixel/color/layer/disposal behavior.
+`node tests/stonewake-demo/run.mjs` completes all three 3D chambers through the UI and checks ray picking, camera orbit,
+golem capture/undo, responsive framing, pause and switching ownership.
 
 ## Known limitations
 
 Stated plainly; the full list is in [SPEC.md](SPEC.md) and [HANDOFF.md](HANDOFF.md).
 
-- Rendering uses the in-repo *mini3* renderer, not Three.js (see the box above).
+- Three.js core is integrated; general asynchronous model loading, scene bundles and glTF addon integration remain planned.
 - GPU performance has not been measured; the only numbers are from software rendering in headless Chrome.
-- Pointer lock and audio were not exercised by automation. Try them by hand.
-- Imported content packs live in memory only, and there are no save games.
+- Real-device pointer capture and subjective audio quality still need hands-on verification; headless checks cover
+  input policy and synthesized audio lifecycle.
+- Imported content packs live in memory only. Adventure has chapter saves; there are no general run snapshots.
 - Code plugins are discovered at build time and are trusted; there is no sandbox.
 - The default theme uses procedural placeholder art and sound. Each Assetrizz theme replaces five tiles, two enemy
   sprites and the pistol and launcher views with bundled images; other Blender weapons are not yet wired into gameplay.

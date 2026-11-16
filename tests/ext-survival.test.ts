@@ -24,7 +24,7 @@ const emptyMap = {
   spawns: [{ id: 'med', prefab: 'core/medkit', cell: [3, 2] }],
 };
 const emptyMapPack = {
-  manifest: { schema: 1, id: 'test/empty-map', name: 'Empty map', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0', 'core/combat': '^1.0.0' } },
+  manifest: { schema: 1, id: 'test/empty-map', name: 'Empty map', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0', 'core/combat': '^1.0.0' } },
   content: [{ kind: 'map', id: 'test/empty', data: emptyMap }],
 };
 

@@ -6,7 +6,7 @@ import manifest from '../src/plugins/example-stealth/manifest.json' with { type:
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const maps: CatalogEntry = {
-  manifest: { schema: 1, id: 'test/stealth-map', name: 'Map', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0' } },
+  manifest: { schema: 1, id: 'test/stealth-map', name: 'Map', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } },
   content: [{ kind: 'map', id: 'test/stealth', data: {
     schema: 1, format: 'core/grid', name: 'Stealth', cellSize: 2, wallHeight: 3,
     legend: { '#': { solid: true, wall: 'wall-panel' }, '.': { floor: 'floor-plate', ceiling: 'ceiling-panel' } },
@@ -20,7 +20,7 @@ const maps: CatalogEntry = {
 async function setup() {
   let context: SessionContext | undefined;
   const probe = {
-    manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^1.0.0' },
+    manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^2.0.0' },
     load: async () => ({ default: definePlugin({ activate(ctx) { context = ctx; } }) }),
   } as unknown as CatalogEntry;
   const game = createHeadlessGame([maps, probe, { manifest, load: () => import('../src/plugins/example-stealth/index.ts') }]);
@@ -88,7 +88,7 @@ test('map guard parameters are validated during staging; omitted values use defa
   const { game } = await setup();
   const original = game.session();
   const pack = (spawns: unknown[]): CatalogEntry => ({
-    manifest: { schema: 1, id: 'test/guard-validation', name: 'Guard validation', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0', 'example/stealth': '^1.0.0' } },
+    manifest: { schema: 1, id: 'test/guard-validation', name: 'Guard validation', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0', 'example/stealth': '^1.0.0' } },
     content: [{ kind: 'map', id: 'test/guard-validation', data: {
       schema: 1, format: 'core/grid', name: 'Guard validation', cellSize: 2, wallHeight: 3,
       legend: { '#': { solid: true, wall: 'wall-panel' }, '.': { floor: 'floor-plate', ceiling: 'ceiling-panel' } },

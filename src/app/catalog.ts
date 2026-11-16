@@ -62,8 +62,67 @@ import roguelitePreset from '../content/presets/roguelite.json' with { type: 'js
 import racingPreset from '../content/presets/racing.json' with { type: 'json' };
 import extractionPreset from '../content/presets/extraction.json' with { type: 'json' };
 import tacticalPreset from '../content/presets/tactical.json' with { type: 'json' };
+import vehicleRacing from '../plugins/vehicle-racing/manifest.json' with { type: 'json' };
+import vehiclePresentation from '../plugins/vehicle-presentation/manifest.json' with { type: 'json' };
+import vehicleTrackManifest from '../plugins/vehicle-track/manifest.json' with { type: 'json' };
+import vehicleTrackContent from '../plugins/vehicle-track/content.json' with { type: 'json' };
+import boardTactics from '../plugins/board-tactics/manifest.json' with { type: 'json' };
+import boardPresentation from '../plugins/board-presentation/manifest.json' with { type: 'json' };
+import boardMissionManifest from '../plugins/board-mission/manifest.json' with { type: 'json' };
+import boardMissionContent from '../plugins/board-mission/content.json' with { type: 'json' };
+import storyAdventure from '../plugins/story-adventure/manifest.json' with { type: 'json' };
+import storyPresentation from '../plugins/story-presentation/manifest.json' with { type: 'json' };
+import storyChapterManifest from '../plugins/story-chapter/manifest.json' with { type: 'json' };
+import storyChapterContent from '../plugins/story-chapter/content.json' with { type: 'json' };
+import arcadeTheme from '../plugins/theme-arcade/manifest.json' with { type: 'json' };
+import boardTheme from '../plugins/theme-board/manifest.json' with { type: 'json' };
+import storyTheme from '../plugins/theme-story/manifest.json' with { type: 'json' };
+import overheadRacingPreset from '../content/presets/overhead-racing.json' with { type: 'json' };
+import turnTacticsPreset from '../content/presets/turn-tactics.json' with { type: 'json' };
+import narrativeAdventurePreset from '../content/presets/narrative-adventure.json' with { type: 'json' };
+import puzzleRules from '../plugins/puzzle-rules/manifest.json' with { type: 'json' };
+import puzzlePresentation from '../plugins/puzzle-presentation/manifest.json' with { type: 'json' };
+import puzzleChambers from '../plugins/puzzle-chambers/manifest.json' with { type: 'json' };
+import puzzleContent from '../plugins/puzzle-chambers/content.json' with { type: 'json' };
+import stonewakePreset from '../content/presets/stonewake.json' with { type: 'json' };
+import mechanicResources from '../plugins/mechanics-resources/manifest.json' with { type: 'json' };
+import mechanicClock from '../plugins/mechanics-clock/manifest.json' with { type: 'json' };
+import mechanicActions from '../plugins/mechanics-actions/manifest.json' with { type: 'json' };
+import mechanicObjectives from '../plugins/mechanics-objectives/manifest.json' with { type: 'json' };
+import mechanicKits from '../plugins/mechanics-kits/manifest.json' with { type: 'json' };
+import mechanicNavigation from '../plugins/mechanics-navigation/manifest.json' with { type: 'json' };
+import mechanicSequence from '../plugins/mechanics-sequence/manifest.json' with { type: 'json' };
+import skyGame from '../plugins/sky-game/manifest.json' with { type: 'json' };
+import skyPresentation from '../plugins/sky-presentation/manifest.json' with { type: 'json' };
+import skyPack from '../plugins/sky-content/manifest.json' with { type: 'json' };
+import skyContent from '../plugins/sky-content/content.json' with { type: 'json' };
+import skyPreset from '../content/presets/sky-salvage.json' with { type: 'json' };
+import emberGame from '../plugins/ember-game/manifest.json' with { type: 'json' };
+import emberPresentation from '../plugins/ember-presentation/manifest.json' with { type: 'json' };
+import emberPack from '../plugins/ember-content/manifest.json' with { type: 'json' };
+import emberContent from '../plugins/ember-content/content.json' with { type: 'json' };
+import emberPreset from '../content/presets/ember-bastion.json' with { type: 'json' };
+import verdantGame from '../plugins/verdant-game/manifest.json' with { type: 'json' };
+import verdantPresentation from '../plugins/verdant-presentation/manifest.json' with { type: 'json' };
+import verdantPack from '../plugins/verdant-content/manifest.json' with { type: 'json' };
+import verdantContent from '../plugins/verdant-content/content.json' with { type: 'json' };
+import verdantPreset from '../content/presets/verdant-relay.json' with { type: 'json' };
+import cinderGame from '../plugins/cinder-game/manifest.json' with { type: 'json' };
+import cinderHud from '../plugins/cinder-hud/manifest.json' with { type: 'json' };
+import cinderPack from '../plugins/cinder-content/manifest.json' with { type: 'json' };
+import cinderContent from '../plugins/cinder-content/content.json' with { type: 'json' };
+import cinderPreset from '../content/presets/cinder-vault.json' with { type: 'json' };
+import dungeonGenerator from '../plugins/dungeon-generator/manifest.json' with { type: 'json' };
+import mechanicProgression from '../plugins/mechanics-progression/manifest.json' with { type: 'json' };
 
 export const catalog: CatalogEntry[] = [
+  { manifest: dungeonGenerator, load: () => import('../plugins/dungeon-generator/index.ts') },
+  { manifest: cinderGame, load: () => import('../plugins/cinder-game/index.ts') },
+  { manifest: cinderHud, load: () => import('../plugins/cinder-hud/index.ts') },
+  { manifest: cinderPack, content: cinderContent },
+  { manifest: mechanicNavigation, load: () => import('../plugins/mechanics-navigation/index.ts') },
+  { manifest: mechanicSequence, load: () => import('../plugins/mechanics-sequence/index.ts') },
+  { manifest: mechanicProgression, load: () => import('../plugins/mechanics-progression/index.ts') },
   { manifest: world, load: () => import('../plugins/core-world/index.ts') },
   { manifest: combat, load: () => import('../plugins/core-combat/index.ts') },
   { manifest: player, load: () => import('../plugins/core-player/index.ts') },
@@ -96,7 +155,38 @@ export const catalog: CatalogEntry[] = [
   { manifest: adventureManifest, content: adventureContent },
   { manifest: keyDungeonManifest, content: keyDungeonContent },
   { manifest: stealthMapManifest, content: stealthMapContent },
+  // Independent game families. Their simulation and content do not depend on the shooter stack.
+  { manifest: vehicleRacing, load: () => import('../plugins/vehicle-racing/index.ts') },
+  { manifest: vehiclePresentation, load: () => import('../plugins/vehicle-presentation/index.ts') },
+  { manifest: vehicleTrackManifest, content: vehicleTrackContent },
+  { manifest: boardTactics, load: () => import('../plugins/board-tactics/index.ts') },
+  { manifest: boardPresentation, load: () => import('../plugins/board-presentation/index.ts') },
+  { manifest: boardMissionManifest, content: boardMissionContent },
+  { manifest: storyAdventure, load: () => import('../plugins/story-adventure/index.ts') },
+  { manifest: storyPresentation, load: () => import('../plugins/story-presentation/index.ts') },
+  { manifest: storyChapterManifest, content: storyChapterContent },
+  { manifest: arcadeTheme, load: () => import('../plugins/theme-arcade/index.ts') },
+  { manifest: boardTheme, load: () => import('../plugins/theme-board/index.ts') },
+  { manifest: storyTheme, load: () => import('../plugins/theme-story/index.ts') },
+  { manifest: puzzleRules, load: () => import('../plugins/puzzle-rules/index.ts') },
+  { manifest: puzzlePresentation, load: () => import('../plugins/puzzle-presentation/index.ts') },
+  { manifest: puzzleChambers, content: puzzleContent },
+  // Cross-genre gameplay providers: presets select implementations independently of game consumers.
+  { manifest: mechanicResources, load: () => import('../plugins/mechanics-resources/index.ts') },
+  { manifest: mechanicClock, load: () => import('../plugins/mechanics-clock/index.ts') },
+  { manifest: mechanicActions, load: () => import('../plugins/mechanics-actions/index.ts') },
+  { manifest: mechanicObjectives, load: () => import('../plugins/mechanics-objectives/index.ts') },
+  { manifest: mechanicKits, load: () => import('../plugins/mechanics-kits/index.ts') },
+  { manifest: skyGame, load: () => import('../plugins/sky-game/index.ts') },
+  { manifest: skyPresentation, load: () => import('../plugins/sky-presentation/index.ts') },
+  { manifest: skyPack, content: skyContent },
+  { manifest: emberGame, load: () => import('../plugins/ember-game/index.ts') },
+  { manifest: emberPresentation, load: () => import('../plugins/ember-presentation/index.ts') },
+  { manifest: emberPack, content: emberContent },
+  { manifest: verdantGame, load: () => import('../plugins/verdant-game/index.ts') },
+  { manifest: verdantPresentation, load: () => import('../plugins/verdant-presentation/index.ts') },
+  { manifest: verdantPack, content: verdantContent },
 ];
 
 /** Built-in presets offered by the start screen and creator panel. The first one is the default. */
-export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset];
+export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset];

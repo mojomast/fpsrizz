@@ -1,5 +1,10 @@
 # Content formats
 
+For finding existing loaders, behaviors and data examples before introducing another format, use
+`npm run find-reuse -- "capability words"`. Plugin-local `reuse.json` and `docs/reuse-recipes.json` are **authoring-only
+discovery metadata**, not runtime content entries or manifest fields. Their schema, validation rules and generated
+references are documented in [REUSE.md](REUSE.md#keep-discovery-current).
+
 All content is JSON, validated before it can affect a running game. Nothing here is executed: no scripts, no
 expressions, no remote URLs. Assets are referenced by **theme key** and must already be provided by the selected
 theme.
@@ -31,7 +36,7 @@ data below is not a valid weapon. For a working pack, see `src/plugins/example-p
     "name": "Example Pack",
     "version": "1.0.0",
     "kind": "content",
-    "sdk": "^1.0.0",
+    "sdk": "^2.0.0",
     "dependencies": { "core/combat": "^1.0.0", "core/enemies": "^1.0.0", "core/world": "^1.0.0" }
   },
   "content": [
@@ -46,7 +51,46 @@ A pack must depend on the plugins that define the content kinds it uses (`weapon
 Built-in packs live in `src/plugins/<dir>/manifest.json` + `content.json` (the `content` array) and are listed in
 `src/app/catalog.ts`.
 
+Code manifests may declare `roleDependencies: ["sdk/some-role"]` to require a selected role and activate its
+provider-owning plugin before the consumer. The field defaults to `[]`, uses namespaced IDs and rejects duplicates.
+`requiresRoles` remains selection-only. Role dependency cycles reject staging; selected role callbacks still run
+after all plugin activations. See [the plugin manifest reference](PLUGINS.md#manifestjson-schema-1).
+
+Bundled puzzle/tactics presets enable `mechanics/navigation` and select it under `sdk/mechanic-navigation`; the two
+racing presets enable `mechanics/sequence` and select it under `sdk/mechanic-sequence`. Custom presets using the same
+game authorities need those selections or compatible replacements. These use existing plugin/role fields, not new
+content kinds. See [building-block composition](docs/building-block-plugins.md).
+
 ## 2. Content kinds
+
+Cinder Vault uses existing ammo, weapon, enemy, map and mechanic-kit formats plus the `dungeon/generator` map format.
+Its six weapon entries demonstrate shared ammo, magazine/reload fields and both automatic and semi-automatic weapons. The
+generated map recipe declares 1–3 dungeon wings; each emits `dungeon-room` markers tagged by depth and role
+(`start`, `exit`, `warden`, `loot`) plus `dungeon-exit` zone triggers. Encounter composition and cache placement remain
+game policy. `cinder-spawn` is no longer required. The preset selects `cinder/vault` and the resource, clock, action,
+objective and progression roles. Optional profile keys `cinder/vault.v1.embers` and `cinder/vault.v1.runs` hold integers
+from 0 to 1,000,000; invalid values read as zero. They store legacy rewards/attempt count, not a resumable run or
+inventory. See [Cinder Vault](docs/cinder-vault.md) and [seeded dungeon rooms](docs/dungeon-generator.md).
+
+### Independent game-family kinds
+
+These use the same content-entry envelope and staged `Reporter` validation, with their own data models:
+
+| Kind | Loader plugin | Preset option | Canonical shipped content / schema guide |
+|---|---|---|---|
+| `vehicle-track` | `vehicle/racing` | `options.track` | `src/plugins/vehicle-track/content.json`; [racing schema](docs/overhead-racing.md) |
+| `board-mission` | `board/tactics` | `options.mission` | `src/plugins/board-mission/content.json`; [tactics schema](docs/turn-tactics.md) |
+| `adventure-chapter` | `story/adventure` | `options.chapter` | `src/plugins/story-chapter/content.json`; [adventure schema and save format](docs/narrative-adventure.md) |
+| `push-puzzle` | `puzzle/rules` | `options.campaign` | `src/plugins/puzzle-chambers/content.json`; [Stonewake schema](docs/stonewake.md) |
+| `mechanic-kit` | `mechanics/kits` | Referenced by a game definition | Immutable resources, actions, explicit clock domain and objectives; [schema and limits](docs/reusable-mechanics.md#strict-mechanic-kit-content) |
+| `sky-route` | `sky/game` | `options.route` | `src/plugins/sky-content/content.json`; [flight schema](docs/sky-salvage.md) |
+| `ember-defense` | `ember/game` | `options.defense` | `src/plugins/ember-content/content.json`; [defense schema](docs/ember-bastion.md) |
+| `verdant-world` | `verdant/game` | `options.world` | `src/plugins/verdant-content/content.json`; [colony schema](docs/verdant-relay.md) |
+
+Enable the loader, pack, independent presentation and matching theme explicitly. Select their `sdk/experience`
+provider as shown in the presets. These content kinds do not produce the shooter's `WorldDescription` and do not
+require its `options.map`. All art/audio references are semantic theme keys; JSON never loads remote code or assets.
+Game-family schemas, limits and save keys are documented alongside their canonical examples in the linked guides.
 
 ### `ammo`
 
@@ -268,7 +312,11 @@ The optional `Profile` service reports corrupt, incompatible and unavailable dat
 
 Imported packs are held in memory for the session only (planned: persist them alongside the preset).
 
-**Future save games (planned, not implemented):** entities and components are already plain JSON
+**Adventure chapter saves (implemented):** `story/adventure` stores a versioned JSON action history as a profile string
+under `story/save/<chapter-id>`. Loading validates the chapter identity/version and replays the history before committing
+state. See [the adventure guide](docs/narrative-adventure.md) for limits and explicit Save/Load behavior.
+
+**General run snapshots (planned, not implemented):** entities and components are already plain JSON
 (`EntityStore.snapshot()`). A save file will record `{ saveSchema, sdkVersion, preset, plugins: { id: version },
 contentPacks: { id: version }, tick, seed, entities }` and refuse to load when a required plugin or pack is missing or
 outside the saved major version.

@@ -32,6 +32,8 @@ export interface PluginManifest {
   capabilities: string[];
   /** Exclusive roles that must have a provider selected by the preset when this plugin is active. */
   requiresRoles: string[];
+  /** Selected roles whose owning plugins must activate first. Also requires a selection. Defaults to []. */
+  roleDependencies?: string[];
   config: Record<string, ConfigField>;
 }
 
@@ -102,6 +104,7 @@ export function parseManifest(raw: unknown, r: Reporter): PluginManifest | undef
   const conflicts = vIdList(o.conflicts, r.at('conflicts'));
   const capabilities = vIdList(o.capabilities, r.at('capabilities'), false);
   const requiresRoles = vIdList(o.requiresRoles, r.at('requiresRoles'));
+  const roleDependencies = vIdList(o.roleDependencies, r.at('roleDependencies'));
   const config: Record<string, ConfigField> = {};
   if (o.config !== undefined) {
     const c = vObject(o.config, r.at('config'));
@@ -125,7 +128,7 @@ export function parseManifest(raw: unknown, r: Reporter): PluginManifest | undef
   }
   if (r.issues.length > before) return undefined;
   if (id! in dependencies!) return r.at('dependencies').error('a plugin cannot depend on itself');
-  return { schema: 1, id: id!, name: name!, version: version!, kind: kind!, sdk: sdk!, description: description!, dependencies: dependencies!, optionalDependencies: optionalDependencies!, conflicts: conflicts!, capabilities: capabilities!, requiresRoles: requiresRoles!, config };
+  return { schema: 1, id: id!, name: name!, version: version!, kind: kind!, sdk: sdk!, description: description!, dependencies: dependencies!, optionalDependencies: optionalDependencies!, conflicts: conflicts!, capabilities: capabilities!, requiresRoles: requiresRoles!, roleDependencies: roleDependencies!, config };
 }
 
 export function checkConfigValue(field: ConfigField, v: Json): string | undefined {

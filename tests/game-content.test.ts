@@ -267,7 +267,7 @@ test('acceptance 10 / content: a pack depending on a plugin that is not installe
 });
 test('acceptance 10 / content: a pack whose dependency version range is not satisfied, or that needs another SDK, is rejected', async () => {
   await assertRejected(pack([mapEntry(validMap())], { dependencies: { 'core/world': '^2.0.0' } }), presetFor(), ['dependencies.core/world', 'requires "core/world" ^2.0.0'], 'graph');
-  await assertRejected(pack([mapEntry(validMap())], { sdk: '^2.0.0' }), presetFor(), ['sdk', 'needs SDK ^2.0.0'], 'graph');
+  await assertRejected(pack([mapEntry(validMap())], { sdk: '^3.0.0' }), presetFor(), ['sdk', 'needs SDK ^3.0.0'], 'graph');
 });
 test('acceptance 10 / content: manifest problems are rejected before anything is imported', async () => {
   const cases: [CatalogEntry, string[]][] = [

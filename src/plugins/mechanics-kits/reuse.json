@@ -1,0 +1,11 @@
+{
+  "schema": 1, "scope": "cross-genre",
+  "summary": "Validated JSON mechanic kits combine resources, actions, clock domains and objectives without new gameplay code.",
+  "keywords": ["kit", "data", "content", "definition", "compose", "crafting", "economy", "ability", "balance", "configuration"],
+  "entryPoints": ["MechanicKits", "createMechanicKit"],
+  "useWhen": "A different cost, resource, cooldown, prerequisite or counter can be expressed by existing mechanic-kit data.",
+  "limitations": ["Kit loader supplies definitions, not runtime providers. Enable and select the four mechanic roles; validate game-specific assumptions as well."],
+  "docs": ["docs/reusable-mechanics.md", "CONTENT_FORMAT.md"],
+  "examples": ["src/plugins/sky-content/content.json", "src/plugins/ember-content/content.json", "src/plugins/verdant-content/content.json"],
+  "tests": ["tests/mechanics-providers.test.ts", "tests/reusable-games.test.ts"]
+}

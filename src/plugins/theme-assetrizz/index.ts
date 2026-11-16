@@ -6,6 +6,8 @@ import { assetrizzTextures } from './generated.ts';
 import { weaponTextures } from './weapons.ts';
 import { fantasyTextures } from './fantasy-generated.ts';
 import { weaponTextures as fantasyWeapons } from './fantasy-weapons.ts';
+import { cinderSurfaces } from './cinder.ts';
+import { weaponTextures as cinderWeapons } from './cinder-weapons.ts';
 
 const anim = (frames: number[], fps: number, loop: boolean): VisualAnim => ({ frames, fps, loop });
 
@@ -101,5 +103,6 @@ export default definePlugin({
   register(ctx) {
     ctx.provideRole(ThemeRole, 'theme/assetrizz', { name: 'Assetrizz Dark Sci-Fi', textures: { ...textures, ...assetrizzTextures, ...weaponTextures }, sounds, visuals });
     ctx.provideRole(ThemeRole, 'theme/assetrizz-fantasy', { name: 'Assetrizz Fantasy', textures: { ...textures, ...fantasyTextures, ...fantasyWeapons }, sounds, visuals });
+    ctx.provideRole(ThemeRole, 'theme/assetrizz-cinder', { name: 'Assetrizz Cinder Vault', textures: { ...textures, ...fantasyTextures, ...fantasyWeapons, ...cinderWeapons, ...cinderSurfaces }, sounds, visuals });
   },
 });

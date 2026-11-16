@@ -14,7 +14,7 @@ const map = {
   spawns: [{ id: 'loot-a', prefab: 'test/loot', cell: [2, 1] }, { id: 'loot-b', prefab: 'test/loot', cell: [3, 1] }],
 };
 const content: CatalogEntry = {
-  manifest: { schema: 1, id: 'test/extraction-content', name: 'Extraction content', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0', 'core/combat': '^1.0.0', 'example/extraction': '^1.0.0' } },
+  manifest: { schema: 1, id: 'test/extraction-content', name: 'Extraction content', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0', 'core/combat': '^1.0.0', 'example/extraction': '^1.0.0' } },
   content: [
     { kind: 'pickup', id: 'test/loot', data: { name: 'Loot', effect: 'example/loot', params: { amount: 5 }, visual: 'pickup-ammo' } },
     { kind: 'map', id: 'test/extraction-map', data: map },

@@ -4,7 +4,7 @@
   "name": "Example Pack: Scattergun, Brute and the Annex",
   "version": "1.0.0",
   "kind": "content",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Data-only example pack: a spread-fire weapon, a heavy melee enemy, an ammo pickup and a small two-room map with a locked alcove. Reuses core ammo types and prefabs.",
   "dependencies": {
     "core/world": "^1.0.0",

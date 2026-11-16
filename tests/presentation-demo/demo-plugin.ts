@@ -3,7 +3,7 @@ import type { EntityId, Json, PluginManifest, SessionContext, ViewState, WeaponD
 import { CameraRole, Collider, Enemies, Enemy, Health, Inventory, ModeRole, Pickup, Player, Transform, View, Visual, Weapons, definePlugin, makeTransform } from '../../src/sdk/index.ts';
 
 export const demoManifest = {
-  schema: 1, id: 'demo/content', name: 'Presentation demo', version: '1.0.0', kind: 'code', sdk: '^1.0.0',
+  schema: 1, id: 'demo/content', name: 'Presentation demo', version: '1.0.0', kind: 'code', sdk: '^2.0.0',
   dependencies: { 'core/world': '^1.0.0', 'core/presentation': '^1.0.0' }, capabilities: [],
 } as unknown as PluginManifest;
 

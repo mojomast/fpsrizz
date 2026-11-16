@@ -6,14 +6,30 @@ the detailed contracts are in [PLUGINS.md](PLUGINS.md), [CONTENT_FORMAT.md](CONT
 
 ## Choose your ingredients
 
+**Start with [reuse discovery](REUSE.md).** Search for each mechanic, not just the proposed game's genre:
+
+```bash
+npm run find-reuse -- "resource costs cooldowns"
+npm run find-reuse -- --show recipe/resource-actions
+```
+
+Inspect the suggested consumer and tests, then record which parts use content, compose a provider, extend an existing
+contract, or need genuinely new behavior. [REUSE_INDEX.md](REUSE_INDEX.md) lists all source plugins and public SDK values;
+`--json` provides structured results. A family-bound implementation can be useful evidence without being a suitable
+dependency for a different genre.
+
+For a shared-contract extraction, use the [capability design/evidence note](docs/reusable-capability-template.md) to
+state the common rule, ownership and timing promises, differing consumer policies and named verification cases.
+
 1. Pick a base preset from `src/content/presets/`. `default.json` is the objective game; `survival.json` demonstrates
-   a different mode and HUD. A preset selects a map, enabled plugins, exclusive role providers, settings and a seed.
+    a different mode and HUD. A preset selects a map, enabled plugins, exclusive role providers, settings and a seed.
 2. Choose existing behavior before writing code. `src/plugins/example-pack/` adds weapons, enemies, pickups and a map
    using JSON. Definitions reference registered behavior IDs and theme keys, not code paths or asset files.
 3. For new behavior, use `npm run new-plugin -- my-game/my-plugin "My Plugin"`. The starter prints the catalog wiring.
    `example-ricochet` shows an attack behavior; `example-survival` shows a mode; `example-hud` replaces a HUD.
    The scaffolder accepts exactly one slash even though the runtime supports deeper IDs. Code plugins are trusted and
-   compiled into the app, not installed as runtime JavaScript.
+    compiled into the app, not installed as runtime JavaScript.
+    It also shows related candidates and creates `reuse.json`; document the new capability's limits and reuse examples.
 
 ## Assemble the game
 
@@ -35,7 +51,8 @@ the detailed contracts are in [PLUGINS.md](PLUGINS.md), [CONTENT_FORMAT.md](CONT
    show catalog entries, preset composition and assertions. The helper's preset overrides are shallow: specifying
    `plugins` replaces the default list. Test activation, gameplay and restart/disposal as appropriate. UI and rendering
    are optional in headless sessions and need browser verification.
-6. Run `npm run check`, then `npm run build && npm run smoke` for browser-facing changes. Run
+6. Update relevant reuse metadata/recipes, run `npm run index-reuse` and `npm run check`, then
+    `npm run build && npm run smoke` for browser-facing changes. Run
    `node tests/creator-demo/run.mjs` when changing the creator panel. Play the new preset in the browser and exercise
    its actual objectives; the standard smoke test covers the shipped presets, not arbitrary new games.
 
@@ -45,6 +62,41 @@ For a reproducible shipped game, register the pack and preset in the build-time 
 the wrapper format and persistence details.
 
 ## Lifecycle and debugging
+
+### Building a new game family
+
+Start from the experience brief and integration gates in [GAME_PLATFORM_STRATEGY.md](GAME_PLATFORM_STRATEGY.md) and
+[PARALLEL_BUILD_PLAN.md](PARALLEL_BUILD_PLAN.md). The shooter plugin graph is one composition, not a prerequisite for
+every game. A family can define a track, board or room-graph content kind and its own authoritative state service.
+Keep simulation, presentation and authored content independently replaceable; shared public types/tokens belong in
+`src/sdk/contracts/` and are exported through `src/sdk/index.ts`.
+
+For parallel implementation, agree on those contracts, role IDs, theme keys and content ownership first. Give each
+agent distinct plugin folders and one integrator ownership of the catalog and public exports. Require an actual
+completion route plus rejection, pause, restart and disposal checks for each slice.
+
+### Reusing mechanics across genres
+
+Keep a family service for its movement, targeting and win rules; compose shared mechanics beneath it. Read
+[the cross-genre implementation plan](REUSABLE_MECHANICS_PLAN.md) and
+[the dated research](docs/research/reusable-mechanics-2026-11-16.md). The resource, clock, action and objective contracts
+live in `src/sdk/contracts/mechanics.ts`. Their implementations are selected by exclusive roles, and per-consumer
+instances own their state separately from registered definitions.
+
+Declare selected mechanic roles in `roleDependencies` when factories are needed during activation. This lets a preset
+swap implementations without hardcoding the default plugin ID in a game manifest. A turn-based game advances its own
+turn clock after a committed decision; a realtime game advances its seconds clock from simulation `dt`. Rendering
+never advances either clock. Validate spatial/target legality before committing a shared action, and treat previews
+as advisory. Prove reuse with shared committed events and complete winning routes, including provider substitution
+and rejection without partial spending; enabling the same theme is not sufficient evidence.
+
+For route queries, select [NavigationRole](docs/navigation.md) and supply a finite legal graph from the game authority.
+For repeated ordered progression, select a [sequence factory](docs/sequences.md); spatial crossings and timeout policy
+remain local. Both providers have bundled working consumers and explicit preset fragments. Reuse
+[owned-instance leases](docs/owned-instances.md) when a new stateful factory needs consumer-local IDs and cleanup by
+either owner. Pure query providers need no artificial instance lifetime.
+
+### Host lifecycle
 
 The host stages dependency resolution, registration and validation before replacing a running session. A staging error
 preserves that session, but an activation failure after commit does not roll it back. Registration survives restart;

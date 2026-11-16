@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "id": "story/last-light",
+  "name": "The Last Light",
+  "plugins": [
+    "story/adventure",
+    "story/presentation",
+    "story/chapter",
+    "theme/story"
+  ],
+  "roles": {
+    "sdk/experience": "story/adventure",
+    "sdk/theme": "theme/story"
+  },
+  "options": {
+    "chapter": "story/last-light"
+  },
+  "config": {},
+  "seed": 7
+}

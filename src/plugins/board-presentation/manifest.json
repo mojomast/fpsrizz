@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "board/presentation",
+  "name": "Tactical Board",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Orthographic board and tactical command interface.",
+  "dependencies": { "board/tactics": "^1.0.0" },
+  "capabilities": ["render", "ui", "audio"]
+}

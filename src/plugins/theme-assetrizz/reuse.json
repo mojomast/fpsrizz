@@ -1,0 +1,11 @@
+{
+  "schema": 1, "scope": "presentation",
+  "summary": "Pinned Assetrizz sci-fi/fantasy world tiles and enemy strips, six original Gloamforge weapon views and card previews, and a cropped-stone Cinder theme variant.",
+  "keywords": ["assetrizz", "fantasy", "scifi", "tiles", "goblin", "imp", "dungeon", "cinder", "weapon", "armory", "theme", "art"],
+  "entryPoints": ["ThemeRole"],
+  "useWhen": "Select theme/assetrizz, theme/assetrizz-fantasy or theme/assetrizz-cinder for a shooter presentation using the standard theme keys.",
+  "limitations": ["Shooter-oriented texture/visual vocabulary. Assetrizz art provenance is original, generated for Kyle Durepos; weapon renders and synthesized sound have separate original provenance."],
+  "docs": ["docs/cinder-vault.md", "assets/weapons/fantasy/README.md"],
+  "examples": ["src/content/presets/cinder-vault.json", "src/plugins/core-presentation/index.ts"],
+  "tests": ["tests/cinder-vault.test.ts", "tests/cinder-demo/run.mjs"]
+}

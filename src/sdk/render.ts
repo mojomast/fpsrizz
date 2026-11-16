@@ -1,8 +1,8 @@
 /**
  * Rendering SDK for presentation plugins. Import this ONLY from plugins that draw; simulation plugins must not.
  *
- * `THREE` is the project's rendering namespace. In this build it is "mini3", a small WebGL2 renderer that mirrors the
- * subset of the Three.js API listed in ARCHITECTURE.md (same class and property names). Rendering plugins get real
+ * `THREE` is the official Three.js WebGL/core namespace (pinned, locally vendored with matching declarations).
+ * Rendering plugins get real
  * scene-graph access - Groups, Meshes, materials, textures - inside scene roots they own.
  */
 import * as THREE from '../platform/render/mini3/index.ts';
@@ -26,6 +26,12 @@ export interface RenderService {
   createRoot(ctx: SessionContext, layer: 'world' | 'view'): THREE.Group;
   /** World camera. The presentation plugin copies the active View into it each frame. */
   readonly camera: THREE.PerspectiveCamera;
+  /**
+   * Selects a scoped primary world camera. Most recently acquired live selection wins; cleanup restores the previous
+   * selection, or `camera` when none remain. Does not own/dispose the camera. Resizing preserves an orthographic
+   * camera's vertical extent, horizontal center and zoom, adjusting left/right to the canvas aspect ratio.
+   */
+  setWorldCamera(ctx: SessionContext, camera: THREE.PerspectiveCamera | THREE.OrthographicCamera): void;
   /** Camera of the "view" layer: at the origin looking down -Z, vertical fov 50. */
   readonly viewCamera: THREE.PerspectiveCamera;
   /** Scene-wide environment for the world layer. */

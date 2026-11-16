@@ -4,7 +4,7 @@
   "name": "Seeded Gauntlet",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Three seeded encounters with automatic, run-only upgrades.",
   "dependencies": { "core/world": "^1.0.0", "core/player": "^1.0.0", "core/enemies": "^1.0.0", "core/combat": "^1.0.0" },
   "capabilities": ["simulation"]

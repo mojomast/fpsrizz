@@ -84,8 +84,18 @@ function createCombat(ctx: SessionContext): CombatService {
     },
     giveWeapon(entity, weaponId) {
       const inv = ctx.world.get(entity, Inventory);
-      if (!inv || !ctx.registries.has(Weapons, weaponId) || inv.weapons.includes(weaponId)) return false;
+      const def = ctx.registries.get(Weapons, weaponId);
+      if (!inv || !def || inv.weapons.includes(weaponId)) return false;
       inv.weapons.push(weaponId);
+      if (def.magazineSize !== undefined && def.reloadTime !== undefined && def.ammoType) {
+        const runtime = ctx.world.get(entity, WeaponRuntime) ?? ctx.world.add(entity, WeaponRuntime, { loaded: {}, reload: null });
+        const count = runtime.loaded[weaponId] ?? 0;
+        const amount = Math.min(def.magazineSize - count, inv.ammo[def.ammoType] ?? 0);
+        if (amount > 0) {
+          runtime.loaded[weaponId] = count + amount;
+          inv.ammo[def.ammoType] = (inv.ammo[def.ammoType] ?? 0) - amount;
+        }
+      }
       if (inv.current === null) inv.current = weaponId;
       return true;
     },

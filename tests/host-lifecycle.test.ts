@@ -328,7 +328,7 @@ test('staging isolation: a failing host.stage() alone does not touch the running
 
 test('staging isolation: a bad preset shape fails at "preset" and a failing module load at "load", both without side effects', async () => {
   const entries: CatalogEntry[] = [
-    { manifest: { schema: 1, id: 'test/unloadable', name: 'u', version: '1.0.0', kind: 'code', sdk: '^1.0.0' }, load: async () => { throw new Error('chunk 404'); } },
+    { manifest: { schema: 1, id: 'test/unloadable', name: 'u', version: '1.0.0', kind: 'code', sdk: '^2.0.0' }, load: async () => { throw new Error('chunk 404'); } },
   ];
   const { host, c } = await runningBase(entries);
   const session = host.session!;
@@ -1177,7 +1177,7 @@ test('content: code plugins can add content through defineContent with the same 
 
 test('content: a manifest with kind "content" AND a load function is rejected by the catalog', () => {
   const host = newHost([]);
-  const bad: CatalogEntry = { manifest: { schema: 1, id: 'test/sneaky', name: 'S', version: '1.0.0', kind: 'content', sdk: '^1.0.0' }, load: async () => ({ default: {} }), content: [] };
+  const bad: CatalogEntry = { manifest: { schema: 1, id: 'test/sneaky', name: 'S', version: '1.0.0', kind: 'content', sdk: '^2.0.0' }, load: async () => ({ default: {} }), content: [] };
   const issues = host.setCatalog([bad, kindsPlugin()]);
   assert.equal(issues.length, 1);
   assert.equal(issues[0]!.source, 'test/sneaky');
@@ -1190,7 +1190,7 @@ test('content: a manifest with kind "content" AND a load function is rejected by
 
 test('content: a "code" manifest without load is rejected by the catalog', () => {
   const host = newHost([]);
-  const bad: CatalogEntry = { manifest: { schema: 1, id: 'test/noload', name: 'N', version: '1.0.0', kind: 'code', sdk: '^1.0.0' } };
+  const bad: CatalogEntry = { manifest: { schema: 1, id: 'test/noload', name: 'N', version: '1.0.0', kind: 'code', sdk: '^2.0.0' } };
   const issues = host.setCatalog([bad]);
   assert.equal(issues.length, 1);
   assert.match(issues[0]!.message, /Code plugins must be compiled into the application/);
@@ -1249,7 +1249,7 @@ test('content: apply(preset, [extra]) commits the extra entry only when staging 
   assertTicks(host, c);
 
   // invalid import at the catalog level
-  const invalid: CatalogEntry = { manifest: { schema: 1, id: 'test/imp-code', name: 'x', version: '1.0.0', kind: 'code', sdk: '^1.0.0' } };
+  const invalid: CatalogEntry = { manifest: { schema: 1, id: 'test/imp-code', name: 'x', version: '1.0.0', kind: 'code', sdk: '^2.0.0' } };
   const e2 = await hostFailure(host.apply(presetOf('test/p2', ['test/base', 'test/imp-code']), [invalid]));
   assert.equal(e2.stage, 'catalog');
   assert.deepEqual([...host.installed().keys()].sort(), before);

@@ -30,7 +30,7 @@ const WALL_W = 2 + R;
 const WALL_S = 16 - R;
 
 const testMaps: CatalogEntry = {
-  manifest: { schema: 1, id: 'test/maps', name: 't', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0' } },
+  manifest: { schema: 1, id: 'test/maps', name: 't', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } },
   content: [
     {
       kind: 'map',
@@ -70,7 +70,7 @@ function probeEntry(capture: (ctx: SessionContext) => void): CatalogEntry {
       name: 'probe',
       version: '1.0.0',
       kind: 'code',
-      sdk: '^1.0.0',
+      sdk: '^2.0.0',
       dependencies: { 'core/world': '^1.0.0', 'core/combat': '^1.0.0' },
       capabilities: ['simulation'],
     },

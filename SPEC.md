@@ -4,23 +4,23 @@ This document states what is implemented, what is deliberately not, and where th
 described as "planned" does not exist. Design rationale and structure are in [ARCHITECTURE.md](ARCHITECTURE.md); the
 plugin API is in [PLUGINS.md](PLUGINS.md); JSON formats are in [CONTENT_FORMAT.md](CONTENT_FORMAT.md).
 
-## 1. Stack deviation from the original brief
+## 1. Delivered stack
 
-The brief asked for Three.js + Vite + Vitest. The build environment had no network access to the npm registry, so none
-of them could be installed. The delivered stack is:
+The original offline build used mini3. Production now uses official Three.js through the existing rendering SDK.
+The generic kernel and the esbuild/Node test toolchain are retained:
 
 | Concern | Brief | Delivered |
 |---|---|---|
-| Rendering | Three.js | **mini3**, an in-repo WebGL2 renderer mirroring a subset of the Three.js API (`src/platform/render/mini3`), behind `src/platform/render/service.ts` and `src/sdk/render.ts` (exported as `THREE`) |
+| Rendering | Three.js | **Three.js 0.187.0**, reproducibly vendored behind `src/platform/render/service.ts` and `src/sdk/render.ts` (`THREE`) |
 | Bundler / dev server | Vite | **esbuild** (`scripts/build.mjs`, `scripts/dev.mjs`, `scripts/preview.mjs`) |
 | Tests | Vitest | **`node --test`** running TypeScript directly (Node >= 22.18 type stripping) |
 | Type checking | (implied) | Separate `tsc --noEmit`, TypeScript 7 |
-| Runtime dependencies | n/a | **None** |
-| Lockfile | n/a | `package-lock.json` locks development dependencies; use `npm ci` to install them. |
+| Runtime dependencies | n/a | Vendored Three.js, built into the local bundle; no CDN runtime fetch |
+| Lockfile | n/a | `package-lock.json` locks development tools and upstream renderer/type sources; use `npm ci`. |
 
 `scripts/tools.mjs` resolves esbuild and Playwright from the project's `node_modules`, then from `TOOLS_NODE_MODULES`,
-then from `/opt/npm-tools/node_modules`. The migration path to the originally requested stack is described in
-ARCHITECTURE.md and scheduled in [devplan.md](devplan.md).
+then from `/opt/npm-tools/node_modules`. `npm run vendor-three` reproduces the upstream runtime/declarations and
+license/hash records. SDK 2 records the incompatible native rendering namespace; boundary lint rules remain intact.
 
 ## 2. Implemented scope
 
@@ -117,6 +117,89 @@ A panel opened with the backquote key or the **Creator tools** button, with thre
 - `tests/*-demo` and `tests/art-preview` hold browser scripts for individual subsystems; they are run by hand and are
   not part of `npm test`.
 
+### 2.9 Independent game families
+
+Seven additional preset graphs run without any shooter player, collision world, combat, enemy, reference-content,
+HUD or presentation plugin. Each has its own simulation authority, presentation plugin, validated content pack and
+theme. They share host lifecycle, services, deterministic scheduling and the public SDK.
+
+| Preset | Implemented scope | Deliberate slice limits |
+|---|---|---|
+| `vehicle/neon-run` | Visible overhead car; acceleration/braking/reversing, steering, drift grip, off-track drag, ordered directional swept gates, two laps, timer and restart | One authored circuit; arcade kinematics, no rigid-body vehicle physics or opponents |
+| `board/turn-tactics` | Squad selection, occupancy/path movement, AP, LOS and cover forecasts, explicit queued actions, deterministic enemy turns, victory/defeat | One authored mission; no campaign, procedural missions or multiplayer |
+| `story/last-light` | Three illustrated rooms, two initial dialogue branches, inventory combination, clue/flag gates, journal, completed chapter and explicit save/load | Short chapter; replay-validated chapter save, not a general ECS snapshot or transactional economy |
+| `puzzle/stonewake` | Three lit 3D chambers, articulated explorer/golem meshes, pushable boulders, pressure plates and exit gates, deterministic two-beat pursuit, undo/retry/replay, orbit camera and ray picking | Grid-based turns in a volumetric scene; no jumping, rigid-body physics, persisted campaign or imported GLB models |
+| `sky/salvage` | Lit floating islands, authored matching cargo deliveries, drone flight, moving hazard, boost/repair and touch controls | One route; planar flight in 3D, no rigid-body flight or saved run |
+| `ember/bastion` | Authored 3D lane/pads, tower construction, three enemy waves, repair/pulse, victory/defeat and replay | One defense scenario, one tower type; no campaign or path editing UI |
+| `verdant/relay` | Three 3D island relays, turn-based resource production/conversion/restoration, cooldowns and dry-wind forecast | One season scenario; no offline production, general save or undo |
+
+See [racing](docs/overhead-racing.md), [tactics](docs/turn-tactics.md), [adventure](docs/narrative-adventure.md) and
+[Stonewake](docs/stonewake.md) for
+content schemas, controls and completion routes. Art directions use curated Assetrizz images and original procedural
+elements; each theme supplies its own synthesized cues. Sampled music and a continuous audio-director API are future work.
+
+`ExperienceRole` selects locked/free/no-pointer input policy and launcher controls. `InputContexts` supplies scoped
+priority/consumption and exclusive focus. `SessionControl` gates gameplay ingress from UI. Tactics/adventure/puzzle state
+changes only on commands: the scheduler can service input while their authoritative state waits. Camera leases support
+perspective/orthographic projection and clean restoration when switching games.
+
+### 2.10 Reusable mechanics across genres
+
+**Cinder Vault** is a shooter-family fantasy roguelite composing resource/action/clock/objective and progression
+providers. `dungeon/generator` builds a sealed 94×30 map containing three independent 30-cell wings with 7–9 rooms,
+corridors, room markers, lights and descent pads. Cinder consumes those markers, spawns each depth's encounters and
+wardens, and teleports through its descent pads. XP is earned during a floor; completed levels queue three-card boon
+offers that can be selected with 7/8/9 **without pausing combat**. A non-modal HUD tray presents them. A six-weapon
+Gloamforge armory, weapon caches, a cooldown pulse and a 900-health final Keeper replace the previous five-trial loop.
+Optional versioned profile values track attempts and legacy embers; run embers, weapons and boons reset on death. The
+generated layout is content-seeded while encounter composition varies by attempt. See
+[rules, provenance and limits](docs/cinder-vault.md), [dungeon generator](docs/dungeon-generator.md) and
+[progression](docs/progression.md).
+
+Sky, Ember and Verdant use identical `mechanics/resources`, `mechanics/clock`, `mechanics/actions` and
+`mechanics/objectives` providers plus a strict `mechanic-kit` loader. Shared behavior includes atomic bounded
+debit/credit, data-defined costs/gains, explicit seconds/turn cooldowns, and prerequisite-aware objective progress.
+Factories create isolated, consumer/provider-owned instances. Opt-in `roleDependencies` orders selected factory
+owners before consumers; existing `requiresRoles` remains selection-only. Provider implementations are replaceable
+through preset roles. Tests run all three winning routes with both the default and an independent test resource provider,
+comparing final state and committed events, including each tower's separate shared fire cooldown.
+
+Movement, target legality, hazards and orchestration remain family responsibilities. Shared transactions cover
+resources/action cooldowns; they do not roll back arbitrary game-local effects. Shooter/tactics/story/puzzle rules
+remain in their family authorities. See [mechanics](docs/reusable-mechanics.md) and
+[dated research](docs/research/reusable-mechanics-2026-11-16.md).
+
+The follow-up general-capability work extracts owned bounded command queues for Stonewake and The Last Light, and
+explicit-clock deadlines for Sky and Verdant. These are SDK helpers used from existing family systems. Queue capacity,
+pause/disposal gating and draining are shared; normalization, legality and processing cadence are consumer policy.
+Deadlines borrow seconds/turn clocks; games retain advancement and effect precedence. Resource behavior is exercised
+through a reusable conformance runner against both the default and an independent test implementation. See
+[queues](docs/command-queues.md), [deadlines](docs/deadlines.md) and [conformance](docs/mechanic-conformance.md).
+
+The selectable `mechanics/navigation` provider supplies deterministic unit-edge graph search to puzzle pursuit and
+tactics reachability. Games construct legal ordered graphs and retain movement/occupancy/AP policy. The selectable
+`mechanics/sequence` provider supplies ordered cursors and finite repeated rounds to NEON RUN and Foundry Circuit;
+their crossing geometry, per-tick crossing policy, timeout precedence and presentation stay local. The selectable
+`mechanics/progression` provider supplies linear XP curves, atomic multi-level grants and pending game-defined rewards;
+Cinder Vault keeps boons, stats and the non-pausing tray local. `dungeon/generator` is a seeded shooter-family map format
+that emits three isolated room/corridor wings and inert room markers; Cinder owns encounters, warden gates, caches,
+teleports and victory. None of these installs automatic simulation systems or changes authored family content formats.
+See [navigation](docs/navigation.md), [sequences](docs/sequences.md), [progression](docs/progression.md) and
+[dungeon generator](docs/dungeon-generator.md).
+
+### 2.11 Agent-facing reuse discovery
+
+`npm run find-reuse` searches live manifest/registration data, public SDK runtime values and curated capability metadata.
+Results distinguish cross-genre providers, family-specific authorities, content, presentation and unreviewed scope;
+they link declarations, composition recipes, presets and tests. It supports exact inspection, filters and JSON output.
+Plugin `reuse.json` sidecars and task-level recipes supply vocabulary and limits that cannot be inferred from code names.
+The scaffolder surfaces related candidates and creates an unreviewed sidecar. Generated Markdown/JSON references and
+their source digest are checked by `npm run check`; invalid references and stale output fail the check.
+
+Discovery observes trusted default registration in isolated stages without session activation. It does not prove
+compatibility, execute gameplay, infer every conditional registration or detect every semantically duplicate algorithm.
+The complete game still needs staging and gameplay verification. See [the reuse-first workflow](REUSE.md).
+
 ## 3. Reference game: Bulkhead Station
 
 **Objective.** Flip the override switch, then reach the exit pad. Dying ends the run. Both outcomes show a result screen
@@ -173,16 +256,16 @@ dark-sci-fi tiles, two enemy sprite strips and two Blender weapon renders with i
 
 These are deliberate scope limits or known gaps, not bugs.
 
-- **Gameplay is planar with one elevation.** `Transform` has `x`, `z` and `yaw` only; floors are at y = 0 and ceilings at
+- **Shooter gameplay is planar with one elevation.** `Transform` has `x`, `z` and `yaw` only; floors are at y = 0 and ceilings at
   the map's wall height. There is no jumping, no slopes or stairs, no stacked floors, no height in the world description.
-- **Fixed eye height and yaw-only aim.** The camera pitch is always 0 and vertical mouse movement is ignored.
-- **Grid maps only.** The `MapFormats` registry allows another authoring format, but only `core/grid` exists, and every
+- **Shooter fixed eye height and yaw-only aim.** Its camera pitch is 0 and vertical mouse movement is ignored.
+- **Shooter grid maps only.** The `MapFormats` registry allows another authoring format, but only `core/grid` exists, and every
   format must produce the same axis-aligned `WorldDescription`.
 - **AABB collision.** Walls and doors are axis-aligned boxes, actors are circles, and hit normals are axis-aligned.
   Queries are brute force over all boxes (sized for maps of a few hundred boxes). Swept-circle queries inflate each box
   by the circle's radius and round the corners (see ARCHITECTURE.md, World); hit normals on faces stay axis-aligned.
-- **No save games.** Entity data is plain JSON (`EntityStore.snapshot()` exists) but no save or load is implemented. The
-  intended save format is a design note in CONTENT_FORMAT.md.
+- **No general run snapshots.** Adventure has explicit versioned chapter save/load; the shooter and other families do
+  not have full run saves. The general save format remains a design note in CONTENT_FORMAT.md.
 - **No networking or rollback.** Simulation is deterministic given the same per-tick input (fixed step, seeded RNG), but
   there is no input recording or replay, and bit-identical results across browsers or JavaScript engines are not claimed.
 - **Code plugins are build-time and trusted.** A deployed build cannot install new JavaScript. Manifest `capabilities`
@@ -190,20 +273,20 @@ These are deliberate scope limits or known gaps, not bugs.
 - **Content packs cannot carry assets.** Content refers to art and sound by theme key. An unknown texture key renders as
   a magenta checker and an unknown visual key is not drawn (both log a warning); an unknown sound key is ignored with a
   warning. Imported packs live in memory only and are not persisted across page loads.
-- **mini3 instead of Three.js.** Only the API subset listed in ARCHITECTURE.md exists, with documented semantic
-  differences (no colour management, lighting model).
+- **Renderer integration scope.** Three.js core/WebGL is available; a scoped asynchronous model/asset loader and glTF
+  addon integration remain future work. Browser startup still requires WebGL2, including for the DOM adventure.
 - **Procedural placeholder art and audio** (section 7).
 - **GPU performance is unmeasured.** The build environment had only software WebGL2. The smoke test asserts CPU work
   per frame, not GPU frame time.
 - **Single player, keyboard and mouse only.** No gamepad or touch input, no key rebinding, no multiplayer.
 - **Browser coverage.** The repository's browser checks drive Chrome only.
-- **Fixed sizes.** Grid maps are at most 96 x 96 cells with at most 64 doors, 128 triggers, 64 lights and 512 spawns;
-  the renderer shades at most 16 point lights per frame (the nearest to the camera); 32 one-shot effects are pooled;
+- **Fixed sizes.** Shooter grid maps are at most 96 x 96 cells with at most 64 doors, 128 triggers, 64 lights and 512 spawns;
+  32 shooter one-shot effects are pooled;
   at most 24 sound voices play at once.
 
 ## 6. Extension boundaries
 
-A finite v1 cannot express every game through JSON. The boundary has three levels.
+A finite SDK cannot express every game through JSON. The boundary has three levels.
 
 **Data only (content pack or preset).** Possible: new ammo types; weapons that select an existing attack behaviour
 (`core/hitscan`, `core/projectile`, `core/melee`) with parameters; pickups that select an existing effect
@@ -211,17 +294,18 @@ A finite v1 cannot express every game through JSON. The boundary has three level
 and attack behaviour, with tint, scale and health; grid maps with doors, switches, zones, spawns, lights, ambient and
 fog; presets that choose plugins, roles, map, per-plugin configuration and seed. Not possible: any new behaviour,
 rule, objective, HUD, content kind, art or sound. A data map can only use the existing mode logic (for example the
-objective mode needs a switch tagged `objective` and a zone tagged `exit`).
+objective mode needs a switch tagged `objective` and a zone tagged `exit`). Independent families additionally accept
+tracks, board missions and adventure chapters within their documented schemas.
 
 **Code plugin, no SDK change.** Possible: new attack, AI and pickup-effect behaviours, damage modifiers, prefabs,
 systems, components, events, commands and services, game modes, HUDs, themes (art and sound packs), actor renderers,
-map formats, content kinds, input actions, validators. Limits: everything must fit the planar `Transform`, the nine
-phases and the existing roles and contracts.
+map formats, content kinds, input actions, validators. A new family can own its own state/world model rather than use
+the planar shooter `Transform`. Cooperating plugins need shared typed contracts and explicit ownership.
 
 **Needs an SDK version bump.** Vertical movement and stacked floors (a height in `Transform` and `WorldDescription`,
 pitch and jumping in the controller and camera contracts, 3D collision queries); non-grid collision; networking and
-rollback; save games with versioned migration; skeletal animation; new host-level phases. These change shared contracts,
-so they require a new SDK version and manifests that declare it (`SDK_VERSION` is `1.0.0` and plugins declare a
+rollback; general run saves with versioned migration; shared model/animation asset services; new host-level phases.
+These change shared contracts, so they require a new SDK version and manifests that declare it (`SDK_VERSION` is `2.0.0` and plugins declare a
 compatible range in `sdk`).
 
 ## 7. Asset provenance
@@ -229,6 +313,12 @@ compatible range in `sdk`).
 The reference theme's visual and audio content is generated by code in this repository. The optional Assetrizz themes
 each include five pinned upstream image tiles and two sprite strips, converted into synchronous pixel-backed painters; source PNGs and their
 license note are in `public/assetrizz/`, with provenance in `scripts/assetrizz.json`. No runtime network fetch is needed.
+
+The independent arcade, board and story themes add twelve pinned source images and explicitly labelled procedural
+elements. `scripts/experience-assets.json` and `assets/experiences/provenance.json` record source/output/pixel hashes,
+dimensions, transformations and the upstream note “original, generated for Kyle Durepos.” No MIT grant for that art is
+asserted. Theme sound cues are original synthesis. The vendored Three.js runtime/declarations retain their own MIT
+licenses and provenance under `src/platform/render/mini3/vendor/`.
 
 - Textures and sprites (walls, floors, ceilings, doors, switches, exit pad, enemies, corpses, pickups, projectile and
   impact effects, muzzle flash, first-person weapon sprites) are drawn procedurally with the Canvas 2D API by

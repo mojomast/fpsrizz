@@ -6,7 +6,7 @@ import { HostError, PluginHost, errText } from '../kernel/host.ts';
 import type { Session } from '../kernel/host.ts';
 import { createAudioService } from '../platform/audio.ts';
 import { createFlow } from '../platform/flow.ts';
-import { bindDomInput, createInputCore } from '../platform/input.ts';
+import { bindDomInput, createInputCore, isInputEditableTarget } from '../platform/input.ts';
 import { createProfileStore } from '../platform/profile-store.ts';
 import type { ProfileStorage } from '../platform/profile-store.ts';
 import { isWebGL2Available } from '../platform/render/mini3/index.ts';
@@ -14,8 +14,8 @@ import { createRenderHost } from '../platform/render/service.ts';
 import type { RenderHost } from '../platform/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
 import { createUiService } from '../platform/ui.ts';
-import type { FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
-import { Audio, Flow, FlowEnded, Input, InputActions, PHASES, Profile, SDK_VERSION, Settings, Ui } from '../sdk/index.ts';
+import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
+import { Audio, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputContexts, PHASES, Profile, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
 import { Render } from '../sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
@@ -87,6 +87,10 @@ function boot(): void {
     phases: PHASES,
     installHostServices(session, scope) {
       session.services.provide(Input, inputCore.service, 'host', scope);
+      session.services.provide(InputContexts, inputCore.contexts, 'host', scope);
+      session.services.provide(SessionControl, {
+        get playing() { return session === host.session && session.state === 'running' && state === 'playing' && captured(); },
+      }, 'host', scope);
       session.services.provide(Render, renderHost.service, 'host', scope);
       session.services.provide(Audio, audio, 'host', scope);
       session.services.provide(Ui, ui, 'host', scope);
@@ -113,7 +117,13 @@ function boot(): void {
   const catalogIssues = host.setCatalog(catalog);
   for (const i of catalogIssues) console.error(`[catalog] ${i.source} ${i.path}: ${i.message}`);
 
-  const captured = (): boolean => testMode || document.pointerLockElement === canvas;
+  const experience = (): ExperienceProvider | undefined => {
+    const a = host.active;
+    const id = a?.preset.roles[ExperienceRole.id];
+    return a && id ? a.registries.get<ExperienceProvider>({ kind: `role:${ExperienceRole.id}` }, id) : undefined;
+  };
+  const needsPointerLock = (): boolean => (experience()?.pointer ?? 'locked') === 'locked';
+  const captured = (): boolean => !needsPointerLock() || testMode || document.pointerLockElement === canvas;
   const domInput = bindDomInput(inputCore, {
     target: canvas,
     actions: () => host.active?.registries.entries(InputActions).map((e) => ({ id: e.id, keys: e.value.keys })) ?? [],
@@ -122,7 +132,7 @@ function boot(): void {
 
   // ---- state transitions ---------------------------------------------------------------------------------------------
   const requestPointer = (): void => {
-    if (testMode) return;
+    if (testMode || !needsPointerLock()) return;
     try {
       const p = canvas.requestPointerLock() as unknown as Promise<void> | undefined;
       p?.catch?.(() => shell.setHint('Click the game view to capture the mouse — Esc releases it'));
@@ -155,15 +165,16 @@ function boot(): void {
   }
 
   function describeControls(): [string, string][] {
-    const out: [string, string][] = [['Mouse', 'Aim (yaw)']];
+    const selected = experience();
+    const out: [string, string][] = selected?.controls?.map(([key, label]) => [key, label]) ?? (needsPointerLock() ? [['Mouse', 'Aim (yaw)']] : []);
     const pretty = (k: string): string => k.replace(/^Key/, '').replace(/^Digit/, '').replace('Mouse0', 'Left click').replace('Mouse1', 'Middle click').replace('Mouse2', 'Right click').replace('ArrowUp', '↑').replace('ArrowDown', '↓').replace('ArrowLeft', '←').replace('ArrowRight', '→').replace('WheelUp', 'Wheel up').replace('WheelDown', 'Wheel down');
     const slots: string[] = [];
-    for (const e of host.active?.registries.entries(InputActions) ?? []) {
+    for (const e of selected?.controls ? [] : host.active?.registries.entries(InputActions) ?? []) {
       if (/weapon-\d+$/.test(e.id)) slots.push(...e.value.keys.map(pretty));
       else out.push([e.value.keys.map(pretty).join(' / '), e.value.label]);
     }
     if (slots.length) out.push([`${slots[0]}–${slots[slots.length - 1]}`, 'Select weapon']);
-    out.push(['Esc', 'Release mouse / pause'], ['` (backquote)', 'Creator tools']);
+    out.push(['Esc', needsPointerLock() ? 'Release mouse / pause' : 'Pause'], ['` (backquote)', 'Creator tools']);
     return out;
   }
 
@@ -213,6 +224,7 @@ function boot(): void {
   }
 
   function begin(): void {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
     state = 'playing';
     sessionUsed = true;
     shell.hide();
@@ -282,14 +294,21 @@ function boot(): void {
   // ---- browser events ------------------------------------------------------------------------------------------------
   const onLockChange = (): void => {
     if (document.pointerLockElement === canvas) shell.setHint(null);
-    else if (state === 'playing' && !testMode) pause();
+    else if (state === 'playing' && needsPointerLock() && !testMode) pause();
   };
   const onKey = (e: KeyboardEvent): void => {
+    if (e.isComposing || e.repeat) return;
+    // Pause remains reachable after clicking a free-cursor game's native UI button.
+    if (e.code === 'Escape' && !e.defaultPrevented && (testMode || !needsPointerLock()) && state === 'playing') {
+      pause();
+      return;
+    }
+    if (isInputEditableTarget(e.target)) return;
     if (e.code === 'Backquote') {
       e.preventDefault();
       if (state === 'playing') pause();
       creator.toggle();
-    } else if (e.code === 'Escape' && testMode && state === 'playing') pause();
+    }
   };
   const onBlur = (): void => {
     if (state === 'playing') pause();
@@ -387,9 +406,11 @@ function boot(): void {
   // ---- initial load --------------------------------------------------------------------------------------------------
   shell.showLoading('Loading plugins…');
   void (async () => {
+    const requestedId = new URLSearchParams(location.search).get('preset');
+    const requested = presets.find(p => p !== null && typeof p === 'object' && 'id' in p && p.id === requestedId);
     const stored = loadSelectedPreset();
-    let result = stored !== undefined ? await applyPreset(stored) : await applyPreset(presets[0]);
-    if (!result.ok && stored !== undefined) {
+    let result = await applyPreset(requested ?? stored ?? presets[0]);
+    if (!result.ok && stored !== undefined && requested === undefined) {
       console.warn('Stored preset is no longer valid; falling back to the default preset.');
       result = await applyPreset(presets[0]);
     }

@@ -4,7 +4,7 @@
   "name": "Ricochet Rifle",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Adds the example/ricochet attack behaviour (a projectile that bounces off walls) and the Ricochet Rifle weapon (slot 3).",
   "dependencies": { "core/world": "^1.0.0", "core/combat": "^1.0.0", "core/content": "^1.0.0" },
   "optionalDependencies": {},

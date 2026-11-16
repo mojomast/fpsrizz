@@ -4,7 +4,7 @@
   "name": "Bulkhead Station (reference content)",
   "version": "1.0.0",
   "kind": "content",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Data-only reference content: two weapons, two enemies, three pickups, two ammo types and the Bulkhead Station arena.",
   "dependencies": {
     "core/world": "^1.0.0",

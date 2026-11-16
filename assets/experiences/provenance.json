@@ -1,0 +1,509 @@
+{
+  "repository": "https://github.com/mojomast/assetrizz",
+  "revision": "05339c228f55ac95ad21b5c947db0c6e36207cd4",
+  "license": "original, generated for Kyle Durepos",
+  "manifestSha256": "7bd35841acdb06c6b21bd882718d7eb63ad936433c383afa8e301ebf3e816e33",
+  "configSha256": "499240fd33ee1e65c3c93533fd488306dca931253a779608a1267f38d18246e8",
+  "processing": "RGBA nearest-neighbor resize, 128-color FASTOCTREE palette, no dithering; opaque tile backing where specified",
+  "pillowVersion": "11.1.0",
+  "assets": [
+    {
+      "theme": "arcade",
+      "key": "track-surface",
+      "path": "assets/vaporwave_synth/tiles/floor/rust_grate_base.png",
+      "sha256": "9cdf491a0835d837cdd4a9dd59bb099428eeb246a54331d6a35c4aaf1da16f4e",
+      "size": [
+        64,
+        64
+      ],
+      "backing": "#10263b",
+      "orientation": "flat repeating tile",
+      "sourceSize": [
+        256,
+        256
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b02252_vaporwave_synth_tiles_tile",
+        "kind": "tile",
+        "cell_index": 0,
+        "grid": [
+          1,
+          1
+        ],
+        "source_size": [
+          1024,
+          1024
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "4f528ac338da0122b6cd5ead6bb8e8254ef48385c172fecb9fae12507e9e45c8",
+      "pixelSha256": "35d88edb1ed39503c11cb7ecafb46087e6339b9f4f5b938215071b82ad74a970",
+      "outputAlphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "theme": "arcade",
+      "key": "race-marker",
+      "path": "assets/vaporwave_synth/markers/travel/plain_pennant_plain.png",
+      "sha256": "bee48abff5b79fecf920e43d461c41601b3a8a7e3c8b5e9ae126107fba6b1c76",
+      "crop": [
+        56,
+        0,
+        180,
+        128
+      ],
+      "size": [
+        62,
+        64
+      ],
+      "orientation": "upright pennant, upper fragment only",
+      "sourceSize": [
+        256,
+        256
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b03002_vaporwave_synth_markers_sheet",
+        "kind": "sheet",
+        "cell_index": 6,
+        "grid": [
+          4,
+          4
+        ],
+        "source_size": [
+          242,
+          242
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "2260c7ad0645bbd1d9d42102eb3f1a4b8ede9fa5b08c628a68fe13ee308ff873",
+      "pixelSha256": "1132bd21d665e2e200775389059463e10000cfbe5366aa02de7f8bb2aaa843dd",
+      "outputAlphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "theme": "arcade",
+      "key": "race-vehicle-badge",
+      "path": "assets/vaporwave_synth/vehicles/land/scooter_cycle_idle.png",
+      "sha256": "b6fc1177e19a89c90b9f8a37a55a6e861fb8db8e91b8b93808d5a431ea23c71c",
+      "size": [
+        128,
+        96
+      ],
+      "orientation": "single side profile facing right; decorative badge, not top-down vehicle",
+      "sourceSize": [
+        512,
+        384
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b02972_vaporwave_synth_vehicles_sheet",
+        "kind": "sheet",
+        "cell_index": 3,
+        "grid": [
+          2,
+          2
+        ],
+        "source_size": [
+          482,
+          482
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "8f65851a4cf7d3bb73d64a117583b6d47f02bc6b304574138b03a10ca9475658",
+      "pixelSha256": "f1b4ffc98d5c97ed875a4ab85317ffe0fb390907da5847f02f1abd54cd99fb8a",
+      "outputAlphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "theme": "arcade",
+      "key": "race-backdrop",
+      "path": "assets/vaporwave_synth/backgrounds/scene/lantern_festival_street_wide.png",
+      "sha256": "b44be2e501160212ef21dbb986dd72c9e998c93956987948abe234b2dbe2b47f",
+      "size": [
+        320,
+        180
+      ],
+      "orientation": "wide 16:9 scene",
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "sourceAlphaRange": [
+        255,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b02299_vaporwave_synth_backgrounds_background",
+        "kind": "background",
+        "cell_index": 0,
+        "grid": [
+          1,
+          1
+        ],
+        "source_size": [
+          1280,
+          720
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "f88ea029ee29ab2c91119615dc1da3eb817826d08291d9b7000fa73f5b1ab384",
+      "pixelSha256": "0f4cafc2ac87f1b45b71ef72eca0856626f1696cf6bf3faff8c7fd28f7d93fa6",
+      "outputAlphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "theme": "board",
+      "key": "tactics-unit",
+      "path": "assets/isometric_voxel/characters/humanoid/cartographer_three_quarter.png",
+      "sha256": "dd6b6e68665cab13a17f01d10c26c5bbdd6aab9d9f14020a41b62903a48cda14",
+      "size": [
+        64,
+        96
+      ],
+      "orientation": "single three-quarter standing explorer",
+      "sourceSize": [
+        512,
+        768
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b01654_isometric_voxel_characters_turnaround",
+        "kind": "turnaround",
+        "cell_index": 1,
+        "grid": [
+          2,
+          2
+        ],
+        "source_size": [
+          482,
+          482
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "e54ace82b0df79c386eff1a5792c6fdfd527d9c9695c45be97d922216ca5425a",
+      "pixelSha256": "2036f01ad7dd0041386bf7c891cec414033e5262ed39286c8cb4116ef86abe7a",
+      "outputAlphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "theme": "board",
+      "key": "tactics-enemy",
+      "path": "assets/isometric_voxel/enemies/creature/chalk_golem_idle_front.png",
+      "sha256": "bd5961b98a0ceba49339c9d3b6d28959e2bc178b6ed8e17687077e5761622c23",
+      "size": [
+        96,
+        96
+      ],
+      "orientation": "single front/three-quarter standing golem",
+      "sourceSize": [
+        512,
+        512
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b01539_isometric_voxel_enemies_sheet",
+        "kind": "sheet",
+        "cell_index": 10,
+        "grid": [
+          4,
+          4
+        ],
+        "source_size": [
+          242,
+          242
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "cbe63696c43432976805f3eca0abdd86f199e8e3cf04790350df9ccc3659c444",
+      "pixelSha256": "93fe08e4d364426324fccc66d7aba1d36ddc73b8cf35e12c9190a169070e4db8",
+      "outputAlphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "theme": "board",
+      "key": "tactics-cover",
+      "path": "assets/isometric_voxel/terrain/rock/boulder_cluster_plain.png",
+      "sha256": "ea1103fa87c6dd4c0ed112cdca9c0b331c3845e1ba17a3cd00c142a160653be9",
+      "size": [
+        96,
+        96
+      ],
+      "orientation": "single isometric rock cluster",
+      "sourceSize": [
+        768,
+        768
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b03840_isometric_voxel_terrain_single",
+        "kind": "single",
+        "cell_index": 0,
+        "grid": [
+          1,
+          1
+        ],
+        "source_size": [
+          1024,
+          1024
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "0bab68aab9e861343106865222d2113bd32e4d6175b97fb223814c2c4d4db4b7",
+      "pixelSha256": "a8cc06aed29b7e1e783fa3510e08050e62c38dd56412b6df9354c972d6d83b6e",
+      "outputAlphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "theme": "board",
+      "key": "tactics-ground",
+      "path": "assets/isometric_voxel/tiles/floor/boardwalk_base.png",
+      "sha256": "0861cc0a08d5f8933c643c899f70cc8d9bbc9191c02b2045ab6b27a3b9df7b46",
+      "size": [
+        64,
+        64
+      ],
+      "backing": "#584c36",
+      "orientation": "flat diagonal wooden tile",
+      "sourceSize": [
+        256,
+        256
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b02414_isometric_voxel_tiles_tile",
+        "kind": "tile",
+        "cell_index": 0,
+        "grid": [
+          1,
+          1
+        ],
+        "source_size": [
+          1024,
+          1024
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "6912bb4679c9b2be7b8947a0427d25a8caa1b0b69b7a12f78da85e3f2d2faac6",
+      "pixelSha256": "f97ff811e73e66a52bdcd4c155c9179cba0b46875bf8952f2d1118ac06139d65",
+      "outputAlphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "theme": "story",
+      "key": "story-room",
+      "path": "assets/ink_watercolor/backgrounds/scene/desert_observatory_wide.png",
+      "sha256": "2bf83f6a98a43d10c3a897cf7a541cc493b1540ba37c143502065a7579fe783c",
+      "size": [
+        480,
+        270
+      ],
+      "orientation": "wide exterior observatory background plate, not an interior room",
+      "sourceSize": [
+        1280,
+        720
+      ],
+      "sourceAlphaRange": [
+        255,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b01845_ink_watercolor_backgrounds_background",
+        "kind": "background",
+        "cell_index": 0,
+        "grid": [
+          1,
+          1
+        ],
+        "source_size": [
+          1280,
+          720
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "14512046d53a7e23751ec12f0815aefba1909ff1aaa54f3ca84d43ab0d1cbc61",
+      "pixelSha256": "dd23228e0a80c1d90f7171835341ea7886a3433bdea1c6375d1cceea3a9a1de1",
+      "outputAlphaRange": [
+        255,
+        255
+      ]
+    },
+    {
+      "theme": "story",
+      "key": "story-portrait",
+      "path": "assets/ink_watercolor/portraits/watch/night_watch_bust.png",
+      "sha256": "9ae58d6ac13e6c03d367a218f092dc0f84b2e110812eae4fe15e6b8d5c6adb9e",
+      "size": [
+        128,
+        128
+      ],
+      "orientation": "single front/three-quarter indigo-cloaked keeper bust",
+      "sourceSize": [
+        512,
+        512
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b02794_ink_watercolor_portraits_sheet",
+        "kind": "sheet",
+        "cell_index": 0,
+        "grid": [
+          2,
+          2
+        ],
+        "source_size": [
+          482,
+          482
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "e6b761ecc1813656ec8e07515c65bec8e99f300b95ea3746ba3092f7ac4024b8",
+      "pixelSha256": "275937c6d309c269d5a40deef5869d92ef3307a14d55bd7ffe2359acd502ee4d",
+      "outputAlphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "theme": "story",
+      "key": "story-key",
+      "path": "assets/hand_painted_fantasy/icons/valuable/brass_key_plain.png",
+      "sha256": "7b7a8a81c4cb5ca343a3138e583dcf78c6d37d71d4dfc78df236c158da604a97",
+      "size": [
+        64,
+        64
+      ],
+      "orientation": "upright brass key icon; warm hand-painted accent",
+      "sourceSize": [
+        256,
+        256
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b00071_hand_painted_fantasy_icons_sheet",
+        "kind": "sheet",
+        "cell_index": 4,
+        "grid": [
+          4,
+          4
+        ],
+        "source_size": [
+          242,
+          242
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "e76057e5992faacdcceef2eb6b00ee472320c024d1a71d397c3b80db09b1dff5",
+      "pixelSha256": "3f58f0d273f4f5c5e32109df65bd2e614b0eb9ee74bafdfdf2ca540b53af90a6",
+      "outputAlphaRange": [
+        0,
+        255
+      ]
+    },
+    {
+      "theme": "story",
+      "key": "story-lens",
+      "path": "assets/ink_watercolor/icons/tool/jeweler_loupe_plain.png",
+      "sha256": "77a18dae12c98296dc6106883cca5ebe354bb759017cd0872ed9dac5bb478c22",
+      "size": [
+        64,
+        64
+      ],
+      "orientation": "single diagonal indigo jeweler loupe icon",
+      "sourceSize": [
+        256,
+        256
+      ],
+      "sourceAlphaRange": [
+        0,
+        255
+      ],
+      "frameInfo": {
+        "batch_id": "b01419_ink_watercolor_icons_sheet",
+        "kind": "sheet",
+        "cell_index": 0,
+        "grid": [
+          4,
+          4
+        ],
+        "source_size": [
+          242,
+          242
+        ]
+      },
+      "license": "original, generated for Kyle Durepos",
+      "outputSha256": "0a58e53e61d69afb5583b529a6220c27fcfc9cdbe5a9f45242cd54926da7221f",
+      "pixelSha256": "bb745cf67c85d8590dc35f22c3f4625968978e1d6b4d4063a0a15214215ceadf",
+      "outputAlphaRange": [
+        0,
+        255
+      ]
+    }
+  ],
+  "procedural": [
+    {
+      "theme": "arcade",
+      "key": "race-vehicle",
+      "size": [
+        48,
+        80
+      ],
+      "provenance": "procedural",
+      "source": "src/plugins/theme-arcade/vehicle.ts",
+      "orientation": "top-down, nose points up (-Y in canvas), rotate with game heading"
+    }
+  ],
+  "audio": {
+    "provenance": "procedural",
+    "format": "original synthesized SoundDef oscillators and filtered noise; no Assetrizz audio samples"
+  },
+  "modules": {
+    "arcade": "92fc0ffd80a80b631003cdeddfba7981c4145959e50c271d17b9e17b5f74982b",
+    "board": "815344a2339117e8c62ac485488d0a5af2a601482fcab564459b01418e076bdb",
+    "story": "bb6bd8889b1fa0890201943e0c2f1b70ea9960a670aa05e40be7b33e04fa624d"
+  }
+}

@@ -5,6 +5,13 @@ mechanics into distinct games, identify changes that must happen below the plugi
 milestones. See [CREATE_GAME.md](CREATE_GAME.md) for the current authoring workflow and [SPEC.md](SPEC.md) for what
 is implemented today.
 
+For the subsequent research into complete, sharply differentiated game experiences, see
+[GAME_PLATFORM_STRATEGY.md](GAME_PLATFORM_STRATEGY.md). It audits the current shared shooter assumptions and proposes
+input, actor, presentation, time-model and authoring boundaries for broader game families.
+
+The first independent-family implementation is tracked in [PARALLEL_BUILD_PLAN.md](PARALLEL_BUILD_PLAN.md), with actual
+scope in [SPEC.md](SPEC.md): Three.js/SDK 2, experience input policy, overhead racing, turn tactics and narrative adventure.
+
 Bulkhead currently has a plugin host and a playable 2.5D reference shooter, with example content, attack, HUD and
 survival-mode extensions. Presets select plugins, maps and role providers; plugins share contracts through the SDK.
 Game ideas below assume these existing pieces only where the current contracts and implementation support them.

@@ -1,0 +1,10 @@
+{
+  "schema": 1, "id": "cinder/vault", "name": "CINDER VAULT — Ashbound Roguelite",
+  "plugins": ["core/world", "core/combat", "core/player", "core/enemies", "core/presentation", "theme/assetrizz", "example/dash-controller", "dungeon/generator", "mechanics/resources", "mechanics/clock", "mechanics/actions", "mechanics/objectives", "mechanics/progression", "mechanics/kits", "cinder/content", "cinder/game", "cinder/hud"],
+  "roles": {
+    "sdk/experience": "cinder/experience",
+    "sdk/controller": "example/dash-controller", "sdk/camera": "core/fp-camera", "sdk/mode": "cinder/vault", "sdk/hud": "cinder/hud", "sdk/theme": "theme/assetrizz-cinder",
+    "sdk/mechanic-resources": "mechanics/resources", "sdk/mechanic-clock": "mechanics/clock", "sdk/mechanic-actions": "mechanics/actions", "sdk/mechanic-objectives": "mechanics/objectives", "sdk/mechanic-progression": "mechanics/progression"
+  },
+  "options": { "map": "cinder/vault" }, "config": { "core/player": { "maxHealth": 100, "fov": 80 } }, "seed": 27841
+}

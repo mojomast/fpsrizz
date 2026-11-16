@@ -76,6 +76,15 @@
       ]
     }
   ],
+  "ui": [
+    { "key": "cinder-hall", "path": "assets/hand_painted_fantasy/backgrounds/scene/dungeon_hall_wide.png", "sha256": "9fc4facff8540b4be432e02b5876baf703a6408ce9f3caca480346f4d2124093" },
+    { "key": "cinder-power", "path": "assets/hand_painted_fantasy/icons/weapon/iron_sword_ornate.png", "sha256": "d247234c668374df96afd8169e94719c5fece0067d9fd72a90441428150fa1b1" },
+    { "key": "cinder-vitality", "path": "assets/hand_painted_fantasy/icons/potion/health_potion_ornate.png", "sha256": "f0624b2742cddac0a9119ef105090ff44f433145c76cbfbf9d8b2f7250553c10" },
+    { "key": "cinder-shell", "path": "assets/hand_painted_fantasy/icons/armor/iron_shield_ornate.png", "sha256": "03a15c2060e0b2b536a7dc0c473534484e710d65052c63bc5ac498d3b86521da" },
+    { "key": "cinder-siphon", "path": "assets/hand_painted_fantasy/icons/valuable/cut_ruby_ornate.png", "sha256": "09e839a0ceaefc9aa52344c912424cc2c2afe09ad1cf430824d9828ea99c95c3" },
+    { "key": "cinder-pulse", "path": "assets/hand_painted_fantasy/icons/weapon/crystal_wand_ornate.png", "sha256": "f3c6e915d1a0dacf87c519197d9d246d8dd29d5a61297c7be49dd95f000c90bb" },
+    { "key": "cinder-bounty", "path": "assets/hand_painted_fantasy/icons/valuable/gold_coin_ornate.png", "sha256": "1aad9fa0f9a0dca6302b0b3d24355c7366cb2a99dc9b355221b923fddebd28eb" }
+  ],
   "fantasy": {
     "assets": [
       {

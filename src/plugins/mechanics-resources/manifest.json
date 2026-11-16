@@ -1,0 +1,1 @@
+{"schema":1,"id":"mechanics/resources","name":"Resource pools","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Atomic bounded resource transactions.","dependencies":{},"capabilities":["simulation"]}

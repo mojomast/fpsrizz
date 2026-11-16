@@ -4,7 +4,7 @@
   "name": "Grid World",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Grid-authored JSON maps translated into the authoritative world description; planar collision, ray/sweep queries, line of sight, grid navigation, doors, switches and trigger zones.",
   "capabilities": ["simulation"],
   "requiresRoles": ["sdk/mode"]

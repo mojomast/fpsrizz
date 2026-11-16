@@ -4,7 +4,7 @@
   "name": "Foundry Circuit",
   "version": "1.0.0",
   "kind": "content",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "A sealed, marked industrial time-trial loop for arcade racing.",
   "dependencies": { "core/world": "^1.0.0" }
 }

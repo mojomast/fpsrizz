@@ -1,4 +1,5 @@
-import * as T from '../../src/platform/render/mini3/index.ts';
+// This fixture exercises the preserved offline mini3 renderer; production uses the Three.js facade.
+import * as T from '../../src/platform/render/mini3/legacy.ts';
 
 const W = 640, H = 400;
 const canvas = document.createElement('canvas');

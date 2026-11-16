@@ -1,23 +1,26 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Collider, Flow, Player, Transform, World, angleDelta, yawOf } from '../src/sdk/index.ts';
+import { Collider, Flow, Player, SequenceProviders, Transform, World, angleDelta, yawOf } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
+import { sequenceProviders } from './helpers/alternate-sequence.ts';
 import racing from '../src/plugins/example-racing/manifest.json' with { type: 'json' };
 import manifest from '../src/plugins/example-race-track/manifest.json' with { type: 'json' };
 import content from '../src/plugins/example-race-track/content.json' with { type: 'json' };
 
-test('Foundry Circuit is sealed and the real driving controller can complete its ordered loop', async () => {
+for (const selected of sequenceProviders) test(`Foundry Circuit is sealed and the real driving controller can complete its ordered loop (${selected.id})`, async () => {
   const game = createHeadlessGame([
+    selected.entry,
     { manifest: racing as never, load: () => import('../src/plugins/example-racing/index.ts') },
     { manifest: manifest as never, content: content as never },
   ]);
   try {
     await game.host.apply(headlessPreset({
-      plugins: ['core/world', 'core/combat', 'core/player', 'example/racing', 'example/race-track'],
-      roles: { 'sdk/controller': 'example/racing-controller', 'sdk/camera': 'core/fp-camera', 'sdk/mode': 'example/race' },
+      plugins: ['core/world', 'core/combat', 'core/player', 'example/racing', 'example/race-track', selected.id],
+      roles: { 'sdk/controller': 'example/racing-controller', 'sdk/camera': 'core/fp-camera', 'sdk/mode': 'example/race', 'sdk/mechanic-sequence': selected.id },
       options: { map: 'example/foundry-circuit' },
     }) as never);
     const session = game.session(), world = session.services.get(World), flow = session.services.get(Flow);
+    assert.deepEqual(session.registries.ids(SequenceProviders), [selected.id], 'the replacement runs with the default absent');
     const id = session.entities.first(Player)!;
     const pose = session.entities.get(id, Transform)!;
     const radius = session.entities.get(id, Collider)!.radius;

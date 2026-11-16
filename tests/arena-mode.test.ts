@@ -12,7 +12,7 @@ const roles = { 'sdk/controller': 'core/fps-controller', 'sdk/camera': 'core/fp-
 const preset = (config: Record<string, unknown> = {}) => headlessPreset({ plugins, roles, config: { 'example/arena': config } }) as never;
 async function setup(config: Record<string, unknown> = {}, profile?: ProfileService) {
   const provider = {
-    manifest: { schema: 1, id: 'test/profile', name: 'Profile', version: '1.0.0', kind: 'code', sdk: '^1.0.0' },
+    manifest: { schema: 1, id: 'test/profile', name: 'Profile', version: '1.0.0', kind: 'code', sdk: '^2.0.0' },
     load: async () => ({ default: definePlugin({ activate(ctx) { ctx.services.provide(Profile, profile!); } }) }),
   };
   const game = createHeadlessGame(profile ? [entry, provider as never] : [entry]);
@@ -160,7 +160,7 @@ test('settings and player prefab are validated before replacing a running sessio
 
 test('arena rejects a map without enemy spawn points before commit', async () => {
   const map = {
-    manifest: { schema: 1, id: 'test/empty-map', name: 'Empty map', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0' } },
+    manifest: { schema: 1, id: 'test/empty-map', name: 'Empty map', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } },
     content: [{ kind: 'map', id: 'test/empty', data: {
       schema: 1, format: 'core/grid', name: 'Empty', cellSize: 2, wallHeight: 3,
       legend: { '#': { solid: true, wall: 'wall-panel' }, '.': { floor: 'floor-plate', ceiling: 'ceiling-panel' } },

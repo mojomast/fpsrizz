@@ -1,0 +1,25 @@
+{
+  "repository": "https://github.com/mojomast/assetrizz",
+  "revision": "05339c228f55ac95ad21b5c947db0c6e36207cd4",
+  "manifestSha256": "7bd35841acdb06c6b21bd882718d7eb63ad936433c383afa8e301ebf3e816e33",
+  "license": "original, generated for Kyle Durepos",
+  "processing": "RGBA nearest-neighbor resize, 128-color FASTOCTREE palette, no dithering; opaque tile backing where specified",
+  "assets": [
+    { "theme": "arcade", "key": "track-surface", "path": "assets/vaporwave_synth/tiles/floor/rust_grate_base.png", "sha256": "9cdf491a0835d837cdd4a9dd59bb099428eeb246a54331d6a35c4aaf1da16f4e", "size": [64, 64], "backing": "#10263b", "orientation": "flat repeating tile" },
+    { "theme": "arcade", "key": "race-marker", "path": "assets/vaporwave_synth/markers/travel/plain_pennant_plain.png", "sha256": "bee48abff5b79fecf920e43d461c41601b3a8a7e3c8b5e9ae126107fba6b1c76", "crop": [56, 0, 180, 128], "size": [62, 64], "orientation": "upright pennant, upper fragment only" },
+    { "theme": "arcade", "key": "race-vehicle-badge", "path": "assets/vaporwave_synth/vehicles/land/scooter_cycle_idle.png", "sha256": "b6fc1177e19a89c90b9f8a37a55a6e861fb8db8e91b8b93808d5a431ea23c71c", "size": [128, 96], "orientation": "single side profile facing right; decorative badge, not top-down vehicle" },
+    { "theme": "arcade", "key": "race-backdrop", "path": "assets/vaporwave_synth/backgrounds/scene/lantern_festival_street_wide.png", "sha256": "b44be2e501160212ef21dbb986dd72c9e998c93956987948abe234b2dbe2b47f", "size": [320, 180], "orientation": "wide 16:9 scene" },
+    { "theme": "board", "key": "tactics-unit", "path": "assets/isometric_voxel/characters/humanoid/cartographer_three_quarter.png", "sha256": "dd6b6e68665cab13a17f01d10c26c5bbdd6aab9d9f14020a41b62903a48cda14", "size": [64, 96], "orientation": "single three-quarter standing explorer" },
+    { "theme": "board", "key": "tactics-enemy", "path": "assets/isometric_voxel/enemies/creature/chalk_golem_idle_front.png", "sha256": "bd5961b98a0ceba49339c9d3b6d28959e2bc178b6ed8e17687077e5761622c23", "size": [96, 96], "orientation": "single front/three-quarter standing golem" },
+    { "theme": "board", "key": "tactics-cover", "path": "assets/isometric_voxel/terrain/rock/boulder_cluster_plain.png", "sha256": "ea1103fa87c6dd4c0ed112cdca9c0b331c3845e1ba17a3cd00c142a160653be9", "size": [96, 96], "orientation": "single isometric rock cluster" },
+    { "theme": "board", "key": "tactics-ground", "path": "assets/isometric_voxel/tiles/floor/boardwalk_base.png", "sha256": "0861cc0a08d5f8933c643c899f70cc8d9bbc9191c02b2045ab6b27a3b9df7b46", "size": [64, 64], "backing": "#584c36", "orientation": "flat diagonal wooden tile" },
+    { "theme": "story", "key": "story-room", "path": "assets/ink_watercolor/backgrounds/scene/desert_observatory_wide.png", "sha256": "2bf83f6a98a43d10c3a897cf7a541cc493b1540ba37c143502065a7579fe783c", "size": [480, 270], "orientation": "wide exterior observatory background plate, not an interior room" },
+    { "theme": "story", "key": "story-portrait", "path": "assets/ink_watercolor/portraits/watch/night_watch_bust.png", "sha256": "9ae58d6ac13e6c03d367a218f092dc0f84b2e110812eae4fe15e6b8d5c6adb9e", "size": [128, 128], "orientation": "single front/three-quarter indigo-cloaked keeper bust" },
+    { "theme": "story", "key": "story-key", "path": "assets/hand_painted_fantasy/icons/valuable/brass_key_plain.png", "sha256": "7b7a8a81c4cb5ca343a3138e583dcf78c6d37d71d4dfc78df236c158da604a97", "size": [64, 64], "orientation": "upright brass key icon; warm hand-painted accent" },
+    { "theme": "story", "key": "story-lens", "path": "assets/ink_watercolor/icons/tool/jeweler_loupe_plain.png", "sha256": "77a18dae12c98296dc6106883cca5ebe354bb759017cd0872ed9dac5bb478c22", "size": [64, 64], "orientation": "single diagonal indigo jeweler loupe icon" }
+  ],
+  "procedural": [
+    { "theme": "arcade", "key": "race-vehicle", "size": [48, 80], "provenance": "procedural", "source": "src/plugins/theme-arcade/vehicle.ts", "orientation": "top-down, nose points up (-Y in canvas), rotate with game heading" }
+  ],
+  "audio": { "provenance": "procedural", "format": "original synthesized SoundDef oscillators and filtered noise; no Assetrizz audio samples" }
+}

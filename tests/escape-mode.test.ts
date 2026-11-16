@@ -80,7 +80,7 @@ test('player death defeats and restart resets the run', async () => {
 
 test('invalid player prefab or map without an exit is rejected before commit', async () => {
   const map = {
-    manifest: { schema: 1, id: 'test/no-exit', name: 'No exit', version: '1.0.0', kind: 'content', sdk: '^1.0.0', dependencies: { 'core/world': '^1.0.0' } },
+    manifest: { schema: 1, id: 'test/no-exit', name: 'No exit', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } },
     content: [{ kind: 'map', id: 'test/no-exit', data: {
       schema: 1, format: 'core/grid', name: 'No exit', cellSize: 2, wallHeight: 3,
       legend: { '#': { solid: true, wall: 'wall-panel' }, '.': { floor: 'floor-plate', ceiling: 'ceiling-panel' } },

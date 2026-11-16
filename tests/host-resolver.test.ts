@@ -78,15 +78,24 @@ test('resolver: compatible dependency version passes (range edge: 1.9.9 satisfie
 });
 
 test('resolver: incompatible SDK range is reported against the host SDK version', () => {
-  const r = resolve([fullManifest(A, { sdk: '^2.0.0' })], [A]);
+  const r = resolve([fullManifest(A, { sdk: '^3.0.0' })], [A]);
   assert.equal(r.issues.length, 1);
   assert.equal(r.issues[0]!.path, 'sdk');
-  assert.match(r.issues[0]!.message, /"test\/a" needs SDK \^2\.0\.0/);
+  assert.match(r.issues[0]!.message, /"test\/a" needs SDK \^3\.0\.0/);
+  assert.ok(r.issues[0]!.message.includes(SDK_VERSION));
+});
+
+test('resolver: SDK 1 plugins are incompatible with SDK 2', () => {
+  assert.equal(SDK_VERSION, '2.0.0');
+  const r = resolve([fullManifest(A, { sdk: '^1.0.0' })], [A]);
+  assert.equal(r.issues.length, 1);
+  assert.equal(r.issues[0]!.path, 'sdk');
+  assert.match(r.issues[0]!.message, /"test\/a" needs SDK \^1\.0\.0/);
   assert.ok(r.issues[0]!.message.includes(SDK_VERSION));
 });
 
 test('resolver: incompatible SDK through host.stage fails at "graph"', async () => {
-  const host = newHost([codePlugin(A, {}, { sdk: '>=2.0.0' })]);
+  const host = newHost([codePlugin(A, {}, { sdk: '>=3.0.0' })]);
   const e = await hostFailure(host.stage(presetOf('test/p', [A])));
   assert.equal(e.stage, 'graph');
   assert.match(e.message, /"test\/a"/);

@@ -28,9 +28,11 @@ export default definePlugin({
     render.setEnvironment({ background: desc.fog.color, fog: desc.fog });
     ctx.scope.add(() => render.setEnvironment({ background: 0x000000, fog: null }), 'environment');
     const root = render.createRoot(ctx, 'world');
-    root.add(new THREE.AmbientLight(desc.ambient.color, desc.ambient.intensity));
+    // Reference maps use artistic intensities, not physical units. PI compensates Lambert's BRDF;
+    // decay 0 keeps distance-independent intensity within Three's smooth range cutoff.
+    root.add(new THREE.AmbientLight(desc.ambient.color, desc.ambient.intensity * Math.PI));
     for (const l of desc.lights) {
-      const light = new THREE.PointLight(l.color, l.intensity, l.distance);
+      const light = new THREE.PointLight(l.color, l.intensity * Math.PI, l.distance, 0);
       light.position.set(l.x, l.y, l.z);
       light.name = `light:${l.id}`;
       root.add(light);
@@ -46,6 +48,7 @@ export default definePlugin({
     ctx.events.on(Impact, (e) => effects.spawn(e.effect, e.x, e.y, e.z, e.nx, e.nz, ctx.time.now));
 
     const cam = render.camera;
+    cam.rotation.order = 'YXZ';
     ctx.systems.addFrame({
       id: 'core/presentation.frame',
       order: 100, // after the camera provider has published this frame's View

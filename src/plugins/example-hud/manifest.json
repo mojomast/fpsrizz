@@ -4,7 +4,7 @@
   "name": "Visor HUD",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "A minimalist helmet-visor HUD: thin line work, segmented arc health gauge, compass strip, red edge glow on damage.",
   "dependencies": {},
   "capabilities": ["ui"],

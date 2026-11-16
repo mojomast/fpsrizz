@@ -1,0 +1,163 @@
+#!/usr/bin/env node
+// No npm image dependency: Pillow performs the same synchronous pixel import as assetrizz.py.
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
+
+const args = process.argv.slice(2);
+if (!(args.length === 0 || (args.length === 1 && args[0] === '--check') ||
+    (args.length === 2 && args[0] === '--library'))) {
+  throw new Error('Usage: node scripts/import-experience-assets.mjs [--check | --library DIRECTORY]');
+}
+const python = String.raw`
+import base64, hashlib, io, json, sys
+from pathlib import Path
+from urllib.request import urlopen
+from PIL import Image
+
+root = Path(sys.argv[1])
+args = sys.argv[2:]
+check = args == ['--check']
+library = Path(args[1]).resolve() if args and args[0] == '--library' else None
+config = json.loads((root / 'scripts/experience-assets.json').read_text())
+base = 'https://raw.githubusercontent.com/mojomast/assetrizz/' + config['revision'] + '/'
+out = root / 'assets/experiences'
+digest = lambda b: hashlib.sha256(b).hexdigest()
+
+def read(path):
+    if library:
+        return (library / path).read_bytes()
+    with urlopen(base + path, timeout=45) as response:
+        data = response.read(32 * 1024 * 1024 + 1)
+    if len(data) > 32 * 1024 * 1024:
+        raise ValueError('Source exceeds import limit: ' + path)
+    return data
+
+if check:
+    provenance = json.loads((out / 'provenance.json').read_text())
+    if provenance['configSha256'] != digest((root / 'scripts/experience-assets.json').read_bytes()):
+        raise ValueError('Configuration changed; reimport assets')
+    previous = {a['key']: a for a in provenance['assets']}
+else:
+    raw = read('assets/manifest.jsonl')
+    if digest(raw) != config['manifestSha256']:
+        raise ValueError('Upstream manifest SHA-256 mismatch')
+    rows = {r['path']: r for r in map(json.loads, raw.splitlines()) if r}
+
+items = []
+records = []
+for asset in config['assets']:
+    path = asset['path']
+    if not path.startswith('assets/') or '..' in Path(path).parts or not path.endswith('.png'):
+        raise ValueError('Invalid source path: ' + path)
+    target = out / asset['theme'] / (asset['key'] + '.png')
+    if check:
+        data = target.read_bytes()
+        record = previous[asset['key']]
+        if digest(data) != record['outputSha256']:
+            raise ValueError('Output hash mismatch: ' + str(target))
+        image = Image.open(io.BytesIO(data)).convert('RGBA')
+    else:
+        row = rows[path]
+        if row['sha256'] != asset['sha256'] or row['license'] != config['license']:
+            raise ValueError('Catalog provenance mismatch: ' + path)
+        data = read(path)
+        if digest(data) != asset['sha256'] or not data.startswith(b'\x89PNG\r\n\x1a\n'):
+            raise ValueError('Source hash/signature mismatch: ' + path)
+        image = Image.open(io.BytesIO(data)).convert('RGBA')
+        if image.size != (row['width'], row['height']):
+            raise ValueError('Source dimensions mismatch: ' + path)
+        record = dict(asset, sourceSize=list(image.size), sourceAlphaRange=list(image.getchannel('A').getextrema()), frameInfo=row['frame_info'], license=row['license'])
+        if 'crop' in asset:
+            image = image.crop(tuple(asset['crop']))
+        if 'backing' in asset:
+            backing = Image.new('RGBA', image.size, asset['backing'])
+            backing.alpha_composite(image)
+            image = backing
+        image = image.resize(tuple(asset['size']), Image.Resampling.NEAREST)
+        image = image.quantize(colors=128, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE).convert('RGBA')
+        buffer = io.BytesIO()
+        image.save(buffer, format='PNG')
+        data = buffer.getvalue()
+        record['outputSha256'] = digest(data)
+    if image.size != tuple(asset['size']):
+        raise ValueError('Output dimensions mismatch: ' + path)
+    if check and digest(image.tobytes()) != record['pixelSha256']:
+        raise ValueError('Pixel hash mismatch: ' + path)
+    record['pixelSha256'] = digest(image.tobytes())
+    record['outputAlphaRange'] = list(image.getchannel('A').getextrema())
+    items.append((asset, image, data, target))
+    records.append(record)
+def encoded(image):
+    palette, lookup, indices = [], {}, []
+    for rgba in image.getdata():
+        if rgba not in lookup:
+            lookup[rgba] = len(palette)
+            palette.append(rgba)
+        indices.append(lookup[rgba])
+    runs = bytearray()
+    start = 0
+    while start < len(indices):
+        end = start + 1
+        while end < len(indices) and indices[end] == indices[start] and end - start < 255:
+            end += 1
+        runs.extend((end - start, indices[start]))
+        start = end
+    return base64.b64encode(bytes(c for p in palette for c in p)).decode(), base64.b64encode(runs).decode()
+
+modules = {}
+for theme in ['arcade', 'board', 'story']:
+    lines = [
+        '// Generated by scripts/import-experience-assets.mjs. Do not edit.',
+        '// Assetrizz 05339c228f55ac95ad21b5c947db0c6e36207cd4; provenance: assets/experiences/provenance.json.',
+        "import type { Painter } from '../../sdk/index.ts';", '',
+        'function painter(width: number, height: number, colors: string, runs: string): Painter {',
+        '  return { width, height, paint(ctx) {',
+        '    const palette = Uint8Array.from(atob(colors), c => c.charCodeAt(0));',
+        '    const encoded = Uint8Array.from(atob(runs), c => c.charCodeAt(0));',
+        '    const image = ctx.createImageData(width, height);',
+        '    let pixel = 0;',
+        '    for (let i = 0; i < encoded.length; i += 2) {',
+        '      const count = encoded[i]!;',
+        '      const color = encoded[i + 1]! * 4;',
+        '      for (let n = 0; n < count; n++) {',
+        '        for (let channel = 0; channel < 4; channel++) image.data[pixel++] = palette[color + channel]!;',
+        '      }',
+        '    }',
+        '    ctx.putImageData(image, 0, 0);',
+        '  } };',
+        '}', '',
+        'export const textures: Record<string, Painter> = {',
+    ]
+    for asset, image, _, _ in items:
+        if asset['theme'] == theme:
+            palette, runs = encoded(image)
+            lines.append("  '%s': painter(%d, %d, '%s', '%s')," % (asset['key'], image.width, image.height, palette, runs))
+    lines.extend(['};', ''])
+    modules[theme] = '\n'.join(lines).encode()
+
+if check:
+    for theme, data in modules.items():
+        path = root / ('src/plugins/theme-' + theme + '/generated.ts')
+        if path.read_bytes() != data or digest(data) != provenance['modules'][theme]:
+            raise ValueError('Generated painter mismatch: ' + str(path))
+    print('Verified twelve image hashes, pixel hashes and three generated painter modules (offline)')
+else:
+    # Nothing is written until every upstream source has passed verification.
+    for _, _, data, target in items:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+    for theme, data in modules.items():
+        folder = root / ('src/plugins/theme-' + theme)
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / 'generated.ts').write_bytes(data)
+    provenance = dict(repository=config['repository'], revision=config['revision'], license=config['license'],
+        manifestSha256=config['manifestSha256'], configSha256=digest((root / 'scripts/experience-assets.json').read_bytes()),
+        processing=config['processing'], pillowVersion=Image.__version__, assets=records,
+        procedural=config['procedural'], audio=config['audio'], modules={k: digest(v) for k, v in modules.items()})
+    (out / 'provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
+    print('Imported twelve verified Assetrizz images into three synchronous palette/RLE themes')
+`;
+
+const result = spawnSync('python3', ['-c', python, fileURLToPath(new URL('../', import.meta.url)), ...args], { stdio: 'inherit' });
+if (result.error) throw result.error;
+process.exitCode = result.status ?? 1;

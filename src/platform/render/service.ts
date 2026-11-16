@@ -3,6 +3,7 @@ import type { RenderService } from '../../sdk/render.ts';
 import type { SessionContext } from '../../kernel/host.ts';
 import type { Painter } from '../../sdk/contracts/shooter.ts';
 import { AssetStore } from '../../kernel/assets.ts';
+import { createWorldCameraSelection, resizeCamera } from './cameras.ts';
 
 export interface RenderHost {
   service: RenderService;
@@ -15,10 +16,11 @@ export interface RenderHost {
 }
 
 export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCap: number }): RenderHost {
-  // Throws Error('WebGL2 not available') unchanged when unsupported.
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
   renderer.info.autoReset = false;
   renderer.autoClear = true;
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.NoToneMapping;
 
   const worldScene = new THREE.Scene();
   const viewScene = new THREE.Scene();
@@ -27,15 +29,18 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
 
   const camera = new THREE.PerspectiveCamera(70, 1, 0.05, 200);
   const viewCamera = new THREE.PerspectiveCamera(50, 1, 0.01, 10);
+  camera.rotation.order = viewCamera.rotation.order = 'YXZ';
   const assets = new AssetStore();
   let cap = opts.pixelRatioCap;
   let roots = 0;
   let disposed = false;
 
   const stats = { calls: 0, triangles: 0, geometries: 0, textures: 0 };
-  const service = {
+  const cameras = createWorldCameraSelection(camera, () => service.width / service.height);
+  const service: RenderService & { width: number; height: number; pixelRatio: number } = {
     camera,
     viewCamera,
+    setWorldCamera: (ctx, selected) => cameras.set(ctx, selected),
     width: 1,
     height: 1,
     pixelRatio: 1,
@@ -52,7 +57,7 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
       return g;
     },
     setEnvironment(env) {
-      worldScene.background = env.background;
+      worldScene.background = new THREE.Color(env.background);
       worldScene.fog = env.fog ? new THREE.Fog(env.fog.color, env.fog.near, env.fog.far) : null;
     },
     own<T extends { dispose(): void }>(ctx: SessionContext, resource: T): T {
@@ -74,6 +79,8 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
           const g = c.getContext('2d');
           if (g) painter.paint(g);
           const t = new THREE.CanvasTexture(c);
+          t.colorSpace = THREE.SRGBColorSpace;
+          t.generateMipmaps = false;
           t.magFilter = THREE.NearestFilter;
           t.minFilter = THREE.NearestFilter;
           if (repeat) {
@@ -85,7 +92,7 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
         (t) => t.dispose(),
       );
     },
-  } as RenderService & { width: number; height: number; pixelRatio: number };
+  };
 
   function resize(): void {
     const w = Math.max(1, canvas.clientWidth);
@@ -100,9 +107,9 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
     service.width = w;
     service.height = h;
     service.pixelRatio = pr;
-    camera.aspect = viewCamera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    viewCamera.updateProjectionMatrix();
+    resizeCamera(camera, w / h);
+    resizeCamera(viewCamera, w / h);
+    if (cameras.current() !== camera) resizeCamera(cameras.current(), w / h);
   }
 
   return {
@@ -116,12 +123,15 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
     render() {
       if (disposed) return;
       renderer.info.reset();
-      renderer.render(worldScene, camera);
+      renderer.render(worldScene, cameras.current());
       renderer.clearDepth();
       const saved = renderer.autoClear;
       renderer.autoClear = false;
-      renderer.render(viewScene, viewCamera);
-      renderer.autoClear = saved;
+      try {
+        renderer.render(viewScene, viewCamera);
+      } finally {
+        renderer.autoClear = saved;
+      }
       stats.calls = renderer.info.render.calls;
       stats.triangles = renderer.info.render.triangles;
       stats.geometries = renderer.info.memory.geometries;
@@ -129,7 +139,11 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
     },
     liveRoots: () => roots,
     dispose() {
+      if (disposed) return;
       disposed = true;
+      cameras.clear();
+      worldScene.clear();
+      viewScene.clear();
       renderer.dispose();
     },
   };

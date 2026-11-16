@@ -14,6 +14,18 @@ if (!id || !/^[a-z0-9][a-z0-9-]*\/[a-z0-9][a-z0-9._-]*$/.test(id)) {
 const name = displayName ?? id;
 const dirName = id.replace('/', '-');
 const dir = path.join(root, 'src', 'plugins', dirName);
+// The standalone template fixture can run without the full repository; the repository scaffold
+// also surfaces live candidates, without requiring a separate approval or blocking creation.
+if (fs.existsSync(path.join(root, 'scripts/reuse-lib.mjs'))) {
+  const { buildReuseIndex, searchReuse } = await import('./reuse-lib.mjs');
+  const index = await buildReuseIndex();
+  const candidates = searchReuse(index, `${id} ${name}`, { limit: 3 });
+  if (candidates.length) {
+    console.log('Existing elements to inspect before implementing this capability:');
+    for (const candidate of candidates) console.log(`  ${candidate.id} [${candidate.scope}] — ${candidate.summary}`);
+  }
+}
+console.log(`Reuse search: npm run find-reuse -- ${JSON.stringify(name)}\nInspect details: npm run find-reuse -- --show <id>\n`);
 fs.mkdirSync(path.dirname(dir), { recursive: true });
 try {
   fs.mkdirSync(dir);
@@ -31,7 +43,7 @@ for (const file of fs.readdirSync(tpl)) {
   fs.writeFileSync(path.join(dir, file), text, { flag: 'wx' });
 }
 const ident = `plugin_${dirName.replace(/[-.]/g, '_')}`;
-console.log(`Created src/plugins/${dirName}/ (manifest.json, index.ts)
+console.log(`Created src/plugins/${dirName}/ (manifest.json, index.ts, reuse.json)
 
 1. Add to src/app/catalog.ts:
 
@@ -43,4 +55,7 @@ console.log(`Created src/plugins/${dirName}/ (manifest.json, index.ts)
    (or tick it in the creator panel, \` key, and press "Apply & restart").
 
 3. npm run dev   — you should see "${name} is active" on the HUD when a session starts.
-4. npm run check — type check, import boundaries and tests must stay green.`);
+4. Describe reusable capability, public SDK entry points, limits, examples and tests in reuse.json.
+   Prefer existing behavior or data changes; explain the missing behavior when a new implementation is needed.
+5. npm run index-reuse — refresh the agent inventory after catalog/source/metadata changes.
+6. npm run check — type check, boundaries, inventory freshness and tests must stay green.`);

@@ -1,0 +1,5 @@
+{
+  "schema": 1, "id": "puzzle/chambers", "name": "Stonewake: The Sleeping Ruins", "version": "1.0.0",
+  "kind": "content", "sdk": "^2.0.0", "description": "Three authored chambers introducing weight, pursuit and a double seal.",
+  "dependencies": { "puzzle/rules": "^1.0.0" }
+}

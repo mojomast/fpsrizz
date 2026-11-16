@@ -1,5 +1,5 @@
 import type { SessionContext, TriggerDesc } from '../../sdk/index.ts';
-import { Collider, ControllerRole, Died, Flow, Health, Input, InputActions, Maps, ModeRole, Player, Prefabs, Transform, World, definePlugin, spawnPrefab, yawDirX, yawDirZ } from '../../sdk/index.ts';
+import { Collider, ControllerRole, Died, Flow, Health, Input, InputActions, Maps, ModeRole, Player, Prefabs, SequenceMechanicRole, SequenceProviders, Transform, World, definePlugin, sequenceMechanic, spawnPrefab, yawDirX, yawDirZ } from '../../sdk/index.ts';
 
 const CONTROLLER = 'example/racing-controller';
 const MODE = 'example/race';
@@ -62,13 +62,16 @@ function race(ctx: SessionContext): void {
   const gates = course(world.desc.triggers);
   const player = spawnPrefab(ctx, 'core/player', world.desc.playerStart);
   const limit = ctx.config['timeLimit'] as number;
-  let next = 0, elapsed = 0;
+  const steps = gates.map((_, i) => `gate-${i}`);
+  const sequence = sequenceMechanic(ctx).create(ctx, 'example/race', { steps, rounds: 1 });
+  let elapsed = 0;
   const refresh = (): void => {
+    const next = sequence.index;
     flow.setObjective(next < gates.length - 1 ? `Reach checkpoint ${next + 1} / ${gates.length - 1}` : 'Reach the finish');
     flow.setStatus('race-checkpoints', 'Checkpoints', `${Math.min(next, gates.length - 1)} / ${gates.length - 1}`);
     flow.setStatus('race-time', 'Time remaining', `${Math.max(0, limit - elapsed).toFixed(1)}s`);
   };
-  const end = (win: boolean): void => flow.end({ outcome: win ? 'victory' : 'defeat', title: win ? 'Race complete' : 'Race over', detail: win ? 'You reached the finish in time.' : 'Time expired or the driver was eliminated.', stats: [['Time', `${elapsed.toFixed(1)}s`], ['Checkpoints', `${Math.min(next, gates.length - 1)} / ${gates.length - 1}`]] });
+  const end = (win: boolean): void => flow.end({ outcome: win ? 'victory' : 'defeat', title: win ? 'Race complete' : 'Race over', detail: win ? 'You reached the finish in time.' : 'Time expired or the driver was eliminated.', stats: [['Time', `${elapsed.toFixed(1)}s`], ['Checkpoints', `${Math.min(sequence.index, gates.length - 1)} / ${gates.length - 1}`]] });
   refresh();
   ctx.events.on(Died, (event) => { if (event.entity === player && !flow.ended) end(false); });
   ctx.systems.add({ id: 'example/racing.rules', phase: 'rules', update(dt) {
@@ -81,10 +84,9 @@ function race(ctx: SessionContext): void {
       .sort((a, b) => a.at - b.at || a.i - b.i);
     const remaining = limit - elapsed;
     for (const hit of hits) {
-      if (hit.i !== next || hit.at * dt > remaining) continue;
-      next++;
-      if (next === gates.length) { elapsed += hit.at * dt; refresh(); end(true); return; }
-      flow.notify(`Checkpoint ${next} reached`);
+      if (hit.at * dt > remaining || !sequence.advance(steps[hit.i]!).ok) continue;
+      if (sequence.complete) { elapsed += hit.at * dt; refresh(); end(true); return; }
+      flow.notify(`Checkpoint ${sequence.index} reached`);
     }
     elapsed += dt;
     refresh();
@@ -102,6 +104,8 @@ export default definePlugin({
     ctx.provideRole(ModeRole, MODE, { name: 'Time trial', description: 'Pass numbered checkpoints in order, then reach the finish before time runs out.', activate: race });
     ctx.addValidator((v) => {
       if (v.selectedRole(ModeRole) !== MODE) return;
+      const sequence = v.selectedRole(SequenceMechanicRole);
+      if (!sequence || !v.registries.has(SequenceProviders, sequence)) v.reporter('preset', 'roles.sdk/mechanic-sequence').error('select a sequence role with a registered SequenceProviders factory');
       if (!v.registries.has(Prefabs, 'core/player')) v.reporter('preset', 'roles.sdk/mode').error('Racing needs the core/player prefab.');
       const mapId = v.preset.options['map'];
       const map = typeof mapId === 'string' ? v.registries.get(Maps, mapId) : undefined;

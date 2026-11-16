@@ -364,7 +364,7 @@ test('acceptance 9 / damage: non-positive and non-finite damage amounts are igno
 // ---------------------------------------------------------------------------------------------------------------------
 
 const modsPlugin: CatalogEntry = {
-  manifest: { schema: 1, id: 'test/mods', name: 'Test damage modifiers', version: '1.0.0', kind: 'code', sdk: '^1.0.0', dependencies: { 'core/combat': '^1.0.0' } },
+  manifest: { schema: 1, id: 'test/mods', name: 'Test damage modifiers', version: '1.0.0', kind: 'code', sdk: '^2.0.0', dependencies: { 'core/combat': '^1.0.0' } },
   load: async () => ({
     default: definePlugin({
       register(ctx) {

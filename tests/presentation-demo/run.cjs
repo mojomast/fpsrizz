@@ -1,16 +1,20 @@
 // Bundles demo.ts, runs it in headless Chrome (software WebGL2), takes screenshots into .smoke/presentation-*.png and
 // asserts draw calls, audio hooks and resource cleanup.
 const path = require('path'), fs = require('fs');
-const esbuild = require('/opt/npm-tools/node_modules/esbuild');
-const { chromium } = require('/opt/npm-tools/node_modules/playwright');
+const { pathToFileURL } = require('node:url');
+const root = path.resolve(__dirname, '../..');
 
 (async () => {
-  const root = path.resolve(__dirname, '../..');
+  const { resolveTool } = await import(pathToFileURL(path.join(root, 'scripts/tools.mjs')).href);
+  const esbuild = resolveTool('esbuild');
+  const { chromium } = resolveTool('playwright');
   const out = path.join(root, '.smoke/presentation-build');
   fs.mkdirSync(out, { recursive: true });
   await esbuild.build({ entryPoints: [path.join(__dirname, 'demo.ts')], bundle: true, outfile: path.join(out, 'demo.js'), format: 'iife', target: 'es2022', loader: { '.json': 'json' } });
   fs.writeFileSync(path.join(out, 'index.html'), '<!doctype html><body style="margin:0;background:#000"><script src="demo.js"></script></body>');
-  const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
+  const executablePath = process.env.CHROME_PATH !== undefined ? process.env.CHROME_PATH
+    : fs.existsSync('/usr/bin/google-chrome') ? '/usr/bin/google-chrome' : undefined;
+  const browser = await chromium.launch({ executablePath, args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--autoplay-policy=no-user-gesture-required'] });
   const page = await browser.newPage({ viewport: { width: 640, height: 400 } });
   let bad = 0;
   const fail = (m) => { console.log('FAIL', m); bad++; };

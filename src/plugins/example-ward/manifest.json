@@ -4,7 +4,7 @@
   "name": "Timed Ward",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "A pickup effect that temporarily scales incoming damage.",
   "dependencies": { "core/combat": "^1.0.0" },
   "capabilities": ["simulation"]

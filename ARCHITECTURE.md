@@ -3,13 +3,12 @@
 How Bulkhead is put together and why. For what is and is not implemented see [SPEC.md](SPEC.md); for writing plugins see
 [PLUGINS.md](PLUGINS.md); for the JSON formats see [CONTENT_FORMAT.md](CONTENT_FORMAT.md).
 
-> **Stack deviation.** The original brief asked for Three.js + Vite + Vitest. This build was produced without network
-> access to the npm registry, so none could be installed. Rendering uses **mini3** (`src/platform/render/mini3`), an
-> in-repo WebGL2 renderer mirroring a subset of the Three.js API, behind the render adapter
-> (`src/platform/render/service.ts`) and the rendering SDK (`src/sdk/render.ts`, exported as `THREE`). Bundling and the dev
-> server use esbuild, tests use `node --test` running TypeScript directly (Node >= 22.18), and type checking is a separate
-> `tsc --noEmit` (TypeScript 7). There are no runtime dependencies; development dependencies are locked in
-> `package-lock.json`. Section 9 describes the migration path.
+> **Production stack.** SDK **2.0.0** exposes official **Three.js 0.187.0** through `src/sdk/render.ts` as `THREE`.
+> The historical boundary-approved `src/platform/render/mini3/index.ts` path is now a facade over the pinned official
+> runtime in its `vendor/` directory. The former mini3 renderer remains behind `legacy.ts` for old fixtures only.
+> Bundling and the dev server use esbuild, tests use `node --test` running TypeScript directly (Node >= 22.18), and type
+> checking is a separate `tsc --noEmit` (TypeScript 7). Locked npm packages reproduce the vendored renderer; section 9
+> documents the completed, contained migration. The toolchain has not been rewritten to Vite or Vitest.
 
 ## 1. Layers and dependency rules
 
@@ -23,10 +22,10 @@ How Bulkhead is put together and why. For what is and is not implemented see [SP
                                v                  v
   +--------------------+   +---------------------+   +--------------------+
   |  src/plugins/*     |   |  src/platform       |   |  src/content       |
-  |  reference game,   |   |  browser adapters:  |   |  presets/*.json    |
+  |  game families,    |   |  browser adapters:  |   |  presets/*.json    |
   |  theme, extensions |   |  input, audio,      |   +--------------------+
   |  (SDK only)        |   |  storage, ui, flow, |
-  +---------+----------+   |  render + mini3     |
+  +---------+----------+   |  render + Three.js  |
             |              +----------+----------+
             | sdk/index.ts            | sdk, kernel
             | (+ sdk/render.ts        |
@@ -34,7 +33,7 @@ How Bulkhead is put together and why. For what is and is not implemented see [SP
             v                         v
         +---------------------------------+
         |  src/sdk   public plugin API    |
-        |  core.ts  contracts/shooter.ts  |-- render.ts also imports mini3
+        |  core.ts  contracts/*          |-- render.ts imports the historical mini3 facade
         |  contracts/audio.ts  render.ts  |
         +----------------+----------------+
                          | kernel only
@@ -50,13 +49,27 @@ How Bulkhead is put together and why. For what is and is not implemented see [SP
   passed in by the application.
 - **SDK** (`src/sdk`): `core.ts` is the generic host surface (tokens, `definePlugin`, `SDK_VERSION`, the phase list,
   validation helpers); `contracts/shooter.ts` is the shared shooter vocabulary (components, events, services, registries
-  and roles that gameplay plugins use to cooperate without importing each other); `contracts/audio.ts` is the sound
-  description format; `render.ts` is the rendering SDK. `index.ts` is the single entry point.
+   and roles that shooter plugins use to cooperate without importing each other). Separate contracts define experience
+   policy, vehicle racing, turn tactics, narrative adventure, push puzzles and audio. `render.ts` is the rendering SDK; `index.ts` is
+  the general entry point. `SDK_VERSION` is `2.0.0`; bundled manifests declare `"sdk": "^2.0.0"`.
 - **Platform** (`src/platform`): adapters for the browser: DOM input, Web Audio, `localStorage`, UI mounting, the flow
-  service, the render host and mini3.
+  service, the render host and vendored official Three.js behind the historical mini3 facade.
 - **App** (`src/app`): wires adapters into sessions as host services, owns the catalog of compiled-in plugins, the frame
   loop, the menus and the creator panel. No gameplay rules live here.
 - **Plugins** (`src/plugins`) and **content** (`src/content/presets`): everything the game actually does.
+
+### Authoring-time reuse discovery
+
+`scripts/reuse-lib.mjs` builds an inventory from source manifests, optional plugin-local `reuse.json` sidecars, public SDK
+runtime exports, built-in presets and isolated default registration snapshots. It uses the existing host staging path
+with concrete dependencies and validation skipped for discovery; it never starts a session or invokes role callbacks.
+Registration metadata is descriptive, not proof of cross-reference validity or arbitrary configuration behavior.
+
+`scripts/find-reuse.mjs` searches live inventory by intent and exposes text/JSON inspection. Curated recipes in
+`docs/reuse-recipes.json` link tested composition examples. `scripts/index-reuse.mjs` generates `REUSE_INDEX.md` and
+`docs/reuse-index.json`; source digests and deterministic output comparison make stale references fail `npm run check`.
+This tooling belongs outside the runtime layers. Semantic reuse scope is explicit metadata, not inferred from a genre
+name or import permission. The source catalog remains the runtime installation authority. See [REUSE.md](REUSE.md).
 
 `scripts/boundaries.ts` (run by `npm run lint`, tested by `tests/boundaries.test.ts`) enforces these rules on every
 `.ts`, `.tsx`, `.mts`, `.js` and `.mjs` file under `src`. It tokenises each file (comments and strings are ignored) and
@@ -77,7 +90,7 @@ in manifests are declarations of intent; apart from the rendering import above t
 
 ## 2. Plugins of the reference game
 
-Every plugin id, with what it owns. All use SDK 1.0.0 (`"sdk": "^1.0.0"`).
+Reference-shooter plugin ids, with what they own. All use SDK 2 (`"sdk": "^2.0.0"`).
 
 | Plugin id | Folder | Kind | Role providers | Content kinds and registrations | Services |
 |---|---|---|---|---|---|
@@ -107,14 +120,36 @@ Every plugin id, with what it owns. All use SDK 1.0.0 (`"sdk": "^1.0.0"`).
 | `example/stealth-map` | `example-stealth-map` | content | none | stealth infiltration map | none |
 | `example/escape` | `example-escape` | code | `sdk/mode`: `example/escape` | exit-based escape mode | uses `World`, `Flow` |
 | `example/roguelite` | `example-roguelite` | code | `sdk/mode`: `example/roguelite` | seeded encounters and run-only upgrades | uses `World`, `Flow` |
+| `dungeon/generator` | `dungeon-generator` | code | none | registers map format `dungeon/generator` and inert `dungeon/marker` prefab for seeded dungeon wings | uses `MapFormats`, `Prefabs` |
+| `mechanics/progression` | `mechanics-progression` | code | `sdk/mechanic-progression`: `mechanics/progression` | XP curves, level ledgers and pending rewards | uses `ProgressionProviders` |
+| `cinder/game` | `cinder-game` | code | `sdk/mode`: `cinder/vault`, `sdk/experience`: `cinder/experience` | three-depth dungeon orchestration, in-level boons, damage modifier and run inputs; composes shared mechanic providers | provides `Cinder` |
+| `cinder/hud` | `cinder-hud` | code | `sdk/hud`: `cinder/hud` | depth guidance, non-modal level-up boon tray, armory rack and magazine-aware combat HUD | uses `Cinder`, `Ui` |
+| `cinder/content` | `cinder-content` | content | none | existing ammo, weapon, enemy, map and mechanic-kit content | none |
 | `example/racing` | `example-racing` | code | `sdk/controller`: `example/racing-controller`, `sdk/mode`: `example/race` | planar driving and ordered swept checkpoints | uses `World`, `Flow`, `Input` |
 | `example/race-track` | `example-race-track` | content | none | Foundry Circuit map | none |
 | `example/extraction` | `example-extraction` | code | `sdk/mode`: `example/extraction` | timed run-only loot extraction | uses `World`, `Flow` |
 | `example/extraction-map` | `example-extraction-map` | content | none | Salvage Run map and loot pickups | none |
 | `example/tactical-pack` | `example-tactical-pack` | content | none | Relay Station map and magazine carbine | none |
 
-Host-provided services in every session (installed by `src/app/main.ts`): `Input`, `Render`, `Audio`, `Ui`, `Settings`,
-`Flow`. Only the plugin graph and role selections in the preset decide which providers run; unselected providers never
+### Independent game families
+
+These complete graphs have no shooter-plugin dependencies. Each simulation publishes its own SDK service; presentation
+reads that contract and treats browser services as optional in headless sessions.
+
+| Simulation / service | Presentation | Data pack (folder) / content kind | Theme | Format and gameplay guide |
+|---|---|---|---|---|
+| `vehicle/racing` / `Race` | `vehicle/presentation` | `vehicle/track` (`vehicle-track`) / `vehicle-track` | `theme/arcade` | [Overhead racing](docs/overhead-racing.md) |
+| `board/tactics` / `Tactics` | `board/presentation` | `board/mission` (`board-mission`) / `board-mission` | `theme/board` | [Turn tactics](docs/turn-tactics.md) |
+| `story/adventure` / `Adventure` | `story/presentation` | `story/chapter` (`story-chapter`) / `adventure-chapter` | `theme/story` | [Narrative adventure](docs/narrative-adventure.md) |
+| `puzzle/rules` / `PushPuzzle` | `puzzle/presentation` | `puzzle/chambers` (`puzzle-chambers`) / `push-puzzle` | `theme/board` | [Stonewake](docs/stonewake.md) |
+
+The optional `ExperienceRole` (`sdk/experience`) selects a provider with `name`, `description`, pointer policy
+(`locked`, `free`, `none`) and optional launcher `controls`. Without a selected experience, the launcher retains the
+locked-pointer FPS behavior. These family selections are independent of the shooter controller/camera/mode roles.
+
+Host-provided services in every browser session (installed by `src/app/main.ts`): `Input`, `InputContexts`,
+`SessionControl`, `Render`, `Audio`, `Ui`, `Settings`, `Profile` and `Flow`.
+Only the plugin graph and role selections in the preset decide which providers run; unselected providers never
 activate. Most rows of this table are replaceable: a different HUD, mode, theme, controller or camera is a different
 provider selected in the preset.
 
@@ -135,7 +170,8 @@ disposed scope runs the disposer immediately, so late async completions cannot a
 
 **What attaches to a scope.** Everything a plugin acquires through its `SessionContext` is registered on that plugin's
 session scope: `systems.add` and `addFrame`, `events.on`, `commands.handle`, `services.provide`, `ui.mount` and
-`ui.addStyles`, `render.createRoot`, `render.own`, `render.shared` and `render.texture`. Anything else (DOM listeners,
+`ui.addStyles`, `InputContexts.create`, `render.createRoot`, `render.setWorldCamera`, `render.own`, `render.shared` and
+`render.texture`. Anything else (DOM listeners,
 timers, audio nodes) goes through `ctx.scope.add(fn, kind)`. Entities are tagged with their creating plugin for diagnostics
 (`ctx.world.ownerOf`, the debug panel's per-owner counts); they are not destroyed when a plugin scope is disposed but are
 cleared with the session.
@@ -149,7 +185,7 @@ released, so removing one consumer never destroys something another still uses. 
 
 | Event | Disposed | Kept |
 |---|---|---|
-| `host.restart()` | The session: plugin scopes in reverse activation order, then host-owned session items, then the scheduler, buses, services and entity store | The staged graph: registries and registrations. `register()` does not run again; `activate()` does |
+| `host.restart()` | The session: plugin scopes in reverse role-aware activation order, then host-owned session items, then the scheduler, buses, services and entity store | The staged graph: registries and registrations. `register()` does not run again; `activate()` does |
 | `host.apply(preset)` after successful staging | The old session as above, then the old registration scope and registries | The catalog of installed plugins (plus any imported pack entries, merged on commit) |
 | `host.apply(preset)` that fails while staging | Everything the attempt created | The running session and the active graph are untouched |
 | Activation failure or an `apply` that is superseded | The new session and its graph (a failed start leaves no session, no half-state) | Nothing of the failed attempt |
@@ -173,9 +209,13 @@ registries and throw a `HostError` whose `stage` names where it stopped.
    content kinds registered so far. Any reported issue disposes the attempt.
 7. **`validate`**: required roles have a selection, no ambiguous role, every selected provider is offered by an enabled
    plugin, then all validators registered by plugins run (cross-references: behaviours, ammo, slots, prefabs, map checks).
+   Compute `StagedGraph.activationOrder` from concrete dependencies, enabled optional dependencies and the selected
+   provider owners of explicit manifest `roleDependencies`. Lexicographic ties remain deterministic; self-role edges
+   are ignored. Missing selections or role-dependent cycles fail before commit. `StagedGraph.order` retains the
+   original loading/registration order. Existing `requiresRoles` is selection-only, preserving world/mode compositions.
 8. **Commit**: if a newer `apply`, `restart` or `stop` happened meanwhile, the staged graph is discarded and the call rejects
    with stage `superseded`. Otherwise the old session and registrations are disposed and the new graph becomes active.
-9. **`activate`**: create the `Session`, let the app install host services, then for each plugin in order build its
+9. **`activate`**: create the `Session`, let the app install host services, then for each plugin in `activationOrder` build its
    `SessionContext` (child scope, seeded RNG, config, bound `systems`, `events`, `commands`, `services`) and `await
    activate(ctx)`. After every plugin is active, the selected role providers' `activate(ctx)` run (ordered by the
    providing plugin's activation order, then role id), each with the providing plugin's context. After every await the
@@ -236,7 +276,7 @@ Systems present in the default preset, in execution order:
 Extension systems: `example/ricochet.move` (`movement`, added on first use of the behaviour), `example/survival.waves`,
 `example/time-trial.timer`, `example/arena.rules`, `example/holdout.defense`, and `example/ward.expire` (`rules`),
 `example/stealth.vision` (`ai`, added on first guard spawn), plus
-`example/roguelite.progress`, `example/racing.rules` and `example/extraction.rules` (`rules`), `example/racing.drive` and
+`example/roguelite.progress`, `cinder/game.run`, `example/racing.rules` and `example/extraction.rules` (`rules`), `example/racing.drive` and
 `example/dash-controller.control` (`control`, replacing the FPS controller when selected). `core/objective` registers no system; it works through events (`TriggerFired`, `Died`,
 `UseFailed`). Frame systems, once per rendered frame, in execution order:
 
@@ -245,6 +285,75 @@ Extension systems: `example/ricochet.move` (`movement`, added on first use of th
 | -100 | `core/player.camera` | `core/player` | Publishes the interpolated `View` (position, yaw, bob, death roll) |
 | 0 | `core/hud.update` or `example/visor-hud.frame` | the selected HUD | Updates the DOM HUD |
 | 100 | `core/presentation.frame` | `core/presentation` | Copies `View` into the camera, animates doors and switches, updates actors, effects and the weapon sprite |
+| 150 | `cinder/hud.draw` | `cinder/hud` (when selected) | Reflects Cinder depth/waypoint, XP, non-blocking boon tray, owned-weapon rack and magazine-aware combat instruments; no pointer interaction |
+
+Independent family systems (default order 0; frame systems run once per rendered frame rather than spending turns):
+
+| Phase / cadence | System id | Plugin | Purpose |
+|---|---|---|---|
+| `movement` | `vehicle/racing.drive` | `vehicle/racing` | Fixed-tick vehicle motion, ordered directional gates, laps and timeout |
+| frame | `vehicle/presentation.scene` | `vehicle/presentation` | Interpolates the vehicle and updates circuit markers |
+| frame | `vehicle/presentation.hud` | `vehicle/presentation` | Updates lap, speed, remaining time and race status |
+| `presentation` | `vehicle/presentation.audio` | `vehicle/presentation` | Schedules discrete engine, skid, checkpoint and finish cues |
+| `control` | `board/tactics.commands` | `board/tactics` | Resolves queued actions and deterministic enemy turns |
+| frame | `board/presentation.hud` | `board/presentation` | Refreshes the interactive DOM board and action feedback from state revisions |
+| `rules` | `story/adventure.commands` | `story/adventure` | Resolves queued story actions and chapter-specific save/load/reset requests |
+| frame | `story/presentation.frame` | `story/presentation` | Refreshes room art, choices, inventory and journal from adventure state |
+| `control` | `puzzle/rules.commands` | `puzzle/rules` | Commits one bounded command per tick: stone pushes, plate/gate checks, two-beat golem pursuit, undo and chamber transitions |
+| frame | `puzzle/presentation.frame` | `puzzle/presentation` | Updates the 3D diorama, smooths articulated pieces and orbit camera, fits the responsive HUD and reflects puzzle revisions |
+| `control` | `sky/presentation.controls` | `sky/presentation` | Samples held keyboard/touch directions into bounded semantic flight commands |
+| `movement` | `sky/game.flight` | `sky/game` | Advances a seconds clock, commits cargo/boost/repair actions and checks delivery/hazard outcomes |
+| frame | `sky/presentation.frame` | `sky/presentation` | Fits the floating-island camera, animates drone/crates and updates flight telemetry |
+| `rules` | `ember/game.defense` | `ember/game` | Commits construction/repair/pulse, advances waves and independently shared tower fire actions |
+| frame | `ember/presentation.frame` | `ember/presentation` | Updates authored 3D lane, towers/enemies and resource/cooldown HUD |
+| `control` | `verdant/game.commands` | `verdant/game` | Commits one decision, advances its turn clock, applies dry-wind drain and checks restored relays |
+| frame | `verdant/presentation.scene` | `verdant/presentation` | Fits island bounds around panels and reflects relay growth/selection |
+| frame | `verdant/presentation.ui` | `verdant/presentation` | Displays resources, forecasts and shared action definitions/cooldowns |
+
+Stonewake's rules own a discrete board independent of the renderer. Its presentation builds real lit mesh geometry,
+maps authored cell coordinates to the XZ plane, ray-picks floor meshes and emits semantic move commands. Camera and
+animation time never advance turns. Chamber rebuilds reuse the session's scoped materials/geometries/textures;
+replacing scene objects does not allocate another resource set. The 256-turn undo history restores authoritative
+positions, turn parity and outcome, while cosmetic interpolation catches up separately.
+
+The `mechanics/resources`, `mechanics/clock`, `mechanics/actions` and `mechanics/objectives` plugins register **no systems**.
+They supply role-selected factories with separate per-consumer handles, owned by both consumer and provider scopes.
+`mechanics/kits` validates immutable definitions; the SDK composes handles, while gameplay algorithms stay in plugins.
+Actions synchronously validate resources and reserve cooldown before notifying observers. A game checks spatial legality
+before execution and commits local effects only after success. These are resource/action transactions, not arbitrary
+multi-plugin rollback. Owner/instance-tagged events describe committed facts; they are not an implicit global command bus.
+See [the mechanic contracts and bounds](docs/reusable-mechanics.md).
+
+Reusable orchestration helpers live in the SDK, with state allocated per consumer rather than in module globals.
+`createCommandQueue` owns pending commands and supplies bounded FIFO ingress/draining to the existing
+`puzzle/rules.commands` and `story/adventure.commands` systems. Those systems retain their one-command and snapshot-batch
+policies respectively. Schema normalization and gameplay legality stay in each family.
+
+`createDeadline` owns deadline state while borrowing an existing `MechanicClock`. Sky's seconds-based temporary effects
+and Verdant's turn-based environmental/season boundaries use it from their existing systems. Only the game advances the
+clock and applies/rearms effects. Helpers register scoped cleanup, install no systems, and add no kernel game concepts.
+See [queues](docs/command-queues.md), [deadlines](docs/deadlines.md) and [resource conformance](docs/mechanic-conformance.md).
+
+`mechanics/navigation` offers a registration-time pure `NavigationRole` query implementation. Puzzle pursuit and board
+reachability build their own legal ordered graphs and consume common unit-edge search results; occupancy, movement,
+turn/AP spending and AI policies stay in the respective family. The provider stores no session data or mutable cache.
+Static puzzle content-connectivity validation remains local to its registration-time loader.
+
+`mechanics/sequence` offers a role-selected factory for ordered cursors with finite repeated rounds. Independent-vehicle
+and shooter-backed racing delegate checkpoint progression while retaining distinct crossing/time-limit policies.
+
+`mechanics/progression` offers a role-selected factory for linear XP curves, level counts and pending game-defined
+rewards. Cinder Vault grants XP from kills, applies its own health/boon effects and keeps a three-card tray open while
+combat continues; the provider never pauses or applies perks. `dungeon/generator` registers a map format and inert marker
+prefab. It emits one bounded `WorldDescription` with up to three isolated room/corridor wings; Cinder supplies encounters
+and owns all descent/teleport rules. The shared SDK `createOwnedInstances` composes scopes and consumer-local IDs for
+clock, sequence and progression factories. None of these providers/map formats installs simulation systems; family
+systems remain the authorities.
+
+Validation can inspect `v.roleProviders(role)` for enabled provider IDs, owners and values. Board/puzzle composition
+checks reject foreign experience authorities through this role metadata, not entire `story/`, `vehicle/` or `board/`
+namespaces. Neutral plugins under those namespaces remain usable; the known incompatible shooter authorities still
+have explicit exclusions.
 
 ### 5.4 Damage
 
@@ -258,7 +367,8 @@ zero set `dead` and emit `Died` once. The only built-in modifier is `core/team-i
 Gameplay randomness comes from `ctx.rng`, a mulberry32 stream seeded from the preset `seed` combined with a hash of the
 plugin id, so each plugin has a private deterministic stream. `ctx.cosmeticRng` is seeded from the wall clock and is for
 visuals and audio only (no bundled plugin uses it). Cooldowns and timers use `ctx.time.now` (simulation seconds), never
-the wall clock.
+the wall clock. Shared mechanic clocks additionally make time domain explicit: games advance `seconds` by simulation
+`dt`, or advance `turns` by whole accepted decisions. Idle frames/ticks cannot advance a turn clock.
 
 ## 6. World
 
@@ -297,7 +407,7 @@ they cannot disagree. Nothing outside `grid.ts` interprets tile characters.
 |---|---|---|
 | `boot` | Initial preset applied (the stored one, else the default) | `menu` |
 | `menu` | Play | `playing` |
-| `playing` | Esc (pointer lock lost), window blur, tab hidden, backquote | `paused` |
+| `playing` | Esc (pointer lock lost for locked experiences; direct pause for free/none), window blur, tab hidden, backquote | `paused` |
 | `paused` | Resume | `playing` |
 | `playing` | `Flow.end` called by the mode | `ending` |
 | `ending` | 1.1 s of real time elapsed | `ended` (result screen) |
@@ -307,14 +417,21 @@ they cannot disagree. Nothing outside `grid.ts` interprets tile characters.
 
 If WebGL2 or the renderer is unavailable, the app shows an "Unsupported" screen and nothing else starts.
 
-- **Simulation runs only while the player has control**: `playing` with the pointer captured, or `ending` (a short real-time
-  delay of 1.1 s after the run ends so the final moments play out). In every other state the scheduler is paused, but
+- **Simulation runs only while the player has control**: `playing` with the selected experience's pointer requirement
+  satisfied, or `ending` (a short real-time delay of 1.1 s after the run ends so the final moments play out). Locked
+  experiences require pointer capture; `free` and `none` do not request or require pointer lock. In every other state
+  the scheduler is paused, but
   frame systems still run and the scene is still rendered every frame, so menus sit over the live world.
 - Each frame: clamp elapsed time, set the scheduler's paused flag from the state, `scheduler.advance(dt)`, handle the
   `ending` to `ended` transition, then `renderHost.render()`. A faulted session is not advanced; its last frame stays on screen.
 - The first session is created when the initial preset is applied, with the scheduler paused; `Play` starts it, and later
   plays or restarts create a fresh session on the same registrations (`host.restart()`).
-- **`?test`**: with `?test` in the URL the app treats the pointer as always captured and never requests pointer lock, so
+- **Experience policy and UI ingress**: `ExperienceRole` supplies pointer policy and optional start-screen controls.
+  Its absence preserves FPS capture and the registered `InputActions` control list. `SessionControl.playing` is true only
+  for the current running session in the host's `playing` state with its pointer requirement satisfied. UI handlers
+  reject command ingress while it is false; authoritative changes are committed by simulation systems. Frame systems
+  still running over a menu or pause screen does not authorize UI gameplay actions.
+- **`?test`**: with `?test` in the URL the app treats the pointer requirement as satisfied and never requests pointer lock, so
   headless browsers can drive it with synthetic events; `Esc` then pauses directly (there is no pointer-lock exit to
   detect). `scripts/smoke.mjs` loads the page this way. Independently of `?test`, the app always exposes
   `window.__bulkhead` (host, input core, render host, shell, creator, state, `play`, `applyPreset`, ...). It exists for
@@ -323,7 +440,10 @@ If WebGL2 or the renderer is unavailable, the app shows an "Unsupported" screen 
   (`{ schema: 1, sensitivity, volume, pixelRatioCap }`, values clamped on load, unknown schema falls back to defaults) and
   `shooter-foundation/preset` (`{ schema: 1, preset }`, the whole preset object). On start the stored preset is staged and
   applied; if it no longer validates (for example it names an imported pack that is gone) the default preset is used.
-  Imported packs live in the host's in-memory catalog only. There are no save games.
+  Imported packs live in the host's in-memory catalog only. There is no general run/session save. `story/adventure` has
+  an explicit chapter-specific Save/Load: a versioned action history stored through `Profile` under
+  `story/save/<chapter-id>` is replayed into temporary state and committed only after validation. Chapter identity and
+  version must match; reset/restart does not overwrite the save. See [Narrative adventure](docs/narrative-adventure.md).
 
 ## 8. Platform, input, audio and rendering
 
@@ -331,14 +451,22 @@ If WebGL2 or the renderer is unavailable, the app shows an "Unsupported" screen 
 
 `createInputCore` keeps `held` actions plus pending press and release edges and accumulated mouse movement. At the start
 of every simulation tick `beginTick()` moves the pending edges and look delta into a snapshot that plugins read through
-`Input.tick` (`held`, `pressed`, `released`, `lookX`, `lookY`). Because the snapshot is taken per tick, an edge is visible in
+`Input.tick` (`held`, `pressed`, `released`, `lookX`, `lookY`, optional `pointer`). The pointer snapshot is in canvas-relative
+CSS pixels (`x`, `y`, `inside`), not backing-store pixels; older/headless adapters may omit it. Because the snapshot is
+taken per tick, an edge is visible in
 exactly one tick even when several catch-up ticks run in one frame. Key auto-repeat creates no new edges. `clear()` (window
 blur, tab hidden, pointer lock lost, pause) drops all state without generating release edges.
 
 `bindDomInput` maps `KeyboardEvent.code`, `Mouse0` to `Mouse2`, `WheelUp` and `WheelDown` to the action ids registered in
-the `InputActions` registry by plugins (so the start screen's control list is generated from the enabled plugins). Presses
-are accepted only while the app is `playing` and captured; releases are always accepted so keys never stick. The bundled
-player ignores `lookY`: aim is yaw only.
+the `InputActions` registry by plugins. A selected experience can supply its own launcher control list. Presses are
+accepted only while the app is `playing` and its experience pointer policy is satisfied; releases are always accepted
+so keys never stick. The bundled FPS player ignores `lookY`: aim is yaw only.
+
+`InputContexts.create(ctx, options)` creates scoped bindings with a per-tick snapshot. Higher `priority` routes first;
+`consume` defaults to true for matching input, while `exclusive` claims even unmapped keyboard/pointer input from lower
+contexts and legacy `Input`. Creation, enable/disable transitions and disposal cancel held actions and edges so input
+cannot leak across modal or ownership changes; previously held keys must be released before reuse. Disposal belongs to
+the creating scope. DOM-driven game commands additionally consult `SessionControl.playing`.
 
 ### 8.2 Audio
 
@@ -351,18 +479,26 @@ within 3 m, falling off quadratically to silence at 30 m) and stereo pan are app
 
 ### 8.3 Rendering architecture
 
-The render host (`src/platform/render/service.ts`) owns the WebGL renderer, two scenes and two cameras, and exposes the
-`Render` service from the SDK:
+The render host (`src/platform/render/service.ts`) owns the official Three.js WebGL renderer, two scenes and fallback
+world/view cameras, and exposes the `Render` service from the SDK:
 
-- **World layer**: the world scene and a perspective camera (near 0.05, far 200; field of view comes from the `View`). It is
-  cleared to the environment colour and carries the fog set by `render.setEnvironment`.
+- **World layer**: the world scene has a fallback perspective camera (near 0.05, far 200; the shooter field of view comes
+  from `View`). It is cleared to the environment colour and carries the fog set by `render.setEnvironment`.
+- **Scoped world cameras**: `render.setWorldCamera(ctx, camera)` accepts a `THREE.PerspectiveCamera` or
+  `THREE.OrthographicCamera`. Each call leases selection through the caller's scope; the newest live lease wins. Disposing
+  an older lease cannot steal a newer selection. Cleanup restores the newest surviving camera or the host fallback;
+  selection/restoration immediately applies the current aspect. Resize updates perspective aspect; for orthographic
+  cameras it preserves vertical extent, horizontal center and zoom while adjusting horizontal extent to the canvas.
+  `render.camera` remains the fallback perspective camera, not a mutable alias to the selected camera. Selection owns
+  the lease, not the camera object, and does not dispose that object.
 - **View layer**: a second scene with its own camera (vertical field of view 50, at the origin looking down -Z), drawn after
   the world on a cleared depth buffer without clearing colour. It holds the first-person weapon sprite so it never clips
   into walls.
 - `createRoot(ctx, layer)` gives each plugin an owned `Group` in a layer, detached with the plugin's scope. `own`, `shared`
   and `texture` tie GPU resources (geometries, materials, textures) to scopes; removing a mesh from a scene does not free
   GPU memory, disposing the resource does. Theme painters are drawn once into canvases and uploaded as nearest-filtered
-  textures.
+  textures marked `SRGBColorSpace`. Renderer output is also sRGB, with `NoToneMapping`; scene/material/light colors use
+  native Three.js `Color` objects. FPS world/view cameras use Euler order `YXZ`.
 - Pixel ratio is `min(devicePixelRatio, cap)` with the cap (1, 1.5 or 2) from the user's quality setting; the canvas
   backing size follows its CSS size on resize.
 
@@ -370,7 +506,9 @@ The render host (`src/platform/render/service.ts`) owns the WebGL renderer, two 
 on faces that border an open cell; floors and ceilings are one quad per open cell. Quads are grouped by theme texture key
 into one merged mesh per key (a few draw calls instead of thousands). Each door is its own group, drawn with the door art
 and sliding down into the floor as `openness` goes from 0 to 1, and hidden when fully open. Switch panels and the exit pad
-are unlit quads; the pad pulses. The map's lights become point lights and its ambient and fog become the environment.
+are unlit quads; the pad pulses using native `Color.setHex`. The map's lights become point lights and its ambient and fog
+become the environment. Reference-map artistic ambient and point-light intensities are multiplied by PI to compensate
+for Lambert's BRDF; point lights use decay 0 with Three.js's smooth range cutoff rather than inverse-square falloff.
 Nothing is drawn from the grid characters.
 
 **Actors** (`actors.ts`): every entity with `Transform` and `Visual` gets an `ActorHandle` from the actor renderer named
@@ -381,9 +519,13 @@ transparent texels) with depth writes on, so they occlude and are occluded corre
 sorting. Projectiles and glows use additive blending, transparent and without depth writes, and are sorted back to front.
 Handles are disposed when the entity disappears. One-shot impact effects use a pool of 32 quads.
 
-### 8.4 The mini3 subset
+### 8.4 Historical mini3 subset (legacy fixtures only)
 
-mini3 mirrors Three.js class and property names for the subset the game needs. `src/sdk/render.ts` re-exports it as `THREE`.
+The former offline mini3 renderer mirrored Three.js class and property names for a small reference-game subset. The
+following table and semantic differences describe **that historical implementation only**, reachable through
+`src/platform/render/mini3/legacy.ts` for old fixtures. Production `src/sdk/render.ts` exports official Three.js through
+the `mini3/index.ts` facade, including the full core/WebGL namespace and its matching declaration graph; the limitations
+below do not describe the current SDK.
 
 | Area | Provided |
 |---|---|
@@ -396,10 +538,10 @@ mini3 mirrors Three.js class and property names for the subset the game needs. `
 | Textures | `Texture`, `CanvasTexture`, `DataTexture`; wrap modes, nearest and linear (and mipmap) filters, `repeat`, `offset`, `flipY` |
 | Renderer | `WebGLRenderer` (`setPixelRatio`, `setSize`, `setClearColor`, `clear`, `clearDepth`, `render`, `autoClear`, `info`, `dispose`), `isWebGL2Available()` |
 
-Not provided: `Quaternion`, `Matrix4`, `Vector2`, `Color`, `Sprite`, `Line`, `Points`, directional, spot and hemisphere
+Not provided by the legacy subset: `Quaternion`, `Matrix4`, `Vector2`, `Color`, `Sprite`, `Line`, `Points`, directional, spot and hemisphere
 lights, shadows, `Raycaster`, loaders, render targets and post-processing, instancing, frustum culling, `FogExp2`.
 
-**Semantic differences from Three.js** (relevant for migration and for anyone comparing output):
+**Historical semantic differences from Three.js** (for interpreting old fixtures):
 
 - **No colour management.** Colours are plain `0xRRGGBB` numbers (`material.color`, `emissive`, light `color`,
   `scene.background`, `Fog.color` are numbers, not `Color` objects) and are used as-is, as are canvas texture bytes; there
@@ -415,28 +557,35 @@ lights, shadows, `Raycaster`, loaders, render targets and post-processing, insta
 - **Context loss**: drawing is skipped while the context is lost; on restore GPU objects are dropped and re-uploaded lazily.
 - `dispose()` on a geometry, material or texture frees it on every renderer that uploaded it.
 
-## 9. Migration to Three.js, Vite and Vitest
+## 9. Completed Three.js migration and reproduction
 
-The renderer is behind two seams, so the change is contained. Plugins only see `THREE` and `Render` from the SDK; none
-import mini3.
+The production migration is contained behind the existing renderer adapter and SDK import seam. Import-boundary rules
+were not widened: `src/sdk/render.ts` still imports the checker-approved `src/platform/render/mini3/index.ts` path, whose
+exports now come from official Three.js. Plugins continue to import only the SDK. The old renderer is isolated behind
+`legacy.ts` for old fixtures, rather than used as a production fallback.
 
-1. Install `three`, `vite` and `vitest` on a networked machine and commit the generated `package-lock.json`.
-2. `src/sdk/render.ts`: replace the mini3 namespace import with `three`. `scripts/boundaries.ts` currently forbids bare
-   imports in `src/sdk` and `src/platform`; allow `three` in `src/sdk/render.ts` and `src/platform/render`, and update
-   `tests/boundaries.test.ts`.
-3. `src/platform/render/service.ts`: construct Three's renderer and scenes. Adapt `setEnvironment` (`scene.background` and
-   `Fog` colours become `Color` objects) and set `colorSpace` on theme textures.
-4. `src/app/main.ts` imports `isWebGL2Available` from mini3; replace it with an in-app check.
-5. `core/presentation`: three places assign numeric colours (`worldmesh.ts` for the exit pad, `weaponview.ts` for the muzzle
-   flash material and light) and must use `Color` setters; the camera needs `rotation.order = 'YXZ'`; light `intensity` and
-   `distance` in maps may need retuning, and colour management may require converting palettes.
-6. Replace `scripts/build.mjs`, `dev.mjs` and `preview.mjs` with Vite (`public/` is native; the page's script entry changes
-   from `./assets/main.js` to the source entry; the `__DEV__` define declared in `src/globals.d.ts` is currently unused by
-   the code). `scripts/smoke.mjs` serves `dist/` and
-   keeps working if the output layout is kept.
-7. Tests: they import `node:test` and `node:assert/strict`; either keep `node --test` (no dependency) or port them to
-   Vitest (the assertion style is not a drop-in match for Vitest's `assert`). Retire `tests/mini3-demo` with mini3.
-8. Remove the offline tool-resolution fallback in `scripts/tools.mjs` once `node_modules` is the only source.
+Reproduce the pinned vendor tree from locked packages:
+
+```bash
+npm ci
+npm run vendor-three
+npm run vendor-three -- --check
+```
+
+`scripts/vendor-three.mjs` requires `three` and `@types/three` **0.187.0**. It copies official `three.module.js` and
+`three.core.js` byte-for-byte, the full core/WebGL declaration dependency closure and the local WebXR declaration
+dependency. The only declaration adaptation rewrites the WebXR reference to a local path. Runtime, Three types and
+WebXR licenses are retained. `vendor/provenance.json` records package versions, upstream revision, source SHA-256 hashes
+and output SHA-256 hashes; `--check` compares the generated bytes and rejects unexpected files.
+
+Presentation now uses native `Color.setHex` setters, sRGB output and painter textures, and explicit `YXZ` FPS camera
+rotation. Artistic map-light intensities use PI compensation and point-light decay 0, preserving the authored lighting
+intent within Three's range-cutoff model. Perspective/orthographic scoped world-camera selection and resize policy are
+part of SDK 2 (section 8.3); no compatibility shim replaces Three's `Color` semantics.
+
+This delivery does not include an asynchronous GLTF loader service. It also does not replace esbuild, the custom
+dev/preview scripts, `node:test`, or the tool-resolution fallback with Vite/Vitest. Those are separate toolchain choices,
+not prerequisites for using official Three.js.
 
 ## 10. Key decisions
 
@@ -457,5 +606,5 @@ import mini3.
 | Fixed step with a tick cap and discarded backlog | Deterministic simulation that slows rather than spirals after a stall |
 | Simulation time for timers, seeded per-plugin RNG | Reproducible gameplay; cosmetic randomness is kept apart |
 | Brute-force AABB queries sized for small maps | Simple and obviously correct; one box list keeps doors consistent; a spatial hash is the upgrade for larger maps |
-| Kernel knows no game concepts; shooter vocabulary lives in `sdk/contracts` | Another genre could reuse the kernel; the boundary is checked by lint |
-| The renderer hides behind the adapter and `sdk/render.ts` | The offline stack could be replaced by Three.js without touching gameplay or plugins |
+| Kernel knows no game concepts; family vocabulary lives in `sdk/contracts` | Shooter, racing, tactics and story reuse the same kernel without cross-family plugin dependencies; lint checks the boundary |
+| Official Three.js hides behind the adapter and `sdk/render.ts` | A pinned vendor facade keeps the existing import boundaries, full core/WebGL types and reproducible source/license provenance |

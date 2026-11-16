@@ -13,6 +13,7 @@ const pack = (extra: Record<string, unknown> = {}) => contentPack('test/magazine
   { kind: 'ammo', id: 'test/rounds', data: { name: 'Rounds', max: 20, start: 6 } },
   { kind: 'weapon', id: 'test/first', data: weapon(6, extra) },
   { kind: 'weapon', id: 'test/second', data: weapon(7) },
+  { kind: 'weapon', id: 'test/third', data: weapon(8, { starter: false }) },
 ], { dependencies: { 'core/combat': '^1.0.0' } });
 const preset = () => headlessPreset({ plugins: ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content', 'test/magazines'] });
 
@@ -44,6 +45,24 @@ test('magazines conserve shared starting ammo, reload on completion, and cancel 
   game.ticks(40);
   assert.equal(runtime.loaded['test/second'], 2);
   assert.equal(inv.ammo['test/rounds'], 2);
+});
+
+test('granting a magazine weapon chambers available reserve without duplicating ammo', async () => {
+  const game = createHeadlessGame([pack()]);
+  const session = await game.host.apply(preset());
+  const player = session.entities.first(Player)!;
+  const inv = session.entities.get(player, Inventory)!;
+  const runtime = session.entities.get(player, WeaponRuntime)!;
+  const combat = session.services.get(Combat);
+  assert.equal(runtime.loaded['test/third'], undefined);
+  assert.equal(combat.giveAmmo(player, 'test/rounds', 6), 6);
+  assert.equal(combat.giveWeapon(player, 'test/third'), true);
+  assert.equal(runtime.loaded['test/third'], 4);
+  assert.equal(inv.ammo['test/rounds'], 2);
+  assert.equal(combat.giveWeapon(player, 'test/third'), false);
+  assert.equal(runtime.loaded['test/third'], 4);
+  assert.equal(inv.ammo['test/rounds'], 2);
+  game.host.stop();
 });
 
 test('legacy weapons still consume the shared ammo pool', async () => {

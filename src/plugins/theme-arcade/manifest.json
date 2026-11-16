@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "theme/arcade",
+  "name": "Neon Courier Arcade Theme",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Pinned Assetrizz synth tiles, pennant, city and scooter badge; original top-down vehicle and synthesized arcade cues.",
+  "capabilities": ["assets", "audio"]
+}

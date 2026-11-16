@@ -1,0 +1,266 @@
+[
+  {
+    "kind": "adventure-chapter",
+    "id": "story/last-light",
+    "data": {
+      "version": 2,
+      "name": "The Last Light",
+      "start": "quay",
+      "intro": "A storm is coming. The lighthouse is dark, and a boat is still out beyond the reef.",
+      "rooms": [
+        {
+          "id": "quay",
+          "name": "The Rainward Quay",
+          "description": "Salt hangs in the air. A solitary keeper watches the black water beneath the silent tower.",
+          "art": "story-room",
+          "motif": "tower"
+        },
+        {
+          "id": "workshop",
+          "name": "The Keeper’s Workshop",
+          "description": "A cluttered room of brass tools, weather charts and an empty lens cradle.",
+          "art": "story-room",
+          "motif": "shelves"
+        },
+        {
+          "id": "lantern",
+          "name": "The Lantern Room",
+          "description": "The great lamp waits above the sea, its shutter jammed and its lens mount empty.",
+          "art": "story-room",
+          "motif": "window"
+        }
+      ],
+      "items": {
+        "key": {
+          "name": "Brass key",
+          "icon": "story-key"
+        },
+        "lens": {
+          "name": "Clouded lens",
+          "icon": "story-lens"
+        },
+        "cloth": {
+          "name": "Polishing cloth"
+        },
+        "clear-lens": {
+          "name": "Polished lens",
+          "icon": "story-lens"
+        }
+      },
+      "actions": [
+        {
+          "id": "inspect-sea",
+          "label": "Inspect the sea",
+          "room": "quay",
+          "text": "A single lantern rocks beyond the reef. Someone is waiting for the beacon.",
+          "journal": "A boat is stranded beyond the reef.",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "speak-kind",
+          "label": "Keeper: ask how to help",
+          "room": "quay",
+          "text": "Mara presses a brass key into your hand. ‘The workshop has the lens. The lamp needs a clear lens and an open shutter.’",
+          "add": [
+            "key"
+          ],
+          "flags": [
+            "trusted"
+          ],
+          "once": "met",
+          "journal": "Mara says the lamp needs a clear lens and an open shutter.",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "speak-blame",
+          "label": "Keeper: ask why the light failed",
+          "room": "quay",
+          "text": "Mara flinches. ‘I closed the shutter when the mechanism jammed. I was afraid I would break it.’ She hands you the workshop key.",
+          "add": [
+            "key"
+          ],
+          "flags": [
+            "candid"
+          ],
+          "once": "met",
+          "journal": "The shutter jammed; Mara closed it to protect the mechanism.",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "keeper-again",
+          "label": "Speak with Mara",
+          "room": "quay",
+          "require": [
+            "met"
+          ],
+          "text": "‘The old log in the workshop explains the shutter. Please bring them home.’",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "workshop-door",
+          "label": "Unlock the workshop",
+          "room": "quay",
+          "items": [
+            "key"
+          ],
+          "text": "The key turns. The workshop door opens.",
+          "move": "workshop",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "to-quay",
+          "label": "Return to the quay",
+          "room": "workshop",
+          "text": "Rain taps against the stones.",
+          "move": "quay",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "read-log",
+          "label": "Inspect the keeper’s log",
+          "room": "workshop",
+          "text": "The log reads: ‘Release the brass catch before raising the shutter. Never force the wheel.’",
+          "flags": [
+            "clue"
+          ],
+          "journal": "Release the brass catch before raising the shutter.",
+          "sound": "story-reveal"
+        },
+        {
+          "id": "take-lens",
+          "label": "Take the clouded lens",
+          "room": "workshop",
+          "text": "You lift the clouded lens from its cradle.",
+          "add": [
+            "lens"
+          ],
+          "once": "took-lens",
+          "sound": "story-take"
+        },
+        {
+          "id": "take-cloth",
+          "label": "Take the polishing cloth",
+          "room": "workshop",
+          "text": "A soft cloth, still dry beneath the bench.",
+          "add": [
+            "cloth"
+          ],
+          "once": "took-cloth",
+          "sound": "story-take"
+        },
+        {
+          "id": "polish",
+          "label": "Combine lens + cloth",
+          "room": "workshop",
+          "items": [
+            "lens",
+            "cloth"
+          ],
+          "consume": [
+            "lens"
+          ],
+          "add": [
+            "clear-lens"
+          ],
+          "text": "You polish away the salt until the glass holds the light.",
+          "journal": "The lens is clear again.",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "stairs",
+          "label": "Climb to the lantern room",
+          "room": "workshop",
+          "text": "You climb the narrow iron stairs.",
+          "move": "lantern",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "downstairs",
+          "label": "Descend to the workshop",
+          "room": "lantern",
+          "text": "You return to the workshop.",
+          "move": "workshop",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "inspect-lamp",
+          "label": "Inspect the lamp",
+          "room": "lantern",
+          "text": "The mount is empty. A brass catch holds the shutter closed.",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "release-catch",
+          "label": "Release the brass catch",
+          "room": "lantern",
+          "require": [
+            "clue"
+          ],
+          "text": "Following the log, you ease the catch free.",
+          "flags": [
+            "catch"
+          ],
+          "once": "catch",
+          "journal": "The shutter catch is released.",
+          "sound": "story-reveal"
+        },
+        {
+          "id": "raise-shutter",
+          "label": "Raise the shutter",
+          "room": "lantern",
+          "require": [
+            "catch"
+          ],
+          "text": "The shutter rises without a sound. The sea appears through the glass.",
+          "flags": [
+            "shutter"
+          ],
+          "once": "shutter",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "install-lens",
+          "label": "Install the polished lens",
+          "room": "lantern",
+          "items": [
+            "clear-lens"
+          ],
+          "consume": [
+            "clear-lens"
+          ],
+          "text": "The lens settles into its brass mount.",
+          "flags": [
+            "installed"
+          ],
+          "once": "installed",
+          "sound": "story-inspect"
+        },
+        {
+          "id": "light-beacon",
+          "label": "Light the beacon",
+          "room": "lantern",
+          "require": [
+            "installed",
+            "shutter"
+          ],
+          "text": "The lamp blooms. Its beam crosses the reef, and the boat answers with a lantern. Mara’s voice rises from below: ‘They can see us!’",
+          "flags": [
+            "victory"
+          ],
+          "once": "victory",
+          "journal": "The beacon shines again. The boat can find its way home.",
+          "sound": "story-victory"
+        }
+      ],
+      "subtitle": "A lighthouse story · Chapter 01",
+      "tagline": "Explore · Listen · Restore",
+      "hint": "Choose a highlighted action. Combine items at the workbench. Tab and Enter work throughout.",
+      "portrait": "story-portrait",
+      "victory": {
+        "flag": "victory",
+        "title": "Chapter complete · The light returns",
+        "epilogue": "The beacon guides the boat safely home. You can keep exploring, load a save, or start over."
+      }
+    }
+  }
+]

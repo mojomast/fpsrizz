@@ -146,10 +146,12 @@ try {
   await shot('01-start');
   check('start screen is shown with Play button and controls', (await ev(() => __bulkhead.shell.screen)) === 'start' && (await page.getByRole('button', { name: /play/i }).count()) > 0 && (await page.getByText('Move forward').count()) > 0);
   const env = await ev(() => ({ ua: navigator.userAgent, dpr: devicePixelRatio, gl: (() => { const c = document.createElement('canvas').getContext('webgl2'); const d = c?.getExtension('WEBGL_debug_renderer_info'); return d ? c.getParameter(d.UNMASKED_RENDERER_WEBGL) : 'unknown'; })() }));
+  // Capture canonical initial state while the menu still pauses simulation. Playwright's click can span several
+  // animation frames; taking this after Play compared an advanced first session with a tick-zero restart.
+  const baselineSnapshot = await ev(() => JSON.stringify(__t.S().entities.snapshot()));
   await page.getByRole('button', { name: /^play$/i }).click();
   await waitState('playing');
   const baseline = await ev(() => __t.resources());
-  const baselineSnapshot = await ev(() => JSON.stringify(__t.S().entities.snapshot()));
   await waitTicks(5);
   await shot('02-playing');
   check('session runs after Play (HUD mounted, world rendered)', baseline.entities > 10 && baseline.uiRoots >= 1 && baseline.sceneRoots >= 1 && (await ev(() => __bulkhead.stats.calls + __bulkhead.renderHost.service.stats.calls)) > 0, JSON.stringify(baseline));

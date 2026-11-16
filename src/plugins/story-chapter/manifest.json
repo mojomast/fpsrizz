@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "id": "story/chapter",
+  "name": "The Last Light",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^2.0.0",
+  "description": "A lighthouse mystery in three rooms.",
+  "dependencies": {
+    "story/adventure": "^1.0.0"
+  }
+}

@@ -184,7 +184,7 @@ export function buildWorldMeshes(ctx: SessionContext, root: THREE.Group, world: 
       if (pads.length > 0) {
         const k = 0.78 + 0.22 * Math.sin(time * 3);
         const c = (Math.round(255 * k) << 16) | (Math.round(255 * k) << 8) | Math.round(255 * k);
-        for (const p of pads) p.mat.color = c;
+        for (const p of pads) p.mat.color.setHex(c);
       }
     },
   };

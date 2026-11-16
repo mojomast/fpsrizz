@@ -22,7 +22,7 @@ const A = {
   next: 'core/weapon-next',
   prev: 'core/weapon-prev',
 } as const;
-const SLOTS = [1, 2, 3, 4, 5];
+const SLOTS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const playerPrefab = (maxHealth: number): Prefab => ({
   description: 'The player actor with the default loadout (every weapon marked "starter", ammo "start" amounts).',

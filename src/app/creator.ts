@@ -293,6 +293,7 @@ interface Draft {
 }
 
 const SELECTORS: { label: string; kind: string; role?: string; option?: string; none: string }[] = [
+  { label: 'Experience', kind: 'role:sdk/experience', role: 'sdk/experience', none: '(legacy first-person controls)' },
   { label: 'Map', kind: 'map', option: 'map', none: '(none)' },
   { label: 'Controller', kind: 'role:sdk/controller', role: 'sdk/controller', none: '(not selected)' },
   { label: 'Camera', kind: 'role:sdk/camera', role: 'sdk/camera', none: '(not selected)' },
@@ -722,6 +723,15 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
     el.append(heading('Map, roles & theme'));
     const fields = h('div', 'creator-fields');
     for (const s of SELECTORS) fields.append(...selectorField(s));
+    // New exclusive roles remain authorable without teaching the app each game's vocabulary.
+    const knownRoles = new Set(SELECTORS.flatMap((s) => s.role ? [s.role] : []));
+    const extraRoles = new Set([
+      ...Object.keys(draft.roles),
+      ...(survey ?? []).filter((s) => s.kind.startsWith('role:')).map((s) => s.kind.slice(5)),
+    ]);
+    for (const role of [...extraRoles].sort()) {
+      if (!knownRoles.has(role)) fields.append(...selectorField({ label: role, kind: `role:${role}`, role, none: '(not selected)' }));
+    }
     el.append(fields);
     if (surveyBusy && !survey) el.append(h('p', 'creator-note', 'Loading choices from the installed plugins…'));
 

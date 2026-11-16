@@ -4,7 +4,7 @@
   "name": "__NAME__",
   "version": "0.1.0",
   "kind": "code",
-  "sdk": "^1.0.0",
+  "sdk": "^2.0.0",
   "description": "Describe what this plugin adds.",
   "dependencies": {},
   "capabilities": ["simulation"]

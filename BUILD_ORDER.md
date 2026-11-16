@@ -3,6 +3,14 @@
 This is an implementation plan, not a claim that every milestone is complete. Actual shipped scope belongs in
 `SPEC.md`; the broader plugin research and game recipes are in `GAME_PLUGIN_ROADMAP.md`.
 
+The mode-first wave below produced the current planar slices. For the next wave, follow
+[GAME_PLATFORM_STRATEGY.md](GAME_PLATFORM_STRATEGY.md): remove forced shooter dependencies and prove an overhead racer,
+turn-based tactics and narrative adventure with distinct controls, simulation and presentation. This updates the
+priority toward architectural contrast; the remaining persistence, vertical and networking dependencies still apply.
+
+The concrete parallel task assignments, fixed integration contracts and acceptance gates for this wave are in
+[PARALLEL_BUILD_PLAN.md](PARALLEL_BUILD_PLAN.md).
+
 ## Dependency order
 
 1. **Planar game slices in parallel:** time trial, arena score attack, a switch-and-exit puzzle, and a scarce-supplies

@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Pure deterministic unit-edge graph queries returning ordered shortest distances and canonical first steps.",
+  "keywords": ["navigation", "pathfinding", "graph", "grid", "route", "BFS", "breadth first", "flood fill", "reachability", "shortest path", "first hop", "ordered neighbors"],
+  "entryPoints": ["NavigationRole"],
+  "useWhen": "Select a stateless search implementation for a finite legal graph; games supply ordered adjacency and retain occupancy, movement and resource-cost policy.",
+  "limitations": ["Every edge costs one step; no weighted paths, A*, continuous movement, world collision or smoothing.", "Results are pure advisory queries, not movement commits. Consumers rebuild legality at commit.", "Static content validation is separate from this runtime selection seam; the plugin has no graph content kind, owned handles or cache."],
+  "docs": ["docs/navigation.md"],
+  "examples": ["src/plugins/puzzle-rules/rules.ts", "src/plugins/board-tactics/index.ts", "src/content/presets/stonewake.json", "src/content/presets/turn-tactics.json"],
+  "tests": ["tests/mechanics-navigation.test.ts", "tests/navigation-consumers.test.ts"]
+}

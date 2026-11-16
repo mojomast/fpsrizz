@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "unreviewed",
+  "summary": "__NAME__",
+  "keywords": [],
+  "entryPoints": [],
+  "useWhen": "Describe the capability and how to compose it after searching the existing reuse index.",
+  "limitations": ["New scaffold: reuse scope and behavior have not yet been reviewed."],
+  "docs": [],
+  "examples": [],
+  "tests": []
+}

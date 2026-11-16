@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "content",
+  "summary": "Cinder Vault dungeon content: a seeded three-wing dungeon recipe, six-weapon armory, wardens, keeper, caches and shared run economy.",
+  "keywords": ["roguelite", "dungeon", "depth", "floor", "fantasy", "knife", "pistol", "smg", "rifle", "sniper", "rocket", "warden", "keeper", "boss", "cache", "assetrizz"],
+  "entryPoints": [],
+  "useWhen": "Use Cinder's generated dungeon map, six-weapon content, wardens, caches and mechanic kit with its mode and fantasy theme.",
+  "limitations": ["Authored generator recipe and content, not runtime map swapping. Gameplay policy, encounter composition and boons live in cinder/game."],
+  "docs": ["docs/cinder-vault.md", "docs/dungeon-generator.md"],
+  "examples": ["src/content/presets/cinder-vault.json"],
+  "tests": ["tests/cinder-vault.test.ts"]
+}

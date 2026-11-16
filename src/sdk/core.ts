@@ -7,7 +7,7 @@ import type { ComponentToken } from '../kernel/ecs.ts';
 import type { PluginModule, RoleToken } from '../kernel/host.ts';
 import type { RegistryToken } from '../kernel/registry.ts';
 
-export const SDK_VERSION = '1.0.0';
+export const SDK_VERSION = '2.0.0';
 
 /**
  * Simulation phases, in execution order, every 60 Hz tick:

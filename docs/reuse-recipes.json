@@ -1,0 +1,184 @@
+{
+  "schema": 1,
+  "recipes": [
+    {
+      "id": "recipe/ordered-navigation", "name": "Ordered graph reachability and first steps", "schema": 1, "scope": "cross-genre",
+      "summary": "Query shortest unit-edge paths over a game-supplied legal graph, preserving neighbor order for deterministic ties.",
+      "keywords": ["graph", "navigation", "shortest", "path", "route", "reachability", "bfs", "first step", "pursuit", "movement"],
+      "entryPoints": ["NavigationRole"],
+      "useWhen": "A game needs unit-edge reachability or canonical first steps and can supply its legal ordered adjacency.",
+      "limitations": ["Every edge costs one step; no weighted routes, navigation mesh, collision or automatic actor movement.", "Games own occupancy and graph construction. The pure provider has no session cache or instance lifecycle."],
+      "docs": ["docs/navigation.md", "docs/building-block-plugins.md"],
+      "examples": ["src/plugins/puzzle-rules/rules.ts", "src/plugins/board-tactics/index.ts"],
+      "tests": ["tests/mechanics-navigation.test.ts", "tests/navigation-consumers.test.ts", "tests/stonewake.test.ts", "tests/turn-tactics.test.ts"],
+      "plugins": ["mechanics/navigation"], "roles": {"sdk/mechanic-navigation": "mechanics/navigation"},
+      "steps": [
+        "Enable a navigation implementation, select sdk/mechanic-navigation and declare that role in the consumer's requiresRoles. The pure registration-time provider needs no activation dependency.",
+        "Resolve ctx.role(NavigationRole).provider. Build a finite directed graph of legal nodes with explicit neighbor order from current game state, including the origin.",
+        "Call search(nodes, origin, maxSteps?) for ordered visits containing shortest step counts and canonical first steps. The game converts steps to AP or moves an actor only after its own legality checks.",
+        "Rebuild adjacency when occupancy changes; preserve the game's sequential update policy. Do not move target selection, collision or turn authority into the query provider."
+      ]
+    },
+    {
+      "id": "recipe/ordered-rounds", "name": "Ordered steps repeated over finite rounds", "schema": 1, "scope": "cross-genre",
+      "summary": "Share a canonical ordered step cursor with finite repeated rounds, independently of spatial crossings and game outcomes.",
+      "keywords": ["ordered", "steps", "rounds", "sequence", "checkpoint", "lap", "repeat", "cursor", "progression"],
+      "entryPoints": ["SequenceProviders", "SequenceMechanicRole", "sequenceMechanic"],
+      "useWhen": "The same ordered keys must be accepted again on later rounds; use objectives instead for one-pass prerequisite counters.",
+      "limitations": ["No rewind, branching, persistence or automatic victory. Current real consumers are two racing compositions.", "Keys are not receipts; the game retains crossing/eligibility, deduplication, time limits and notifications."],
+      "docs": ["docs/sequences.md", "docs/building-block-plugins.md"],
+      "examples": ["src/plugins/vehicle-racing/index.ts", "src/plugins/example-racing/index.ts"],
+      "tests": ["tests/mechanics-sequence.test.ts", "tests/overhead-racing.test.ts", "tests/racing.test.ts", "tests/race-track.test.ts"],
+      "plugins": ["mechanics/sequence"], "roles": {"sdk/mechanic-sequence": "mechanics/sequence"},
+      "steps": [
+        "Enable/select a sequence provider and validate the selected ID has a matching SequenceProviders factory. Declare sdk/mechanic-sequence in roleDependencies when creating handles during plugin activation.",
+        "Call sequenceMechanic(ctx).create(ctx, instanceId, { steps, rounds }). Supply unique nonblank step keys and positive safe-integer rounds; the total must also be safe.",
+        "After local legality checks, call advance(expectedKey). Read round/index/complete for presentation and game outcome decisions; rejection preserves cursor and revision.",
+        "Dispose before replacing a run's instance. Both provider and consumer scopes own its lifetime, and retained old handles cannot mutate a replacement."
+      ]
+    },
+    {
+      "id": "recipe/bounded-command-queue", "name": "Owned bounded semantic command queues", "schema": 1, "scope": "cross-genre",
+      "summary": "Share a bounded FIFO command queue with pause/disposal gating and explicit single-command or snapshot-batch draining.",
+      "keywords": ["command", "queue", "fifo", "bounded", "ingress", "batch", "input", "pause", "turn", "capacity"],
+      "entryPoints": ["createCommandQueue", "SessionControl"],
+      "useWhen": "Different game authorities receive semantic commands but need the same bounded, owned ingress and draining behavior.",
+      "limitations": ["The game normalizes/copies each command and validates gameplay legality during processing. Enqueue acceptance is not gameplay success.", "No automatic tick system, command deduplication, or observation of a pause/resume that happens entirely between calls."],
+      "docs": ["docs/command-queues.md"], "examples": ["src/plugins/puzzle-rules/index.ts", "src/plugins/story-adventure/index.ts"],
+      "tests": ["tests/command-queue.test.ts", "tests/command-queue-consumers.test.ts", "tests/stonewake.test.ts", "tests/narrative-adventure.test.ts"],
+      "plugins": [], "roles": {},
+      "steps": [
+        "Call createCommandQueue(ctx, { capacity, normalize }) from the SDK. The normalizer returns a detached typed command or undefined to reject unknown input.",
+        "Expose queue.enqueue through the family service. The helper owns pending commands and rejects paused/disposed ingress; keep target legality and outcome decisions in the family authority.",
+        "Call drainOne or drainBatch in the existing simulation system. Batch transfer snapshots pending work before processing; clear pending work on the game's explicit transition boundaries.",
+        "Dispose early when replacing the queue; otherwise its consumer scope performs cleanup. No extra plugin or role selection is needed for this SDK helper."
+      ]
+    },
+    {
+      "id": "recipe/explicit-deadlines", "name": "Temporary effects and turn deadlines", "schema": 1, "scope": "cross-genre",
+      "summary": "Borrow an explicit seconds or turns clock for owned arm/cancel/due/remaining deadlines, keeping effect outcomes in the game.",
+      "keywords": ["deadline", "duration", "timer", "temporary", "effect", "boost", "immunity", "season", "expiry", "turn", "seconds"],
+      "entryPoints": ["createDeadline", "clockMechanic", "ClockMechanicRole"],
+      "useWhen": "A temporary effect or decision boundary needs an explicit-clock deadline, independently of an action's reuse cooldown.",
+      "limitations": ["The helper neither advances nor owns the borrowed clock. The game decides effect consequences and rearming.", "No automatic callbacks, recurring-job scheduler, production reservations, persistence, or replacement for shared action cooldowns."],
+      "docs": ["docs/deadlines.md", "docs/reusable-mechanics.md"], "examples": ["src/plugins/sky-game/index.ts", "src/plugins/verdant-game/index.ts"],
+      "tests": ["tests/deadlines.test.ts", "tests/deadline-consumers.test.ts"],
+      "plugins": ["mechanics/clock"], "roles": {"sdk/mechanic-clock": "mechanics/clock"},
+      "steps": [
+        "Select a clock implementation and declare sdk/mechanic-clock in the consumer's roleDependencies, or borrow a compatible clock already created by createMechanicKit.",
+        "Call createDeadline(ctx, clock, initialDuration?) from the SDK. Optional initial state supports paused activation; later arm/cancel mutations reject pause. Durations must be positive and representable in the clock's domain.",
+        "Only the game advances time: seconds from simulation dt, or turns from accepted decisions. Query due() or remaining() in the game's existing system and decide local consequences in their intended order.",
+        "Cancel or rearm explicitly. Dispose deadlines when replacing a run and retain ownership of the borrowed clock separately."
+      ]
+    },
+    {
+      "id": "recipe/resource-actions", "name": "Resource costs and cooldowns in any genre", "schema": 1, "scope": "cross-genre",
+      "summary": "Compose stamina/mana/currency costs, gains, cooldowns and objectives from a mechanic-kit instead of implementing another economy or ability timer.",
+      "keywords": ["stamina", "mana", "currency", "cost", "cooldown", "ability", "crafting", "conversion", "economy", "kit"],
+      "entryPoints": ["createMechanicKit", "MechanicKits", "MechanicActionCommitted"],
+      "useWhen": "The new feature differs in costs, gains, resource names, cooldown duration or objectives; the existing algorithms already fit.",
+      "limitations": ["This is a composition fragment, not a full playable preset. Target legality and game-local effects stay in the consumer."],
+      "docs": ["docs/reusable-mechanics.md", "docs/mechanic-conformance.md"], "examples": ["src/plugins/verdant-content/content.json", "src/plugins/verdant-game/index.ts", "src/content/presets/verdant-relay.json"],
+      "tests": ["tests/mechanics-providers.test.ts", "tests/reusable-games.test.ts"],
+      "plugins": ["mechanics/resources", "mechanics/clock", "mechanics/actions", "mechanics/objectives", "mechanics/kits"],
+      "roles": {"sdk/mechanic-resources": "mechanics/resources", "sdk/mechanic-clock": "mechanics/clock", "sdk/mechanic-actions": "mechanics/actions", "sdk/mechanic-objectives": "mechanics/objectives"},
+      "steps": [
+        "Merge this plugins/roles fragment into the game's preset. Require mechanics/kits for its loader; declare all four selected mechanic roles in the consumer's roleDependencies.",
+        "Author mechanic-kit content with name, domain, resources, actions and objectives. Prefer changing this data when only numbers or resource names differ.",
+        "In activate(ctx), call createMechanicKit(ctx, kitDefinitionId, uniqueInstanceId). Each consumer owns its own handles.",
+        "Advance seconds by simulation dt, or turns by an accepted decision. Validate spatial legality, then call kit.actions.execute(actionId); apply local effects only on ok.",
+        "Record objectives after success. On retry dispose the old kit before creating a replacement; reject UI ingress while SessionControl is paused."
+      ]
+    },
+    {
+      "id": "recipe/independent-actor-actions", "name": "Independent actor and tower cooldowns", "schema": 1, "scope": "cross-genre",
+      "summary": "Reuse one action provider with separate handles for actors, turrets or production stations, sharing a pool and clock when appropriate.",
+      "keywords": ["actor", "tower", "turret", "fire", "cooldown", "attack", "station", "independent", "instance"],
+      "entryPoints": ["actionMechanic", "resourceMechanic", "clockMechanic"],
+      "useWhen": "Several actors use the same action definition but must not share one cooldown deadline.",
+      "limitations": ["Handle IDs must be unique per consumer/type. This supplies costs/cooldowns, not targeting, projectiles or animation."],
+      "docs": ["docs/reusable-mechanics.md", "docs/ember-bastion.md"], "examples": ["src/plugins/ember-game/index.ts"],
+      "tests": ["tests/ember-bastion.test.ts", "tests/mechanics-providers.test.ts"],
+      "plugins": ["mechanics/resources", "mechanics/clock", "mechanics/actions"],
+      "roles": {"sdk/mechanic-resources": "mechanics/resources", "sdk/mechanic-clock": "mechanics/clock", "sdk/mechanic-actions": "mechanics/actions"},
+      "steps": [
+        "Select these roles and declare them in the consumer's roleDependencies. Resolve providers through the SDK helpers, not imports from provider folders.",
+        "Create a pool and an explicit clock, or reuse compatible handles the consumer already owns.",
+        "For each actor, call actionMechanic(ctx).create(ctx, uniqueActorId, pool, clock, actionDefinitions). Check a valid target before execute('fire').",
+        "Dispose the actor handle when it leaves; dispose all actor handles before replacing their pool/clock on replay."
+      ]
+    },
+    {
+      "id": "recipe/objective-unlocks", "name": "Quest counters and prerequisite unlocks", "schema": 1, "scope": "cross-genre",
+      "summary": "Reuse bounded progress with prerequisite objectives and duplicate-receipt protection.",
+      "keywords": ["quest", "objective", "achievement", "unlock", "progress", "prerequisite", "counter", "receipt"],
+      "entryPoints": ["objectiveMechanic", "ObjectiveMechanicRole", "MechanicObjectiveChanged"],
+      "useWhen": "A game needs several goals, including some that unlock only after other goals complete.",
+      "limitations": ["Counters are session-only. Rewards, story text and persistence are separate responsibilities."],
+      "docs": ["docs/reusable-mechanics.md"], "examples": ["src/plugins/sky-game/index.ts", "src/plugins/verdant-content/content.json"],
+      "tests": ["tests/mechanics-providers.test.ts"],
+      "plugins": ["mechanics/objectives"], "roles": {"sdk/mechanic-objectives": "mechanics/objectives"},
+      "steps": ["Declare sdk/mechanic-objectives in roleDependencies, then call objectiveMechanic(ctx).create(ctx, instanceId, definitions).", "Use local objective IDs and requires lists; definitions must be acyclic. Call record only after the relevant gameplay outcome commits.", "Use stable successful-event receipts for idempotence and inspect snapshot() for unlocked/complete state. Decide victory in the composing game."]
+    },
+    {
+      "id": "recipe/scoped-input", "name": "Scoped input, UI focus and pause gating", "schema": 1, "scope": "cross-genre",
+      "summary": "Reuse host InputContexts, Input and SessionControl for keyboard controls and paused command ingress.",
+      "keywords": ["input", "keyboard", "focus", "pause", "controls", "pointer", "menu", "context"],
+      "entryPoints": ["InputContexts", "Input", "InputActions", "SessionControl", "ExperienceRole"],
+      "useWhen": "Add controls or an input layer without another global keyboard state manager.",
+      "limitations": ["Host adapters are optional in headless sessions. A free-pointer experience policy alone does not validate commands or implement touch controls."],
+      "docs": ["PLUGINS.md", "ARCHITECTURE.md"], "examples": ["src/plugins/puzzle-presentation/index.ts", "src/plugins/vehicle-racing/index.ts"],
+      "tests": ["tests/experience-input.test.ts", "tests/platform.test.ts"],
+      "plugins": [], "roles": {},
+      "steps": ["Use ctx.services.tryGet(InputContexts) and tryGet(Input); the browser host installs them, so no platform plugin belongs in the preset.", "Own an input context through ctx, declare action bindings and respect native editable/control focus. Select ExperienceRole pointer policy appropriate to the game.", "Queue semantic commands; reject ingress when SessionControl.playing is false and validate them again in the simulation authority."]
+    },
+    {
+      "id": "recipe/owned-3d-presentation", "name": "Owned 3D scenes, cameras and HUD", "schema": 1, "scope": "cross-genre",
+      "summary": "Use the rendering SDK's scene roots, camera leases, shared assets and UI mounting instead of another renderer or DOM lifecycle.",
+      "keywords": ["3d", "render", "camera", "orthographic", "perspective", "scene", "hud", "ui", "picking", "texture", "ownership"],
+      "entryPoints": ["Render", "Ui", "ThemeRole", "SessionControl"],
+      "useWhen": "A new visual style or camera is needed around an existing simulation service.",
+      "limitations": ["Presentation requires render capability and optional browser services. Geometry/picking are presentation-specific; use original SDK imports rather than npm Three.js imports."],
+      "docs": ["PLUGINS.md", "docs/stonewake.md"], "examples": ["src/plugins/puzzle-presentation/index.ts", "src/plugins/verdant-presentation/scene.ts"],
+      "tests": ["tests/render-three.test.ts", "tests/stonewake-demo/run.mjs"],
+      "plugins": [], "roles": {},
+      "steps": ["Declare render in capabilities and import Render/THREE from src/sdk/render.ts; return early when Render or Ui is absent.", "Own scene roots with createRoot(ctx,...), geometry/materials with own/shared, and select the world camera through setWorldCamera(ctx,camera).", "Mount HUD/styles through Ui with ctx; read detached game state and enqueue commands. Never advance gameplay clocks from frame updates."]
+    },
+    {
+      "id": "recipe/profile-storage", "name": "Namespaced profile and best-score storage", "schema": 1, "scope": "cross-genre",
+      "summary": "Use the host Profile service for small namespaced persistent JSON values and Settings for browser preferences.",
+      "keywords": ["save", "load", "persistence", "storage", "profile", "best score", "settings", "preferences"],
+      "entryPoints": ["Profile", "Settings"],
+      "useWhen": "Persist small profile values, preferences or records through an optional host service.",
+      "limitations": ["Not a general game-state snapshot/restore system. Adventure's chapter saves are a family-specific example; callers validate stored data and handle unavailable storage."],
+      "docs": ["CONTENT_FORMAT.md", "docs/narrative-adventure.md"], "examples": ["src/plugins/example-arena/index.ts", "src/plugins/story-adventure/index.ts"],
+      "tests": ["tests/profile-store.test.ts", "tests/arena-mode.test.ts"],
+      "plugins": [], "roles": {},
+      "steps": ["Resolve Profile with tryGet; storage may be absent or unavailable.", "Use your own namespaced key, validate read values and write only supported JSON; inspect the SDK signatures and existing error handling.", "For full game saves, design a versioned domain-specific schema and replay/restore contract rather than serializing session handles."]
+    },
+    {
+      "id": "recipe/semantic-audio", "name": "Theme-selected sound cues", "schema": 1, "scope": "cross-genre",
+      "summary": "Play existing semantic sound cues through Audio and theme providers with scoped lifecycle.",
+      "keywords": ["audio", "sound", "cue", "theme", "synthesis", "volume"],
+      "entryPoints": ["Audio", "ThemeRole"],
+      "useWhen": "Reuse cue playback and theme synthesis instead of creating unmanaged AudioContexts in plugins.",
+      "limitations": ["No general continuous music director or asynchronous audio-bundle loader. Confirm a semantic cue exists in the selected theme."],
+      "docs": ["PLUGINS.md"], "examples": ["src/plugins/vehicle-presentation/index.ts", "src/plugins/theme-board/index.ts"],
+      "tests": ["tests/experience-themes.test.ts", "tests/platform.test.ts"],
+      "plugins": [], "roles": {},
+      "steps": ["Select a compatible theme in the game preset and query Audio as an optional service.", "Use semantic cue IDs supplied by the theme; tie requests/lifecycle to ctx and keep cosmetic audio scheduling outside authoritative randomness.", "Reuse the host audio adapter; verify changed audio in a real browser as well as automated lifecycle tests."]
+    },
+    {
+      "id": "recipe/experience-levels", "name": "XP curves, levels and pending rewards", "schema": 1, "scope": "cross-genre",
+      "summary": "Track XP and deterministic level thresholds, complete multiple levels atomically and acknowledge game-defined level rewards.",
+      "keywords": ["progression", "experience", "xp", "level", "level up", "threshold", "rpg", "roguelite", "pending", "reward"],
+      "entryPoints": ["ProgressionProviders", "ProgressionMechanicRole", "progressionMechanic", "MechanicProgressionChanged"],
+      "useWhen": "A game needs repeatable XP thresholds and owned level state but should keep perks, UI and reward timing local.",
+      "limitations": ["Linear base + growth curve only. Does not own perk effects, stat application, persistence, UI or automatic reward selection.", "Pending rewards can accumulate while the game continues; consumers decide when to present and consume them."],
+      "docs": ["docs/progression.md"], "examples": ["src/plugins/cinder-game/index.ts"],
+      "tests": ["tests/mechanics-progression.test.ts", "tests/cinder-vault.test.ts"],
+      "plugins": ["mechanics/progression"], "roles": {"sdk/mechanic-progression": "mechanics/progression"},
+      "steps": ["Select a progression provider and declare sdk/mechanic-progression in roleDependencies when resolving it during activation.", "Call progressionMechanic(ctx).create(ctx, instanceId, { startLevel, baseXp, growth, maxLevel }). Grant positive safe-integer XP in simulation.", "Apply the consumer's own automatic level gains and boon presentation. Call consumeLevel only after the game has committed a chosen reward.", "Dispose through the consumer/provider scopes; retained getters are observations, not a save/restore protocol."]
+    }
+  ]
+}
