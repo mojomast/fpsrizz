@@ -1,5 +1,6 @@
 // Production build -> dist/.  ENTRY env overrides the entry point (default src/app/main.ts).
-import { rmSync, mkdirSync, cpSync, existsSync, statSync, readdirSync } from 'node:fs';
+import { rmSync, mkdirSync, cpSync, existsSync, statSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { resolve, join, relative } from 'node:path';
 import { resolveTool, root } from './tools.mjs';
 
@@ -28,7 +29,13 @@ try {
     define: { __DEV__: 'false' },
     logLevel: 'warning',
   });
-  cpSync(resolve(root, 'index.html'), resolve(dist, 'index.html'));
+  // GitHub Pages caches assets at stable URLs. A content-derived query keeps an updated HTML document from
+  // reusing an older JavaScript bundle while preserving the same output paths for local tools and source maps.
+  const hash = createHash('sha256').update(readFileSync(resolve(dist, 'assets/main.js'))).digest('hex').slice(0, 16);
+  const html = readFileSync(resolve(root, 'index.html'), 'utf8');
+  const entryUrl = './assets/main.js';
+  if (!html.includes(`src="${entryUrl}"`)) throw new Error('index.html is missing the expected JavaScript entry');
+  writeFileSync(resolve(dist, 'index.html'), html.replace(`src="${entryUrl}"`, `src="${entryUrl}?v=${hash}"`));
   if (existsSync(resolve(root, 'public'))) cpSync(resolve(root, 'public'), dist, { recursive: true });
   for (const f of walk(dist).sort()) {
     const kb = statSync(f).size / 1024;
