@@ -1,0 +1,71 @@
+[
+  {
+    "kind": "pickup",
+    "id": "example/salvage-cache",
+    "data": {
+      "name": "Salvage cache +10",
+      "effect": "example/loot",
+      "params": { "amount": 10 },
+      "visual": "pickup-cells",
+      "sound": "pickup-ammo",
+      "radius": 0.6
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "example/salvage-data",
+    "data": {
+      "name": "Data core +25",
+      "effect": "example/loot",
+      "params": { "amount": 25 },
+      "visual": "pickup-bullets",
+      "sound": "pickup-ammo",
+      "radius": 0.6
+    }
+  },
+  {
+    "kind": "map",
+    "id": "example/salvage-run",
+    "data": {
+      "schema": 1,
+      "format": "core/grid",
+      "name": "Salvage Run",
+      "cellSize": 2,
+      "wallHeight": 3,
+      "legend": {
+        "#": { "solid": true, "wall": "wall-panel" },
+        "T": { "solid": true, "wall": "wall-tech" },
+        ".": { "floor": "floor-plate", "ceiling": "ceiling-panel" },
+        ",": { "floor": "floor-concrete", "ceiling": "ceiling-panel" }
+      },
+      "grid": [
+        "###############",
+        "#.....#.......#",
+        "#.....#.......#",
+        "#.............#",
+        "#..TTT.TTTT...#",
+        "#.............#",
+        "#.....#.......#",
+        "#.....#.......#",
+        "###############"
+      ],
+      "playerStart": { "cell": [1, 7], "yaw": 0 },
+      "triggers": [
+        { "id": "extraction", "kind": "zone", "cell": [13, 7], "radius": 0.9, "tags": ["exit"] }
+      ],
+      "spawns": [
+        { "id": "loading-cache", "prefab": "example/salvage-cache", "cell": [2, 5] },
+        { "id": "upper-cache", "prefab": "example/salvage-cache", "cell": [3, 1] },
+        { "id": "data-core", "prefab": "example/salvage-data", "cell": [12, 1] },
+        { "id": "lower-cache", "prefab": "example/salvage-cache", "cell": [10, 6] }
+      ],
+      "lights": [
+        { "id": "loading", "cell": [2, 6], "color": "#ffb060", "intensity": 1.1, "distance": 10 },
+        { "id": "archive", "cell": [10, 2], "color": "#50c0ff", "intensity": 1.2, "distance": 10 },
+        { "id": "exit", "cell": [13, 7], "color": "#40ff70", "intensity": 1.5, "distance": 9 }
+      ],
+      "ambient": { "color": "#8a94ad", "intensity": 0.42 },
+      "fog": { "color": "#07090d", "near": 6, "far": 38 }
+    }
+  }
+]

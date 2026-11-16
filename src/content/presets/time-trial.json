@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "id": "example/time-trial",
+  "name": "Bulkhead Station — Time Trial Raid",
+  "plugins": ["core/world", "core/combat", "core/player", "core/enemies", "core/hud", "core/presentation", "theme/assetrizz", "core/content", "example/time-trial"],
+  "roles": {
+    "sdk/controller": "core/fps-controller",
+    "sdk/camera": "core/fp-camera",
+    "sdk/mode": "example/time-trial",
+    "sdk/hud": "core/hud",
+    "sdk/theme": "theme/assetrizz"
+  },
+  "options": { "map": "core/arena" },
+  "config": {},
+  "seed": 1337
+}

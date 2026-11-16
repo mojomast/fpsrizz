@@ -1,6 +1,7 @@
 # HANDOFF
 
-State of the repository at the end of the first build session. Read this first, then `AGENTS.md`.
+Historical snapshot from the end of the first build session, not current verification or setup instructions. Start with
+`README.md` and `AGENTS.md`; run checks locally for current results.
 
 ## What works (verified)
 
@@ -21,8 +22,7 @@ compared against the first session, a frame-time sample and a console-error chec
 
 - **Not Three.js, Vite or Vitest.** The build environment had no npm registry access. Rendering is the in-repo WebGL2
   renderer `mini3` (Three-style API subset behind `src/sdk/render.ts` and the render adapter); bundling uses esbuild;
-  tests use `node --test`. No lockfile exists because none could be generated offline; the first networked
-  `npm install` creates it. Migration path: `devplan.md`, step 1.
+  tests use `node --test`. A lockfile has since been added. Migration path: `devplan.md`, step 1.
 - **Performance is not measured on a real GPU.** The only numbers come from headless Chrome on SwiftShader (software
   rendering): about 3 to 5 fps at 1280x720, 37 draw calls, about 1.5k triangles, 20 entities, about 0.8 to 2.4 ms of
   JavaScript per frame. The CPU figure is meaningful; the frame rate is not.

@@ -27,7 +27,9 @@ const check = (name, ok, detail = '') => {
 };
 
 const srv = await startStaticServer(dist);
-const browser = await launchBrowser();
+let browser;
+try {
+browser = await launchBrowser();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
 const consoleErrors = [];
 page.on('console', (m) => {
@@ -400,9 +402,9 @@ try {
 } catch (e) {
   check('smoke run completed', false, e?.stack ?? String(e));
   await shot('99-failure').catch(() => {});
-} finally {
-  await browser.close();
-  srv.close();
 }
 console.log(`\n${results.length - failed}/${results.length} checks passed. Screenshots and smoke-report.json are in .smoke/`);
-process.exit(failed ? 1 : 0);
+process.exitCode = failed ? 1 : 0;
+} finally {
+  try { await browser?.close(); } finally { await srv.close(); }
+}

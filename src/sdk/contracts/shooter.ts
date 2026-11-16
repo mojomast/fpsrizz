@@ -50,6 +50,8 @@ export interface Intent {
   fire: boolean;
   firePressed: boolean;
   use: boolean;
+  /** Reload pressed this tick; optional for existing controllers. */
+  reload?: boolean;
   /** 1-based weapon slot requested this tick, or 0. */
   weaponSlot: number;
   /** -1 / +1 to cycle weapons, or 0. */
@@ -80,6 +82,13 @@ export interface Inventory {
   switchedAt: number;
 }
 export const Inventory = defineComponent<Inventory>('sdk/inventory');
+
+/** Per-actor magazine state. Inventory.ammo remains the shared reserve. */
+export interface WeaponRuntime {
+  loaded: Record<string, number>;
+  reload: { weapon: string; completesAt: number } | null;
+}
+export const WeaponRuntime = defineComponent<WeaponRuntime>('sdk/weapon-runtime');
 
 export interface Enemy {
   def: string;
@@ -250,6 +259,28 @@ export interface WorldService {
 }
 export const World = defineService<WorldService>('sdk/world');
 
+/** One eligible Use target. Providers determine reach, facing and visibility before returning it. */
+export interface InteractionCandidate {
+  /** Stable, non-empty identifier unique within this provider's result. */
+  id: string;
+  /** Lower values win; built-in switches use 0 and doors use 1. */
+  priority: number;
+  /** Finite, non-negative distance in metres. */
+  distance: number;
+  /** Called once for the winner. A denial still consumes Use; provide feedback here. */
+  use(): void;
+}
+export type InteractionProvider = (by: EntityId, pose: Readonly<Transform>) => readonly InteractionCandidate[];
+export interface InteractionService {
+  /** Register a uniquely named provider for the lifetime of ctx.scope. Returns an early, idempotent disposer. */
+  register(ctx: SessionContext, id: string, provider: InteractionProvider): () => void;
+}
+/**
+ * Candidates sort by ascending priority, distance, provider id, then candidate id (code-unit order).
+ * Equidistant built-in switches or doors retain their original map array order instead of sorting by id.
+ */
+export const Interactions = defineService<InteractionService>('sdk/interactions');
+
 /** A playable map, already translated by its format into the authoritative description. */
 export interface MapDef {
   name: string;
@@ -360,6 +391,10 @@ export interface WeaponDef {
   /** Ammo type consumed ("" = infinite). */
   ammoType: string;
   ammoPerShot: number;
+  /** Opt in to a detachable magazine; requires reloadTime and a finite ammo type. */
+  magazineSize?: number;
+  /** Reload duration in simulation seconds. */
+  reloadTime?: number;
   /** Seconds between shots (simulation time). */
   cooldown: number;
   /** Hold-to-fire. */

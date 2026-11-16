@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "01_vigil_knife",
+    "alpha_bbox": [
+      164,
+      136,
+      319,
+      466
+    ],
+    "first_opaque_pixel": [
+      283.5,
+      137
+    ],
+    "feature_projected_bbox": [
+      206.8,
+      122.4,
+      316.5,
+      284.6
+    ],
+    "glb_meshes": 10,
+    "glb_bytes": 36492
+  },
+  {
+    "slug": "02_spark_pistol",
+    "alpha_bbox": [
+      157,
+      93,
+      312,
+      466
+    ],
+    "first_opaque_pixel": [
+      276.5,
+      94
+    ],
+    "feature_projected_bbox": [
+      246.0,
+      92.3,
+      305.5,
+      155.5
+    ],
+    "glb_meshes": 16,
+    "glb_bytes": 55760
+  },
+  {
+    "slug": "03_flicker_smg",
+    "alpha_bbox": [
+      133,
+      42,
+      337,
+      458
+    ],
+    "first_opaque_pixel": [
+      288.5,
+      43
+    ],
+    "feature_projected_bbox": [
+      252.0,
+      41.2,
+      321.4,
+      117.8
+    ],
+    "glb_meshes": 19,
+    "glb_bytes": 67296
+  },
+  {
+    "slug": "04_lattice_assault",
+    "alpha_bbox": [
+      151,
+      76,
+      310,
+      463
+    ],
+    "first_opaque_pixel": [
+      286.5,
+      77
+    ],
+    "feature_projected_bbox": [
+      261.2,
+      75.6,
+      310.6,
+      130.0
+    ],
+    "glb_meshes": 21,
+    "glb_bytes": 72660
+  },
+  {
+    "slug": "05_parallax_sniper",
+    "alpha_bbox": [
+      167,
+      101,
+      304,
+      465
+    ],
+    "first_opaque_pixel": [
+      285.0,
+      102
+    ],
+    "feature_projected_bbox": [
+      265.1,
+      100.5,
+      304.3,
+      143.9
+    ],
+    "glb_meshes": 23,
+    "glb_bytes": 78068
+  },
+  {
+    "slug": "06_cairn_rocket",
+    "alpha_bbox": [
+      120,
+      54,
+      349,
+      468
+    ],
+    "first_opaque_pixel": [
+      282.5,
+      55
+    ],
+    "feature_projected_bbox": [
+      208.2,
+      51.0,
+      354.3,
+      194.4
+    ],
+    "glb_meshes": 20,
+    "glb_bytes": 71696
+  }
+]

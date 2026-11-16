@@ -13,13 +13,14 @@ Validation errors always carry the pack/plugin id, a field path and an explanati
 [example/pack] weapon "example/burst-pistol".behavior: unknown attack behaviour "core/laser". Installed: core/hitscan, core/projectile, core/melee
 ```
 
-General rules: numbers must be finite; ids are namespaced (`pack-name/thing`: lowercase letters, digits, `-`, at
-least one `/`); duplicate ids are rejected; arrays and strings have size limits; every referenced behaviour, prefab,
+General rules: numbers must be finite; ids match `^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$`
+(`pack-name/thing`, with one or more slash-separated name segments); duplicate ids are rejected; arrays and strings have size limits; every referenced behaviour, prefab,
 ammo type, door or map must exist among the **enabled** plugins.
 
 ## 1. Content pack file
 
-The unit of import/export. A pack is a manifest plus content entries.
+The unit of import/export. A pack is a manifest plus content entries. This is a schematic shape: the empty weapon
+data below is not a valid weapon. For a working pack, see `src/plugins/example-pack/` and the content-kind examples below.
 
 ```json
 {
@@ -86,6 +87,7 @@ Built-in packs live in `src/plugins/<dir>/manifest.json` + `content.json` (the `
 | `behavior` + `params` | a registered attack behaviour and its parameters (validated by the behaviour) |
 | `ammoType` | an `ammo` id, or `""`/omitted for infinite |
 | `ammoPerShot` | rounds per shot, integer 0–100 (default 1) |
+| `magazineSize`, `reloadTime` | optional together; magazine size is an integer 1–9999 and at least `ammoPerShot`, reload time is 0.03–60 seconds. Requires a finite ammo type and at least one round per shot. |
 | `cooldown` | seconds between shots, ≥ 0.03 |
 | `auto` | hold to fire |
 | `view`, `fireSound` | theme keys (texture for the first-person sprite, sound) |
@@ -259,6 +261,11 @@ Out of scope for this milestone: archives, new art/sound assets inside packs, sc
 `shooter-foundation/preset` (`{ schema: 1, preset }`). Corrupt or unknown-schema data falls back to defaults; a stored
 preset that no longer validates falls back to the default preset.
 
+`shooter-foundation/profile` stores `{ schema: 1, values: { key: string | boolean | finite number } }`.
+Profile keys begin with an ASCII letter or digit and contain at most 128 letters, digits, `.`, `_`, `/`, or `-`.
+The optional `Profile` service reports corrupt, incompatible and unavailable data rather than overwriting it;
+`clear` explicitly removes it. Arena best score uses this profile. Whole-profile saves are not cross-tab transactions.
+
 Imported packs are held in memory for the session only (planned: persist them alongside the preset).
 
 **Future save games (planned, not implemented):** entities and components are already plain JSON
@@ -269,7 +276,7 @@ outside the saved major version.
 ## Limits enforced by the validators (quick reference)
 
 - Creator import: files and pasted JSON are limited to 1 MB.
-- Weapon `cooldown`: 0 to 10 seconds.
+- Weapon `cooldown`: 0.03 to 10 seconds.
 - Grid maps: `cellSize` 1 to 8, `wallHeight` 2 to 8.
 - Ids are `namespace/name`; the name part may contain several `/` segments plus `.` and `_`.
 - `core/give-ammo` and `core/give-weapon` pickups must name ammo types and weapons that exist in the installed registries.

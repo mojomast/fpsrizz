@@ -14,17 +14,23 @@ if (!id || !/^[a-z0-9][a-z0-9-]*\/[a-z0-9][a-z0-9._-]*$/.test(id)) {
 const name = displayName ?? id;
 const dirName = id.replace('/', '-');
 const dir = path.join(root, 'src', 'plugins', dirName);
-if (fs.existsSync(dir)) {
+fs.mkdirSync(path.dirname(dir), { recursive: true });
+try {
+  fs.mkdirSync(dir);
+} catch (error) {
+  if (error.code !== 'EEXIST') throw error;
   console.error(`src/plugins/${dirName} already exists.`);
   process.exit(1);
 }
-fs.mkdirSync(dir, { recursive: true });
 const tpl = path.join(root, 'templates', 'plugin-starter');
 for (const file of fs.readdirSync(tpl)) {
-  const text = fs.readFileSync(path.join(tpl, file), 'utf8').replaceAll('__ID__', id).replaceAll('__NAME__', name);
-  fs.writeFileSync(path.join(dir, file), text);
+  const text = fs.readFileSync(path.join(tpl, file), 'utf8').replace(
+    /"__ID__"|"__NAME__"|'__NAME__ is active'/g,
+    (placeholder) => JSON.stringify(placeholder === '"__ID__"' ? id : placeholder === '"__NAME__"' ? name : `${name} is active`),
+  );
+  fs.writeFileSync(path.join(dir, file), text, { flag: 'wx' });
 }
-const ident = dirName.replace(/[-.](\w)/g, (_, c) => c.toUpperCase());
+const ident = `plugin_${dirName.replace(/[-.]/g, '_')}`;
 console.log(`Created src/plugins/${dirName}/ (manifest.json, index.ts)
 
 1. Add to src/app/catalog.ts:

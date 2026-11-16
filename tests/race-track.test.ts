@@ -1,0 +1,54 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import { Collider, Flow, Player, Transform, World, angleDelta, yawOf } from '../src/sdk/index.ts';
+import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
+import racing from '../src/plugins/example-racing/manifest.json' with { type: 'json' };
+import manifest from '../src/plugins/example-race-track/manifest.json' with { type: 'json' };
+import content from '../src/plugins/example-race-track/content.json' with { type: 'json' };
+
+test('Foundry Circuit is sealed and the real driving controller can complete its ordered loop', async () => {
+  const game = createHeadlessGame([
+    { manifest: racing as never, load: () => import('../src/plugins/example-racing/index.ts') },
+    { manifest: manifest as never, content: content as never },
+  ]);
+  try {
+    await game.host.apply(headlessPreset({
+      plugins: ['core/world', 'core/combat', 'core/player', 'example/racing', 'example/race-track'],
+      roles: { 'sdk/controller': 'example/racing-controller', 'sdk/camera': 'core/fp-camera', 'sdk/mode': 'example/race' },
+      options: { map: 'example/foundry-circuit' },
+    }) as never);
+    const session = game.session(), world = session.services.get(World), flow = session.services.get(Flow);
+    const id = session.entities.first(Player)!;
+    const pose = session.entities.get(id, Transform)!;
+    const radius = session.entities.get(id, Collider)!.radius;
+    const { width, height, cells } = world.desc;
+    for (let x = 0; x < width; x++) {
+      assert.ok(cells[x]!.solid && cells[(height - 1) * width + x]!.solid);
+    }
+    for (let z = 0; z < height; z++) {
+      assert.ok(cells[z * width]!.solid && cells[z * width + width - 1]!.solid);
+    }
+    // Targets run clockwise from start, with an extra waypoint at each turn.
+    const points = [[5, 11], [5, 5], [11, 5], [23, 5], [29, 5], [29, 13], [29, 21], [23, 21], [11, 21]] as const;
+    let next = 0;
+    const set = (action: string, held: boolean): void => held ? game.input.press(action) : game.input.release(action);
+    for (let i = 0; i < 60 * 85 && !flow.ended; i++) {
+      const target = points[next]!;
+      const dx = target[0] - pose.x, dz = target[1] - pose.z;
+      if (Math.hypot(dx, dz) < 1 && next < points.length - 1) next++;
+      const current = points[next]!;
+      const error = angleDelta(pose.yaw, yawOf(current[0] - pose.x, current[1] - pose.z));
+      const speed = session.entities.get(id, Player)!.speed * 12;
+      set('example/racing-left', error > 0.025);
+      set('example/racing-right', error < -0.025);
+      set('example/racing-gas', speed < 3.8);
+      set('example/racing-brake', speed > 4.2);
+      game.ticks(1);
+      assert.ok(world.isFree(pose.x, pose.z, radius), `collision clearance at tick ${i}`);
+    }
+    assert.equal(flow.result?.outcome, 'victory', `waypoint ${next}, pose ${pose.x.toFixed(1)},${pose.z.toFixed(1)}, status ${flow.status.get('race-checkpoints')?.value}`);
+    assert.equal(flow.status.get('race-checkpoints')?.value, '5 / 5');
+  } finally {
+    game.host.stop();
+  }
+});

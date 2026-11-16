@@ -1,5 +1,5 @@
 import type { Prefab, RoleInfo, SessionContext, ViewState } from '../../sdk/index.ts';
-import { AmmoTypes, CameraRole, Collider, ControllerRole, Damaged, Died, Health, Input, InputActions, Intent, Inventory, Player, Prefabs, Settings, Transform, View, Weapons, World, angleDelta, defineComponent, definePlugin, makeTransform, yawDirX, yawDirZ } from '../../sdk/index.ts';
+import { AmmoTypes, CameraRole, Collider, ControllerRole, Damaged, Died, Health, Input, InputActions, Intent, Inventory, Player, Prefabs, Settings, Transform, View, WeaponRuntime, Weapons, World, angleDelta, defineComponent, definePlugin, makeTransform, yawDirX, yawDirZ } from '../../sdk/index.ts';
 
 const EYE_HEIGHT = 1.5;
 const RADIUS = 0.35;
@@ -18,6 +18,7 @@ const A = {
   turnRight: 'core/turn-right',
   fire: 'core/fire',
   use: 'core/use',
+  reload: 'core/reload',
   next: 'core/weapon-next',
   prev: 'core/weapon-prev',
 } as const;
@@ -44,7 +45,16 @@ const playerPrefab = (maxHealth: number): Prefab => ({
       ammo[a.id] = a.value.start;
       ammoMax[a.id] = a.value.max;
     }
+    const loaded: Record<string, number> = {};
+    for (const id of weapons) {
+      const def = ctx.registries.get(Weapons, id)!;
+      if (def.magazineSize === undefined) continue;
+      const rounds = Math.min(def.magazineSize, ammo[def.ammoType] ?? 0);
+      loaded[id] = rounds;
+      ammo[def.ammoType] = (ammo[def.ammoType] ?? 0) - rounds;
+    }
     ctx.world.add(e, Inventory, { weapons, current: weapons[0] ?? null, ammo, ammoMax, nextFireAt: 0, lastFiredAt: -10, switchedAt: -10 });
+    ctx.world.add(e, WeaponRuntime, { loaded, reload: null });
     return e;
   },
 });
@@ -73,6 +83,7 @@ function fpsController(ctx: SessionContext): void {
         intent.fire = !dead && tick.held(A.fire);
         intent.firePressed = !dead && tick.pressed(A.fire);
         intent.use = !dead && tick.pressed(A.use);
+        intent.reload = !dead && tick.pressed(A.reload);
         intent.weaponSlot = 0;
         intent.weaponCycle = 0;
         if (!dead) {
@@ -151,6 +162,7 @@ export default definePlugin({
     key(A.turnRight, 'Turn right', ['ArrowRight']);
     key(A.fire, 'Fire', ['Mouse0', 'Space']);
     key(A.use, 'Use / open', ['KeyE', 'KeyF']);
+    key(A.reload, 'Reload', ['KeyR']);
     key(A.next, 'Next weapon', ['WheelDown', 'KeyQ']);
     key(A.prev, 'Previous weapon', ['WheelUp']);
     for (const s of SLOTS) key(`core/weapon-${s}`, `Weapon ${s}`, [`Digit${s}`]);

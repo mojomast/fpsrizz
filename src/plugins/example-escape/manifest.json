@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "example/escape",
+  "name": "Escape Mode",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^1.0.0",
+  "description": "Find a route through the map to an exit; death ends the run.",
+  "dependencies": { "core/world": "^1.0.0" },
+  "capabilities": ["simulation"],
+  "config": {
+    "playerPrefab": { "type": "string", "label": "Player prefab id", "default": "core/player" }
+  }
+}

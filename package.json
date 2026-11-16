@@ -15,10 +15,11 @@
     "preview": "node scripts/preview.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "node scripts/boundaries.ts",
-    "test": "node --test \"tests/**/*.test.ts\"",
+    "test": "node --test \"tests/**/*.test.ts\" tests/validate-game.test.mjs",
     "smoke": "node scripts/smoke.mjs",
     "check": "npm run typecheck && npm run lint && npm run test",
-    "new-plugin": "node scripts/new-plugin.mjs"
+    "new-plugin": "node scripts/new-plugin.mjs",
+    "validate-game": "node scripts/validate-game.mjs"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

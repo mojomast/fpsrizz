@@ -1,5 +1,5 @@
-import type { DoorState, EntityId, MapDef, SessionContext, TriggerState, WorldDescription, WorldService } from '../../sdk/index.ts';
-import { Collider, DoorChanged, Intent, MapFormats, Maps, Player, Prefabs, Transform, TriggerFired, UseFailed, World, definePlugin, isObject, vId, vString, yawDirX, yawDirZ } from '../../sdk/index.ts';
+import type { DoorState, EntityId, InteractionCandidate, InteractionProvider, MapDef, SessionContext, TriggerState, WorldDescription, WorldService } from '../../sdk/index.ts';
+import { Collider, DoorChanged, Intent, Interactions, MapFormats, Maps, Player, Prefabs, Transform, TriggerFired, UseFailed, World, definePlugin, isObject, vId, vString, yawDirX, yawDirZ } from '../../sdk/index.ts';
 import type { Box } from './collision.ts';
 import { CollisionWorld } from './collision.ts';
 import { buildGridMap } from './grid.ts';
@@ -21,6 +21,16 @@ export function createCollision(desc: WorldDescription): { col: CollisionWorld; 
 }
 
 function createWorld(ctx: SessionContext, desc: WorldDescription): WorldService {
+  const providers = new Map<string, InteractionProvider>();
+  ctx.services.provide(Interactions, {
+    register(owner, id, provider) {
+      if (typeof id !== 'string' || !id.trim() || id === 'core/world') throw new Error('interaction provider id must be non-empty and not reserved: core/world');
+      if (typeof provider !== 'function') throw new Error(`interaction provider "${id}" must be a function`);
+      if (providers.has(id)) throw new Error(`duplicate interaction provider "${id}"`);
+      providers.set(id, provider);
+      return owner.scope.add(() => { if (providers.get(id) === provider) providers.delete(id); }, 'interaction-provider');
+    },
+  });
   const { col, doorBoxes } = createCollision(desc);
   const nav = new GridNav(desc.width, desc.height, desc.cellSize);
   const doors: DoorState[] = desc.doors.map((d) => ({ desc: d, open: false, locked: d.locked, openness: 0 }));
@@ -108,37 +118,44 @@ function createWorld(ctx: SessionContext, desc: WorldDescription): WorldService 
         if (!t) return;
         const fx = yawDirX(t.yaw);
         const fz = yawDirZ(t.yaw);
-        let bestSwitch: TriggerState | undefined;
-        let bestDoor: DoorState | undefined;
-        let best = Infinity;
+        let best: { provider: string; candidate: InteractionCandidate } | undefined;
+        const offer = (provider: string, candidate: InteractionCandidate): void => {
+          if (!candidate || typeof candidate.id !== 'string' || !candidate.id.trim() || !Number.isFinite(candidate.priority) || !Number.isFinite(candidate.distance) || candidate.distance < 0 || typeof candidate.use !== 'function') {
+            throw new Error(`invalid interaction candidate from "${provider}"`);
+          }
+          const b = best?.candidate;
+          if (!best || !b || candidate.priority < b.priority || (candidate.priority === b.priority && (candidate.distance < b.distance || (candidate.distance === b.distance && (provider < best.provider || (provider === best.provider && provider !== 'core/world' && candidate.id < b.id)))))) best = { provider, candidate };
+        };
         for (const tr of triggers) {
           if (tr.desc.kind !== 'switch' || (tr.fired && tr.desc.once)) continue;
           const dx = tr.desc.x - t.x;
           const dz = tr.desc.z - t.z;
           const d = Math.hypot(dx, dz);
           if (d > tr.desc.radius || (d > 0.3 && (dx * fx + dz * fz) / d < 0.35)) continue;
-          if (d < best) {
-            best = d;
-            bestSwitch = tr;
-          }
+          offer('core/world', { id: tr.desc.id, priority: 0, distance: d, use: () => fire(tr, e) });
         }
-        if (!bestSwitch) {
-          for (const door of doors) {
+        for (const door of doors) {
             const dx = (door.desc.minX + door.desc.maxX) / 2 - t.x;
             const dz = (door.desc.minZ + door.desc.maxZ) / 2 - t.z;
             const d = Math.hypot(dx, dz);
             if (d > desc.cellSize * 0.95 || (d > 0.3 && (dx * fx + dz * fz) / d < 0.2)) continue;
-            if (d < best) {
-              best = d;
-              bestDoor = door;
-            }
+          offer('core/world', { id: door.desc.id, priority: 1, distance: d, use: () => {
+            if (door.locked) ctx.events.emit(UseFailed, { by: e, reason: 'locked' });
+            else service.setDoorOpen(door.desc.id, !door.open);
+          } });
+        }
+        for (const [id, provider] of [...providers].sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)) {
+          const candidates = provider(e, { ...t });
+          if (!Array.isArray(candidates)) throw new Error(`interaction provider "${id}" must return an array`);
+          const ids = new Set<string>();
+          for (const candidate of candidates) {
+            offer(id, candidate);
+            if (ids.has(candidate.id)) throw new Error(`duplicate interaction candidate "${candidate.id}" from "${id}"`);
+            ids.add(candidate.id);
           }
         }
-        if (bestSwitch) fire(bestSwitch, e);
-        else if (bestDoor) {
-          if (bestDoor.locked) ctx.events.emit(UseFailed, { by: e, reason: 'locked' });
-          else service.setDoorOpen(bestDoor.desc.id, !bestDoor.open);
-        } else ctx.events.emit(UseFailed, { by: e, reason: 'nothing' });
+        if (best) (best as { candidate: InteractionCandidate }).candidate.use();
+        else ctx.events.emit(UseFailed, { by: e, reason: 'nothing' });
       });
       // Zones fire when a player enters (edge-triggered per entity).
       ctx.world.each(Player, (e) => {

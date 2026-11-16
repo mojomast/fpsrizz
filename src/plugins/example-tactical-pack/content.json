@@ -1,0 +1,76 @@
+[
+  {
+    "kind": "ammo",
+    "id": "example/carbine-rounds",
+    "data": { "name": "Carbine rounds", "max": 48, "start": 24 }
+  },
+  {
+    "kind": "weapon",
+    "id": "example/relay-carbine",
+    "data": {
+      "name": "Relay Carbine",
+      "slot": 3,
+      "starter": true,
+      "behavior": "core/hitscan",
+      "params": { "damage": 20, "range": 45, "spread": 0.006 },
+      "ammoType": "example/carbine-rounds",
+      "magazineSize": 6,
+      "reloadTime": 1.0,
+      "cooldown": 0.2,
+      "auto": false,
+      "view": "weapon-pistol",
+      "fireSound": "pistol-fire",
+      "recoil": 0.35,
+      "flash": "#ffe3a6"
+    }
+  },
+  {
+    "kind": "pickup",
+    "id": "example/carbine-ammo",
+    "data": {
+      "name": "Carbine rounds +12",
+      "effect": "core/give-ammo",
+      "params": { "ammoType": "example/carbine-rounds", "amount": 12 },
+      "visual": "pickup-bullets",
+      "sound": "pickup-ammo"
+    }
+  },
+  {
+    "kind": "map",
+    "id": "example/relay-station",
+    "data": {
+      "schema": 1,
+      "format": "core/grid",
+      "name": "Relay Station",
+      "cellSize": 2,
+      "wallHeight": 3,
+      "legend": {
+        "#": { "solid": true, "wall": "wall-panel" },
+        ".": { "floor": "floor-plate", "ceiling": "ceiling-panel" },
+        ",": { "floor": "floor-concrete", "ceiling": "ceiling-panel" }
+      },
+      "grid": [
+        "#########",
+        "#...#...#",
+        "#...,...#",
+        "#...#...#",
+        "#########"
+      ],
+      "playerStart": { "cell": [1, 2], "yaw": 0 },
+      "doors": [{ "id": "relay-gate", "cell": [4, 2], "locked": true }],
+      "triggers": [
+        { "id": "override", "kind": "switch", "cell": [2, 1], "face": "n", "opens": "relay-gate", "tags": ["objective"] },
+        { "id": "exit", "kind": "zone", "cell": [7, 2], "radius": 0.8, "tags": ["exit"] }
+      ],
+      "spawns": [
+        { "id": "guard", "prefab": "core/grunt", "cell": [6, 1], "yaw": 90, "tags": ["enemy"] },
+        { "id": "rounds", "prefab": "example/carbine-ammo", "cell": [2, 3] }
+      ],
+      "lights": [
+        { "id": "relay-light", "cell": [5, 2], "color": "#8acaff", "intensity": 1.1, "distance": 9 }
+      ],
+      "ambient": { "color": "#899bb0", "intensity": 0.45 },
+      "fog": { "color": "#101923", "near": 8, "far": 35 }
+    }
+  }
+]

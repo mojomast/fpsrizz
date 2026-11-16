@@ -1,5 +1,5 @@
 import type { ActorHit, AttackFn, CombatService, DamageRequest, EntityId, PickupEffectFn, ScanHit, SessionContext } from '../../sdk/index.ts';
-import { AmmoTypes, AttackBehaviors, AttackFired, Collider, Combat, Damaged, DamageModifiers, DealDamage, Died, Health, Intent, Inventory, Pickup, PickupCollected, PickupEffects, Pickups, Player, Transform, WeaponDry, WeaponSwitched, Weapons, World, definePlugin, yawDirX, yawDirZ } from '../../sdk/index.ts';
+import { AmmoTypes, AttackBehaviors, AttackFired, Collider, Combat, Damaged, DamageModifiers, DealDamage, Died, Health, Intent, Inventory, Pickup, PickupCollected, PickupEffects, Pickups, Player, Transform, WeaponDry, WeaponRuntime, WeaponSwitched, Weapons, World, definePlugin, yawDirX, yawDirZ } from '../../sdk/index.ts';
 import { giveAmmo, giveWeapon, heal, hitscan, melee, projectile } from './behaviors.ts';
 import { ammoKind, pickupKind, validateDefinitions, weaponKind } from './definitions.ts';
 
@@ -96,6 +96,8 @@ function createCombat(ctx: SessionContext): CombatService {
   // --- weapons: Intent -> switching and firing ---------------------------------------------------------------------
   const select = (e: EntityId, inv: Inventory, weapon: string, now: number): void => {
     if (inv.current === weapon) return;
+    const runtime = ctx.world.get(e, WeaponRuntime);
+    if (runtime) runtime.reload = null;
     inv.current = weapon;
     inv.switchedAt = now;
     inv.nextFireAt = Math.max(inv.nextFireAt, now + SWITCH_DELAY);
@@ -122,14 +124,32 @@ function createCombat(ctx: SessionContext): CombatService {
         }
         const def = inv.current ? ctx.registries.get(Weapons, inv.current) : undefined;
         if (!def || !inv.current) return;
+        const runtime = def.magazineSize !== undefined
+          ? ctx.world.get(e, WeaponRuntime) ?? ctx.world.add(e, WeaponRuntime, { loaded: {}, reload: null })
+          : ctx.world.get(e, WeaponRuntime);
+        if (runtime?.reload && runtime.reload.weapon !== inv.current) runtime.reload = null;
+        if (runtime?.reload && now + EPS >= runtime.reload.completesAt) {
+          const count = runtime.loaded[inv.current] ?? 0;
+          const amount = Math.min((def.magazineSize ?? 0) - count, inv.ammo[def.ammoType] ?? 0);
+          runtime.loaded[inv.current] = count + amount;
+          inv.ammo[def.ammoType] = (inv.ammo[def.ammoType] ?? 0) - amount;
+          runtime.reload = null;
+        }
+        if (runtime && def.magazineSize !== undefined && def.reloadTime !== undefined && intent.reload && !runtime.reload &&
+            (runtime.loaded[inv.current] ?? 0) < def.magazineSize && (inv.ammo[def.ammoType] ?? 0) > 0) {
+          runtime.reload = { weapon: inv.current, completesAt: now + def.reloadTime };
+        }
+        if (runtime?.reload) return;
         const wants = def.auto ? intent.fire || intent.firePressed : intent.firePressed; // a tap shorter than a tick still fires
         if (!wants || now + EPS < inv.nextFireAt) return;
-        if (def.ammoType && (inv.ammo[def.ammoType] ?? 0) < def.ammoPerShot) {
+        const available = def.magazineSize !== undefined ? (runtime?.loaded[inv.current] ?? 0) : (inv.ammo[def.ammoType] ?? 0);
+        if (def.ammoType && available < def.ammoPerShot) {
           if (intent.firePressed) ctx.events.emit(WeaponDry, { entity: e, weapon: inv.current });
           inv.nextFireAt = now + 0.2;
           return;
         }
-        if (def.ammoType) inv.ammo[def.ammoType] = (inv.ammo[def.ammoType] ?? 0) - def.ammoPerShot;
+        if (def.magazineSize !== undefined && runtime) runtime.loaded[inv.current] = available - def.ammoPerShot;
+        else if (def.ammoType) inv.ammo[def.ammoType] = available - def.ammoPerShot;
         inv.nextFireAt = now + def.cooldown;
         inv.lastFiredAt = now;
         const team = ctx.world.get(e, Collider)?.team ?? '';

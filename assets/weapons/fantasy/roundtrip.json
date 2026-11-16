@@ -1,0 +1,110 @@
+{
+  "01_thornwake": {
+    "imported_meshes": 12,
+    "triangles": 392,
+    "blender_xyz_bounds_m": [
+      [
+        -0.1613,
+        0.1613
+      ],
+      [
+        -0.09,
+        0.77
+      ],
+      [
+        -0.2425,
+        0.0662
+      ]
+    ]
+  },
+  "02_cinderkey": {
+    "imported_meshes": 19,
+    "triangles": 740,
+    "blender_xyz_bounds_m": [
+      [
+        -0.1099,
+        0.1235
+      ],
+      [
+        -0.09,
+        0.6075
+      ],
+      [
+        -0.2425,
+        0.2546
+      ]
+    ]
+  },
+  "03_mothspindle": {
+    "imported_meshes": 29,
+    "triangles": 1004,
+    "blender_xyz_bounds_m": [
+      [
+        -0.203,
+        0.203
+      ],
+      [
+        -0.2825,
+        0.6725
+      ],
+      [
+        -0.2425,
+        0.1875
+      ]
+    ]
+  },
+  "04_briarward": {
+    "imported_meshes": 26,
+    "triangles": 1024,
+    "blender_xyz_bounds_m": [
+      [
+        -0.1212,
+        0.1212
+      ],
+      [
+        -0.4125,
+        0.9375
+      ],
+      [
+        -0.2725,
+        0.245
+      ]
+    ]
+  },
+  "05_faroracle": {
+    "imported_meshes": 28,
+    "triangles": 1056,
+    "blender_xyz_bounds_m": [
+      [
+        -0.1099,
+        0.1099
+      ],
+      [
+        -0.5325,
+        1.2875
+      ],
+      [
+        -0.2425,
+        0.345
+      ]
+    ]
+  },
+  "06_ashbell": {
+    "imported_meshes": 22,
+    "triangles": 840,
+    "blender_xyz_bounds_m": [
+      [
+        -0.2171,
+        0.2171
+      ],
+      [
+        -0.3525,
+        0.9345
+      ],
+      [
+        -0.2425,
+        0.355
+      ]
+    ]
+  }
+}

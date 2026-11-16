@@ -7,13 +7,15 @@ import type { Session } from '../kernel/host.ts';
 import { createAudioService } from '../platform/audio.ts';
 import { createFlow } from '../platform/flow.ts';
 import { bindDomInput, createInputCore } from '../platform/input.ts';
+import { createProfileStore } from '../platform/profile-store.ts';
+import type { ProfileStorage } from '../platform/profile-store.ts';
 import { isWebGL2Available } from '../platform/render/mini3/index.ts';
 import { createRenderHost } from '../platform/render/service.ts';
 import type { RenderHost } from '../platform/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
 import { createUiService } from '../platform/ui.ts';
 import type { FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
-import { Audio, Flow, FlowEnded, Input, InputActions, PHASES, SDK_VERSION, Settings, Ui } from '../sdk/index.ts';
+import { Audio, Flow, FlowEnded, Input, InputActions, PHASES, Profile, SDK_VERSION, Settings, Ui } from '../sdk/index.ts';
 import { Render } from '../sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
@@ -63,6 +65,9 @@ function boot(): void {
   }
 
   const inputCore = createInputCore();
+  let profileStorage: ProfileStorage | null = null;
+  try { profileStorage = globalThis.localStorage ?? null; } catch { /* access denied */ }
+  const profile = createProfileStore(profileStorage);
   const ui = createUiService({ hud: shell.hudLayer, overlay: shell.overlayLayer });
   const settingsService: SettingsService = {
     get lookSensitivity() {
@@ -86,6 +91,7 @@ function boot(): void {
       session.services.provide(Audio, audio, 'host', scope);
       session.services.provide(Ui, ui, 'host', scope);
       session.services.provide(Settings, settingsService, 'host', scope);
+      session.services.provide(Profile, profile, 'host', scope);
       session.services.provide(Flow, createFlow((r) => session.events.emit(FlowEnded, r), () => session.scheduler.time), 'host', scope);
       session.addBeforeTick(() => inputCore.beginTick(), scope);
       session.events.on(FlowEnded, (r) => onFlowEnded(session, r), 'host', scope);

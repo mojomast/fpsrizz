@@ -1,0 +1,38 @@
+{
+  "01_thornwake": {
+    "title": "Thornwake",
+    "role": "knife",
+    "objects": 12,
+    "triangles": 392
+  },
+  "02_cinderkey": {
+    "title": "Cinderkey",
+    "role": "pistol",
+    "objects": 19,
+    "triangles": 740
+  },
+  "03_mothspindle": {
+    "title": "Mothspindle",
+    "role": "SMG",
+    "objects": 29,
+    "triangles": 1004
+  },
+  "04_briarward": {
+    "title": "Briarward",
+    "role": "assault",
+    "objects": 26,
+    "triangles": 1024
+  },
+  "05_faroracle": {
+    "title": "Far Oracle",
+    "role": "sniper",
+    "objects": 28,
+    "triangles": 1056
+  },
+  "06_ashbell": {
+    "title": "Ashbell",
+    "role": "rocket",
+    "objects": 22,
+    "triangles": 840
+  }
+}

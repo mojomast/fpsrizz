@@ -1,0 +1,6 @@
+knife: 230 triangles, 11 mesh objects; bounds (-0.08, -0.081, -0.127) to (0.08, 0.48, 0.077) m
+pistol: 764 triangles, 27 mesh objects; bounds (-0.06, -0.079, -0.19) to (0.06, 0.322, 0.149) m
+smg: 904 triangles, 28 mesh objects; bounds (-0.073, -0.308, -0.249) to (0.073, 0.498, 0.138) m
+assault_rifle: 1000 triangles, 36 mesh objects; bounds (-0.078, -0.368, -0.269) to (0.078, 0.728, 0.157) m
+sniper_rifle: 996 triangles, 30 mesh objects; bounds (-0.073, -0.423, -0.19) to (0.073, 0.928, 0.203) m
+rocket_launcher: 700 triangles, 20 mesh objects; bounds (-0.129, -0.23, -0.262) to (0.129, 0.642, 0.213) m

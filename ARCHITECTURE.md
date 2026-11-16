@@ -8,8 +8,8 @@ How Bulkhead is put together and why. For what is and is not implemented see [SP
 > in-repo WebGL2 renderer mirroring a subset of the Three.js API, behind the render adapter
 > (`src/platform/render/service.ts`) and the rendering SDK (`src/sdk/render.ts`, exported as `THREE`). Bundling and the dev
 > server use esbuild, tests use `node --test` running TypeScript directly (Node >= 22.18), and type checking is a separate
-> `tsc --noEmit` (TypeScript 7). There are no runtime dependencies and no lockfile (`package-lock.json` could not be
-> generated offline; the first networked `npm install` creates it). Section 9 describes the migration path.
+> `tsc --noEmit` (TypeScript 7). There are no runtime dependencies; development dependencies are locked in
+> `package-lock.json`. Section 9 describes the migration path.
 
 ## 1. Layers and dependency rules
 
@@ -89,11 +89,29 @@ Every plugin id, with what it owns. All use SDK 1.0.0 (`"sdk": "^1.0.0"`).
 | `core/hud` | `core-hud` | code | `sdk/hud`: `core/hud` | setting `showCrosshair` | uses `Ui`, `Flow` |
 | `core/presentation` | `core-presentation` | code (`render`, `audio`) | none; requires roles `sdk/theme` and `sdk/camera` | actor renderer `core/billboard` | uses `Render`, `Audio`, `View` |
 | `theme/industrial` | `theme-industrial` | code | `sdk/theme`: `theme/industrial` | textures, sounds and visuals (art and sound pack) | none |
+| `theme/assetrizz` | `theme-assetrizz` | code | `sdk/theme`: `theme/assetrizz` | five pinned Assetrizz tiles, two enemy strips, two Blender weapon sprites, industrial-derived remaining visuals and sounds | none |
 | `core/content` | `core-content` | content | none | 2 ammo types, 2 weapons, 3 pickups, 2 enemies, map `core/arena` | none |
 | `example/pack` | `example-pack` | content | none | weapon, enemy, pickup and map `example/annex` | none |
 | `example/ricochet` | `example-ricochet` | code | none | attack behaviour `example/ricochet`; weapon `example/ricochet-rifle` through `defineContent` | none |
 | `example/hud` | `example-hud` | code | `sdk/hud`: `example/visor-hud` | setting `accent` | uses `Ui`, `Flow`, `View` |
 | `example/survival` | `example-survival` | code | `sdk/mode`: `example/survival` | many settings (waves, counts, timings) | uses `World`, `Flow` |
+| `example/time-trial` | `example-time-trial` | code | `sdk/mode`: `example/time-trial` | configurable time limit | uses `World`, `Flow` |
+| `example/arena` | `example-arena` | code | `sdk/mode`: `example/arena` | scoring and spawn settings | uses `World`, `Flow` |
+| `example/dash-controller` | `example-dash-controller` | code | `sdk/controller`: `example/dash-controller` | sprint and dash actions and settings | uses `Input`, `World` |
+| `example/ward` | `example-ward` | code | none | ward pickup effect and damage modifier | none |
+| `example/adventure-pack` | `example-adventure-pack` | content | none | puzzle and horror objective maps | none |
+| `example/holdout` | `example-holdout` | code | `sdk/mode`: `example/holdout` | holdout and spawn settings | uses `World`, `Flow` |
+| `example/keys` | `example-keys` | code | none | key pickup effect and keyed gate prefab | uses `Interactions`, `World` |
+| `example/key-dungeon` | `example-key-dungeon` | content | none | keyed dungeon map and pickup | none |
+| `example/stealth` | `example-stealth` | code | none | stationary line-of-sight guard prefab | uses `World`, `Flow` |
+| `example/stealth-map` | `example-stealth-map` | content | none | stealth infiltration map | none |
+| `example/escape` | `example-escape` | code | `sdk/mode`: `example/escape` | exit-based escape mode | uses `World`, `Flow` |
+| `example/roguelite` | `example-roguelite` | code | `sdk/mode`: `example/roguelite` | seeded encounters and run-only upgrades | uses `World`, `Flow` |
+| `example/racing` | `example-racing` | code | `sdk/controller`: `example/racing-controller`, `sdk/mode`: `example/race` | planar driving and ordered swept checkpoints | uses `World`, `Flow`, `Input` |
+| `example/race-track` | `example-race-track` | content | none | Foundry Circuit map | none |
+| `example/extraction` | `example-extraction` | code | `sdk/mode`: `example/extraction` | timed run-only loot extraction | uses `World`, `Flow` |
+| `example/extraction-map` | `example-extraction-map` | content | none | Salvage Run map and loot pickups | none |
+| `example/tactical-pack` | `example-tactical-pack` | content | none | Relay Station map and magazine carbine | none |
 
 Host-provided services in every session (installed by `src/app/main.ts`): `Input`, `Render`, `Audio`, `Ui`, `Settings`,
 `Flow`. Only the plugin graph and role selections in the preset decide which providers run; unselected providers never
@@ -215,8 +233,11 @@ Systems present in the default preset, in execution order:
 | `world` | 10 | `core/combat.pickups` | `core/combat` | Pickup collection |
 | `presentation` | 0 | `core/enemies.animate` | `core/enemies` | Sets each enemy's `Visual.state` (no drawing) |
 
-Extension systems: `example/ricochet.move` (`movement`, added on first use of the behaviour) and `example/survival.waves`
-(`rules`, survival preset). `core/objective` registers no system; it works through events (`TriggerFired`, `Died`,
+Extension systems: `example/ricochet.move` (`movement`, added on first use of the behaviour), `example/survival.waves`,
+`example/time-trial.timer`, `example/arena.rules`, `example/holdout.defense`, and `example/ward.expire` (`rules`),
+`example/stealth.vision` (`ai`, added on first guard spawn), plus
+`example/roguelite.progress`, `example/racing.rules` and `example/extraction.rules` (`rules`), `example/racing.drive` and
+`example/dash-controller.control` (`control`, replacing the FPS controller when selected). `core/objective` registers no system; it works through events (`TriggerFired`, `Died`,
 `UseFailed`). Frame systems, once per rendered frame, in execution order:
 
 | Order | System id | Plugin | Purpose |

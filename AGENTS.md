@@ -1,7 +1,7 @@
 # Guidance for coding agents
 
 Bulkhead is a plugin-driven 2.5D shooter foundation in TypeScript. Read [ARCHITECTURE.md](ARCHITECTURE.md) before changing
-structure and [PLUGINS.md](PLUGINS.md) before writing plugins.
+structure, [PLUGINS.md](PLUGINS.md) before writing plugins, and [CREATE_GAME.md](CREATE_GAME.md) for the complete game-creation workflow.
 
 ## Layout
 
@@ -15,6 +15,7 @@ structure and [PLUGINS.md](PLUGINS.md) before writing plugins.
 | `src/content/presets` | Preset JSON files |
 | `tests` | `*.test.ts` run by `npm test`; `helpers/` harness; subfolders with browser demo scripts run by hand |
 | `scripts` | build, dev, preview, smoke, boundary checker, plugin scaffolder, tool resolution |
+| `assets/weapons` | Blender weapon sources, GLB exports, first-person renders and an agent authoring workflow |
 
 ## Import boundaries (enforced by `npm run lint`)
 
@@ -26,6 +27,8 @@ structure and [PLUGINS.md](PLUGINS.md) before writing plugins.
 - `src/app` is unrestricted.
 
 If a plugin needs something it cannot import, add it to the SDK contract (see below); do not widen the lint rules.
+The checker is not a security sandbox or a proof of determinism, ownership, or absence of import-time effects. Code
+plugins are trusted. Review those invariants explicitly; lint examines only the import and DOM forms it recognizes.
 
 ## Conventions
 
@@ -53,11 +56,25 @@ If a plugin needs something it cannot import, add it to the SDK contract (see be
 
 ```bash
 npm run check                      # typecheck + lint (boundaries) + tests
+npm run validate-game -- --bundled  # stage bundled presets; no activation
 npm run build && npm run smoke     # browser acceptance run against dist/ (needs Chrome; CHROME_PATH overrides the path)
 ```
 
 Run `npm run check` after every change. Run the smoke test when touching the app, platform, presentation, HUD, host
-lifecycle or anything the browser exercises.
+lifecycle or anything the browser exercises. For creator-panel changes also run `node tests/creator-demo/run.mjs`.
+Browser scripts need Playwright and Chrome; CI runs check and build, not browser acceptance. Record actual results and
+any environmental failures. Changes to audio or pointer lock also need manual verification in a real browser.
+
+| Task | Start here | Verification / documentation |
+|---|---|---|
+| Host, lifecycle, scheduling | `src/kernel/host.ts`, `scope.ts`, `scheduler.ts` | `tests/host-lifecycle.test.ts`, kernel tests, `ARCHITECTURE.md` |
+| Gameplay or SDK contracts | `src/sdk/contracts/`, provider and consumer plugins | `tests/helpers/game.ts`, extension tests, `PLUGINS.md` |
+| Content or preset | content-kind plugin, `src/app/catalog.ts`, `src/content/presets/` | content tests, `CONTENT_FORMAT.md`, game guide |
+| Browser UI or rendering | `src/app/`, `src/platform/`, relevant presentation plugin | build and smoke; creator test for panel changes |
+
+Registration survives restart; activation runs again per session. A failed staging operation preserves the old session,
+but failure during activation after commit does not restore it. Factories run lazily in their registering owner's
+context, and selected roles activate after all plugins; see the lifecycle notes in `PLUGINS.md`.
 
 ## Adding a plugin
 
@@ -96,11 +113,9 @@ enemies, update the reference-game section of `SPEC.md`.
 
 ## Environment notes
 
-- The project was built without network access. Do not assume `npm install` works; there is no `node_modules` or
-  `package-lock.json` in the repository.
+- Install the locked development dependencies with `npm ci` when network access is available. Node >= 22.18 is required.
 - `scripts/tools.mjs` resolves esbuild and Playwright from the project's `node_modules`, then from `TOOLS_NODE_MODULES`
   (a path list), then from `/opt/npm-tools/node_modules`. `tsc` comes from `node_modules/.bin` or the `PATH`.
 - The build is not Vite and the tests are not Vitest; do not write config for them.
-- `npm run dev` writes its output to `.dev/`, which is not listed in `.gitignore`; do not commit it. `dist/` and `.smoke/`
-  are ignored.
+- `npm run dev` writes to `.dev/`; `.dev/`, `dist/` and `.smoke/` are ignored.
 - `window.__bulkhead` is a debugging and automation handle for the smoke script, not API; plugins must not use it.

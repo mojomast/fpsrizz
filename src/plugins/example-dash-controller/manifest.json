@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "id": "example/dash-controller",
+  "name": "Dash Controller",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^1.0.0",
+  "description": "Planar first-person movement with sprint and a directional, cooldown-limited dash.",
+  "dependencies": { "core/player": "^1.0.0", "core/world": "^1.0.0" },
+  "capabilities": ["simulation", "input"],
+  "requiresRoles": ["sdk/controller"],
+  "config": {
+    "moveSpeed": { "type": "number", "label": "Move speed (m/s)", "default": 5.4, "min": 1, "max": 20 },
+    "sprintMultiplier": { "type": "number", "label": "Sprint multiplier", "default": 1.5, "min": 1, "max": 3 },
+    "dashSpeed": { "type": "number", "label": "Dash speed (m/s)", "default": 16, "min": 1, "max": 40 },
+    "dashDuration": { "type": "number", "label": "Dash duration (seconds)", "default": 0.2, "min": 0.05, "max": 1 },
+    "dashCooldown": { "type": "number", "label": "Dash cooldown (seconds)", "default": 1, "min": 0, "max": 10 }
+  }
+}

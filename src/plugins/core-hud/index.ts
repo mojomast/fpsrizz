@@ -1,5 +1,5 @@
 import type { EntityId, SessionContext } from '../../sdk/index.ts';
-import { Damaged, Flow, Ui, Health, HudRole, Inventory, PickupCollected, Player, UseFailed, View, WeaponDry, Weapons, AmmoTypes, definePlugin } from '../../sdk/index.ts';
+import { Damaged, Flow, Ui, Health, HudRole, Inventory, PickupCollected, Player, UseFailed, View, WeaponDry, WeaponRuntime, Weapons, AmmoTypes, definePlugin } from '../../sdk/index.ts';
 import { HUD_CSS } from './styles.ts';
 
 const NOTICE_SECONDS = 2.5;
@@ -139,7 +139,11 @@ function activateHud(sctx: SessionContext): void {
     if (e.reason === 'locked' && e.by === playerId()) showNotice('LOCKED — find the switch');
   });
   sctx.events.on(WeaponDry, (e) => {
-    if (e.entity === playerId()) showNotice('OUT OF AMMO');
+    if (e.entity === playerId()) {
+      const def = sctx.registries.get(Weapons, e.weapon);
+      const inv = sctx.world.get(e.entity, Inventory);
+      showNotice(def?.magazineSize !== undefined && (inv?.ammo[def.ammoType] ?? 0) > 0 ? 'RELOAD' : 'OUT OF AMMO');
+    }
   });
 
   // ---- slot bar ---------------------------------------------------------------------------------------------------
@@ -168,6 +172,7 @@ function activateHud(sctx: SessionContext): void {
     const pid = playerId();
     const hp = pid === undefined ? undefined : sctx.world.get(pid, Health);
     const inv = pid === undefined ? undefined : sctx.world.get(pid, Inventory);
+    const runtime = pid === undefined ? undefined : sctx.world.get(pid, WeaponRuntime);
     const pEntity = pid ?? 0;
 
     if (pEntity !== trackedEntity) {
@@ -206,7 +211,8 @@ function activateHud(sctx: SessionContext): void {
       if (changed) rebuildSlots(inv);
       for (const s of slots) {
         const isCur = s.id === cur;
-        const a = s.ammoType === '' ? Infinity : (inv.ammo[s.ammoType] ?? 0);
+        const def = sctx.registries.get(Weapons, s.id);
+        const a = def?.magazineSize !== undefined ? (runtime?.loaded[s.id] ?? 0) : s.ammoType === '' ? Infinity : (inv.ammo[s.ammoType] ?? 0);
         if (a !== s.ammo) {
           s.ammo = a;
           setText(s.ammoText, a === Infinity ? '∞' : String(Math.floor(a)));
@@ -225,11 +231,16 @@ function activateHud(sctx: SessionContext): void {
         setText(ammoTypeText, ammoTypeLabel);
         ammoValue = NaN;
       }
-      const av = curAmmoType === '' ? Infinity : Math.floor(inv.ammo[curAmmoType] ?? 0);
+      const curDef = cur ? sctx.registries.get(Weapons, cur) : undefined;
+      const av = curDef?.magazineSize !== undefined ? (runtime?.loaded[cur!] ?? 0) : curAmmoType === '' ? Infinity : Math.floor(inv.ammo[curAmmoType] ?? 0);
       if (av !== ammoValue) {
         ammoValue = av;
         
         setText(ammoNumText, av === Infinity ? '\u221E' : String(av));
+      }
+      if (curDef?.magazineSize !== undefined) {
+        setText(ammoNumText, `${av} / ${Math.floor(inv.ammo[curAmmoType] ?? 0)}`);
+        setText(ammoTypeText, runtime?.reload ? 'RELOADING' : ammoTypeLabel);
       }
       // Crosshair kick on firing
       if (inv.lastFiredAt !== lastFired) {

@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "example/blackout",
+  "name": "Blackout Ward — Survival Horror",
+  "plugins": ["core/world", "core/combat", "core/player", "core/enemies", "core/modes", "core/hud", "core/presentation", "theme/assetrizz", "core/content", "example/ward", "example/adventure-pack"],
+  "roles": { "sdk/controller": "core/fps-controller", "sdk/camera": "core/fp-camera", "sdk/mode": "core/objective", "sdk/hud": "core/hud", "sdk/theme": "theme/assetrizz" },
+  "options": { "map": "example/blackout-ward" },
+  "config": {},
+  "seed": 1337
+}

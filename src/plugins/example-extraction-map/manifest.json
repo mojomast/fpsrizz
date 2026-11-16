@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "example/extraction-map",
+  "name": "Extraction: Salvage Run",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^1.0.0",
+  "description": "A compact salvage route with scattered valuables and an extraction zone.",
+  "dependencies": {
+    "core/world": "^1.0.0",
+    "core/combat": "^1.0.0",
+    "example/extraction": "^1.0.0"
+  }
+}

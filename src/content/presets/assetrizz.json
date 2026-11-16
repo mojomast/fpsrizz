@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "id": "theme/assetrizz-demo",
+  "name": "Bulkhead Station \u2014 Assetrizz",
+  "plugins": [
+    "core/world",
+    "core/combat",
+    "core/player",
+    "core/enemies",
+    "core/modes",
+    "core/hud",
+    "core/presentation",
+    "theme/assetrizz",
+    "core/content"
+  ],
+  "roles": {
+    "sdk/controller": "core/fps-controller",
+    "sdk/camera": "core/fp-camera",
+    "sdk/mode": "core/objective",
+    "sdk/hud": "core/hud",
+    "sdk/theme": "theme/assetrizz"
+  },
+  "options": {
+    "map": "core/arena"
+  },
+  "config": {},
+  "seed": 1337
+}

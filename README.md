@@ -63,8 +63,7 @@ Each is a preset you can switch to live from the creator panel (press `` ` ``):
 > - **Tests** use Node's built-in runner (`node --test`), executing TypeScript directly (type stripping, Node >= 22.18).
 > - **Type checking** is a separate `tsc --noEmit` (TypeScript 7).
 > - There are **no runtime dependencies**.
-> - There is **no lockfile**. `package.json` pins the devDependencies, but `package-lock.json` could not be generated
->   offline; the first networked `npm install` creates it.
+> - Development dependencies are locked in `package-lock.json` for reproducible installation.
 > - Dev tools (esbuild, Playwright) are resolved by `scripts/tools.mjs` from the project's `node_modules`, then from
 >   `TOOLS_NODE_MODULES`, then `/opt/npm-tools/node_modules`. `tsc` is taken from `node_modules/.bin` or the `PATH`.
 >
@@ -78,9 +77,11 @@ Play online: **https://mojomast.github.io/fpsrizz/** (served from the `gh-pages`
 Or run it locally (Node >= 22.18):
 
 ```bash
-npm install        # devDependencies only; also creates package-lock.json on a networked machine
-npm run dev        # dev server at http://127.0.0.1:5173/ (rebuilds on change; refresh the page)
+npm ci             # install locked devDependencies
+npm run dev        # dev server at http://127.0.0.1:5173/ (refresh after rebuild)
 ```
+
+Changes to files in `public/` require restarting the dev server.
 
 Production build and local preview:
 
@@ -115,7 +116,7 @@ the active preset, the objective, the controls registered by the enabled plugins
 
 ## Presets and extensions
 
-Four presets ship in `src/content/presets/`. The first one is the default.
+The presets in `src/content/presets/` include the reference game, extensions and genre slices. The first is the default.
 
 | Preset | Adds | Where it lives |
 |---|---|---|
@@ -123,6 +124,18 @@ Four presets ship in `src/content/presets/`. The first one is the default.
 | Bulkhead Station — Extended arsenal (`example/extended`) | Scattergun (slot 4, data pack) and Ricochet Rifle (slot 3, new attack behaviour) | `example/pack`, `example/ricochet` |
 | Bulkhead Annex — content-pack map (`example/annex`) | The Annex map, Brute enemy and scattergun from the data pack | `example/pack` |
 | Survival — waves, Visor HUD (`example/survival`) | Wave-survival mode and visor HUD, plus the weapons above | `example/survival`, `example/hud` |
+| Bulkhead Station — Assetrizz (`theme/assetrizz-demo`) | Reference game with Assetrizz tiles/enemies and Blender weapon renders | `theme/assetrizz` |
+| Time Trial Raid (`example/time-trial`) | Find the override and escape before the deadline | `example/time-trial`, `theme/assetrizz` |
+| Arena Score Attack (`example/arena-score`) | Score kills against respawning enemies; Shift sprints and Ctrl dashes | `example/arena`, `example/dash-controller`, `theme/assetrizz` |
+| Silent Observatory (`example/observatory`) | Noncombat switch hunt and escape | `example/adventure-pack`, `theme/assetrizz` |
+| Blackout Ward (`example/blackout`) | A darker objective map with scarce supplies and two hostiles | `example/adventure-pack`, `theme/assetrizz` |
+| Holdout (`example/holdout-game`) | Reach and defend the exit zone while enemies spawn | `example/holdout`, `example/dash-controller` |
+| Key Dungeon (`example/key-dungeon-game`) | Find a key, unlock the gate, and escape | `example/keys`, `example/key-dungeon` |
+| Silent Relay (`example/silent-relay-game`) | Avoid stationary guards, activate the override, and escape | `example/stealth`, `example/stealth-map` |
+| Seeded Gauntlet (`example/gauntlet-game`) | Clear three encounters and receive automatic run-only upgrades | `example/roguelite` |
+| Foundry Circuit (`example/foundry-race`) | Drive through checkpoints in order before time expires; W accelerates, S brakes/reverses, A/D steer | `example/racing`, `example/race-track` |
+| Salvage Run (`example/salvage-game`) | Collect loot and extract before the timer expires | `example/extraction`, `example/extraction-map` |
+| Relay Station (`example/relay-tactical`) | Objective combat with a magazine-fed carbine; 3 selects it and R reloads | `example/tactical-pack` |
 
 To switch: press `` ` `` (or use **Creator tools** on the start or pause screen), open **Plugins & preset**, pick a preset
 in the **Load** dropdown, then press **Apply & restart**. The selection is saved in `localStorage` and restored on the
@@ -143,7 +156,7 @@ src/
 scripts/       build, dev, preview, smoke test, boundary checker, plugin scaffolder, tool resolution.
 tests/         node:test suites and helpers; subfolders with browser demo scripts (run manually, not by npm test).
 templates/     plugin-starter, used by npm run new-plugin.
-public/        Static files copied into the build (currently empty).
+public/        Static files copied into the build, including curated Assetrizz source images and provenance.
 index.html     Page shell.
 ```
 
@@ -151,16 +164,35 @@ index.html     Page shell.
 
 | Command | What it does |
 |---|---|
-| `npm install` | Installs devDependencies (esbuild, Playwright, TypeScript). |
+| `npm ci` | Installs locked devDependencies (esbuild, Playwright, TypeScript). |
 | `npm run dev` | esbuild watch build and server at `127.0.0.1:5173`; `-- --port N` changes the port. |
 | `npm run build` | Bundles `src/app/main.ts` into `dist/` (minified ES2022 plus source map). |
 | `npm run preview` | Serves `dist/` at `127.0.0.1:4173`; `-- --port N` changes the port. |
 | `npm run typecheck` | `tsc -p tsconfig.json --noEmit`. |
 | `npm run lint` | Import-boundary checker (`scripts/boundaries.ts`). |
-| `npm test` | `node --test "tests/**/*.test.ts"`. |
-| `npm run smoke` | Browser acceptance run against `dist/` (headless Chrome, software WebGL2). Needs a prior `npm run build`, Playwright, and Chrome; set `CHROME_PATH` if it is not at `/usr/bin/google-chrome`. Writes screenshots and `smoke-report.json` to `.smoke/`. |
+| `npm test` | Node unit and integration tests, including tooling tests. |
+| `npm run smoke` | Browser acceptance run against `dist/` (headless Chrome, software WebGL2). Run `npm run build` first. Uses `/usr/bin/google-chrome` if present, otherwise Playwright's Chromium (`npx playwright install chromium`); set `CHROME_PATH` to override. Writes screenshots and `smoke-report.json` to `.smoke/`. |
 | `npm run check` | `typecheck`, `lint` and `test` in sequence. |
 | `npm run new-plugin -- <ns/name> ["Name"]` | Scaffolds `src/plugins/<ns>-<name>/` from the starter template. |
+| `npm run validate-game -- <preset.json> [--pack <pack.json> ...]` | Stages a preset against the app catalog and optional wrapped JSON packs; use `--bundled` to validate shipped presets. Does not activate or play the game. |
+
+### Assetrizz art
+
+The Assetrizz preset bundles five pinned dark-sci-fi tiles, two enemy sprite strips and two generic Blender weapon
+renders; remaining art and synthesized sounds derive from the industrial theme.
+The Key Dungeon preset selects a fantasy Assetrizz theme with its own tiles, enemy strips and Blender weapon renders.
+To regenerate the synchronous theme painters from the pinned upstream catalog and images, use Python 3 with Pillow:
+
+```bash
+python3 scripts/assetrizz.py import
+# Or use an existing checkout at the pinned revision:
+python3 scripts/assetrizz.py import --library /path/to/assetrizz
+python3 scripts/assetrizz.py search /path/to/assetrizz/assets/manifest.jsonl enemy
+```
+
+The tool verifies the pinned manifest and PNG hashes. `scripts/assetrizz.json` records the selected keys and provenance;
+the shipped images and upstream license note are in `public/assetrizz/`. Search requires the pinned manifest, and
+the generated game assets need no network connection at runtime. After changing files in `public/`, restart the dev server.
 
 ## Supported environment
 
@@ -178,6 +210,10 @@ index.html     Page shell.
 | [SPEC.md](SPEC.md) | Implemented scope, limitations, extension boundaries, asset provenance. |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Layers, ownership model, lifecycle, simulation and rendering design, key decisions. |
 | [PLUGINS.md](PLUGINS.md) | Public SDK and plugin authoring guide with API reference. |
+| [CREATE_GAME.md](CREATE_GAME.md) | End-to-end game, content and plugin authoring workflow. |
+| [GAME_PLUGIN_ROADMAP.md](GAME_PLUGIN_ROADMAP.md) | Proposed reusable mechanics, game recipes and engine prerequisites. |
+| [BUILD_ORDER.md](BUILD_ORDER.md) | Cross-genre implementation dependencies and acceptance gates. |
+| [assets/weapons/README.md](assets/weapons/README.md) | Low-poly weapon sets, source models, previews and integration notes. |
 | [CONTENT_FORMAT.md](CONTENT_FORMAT.md) | JSON formats: manifests, content packs, maps, presets. |
 | [devplan.md](devplan.md) | Milestone status and next steps. |
 | [AGENTS.md](AGENTS.md) | Guidance for coding agents working in this repository. |
@@ -185,11 +221,11 @@ index.html     Page shell.
 
 ## Testing and verification
 
-`npm run check` runs the strict type check, the import-boundary lint and 401 node tests (kernel, host lifecycle,
-collision, combat, content validation, fixed-step determinism, restart cycles, the four extensions). `npm run smoke`
-plays the real game in headless Chrome (37 checks: movement, wall sliding, weapons, doors, enemies, pickups, objective,
-victory and defeat, restart, extensions, preset switching with leak counts). The creator panel has its own 67-check
-browser test (`node tests/creator-demo/run.mjs`). CI runs the checks and the build on every push.
+`npm run check` runs the strict type check, import-boundary lint and Node tests. After `npm run build`, `npm run smoke`
+plays the real game in headless Chrome, including gameplay, restart, extensions and resource counts. The creator panel
+has its own browser test (`node tests/creator-demo/run.mjs`), which builds its own bundle. Both write to `.smoke/`.
+CI runs check and build; it does not run either browser suite. Browser performance depends on the available renderer.
+Run `node tests/genre-demo/run.mjs` after a build for browser startup, HUD and control checks on the new genre presets.
 
 ## Known limitations
 
@@ -200,7 +236,8 @@ Stated plainly; the full list is in [SPEC.md](SPEC.md) and [HANDOFF.md](HANDOFF.
 - Pointer lock and audio were not exercised by automation. Try them by hand.
 - Imported content packs live in memory only, and there are no save games.
 - Code plugins are discovered at build time and are trusted; there is no sandbox.
-- Art and sound are procedural placeholders, all generated in code (no third-party assets).
+- The default theme uses procedural placeholder art and sound. Each Assetrizz theme replaces five tiles, two enemy
+  sprites and the pistol and launcher views with bundled images; other Blender weapons are not yet wired into gameplay.
 
 ## Contributing
 

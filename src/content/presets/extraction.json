@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "example/salvage-game",
+  "name": "Salvage Run — Extraction",
+  "plugins": ["core/world", "core/combat", "core/player", "core/enemies", "core/hud", "core/presentation", "theme/assetrizz", "core/content", "example/extraction", "example/extraction-map"],
+  "roles": { "sdk/controller": "core/fps-controller", "sdk/camera": "core/fp-camera", "sdk/mode": "example/extraction", "sdk/hud": "core/hud", "sdk/theme": "theme/assetrizz" },
+  "options": { "map": "example/salvage-run" },
+  "config": {},
+  "seed": 1337
+}

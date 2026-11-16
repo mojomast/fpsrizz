@@ -4,4 +4,5 @@
  */
 export * from './core.ts';
 export * from './contracts/shooter.ts';
+export * from './contracts/profile.ts';
 export type * from './contracts/audio.ts';

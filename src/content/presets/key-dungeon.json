@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "example/key-dungeon-game",
+  "name": "Key Dungeon — Locked Escape",
+  "plugins": ["core/world", "core/combat", "core/player", "core/enemies", "core/hud", "core/presentation", "theme/assetrizz", "core/content", "example/escape", "example/keys", "example/key-dungeon"],
+  "roles": { "sdk/controller": "core/fps-controller", "sdk/camera": "core/fp-camera", "sdk/mode": "example/escape", "sdk/hud": "core/hud", "sdk/theme": "theme/assetrizz-fantasy" },
+  "options": { "map": "example/key-dungeon" },
+  "config": {},
+  "seed": 1337
+}

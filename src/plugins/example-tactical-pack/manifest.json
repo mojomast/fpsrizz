@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "example/tactical-pack",
+  "name": "Relay Station",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^1.0.0",
+  "description": "A compact objective mission and magazine-fed carbine using the industrial theme.",
+  "dependencies": {
+    "core/world": "^1.0.0",
+    "core/combat": "^1.0.0",
+    "core/enemies": "^1.0.0",
+    "core/content": "^1.0.0"
+  }
+}

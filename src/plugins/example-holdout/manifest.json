@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "id": "example/holdout",
+  "name": "Example holdout",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^1.0.0",
+  "description": "Hold the exit zone against a steady stream of enemies.",
+  "dependencies": { "core/world": "^1.0.0", "core/enemies": "^1.0.0" },
+  "capabilities": ["simulation"],
+  "config": {
+    "playerPrefab": { "type": "string", "label": "Player prefab id", "default": "core/player" },
+    "holdSeconds": { "type": "number", "label": "Seconds to hold", "default": 60, "min": 1, "max": 600 },
+    "spawnInterval": { "type": "number", "label": "Seconds between enemy spawns", "default": 3, "min": 0.1, "max": 60 },
+    "maxAlive": { "type": "number", "label": "Maximum living enemies", "default": 12, "min": 1, "max": 100 }
+  }
+}

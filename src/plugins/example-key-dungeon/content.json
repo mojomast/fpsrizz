@@ -1,0 +1,51 @@
+[
+  {
+    "kind": "pickup",
+    "id": "example/dungeon-key",
+    "data": {
+      "name": "Vault access key",
+      "effect": "example/give-key",
+      "params": { "key": "vault" },
+      "visual": "pickup-cells",
+      "sound": "pickup-ammo",
+      "radius": 0.6
+    }
+  },
+  {
+    "kind": "map",
+    "id": "example/key-dungeon",
+    "data": {
+      "schema": 1,
+      "format": "core/grid",
+      "name": "The Locked Vault",
+      "cellSize": 2,
+      "wallHeight": 3,
+      "legend": {
+        "#": { "solid": true, "wall": "wall-brick" },
+        ".": { "floor": "floor-plate", "ceiling": "ceiling-panel" }
+      },
+      "grid": [
+        "###########",
+        "#....#....#",
+        "#....#....#",
+        "#.........#",
+        "#....#....#",
+        "#....#....#",
+        "###########"
+      ],
+      "playerStart": { "cell": [3, 3], "yaw": -90 },
+      "doors": [{ "id": "vault-door", "cell": [5, 3], "locked": true, "surface": "door" }],
+      "spawns": [
+        { "id": "vault-lock", "prefab": "example/keyed-gate", "cell": [4, 3], "params": { "door": "vault-door", "key": "vault" } },
+        { "id": "vault-key", "prefab": "example/dungeon-key", "cell": [1, 1] }
+      ],
+      "triggers": [{ "id": "exit", "kind": "zone", "cell": [9, 3], "radius": 0.9, "tags": ["exit"] }],
+      "lights": [
+        { "id": "key-light", "cell": [1, 1], "color": "#7cc7ff", "intensity": 1.2, "distance": 8, "y": 2.4 },
+        { "id": "exit-light", "cell": [9, 3], "color": "#7aff9a", "intensity": 1.2, "distance": 8, "y": 2.4 }
+      ],
+      "ambient": { "color": "#8a94ad", "intensity": 0.42 },
+      "fog": { "color": "#07090d", "near": 6, "far": 38 }
+    }
+  }
+]

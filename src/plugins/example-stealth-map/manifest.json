@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "example/stealth-map",
+  "name": "Silent Relay",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^1.0.0",
+  "description": "An infiltration map with covered southern access and guards overlooking the exposed relay floor.",
+  "dependencies": { "core/world": "^1.0.0", "example/stealth": "^1.0.0" }
+}

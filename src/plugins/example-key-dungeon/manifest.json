@@ -1,0 +1,10 @@
+{
+  "schema": 1,
+  "id": "example/key-dungeon",
+  "name": "Key Dungeon",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^1.0.0",
+  "description": "A compact locked-gate dungeon and its access key.",
+  "dependencies": { "core/world": "^1.0.0", "core/combat": "^1.0.0", "example/keys": "^1.0.0" }
+}

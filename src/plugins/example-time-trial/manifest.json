@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "example/time-trial",
+  "name": "Time Trial Raid",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^1.0.0",
+  "description": "Activate the objective switches and escape before time runs out.",
+  "dependencies": { "core/world": "^1.0.0", "core/player": "^1.0.0" },
+  "capabilities": ["simulation"],
+  "config": {
+    "seconds": { "type": "number", "label": "Time limit (seconds)", "default": 180, "min": 1, "max": 3600 },
+    "playerPrefab": { "type": "string", "label": "Player prefab id", "default": "core/player" }
+  }
+}

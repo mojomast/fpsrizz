@@ -1,0 +1,74 @@
+[
+  {
+    "name": "VIGIL / phase knife",
+    "slug": "01_vigil_knife",
+    "mesh_objects": 10,
+    "triangles": 400,
+    "tip_or_muzzle_projected_bounds_px": [
+      206.8,
+      122.4,
+      316.5,
+      284.6
+    ]
+  },
+  {
+    "name": "SPARK / arc pistol",
+    "slug": "02_spark_pistol",
+    "mesh_objects": 16,
+    "triangles": 616,
+    "tip_or_muzzle_projected_bounds_px": [
+      246.0,
+      92.3,
+      305.5,
+      155.5
+    ]
+  },
+  {
+    "name": "FLICKER / pulse SMG",
+    "slug": "03_flicker_smg",
+    "mesh_objects": 19,
+    "triangles": 748,
+    "tip_or_muzzle_projected_bounds_px": [
+      252.0,
+      41.2,
+      321.4,
+      117.8
+    ]
+  },
+  {
+    "name": "LATTICE / coil assault",
+    "slug": "04_lattice_assault",
+    "mesh_objects": 21,
+    "triangles": 812,
+    "tip_or_muzzle_projected_bounds_px": [
+      261.2,
+      75.6,
+      310.6,
+      130.0
+    ]
+  },
+  {
+    "name": "PARALLAX / rail sniper",
+    "slug": "05_parallax_sniper",
+    "mesh_objects": 23,
+    "triangles": 884,
+    "tip_or_muzzle_projected_bounds_px": [
+      265.1,
+      100.5,
+      304.3,
+      143.9
+    ]
+  },
+  {
+    "name": "CAIRN / void rocket",
+    "slug": "06_cairn_rocket",
+    "mesh_objects": 20,
+    "triangles": 808,
+    "tip_or_muzzle_projected_bounds_px": [
+      208.2,
+      51.0,
+      354.3,
+      194.4
+    ]
+  }
+]

@@ -1,0 +1,45 @@
+[
+  {
+    "kind": "map",
+    "id": "example/silent-relay",
+    "data": {
+      "schema": 1,
+      "format": "core/grid",
+      "name": "Silent Relay",
+      "cellSize": 2,
+      "wallHeight": 3,
+      "legend": {
+        "#": { "solid": true, "wall": "wall-tech" },
+        ".": { "floor": "floor-plate", "ceiling": "ceiling-panel" },
+        ",": { "floor": "floor-concrete", "ceiling": "ceiling-panel" }
+      },
+      "grid": [
+        "#############",
+        "#...........#",
+        "#..#.....#..#",
+        "#..#.....#..#",
+        "#...........#",
+        "#..###.###..#",
+        "#,,,,,,,,,,,#",
+        "#,,,,,,,,,,,#",
+        "#############"
+      ],
+      "playerStart": { "cell": [1, 7], "yaw": -90 },
+      "spawns": [
+        { "id": "west-sentry", "prefab": "example/stealth-guard", "cell": [4, 4], "yaw": 0, "params": { "range": 8, "angle": 95, "delay": 0.6 } },
+        { "id": "east-sentry", "prefab": "example/stealth-guard", "cell": [9, 4], "yaw": 0, "params": { "range": 8, "angle": 95, "delay": 0.6 } },
+        { "id": "exit-sentry", "prefab": "example/stealth-guard", "cell": [11, 3], "yaw": 0, "params": { "range": 6, "angle": 90, "delay": 0.6 } }
+      ],
+      "triggers": [
+        { "id": "relay-override", "kind": "switch", "cell": [6, 7], "face": "s", "tags": ["objective"] },
+        { "id": "extraction", "kind": "zone", "cell": [11, 4], "radius": 0.8, "tags": ["exit"] }
+      ],
+      "lights": [
+        { "id": "override-light", "cell": [6, 7], "color": "#ffb060", "intensity": 1.2, "distance": 7, "y": 2.4 },
+        { "id": "extraction-light", "cell": [11, 4], "color": "#7aff9a", "intensity": 1.3, "distance": 7, "y": 2.4 }
+      ],
+      "ambient": { "color": "#8a94ad", "intensity": 0.5 },
+      "fog": { "color": "#07090d", "near": 8, "far": 40 }
+    }
+  }
+]

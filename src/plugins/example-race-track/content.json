@@ -1,0 +1,50 @@
+[
+  {
+    "kind": "map",
+    "id": "example/foundry-circuit",
+    "data": {
+      "schema": 1,
+      "format": "core/grid",
+      "name": "Foundry Circuit",
+      "cellSize": 2,
+      "wallHeight": 3,
+      "legend": {
+        "#": { "solid": true, "wall": "wall-hazard" },
+        ".": { "floor": "floor-concrete", "ceiling": "ceiling-panel" },
+        "=": { "floor": "floor-plate", "ceiling": "ceiling-panel" }
+      },
+      "grid": [
+        "#################",
+        "#...............#",
+        "#...............#",
+        "#...............#",
+        "#...#########...#",
+        "#...#########...#",
+        "#...#########...#",
+        "#...#########...#",
+        "#...#########...#",
+        "#...............#",
+        "#...............#",
+        "#...............#",
+        "#################"
+      ],
+      "playerStart": { "cell": [2, 10], "yaw": 0 },
+      "triggers": [
+        { "id": "checkpoint-1", "kind": "zone", "cell": [2, 5], "radius": 1.5, "tags": ["race/checkpoint/1", "exit"] },
+        { "id": "checkpoint-2", "kind": "zone", "cell": [5, 2], "radius": 1.5, "tags": ["race/checkpoint/2", "exit"] },
+        { "id": "checkpoint-3", "kind": "zone", "cell": [11, 2], "radius": 1.5, "tags": ["race/checkpoint/3", "exit"] },
+        { "id": "checkpoint-4", "kind": "zone", "cell": [14, 6], "radius": 1.5, "tags": ["race/checkpoint/4", "exit"] },
+        { "id": "checkpoint-5", "kind": "zone", "cell": [11, 10], "radius": 1.5, "tags": ["race/checkpoint/5", "exit"] },
+        { "id": "finish", "kind": "zone", "cell": [5, 10], "radius": 1.5, "tags": ["race/finish", "exit"] }
+      ],
+      "ambient": { "color": "#b7c5d1", "intensity": 0.8 },
+      "fog": { "color": "#101a22", "near": 30, "far": 80 },
+      "lights": [
+        { "id": "northwest", "cell": [2, 2], "color": "#94dfff", "intensity": 1.1, "distance": 16, "y": 2.5 },
+        { "id": "northeast", "cell": [14, 2], "color": "#ffb45e", "intensity": 1.1, "distance": 16, "y": 2.5 },
+        { "id": "southeast", "cell": [14, 10], "color": "#94dfff", "intensity": 1.1, "distance": 16, "y": 2.5 },
+        { "id": "southwest", "cell": [2, 10], "color": "#ffb45e", "intensity": 1.1, "distance": 16, "y": 2.5 }
+      ]
+    }
+  }
+]

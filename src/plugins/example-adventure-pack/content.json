@@ -1,0 +1,90 @@
+[
+  {
+    "kind": "pickup",
+    "id": "example/ward-pickup",
+    "data": { "name": "Protective ward", "effect": "example/ward", "params": { "duration": 10, "multiplier": 0.5 }, "visual": "pickup-health", "sound": "pickup-health" }
+  },
+  {
+    "kind": "map",
+    "id": "example/silent-observatory",
+    "data": {
+      "schema": 1, "format": "core/grid", "name": "Silent Observatory",
+      "cellSize": 2, "wallHeight": 3,
+      "legend": {
+        "#": { "solid": true, "wall": "wall-tech" },
+        "B": { "solid": true, "wall": "wall-brick" },
+        ".": { "floor": "floor-plate", "ceiling": "ceiling-panel" },
+        ",": { "floor": "floor-concrete", "ceiling": "ceiling-panel" }
+      },
+      "grid": [
+        "#############",
+        "#.......#...#",
+        "#.BBB.B.#...#",
+        "#...B.B.#...#",
+        "#...B...#...#",
+        "#...BBB.,...#",
+        "#.......#...#",
+        "#.......#...#",
+        "#############"
+      ],
+      "playerStart": { "cell": [1, 7], "yaw": 0 },
+      "doors": [{ "id": "archive-gate", "cell": [8, 5], "locked": true }],
+      "triggers": [
+        { "id": "lens-override", "kind": "switch", "cell": [7, 1], "face": "n", "opens": "archive-gate", "tags": ["objective"] },
+        { "id": "archive-exit", "kind": "zone", "cell": [11, 1], "tags": ["exit"] }
+      ],
+      "lights": [
+        { "id": "entry-light", "cell": [2, 7], "color": "#7694b2", "intensity": 1, "distance": 8 },
+        { "id": "lens-light", "cell": [7, 1], "color": "#66cbd0", "intensity": 1.3, "distance": 7 },
+        { "id": "exit-light", "cell": [11, 1], "color": "#72df99", "intensity": 1, "distance": 6 }
+      ],
+      "ambient": { "color": "#8a9bb0", "intensity": 0.4 },
+      "fog": { "color": "#101b25", "near": 7, "far": 30 }
+    }
+  },
+  {
+    "kind": "map",
+    "id": "example/blackout-ward",
+    "data": {
+      "schema": 1, "format": "core/grid", "name": "Blackout Ward",
+      "cellSize": 2, "wallHeight": 3,
+      "legend": {
+        "#": { "solid": true, "wall": "wall-brick" },
+        "H": { "solid": true, "wall": "wall-hazard" },
+        ".": { "floor": "floor-concrete", "ceiling": "ceiling-panel" },
+        ",": { "floor": "floor-plate", "ceiling": "ceiling-panel" }
+      },
+      "grid": [
+        "#############",
+        "#.......#...#",
+        "#.###.#.#...#",
+        "#...#.#.#...#",
+        "###.#.#.#...#",
+        "#...#...,...#",
+        "#.#####.#...#",
+        "#.......#...#",
+        "#############"
+      ],
+      "playerStart": { "cell": [1, 7], "yaw": 0 },
+      "doors": [{ "id": "quarantine-gate", "cell": [8, 5], "locked": true, "surface": "door" }],
+      "triggers": [
+        { "id": "ward-override", "kind": "switch", "cell": [7, 1], "face": "n", "opens": "quarantine-gate", "tags": ["objective"] },
+        { "id": "evacuation", "kind": "zone", "cell": [11, 7], "tags": ["exit"] }
+      ],
+      "spawns": [
+        { "id": "lurker", "prefab": "core/grunt", "cell": [3, 3], "tags": ["enemy"] },
+        { "id": "watcher", "prefab": "core/spitter", "cell": [6, 1], "tags": ["enemy"] },
+        { "id": "last-medkit", "prefab": "core/medkit", "cell": [1, 3] },
+        { "id": "last-bullets", "prefab": "core/bullets", "cell": [7, 7] },
+        { "id": "ward-pickup", "prefab": "example/ward-pickup", "cell": [2, 7] }
+      ],
+      "lights": [
+        { "id": "emergency", "cell": [2, 7], "color": "#c44c36", "intensity": 0.8, "distance": 6 },
+        { "id": "override-light", "cell": [7, 1], "color": "#bd7a42", "intensity": 0.7, "distance": 5 },
+        { "id": "evac-light", "cell": [11, 7], "color": "#599b74", "intensity": 0.8, "distance": 5 }
+      ],
+      "ambient": { "color": "#53606a", "intensity": 0.22 },
+      "fog": { "color": "#080c10", "near": 3, "far": 18 }
+    }
+  }
+]

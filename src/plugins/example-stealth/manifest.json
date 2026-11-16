@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "example/stealth",
+  "name": "Stealth Guard",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^1.0.0",
+  "description": "Stationary guards detect players through a planar vision cone and world line of sight.",
+  "dependencies": { "core/world": "^1.0.0" },
+  "capabilities": ["simulation"]
+}

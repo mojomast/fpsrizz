@@ -58,7 +58,8 @@ src/plugins/my-plugin/
 }
 ```
 
-- `id` is namespaced (`namespace/name`, lowercase, digits, `-`). One installed version per id.
+- `id` is namespaced (`namespace/name`); further name segments and `.` or `_` in the name are supported. See
+  `CONTENT_FORMAT.md` for the ID rules. One installed version per id.
 - `kind`: `"code"` or `"content"`.
 - `dependencies` must be **enabled in the preset** (they are never auto-enabled) and satisfy the range.
   `optionalDependencies` may be absent; if enabled, the range must match and the plugin activates after them.
@@ -213,6 +214,8 @@ Unselected providers never run.
 | Token | Provided by | Use |
 |---|---|---|
 | `World` | core/world | `desc`, `moveCircle`, `raycast` (ray or swept circle), `lineOfSight`, `isFree`, `findPath`, `doors()`, `door(id)`, `setDoorOpen`, `triggers()`, `version` |
+| `Interactions` | core/world | `register(ctx, id, provider)` registers scoped Use candidates for single-target arbitration |
+| `Profile` | host (optional) | synchronous `load`, `save`, and `clear` for versioned local profile values; operations return explicit results |
 | `Combat` | core/combat | `damage`, `heal`, `hitscan`, `sweepActors`, `fireAttack`, `giveAmmo`, `giveWeapon` |
 | `EnemyAi` | core/enemies | `spawn`, `findTarget`, `canSee`, `distanceTo`, `moveToward`, `moveDir`, `faceTarget`, `beginAttack`, `aliveCount` |
 | `View` | selected camera | interpolated camera pose and the viewed entity |
@@ -222,6 +225,23 @@ Unselected providers never run.
 | `Ui` | host (browser only) | `mount(ctx, 'hud' \| 'overlay', className)`, `addStyles(ctx, css)` |
 | `Settings` | host | `lookSensitivity` |
 | `Render` (render SDK) | host (browser only) | scene roots, cameras, owned and shared GPU resources |
+
+Interaction providers return eligible `{ id, priority, distance, use }` candidates for the actor and pose. Lower
+priority and then distance win; provider and candidate IDs break ties deterministically, except equally distant
+built-in targets retain map order. Built-in switches use priority 0 and doors 1. The selected callback consumes the
+Use press even when it denies the action. The returned disposer unregisters early; otherwise the owner's scope does.
+Providers implement their own reach, facing and visibility checks. Cooperating plugins should use this service rather
+than independently consuming `Intent.use`.
+
+`Profile` stores strings, booleans and finite numbers, not session snapshots. Save replaces the whole profile; it does
+not provide locking or atomic read-modify-write across tabs. Consumers should tolerate an absent service and report
+storage errors. The arena mode uses it for a local best score.
+
+Magazine weapons opt in with `WeaponDef.magazineSize` and `reloadTime`. `WeaponRuntime` holds loaded rounds and reload
+state; `Inventory.ammo` holds reserve for these weapons. Starter magazines draw from starting ammo in slot order,
+newly granted weapons start empty, reload completes in simulation time, and switching cancels a reload. Controllers
+supporting reload write the optional `Intent.reload` edge each tick; stock FPS and dash controllers bind R. Weapons
+without these fields retain shared-pool ammunition semantics.
 
 ### Components (public game state)
 
@@ -326,12 +346,10 @@ export default definePlugin({
 
 `tests/helpers/game.ts` builds the real host with the gameplay plugins and fake platform services:
 
-```ts
-const game = createHeadlessGame([{ manifest, load: () => import('../src/plugins/my-plugin/index.ts') }]);
-await game.host.apply(headlessPreset({ plugins: [...] }));
-game.input.press('core/fire');
-game.ticks(60);
-```
+See `tests/ext-ricochet.test.ts` for a working example with imports, catalog, preset, assertions and teardown. The
+`headlessPreset` override is shallow: passing `plugins` replaces the whole default list. Include the required core
+plugins as well as your extension. The harness supplies input and flow, but no UI or renderer; test presentation in a
+browser as well. Call `game.host.stop()` during teardown.
 
 ## 10. Limits of v1 (be honest with yourself)
 

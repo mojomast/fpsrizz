@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "id": "example/adventure-pack",
+  "name": "Abandoned Places",
+  "version": "1.0.0",
+  "kind": "content",
+  "sdk": "^1.0.0",
+  "description": "Two small objective maps: a quiet switch hunt and a dark survival encounter.",
+  "dependencies": {
+    "core/world": "^1.0.0",
+    "core/content": "^1.0.0",
+    "example/ward": "^1.0.0"
+  },
+  "capabilities": []
+}

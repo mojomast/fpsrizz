@@ -1,0 +1,68 @@
+{
+  "01_thornwake": {
+    "triangles": 392,
+    "alpha_bounds": [
+      121,
+      130,
+      333,
+      463
+    ],
+    "glb_bytes": 40312,
+    "meshes": 12
+  },
+  "02_cinderkey": {
+    "triangles": 740,
+    "alpha_bounds": [
+      183,
+      126,
+      319,
+      464
+    ],
+    "glb_bytes": 68020,
+    "meshes": 19
+  },
+  "03_mothspindle": {
+    "triangles": 1004,
+    "alpha_bounds": [
+      115,
+      60,
+      397,
+      464
+    ],
+    "glb_bytes": 93684,
+    "meshes": 29
+  },
+  "04_briarward": {
+    "triangles": 1024,
+    "alpha_bounds": [
+      128,
+      68,
+      336,
+      464
+    ],
+    "glb_bytes": 94536,
+    "meshes": 26
+  },
+  "05_faroracle": {
+    "triangles": 1056,
+    "alpha_bounds": [
+      141,
+      131,
+      316,
+      463
+    ],
+    "glb_bytes": 94716,
+    "meshes": 28
+  },
+  "06_ashbell": {
+    "triangles": 840,
+    "alpha_bounds": [
+      156,
+      59,
+      381,
+      464
+    ],
+    "glb_bytes": 74668,
+    "meshes": 22
+  }
+}

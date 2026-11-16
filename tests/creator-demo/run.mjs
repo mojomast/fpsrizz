@@ -23,8 +23,10 @@ await esbuild.build({
 copyFileSync(resolve(root, 'index.html'), resolve(buildDir, 'index.html'));
 
 const server = await startStaticServer(buildDir);
+let browser;
+try {
 const url = server.url ?? `http://127.0.0.1:${server.port ?? server.address?.().port}/`;
-const browser = await launchBrowser().catch(async () => (await import('../../scripts/tools.mjs')).resolveTool('playwright').chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true, args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] }));
+browser = await launchBrowser();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
 const errors = [];
 page.on('pageerror', (e) => errors.push(`pageerror: ${e}`));
@@ -288,7 +290,7 @@ try {
   if (errors.length) console.error(errors.join('\n'));
   await shot('failure').catch(() => {});
   process.exitCode = 1;
+}
 } finally {
-  await browser.close();
-  server.close?.();
+  try { await browser?.close(); } finally { await server.close(); }
 }

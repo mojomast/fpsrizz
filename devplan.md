@@ -1,8 +1,16 @@
 # Development plan
 
 Status of the five milestones, then the next expansion steps. For what exists today see [SPEC.md](SPEC.md); for the
-build's stack deviation (mini3, esbuild and `node --test` instead of Three.js, Vite and Vitest, no lockfile) see
+build's stack deviation (mini3, esbuild and `node --test` instead of Three.js, Vite and Vitest) see
 [ARCHITECTURE.md](ARCHITECTURE.md).
+
+For a research-backed, cross-genre plugin and game-slice proposal, see [GAME_PLUGIN_ROADMAP.md](GAME_PLUGIN_ROADMAP.md).
+That proposal is not an implementation status or a replacement for the milestones below.
+
+Cross-genre slices now include timed raid, score attack, holdout, key dungeon, stealth, puzzle, horror, seeded gauntlet
+and planar racing, with curated Assetrizz art. The staged dependency plan is in [BUILD_ORDER.md](BUILD_ORDER.md).
+Experimental vertical geometry queries and a network message codec are isolated prototypes; neither vertical gameplay
+nor multiplayer is integrated. Local profile best scores are implemented; full run saving remains planned.
 
 ## Milestones
 
@@ -18,8 +26,7 @@ build's stack deviation (mini3, esbuild and `node --test` instead of Three.js, V
 
 Ordered; each is independent of the later ones.
 
-1. **Migrate to real Three.js, Vite and Vitest, with a lockfile.** Do this as soon as an environment with npm registry
-   access exists. Install the packages and commit `package-lock.json`; swap the module behind `src/sdk/render.ts` and
+1. **Migrate to real Three.js, Vite and Vitest.** Install the packages and update `package-lock.json`; swap the module behind `src/sdk/render.ts` and
    `src/platform/render/service.ts`; fix the colour, Euler-order and lighting differences listed in the mini3 section of
    ARCHITECTURE.md; replace the esbuild scripts with Vite and port or keep the `node --test` suites; update the lint rules
    that currently restrict bare imports. Keep the render adapter and the SDK `THREE` export so plugins do not change.
@@ -46,10 +53,13 @@ Not scheduled; none of these exist.
 - Recording and replay of per-tick input, building on the deterministic fixed-step simulation.
 - Runtime installation of third-party code plugins, which would first require a sandboxing model (today code plugins are
   compiled in and fully trusted).
+- Resolve the scheduler's removal contract: `ARCHITECTURE.md` says removals during a tick take effect on the next tick,
+  while `src/kernel/scheduler.ts` immediately skips a removed system. Decide the intended behavior and cover it with a
+  regression test before aligning implementation and documentation.
 
 ## Carried over from the offline build
 
-- No `package-lock.json`; devDependency versions are pinned in `package.json`.
+- The original offline build had no lockfile; development dependencies are now locked in `package-lock.json`.
 - GPU performance has not been measured; the smoke test ran with software WebGL2 and checks CPU time per frame only.
 - Browser coverage is Chrome only.
 - Imported content packs are not persisted across page loads.

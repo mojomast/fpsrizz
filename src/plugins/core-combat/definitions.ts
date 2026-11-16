@@ -36,6 +36,15 @@ export const weaponKind: ContentKind = {
     const params = vParams(o.params, r.at('params'));
     const ammoType = o.ammoType === undefined || o.ammoType === '' ? '' : vId(o.ammoType, r.at('ammoType'));
     const ammoPerShot = o.ammoPerShot === undefined ? 1 : vNumber(o.ammoPerShot, r.at('ammoPerShot'), { int: true, min: 0, max: 100 });
+    const magazineSize = o.magazineSize === undefined ? undefined : vNumber(o.magazineSize, r.at('magazineSize'), { int: true, min: 1, max: 9999 });
+    const reloadTime = o.reloadTime === undefined ? undefined : vNumber(o.reloadTime, r.at('reloadTime'), { min: 0.03, max: 60 });
+    if (o.magazineSize !== undefined || o.reloadTime !== undefined) {
+      if (o.magazineSize === undefined) r.at('magazineSize').error('required with reloadTime');
+      if (o.reloadTime === undefined) r.at('reloadTime').error('required with magazineSize');
+      if (!ammoType) r.at('ammoType').error('magazines require a finite ammo type');
+      if (ammoPerShot !== undefined && ammoPerShot < 1) r.at('ammoPerShot').error('magazines require at least one round per shot');
+      if (magazineSize !== undefined && ammoPerShot !== undefined && magazineSize < ammoPerShot) r.at('magazineSize').error('must hold at least one shot');
+    }
     const cooldown = vNumber(o.cooldown, r.at('cooldown'), { min: 0.03, max: 10 });
     const auto = o.auto === undefined ? false : vBool(o.auto, r.at('auto'));
     const starter = o.starter === undefined ? false : vBool(o.starter, r.at('starter'));
@@ -46,6 +55,7 @@ export const weaponKind: ContentKind = {
     if (flash !== undefined && !/^#[0-9a-fA-F]{6}$/.test(flash)) r.at('flash').error(`"${flash}" is not a colour like "#ffaa33"`);
     if ([name, slot, behavior, params, ammoType, ammoPerShot, cooldown, auto, starter, view, fireSound, recoil, flash].includes(undefined) || r.failed) return;
     const def: WeaponDef = { name: name!, slot: slot!, attack: { behavior: behavior!, params: params! }, ammoType: ammoType!, ammoPerShot: ammoPerShot!, cooldown: cooldown!, auto: auto!, starter: starter!, view: view!, fireSound: fireSound!, recoil: recoil!, flash: flash! };
+    if (magazineSize !== undefined && reloadTime !== undefined) { def.magazineSize = magazineSize; def.reloadTime = reloadTime; }
     c.register(Weapons, c.id, def);
   },
 };
