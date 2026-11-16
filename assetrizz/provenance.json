@@ -76,6 +76,53 @@
       ]
     }
   ],
+  "ui": [
+    {
+      "key": "cinder-hall",
+      "path": "assets/hand_painted_fantasy/backgrounds/scene/dungeon_hall_wide.png",
+      "sha256": "9fc4facff8540b4be432e02b5876baf703a6408ce9f3caca480346f4d2124093"
+    },
+    {
+      "key": "cinder-power",
+      "path": "assets/hand_painted_fantasy/icons/weapon/iron_sword_ornate.png",
+      "sha256": "d247234c668374df96afd8169e94719c5fece0067d9fd72a90441428150fa1b1"
+    },
+    {
+      "key": "cinder-vitality",
+      "path": "assets/hand_painted_fantasy/icons/potion/health_potion_ornate.png",
+      "sha256": "f0624b2742cddac0a9119ef105090ff44f433145c76cbfbf9d8b2f7250553c10"
+    },
+    {
+      "key": "cinder-shell",
+      "path": "assets/hand_painted_fantasy/icons/armor/iron_shield_ornate.png",
+      "sha256": "03a15c2060e0b2b536a7dc0c473534484e710d65052c63bc5ac498d3b86521da"
+    },
+    {
+      "key": "cinder-siphon",
+      "path": "assets/hand_painted_fantasy/icons/valuable/cut_ruby_ornate.png",
+      "sha256": "09e839a0ceaefc9aa52344c912424cc2c2afe09ad1cf430824d9828ea99c95c3"
+    },
+    {
+      "key": "cinder-pulse",
+      "path": "assets/hand_painted_fantasy/icons/weapon/crystal_wand_ornate.png",
+      "sha256": "f3c6e915d1a0dacf87c519197d9d246d8dd29d5a61297c7be49dd95f000c90bb"
+    },
+    {
+      "key": "cinder-bounty",
+      "path": "assets/hand_painted_fantasy/icons/valuable/gold_coin_ornate.png",
+      "sha256": "1aad9fa0f9a0dca6302b0b3d24355c7366cb2a99dc9b355221b923fddebd28eb"
+    },
+    {
+      "key": "cinder-npc-smith",
+      "path": "assets/hand_painted_fantasy/portraits/trade/dye_merchant_bust.png",
+      "sha256": "a3566d47eaa400257e2b9faa764aa8dd182cebcce0f5aea91809601dca74a333"
+    },
+    {
+      "key": "cinder-npc-cartographer",
+      "path": "assets/hand_painted_fantasy/portraits/watch/night_watch_bust.png",
+      "sha256": "966675c2233e95487361f23386f94d32096757d16a8dafd0466ba273827a2143"
+    }
+  ],
   "fantasy": {
     "assets": [
       {
@@ -146,6 +193,111 @@
             "path": "assets/hand_painted_fantasy/enemies/creature/small_imp_alert.png",
             "sha256": "3e1d66de17d9f782fda349926bda1268054a67a0c6fdcf209058192ee97e8871",
             "effect": "hurt"
+          }
+        ]
+      },
+      {
+        "key": "npc-smith",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/blacksmith_front.png",
+            "sha256": "342f394839aaf2bf65325f9b519a60badbac0a9ffebf66ef93fa62c106a21495"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/blacksmith_side.png",
+            "sha256": "0359920b4157c1f374361d8fb64eca49731c6bdfa5cfa5340b9e23f53cf044ee"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/blacksmith_three_quarter.png",
+            "sha256": "1a9d905cf975278d7907515caf62c8637ab16480dd985b9c471102487fd5a409"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/blacksmith_front.png",
+            "sha256": "342f394839aaf2bf65325f9b519a60badbac0a9ffebf66ef93fa62c106a21495"
+          }
+        ]
+      },
+      {
+        "key": "npc-cartographer",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/scholar_front.png",
+            "sha256": "9c2a9d77b30970a84e3f1c5cbd975fae9ec7705f86b4038619f49cb5bd2c9feb"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/scholar_side.png",
+            "sha256": "2b796562be528de578841ac762624fae53fe5d6587a3877e3b03d17dc4051664"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/scholar_three_quarter.png",
+            "sha256": "1164663d3f096ae90c65e8d8c114a4bf95f7fd1f8cc3e531c8620c6020149242"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/scholar_front.png",
+            "sha256": "9c2a9d77b30970a84e3f1c5cbd975fae9ec7705f86b4038619f49cb5bd2c9feb"
+          }
+        ]
+      },
+      {
+        "key": "player-knight",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/knight_front.png",
+            "sha256": "2ae9714f619677d9cf814b7ac9e7734e9e69b95d866fdeb8ab595828cf75e872"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/knight_side.png",
+            "sha256": "67988d6c9bfcc0ad97a49d764c03691189150c064c42f0ffd89ed05298a4cd87"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/knight_three_quarter.png",
+            "sha256": "d0045ab731d4b32ccf3c76b5082407e665d1a62a0d367bb38fb92931a56be6b7"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/knight_front.png",
+            "sha256": "2ae9714f619677d9cf814b7ac9e7734e9e69b95d866fdeb8ab595828cf75e872"
+          }
+        ]
+      },
+      {
+        "key": "player-mage",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/mage_front.png",
+            "sha256": "e90187910984af6a7c1762c17b89c7d192a173f3631c4cf795ad67c6bb8938b9"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/mage_side.png",
+            "sha256": "02816e6b7d7b7bc4aff37bde426689e864cd67f66904e4168637db21943e157d"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/mage_three_quarter.png",
+            "sha256": "36ba24502aa7591a1276803a179d02cfabc18f9314315d0daccf159fd549051d"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/mage_front.png",
+            "sha256": "e90187910984af6a7c1762c17b89c7d192a173f3631c4cf795ad67c6bb8938b9"
+          }
+        ]
+      },
+      {
+        "key": "player-rogue",
+        "frames": [
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/rogue_front.png",
+            "sha256": "0db2bad6c044d71bb4edd5b099ab2b17e695492a952c3ba459840d5b56d4df46"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/rogue_side.png",
+            "sha256": "4591cbf3580ed6bcd91ca71cfe3dce1754796fe55c1928a84f06e2b649ff042f"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/rogue_three_quarter.png",
+            "sha256": "c6d98b7c63d5cc905caa57e2cc2a66fc30d8970b98de1a918a2818c55d2f699a"
+          },
+          {
+            "path": "assets/hand_painted_fantasy/characters/humanoid/rogue_front.png",
+            "sha256": "0db2bad6c044d71bb4edd5b099ab2b17e695492a952c3ba459840d5b56d4df46"
           }
         ]
       }

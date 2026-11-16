@@ -1,0 +1,80 @@
+{
+  "configSha256": "c022023bcff599df7e3361c16f28fdf82e3f17a465bc2f083d1d4799ed5f5a05",
+  "source": "assets/weapons/fantasy",
+  "license": "original, created for this project; see assets/weapons/fantasy/README.md",
+  "processing": "alpha-bounds crop, square transparent padding, 192px Lanczos resize",
+  "assets": [
+    {
+      "id": "cinder/thornwake",
+      "stem": "01_thornwake",
+      "source": "assets/weapons/fantasy/01_thornwake.png",
+      "sourceSha256": "b1a405c11e118d721c223149816011723e5415d133a0392923fec6c056220a6f",
+      "output": "weapons/fantasy/01_thornwake.png",
+      "outputSha256": "adbf8a101c61cd300af6adfc064c78dd98a7b7f647110581f69a06ca5d41d851",
+      "size": [
+        192,
+        192
+      ]
+    },
+    {
+      "id": "cinder/cinderkey",
+      "stem": "02_cinderkey",
+      "source": "assets/weapons/fantasy/02_cinderkey.png",
+      "sourceSha256": "4d83ee03fe20467a1cfcfe40e8780e35e748a783316aeb64f1814e3704ab54ee",
+      "output": "weapons/fantasy/02_cinderkey.png",
+      "outputSha256": "f78e880e47b6f8047284e3f67f71e701fbeb1f6576fc5cdf9d99b86ffcfa3064",
+      "size": [
+        192,
+        192
+      ]
+    },
+    {
+      "id": "cinder/mothspindle",
+      "stem": "03_mothspindle",
+      "source": "assets/weapons/fantasy/03_mothspindle.png",
+      "sourceSha256": "3e41e33b4e0fb34a2849b8d79278403030128dd96170a0a609d2eabbfb778809",
+      "output": "weapons/fantasy/03_mothspindle.png",
+      "outputSha256": "74c853a2a19eadf5a8822ba1af0324d23951d7880f06bc729c41f37c4c19b561",
+      "size": [
+        192,
+        192
+      ]
+    },
+    {
+      "id": "cinder/briarward",
+      "stem": "04_briarward",
+      "source": "assets/weapons/fantasy/04_briarward.png",
+      "sourceSha256": "368320bedbe8d0d946db2eccf63bd6cc39a14358c3806c37e1629338af882fbb",
+      "output": "weapons/fantasy/04_briarward.png",
+      "outputSha256": "d452eeba9ebfc676b3ca10422f989e87eaa72d427be5430a1bfd0a457f440176",
+      "size": [
+        192,
+        192
+      ]
+    },
+    {
+      "id": "cinder/faroracle",
+      "stem": "05_faroracle",
+      "source": "assets/weapons/fantasy/05_faroracle.png",
+      "sourceSha256": "d480203be32316e79757b4c209253acb1f50ab18cea0408552691e49a927cff8",
+      "output": "weapons/fantasy/05_faroracle.png",
+      "outputSha256": "1367688b30ad866fee323254a795c00a620fbb5dfb34dd0e580bcb2a25c443d8",
+      "size": [
+        192,
+        192
+      ]
+    },
+    {
+      "id": "cinder/ashbell",
+      "stem": "06_ashbell",
+      "source": "assets/weapons/fantasy/06_ashbell.png",
+      "sourceSha256": "590e1402d408f6b6f0c8fac5b8c45c8038d5e6cc0e418c058428c4789ddfe64b",
+      "output": "weapons/fantasy/06_ashbell.png",
+      "outputSha256": "c4faf77857bddc0cd336c6406bdbeb1fa81176a3e025683f7eb69dd53cce3599",
+      "size": [
+        192,
+        192
+      ]
+    }
+  ]
+}
