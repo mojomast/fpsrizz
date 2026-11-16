@@ -5,7 +5,7 @@
 **A modular, plugin-driven, Doom-inspired 2.5D first-person shooter foundation, and the playable game built on it.**
 
 [![CI](https://github.com/mojomast/fpsrizz/actions/workflows/ci.yml/badge.svg)](https://github.com/mojomast/fpsrizz/actions/workflows/ci.yml)
-[![Deploy](https://github.com/mojomast/fpsrizz/actions/workflows/pages.yml/badge.svg)](https://github.com/mojomast/fpsrizz/actions/workflows/pages.yml)
+
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
 ![Runtime deps](https://img.shields.io/badge/runtime%20dependencies-0-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
@@ -73,7 +73,7 @@ Each is a preset you can switch to live from the creator panel (press `` ` ``):
 
 ## Quick start
 
-Play online: **https://mojomast.github.io/fpsrizz/** (deployed from `main` by GitHub Actions).
+Play online: **https://mojomast.github.io/fpsrizz/** (served from the `gh-pages` branch).
 
 Or run it locally (Node >= 22.18):
 
