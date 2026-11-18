@@ -42,14 +42,9 @@ for (const file of fs.readdirSync(tpl)) {
   );
   fs.writeFileSync(path.join(dir, file), text, { flag: 'wx' });
 }
-const ident = `plugin_${dirName.replace(/[-.]/g, '_')}`;
 console.log(`Created src/plugins/${dirName}/ (manifest.json, index.ts, reuse.json)
 
-1. Add to src/app/catalog.ts:
-
-   import ${ident} from '../plugins/${dirName}/manifest.json' with { type: 'json' };
-   …
-   { manifest: ${ident}, load: () => import('../plugins/${dirName}/index.ts') },
+1. The catalog picks it up automatically (npm run gen-catalog; dev, build and check do this for you).
 
 2. Enable it: add "${id}" to "plugins" in src/content/presets/default.json
    (or tick it in the creator panel, \` key, and press "Apply & restart").

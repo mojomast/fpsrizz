@@ -76,7 +76,7 @@ export function dependencyClosure(id, manifests) {
 export async function buildReuseIndex() {
   const contracts = sdkInventory(), symbols = new Set(contracts.map(item => item.name));
   const manifests = new Map(), folders = new Map();
-  const inputs = new Set(['src/app/catalog.ts', 'scripts/reuse-lib.mjs', 'docs/reuse-recipes.json']);
+  const inputs = new Set(['src/app/catalog.ts', 'src/app/catalog.generated.ts', 'scripts/reuse-lib.mjs', 'docs/reuse-recipes.json']);
   for (const folder of sorted(readdirSync(resolve(root, 'src/plugins')))) {
     const directory = `src/plugins/${folder}`, path = `${directory}/manifest.json`;
     if (!existsSync(resolve(root, path))) continue;

@@ -17,13 +17,14 @@
     "lint": "node scripts/boundaries.ts",
     "test": "node --test \"tests/**/*.test.ts\" tests/validate-game.test.mjs tests/reuse-discovery.test.mjs",
     "smoke": "node scripts/smoke.mjs",
-    "check": "node scripts/check-node.mjs && npm run typecheck && npm run lint && npm run index-reuse -- --check && npm run test",
+    "check": "node scripts/check-node.mjs && npm run gen-catalog -- --check && npm run typecheck && npm run lint && npm run index-reuse -- --check && npm run test",
     "find-reuse": "node scripts/find-reuse.mjs",
     "index-reuse": "node scripts/index-reuse.mjs",
     "new-plugin": "node scripts/new-plugin.mjs",
     "validate-game": "node scripts/validate-game.mjs",
     "vendor-three": "node scripts/vendor-three.mjs",
-    "graph": "node scripts/game-graph.mjs"
+    "graph": "node scripts/game-graph.mjs",
+    "gen-catalog": "node scripts/gen-catalog.mjs"
   },
   "devDependencies": {
     "@types/three": "0.187.0",

@@ -40,8 +40,8 @@ Content packs are validated JSON and cannot run code or load remote assets.
 it is data. If you catch yourself wanting an `if` — a new way to attack, move, think, score, draw — it needs a code
 plugin that registers a behaviour, after which data can select it by id.
 
-**Discovery is build-time.** `src/app/catalog.ts` lists the plugins compiled into the app. Adding a local plugin means
-adding its folder and one catalog line (plus naming it in a preset). A deployed build cannot install new JavaScript;
+**Discovery is build-time.** `scripts/gen-catalog.mjs` scans plugin folders and writes `src/app/catalog.generated.ts`,
+the list of plugins compiled into the app. Adding a local plugin means adding its folder (plus naming it in a preset). A deployed build cannot install new JavaScript;
 it can import data packs.
 
 **Authoring discovery:** use `npm run find-reuse -- "capability words"` before implementing another mechanic.
@@ -567,8 +567,8 @@ then set `Visual.renderer = 'my/renderer'` on the entities that should use it.
 Goal: a plugin that slowly regenerates the player's health and says so on the HUD.
 
 1. Scaffold: `npm run new-plugin -- example/regen "Health Regen"` creates `src/plugins/example-regen/` from
-   `templates/plugin-starter/` and prints the two lines to paste.
-2. Paste the catalog line into `src/app/catalog.ts`, and add `"example/regen"` to `plugins` in
+   `templates/plugin-starter/`; the generated catalog picks it up.
+2. Add `"example/regen"` to `plugins` in
    `src/content/presets/default.json`.
 3. Replace `activate` in `src/plugins/example-regen/index.ts`:
 

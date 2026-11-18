@@ -37,7 +37,7 @@ loading the complete `docs/reuse-index.json`. The CLI observes trusted registrat
 | `src/kernel` | Runtime kernel: host, registries, entity store, buses, scheduler, scopes, validation. No game concepts, no DOM. |
 | `src/sdk` | SDK 2 public API: `index.ts` (entry), `core.ts` (generic), `contracts/` (shooter, experience, vehicle, tactics, adventure and audio vocabulary), `render.ts` |
 | `src/platform` | Browser adapters (input, audio, storage, ui, flow, render host); official Three.js behind the historical `render/mini3/index.ts` facade, vendored in `render/mini3/vendor/`; `legacy.ts` retains the old renderer for fixtures |
-| `src/app` | Composition root: `main.ts` (frame loop), `catalog.ts` (compiled-in plugins and presets), `shell.ts`, `creator.ts` |
+| `src/app` | Composition root: `main.ts` (frame loop), `catalog.ts` (presets; re-exports the generated `catalog.generated.ts`), `shell.ts`, `creator.ts` |
 | `src/plugins/<ns>-<name>` | One folder per plugin or content pack: `manifest.json`, `index.ts` and/or `content.json` |
 | `src/content/presets` | Preset JSON files |
 | `tests` | `*.test.ts` run by `npm test`; `helpers/` harness; subfolders with browser demo scripts run by hand |
@@ -121,8 +121,8 @@ context, and selected roles activate after all plugins; see the lifecycle notes 
 
 1. Complete reuse discovery above. `npm run new-plugin -- <namespace/name> "Display Name"` shows related existing
    candidates and creates `src/plugins/<namespace>-<name>/` with a manifest, starter `index.ts` and unreviewed `reuse.json`.
-   It prints the catalog line to add. Fill in the capability, scope, public entry points, limits and examples.
-2. Add the manifest import and catalog entry to `src/app/catalog.ts`; add the plugin id to a preset's `plugins` (or tick it
+   The catalog discovers it automatically. Fill in the capability, scope, public entry points, limits and examples.
+2. The plugin catalog is generated from manifests (`npm run gen-catalog`; dev/build/check run or verify it). Add the plugin id to a preset's `plugins` (or tick it
    in the creator panel). Dependencies are never auto-enabled: list every required plugin in the preset and in the
    manifest's `dependencies`.
 3. If it provides an exclusive role (controller, camera, mode, HUD, theme, experience), select it in the preset's `roles`.

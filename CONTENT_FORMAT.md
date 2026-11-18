@@ -48,8 +48,8 @@ data below is not a valid weapon. For a working pack, see `src/plugins/example-p
 A pack must depend on the plugins that define the content kinds it uses (`weapon`/`ammo`/`pickup` → `core/combat`,
 `enemy` → `core/enemies`, `map` → `core/world`) and on any plugin whose behaviours or prefabs it references.
 
-Built-in packs live in `src/plugins/<dir>/manifest.json` + `content.json` (the `content` array) and are listed in
-`src/app/catalog.ts`.
+Built-in packs live in `src/plugins/<dir>/manifest.json` + `content.json` (the `content` array) and are discovered into
+`src/app/catalog.generated.ts` by `npm run gen-catalog`.
 
 Code manifests may declare `roleDependencies: ["sdk/some-role"]` to require a selected role and activate its
 provider-owning plugin before the consumer. The field defaults to `[]`, uses namespaced IDs and rejects duplicates.

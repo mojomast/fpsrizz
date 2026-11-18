@@ -46,8 +46,8 @@ ports; agents can edit the same graph JSON without coordinates. See [game-compos
 2. Define the map and its player start, spawns, doors and triggers. Match the selected mode's requirements: for
    example, the objective mode requires an exit zone. A mode owns its player and map-spawn setup; adding a map alone
    does not define a new mode. See the core and example maps and `example-survival/index.ts`.
-3. Add manifest imports and catalog entries in `src/app/catalog.ts`. For code plugins supply `load`; for content
-   packs supply `content`. Copy a preset to `src/content/presets/`, assign it a new ID and select your map. List
+3. The plugin catalog is generated from each folder's `manifest.json` (code plugins have `index.ts`, content packs
+   have `content.json`); run `npm run gen-catalog` or just `npm run dev`. Copy a preset to `src/content/presets/`, assign it a new ID and select your map. List
    **every** required plugin, including transitive dependencies, and select the exclusive role providers you need.
    Import and add the preset to the `presets` array in the catalog to expose it in the UI.
 4. Validate the selection without opening a browser: `npm run validate-game -- src/content/presets/my-game.json`.

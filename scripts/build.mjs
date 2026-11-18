@@ -3,6 +3,7 @@ import { rmSync, mkdirSync, cpSync, existsSync, statSync, readdirSync, readFileS
 import { createHash } from 'node:crypto';
 import { resolve, join, relative } from 'node:path';
 import { resolveTool, root } from './tools.mjs';
+import { generate as generateCatalog } from './gen-catalog.mjs';
 
 const esbuild = resolveTool('esbuild');
 const entry = resolve(root, process.env.ENTRY ?? 'src/app/main.ts');
@@ -16,6 +17,7 @@ function walk(dir) {
 
 try {
   if (!existsSync(entry)) throw new Error(`Entry point not found: ${relative(root, entry)}`);
+  generateCatalog();
   rmSync(dist, { recursive: true, force: true });
   mkdirSync(resolve(dist, 'assets'), { recursive: true });
   await esbuild.build({
