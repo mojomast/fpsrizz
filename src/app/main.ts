@@ -3,6 +3,7 @@
  * sessions as host services, and runs the frame loop. No gameplay rules live here.
  */
 import { HostError, PluginHost, errText } from '../kernel/host.ts';
+import { hashSnapshot } from '../kernel/snapshot.ts';
 import type { Session } from '../kernel/host.ts';
 import { createAssetService, preloadManifestAssets } from '../platform/assets.ts';
 import { createAudioService } from '../platform/audio.ts';
@@ -18,6 +19,8 @@ import { createRenderHost } from '../platform/render/service.ts';
 import type { RenderHost } from '../platform/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
 import { createUiService } from '../platform/ui.ts';
+import { recordInput } from '../platform/replay.ts';
+import type { ReplayRecorder } from '../platform/replay.ts';
 import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
 import { Assets, Audio, AudioSamples, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputAxes, InputBindings, InputContexts, prettyKey, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
 import { Render } from '../sdk/render.ts';
@@ -107,6 +110,9 @@ function boot(): void {
   applyVolumes();
 
   const assets = createAssetService();
+  // `?record` records every session's input for a `.replay.json` (F8 or __bulkhead.replay.download()).
+  const recording = new URLSearchParams(location.search).has('record');
+  let recorder: ReplayRecorder | undefined;
   const host = new PluginHost({
     sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
     phases: PHASES,
@@ -132,6 +138,12 @@ function boot(): void {
       session.services.provide(Flow, createFlow((r) => session.events.emit(FlowEnded, r), () => session.scheduler.time), 'host', scope);
       session.services.provide(InputBindings, inputBindings, 'host', scope);
       session.addBeforeTick(() => { gamepads.poll(); inputCore.beginTick(); }, scope);
+      if (recording) {
+        recorder?.stop();
+        const rec = recordInput(inputCore, { sdk: SDK_VERSION, preset: session.preset.id, seed: session.preset.seed });
+        recorder = rec;
+        scope.add(() => { rec.stop(); if (recorder === rec) recorder = undefined; }, 'replay-recorder');
+      }
       session.events.on(FlowEnded, (r) => onFlowEnded(session, r), 'host', scope);
       session.onFault = (f) => {
         state = 'error';
@@ -343,6 +355,35 @@ function boot(): void {
     counts: () => ({ uiRoots: ui.mounted, sceneRoots: renderHost.liveRoots(), audioVoices: audio.activeVoices }),
   });
 
+  // ---- quicksave / replays (SDK 3) ----------------------------------------------------------------------------------
+  // Snapshots are only complete when every active plugin follows the SDK 3 rule "state outside components goes
+  // through ctx.persist()", so quicksave is offered for all-SDK-3 presets only (older games keep closure state).
+  const snapshotReady = (): boolean => {
+    const a = host.active, s = host.session;
+    return !!a && !!s && s.state === 'running' && s.order.every((id) => /^\^?3\./.test(a.manifests.get(id)?.sdk ?? ''));
+  };
+  const saveKey = (): string => `fpsrizz/quicksave/${host.session?.preset.id ?? ''}`;
+  const flash = (text: string): void => { shell.setHint(text); setTimeout(() => shell.setHint(null), 1500); };
+  const quicksave = (): boolean => {
+    if (!snapshotReady()) return false;
+    try { localStorage.setItem(saveKey(), JSON.stringify(host.snapshot())); flash('Quicksaved (F9 to load)'); return true; } catch (e) { console.warn('quicksave failed', e); return false; }
+  };
+  const quickload = (): boolean => {
+    const raw = snapshotReady() ? localStorage.getItem(saveKey()) : null;
+    if (!raw) return false;
+    try { inputCore.clear(); host.restore(JSON.parse(raw)); flash('Quickloaded'); return true; } catch (e) { console.warn('quickload failed', e); flash('Quicksave does not fit this game version'); return false; }
+  };
+  const downloadReplay = (): boolean => {
+    if (!recorder) return false;
+    const file = recorder.toFile({ hash: hashSnapshot(host.snapshot()), meta: { recorded: new Date().toISOString() } });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(file)], { type: 'application/json' }));
+    a.download = `${file.preset.replace(/\W+/g, '-')}-${file.seed}.replay.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    return true;
+  };
+
   // ---- browser events ------------------------------------------------------------------------------------------------
   const onLockChange = (): void => {
     if (document.pointerLockElement === canvas) shell.setHint(null);
@@ -356,6 +397,11 @@ function boot(): void {
       return;
     }
     if (isInputEditableTarget(e.target)) return;
+    if ((e.code === 'F6' || e.code === 'F9' || e.code === 'F8') && (state === 'playing' || state === 'paused')) {
+      const done = e.code === 'F6' ? quicksave() : e.code === 'F9' ? quickload() : downloadReplay();
+      if (done) e.preventDefault();
+      return;
+    }
     if (e.code === 'Backquote') {
       e.preventDefault();
       if (state === 'playing') pause();
@@ -455,6 +501,8 @@ function boot(): void {
     restart,
     toMenu,
     applyPreset,
+    snapshots: { ready: snapshotReady, quicksave, quickload, take: () => host.snapshot(), restore: (s: unknown) => host.restore(s) },
+    replay: { get recorder() { return recorder; }, download: downloadReplay },
     stop() {
       cancelAnimationFrame(raf);
     },

@@ -31,7 +31,15 @@ export interface InputCore {
   /** Adapters call this before routing a pressed key; true = the key was captured and must not reach gameplay. */
   offerCapture(key: string): boolean;
   readonly capturing: boolean;
+  /** Replay recording: observes every input call (one tap; undefined removes it). See platform/replay.ts. */
+  setTap(tap: InputTap | undefined): void;
 }
+
+/** One recorded input call. `t` marks a beginTick. */
+export type InputEvent =
+  | ['p', string] | ['r', string] | ['l', number, number] | ['ptr', number, number, boolean]
+  | ['k', string, string[]] | ['ku', string] | ['an', AnalogSource, number, number] | ['c'] | ['t'];
+export type InputTap = (event: InputEvent) => void;
 
 function createInputState(axisOf: AxisResolver = () => ZERO) {
   const held = new Set<string>();
@@ -131,6 +139,7 @@ export function createInputCore(): InputCore {
     return best;
   };
   const legacy = createInputState(resolveAxis);
+  let tap: InputTap | undefined;
   type State = ReturnType<typeof createInputState>;
   const contexts: { state: State; bindings: Map<string, string[]>; priority: number; consume: boolean; exclusive: boolean; enabled: boolean }[] = [];
   const down = new Map<string, { state: State; action: string }[]>();
@@ -152,7 +161,8 @@ export function createInputCore(): InputCore {
   return {
     service: legacy.service,
     setAxes(defs) { axisDefs = defs; axisCache = undefined; },
-    setAnalog(source, x, y) { pendAnalog.set(source, { x, y }); },
+    setTap(t) { tap = t; },
+    setAnalog(source, x, y) { tap?.(['an', source, x, y]); pendAnalog.set(source, { x, y }); },
     noteDevice(device) { lastDevice = device; },
     get lastDevice() { return lastDevice; },
     get capturing() { return pendingCapture !== undefined; },
@@ -168,19 +178,21 @@ export function createInputCore(): InputCore {
       endCapture(key === 'Escape' ? undefined : key);
       return true;
     },
-    press: (action) => legacy.press(action),
-    release: (action) => legacy.release(action),
-    addLook(dx, dy) { for (const s of pointerStates()) s.addLook(dx, dy); },
-    setPointer(x, y, inside) { for (const s of pointerStates()) s.setPointer(x, y, inside); },
+    press: (action) => { tap?.(['p', action]); legacy.press(action); },
+    release: (action) => { tap?.(['r', action]); legacy.release(action); },
+    addLook(dx, dy) { tap?.(['l', dx, dy]); for (const s of pointerStates()) s.addLook(dx, dy); },
+    setPointer(x, y, inside) { tap?.(['ptr', x, y, inside]); for (const s of pointerStates()) s.setPointer(x, y, inside); },
     beginTick() {
+      tap?.(['t']);
       axisCache = undefined;
       snapAnalog.clear();
       for (const [k, v] of pendAnalog) snapAnalog.set(k, v);
       legacy.beginTick();
       for (const c of contexts) c.state.beginTick();
     },
-    clear() { cancel(); down.clear(); pendAnalog.clear(); snapAnalog.clear(); endCapture(undefined); },
+    clear() { tap?.(['c']); cancel(); down.clear(); pendAnalog.clear(); snapAnalog.clear(); endCapture(undefined); },
     pressKey(key, legacyActions) {
+      tap?.(['k', key, [...legacyActions]]);
       if (down.has(key)) return down.get(key)!.length > 0;
       const routes: { state: State; action: string }[] = [];
       let consumed = false;
@@ -195,6 +207,7 @@ export function createInputCore(): InputCore {
       return consumed || routes.length > 0;
     },
     releaseKey(key) {
+      tap?.(['ku', key]);
       const routes = down.get(key);
       down.delete(key);
       for (const route of routes ?? []) {

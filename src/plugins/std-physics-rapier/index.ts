@@ -1,6 +1,6 @@
 import RAPIER from '@dimforge/rapier3d-compat';
-import { CharacterController, CharacterMove, CharacterState, Physics, PhysicsCollider, PhysicsCollision, PrevTransform, RigidBody, Transform3D, definePlugin } from '../../sdk/index.ts';
-import type { EntityId, PhysicsService, PhysicsRayHit, Vec3 } from '../../sdk/index.ts';
+import { CharacterController, CharacterMove, CharacterState, Physics, PhysicsCollider, PhysicsCollision, PrevTransform, RigidBody, Transform3D, base64ToBytes, bytesToBase64, definePlugin } from '../../sdk/index.ts';
+import type { EntityId, Json, PhysicsService, PhysicsRayHit, Vec3 } from '../../sdk/index.ts';
 
 let ready: Promise<void> | undefined;
 /** Rapier's WASM is embedded in the compat build; init once per page/process. */
@@ -38,7 +38,7 @@ function colliderDesc(c: PhysicsCollider): RAPIER.ColliderDesc {
 export default definePlugin({
   async activate(ctx) {
     await initRapier();
-    const world = new RAPIER.World({ x: 0, y: Number(ctx.config.gravityY ?? -9.81), z: 0 });
+    let world = new RAPIER.World({ x: 0, y: Number(ctx.config.gravityY ?? -9.81), z: 0 });
     world.timestep = ctx.time.step;
     const queue = new RAPIER.EventQueue(true);
     const bodies = new Map<EntityId, Body>();
@@ -56,6 +56,14 @@ export default definePlugin({
       if (b.controller) world.removeCharacterController(b.controller);
       world.removeRigidBody(b.body);
     };
+    const makeController = (e: EntityId, cc: CharacterController): RAPIER.KinematicCharacterController => {
+      const controller = world.createCharacterController(cc.offset ?? 0.02);
+      controller.setMaxSlopeClimbAngle(cc.maxSlopeClimb ?? Math.PI / 4);
+      if (cc.autostep) controller.enableAutostep(cc.autostep.maxHeight, cc.autostep.minWidth, false);
+      if (cc.snapToGround) controller.enableSnapToGround(cc.snapToGround);
+      if (!ctx.world.has(e, CharacterState)) ctx.world.add(e, CharacterState, { grounded: false, moved: { x: 0, y: 0, z: 0 } });
+      return controller;
+    };
     const build = (e: EntityId): void => {
       const t = ctx.world.get(e, Transform3D)!, rb = ctx.world.get(e, RigidBody)!, col = ctx.world.get(e, PhysicsCollider)!, cc = ctx.world.get(e, CharacterController);
       if (t.parent !== undefined) ctx.log.warn(`entity ${e}: physics bodies must be root entities; its parent is ignored`);
@@ -72,12 +80,7 @@ export default definePlugin({
       const entry: Body = { body, collider, key: keyOf(rb, col, cc), type: rb.type };
       if (cc) {
         if (rb.type !== 'kinematic') ctx.log.warn(`entity ${e}: CharacterController needs RigidBody { type: 'kinematic' }`);
-        const controller = world.createCharacterController(cc.offset ?? 0.02);
-        controller.setMaxSlopeClimbAngle(cc.maxSlopeClimb ?? Math.PI / 4);
-        if (cc.autostep) controller.enableAutostep(cc.autostep.maxHeight, cc.autostep.minWidth, false);
-        if (cc.snapToGround) controller.enableSnapToGround(cc.snapToGround);
-        entry.controller = controller;
-        if (!ctx.world.has(e, CharacterState)) ctx.world.add(e, CharacterState, { grounded: false, moved: { x: 0, y: 0, z: 0 } });
+        entry.controller = makeController(e, cc);
       }
       bodies.set(e, entry);
       byCollider.set(collider.handle, e);
@@ -142,6 +145,39 @@ export default definePlugin({
       stats: () => ({ bodies: world.bodies.len(), colliders: world.colliders.len() }),
     };
     ctx.services.provide(Physics, service);
+
+    // Run snapshots: Rapier's own world snapshot keeps the simulation bit-exact (contacts, sleeping, solver caches);
+    // the body table maps entities back to the restored handles. Character controllers are rebuilt from components.
+    ctx.persist({
+      save: (): Json => {
+        sync();
+        return { world: bytesToBase64(world.takeSnapshot()), bodies: [...bodies].map(([e, b]) => [e, b.body.handle, b.collider.handle, b.key, b.type]) };
+      },
+      load: (data) => {
+        const d = data as { world: string; bodies: [EntityId, number, number, string, RigidBody['type']][] };
+        const restored = RAPIER.World.restoreSnapshot(base64ToBytes(d.world));
+        for (const b of bodies.values()) if (b.controller) world.removeCharacterController(b.controller);
+        bodies.clear();
+        byCollider.clear();
+        world.free();
+        world = restored;
+        world.timestep = ctx.time.step;
+        for (const [e, bh, ch, key, type] of d.bodies) {
+          const body = world.getRigidBody(bh), collider = world.getCollider(ch);
+          if (!body || !collider) continue;
+          const entry: Body = { body, collider, key, type };
+          const cc = ctx.world.get(e, CharacterController);
+          if (cc) entry.controller = makeController(e, cc);
+          bodies.set(e, entry);
+          byCollider.set(ch, e);
+        }
+        // The entity restore reported every body as re-entered; the world already matches, so drop those changes.
+        // The snapshot carries the broad phase too, so no refresh step (a zero-length step would perturb contacts).
+        simulated.drain();
+        initial = undefined;
+        queriesStale = false;
+      },
+    });
 
     ctx.systems.add({
       id: 'std/physics-rapier.step',

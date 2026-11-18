@@ -19,6 +19,7 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Physics](reference/physics.md): `std/physics-rapier` bodies, sensors, raycasts and the character controller.
 - [Input v2](reference/input.md): axes, gamepads, touch controls, the default map and rebinding.
 - [Audio](reference/audio.md): sample sounds, mixer buses, 3D positioning and the synth fallback.
+- [Snapshots, saves and replays](reference/snapshots.md): `ctx.persist`, quicksave (F6/F9), `.replay.json` record/replay and replay regression tests.
 - [Assets](reference/assets.md): the asset service, manifest preloads, `std/assets` glTF models, Blender custom
   properties as components and the `npm run assets` build step.
 - SDK API: generated from TSDoc by `npm run docs:api` into `docs/reference/api/` (not committed).

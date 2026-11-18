@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `92e3149b79a9c8373f0297ef734e49bf8fc4f4047b9b55a2b79241e7f87fa12a`
+Source digest: `18f6492e692755a606a19d30e4d2fdd979dc3e300be5a0dbc740ea0dfd482673`
 
 ## Composition recipes
 
@@ -166,6 +166,8 @@ Source digest: `92e3149b79a9c8373f0297ef734e49bf8fc4f4047b9b55a2b79241e7f87fa12a
 | `sdk/Audio` | contract | Public SDK value: sdk/audio | [source](../../src/sdk/contracts/shooter.ts#L645) |
 | `sdk/AUDIO_BUSES` | contract | Public SDK value | [source](../../src/sdk/contracts/audio.ts#L34) |
 | `sdk/AudioSamples` | contract | Public SDK value: audio-sample | [source](../../src/sdk/contracts/audio.ts#L54) |
+| `sdk/base64ToBytes` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L85) |
+| `sdk/bytesToBase64` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L80) |
 | `sdk/CameraRole` | contract | Public SDK value: sdk/camera | [source](../../src/sdk/contracts/shooter.ts#L667) |
 | `sdk/capabilityMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/capabilities.ts#L53) |
 | `sdk/CapabilityRole` | contract | Public SDK value: sdk/capabilities | [source](../../src/sdk/contracts/capabilities.ts#L50) |
@@ -213,9 +215,11 @@ Source digest: `92e3149b79a9c8373f0297ef734e49bf8fc4f4047b9b55a2b79241e7f87fa12a
 | `sdk/ExperienceRole` | contract | Public SDK value: sdk/experience | [source](../../src/sdk/contracts/experience.ts#L10) |
 | `sdk/Flow` | contract | Public SDK value: sdk/flow | [source](../../src/sdk/contracts/shooter.ts#L636) |
 | `sdk/FlowEnded` | contract | Public SDK value: sdk/flow-ended | [source](../../src/sdk/contracts/shooter.ts#L637) |
+| `sdk/fnv1a` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L65) |
 | `sdk/GAMEPAD_BUTTONS` | contract | Public SDK value | [source](../../src/sdk/contracts/input.ts#L20) |
 | `sdk/GltfExtras` | contract | Public SDK value: gltf-extras | [source](../../src/sdk/contracts/gltf.ts#L214) |
 | `sdk/gltfNodes` | contract | Public helper/class | [source](../../src/sdk/contracts/gltf.ts#L171) |
+| `sdk/hashSnapshot` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L75) |
 | `sdk/Health` | contract | Public SDK value: sdk/health | [source](../../src/sdk/contracts/shooter.ts#L43) |
 | `sdk/hintMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/hints.ts#L22) |
 | `sdk/HintMechanicRole` | contract | Public SDK value: sdk/mechanic-hints | [source](../../src/sdk/contracts/hints.ts#L21) |
@@ -251,6 +255,7 @@ Source digest: `92e3149b79a9c8373f0297ef734e49bf8fc4f4047b9b55a2b79241e7f87fa12a
 | `sdk/MechanicObjectiveChanged` | contract | Public SDK value: mechanics/objective-changed | [source](../../src/sdk/contracts/mechanics.ts#L107) |
 | `sdk/MechanicProgressionChanged` | contract | Public SDK value: mechanics/progression-changed | [source](../../src/sdk/contracts/progression.ts#L47) |
 | `sdk/MechanicResourcesChanged` | contract | Public SDK value: mechanics/resources-changed | [source](../../src/sdk/contracts/mechanics.ts#L105) |
+| `sdk/migrateSnapshot` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L41) |
 | `sdk/Models` | contract | Public SDK value: sdk/models | [source](../../src/sdk/render.ts#L114) |
 | `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](../../src/sdk/contracts/shooter.ts#L669) |
 | `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](../../src/sdk/contracts/navigation.ts#L34) |
@@ -314,9 +319,12 @@ Source digest: `92e3149b79a9c8373f0297ef734e49bf8fc4f4047b9b55a2b79241e7f87fa12a
 | `sdk/SessionControl` | contract | Public SDK value: sdk/session-control | [source](../../src/sdk/contracts/experience.ts#L16) |
 | `sdk/Settings` | contract | Public SDK value: sdk/settings | [source](../../src/sdk/contracts/shooter.ts#L643) |
 | `sdk/slerp` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L90) |
+| `sdk/SNAPSHOT_FORMAT` | contract | Public SDK value | [source](../../src/kernel/snapshot.ts#L9) |
+| `sdk/SNAPSHOT_SCHEMA` | contract | Public SDK value | [source](../../src/kernel/snapshot.ts#L10) |
 | `sdk/snapTransform` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L149) |
 | `sdk/spawnGltfScene` | contract | Public helper/class | [source](../../src/sdk/core.ts#L1) |
 | `sdk/spawnPrefab` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L335) |
+| `sdk/stableStringify` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L55) |
 | `sdk/ThemeRole` | contract | Public SDK value: sdk/theme | [source](../../src/sdk/contracts/shooter.ts#L720) |
 | `sdk/THREE` | contract | Public SDK value | [source](../../src/sdk/render.ts#L12) |
 | `sdk/TOUCH_BUTTONS` | contract | Public SDK value | [source](../../src/sdk/contracts/input.ts#L25) |

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "92e3149b79a9c8373f0297ef734e49bf8fc4f4047b9b55a2b79241e7f87fa12a",
+  "sourceDigest": "18f6492e692755a606a19d30e4d2fdd979dc3e300be5a0dbc740ea0dfd482673",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -13618,6 +13618,54 @@
       ]
     },
     {
+      "id": "sdk/base64ToBytes",
+      "type": "contract",
+      "name": "base64ToBytes",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:85",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "base64ToBytes"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/bytesToBase64",
+      "type": "contract",
+      "name": "bytesToBase64",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:80",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "bytesToBase64"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/CameraRole",
       "type": "contract",
       "name": "CameraRole",
@@ -14953,6 +15001,30 @@
       "implementations": []
     },
     {
+      "id": "sdk/fnv1a",
+      "type": "contract",
+      "name": "fnv1a",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:65",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "fnv1a"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/GAMEPAD_BUTTONS",
       "type": "contract",
       "name": "GAMEPAD_BUTTONS",
@@ -15019,6 +15091,30 @@
       "tests": [],
       "keywords": [
         "gltfNodes"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/hashSnapshot",
+      "type": "contract",
+      "name": "hashSnapshot",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:75",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "hashSnapshot"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -16047,6 +16143,30 @@
       "documentedBy": [
         "mechanics/resources"
       ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/migrateSnapshot",
+      "type": "contract",
+      "name": "migrateSnapshot",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:41",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "migrateSnapshot"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
       "recipes": [],
       "implementations": []
     },
@@ -17845,6 +17965,54 @@
       "implementations": []
     },
     {
+      "id": "sdk/SNAPSHOT_FORMAT",
+      "type": "contract",
+      "name": "SNAPSHOT_FORMAT",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:9",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SNAPSHOT_FORMAT"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SNAPSHOT_SCHEMA",
+      "type": "contract",
+      "name": "SNAPSHOT_SCHEMA",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:10",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SNAPSHOT_SCHEMA"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/snapTransform",
       "type": "contract",
       "name": "snapTransform",
@@ -17911,6 +18079,30 @@
       "tests": [],
       "keywords": [
         "spawnPrefab"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/stableStringify",
+      "type": "contract",
+      "name": "stableStringify",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:55",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "stableStringify"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [

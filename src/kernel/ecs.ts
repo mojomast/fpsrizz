@@ -295,6 +295,25 @@ export class EntityStore {
     return out;
   }
 
+  /** Next id `create()` will hand out (snapshots). */
+  get nextEntityId(): EntityId { return this.nextId; }
+
+  /**
+   * Replaces every entity with `entities` (ids and owners preserved; component data deep-copied). Queries observe it
+   * as removals followed by additions, exactly like destroying and creating them. Used by snapshot restore.
+   */
+  restore(entities: readonly { id: EntityId; owner: string; components: Record<string, unknown> }[], nextId: EntityId): void {
+    for (const id of [...this.owners.keys()]) this.destroy(id);
+    this.flush();
+    let max = 0;
+    for (const e of entities) {
+      this.owners.set(e.id, e.owner);
+      max = Math.max(max, e.id);
+      for (const [cid, data] of Object.entries(e.components)) this.add(e.id, { id: cid }, structuredClone(data));
+    }
+    this.nextId = Math.max(nextId, max + 1);
+  }
+
   /** Plain-data snapshot (debugging, tests, and the shape future save files will use). */
   snapshot(): { id: EntityId; owner: string; components: Record<string, unknown> }[] {
     const out: { id: EntityId; owner: string; components: Record<string, unknown> }[] = [];

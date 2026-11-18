@@ -57,7 +57,18 @@ try {
     const z1 = (await hero()).z;
     if (!(z1 < z0 - 1)) throw new Error(`rebound key did not walk forward: ${z0} -> ${z1}`);
     await page.evaluate(() => window.__bulkhead.inputBindings.reset());
-    console.log(`PASS sandbox: ${scene.engine}, ${scene.physics.bodies} bodies, hero walked ${(after.x - before.x).toFixed(1)} m, pad entries ${after.entries}, ${scene.assets.loaded} assets loaded, 3 samples decoded`);
+    // Snapshots (SDK 3): F6 quicksaves, walking moves the hero, F9 puts it back.
+    await page.keyboard.press('F6');
+    const saved = await hero();
+    await page.keyboard.down('KeyA'); await page.waitForTimeout(600); await page.keyboard.up('KeyA');
+    const moved = await hero();
+    if (!(moved.x < saved.x - 1)) throw new Error(`hero did not walk left after quicksave: ${saved.x} -> ${moved.x}`);
+    await page.keyboard.press('F9');
+    const loaded = await hero();
+    if (Math.abs(loaded.x - saved.x) > 0.2 || Math.abs(loaded.z - saved.z) > 0.2) throw new Error(`quickload did not restore the hero: saved ${JSON.stringify(saved)}, loaded ${JSON.stringify(loaded)}`);
+    await page.waitForTimeout(300);
+    if (errors.length) throw new Error(errors.join('\n'));
+    console.log(`PASS sandbox: ${scene.engine}, ${scene.physics.bodies} bodies, hero walked ${(after.x - before.x).toFixed(1)} m, pad entries ${after.entries}, ${scene.assets.loaded} assets loaded, 3 samples decoded, quicksave/quickload ok`);
   } catch (error) {
     failures++; console.error(`FAIL sandbox: ${error.stack ?? error}`);
   } finally { await page.close(); }

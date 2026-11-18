@@ -72,6 +72,14 @@ export default definePlugin({
     } });
 
     let vy = 0;
+    // Run snapshots (quicksave, replays): everything not held in components. Entity ids survive a restore.
+    ctx.persist({
+      save: () => ({ vy, padEntries: state.padEntries, goalEntries: state.goalEntries, onPad: state.onPad }),
+      load: (data) => {
+        const d = data as { vy: number; padEntries: number; goalEntries: number; onPad: boolean };
+        vy = d.vy; state.padEntries = d.padEntries; state.goalEntries = d.goalEntries; state.onPad = d.onPad;
+      },
+    });
     ctx.systems.add({
       id: 'sandbox/hero-control', phase: 'control', update: (dt) => {
         const input = ctx.services.tryGet(Input)?.tick;

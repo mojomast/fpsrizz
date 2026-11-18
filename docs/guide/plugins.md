@@ -181,6 +181,7 @@ export default definePlugin({
 | `registries` | Read-only: `get`, `require`, `has`, `entries`, `ids`, `ownerOf`. |
 | `role(Role)` | `{ id, provider }` selected by the preset, or `undefined`. |
 | `instantiate(Registry, id, (def, ownerCtx) => instance)` | Session-bound instance of a registered factory, created once per session **in the context of the plugin that registered it**. |
+| `persist({ save, load })` | SDK 3: saves and restores state that lives outside components (closures, engine worlds) for snapshots, quicksave and replays. See [snapshots](../reference/snapshots.md). |
 | `time` (`tick`, `now`, `step`), `rng`, `cosmeticRng`, `config`, `preset`, `log`, `scope`, `signal`, `guard` | |
 
 ## 4. Simulation model
