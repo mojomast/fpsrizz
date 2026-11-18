@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Flow, Pickup, Player, Transform } from '../src/sdk/index.ts';
-import extraction from '../src/plugins/example-extraction/manifest.json' with { type: 'json' };
-import manifest from '../src/plugins/example-extraction-map/manifest.json' with { type: 'json' };
-import content from '../src/plugins/example-extraction-map/content.json' with { type: 'json' };
+import extraction from '../games/shooter/plugins/example-extraction/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-extraction-map/manifest.json' with { type: 'json' };
+import content from '../games/shooter/plugins/example-extraction-map/content.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const map = content.find((entry) => entry.kind === 'map')!.data;
@@ -30,7 +30,7 @@ function route(start: Cell, goal: Cell): Cell[] {
 
 async function setup(duration = 120) {
   const game = createHeadlessGame([
-    { manifest: extraction, load: () => import('../src/plugins/example-extraction/index.ts') },
+    { manifest: extraction, load: () => import('../games/shooter/plugins/example-extraction/index.ts') },
     { manifest, content },
   ]);
   await game.host.apply(headlessPreset({

@@ -16,7 +16,7 @@ const write = (dir, name, data) => {
   writeFileSync(path, JSON.stringify(data));
   return path;
 };
-const preset = () => JSON.parse(readFileSync('src/content/presets/default.json', 'utf8'));
+const preset = () => JSON.parse(readFileSync('games/shooter/presets/default.json', 'utf8'));
 
 test('bundled presets and a file validate with the app catalog', () => {
   const bundled = run('--bundled');
@@ -24,7 +24,7 @@ test('bundled presets and a file validate with the app catalog', () => {
   const staged = [...bundled.stdout.matchAll(/^OK (.+) \(staged\)$/gm)].map((match) => match[1]).sort();
   assert.deepEqual(staged, presets.map((item) => item.id).sort());
   assert.match(bundled.stdout, /^OK theme\/assetrizz-demo \(staged\)$/m);
-  const file = run('src/content/presets/default.json');
+  const file = run('games/shooter/presets/default.json');
   assert.equal(file.status, 0, file.stderr);
   assert.match(file.stdout, /OK .*default\.json/);
 });

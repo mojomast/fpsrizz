@@ -5,20 +5,20 @@ import { createFlow } from '../../src/platform/flow.ts';
 import { createInputCore } from '../../src/platform/input.ts';
 import type { InputCore } from '../../src/platform/input.ts';
 import { Flow, FlowEnded, Input, PHASES, SDK_VERSION } from '../../src/sdk/index.ts';
-import combat from '../../src/plugins/core-combat/manifest.json' with { type: 'json' };
-import contentManifest from '../../src/plugins/core-content/manifest.json' with { type: 'json' };
-import content from '../../src/plugins/core-content/content.json' with { type: 'json' };
-import enemies from '../../src/plugins/core-enemies/manifest.json' with { type: 'json' };
-import modes from '../../src/plugins/core-modes/manifest.json' with { type: 'json' };
-import player from '../../src/plugins/core-player/manifest.json' with { type: 'json' };
-import world from '../../src/plugins/core-world/manifest.json' with { type: 'json' };
+import combat from '../../games/shooter/plugins/core-combat/manifest.json' with { type: 'json' };
+import contentManifest from '../../games/shooter/plugins/core-content/manifest.json' with { type: 'json' };
+import content from '../../games/shooter/plugins/core-content/content.json' with { type: 'json' };
+import enemies from '../../games/shooter/plugins/core-enemies/manifest.json' with { type: 'json' };
+import modes from '../../games/shooter/plugins/core-modes/manifest.json' with { type: 'json' };
+import player from '../../games/shooter/plugins/core-player/manifest.json' with { type: 'json' };
+import world from '../../games/shooter/plugins/core-world/manifest.json' with { type: 'json' };
 
 export const coreCatalog = (): CatalogEntry[] => [
-  { manifest: world, load: () => import('../../src/plugins/core-world/index.ts') },
-  { manifest: combat, load: () => import('../../src/plugins/core-combat/index.ts') },
-  { manifest: player, load: () => import('../../src/plugins/core-player/index.ts') },
-  { manifest: enemies, load: () => import('../../src/plugins/core-enemies/index.ts') },
-  { manifest: modes, load: () => import('../../src/plugins/core-modes/index.ts') },
+  { manifest: world, load: () => import('../../games/shooter/plugins/core-world/index.ts') },
+  { manifest: combat, load: () => import('../../games/shooter/plugins/core-combat/index.ts') },
+  { manifest: player, load: () => import('../../games/shooter/plugins/core-player/index.ts') },
+  { manifest: enemies, load: () => import('../../games/shooter/plugins/core-enemies/index.ts') },
+  { manifest: modes, load: () => import('../../games/shooter/plugins/core-modes/index.ts') },
   { manifest: contentManifest, content },
 ];
 

@@ -25,7 +25,7 @@ ammo type, door or map must exist among the **enabled** plugins.
 ## 1. Content pack file
 
 The unit of import/export. A pack is a manifest plus content entries. This is a schematic shape: the empty weapon
-data below is not a valid weapon. For a working pack, see `src/plugins/example-pack/` and the content-kind examples below.
+data below is not a valid weapon. For a working pack, see `games/shooter/plugins/example-pack/` and the content-kind examples below.
 
 ```json
 {
@@ -298,7 +298,7 @@ different authoring format is a new `MapFormats` entry in a code plugin.
 - `config`: per-plugin overrides of manifest `config` fields; unknown keys and out-of-range values are rejected.
 - `seed`: gameplay RNG seed (0…4294967295).
 
-Built-in presets live in `src/content/presets/` and are listed in `src/app/catalog.ts`.
+Built-in presets live in `games/<family>/presets/` and are listed in `src/app/catalog.ts`.
 
 ## 4. Import and export
 

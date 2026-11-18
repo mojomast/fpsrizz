@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { Combat, Health, PickupCollected, Player, Transform, definePlugin, spawnPrefab } from '../src/sdk/index.ts';
 import type { CatalogEntry, SessionContext } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import manifest from '../src/plugins/example-ward/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-ward/manifest.json' with { type: 'json' };
 
 const plugins = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content', 'example/ward', 'test/wards', 'test/probe'];
 
@@ -23,7 +23,7 @@ function setup(params: Record<string, unknown> = { duration: 1, multiplier: 0.5 
     manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^2.0.0' },
     load: async () => ({ default: definePlugin({ activate(c) { ctx = c; } }) }),
   } as CatalogEntry;
-  const game = createHeadlessGame([{ manifest, load: () => import('../src/plugins/example-ward/index.ts') }, pack(params), probe]);
+  const game = createHeadlessGame([{ manifest, load: () => import('../games/shooter/plugins/example-ward/index.ts') }, pack(params), probe]);
   return { game, context: () => ctx!, preset: headlessPreset({ plugins }) as never };
 }
 

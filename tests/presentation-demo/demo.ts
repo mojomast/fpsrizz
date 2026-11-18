@@ -9,9 +9,9 @@ import { Audio, AttackFired, Damaged, DoorChanged, Died, EnemyAlerted, Impact, I
 import type { AudioService, PlayOptions, ViewState } from '../../src/sdk/index.ts';
 import { Render } from '../../src/sdk/render.ts';
 import { sounds } from '../../src/plugins/theme-industrial/sounds.ts';
-import worldManifest from '../../src/plugins/core-world/manifest.json';
+import worldManifest from '../../games/shooter/plugins/core-world/manifest.json';
 import themeManifest from '../../src/plugins/theme-industrial/manifest.json';
-import presentationManifest from '../../src/plugins/core-presentation/manifest.json';
+import presentationManifest from '../../games/shooter/plugins/core-presentation/manifest.json';
 import { createDemoControl, createDemoPlugin, demoManifest } from './demo-plugin.ts';
 
 const ctl = createDemoControl();
@@ -44,9 +44,9 @@ const host = new PluginHost({
   },
 });
 host.setCatalog([
-  { manifest: worldManifest, load: () => import('../../src/plugins/core-world/index.ts') },
+  { manifest: worldManifest, load: () => import('../../games/shooter/plugins/core-world/index.ts') },
   { manifest: themeManifest, load: () => import('../../src/plugins/theme-industrial/index.ts') },
-  { manifest: presentationManifest, load: () => import('../../src/plugins/core-presentation/index.ts') },
+  { manifest: presentationManifest, load: () => import('../../games/shooter/plugins/core-presentation/index.ts') },
   { manifest: demoManifest, load: async () => ({ default: createDemoPlugin(ctl) }) },
 ]);
 const preset = {

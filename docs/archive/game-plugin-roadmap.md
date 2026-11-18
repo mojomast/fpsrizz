@@ -41,13 +41,13 @@ below retain the broader recommendations and acceptance criteria, not a claim th
   `src/sdk/contracts/shooter.ts`, `src/app/catalog.ts` and `docs/guide/plugins.md`.
 - Existing maps, `Transform`, collision, world queries, AI and combat largely operate on the XZ plane. A pitched
   perspective camera is possible, but stock attacks still aim on that plane. A different map format alone cannot
-  add stacked floors, jumping or height-aware collisions. See `src/plugins/core-world/` and `docs/reference/architecture.md`.
+  add stacked floors, jumping or height-aware collisions. See `games/shooter/plugins/core-world/` and `docs/reference/architecture.md`.
 - A custom planar controller can implement sprint, dash, inertia or vehicle steering; `core/melee` already provides a
   short-range single-target attack. A custom mode can use map zones as simple checkpoints and manage laps. High-speed
   or non-player checkpoint crossings need swept/custom detection; the stock zone triggers are player-only.
 - Camera providers can create perspective chase or top-down views, but stock presentation includes a first-person
   weapon view and the stock player has no visible actor model. A third-person game needs suitable presentation too.
-  True orthographic and split-screen views require rendering/host work. See `src/plugins/core-presentation/`.
+  True orthographic and split-screen views require rendering/host work. See `games/shooter/plugins/core-presentation/`.
 - Core enemy AI already owns automatic LOS acquisition and alerting before calling its behavior. A custom AI behavior
   alone cannot replace that perception model; stealth needs a new/refactored enemy perception seam or an independent
   enemy implementation. Audio playback and visual lighting are not authoritative hearing or light exposure systems.
@@ -128,7 +128,7 @@ handling the same input cannot prevent the world system from also acting. For co
 and NPCs, define a shared single-consumer interaction contract and adapt or replace the current Use handler. For a
 small prototype, avoid overlapping targets and use existing events. `TriggerFired` is too late to veto a switch's
 automatic `opens`: omit `opens` and explicitly call `World.setDoorOpen` once the puzzle condition is met. See
-`src/plugins/core-world/index.ts`.
+`games/shooter/plugins/core-world/index.ts`.
 
 ## Foundational work beyond gameplay plugins
 
@@ -201,7 +201,7 @@ To extend this to additional assets and games:
    build-time conversion to painters is one possible first approach; an asynchronous image API is a larger alternative.
 3. Make a selectable Assetrizz-backed theme variant and preset, keeping gameplay references as semantic theme keys.
    Retain industrial fallback art and existing synthesized sounds for gaps. `src/plugins/theme-industrial/` provides
-   the current theme, while `src/plugins/core-presentation/` consumes it.
+   the current theme, while `games/shooter/plugins/core-presentation/` consumes it.
 4. Verify pinned hashes, dimensions, transparency and generated output; stage the preset, test the headless game,
    then inspect it in-browser and test theme switching and resource cleanup. For sprites, test actual frame layout,
    animation and bottom anchoring; do not assume Assetrizz pivot metadata is already honored.

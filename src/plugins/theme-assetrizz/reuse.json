@@ -53,7 +53,7 @@
   "examples": [
     "games/cinder/presets/cinder-vault.json",
     "games/hollowmere/presets/hollowmere-ascent.json",
-    "src/plugins/core-presentation/index.ts"
+    "games/shooter/plugins/core-presentation/index.ts"
   ],
   "tests": [
     "tests/cinder-demo/run.mjs",

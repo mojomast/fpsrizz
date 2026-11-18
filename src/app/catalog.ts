@@ -9,22 +9,22 @@
  * however, can be imported at runtime through the creator panel.
  */
 export { catalog } from './catalog.generated.ts';
-import annexPreset from '../content/presets/annex.json' with { type: 'json' };
-import defaultPreset from '../content/presets/default.json' with { type: 'json' };
-import extendedPreset from '../content/presets/extended.json' with { type: 'json' };
-import survivalPreset from '../content/presets/survival.json' with { type: 'json' };
-import assetrizzPreset from '../content/presets/assetrizz.json' with { type: 'json' };
-import timeTrialPreset from '../content/presets/time-trial.json' with { type: 'json' };
-import arenaScorePreset from '../content/presets/arena-score.json' with { type: 'json' };
-import observatoryPreset from '../content/presets/observatory.json' with { type: 'json' };
-import blackoutPreset from '../content/presets/blackout.json' with { type: 'json' };
-import holdoutPreset from '../content/presets/holdout.json' with { type: 'json' };
-import keyDungeonPreset from '../content/presets/key-dungeon.json' with { type: 'json' };
-import stealthPreset from '../content/presets/stealth.json' with { type: 'json' };
-import roguelitePreset from '../content/presets/roguelite.json' with { type: 'json' };
-import racingPreset from '../content/presets/racing.json' with { type: 'json' };
-import extractionPreset from '../content/presets/extraction.json' with { type: 'json' };
-import tacticalPreset from '../content/presets/tactical.json' with { type: 'json' };
+import annexPreset from '../../games/shooter/presets/annex.json' with { type: 'json' };
+import defaultPreset from '../../games/shooter/presets/default.json' with { type: 'json' };
+import extendedPreset from '../../games/shooter/presets/extended.json' with { type: 'json' };
+import survivalPreset from '../../games/shooter/presets/survival.json' with { type: 'json' };
+import assetrizzPreset from '../../games/shooter/presets/assetrizz.json' with { type: 'json' };
+import timeTrialPreset from '../../games/shooter/presets/time-trial.json' with { type: 'json' };
+import arenaScorePreset from '../../games/shooter/presets/arena-score.json' with { type: 'json' };
+import observatoryPreset from '../../games/shooter/presets/observatory.json' with { type: 'json' };
+import blackoutPreset from '../../games/shooter/presets/blackout.json' with { type: 'json' };
+import holdoutPreset from '../../games/shooter/presets/holdout.json' with { type: 'json' };
+import keyDungeonPreset from '../../games/shooter/presets/key-dungeon.json' with { type: 'json' };
+import stealthPreset from '../../games/shooter/presets/stealth.json' with { type: 'json' };
+import roguelitePreset from '../../games/shooter/presets/roguelite.json' with { type: 'json' };
+import racingPreset from '../../games/shooter/presets/racing.json' with { type: 'json' };
+import extractionPreset from '../../games/shooter/presets/extraction.json' with { type: 'json' };
+import tacticalPreset from '../../games/shooter/presets/tactical.json' with { type: 'json' };
 import overheadRacingPreset from '../../games/racing/presets/overhead-racing.json' with { type: 'json' };
 import turnTacticsPreset from '../../games/tactics/presets/turn-tactics.json' with { type: 'json' };
 import narrativeAdventurePreset from '../../games/adventure/presets/narrative-adventure.json' with { type: 'json' };

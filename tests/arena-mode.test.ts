@@ -3,10 +3,10 @@ import { test } from 'node:test';
 import { Combat, Enemies, Enemy, Flow, Health, Pickup, Player, Profile, Transform, definePlugin } from '../src/sdk/index.ts';
 import type { ProfileService } from '../src/sdk/index.ts';
 import { createProfileStore } from '../src/platform/profile-store.ts';
-import manifest from '../src/plugins/example-arena/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-arena/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
-const entry = { manifest: manifest as never, load: () => import('../src/plugins/example-arena/index.ts') };
+const entry = { manifest: manifest as never, load: () => import('../games/shooter/plugins/example-arena/index.ts') };
 const plugins = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/content', 'example/arena'];
 const roles = { 'sdk/controller': 'core/fps-controller', 'sdk/camera': 'core/fp-camera', 'sdk/mode': 'example/arena' };
 const preset = (config: Record<string, unknown> = {}) => headlessPreset({ plugins, roles, config: { 'example/arena': config } }) as never;

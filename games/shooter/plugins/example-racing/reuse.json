@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "family",
+  "summary": "Shooter-backed planar driving and time-trial mode composing shared sequence progression with chronological swept checkpoints.",
+  "keywords": ["vehicle", "racing", "checkpoint", "ordered", "sequence", "swept", "timer"],
+  "entryPoints": ["ControllerRole", "ModeRole", "sequenceMechanic"],
+  "useWhen": "Build a shooter-world driving controller or a single-pass checkpoint race from tagged map zones.",
+  "limitations": ["Depends on shooter World and player contracts. The race mode requires a selected sequence factory; controller-only use does not.", "Spatial entry ordering, fractional deadlines and victory remain local race policy."],
+  "docs": ["docs/reference/sequences.md", "docs/guide/plugins.md"],
+  "examples": ["games/shooter/plugins/example-race-track/content.json", "games/shooter/presets/racing.json"],
+  "tests": ["tests/racing.test.ts", "tests/race-track.test.ts"]
+}

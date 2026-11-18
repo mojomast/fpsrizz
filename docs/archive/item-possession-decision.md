@@ -49,7 +49,7 @@ All six discovery commands succeeded. They inspect registration, not activated g
 
 Primary inspected implementation evidence:
 
-- [`example-keys/index.ts`](../../src/plugins/example-keys/index.ts): `Keyring`, pickup factory, keyed-gate `use`.
+- [`example-keys/index.ts`](../../games/shooter/plugins/example-keys/index.ts): `Keyring`, pickup factory, keyed-gate `use`.
 - [`story-adventure/index.ts`](../../games/adventure/plugins/story-adventure/index.ts): `initial`, `apply`, detached `state()`, load replay.
 - [`story-adventure/validation.ts`](../../games/adventure/plugins/story-adventure/validation.ts): unique lists, item references, consumed-items requirement.
 - [`story-presentation/index.ts`](../../games/adventure/plugins/story-presentation/index.ts): inventory display order and action readiness.

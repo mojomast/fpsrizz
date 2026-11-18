@@ -10,7 +10,7 @@
 > | P2.1 step 1 Live reload | Done: esbuild live reload, resume of the running game, `?seed=`. |
 > | P0.3 Catalog from manifests | Done: `scripts/gen-catalog.mjs` -> `src/app/catalog.generated.ts`. |
 > | P0.4 Splitting, art packs, maps, budget | Done: per-plugin chunks, `public/packs/*.pack`, maps in `.sourcemaps/`, `npm run budget`. |
-> | P0.2 Engine/games split | Partial: 6 families in `games/` with their contracts; npm workspaces/`packages/` and the shooter contract split are not done. |
+> | P0.2 Engine/games split | Mostly done: all games (11 families) in `games/` with their family-only contracts; `src/plugins` holds only shared plugins. Not done: npm workspaces/`packages/`, moving the shooter contract out of the SDK, browser demos into `games/`. |
 > | P0.5 Docs | Done: Guide/Reference/Cookbook/archive, TypeDoc (`npm run docs:api`), `llms.txt`, link checker. |
 
 Audit date: 2026-11-18. Audited commit: `14a2f15` on `main` ("Bust stale production bundle caches").
@@ -83,7 +83,7 @@ Bulkhead (`package.json` name `fpsrizz`) is a **browser-only, strict-TypeScript,
 | W3 | **The bundle is monolithic.** `load: () => import()` exists, but esbuild runs without `splitting`, so every game ships in one file. About 4 MB of images are inlined as base64 *TypeScript*. | `scripts/build.mjs`; `src/plugins/theme-assetrizz/{cinder-weapons,fantasy-generated,fantasy-weapons,weapons,generated}.ts`; `theme-story/generated.ts` |
 | W4 | **There's no hot reload, not even live reload.** esbuild rebuilds on save, but you refresh by hand and lose game state. | `scripts/dev.mjs` (no `/esbuild` EventSource; no `import.meta.hot`) |
 | W5 | **The ECS is minimal.** It has one Map per component and `each(token)` over a single component, with no multi-component queries, no change detection, no prefab inheritance and no serialization beyond `snapshot()`. | `src/kernel/ecs.ts` |
-| W6 | **The world model is planar and shooter-specific.** `Transform` is `x, z, yaw`. Collision is brute-force circle-vs-AABB. There's no 3D physics and no vertical movement. | `docs/reference/spec.md` §5, `src/plugins/core-world/collision.ts` |
+| W6 | **The world model is planar and shooter-specific.** `Transform` is `x, z, yaw`. Collision is brute-force circle-vs-AABB. There's no 3D physics and no vertical movement. | `docs/reference/spec.md` §5, `games/shooter/plugins/core-world/collision.ts` |
 | W7 | **There's no asset pipeline.** There's no async loader, no glTF loading, and no texture compression. GLBs in `assets/weapons/` aren't wired up, and content refers to art only by theme key. | `docs/reference/spec.md` §5, `docs/reference/architecture.md` §9 |
 | W8 | **Input is keyboard and mouse only.** There's no gamepad, no touch and no rebinding. | `docs/reference/spec.md` §5 |
 | W9 | **Audio is synthesis only.** There's no sample playback, no buses and no PannerNode spatialization. | `src/platform/audio.ts` |

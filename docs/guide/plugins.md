@@ -569,7 +569,7 @@ Goal: a plugin that slowly regenerates the player's health and says so on the HU
 1. Scaffold: `npm run new-plugin -- example/regen "Health Regen"` creates `src/plugins/example-regen/` from
    `templates/plugin-starter/`; the generated catalog picks it up.
 2. Add `"example/regen"` to `plugins` in
-   `src/content/presets/default.json`.
+   `games/shooter/presets/default.json`.
 3. Replace `activate` in `src/plugins/example-regen/index.ts`:
 
 ```ts

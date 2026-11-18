@@ -155,7 +155,7 @@
       ],
       "examples": [
         "games/racing/plugins/vehicle-racing/index.ts",
-        "src/plugins/example-racing/index.ts"
+        "games/shooter/plugins/example-racing/index.ts"
       ],
       "tests": [
         "tests/mechanics-sequence.test.ts",
@@ -566,7 +566,7 @@
         "games/adventure/README.md"
       ],
       "examples": [
-        "src/plugins/example-arena/index.ts",
+        "games/shooter/plugins/example-arena/index.ts",
         "games/adventure/plugins/story-adventure/index.ts"
       ],
       "tests": [
@@ -812,7 +812,7 @@
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json",
-        "src/plugins/core-presentation/index.ts"
+        "games/shooter/plugins/core-presentation/index.ts"
       ],
       "tests": [
         "tests/render-three.test.ts",

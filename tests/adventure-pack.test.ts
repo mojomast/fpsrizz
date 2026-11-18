@@ -1,16 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { Enemy, Flow, Maps, Player, Transform, World } from '../src/sdk/index.ts';
-import manifest from '../src/plugins/example-adventure-pack/manifest.json' with { type: 'json' };
-import content from '../src/plugins/example-adventure-pack/content.json' with { type: 'json' };
-import wardManifest from '../src/plugins/example-ward/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-adventure-pack/manifest.json' with { type: 'json' };
+import content from '../games/shooter/plugins/example-adventure-pack/content.json' with { type: 'json' };
+import wardManifest from '../games/shooter/plugins/example-ward/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const plugins = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content', 'example/ward', 'example/adventure-pack'];
 
 for (const [map, enemies] of [['example/silent-observatory', 0], ['example/blackout-ward', 2]] as const) {
   test(`${map} stages, has a reachable override and gated exit, and completes`, async () => {
-    const game = createHeadlessGame([{ manifest, content }, { manifest: wardManifest, load: () => import('../src/plugins/example-ward/index.ts') }]);
+    const game = createHeadlessGame([{ manifest, content }, { manifest: wardManifest, load: () => import('../games/shooter/plugins/example-ward/index.ts') }]);
     const preset = headlessPreset({ plugins, options: { map } });
     const staged = await game.host.stage(preset);
     assert.ok(staged.registries.has(Maps, map));

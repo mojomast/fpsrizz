@@ -44,12 +44,12 @@ The new rules are real, but much of the player experience remains inherited from
 |---|---|---|
 | `src/app/main.ts:116–120,199–228,324–328` gates gameplay input and simulation on pointer capture | Cursor-based games inherit an FPS interaction model | Experience-selected input/focus policy |
 | `src/app/main.ts:157–166` always describes mouse yaw and weapon-oriented controls | The launcher describes the wrong experience for a racer | Generate controls from active contexts, not every enabled provider |
-| `src/plugins/core-player/index.ts:27–58,154–174` bundles actor, health, starter weapons, FPS input and camera | Reusing the player also imports shooter assumptions; it has no visible actor by default | Separate possession, actor archetypes, controller and loadout |
-| `src/plugins/core-content/manifest.json` bundles map, enemies, weapons and pickups | Reusing one reference asset requires the shooter content graph | Small content packs grouped by actual dependency needs |
-| `src/plugins/core-presentation/index.ts:39–44` always constructs world meshes, actors, effects, weapon view and shooter audio hooks together | A camera replacement still gets first-person presentation machinery | Selectable presentation features and explicit ownership |
+| `games/shooter/plugins/core-player/index.ts:27–58,154–174` bundles actor, health, starter weapons, FPS input and camera | Reusing the player also imports shooter assumptions; it has no visible actor by default | Separate possession, actor archetypes, controller and loadout |
+| `games/shooter/plugins/core-content/manifest.json` bundles map, enemies, weapons and pickups | Reusing one reference asset requires the shooter content graph | Small content packs grouped by actual dependency needs |
+| `games/shooter/plugins/core-presentation/index.ts:39–44` always constructs world meshes, actors, effects, weapon view and shooter audio hooks together | A camera replacement still gets first-person presentation machinery | Selectable presentation features and explicit ownership |
 | `src/sdk/render.ts:19–32` exposes two fixed perspective cameras/layers | No native orthographic/multi-viewport contract | Versioned view/projection and viewport support |
 | `src/platform/input.ts:83–100` fans a key out to all registered actions | Enabling providers does not select their active bindings | Context priority, consumption and scoped activation |
-| `src/plugins/core-hud/index.ts:170–250` centers health, inventory and firing | New mode status text sits inside the same shooter interface | Genre HUDs reading genre-specific state |
+| `games/shooter/plugins/core-hud/index.ts:170–250` centers health, inventory and firing | New mode status text sits inside the same shooter interface | Genre HUDs reading genre-specific state |
 | `src/plugins/theme-assetrizz/index.ts:100–104` changes texture maps while sharing sound and visual definitions | A fantasy reskin preserves much of the same audiovisual behavior | Art, motion, UI and audio direction per experience |
 | `scripts/build.mjs:20–29` builds one bundle without splitting | Catalog loaders defer activation, but do not provide per-game downloads | Experience-aware code and asset packaging |
 

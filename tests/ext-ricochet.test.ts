@@ -19,7 +19,7 @@ import {
 } from '../src/sdk/index.ts';
 import type { CatalogEntry, EntityId, Params, SessionContext } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import manifest from '../src/plugins/example-ricochet/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-ricochet/manifest.json' with { type: 'json' };
 
 const BASE = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content'];
 const DT = 1 / 60;
@@ -85,7 +85,7 @@ async function setup(withPlugin = true, config: Record<string, unknown> = {}) {
     probeEntry((c) => {
       captured = c;
     }),
-    { manifest: manifest as never, load: () => import('../src/plugins/example-ricochet/index.ts') },
+    { manifest: manifest as never, load: () => import('../games/shooter/plugins/example-ricochet/index.ts') },
   ]);
   const plugins = [...BASE, 'test/maps', 'test/probe', ...(withPlugin ? ['example/ricochet'] : [])];
   await game.host.apply(headlessPreset({ plugins, options: { map: 'test/box' }, config }) as never);

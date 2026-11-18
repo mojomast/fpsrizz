@@ -5,7 +5,7 @@ import { dirname, resolve } from 'node:path';
 import { startStaticServer, launchBrowser } from '../../scripts/smoke-lib.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const base = JSON.parse(readFileSync(resolve(root, 'src/content/presets/default.json'), 'utf8'));
+const base = JSON.parse(readFileSync(resolve(root, 'games/shooter/presets/default.json'), 'utf8'));
 const withVisor = { ...base, plugins: [...base.plugins, 'example/hud'], roles: { ...base.roles, 'sdk/hud': 'example/visor-hud' } };
 const bothButCore = { ...base, plugins: [...base.plugins, 'example/hud'] };
 const plain = base;

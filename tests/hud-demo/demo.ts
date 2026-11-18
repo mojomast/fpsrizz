@@ -4,8 +4,8 @@ import { PluginHost } from '../../src/kernel/host.ts';
 import type { Session } from '../../src/kernel/host.ts';
 import { createUiService } from '../../src/platform/ui.ts';
 import { createFlow } from '../../src/platform/flow.ts';
-import hudManifest from '../../src/plugins/core-hud/manifest.json';
-import hudModule from '../../src/plugins/core-hud/index.ts';
+import hudManifest from '../../games/shooter/plugins/core-hud/manifest.json';
+import hudModule from '../../games/shooter/plugins/core-hud/index.ts';
 import demoModule, { demoManifest } from './demo-plugin.ts';
 
 const hud = document.getElementById('hud') as HTMLElement;

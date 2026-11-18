@@ -4,12 +4,12 @@ import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import type { HeadlessGame } from './helpers/game.ts';
 import { Combat, Enemies, Enemy, Flow, FlowEnded, Health, Maps, Pickup, Player, Transform, World } from '../src/sdk/index.ts';
 import type { EntityId, FlowResult } from '../src/sdk/index.ts';
-import manifest from '../src/plugins/example-survival/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-survival/manifest.json' with { type: 'json' };
 
 const ID = 'example/survival';
 const defaults = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content'];
 const defaultRoles = { 'sdk/controller': 'core/fps-controller', 'sdk/camera': 'core/fp-camera' };
-const survivalEntry = { manifest, load: () => import('../src/plugins/example-survival/index.ts') };
+const survivalEntry = { manifest, load: () => import('../games/shooter/plugins/example-survival/index.ts') };
 
 // A walled room with a player start and a medkit but no enemy spawns.
 const emptyMap = {

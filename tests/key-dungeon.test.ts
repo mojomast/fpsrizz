@@ -2,13 +2,13 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Flow, Pickup, Player, Transform, World } from '../src/sdk/index.ts';
 import type { CatalogEntry } from '../src/sdk/index.ts';
-import keysManifest from '../src/plugins/example-keys/manifest.json' with { type: 'json' };
-import manifest from '../src/plugins/example-key-dungeon/manifest.json' with { type: 'json' };
-import content from '../src/plugins/example-key-dungeon/content.json' with { type: 'json' };
+import keysManifest from '../games/shooter/plugins/example-keys/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-key-dungeon/manifest.json' with { type: 'json' };
+import content from '../games/shooter/plugins/example-key-dungeon/content.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const pack = { manifest, content } as CatalogEntry;
-const keys = { manifest: keysManifest, load: () => import('../src/plugins/example-keys/index.ts') } as CatalogEntry;
+const keys = { manifest: keysManifest, load: () => import('../games/shooter/plugins/example-keys/index.ts') } as CatalogEntry;
 const plugins = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content', 'example/keys', 'example/key-dungeon'];
 const preset = headlessPreset({ plugins, options: { map: 'example/key-dungeon' } });
 

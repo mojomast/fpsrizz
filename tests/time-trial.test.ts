@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import { Combat, Enemy, Flow, Health, Player, Transform, World } from '../src/sdk/index.ts';
 import type { HeadlessGame } from './helpers/game.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import manifest from '../src/plugins/example-time-trial/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-time-trial/manifest.json' with { type: 'json' };
 
 const id = 'example/time-trial';
-const entry = { manifest, load: () => import('../src/plugins/example-time-trial/index.ts') };
+const entry = { manifest, load: () => import('../games/shooter/plugins/example-time-trial/index.ts') };
 const preset = (seconds = 180) => headlessPreset({
   plugins: ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/content', id],
   roles: { 'sdk/controller': 'core/fps-controller', 'sdk/camera': 'core/fp-camera', 'sdk/mode': id },

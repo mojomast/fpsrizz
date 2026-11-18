@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { VerticalWorld, VERTICAL_LIMIT } from '../src/plugins/core-world/vertical.ts';
-import type { Vec3, Volume } from '../src/plugins/core-world/vertical.ts';
+import { VerticalWorld, VERTICAL_LIMIT } from '../games/shooter/plugins/core-world/vertical.ts';
+import type { Vec3, Volume } from '../games/shooter/plugins/core-world/vertical.ts';
 
 const v = (x: number, y: number, z: number): Vec3 => ({ x, y, z });
 const box = (min: Vec3, max: Vec3): Volume => ({ min, max });

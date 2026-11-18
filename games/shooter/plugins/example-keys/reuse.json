@@ -1,0 +1,9 @@
+{
+  "schema": 1, "scope": "family", "summary": "Actor-specific key pickup and keyed-door interaction for shooter-world maps.",
+  "keywords": ["key", "keyed", "door", "gate", "lock", "unlock", "access", "inventory"],
+  "entryPoints": ["PickupEffects", "Prefabs", "Interactions", "World"],
+  "useWhen": "A shooter-family map needs an access key and a locked gate; reuse its pickup effect and prefab in content.",
+  "limitations": ["Uses core/world and core/combat actor/world semantics; it is not an independent lock-and-key service for all families."],
+  "docs": ["docs/reference/content-format.md", "docs/guide/plugins.md"], "examples": ["games/shooter/plugins/example-key-dungeon/content.json", "games/shooter/presets/key-dungeon.json"],
+  "tests": ["tests/keys-gates.test.ts", "tests/key-dungeon.test.ts"]
+}

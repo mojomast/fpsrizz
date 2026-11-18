@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `93c1025a7ab132d94d840cefab1f5b47fd799cfe3323de95411f039e7c6e7779`
+Source digest: `7864a49ebabdb3da8c291e6499367304174a55cdba4981289604e19c4083a7b5`
 
 ## Composition recipes
 
@@ -45,39 +45,39 @@ Source digest: `93c1025a7ab132d94d840cefab1f5b47fd799cfe3323de95411f039e7c6e7779
 | `common/content` | content | Original Common Ground residents, visitors and furnishings. | [source](../../games/expeditions/plugins/common-ground-content) |
 | `common/game` | family | Turn-based household simulation with editable house lot, furnishing placement, needs, careers and relationships. | [source](../../games/expeditions/plugins/common-ground-game) |
 | `common/presentation` | presentation | Responsive dollhouse and accessible controls for the Common Ground household. | [source](../../games/expeditions/plugins/common-ground-presentation) |
-| `core/combat` | family | Shooter damage pipeline, weapons/ammo, hitscan/projectile/melee attacks, pickups and damage modifiers. | [source](../../src/plugins/core-combat) |
-| `core/content` | content | Data-only reference content: two weapons, two enemies, three pickups, two ammo types and the Bulkhead Station arena. | [source](../../src/plugins/core-content) |
-| `core/enemies` | unreviewed | Enemy definitions (data), the enemy state machine, path-following movement, and two AI behaviours: a melee chaser and a ranged attacker that respects line of sight. | [source](../../src/plugins/core-enemies) |
-| `core/hud` | unreviewed | Retro-industrial heads-up display: health, ammo, weapon bar, objective, status lines, notices, crosshair and damage feedback. | [source](../../src/plugins/core-hud) |
-| `core/modes` | unreviewed | The default game mode: restore the override switch, then reach the exit. Owns spawning of the map's actors and the win/lose conditions. | [source](../../src/plugins/core-modes) |
-| `core/player` | unreviewed | Player prefab, WASD + mouse-yaw controller and fixed-eye-height first-person camera. Movement is planar; jumping and vertical aim belong to future controller/camera providers. | [source](../../src/plugins/core-player) |
-| `core/presentation` | unreviewed | Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks. Honors optional ViewModes to hide ceilings, first-person view models and fog for overhead presentations. | [source](../../src/plugins/core-presentation) |
-| `core/world` | family | Shooter-family planar collision, ray/sweep queries, pathfinding, doors, switches and trigger zones. | [source](../../src/plugins/core-world) |
+| `core/combat` | family | Shooter damage pipeline, weapons/ammo, hitscan/projectile/melee attacks, pickups and damage modifiers. | [source](../../games/shooter/plugins/core-combat) |
+| `core/content` | content | Data-only reference content: two weapons, two enemies, three pickups, two ammo types and the Bulkhead Station arena. | [source](../../games/shooter/plugins/core-content) |
+| `core/enemies` | unreviewed | Enemy definitions (data), the enemy state machine, path-following movement, and two AI behaviours: a melee chaser and a ranged attacker that respects line of sight. | [source](../../games/shooter/plugins/core-enemies) |
+| `core/hud` | unreviewed | Retro-industrial heads-up display: health, ammo, weapon bar, objective, status lines, notices, crosshair and damage feedback. | [source](../../games/shooter/plugins/core-hud) |
+| `core/modes` | unreviewed | The default game mode: restore the override switch, then reach the exit. Owns spawning of the map's actors and the win/lose conditions. | [source](../../games/shooter/plugins/core-modes) |
+| `core/player` | unreviewed | Player prefab, WASD + mouse-yaw controller and fixed-eye-height first-person camera. Movement is planar; jumping and vertical aim belong to future controller/camera providers. | [source](../../games/shooter/plugins/core-player) |
+| `core/presentation` | unreviewed | Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks. Honors optional ViewModes to hide ceilings, first-person view models and fog for overhead presentations. | [source](../../games/shooter/plugins/core-presentation) |
+| `core/world` | family | Shooter-family planar collision, ray/sweep queries, pathfinding, doors, switches and trigger zones. | [source](../../games/shooter/plugins/core-world) |
 | `dungeon/generator` | family | Seeded room-and-corridor dungeon map format. It emits multiple isolated wings in one bounded grid, with room markers, descent pads and lights for a game mode to populate. | [source](../../src/plugins/dungeon-generator) |
 | `ember/content` | content | Ash lane and three enemy waves. | [source](../../games/ember/plugins/ember-content) |
 | `ember/game` | family | Tower-defense orchestration with independent shared tower actions, construction and authored enemy waves. | [source](../../games/ember/plugins/ember-game) |
 | `ember/presentation` | unreviewed | Lit 3D bastion and accessible controls. | [source](../../games/ember/plugins/ember-presentation) |
-| `example/adventure-pack` | content | Two small objective maps: a quiet switch hunt and a dark survival encounter. | [source](../../src/plugins/example-adventure-pack) |
-| `example/arena` | unreviewed | Score points by eliminating enemies before the kill or time limit. | [source](../../src/plugins/example-arena) |
-| `example/dash-controller` | family | Planar first-person sprint and directional dash controller. | [source](../../src/plugins/example-dash-controller) |
-| `example/escape` | unreviewed | Find a route through the map to an exit; death ends the run. | [source](../../src/plugins/example-escape) |
-| `example/extraction` | unreviewed | Collect loot and reach an exit before time runs out in a single session. | [source](../../src/plugins/example-extraction) |
-| `example/extraction-map` | content | A compact salvage route with scattered valuables and an extraction zone. | [source](../../src/plugins/example-extraction-map) |
-| `example/holdout` | unreviewed | Hold the exit zone against a steady stream of enemies. | [source](../../src/plugins/example-holdout) |
-| `example/hud` | unreviewed | A minimalist helmet-visor HUD: thin line work, segmented arc health gauge, compass strip, red edge glow on damage. | [source](../../src/plugins/example-hud) |
-| `example/key-dungeon` | content | A compact locked-gate dungeon and its access key. | [source](../../src/plugins/example-key-dungeon) |
-| `example/keys` | family | Actor-specific key pickup and keyed-door interaction for shooter-world maps. | [source](../../src/plugins/example-keys) |
-| `example/pack` | content | Data-only example pack: a spread-fire weapon, a heavy melee enemy, an ammo pickup and a small two-room map with a locked alcove. Reuses core ammo types and prefabs. | [source](../../src/plugins/example-pack) |
-| `example/race-track` | content | A sealed, marked industrial time-trial loop for arcade racing. | [source](../../src/plugins/example-race-track) |
-| `example/racing` | family | Shooter-backed planar driving and time-trial mode composing shared sequence progression with chronological swept checkpoints. | [source](../../src/plugins/example-racing) |
-| `example/ricochet` | unreviewed | Adds the example/ricochet attack behaviour (a projectile that bounces off walls) and the Ricochet Rifle weapon (slot 3). | [source](../../src/plugins/example-ricochet) |
-| `example/roguelite` | unreviewed | Three seeded encounters with automatic, run-only upgrades. | [source](../../src/plugins/example-roguelite) |
-| `example/stealth` | unreviewed | Stationary guards detect players through a planar vision cone and world line of sight. | [source](../../src/plugins/example-stealth) |
-| `example/stealth-map` | content | An infiltration map with covered southern access and guards overlooking the exposed relay floor. | [source](../../src/plugins/example-stealth-map) |
-| `example/survival` | unreviewed | Survival game mode: escalating waves of the map's enemies spawn out of sight; score kills, survive the last wave. | [source](../../src/plugins/example-survival) |
-| `example/tactical-pack` | content | A compact objective mission and magazine-fed carbine using the industrial theme. | [source](../../src/plugins/example-tactical-pack) |
-| `example/time-trial` | unreviewed | Activate the objective switches and escape before time runs out. | [source](../../src/plugins/example-time-trial) |
-| `example/ward` | family | Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry. | [source](../../src/plugins/example-ward) |
+| `example/adventure-pack` | content | Two small objective maps: a quiet switch hunt and a dark survival encounter. | [source](../../games/shooter/plugins/example-adventure-pack) |
+| `example/arena` | unreviewed | Score points by eliminating enemies before the kill or time limit. | [source](../../games/shooter/plugins/example-arena) |
+| `example/dash-controller` | family | Planar first-person sprint and directional dash controller. | [source](../../games/shooter/plugins/example-dash-controller) |
+| `example/escape` | unreviewed | Find a route through the map to an exit; death ends the run. | [source](../../games/shooter/plugins/example-escape) |
+| `example/extraction` | unreviewed | Collect loot and reach an exit before time runs out in a single session. | [source](../../games/shooter/plugins/example-extraction) |
+| `example/extraction-map` | content | A compact salvage route with scattered valuables and an extraction zone. | [source](../../games/shooter/plugins/example-extraction-map) |
+| `example/holdout` | unreviewed | Hold the exit zone against a steady stream of enemies. | [source](../../games/shooter/plugins/example-holdout) |
+| `example/hud` | unreviewed | A minimalist helmet-visor HUD: thin line work, segmented arc health gauge, compass strip, red edge glow on damage. | [source](../../games/shooter/plugins/example-hud) |
+| `example/key-dungeon` | content | A compact locked-gate dungeon and its access key. | [source](../../games/shooter/plugins/example-key-dungeon) |
+| `example/keys` | family | Actor-specific key pickup and keyed-door interaction for shooter-world maps. | [source](../../games/shooter/plugins/example-keys) |
+| `example/pack` | content | Data-only example pack: a spread-fire weapon, a heavy melee enemy, an ammo pickup and a small two-room map with a locked alcove. Reuses core ammo types and prefabs. | [source](../../games/shooter/plugins/example-pack) |
+| `example/race-track` | content | A sealed, marked industrial time-trial loop for arcade racing. | [source](../../games/shooter/plugins/example-race-track) |
+| `example/racing` | family | Shooter-backed planar driving and time-trial mode composing shared sequence progression with chronological swept checkpoints. | [source](../../games/shooter/plugins/example-racing) |
+| `example/ricochet` | unreviewed | Adds the example/ricochet attack behaviour (a projectile that bounces off walls) and the Ricochet Rifle weapon (slot 3). | [source](../../games/shooter/plugins/example-ricochet) |
+| `example/roguelite` | unreviewed | Three seeded encounters with automatic, run-only upgrades. | [source](../../games/shooter/plugins/example-roguelite) |
+| `example/stealth` | unreviewed | Stationary guards detect players through a planar vision cone and world line of sight. | [source](../../games/shooter/plugins/example-stealth) |
+| `example/stealth-map` | content | An infiltration map with covered southern access and guards overlooking the exposed relay floor. | [source](../../games/shooter/plugins/example-stealth-map) |
+| `example/survival` | unreviewed | Survival game mode: escalating waves of the map's enemies spawn out of sight; score kills, survive the last wave. | [source](../../games/shooter/plugins/example-survival) |
+| `example/tactical-pack` | content | A compact objective mission and magazine-fed carbine using the industrial theme. | [source](../../games/shooter/plugins/example-tactical-pack) |
+| `example/time-trial` | unreviewed | Activate the objective switches and escape before time runs out. | [source](../../games/shooter/plugins/example-time-trial) |
+| `example/ward` | family | Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry. | [source](../../games/shooter/plugins/example-ward) |
 | `expedition/assist` | presentation | Optional state-aware, progressively requested hints for Silt, Salt and Common Ground. | [source](../../games/expeditions/plugins/expedition-assist) |
 | `hollowmere/content` | content | Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family. | [source](../../games/hollowmere/plugins/hollowmere-content) |
 | `hollowmere/game` | family | Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss. | [source](../../games/hollowmere/plugins/hollowmere-game) |

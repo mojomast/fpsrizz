@@ -5,7 +5,8 @@
    `src/plugins/<namespace>-<name>/`; the catalog picks it up automatically.
 3. If the game needs its own vocabulary (a service, registry or events only it uses), write it as an SDK contract in
    `src/sdk/contracts/<name>.ts` while prototyping, then move it with the game.
-4. Add a preset under `src/content/presets/` and list it in `src/app/catalog.ts`; play it with `npm run dev`.
+4. Add a preset under `games/<family>/presets/` (create the folder) and list it in `src/app/catalog.ts`; play it with
+   `npm run dev`. `move-to-game --presets` also accepts presets still at `src/content/presets/`.
 5. Move everything into its own family when it settles:
 
    ```bash

@@ -126,7 +126,7 @@ only requires selection. See [complete mechanic semantics](../reference/reusable
 optional dependencies, resolve conflicts or construct a playable game. A complete composition still needs:
 
 ```bash
-npm run validate-game -- src/content/presets/your-game.json
+npm run validate-game -- games/<family>/presets/your-game.json
 ```
 
 Then exercise actual activation, gameplay and lifecycle through the normal checks.

@@ -21,10 +21,10 @@ How Bulkhead is put together and why. For what is and is not implemented see [do
               imports anything |                  | imports presets (JSON)
                                v                  v
   +--------------------+   +---------------------+   +--------------------+
-  |  src/plugins/*     |   |  src/platform       |   |  src/content       |
-  |  game families,    |   |  browser adapters:  |   |  presets/*.json    |
-  |  theme, extensions |   |  input, audio,      |   +--------------------+
-  |  (SDK only)        |   |  storage, ui, flow, |
+  |  src/plugins/*     |   |  src/platform       |   |  games/*/presets   |
+  |  games/*/plugins/* |   |  browser adapters:  |   |  *.json            |
+  |  (SDK only)        |   |  input, audio,      |   +--------------------+
+  |  + family contracts|   |  storage, ui, flow, |
   +---------+----------+   |  render + Three.js  |
             |              +----------+----------+
             | sdk/index.ts            | sdk, kernel
@@ -56,7 +56,7 @@ How Bulkhead is put together and why. For what is and is not implemented see [do
   service, the render host and vendored official Three.js behind the historical mini3 facade.
 - **App** (`src/app`): wires adapters into sessions as host services, owns the catalog of compiled-in plugins, the frame
   loop, the menus and the creator panel. No gameplay rules live here.
-- **Plugins** (`src/plugins`) and **content** (`src/content/presets`): everything the game actually does.
+- **Plugins** (`src/plugins` for shared engine-level plugins, `games/<family>/plugins` for games) and **content** (`games/<family>/presets`): everything the game actually does.
 
 ### Game composition canvas
 

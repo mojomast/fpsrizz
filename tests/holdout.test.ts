@@ -2,10 +2,10 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { Combat, Enemies, Enemy, Flow, Health, Player, Transform, World } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import manifest from '../src/plugins/example-holdout/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-holdout/manifest.json' with { type: 'json' };
 
 const ID = 'example/holdout';
-const entry = { manifest, load: () => import('../src/plugins/example-holdout/index.ts') };
+const entry = { manifest, load: () => import('../games/shooter/plugins/example-holdout/index.ts') };
 const preset = (config: Record<string, unknown> = {}, over: Record<string, unknown> = {}) => headlessPreset({
   plugins: ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content', ID],
   roles: { 'sdk/controller': 'core/fps-controller', 'sdk/camera': 'core/fp-camera', 'sdk/mode': ID },

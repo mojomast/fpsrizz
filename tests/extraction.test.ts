@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { Combat, Flow, Pickup, Player, Transform } from '../src/sdk/index.ts';
 import type { CatalogEntry } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import manifest from '../src/plugins/example-extraction/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-extraction/manifest.json' with { type: 'json' };
 
 const map = {
   schema: 1, format: 'core/grid', name: 'Extraction test', cellSize: 2, wallHeight: 3,
@@ -22,7 +22,7 @@ const content: CatalogEntry = {
 };
 
 async function setup(duration = 10) {
-  const game = createHeadlessGame([{ manifest, load: () => import('../src/plugins/example-extraction/index.ts') }, content]);
+  const game = createHeadlessGame([{ manifest, load: () => import('../games/shooter/plugins/example-extraction/index.ts') }, content]);
   await game.host.apply(headlessPreset({
     plugins: ['core/world', 'core/combat', 'core/player', 'example/extraction', 'test/extraction-content'],
     roles: { 'sdk/controller': 'core/fps-controller', 'sdk/camera': 'core/fp-camera', 'sdk/mode': 'example/extraction' },
@@ -90,7 +90,7 @@ test('staging reports missing exit and loot and invalid effect parameters', asyn
     { kind: 'pickup', id: 'test/loot', data: { name: 'Loot', effect: 'example/loot', params: { amount: 0, typo: 1 }, visual: 'pickup-ammo' } },
     { kind: 'map', id: 'test/extraction-map', data: { ...map, triggers: [], spawns: [] } },
   ] };
-  const game = createHeadlessGame([{ manifest, load: () => import('../src/plugins/example-extraction/index.ts') }, invalid]);
+  const game = createHeadlessGame([{ manifest, load: () => import('../games/shooter/plugins/example-extraction/index.ts') }, invalid]);
   try {
     await assert.rejects(game.host.apply(headlessPreset({
       plugins: ['core/world', 'core/combat', 'core/player', 'example/extraction', 'test/extraction-content'],

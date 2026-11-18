@@ -4,8 +4,8 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { CollisionWorld } from '../src/plugins/core-world/collision.ts';
-import type { Box } from '../src/plugins/core-world/collision.ts';
+import { CollisionWorld } from '../games/shooter/plugins/core-world/collision.ts';
+import type { Box } from '../games/shooter/plugins/core-world/collision.ts';
 import { Collider, Damaged, DoorChanged, Health, Impact } from '../src/sdk/index.ts';
 import type { Session } from '../src/kernel/host.ts';
 import {

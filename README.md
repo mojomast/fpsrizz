@@ -211,7 +211,7 @@ the active preset, the objective, the controls registered by the enabled plugins
 
 ## Presets and extensions
 
-The presets in `src/content/presets/` include the reference game, extensions and genre slices. The first is the default.
+The presets in `games/*/presets/` (the shooter's in `games/shooter/presets/`) include the reference game, extensions and genre slices. The first is the default.
 
 | Preset | Adds | Where it lives |
 |---|---|---|
@@ -255,9 +255,8 @@ src/
   sdk/         Public plugin API: core.ts, contracts/ (experience and game-family vocabulary), render.ts.
   platform/    Browser adapters: contextual input, audio, storage, UI, flow and the Three.js render host.
   app/         Composition root: main.ts (frame loop), catalog.ts, shell.ts (menus), creator.ts (creator panel).
-  plugins/     Shooter stack, mechanics, presentation, themes, content packs, and games not yet in games/.
-  content/     Presets (presets/*.json).
-games/         One folder per game family: plugins/, contracts/, presets/, tests/, README.md (see games/README.md).
+  plugins/     Shared plugins: mechanics providers, presentation, themes, dungeon generator.
+games/         Every game, one folder per family: plugins/, contracts/, presets/, tests/, README.md (see games/README.md).
 docs/          guide/, reference/, cookbook/, games/, archive/ (see docs/README.md).
 scripts/       build, dev, preview, smoke test, boundary checker, plugin scaffolder, tool resolution.
 tests/         node:test suites and helpers; subfolders with browser demo scripts (`npm run test:browser` runs them; CI does too).

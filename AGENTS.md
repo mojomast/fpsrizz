@@ -40,9 +40,8 @@ loading the complete `docs/reuse-index.json`. The CLI observes trusted registrat
 | `src/sdk` | SDK 2 public API: `index.ts` (entry), `core.ts` (generic), `contracts/` (shooter, experience, vehicle, tactics, adventure and audio vocabulary), `render.ts` |
 | `src/platform` | Browser adapters (input, audio, storage, ui, flow, render host); official Three.js behind the historical `render/mini3/index.ts` facade, vendored in `render/mini3/vendor/`; `legacy.ts` retains the old renderer for fixtures |
 | `src/app` | Composition root: `main.ts` (frame loop), `catalog.ts` (presets; re-exports the generated `catalog.generated.ts`), `shell.ts`, `creator.ts` |
-| `src/plugins/<ns>-<name>` | Engine-level and shared plugins (core shooter stack, mechanics, presentation, themes, examples) and games not yet moved into `games/`: `manifest.json`, `index.ts` or `content.json` |
+| `src/plugins/<ns>-<name>` | Shared plugins only: mechanics providers, presentation, themes, `dungeon-generator`. New plugins are scaffolded here, then moved to a family with `npm run move-to-game` |
 | `games/<family>/` | One game family: `plugins/<name>/`, `contracts/` (family-only SDK vocabulary), `presets/`, `tests/`, `README.md` and `docs/` |
-| `src/content/presets` | Preset JSON files of the shooter stack and games still in `src/plugins` |
 | `tests` | `*.test.ts` run by `npm test` (as are `games/**/*.test.ts`); `helpers/` harness; subfolders with browser demos run by `npm run test:browser` |
 | `scripts` | build, dev, preview, smoke, boundary checker, reuse discovery/indexing, plugin scaffolder, tool resolution |
 | `assets/weapons` | Blender weapon sources, GLB exports, first-person renders and an agent authoring workflow |
@@ -113,7 +112,7 @@ any environmental failures. Changes to audio or pointer lock also need manual ve
 |---|---|---|
 | Host, lifecycle, scheduling | `src/kernel/host.ts`, `scope.ts`, `scheduler.ts` | `tests/host-lifecycle.test.ts`, kernel tests, `docs/reference/architecture.md` |
 | Gameplay or SDK contracts | `src/sdk/contracts/` (shared), `games/<family>/contracts/` (one family), provider and consumer plugins | `tests/helpers/game.ts`, extension tests, `docs/guide/plugins.md` |
-| Content or preset | content-kind plugin, `src/app/catalog.ts` (preset list), `src/content/presets/` or `games/<family>/presets/` | content tests, `docs/reference/content-format.md`, game guide |
+| Content or preset | content-kind plugin, `src/app/catalog.ts` (preset list), `games/<family>/presets/` | content tests, `docs/reference/content-format.md`, game guide |
 | Browser UI or rendering | `src/app/`, `src/platform/`, relevant presentation plugin | build and smoke; creator test for panel changes |
 
 Registration survives restart; activation runs again per session. A failed staging operation preserves the old session,

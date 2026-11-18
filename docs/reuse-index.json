@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "93c1025a7ab132d94d840cefab1f5b47fd799cfe3323de95411f039e7c6e7779",
+  "sourceDigest": "7864a49ebabdb3da8c291e6499367304174a55cdba4981289604e19c4083a7b5",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -286,7 +286,7 @@
       ],
       "examples": [
         "games/racing/plugins/vehicle-racing/index.ts",
-        "src/plugins/example-racing/index.ts"
+        "games/shooter/plugins/example-racing/index.ts"
       ],
       "tests": [
         "tests/mechanics-sequence.test.ts",
@@ -713,7 +713,7 @@
         "games/adventure/README.md"
       ],
       "examples": [
-        "src/plugins/example-arena/index.ts",
+        "games/shooter/plugins/example-arena/index.ts",
         "games/adventure/plugins/story-adventure/index.ts"
       ],
       "tests": [
@@ -969,7 +969,7 @@
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json",
-        "src/plugins/core-presentation/index.ts"
+        "games/shooter/plugins/core-presentation/index.ts"
       ],
       "tests": [
         "tests/render-three.test.ts",
@@ -2279,7 +2279,7 @@
       "name": "Combat",
       "scope": "family",
       "summary": "Shooter damage pipeline, weapons/ammo, hitscan/projectile/melee attacks, pickups and damage modifiers.",
-      "source": "src/plugins/core-combat",
+      "source": "games/shooter/plugins/core-combat",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -2319,9 +2319,9 @@
         "docs/reference/content-format.md"
       ],
       "examples": [
-        "src/plugins/example-ricochet/index.ts",
-        "src/plugins/example-ward/index.ts",
-        "src/plugins/example-tactical-pack/content.json"
+        "games/shooter/plugins/example-ricochet/index.ts",
+        "games/shooter/plugins/example-ward/index.ts",
+        "games/shooter/plugins/example-tactical-pack/content.json"
       ],
       "tests": [
         "tests/game-combat.test.ts",
@@ -2592,7 +2592,7 @@
       "name": "Bulkhead Station (reference content)",
       "scope": "content",
       "summary": "Data-only reference content: two weapons, two enemies, three pickups, two ammo types and the Bulkhead Station arena.",
-      "source": "src/plugins/core-content",
+      "source": "games/shooter/plugins/core-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -2889,7 +2889,7 @@
       "name": "Enemies",
       "scope": "unreviewed",
       "summary": "Enemy definitions (data), the enemy state machine, path-following movement, and two AI behaviours: a melee chaser and a ranged attacker that respects line of sight.",
-      "source": "src/plugins/core-enemies",
+      "source": "games/shooter/plugins/core-enemies",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -3148,7 +3148,7 @@
       "name": "Standard HUD",
       "scope": "unreviewed",
       "summary": "Retro-industrial heads-up display: health, ammo, weapon bar, objective, status lines, notices, crosshair and damage feedback.",
-      "source": "src/plugins/core-hud",
+      "source": "games/shooter/plugins/core-hud",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -3374,7 +3374,7 @@
       "name": "Objective Mode",
       "scope": "unreviewed",
       "summary": "The default game mode: restore the override switch, then reach the exit. Owns spawning of the map's actors and the win/lose conditions.",
-      "source": "src/plugins/core-modes",
+      "source": "games/shooter/plugins/core-modes",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -3525,7 +3525,7 @@
       "name": "First-Person Player",
       "scope": "unreviewed",
       "summary": "Player prefab, WASD + mouse-yaw controller and fixed-eye-height first-person camera. Movement is planar; jumping and vertical aim belong to future controller/camera providers.",
-      "source": "src/plugins/core-player",
+      "source": "games/shooter/plugins/core-player",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -3902,7 +3902,7 @@
       "name": "Presentation",
       "scope": "unreviewed",
       "summary": "Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks. Honors optional ViewModes to hide ceilings, first-person view models and fog for overhead presentations.",
-      "source": "src/plugins/core-presentation",
+      "source": "games/shooter/plugins/core-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -4147,7 +4147,7 @@
       "name": "Grid World",
       "scope": "family",
       "summary": "Shooter-family planar collision, ray/sweep queries, pathfinding, doors, switches and trigger zones.",
-      "source": "src/plugins/core-world",
+      "source": "games/shooter/plugins/core-world",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -4183,8 +4183,8 @@
         "docs/reference/content-format.md"
       ],
       "examples": [
-        "src/plugins/example-keys/index.ts",
-        "src/plugins/example-stealth/index.ts"
+        "games/shooter/plugins/example-keys/index.ts",
+        "games/shooter/plugins/example-stealth/index.ts"
       ],
       "tests": [
         "tests/game-collision.test.ts",
@@ -4727,7 +4727,7 @@
       "name": "Abandoned Places",
       "scope": "content",
       "summary": "Two small objective maps: a quiet switch hunt and a dark survival encounter.",
-      "source": "src/plugins/example-adventure-pack",
+      "source": "games/shooter/plugins/example-adventure-pack",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -4816,7 +4816,7 @@
       "name": "Example arena score attack",
       "scope": "unreviewed",
       "summary": "Score points by eliminating enemies before the kill or time limit.",
-      "source": "src/plugins/example-arena",
+      "source": "games/shooter/plugins/example-arena",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -4926,7 +4926,7 @@
       "name": "Dash Controller",
       "scope": "family",
       "summary": "Planar first-person sprint and directional dash controller.",
-      "source": "src/plugins/example-dash-controller",
+      "source": "games/shooter/plugins/example-dash-controller",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -4952,7 +4952,7 @@
         "docs/guide/plugins.md"
       ],
       "examples": [
-        "src/content/presets/arena-score.json"
+        "games/shooter/presets/arena-score.json"
       ],
       "tests": [
         "tests/dash-controller.test.ts"
@@ -5070,7 +5070,7 @@
       "name": "Escape Mode",
       "scope": "unreviewed",
       "summary": "Find a route through the map to an exit; death ends the run.",
-      "source": "src/plugins/example-escape",
+      "source": "games/shooter/plugins/example-escape",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5133,7 +5133,7 @@
       "name": "Extraction Prototype",
       "scope": "unreviewed",
       "summary": "Collect loot and reach an exit before time runs out in a single session.",
-      "source": "src/plugins/example-extraction",
+      "source": "games/shooter/plugins/example-extraction",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5207,7 +5207,7 @@
       "name": "Extraction: Salvage Run",
       "scope": "content",
       "summary": "A compact salvage route with scattered valuables and an extraction zone.",
-      "source": "src/plugins/example-extraction-map",
+      "source": "games/shooter/plugins/example-extraction-map",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5289,7 +5289,7 @@
       "name": "Example holdout",
       "scope": "unreviewed",
       "summary": "Hold the exit zone against a steady stream of enemies.",
-      "source": "src/plugins/example-holdout",
+      "source": "games/shooter/plugins/example-holdout",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5376,7 +5376,7 @@
       "name": "Visor HUD",
       "scope": "unreviewed",
       "summary": "A minimalist helmet-visor HUD: thin line work, segmented arc health gauge, compass strip, red edge glow on damage.",
-      "source": "src/plugins/example-hud",
+      "source": "games/shooter/plugins/example-hud",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5441,7 +5441,7 @@
       "name": "Key Dungeon",
       "scope": "content",
       "summary": "A compact locked-gate dungeon and its access key.",
-      "source": "src/plugins/example-key-dungeon",
+      "source": "games/shooter/plugins/example-key-dungeon",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5512,7 +5512,7 @@
       "name": "Keys and Gates",
       "scope": "family",
       "summary": "Actor-specific key pickup and keyed-door interaction for shooter-world maps.",
-      "source": "src/plugins/example-keys",
+      "source": "games/shooter/plugins/example-keys",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5542,8 +5542,8 @@
         "docs/guide/plugins.md"
       ],
       "examples": [
-        "src/plugins/example-key-dungeon/content.json",
-        "src/content/presets/key-dungeon.json"
+        "games/shooter/plugins/example-key-dungeon/content.json",
+        "games/shooter/presets/key-dungeon.json"
       ],
       "tests": [
         "tests/keys-gates.test.ts",
@@ -5597,7 +5597,7 @@
       "name": "Example Pack: Scattergun, Brute and the Annex",
       "scope": "content",
       "summary": "Data-only example pack: a spread-fire weapon, a heavy melee enemy, an ammo pickup and a small two-room map with a locked alcove. Reuses core ammo types and prefabs.",
-      "source": "src/plugins/example-pack",
+      "source": "games/shooter/plugins/example-pack",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5707,7 +5707,7 @@
       "name": "Foundry Circuit",
       "scope": "content",
       "summary": "A sealed, marked industrial time-trial loop for arcade racing.",
-      "source": "src/plugins/example-race-track",
+      "source": "games/shooter/plugins/example-race-track",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5765,7 +5765,7 @@
       "name": "Arcade Racing",
       "scope": "family",
       "summary": "Shooter-backed planar driving and time-trial mode composing shared sequence progression with chronological swept checkpoints.",
-      "source": "src/plugins/example-racing",
+      "source": "games/shooter/plugins/example-racing",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5794,8 +5794,8 @@
         "docs/guide/plugins.md"
       ],
       "examples": [
-        "src/plugins/example-race-track/content.json",
-        "src/content/presets/racing.json"
+        "games/shooter/plugins/example-race-track/content.json",
+        "games/shooter/presets/racing.json"
       ],
       "tests": [
         "tests/racing.test.ts",
@@ -5878,7 +5878,7 @@
       "name": "Ricochet Rifle",
       "scope": "unreviewed",
       "summary": "Adds the example/ricochet attack behaviour (a projectile that bounces off walls) and the Ricochet Rifle weapon (slot 3).",
-      "source": "src/plugins/example-ricochet",
+      "source": "games/shooter/plugins/example-ricochet",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -5964,7 +5964,7 @@
       "name": "Seeded Gauntlet",
       "scope": "unreviewed",
       "summary": "Three seeded encounters with automatic, run-only upgrades.",
-      "source": "src/plugins/example-roguelite",
+      "source": "games/shooter/plugins/example-roguelite",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6032,7 +6032,7 @@
       "name": "Stealth Guard",
       "scope": "unreviewed",
       "summary": "Stationary guards detect players through a planar vision cone and world line of sight.",
-      "source": "src/plugins/example-stealth",
+      "source": "games/shooter/plugins/example-stealth",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6089,7 +6089,7 @@
       "name": "Silent Relay",
       "scope": "content",
       "summary": "An infiltration map with covered southern access and guards overlooking the exposed relay floor.",
-      "source": "src/plugins/example-stealth-map",
+      "source": "games/shooter/plugins/example-stealth-map",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6148,7 +6148,7 @@
       "name": "Example survival",
       "scope": "unreviewed",
       "summary": "Survival game mode: escalating waves of the map's enemies spawn out of sight; score kills, survive the last wave.",
-      "source": "src/plugins/example-survival",
+      "source": "games/shooter/plugins/example-survival",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6263,7 +6263,7 @@
       "name": "Relay Station",
       "scope": "content",
       "summary": "A compact objective mission and magazine-fed carbine using the industrial theme.",
-      "source": "src/plugins/example-tactical-pack",
+      "source": "games/shooter/plugins/example-tactical-pack",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6346,7 +6346,7 @@
       "name": "Time Trial Raid",
       "scope": "unreviewed",
       "summary": "Activate the objective switches and escape before time runs out.",
-      "source": "src/plugins/example-time-trial",
+      "source": "games/shooter/plugins/example-time-trial",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6418,7 +6418,7 @@
       "name": "Timed Ward",
       "scope": "family",
       "summary": "Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry.",
-      "source": "src/plugins/example-ward",
+      "source": "games/shooter/plugins/example-ward",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6445,7 +6445,7 @@
         "docs/guide/plugins.md"
       ],
       "examples": [
-        "src/plugins/example-ward/index.ts"
+        "games/shooter/plugins/example-ward/index.ts"
       ],
       "tests": [
         "tests/ward-effect.test.ts"
@@ -9054,9 +9054,9 @@
       ],
       "examples": [
         "games/racing/plugins/vehicle-racing/index.ts",
-        "src/plugins/example-racing/index.ts",
+        "games/shooter/plugins/example-racing/index.ts",
         "games/racing/presets/overhead-racing.json",
-        "src/content/presets/racing.json"
+        "games/shooter/presets/racing.json"
       ],
       "tests": [
         "tests/mechanics-sequence.test.ts",
@@ -10052,7 +10052,7 @@
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json",
-        "src/plugins/core-presentation/index.ts"
+        "games/shooter/plugins/core-presentation/index.ts"
       ],
       "tests": [
         "games/cinder/tests/cinder-vault.test.ts",
@@ -11691,7 +11691,7 @@
       "examples": [
         "games/cinder/presets/cinder-vault.json",
         "games/hollowmere/presets/hollowmere-ascent.json",
-        "src/plugins/core-presentation/index.ts"
+        "games/shooter/plugins/core-presentation/index.ts"
       ],
       "tests": [
         "tests/cinder-demo/run.mjs",

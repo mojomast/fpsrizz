@@ -46,7 +46,7 @@ console.log(`Created src/plugins/${dirName}/ (manifest.json, index.ts, reuse.jso
 
 1. The catalog picks it up automatically (npm run gen-catalog; dev, build and check do this for you).
 
-2. Enable it: add "${id}" to "plugins" in src/content/presets/default.json
+2. Enable it: add "${id}" to "plugins" in games/shooter/presets/default.json
    (or tick it in the creator panel, \` key, and press "Apply & restart").
 
 3. npm run dev   — you should see "${name} is active" on the HUD when a session starts.

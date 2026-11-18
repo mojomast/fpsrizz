@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Enemy, Flow, Player, Transform, definePlugin, spawnPrefab } from '../src/sdk/index.ts';
 import type { CatalogEntry, SessionContext } from '../src/sdk/index.ts';
-import manifest from '../src/plugins/example-stealth/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-stealth/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const maps: CatalogEntry = {
@@ -23,7 +23,7 @@ async function setup() {
     manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^2.0.0' },
     load: async () => ({ default: definePlugin({ activate(ctx) { context = ctx; } }) }),
   } as unknown as CatalogEntry;
-  const game = createHeadlessGame([maps, probe, { manifest, load: () => import('../src/plugins/example-stealth/index.ts') }]);
+  const game = createHeadlessGame([maps, probe, { manifest, load: () => import('../games/shooter/plugins/example-stealth/index.ts') }]);
   await game.host.apply(headlessPreset({
     plugins: ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content', 'example/stealth', 'test/stealth-map', 'test/probe'],
     options: { map: 'test/stealth' },

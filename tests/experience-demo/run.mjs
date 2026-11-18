@@ -1,14 +1,15 @@
 // Production browser acceptance. Run npm run build, then node tests/experience-demo/run.mjs.
 // The shipped games run without ?test. Only driving is accelerated, using input + real simulation ticks.
 import assert from 'node:assert/strict';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { launchBrowser, startStaticServer } from '../../scripts/smoke-lib.mjs';
 import { root } from '../../scripts/tools.mjs';
 
 const TIMEOUT = 120000;
 const out = resolve(root, '.smoke');
-const preset = (file) => JSON.parse(readFileSync(resolve(root, 'src/content/presets', `${file}.json`), 'utf8'));
+const presetPath = (file) => readdirSync(resolve(root, 'games')).map((f) => resolve(root, 'games', f, 'presets', `${file}.json`)).find((p) => existsSync(p));
+const preset = (file) => JSON.parse(readFileSync(presetPath(file), 'utf8'));
 const shooter = preset('default');
 const experiences = [
   { file: 'overhead-racing', preset: preset('overhead-racing'), hud: '.vehicle-hud', service: 'vehicle/race' },

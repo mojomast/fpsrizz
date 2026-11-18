@@ -21,9 +21,9 @@ dependency for a different genre.
 For a shared-contract extraction, use the [capability design/evidence note](../cookbook/reusable-capability-template.md) to
 state the common rule, ownership and timing promises, differing consumer policies and named verification cases.
 
-1. Pick a base preset from `src/content/presets/`. `default.json` is the objective game; `survival.json` demonstrates
+1. Pick a base preset from `games/shooter/presets/` (other families keep theirs in `games/<family>/presets/`). `default.json` is the objective game; `survival.json` demonstrates
     a different mode and HUD. A preset selects a map, enabled plugins, exclusive role providers, settings and a seed.
-2. Choose existing behavior before writing code. `src/plugins/example-pack/` adds weapons, enemies, pickups and a map
+2. Choose existing behavior before writing code. `games/shooter/plugins/example-pack/` adds weapons, enemies, pickups and a map
    using JSON. Definitions reference registered behavior IDs and theme keys, not code paths or asset files.
 3. For new behavior, use `npm run new-plugin -- my-game/my-plugin "My Plugin"`. The starter prints the catalog wiring.
    `example-ricochet` shows an attack behavior; `example-survival` shows a mode; `example-hud` replaces a HUD.
@@ -47,10 +47,10 @@ ports; agents can edit the same graph JSON without coordinates. See [game-compos
    example, the objective mode requires an exit zone. A mode owns its player and map-spawn setup; adding a map alone
    does not define a new mode. See the core and example maps and `example-survival/index.ts`.
 3. The plugin catalog is generated from each folder's `manifest.json` (code plugins have `index.ts`, content packs
-   have `content.json`); run `npm run gen-catalog` or just `npm run dev`. Copy a preset to `src/content/presets/`, assign it a new ID and select your map. List
+   have `content.json`); run `npm run gen-catalog` or just `npm run dev`. Copy a preset to `games/<family>/presets/`, assign it a new ID and select your map. List
    **every** required plugin, including transitive dependencies, and select the exclusive role providers you need.
    Import and add the preset to the `presets` array in the catalog to expose it in the UI.
-4. Validate the selection without opening a browser: `npm run validate-game -- src/content/presets/my-game.json`.
+4. Validate the selection without opening a browser: `npm run validate-game -- games/<family>/presets/my-game.json`.
    Add `--pack path/to/wrapped-pack.json` for each external import-format pack; the preset still must enable the pack
    and its dependencies. `npm run validate-game -- --bundled` checks all shipped presets. This stages registration and
    validation only: it cannot detect activation or gameplay failures.

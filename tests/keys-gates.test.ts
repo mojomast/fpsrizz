@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Flow, Intent, Pickup, PickupEffects, Player, Transform, World, definePlugin, makeTransform } from '../src/sdk/index.ts';
 import type { CatalogEntry, SessionContext } from '../src/sdk/index.ts';
-import manifest from '../src/plugins/example-keys/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-keys/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const base = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content', 'example/keys', 'test/keys-content', 'test/probe'];
@@ -31,7 +31,7 @@ function content(door = 'gate', key: unknown = 'blue', extra: Record<string, unk
 async function setup(entry = content()) {
   let context: SessionContext | undefined;
   const probe = { manifest: { schema: 1, id: 'test/probe', name: 'Probe', version: '1.0.0', kind: 'code', sdk: '^2.0.0' }, load: async () => ({ default: definePlugin({ activate(ctx) { context = ctx; } }) }) } as unknown as CatalogEntry;
-  const game = createHeadlessGame([entry, probe, { manifest, load: () => import('../src/plugins/example-keys/index.ts') }]);
+  const game = createHeadlessGame([entry, probe, { manifest, load: () => import('../games/shooter/plugins/example-keys/index.ts') }]);
   const preset = headlessPreset({ plugins: base, options: { map: 'test/gate-map' } });
   await game.host.apply(preset as never);
   assert.ok(context);

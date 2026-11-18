@@ -254,7 +254,7 @@ The complete game still needs staging and gameplay verification. See [the reuse-
 **Objective.** Flip the override switch, then reach the exit pad. Dying ends the run. Both outcomes show a result screen
 with statistics (time, hostiles down).
 
-**Arena (`core/arena`, in `src/plugins/core-content/content.json`).** A 26 x 20 cell grid, 2 m cells (52 m x 40 m),
+**Arena (`core/arena`, in `games/shooter/plugins/core-content/content.json`).** A 26 x 20 cell grid, 2 m cells (52 m x 40 m),
 3 m walls. Map ids use the prefixes `bay`, `hall`, `ctrl`, `svc` and `exit`:
 
 - A spawn room (the bay, south-west) where the player starts, facing north.
@@ -292,12 +292,12 @@ height 1.5 m, field of view 74 degrees (configurable). Controls are listed in [R
 
 | Extension | Folder | What it shows |
 |---|---|---|
-| Data-only pack (`example/pack`) | `src/plugins/example-pack` | Scattergun (slot 4, 7 pellets), Brute enemy (tinted, scaled Grunt art), Shell box pickup, and the map "Bulkhead Annex" (`example/annex`, 15 x 11 cells: two rooms joined by a door and a locked vault holding the exit pad). No code. |
-| Ricochet (`example/ricochet`) | `src/plugins/example-ricochet` | A new attack behaviour `example/ricochet` (projectile that bounces off walls) and the Ricochet Rifle (slot 3, cell ammo) added through `defineContent`. |
-| Visor HUD (`example/hud`) | `src/plugins/example-hud` | An alternative `sdk/hud` provider, `example/visor-hud`, with a compass strip and an arc health gauge; setting `accent` (cyan, amber, green). |
-| Survival (`example/survival`) | `src/plugins/example-survival` | An alternative `sdk/mode` provider, `example/survival`: escalating waves spawned out of sight at the map's enemy points, score, victory after the last wave. |
+| Data-only pack (`example/pack`) | `games/shooter/plugins/example-pack` | Scattergun (slot 4, 7 pellets), Brute enemy (tinted, scaled Grunt art), Shell box pickup, and the map "Bulkhead Annex" (`example/annex`, 15 x 11 cells: two rooms joined by a door and a locked vault holding the exit pad). No code. |
+| Ricochet (`example/ricochet`) | `games/shooter/plugins/example-ricochet` | A new attack behaviour `example/ricochet` (projectile that bounces off walls) and the Ricochet Rifle (slot 3, cell ammo) added through `defineContent`. |
+| Visor HUD (`example/hud`) | `games/shooter/plugins/example-hud` | An alternative `sdk/hud` provider, `example/visor-hud`, with a compass strip and an arc health gauge; setting `accent` (cyan, amber, green). |
+| Survival (`example/survival`) | `games/shooter/plugins/example-survival` | An alternative `sdk/mode` provider, `example/survival`: escalating waves spawned out of sight at the map's enemy points, score, victory after the last wave. |
 
-The presets in `src/content/presets` select them (see the README). An additional Assetrizz preset selects five curated
+The presets in `games/shooter/presets` select them (see the README). An additional Assetrizz preset selects five curated
 dark-sci-fi tiles, two enemy sprite strips and two Blender weapon renders with industrial-derived remaining sprites and sounds. Switching presets goes through the creator panel
 (preset picker, then **Apply & restart**); the selection is persisted in `localStorage`.
 
