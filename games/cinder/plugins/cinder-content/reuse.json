@@ -44,11 +44,11 @@
     "Authored generator recipe and content, not runtime map swapping. Gameplay policy, threat tiers, elite affixes, encounter composition, loot rolls, ember costs, item effects, NPCs and boons live in cinder/game."
   ],
   "docs": [
-    "docs/cinder-classes.md",
-    "docs/cinder-vault.md",
-    "docs/crafting.md",
-    "docs/dungeon-generator.md",
-    "docs/inventory.md"
+    "games/cinder/docs/classes.md",
+    "games/cinder/README.md",
+    "docs/reference/crafting.md",
+    "docs/reference/dungeon-generator.md",
+    "docs/reference/inventory.md"
   ],
   "examples": [
     "games/cinder/presets/cinder-vault.json"

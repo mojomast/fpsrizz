@@ -10,4 +10,4 @@ The SDK [`PortfolioCards`](../../sdk/contracts/portfolio-cards.ts) service expos
 
 ## Ownership, tests and limits
 
-The game owns its pile instance, command queue and state through the session; restart disposes the old pile. Initial drawing waits until play is allowed. The 12-card deck is fixed: no shuffle or save. It supplies rules and state, not a card-table UI; the presentation plugin is optional to headless use. Run `node --test tests/portfolio-cards.test.ts`; see the [card guide](../../../docs/portfolio-cards.md) for complete winning and losing routes.
+The game owns its pile instance, command queue and state through the session; restart disposes the old pile. Initial drawing waits until play is allowed. The 12-card deck is fixed: no shuffle or save. It supplies rules and state, not a card-table UI; the presentation plugin is optional to headless use. Run `node --test tests/portfolio-cards.test.ts`; see the [card guide](../../../docs/games/portfolio-cards.md) for complete winning and losing routes.

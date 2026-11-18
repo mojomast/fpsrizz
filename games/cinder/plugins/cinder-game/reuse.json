@@ -78,16 +78,16 @@
     "Shooter-family authority with one generated three-wing dungeon and one arena tile theme; no runtime map replacement or run save/restore."
   ],
   "docs": [
-    "docs/camera-modes.md",
-    "docs/cinder-classes.md",
-    "docs/cinder-vault.md",
-    "docs/crafting.md",
-    "docs/dungeon-generator.md",
-    "docs/inventory.md",
-    "docs/progression.md",
-    "docs/research/difficulty-replayability-qol-2026-11-16.md",
-    "docs/research/turn-based-roguelite-2026-11-16.md",
-    "docs/research/ux-world-features-2026-11-16.md"
+    "docs/reference/camera-modes.md",
+    "games/cinder/docs/classes.md",
+    "games/cinder/README.md",
+    "docs/reference/crafting.md",
+    "docs/reference/dungeon-generator.md",
+    "docs/reference/inventory.md",
+    "docs/reference/progression.md",
+    "docs/archive/research/difficulty-replayability-qol-2026-11-16.md",
+    "docs/archive/research/turn-based-roguelite-2026-11-16.md",
+    "docs/archive/research/ux-world-features-2026-11-16.md"
   ],
   "examples": [
     "games/cinder/presets/cinder-vault.json",

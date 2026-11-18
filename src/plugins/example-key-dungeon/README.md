@@ -10,4 +10,4 @@ The pack registers content at staging; it has no role, runtime system or configu
 
 ## Verify
 
-Run `node --test tests/key-dungeon.test.ts tests/keys-gates.test.ts` from the repository root. See [content formats](../../../CONTENT_FORMAT.md).
+Run `node --test tests/key-dungeon.test.ts tests/keys-gates.test.ts` from the repository root. See [content formats](../../../docs/reference/content-format.md).

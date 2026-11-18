@@ -3,5 +3,5 @@
   "keywords": ["dash", "sprint", "movement", "controller", "cooldown", "first person"],
   "entryPoints": ["ControllerRole", "Input", "World"], "useWhen": "Replace the shooter controller with sprint/dash movement.",
   "limitations": ["Uses the shooter player and collision world. For an unrelated genre's dash cost/cooldown, compose mechanics/actions with that genre's movement."],
-  "docs": ["PLUGINS.md"], "examples": ["src/content/presets/arena-score.json"], "tests": ["tests/dash-controller.test.ts"]
+  "docs": ["docs/guide/plugins.md"], "examples": ["src/content/presets/arena-score.json"], "tests": ["tests/dash-controller.test.ts"]
 }

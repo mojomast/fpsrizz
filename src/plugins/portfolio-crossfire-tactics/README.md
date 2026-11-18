@@ -12,7 +12,7 @@ Use [`portfolio-crossfire-tactics.json`](../../content/presets/portfolio-crossfi
 { "id": "mesa", "name": "Mesa", "team": "squad", "x": 1, "y": 0, "hp": 8, "ap": 2 }
 ```
 
-Use distinct legal positions. `.` is open, `#` blocks and `C` provides cover. Consult [turn tactics](../../../docs/turn-tactics.md) and the [portfolio tactics guide](../../../docs/portfolio-tactics.md) for rules and constraints.
+Use distinct legal positions. `.` is open, `#` blocks and `C` provides cover. Consult [turn tactics](../../../docs/games/turn-tactics.md) and the [portfolio tactics guide](../../../docs/games/portfolio-tactics.md) for rules and constraints.
 
 ## Exercise and limits
 

@@ -4,7 +4,7 @@
 
 ## Compose
 
-Merge this fragment into a complete preset; [Sky Salvage](../../content/presets/sky-salvage.json) shows the full kit composition:
+Merge this fragment into a complete preset; [Sky Salvage](../../../games/sky/presets/sky-salvage.json) shows the full kit composition:
 
 ```json
 { "plugins": ["mechanics/resources"], "roles": { "sdk/mechanic-resources": "mechanics/resources" } }
@@ -16,4 +16,4 @@ Consumers creating handles during activation declare the role in `requiresRoles`
 
 Definitions and snapshots are detached and frozen. IDs are unique among live pools per consumer; idempotent disposal or either consumer/provider scope ending invalidates the handle. Mutations reject while paused. No clock, renderer or DOM is required, so the pool runs headlessly and deterministically for a given operation order.
 
-See [mechanics semantics](../../../docs/reusable-mechanics.md), [resource conformance](../../../docs/mechanic-conformance.md), [Sky consumer](../sky-game/index.ts) and [provider tests](../../../tests/mechanics-providers.test.ts). Run `npm run check` from the repository root.
+See [mechanics semantics](../../../docs/reference/reusable-mechanics.md), [resource conformance](../../../docs/reference/mechanic-conformance.md), [Sky consumer](../../../games/sky/plugins/sky-game/index.ts) and [provider tests](../../../tests/mechanics-providers.test.ts). Run `npm run check` from the repository root.

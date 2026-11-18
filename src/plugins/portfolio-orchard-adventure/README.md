@@ -12,7 +12,7 @@ The version 1 chapter in [`content.json`](content.json) defines rooms, items, ac
 { "id": "inspect-leaf", "label": "Inspect a leaf", "room": "atrium", "text": "Salt crystals edge the leaf.", "flags": ["leaf-seen"], "once": "leaf-seen" }
 ```
 
-See the [adventure format](../../../docs/narrative-adventure.md) and [portfolio guide](../../../docs/portfolio-adventures.md) for reference and progression rules.
+See the [adventure format](../../../docs/games/narrative-adventure.md) and [portfolio guide](../../../docs/games/portfolio-adventures.md) for reference and progression rules.
 
 ## Exercise and limits
 

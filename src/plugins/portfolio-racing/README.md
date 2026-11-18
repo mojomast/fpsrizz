@@ -17,7 +17,7 @@
 { "x": 4, "z": 2, "dx": 1, "dz": 0, "width": 10 }
 ```
 
-Gate order and direction matter. See the [track format](../../../docs/overhead-racing.md) and [portfolio racing guide](../../../docs/portfolio-racing.md) before authoring a complete course.
+Gate order and direction matter. See the [track format](../../../docs/games/overhead-racing.md) and [portfolio racing guide](../../../docs/games/portfolio-racing.md) before authoring a complete course.
 
 ## Exercise and limits
 

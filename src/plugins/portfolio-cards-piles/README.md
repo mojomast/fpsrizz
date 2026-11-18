@@ -18,4 +18,4 @@ Import `cardPilesMechanic` from `../../sdk/index.ts` in a plugin. `create(owner,
 
 ## Lifetime, tests and limits
 
-Instances are consumer-local, owned by both consumer and provider, and release their live ID on disposal. Mutation is rejected while disposed or when `SessionControl.playing` is false. Order is deterministic; there is no shuffle, reshuffle, card effect, turn policy or automatic refill. The consumer owns those rules. Run `node --test tests/portfolio-cards.test.ts`; see the [card guide](../../../docs/portfolio-cards.md) and [owned instances](../../../docs/owned-instances.md).
+Instances are consumer-local, owned by both consumer and provider, and release their live ID on disposal. Mutation is rejected while disposed or when `SessionControl.playing` is false. Order is deterministic; there is no shuffle, reshuffle, card effect, turn policy or automatic refill. The consumer owns those rules. Run `node --test tests/portfolio-cards.test.ts`; see the [card guide](../../../docs/games/portfolio-cards.md) and [owned instances](../../../docs/reference/owned-instances.md).

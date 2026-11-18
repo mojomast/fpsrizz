@@ -12,7 +12,7 @@
 { "id": "nursery", "name": "Nursery", "x": 3, "z": -2 }
 ```
 
-Keep kit resource/action IDs compatible with Verdant and the objective target consistent with the world. See [Verdant Relay](../../../docs/verdant-relay.md), [reusable mechanics](../../../docs/reusable-mechanics.md), and the [portfolio resource guide](../../../docs/portfolio-resource-games.md).
+Keep kit resource/action IDs compatible with Verdant and the objective target consistent with the world. See [Verdant Relay](../../../games/verdant/README.md), [reusable mechanics](../../../docs/reference/reusable-mechanics.md), and the [portfolio resource guide](../../../docs/games/portfolio-resource-games.md).
 
 ## Exercise and limits
 

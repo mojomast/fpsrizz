@@ -12,7 +12,7 @@ Enable the pack with the adventure runtime, presentation and theme; select `sdk/
 { "id": "read-note", "label": "Read the note", "room": "reading-room", "text": "A name is underlined.", "flags": ["note-read"], "once": "note-read" }
 ```
 
-Keep room and item references valid and make the winning flag reachable. See the [adventure format](../../../docs/narrative-adventure.md) and [portfolio guide](../../../docs/portfolio-adventures.md).
+Keep room and item references valid and make the winning flag reachable. See the [adventure format](../../../docs/games/narrative-adventure.md) and [portfolio guide](../../../docs/games/portfolio-adventures.md).
 
 ## Exercise and limits
 

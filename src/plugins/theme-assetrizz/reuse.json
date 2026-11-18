@@ -47,8 +47,8 @@
   ],
   "docs": [
     "assets/weapons/fantasy/README.md",
-    "docs/cinder-vault.md",
-    "docs/hollowmere.md"
+    "games/cinder/README.md",
+    "games/hollowmere/README.md"
   ],
   "examples": [
     "games/cinder/presets/cinder-vault.json",

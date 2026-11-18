@@ -218,7 +218,7 @@ test('frame systems receive an alpha within [0, 1]', () => {
   }
 });
 
-// Removal contract (ARCHITECTURE.md §"Tick"): additions made during a tick start on the next tick; removals take
+// Removal contract (docs/reference/architecture.md §"Tick"): additions made during a tick start on the next tick; removals take
 // effect immediately, so a removed system never runs again, not even later in the tick in which it was removed.
 // This keeps a disposed plugin's systems from touching resources its scope has already released.
 test('a system removed mid-tick by an earlier system does not run later in that tick', () => {

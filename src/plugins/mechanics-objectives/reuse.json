@@ -5,7 +5,7 @@
   "entryPoints": ["ObjectiveProviders", "ObjectiveMechanicRole", "objectiveMechanic", "MechanicObjectiveChanged"],
   "useWhen": "Track bounded progress and prerequisite completion without encoding a particular genre's victory rules.",
   "limitations": ["Session-only counters, not a persisted quest journal. Successful receipt memory is bounded at 4096; victory and rewards remain game orchestration."],
-  "docs": ["docs/reusable-mechanics.md"],
+  "docs": ["docs/reference/reusable-mechanics.md"],
   "examples": ["games/ember/plugins/ember-game/index.ts", "games/verdant/plugins/verdant-game/index.ts"],
   "tests": ["tests/mechanics-providers.test.ts", "tests/reusable-games.test.ts"]
 }

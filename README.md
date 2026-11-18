@@ -43,13 +43,13 @@ Open **Creator tools → Load**, select a preset, then **Apply & restart → Pla
 
 | Experience | Defining loop | Controls and guide |
 |---|---|---|
-| **NEON RUN — Circuit Trial** | Accelerate, brake and drift a visible car through two ordered laps | W/S or ↑/↓, A/D or ←/→, Space to drift; [racing guide](docs/overhead-racing.md) |
-| **Signal Break — Turn Tactics** | Select a squad member, preview moves/attacks, spend AP, then end the turn | Cursor or keyboard, M/A for action mode, E to end turn; [tactics guide](docs/turn-tactics.md) |
-| **The Last Light** | Explore three rooms, talk to the keeper, combine items and restore a beacon | Click or Tab/Enter; explicit chapter Save/Load; [adventure guide](docs/narrative-adventure.md) |
-| **Stonewake — 3D puzzle** | Push boulders onto seals, block pursuing golems and escape three volumetric chambers | WASD/arrows to step, Space to wait, Z undo, R retry, Q/E orbit; [Stonewake guide](docs/stonewake.md) |
-| **Sky Salvage — 3D courier** | Fly between floating islands, recover cargo and supply matching beacons while avoiding a storm drone | WASD/arrows or held direction buttons, E collect/deliver, Space boost, F repair; [flight guide](docs/sky-salvage.md) |
-| **Ember Bastion — 3D tower defense** | Spend scrap on towers, defend three waves, repair the core or trigger a pulse | Click 3D pads or numbered buttons, then Launch wave; [defense guide](docs/ember-bastion.md) |
-| **Verdant Relay — 3D colony restoration** | Balance water, biomass and charge to restore three relays before drought or the season ends | Select a station in 3D or its button, then collect, convert, restore or wait; [colony guide](docs/verdant-relay.md) |
+| **NEON RUN — Circuit Trial** | Accelerate, brake and drift a visible car through two ordered laps | W/S or ↑/↓, A/D or ←/→, Space to drift; [racing guide](docs/games/overhead-racing.md) |
+| **Signal Break — Turn Tactics** | Select a squad member, preview moves/attacks, spend AP, then end the turn | Cursor or keyboard, M/A for action mode, E to end turn; [tactics guide](docs/games/turn-tactics.md) |
+| **The Last Light** | Explore three rooms, talk to the keeper, combine items and restore a beacon | Click or Tab/Enter; explicit chapter Save/Load; [adventure guide](docs/games/narrative-adventure.md) |
+| **Stonewake — 3D puzzle** | Push boulders onto seals, block pursuing golems and escape three volumetric chambers | WASD/arrows to step, Space to wait, Z undo, R retry, Q/E orbit; [Stonewake guide](docs/games/stonewake.md) |
+| **Sky Salvage — 3D courier** | Fly between floating islands, recover cargo and supply matching beacons while avoiding a storm drone | WASD/arrows or held direction buttons, E collect/deliver, Space boost, F repair; [flight guide](games/sky/README.md) |
+| **Ember Bastion — 3D tower defense** | Spend scrap on towers, defend three waves, repair the core or trigger a pulse | Click 3D pads or numbered buttons, then Launch wave; [defense guide](games/ember/README.md) |
+| **Verdant Relay — 3D colony restoration** | Balance water, biomass and charge to restore three relays before drought or the season ends | Select a station in 3D or its button, then collect, convert, restore or wait; [colony guide](games/verdant/README.md) |
 
 Each consists of independent simulation, presentation, authored content and theme plugins. None enables the shooter
 player, world, combat, enemies, content pack, HUD or presentation. Racing and tactics use their own camera/board
@@ -59,24 +59,24 @@ pointer lock. The original first-person presets retain captured mouse aiming.
 
 ### Mechanics shared across genres
 
-**[HOLLOWMERE — The Lantern Below](docs/hollowmere.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=hollowmere/ascent) — is a hand-painted side-scrolling metroidvania across twelve authored rooms. Reusable platform physics, capability-gated traversal, room-map exploration and stack inventory provide the foundation: double jump, dash, wall grip, a three-hit saber combo, down-strike pogo, focus bolts, seven enemy archetypes and a two-phase Hollow King. Beacons save progress; the game-owned field journal contains a world map, inventory, capabilities, stats and persisted options, with NPCs and a crown door in the way. Assets come from the pinned Assetrizz library: five region backdrops, terrain, seven enemy strips, character/NPC art, portraits and ornate icons. Open `?preset=hollowmere/ascent` and press Play; Esc/P opens the journal, M the map, J attacks, Space jumps, K dashes and E interacts.
+**[HOLLOWMERE — The Lantern Below](games/hollowmere/README.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=hollowmere/ascent) — is a hand-painted side-scrolling metroidvania across twelve authored rooms. Reusable platform physics, capability-gated traversal, room-map exploration and stack inventory provide the foundation: double jump, dash, wall grip, a three-hit saber combo, down-strike pogo, focus bolts, seven enemy archetypes and a two-phase Hollow King. Beacons save progress; the game-owned field journal contains a world map, inventory, capabilities, stats and persisted options, with NPCs and a crown door in the way. Assets come from the pinned Assetrizz library: five region backdrops, terrain, seven enemy strips, character/NPC art, portraits and ornate icons. Open `?preset=hollowmere/ascent` and press Play; Esc/P opens the journal, M the map, J attacks, Space jumps, K dashes and E interacts.
 
-**[Game composition canvas](docs/game-composer.md)** is the creator-tools foundation for wiring games together. It edits versioned, layout-independent `GameGraph` JSON with plugin nodes, dependency projections and authored exclusive-role selections, compiles deterministically to the normal preset format, stages through the real host before Apply, and has an agent-friendly CLI (`npm run graph`).
+**[Game composition canvas](docs/reference/game-composer.md)** is the creator-tools foundation for wiring games together. It edits versioned, layout-independent `GameGraph` JSON with plugin nodes, dependency projections and authored exclusive-role selections, compiles deterministically to the normal preset format, stages through the real host before Apply, and has an agent-friendly CLI (`npm run graph`).
 
-**[Ten-game portfolio](docs/ten-game-portfolio.md)** adds ten individually selectable, authored experiences: two puzzle
+**[Ten-game portfolio](docs/games/ten-game-portfolio.md)** adds ten individually selectable, authored experiences: two puzzle
 campaigns, two racing trials, two tactical missions, two narrative adventures, a drone-courier route and a colony
 restoration scenario. They reuse existing family rules and presentations, shared mechanics and the new optional
 `mechanics/outcome-rating` provider; the guide identifies their actual differences, controls and completion routes.
-Two additional small card games, [Ash & Ink and Cloud Cartographer](docs/portfolio-cards.md), share the new ordered-card
+Two additional small card games, [Ash & Ink and Cloud Cartographer](docs/games/portfolio-cards.md), share the new ordered-card
 piles provider while keeping their card effects, decisions and win rules independent. The puzzle and card presets also
-select [optional progressive assistance](docs/portfolio-assist.md), and each bundled plugin has a local README for authors.
+select [optional progressive assistance](docs/games/portfolio-assist.md), and each bundled plugin has a local README for authors.
 
-Three further games are available as independent compositions: **[The Silt Archive](docs/silt-archive.md)** is a
-turn-based flooded dungeon expedition; **[The Salt Ledger](docs/salt-ledger.md)** is a party RPG with tactical encounters,
-quests and consequential endings; and **[Common Ground](docs/common-ground.md)** is a turn-based household simulation
+Three further games are available as independent compositions: **[The Silt Archive](games/expeditions/docs/silt-archive.md)** is a
+turn-based flooded dungeon expedition; **[The Salt Ledger](games/expeditions/docs/salt-ledger.md)** is a party RPG with tactical encounters,
+quests and consequential endings; and **[Common Ground](games/expeditions/docs/common-ground.md)** is a turn-based household simulation
 with residents, needs, work, relationships, an editable house lot and neighborhood projects. Each guide records its implemented scope and limits.
 
-**[CINDER VAULT — Ashbound Roguelite](docs/cinder-vault.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=cinder/vault) — adds a turn-based first-person fantasy run across three
+**[CINDER VAULT — Ashbound Roguelite](games/cinder/README.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=cinder/vault) — adds a turn-based first-person fantasy run across three
 large generated dungeon depths. Choose a vault threat with **7/8/9** (Pilgrim, Delver or Ashbound), then one of three
 classes. Step one tile per action, read telegraphed intents and manage a filtered 12-stack pack with armor/charm gear,
 consumables, Ember Shards, nine recipes and six weapons. The deeper wings add Ash Hounds, support Acolytes, Cinder Brutes
@@ -94,20 +94,20 @@ Only the games' spatial rules, targets and outcomes differ. Costs/gains and cool
 clocks explicitly use seconds or turns. Each tower has its own shared fire-action instance. Per-consumer state is scoped,
 and providers can be replaced by preset role selection without editing a game. Headless integration tests complete all
 three games with both the default resource provider and an independent test implementation, comparing committed events
-and final states. See [mechanics and composition](docs/reusable-mechanics.md) and the
-[2026-11-16 best-practice research](docs/research/reusable-mechanics-2026-11-16.md).
+and final states. See [mechanics and composition](docs/reference/reusable-mechanics.md) and the
+[2026-11-16 best-practice research](docs/archive/research/reusable-mechanics-2026-11-16.md).
 
-Shared [bounded command queues](docs/command-queues.md) serve Stonewake's single-command ticks and The Last Light's
-batch processing. Shared [explicit-clock deadlines](docs/deadlines.md) serve Sky's temporary effects and Verdant's turn
-boundaries. [Resource conformance tests](docs/mechanic-conformance.md) exercise both resource implementations through the
-public contract. The [capability design/evidence template](docs/reusable-capability-template.md) records the promises and
+Shared [bounded command queues](docs/reference/command-queues.md) serve Stonewake's single-command ticks and The Last Light's
+batch processing. Shared [explicit-clock deadlines](docs/reference/deadlines.md) serve Sky's temporary effects and Verdant's turn
+boundaries. [Resource conformance tests](docs/reference/mechanic-conformance.md) exercise both resource implementations through the
+public contract. The [capability design/evidence template](docs/cookbook/reusable-capability-template.md) records the promises and
 verification behind future extractions.
 
 Two selectable building-block plugins also serve existing games:
 
-- **[`mechanics/navigation`](docs/navigation.md):** deterministic unit-edge graph reachability and canonical first
+- **[`mechanics/navigation`](docs/reference/navigation.md):** deterministic unit-edge graph reachability and canonical first
   steps, shared by Stonewake pursuit and Signal Break movement.
-- **[`mechanics/sequence`](docs/sequences.md):** ordered steps with finite repeated rounds, shared by NEON RUN and
+- **[`mechanics/sequence`](docs/reference/sequences.md):** ordered steps with finite repeated rounds, shared by NEON RUN and
   Foundry Circuit. Crossing geometry, timing and race outcomes remain in each game.
 
 Their presets select implementations through public roles. Custom presets using the migrated game authorities need
@@ -130,8 +130,8 @@ npm run find-reuse -- "ordered steps rounds"
 Results show scope, SDK entry points, dependencies/roles, real registrations and working examples. The generated
 inventory covers every source plugin and public SDK runtime value; curated recipes cover shared mechanics, input,
 rendering, storage and audio. The scaffolder suggests existing candidates and creates capability metadata for new
-plugins. `npm run check` rejects stale references and broken metadata. Start with [REUSE.md](REUSE.md) or browse
-[REUSE_INDEX.md](REUSE_INDEX.md).
+plugins. `npm run check` rejects stale references and broken metadata. Start with [docs/guide/reuse.md](docs/guide/reuse.md) or browse
+[docs/reference/reuse-index.md](docs/reference/reuse-index.md).
 
 ## Screenshots
 
@@ -160,7 +160,7 @@ Each is a preset you can switch to live from the creator panel (press `` ` ``):
 - `npm run vendor-three` reproduces the checked-in renderer and declaration files from locked npm packages, retaining
   MIT licenses and hashes. Plugins never import npm packages directly; boundary rules remain enforced.
 - **SDK 2.0:** the Three.js namespace has real `Color` objects and upstream rendering semantics. Existing rendering
-  plugins need migration before declaring compatibility; see [PLUGINS.md](PLUGINS.md).
+  plugins need migration before declaring compatibility; see [docs/guide/plugins.md](docs/guide/plugins.md).
 
 ## Quick start
 
@@ -244,7 +244,7 @@ The presets in `src/content/presets/` include the reference game, extensions and
 To switch: press `` ` `` (or use **Creator tools** on the start or pause screen), open **Plugins & preset**, pick a preset
 in the **Load** dropdown, then press **Apply & restart**. The selection is saved in `localStorage` and restored on the
 next page load. Plugins can also be toggled individually, and content packs imported, from the same panel. See
-[PLUGINS.md](PLUGINS.md) and [CONTENT_FORMAT.md](CONTENT_FORMAT.md).
+[docs/guide/plugins.md](docs/guide/plugins.md) and [docs/reference/content-format.md](docs/reference/content-format.md).
 
 ## Project layout
 
@@ -319,30 +319,30 @@ relabelled MIT. Synthesized sounds and explicitly labelled procedural fallback a
   The repository's browser checks drive Chrome only.
 - **Node >= 22.18** for tooling (`engines` in `package.json`, `.nvmrc`; `.npmrc` sets `engine-strict` and `npm run check` preflights the version).
 - Opening the page with `?test` removes the pointer-lock requirement so automated browsers can drive the game (see
-  [ARCHITECTURE.md](ARCHITECTURE.md)). `window.__bulkhead` is a debugging and automation handle used by the smoke script;
+  [docs/reference/architecture.md](docs/reference/architecture.md)). `window.__bulkhead` is a debugging and automation handle used by the smoke script;
   it is tooling, not part of the plugin API.
 
 ## Documentation
 
 | File | Contents |
 |---|---|
-| [SPEC.md](SPEC.md) | Implemented scope, limitations, extension boundaries, asset provenance. |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Layers, ownership model, lifecycle, simulation and rendering design, key decisions. |
-| [PLUGINS.md](PLUGINS.md) | Public SDK and plugin authoring guide with API reference. |
-| [CREATE_GAME.md](CREATE_GAME.md) | End-to-end game, content and plugin authoring workflow. |
-| [GAME_PLUGIN_ROADMAP.md](GAME_PLUGIN_ROADMAP.md) | Proposed reusable mechanics, game recipes and engine prerequisites. |
-| [GAME_PLATFORM_STRATEGY.md](GAME_PLATFORM_STRATEGY.md) | Research-backed plan for genuinely different genres, complete presentation stacks and broader platform capabilities. |
-| [PARALLEL_BUILD_PLAN.md](PARALLEL_BUILD_PLAN.md) | Parallel workstreams, model allocation, shared contracts and acceptance gates for the independent game families. |
-| [BUILD_ORDER.md](BUILD_ORDER.md) | Cross-genre implementation dependencies and acceptance gates. |
+| [docs/reference/spec.md](docs/reference/spec.md) | Implemented scope, limitations, extension boundaries, asset provenance. |
+| [docs/reference/architecture.md](docs/reference/architecture.md) | Layers, ownership model, lifecycle, simulation and rendering design, key decisions. |
+| [docs/guide/plugins.md](docs/guide/plugins.md) | Public SDK and plugin authoring guide with API reference. |
+| [docs/guide/create-a-game.md](docs/guide/create-a-game.md) | End-to-end game, content and plugin authoring workflow. |
+| [docs/archive/game-plugin-roadmap.md](docs/archive/game-plugin-roadmap.md) | Proposed reusable mechanics, game recipes and engine prerequisites. |
+| [docs/archive/game-platform-strategy.md](docs/archive/game-platform-strategy.md) | Research-backed plan for genuinely different genres, complete presentation stacks and broader platform capabilities. |
+| [docs/archive/parallel-build-plan.md](docs/archive/parallel-build-plan.md) | Parallel workstreams, model allocation, shared contracts and acceptance gates for the independent game families. |
+| [docs/archive/build-order.md](docs/archive/build-order.md) | Cross-genre implementation dependencies and acceptance gates. |
 | [assets/weapons/README.md](assets/weapons/README.md) | Low-poly weapon sets, source models, previews and integration notes. |
-| [CONTENT_FORMAT.md](CONTENT_FORMAT.md) | JSON formats: manifests, content packs, maps, presets. |
-| [Cinder Vault](docs/cinder-vault.md) / [classes](docs/cinder-classes.md) / [inventory](docs/inventory.md) / [crafting](docs/crafting.md) / [camera modes](docs/camera-modes.md) / [weapon rig](docs/weapon-rig.md) | Turn-based dungeon rules, threat tiers/elites, class mastery, pack/gear, Ember Shard recipes, NPC/Oracle services, the reusable isometric camera/avatars and bottom-center weapon rig. |
-| [Hollowmere](docs/hollowmere.md) / [game composer](docs/game-composer.md) | Side-scrolling metroidvania rules, platforming/capability/room-map contracts, Assetrizz world presentation, tabbed journal and the JSON-first human/agent composition canvas. |
-| [Ten-game portfolio](docs/ten-game-portfolio.md) / [build plan](docs/ten-game-build-plan.md) / [shared ratings](docs/portfolio-shared-mechanics.md) / [research](docs/research/ten-game-portfolio-2026-11-16.md) | New authored scenarios, shared provider composition, completion routes and design evidence. |
-| [Turn-based research](docs/research/turn-based-roguelite-2026-11-16.md) / [UX/world research](docs/research/ux-world-features-2026-11-16.md) / [difficulty/QoL research](docs/research/difficulty-replayability-qol-2026-11-16.md) / [composer research](docs/research/game-composer-2026-11-16.md) / [UI polish audit](docs/research/ui-polish-2026-11-16.md) | Design sources and decisions behind turns, maps, transitions, inventory, NPCs, crafting, threat tiers, field guide/QoL, the composition canvas and combat/HUD polish. |
-| [devplan.md](devplan.md) | Milestone status and next steps. |
+| [docs/reference/content-format.md](docs/reference/content-format.md) | JSON formats: manifests, content packs, maps, presets. |
+| [Cinder Vault](games/cinder/README.md) / [classes](games/cinder/docs/classes.md) / [inventory](docs/reference/inventory.md) / [crafting](docs/reference/crafting.md) / [camera modes](docs/reference/camera-modes.md) / [weapon rig](docs/reference/weapon-rig.md) | Turn-based dungeon rules, threat tiers/elites, class mastery, pack/gear, Ember Shard recipes, NPC/Oracle services, the reusable isometric camera/avatars and bottom-center weapon rig. |
+| [Hollowmere](games/hollowmere/README.md) / [game composer](docs/reference/game-composer.md) | Side-scrolling metroidvania rules, platforming/capability/room-map contracts, Assetrizz world presentation, tabbed journal and the JSON-first human/agent composition canvas. |
+| [Ten-game portfolio](docs/games/ten-game-portfolio.md) / [build plan](docs/archive/ten-game-build-plan.md) / [shared ratings](docs/reference/portfolio-shared-mechanics.md) / [research](docs/archive/research/ten-game-portfolio-2026-11-16.md) | New authored scenarios, shared provider composition, completion routes and design evidence. |
+| [Turn-based research](docs/archive/research/turn-based-roguelite-2026-11-16.md) / [UX/world research](docs/archive/research/ux-world-features-2026-11-16.md) / [difficulty/QoL research](docs/archive/research/difficulty-replayability-qol-2026-11-16.md) / [composer research](docs/archive/research/game-composer-2026-11-16.md) / [UI polish audit](docs/archive/research/ui-polish-2026-11-16.md) | Design sources and decisions behind turns, maps, transitions, inventory, NPCs, crafting, threat tiers, field guide/QoL, the composition canvas and combat/HUD polish. |
+| [docs/archive/devplan.md](docs/archive/devplan.md) | Milestone status and next steps. |
 | [AGENTS.md](AGENTS.md) | Guidance for coding agents working in this repository. |
-| [HANDOFF.md](HANDOFF.md) | Verification results and open items. |
+| [docs/archive/handoff.md](docs/archive/handoff.md) | Verification results and open items. |
 
 ## Testing and verification
 
@@ -359,7 +359,7 @@ golem capture/undo, responsive framing, pause and switching ownership.
 
 ## Known limitations
 
-Stated plainly; the full list is in [SPEC.md](SPEC.md) and [HANDOFF.md](HANDOFF.md).
+Stated plainly; the full list is in [docs/reference/spec.md](docs/reference/spec.md) and [docs/archive/handoff.md](docs/archive/handoff.md).
 
 - Three.js core is integrated; general asynchronous model loading, scene bundles and glTF addon integration remain planned.
 - GPU performance has not been measured; the only numbers are from software rendering in headless Chrome.
@@ -372,7 +372,7 @@ Stated plainly; the full list is in [SPEC.md](SPEC.md) and [HANDOFF.md](HANDOFF.
 
 ## Contributing
 
-Read [AGENTS.md](AGENTS.md) for conventions and [PLUGINS.md](PLUGINS.md) to write a plugin
+Read [AGENTS.md](AGENTS.md) for conventions and [docs/guide/plugins.md](docs/guide/plugins.md) to write a plugin
 (`npm run new-plugin -- my/plugin "My Plugin"`). Keep `npm run check` green. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License

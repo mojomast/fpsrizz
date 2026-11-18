@@ -25,7 +25,7 @@
     "The provider validates room rectangles and links but does not prove spatial reachability or ability gates."
   ],
   "docs": [
-    "docs/hollowmere.md"
+    "games/hollowmere/README.md"
   ],
   "examples": [
     "games/hollowmere/plugins/hollowmere-game/index.ts"

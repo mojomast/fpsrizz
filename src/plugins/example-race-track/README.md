@@ -10,4 +10,4 @@ Content registers at staging; the pack has no mode, role, configuration or runti
 
 ## Verify
 
-Run `node --test tests/race-track.test.ts tests/racing.test.ts` from the repository root. See [content formats](../../../CONTENT_FORMAT.md).
+Run `node --test tests/race-track.test.ts tests/racing.test.ts` from the repository root. See [content formats](../../../docs/reference/content-format.md).

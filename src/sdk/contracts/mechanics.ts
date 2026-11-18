@@ -8,7 +8,7 @@ export interface ResourceDefinition { readonly id: string; readonly label: strin
 export interface ResourceTransaction { readonly spend?: ResourceAmounts; readonly gain?: ResourceAmounts }
 /**
  * Consumer/provider-owned numeric balances. Definitions and observation snapshots are detached/frozen;
- * they are not a restore protocol. See docs/reusable-mechanics.md and docs/mechanic-conformance.md.
+ * they are not a restore protocol. See docs/reference/reusable-mechanics.md and docs/reference/mechanic-conformance.md.
  */
 export interface ResourcePool {
   readonly id: string;

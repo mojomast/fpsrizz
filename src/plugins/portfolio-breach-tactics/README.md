@@ -12,7 +12,7 @@
 { "id": "reed", "name": "Reed", "team": "squad", "x": 0, "y": 0, "hp": 8, "ap": 2 }
 ```
 
-Place units on distinct legal cells; `.` is open, `#` blocks and `C` provides cover. See [turn tactics](../../../docs/turn-tactics.md) and the [portfolio tactics guide](../../../docs/portfolio-tactics.md) for validation and gameplay.
+Place units on distinct legal cells; `.` is open, `#` blocks and `C` provides cover. See [turn tactics](../../../docs/games/turn-tactics.md) and the [portfolio tactics guide](../../../docs/games/portfolio-tactics.md) for validation and gameplay.
 
 ## Exercise and limits
 

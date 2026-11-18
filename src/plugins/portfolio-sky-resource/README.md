@@ -12,7 +12,7 @@ The kit in [`content.json`](content.json) uses the `seconds` domain, bounded ene
 { "id": "sample", "pickup": { "x": -4, "z": -3 }, "beacon": { "x": 4, "z": 3 } }
 ```
 
-Kit action/resource IDs must match what Sky expects. See [Sky Salvage](../../../docs/sky-salvage.md), [reusable mechanics](../../../docs/reusable-mechanics.md), and the [portfolio resource guide](../../../docs/portfolio-resource-games.md).
+Kit action/resource IDs must match what Sky expects. See [Sky Salvage](../../../games/sky/README.md), [reusable mechanics](../../../docs/reference/reusable-mechanics.md), and the [portfolio resource guide](../../../docs/games/portfolio-resource-games.md).
 
 ## Exercise and limits
 

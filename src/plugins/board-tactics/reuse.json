@@ -3,5 +3,5 @@
   "keywords": ["turn", "tactics", "action points", "pathfinding", "grid", "squad", "cover", "line of sight"],
   "entryPoints": ["Tactics", "TacticsMissions", "TacticsResolved", "NavigationRole"], "useWhen": "Author another board mission or study how selected unit-edge graph reachability composes with current occupancy and per-three-step AP costs.",
   "limitations": ["Only graph traversal is independently selected through NavigationRole; AP conversion, occupancy, move commits, attack legality and enemy destination policy remain family authority."],
-  "docs": ["docs/turn-tactics.md", "docs/navigation.md"], "examples": ["src/plugins/board-mission/content.json", "src/content/presets/turn-tactics.json"], "tests": ["tests/turn-tactics.test.ts", "tests/navigation-consumers.test.ts"]
+  "docs": ["docs/games/turn-tactics.md", "docs/reference/navigation.md"], "examples": ["src/plugins/board-mission/content.json", "src/content/presets/turn-tactics.json"], "tests": ["tests/turn-tactics.test.ts", "tests/navigation-consumers.test.ts"]
 }

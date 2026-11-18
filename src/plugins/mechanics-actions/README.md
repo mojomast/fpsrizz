@@ -4,7 +4,7 @@
 
 ## Compose
 
-Merge this fragment into a complete preset with a consumer and definitions; [Sky Salvage](../../content/presets/sky-salvage.json) includes a working kit:
+Merge this fragment into a complete preset with a consumer and definitions; [Sky Salvage](../../../games/sky/presets/sky-salvage.json) includes a working kit:
 
 ```json
 {
@@ -23,4 +23,4 @@ Check game-specific range, target and occupancy before `execute`. `preview` is a
 
 Each owned handle has independent cooldowns; create separate handles for independent actors. Disposal, either scope ending, or disposal of a bound handle invalidates it; mutation rejects while paused. Explicit time and ordered calls make headless operation deterministic without a rendering or DOM service.
 
-See [mechanics semantics](../../../docs/reusable-mechanics.md), [Ember consumer](../ember-game/index.ts) and [provider tests](../../../tests/mechanics-providers.test.ts). Run `npm run check` from the repository root.
+See [mechanics semantics](../../../docs/reference/reusable-mechanics.md), [Ember consumer](../../../games/ember/plugins/ember-game/index.ts) and [provider tests](../../../tests/mechanics-providers.test.ts). Run `npm run check` from the repository root.

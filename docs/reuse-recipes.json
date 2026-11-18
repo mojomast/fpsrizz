@@ -28,7 +28,7 @@
       "entryPoints": ["ConditionProviders", "ConditionMechanicRole", "conditionMechanic", "clockMechanic"],
       "useWhen": "A consumer needs multiple independently named effect windows and retains policy for their consequences.",
       "limitations": ["The consumer advances the borrowed clock and owns targeting, effect consequences and persistence.", "There are no automatic callbacks or periodic damage; application and removal reject while paused."],
-      "docs": ["src/plugins/mechanics-conditions/README.md", "docs/deadlines.md"],
+      "docs": ["src/plugins/mechanics-conditions/README.md", "docs/reference/deadlines.md"],
       "examples": ["games/expeditions/plugins/silt-game/index.ts"],
       "tests": ["tests/mechanics-conditions.test.ts", "games/expeditions/tests/silt-archive-combat.test.ts"],
       "plugins": ["mechanics/clock", "mechanics/conditions"],
@@ -45,7 +45,7 @@
       "entryPoints": ["CardPilesProviders", "CardPilesRole", "cardPilesMechanic"],
       "useWhen": "A game needs deterministic unique-card transfers with an explicit authored draw order.",
       "limitations": ["No shuffle, reshuffle, effects, deckbuilding or game turns; draw rejects atomically if there are too few cards.", "Mutations are blocked by SessionControl while play is paused; initialize the opening hand after play begins."],
-      "docs": ["docs/portfolio-cards.md"],
+      "docs": ["docs/games/portfolio-cards.md"],
       "examples": ["src/plugins/portfolio-cards-ash/index.ts", "src/plugins/portfolio-cards-cloud/index.ts"],
       "tests": ["tests/portfolio-cards.test.ts"],
       "plugins": ["portfolio-cards/piles"],
@@ -62,7 +62,7 @@
       "entryPoints": ["OutcomeRatingProviders", "OutcomeRatingRole", "outcomeRatingMechanic"],
       "useWhen": "A game has already determined an outcome and wants a reproducible rating from one or more measured metrics.",
       "limitations": ["The game owns metric collection, thresholds and victory; ratings do not persist records or award rewards.", "All referenced metrics must be finite and supplied for evaluation. The last matching tier wins."],
-      "docs": ["docs/portfolio-shared-mechanics.md"],
+      "docs": ["docs/reference/portfolio-shared-mechanics.md"],
       "examples": ["src/plugins/vehicle-racing/index.ts", "src/plugins/board-tactics/index.ts"],
       "tests": ["tests/outcome-rating.test.ts"],
       "plugins": ["mechanics/outcome-rating"],
@@ -96,8 +96,8 @@
         "Games own occupancy and graph construction. The pure provider has no session cache or instance lifecycle."
       ],
       "docs": [
-        "docs/navigation.md",
-        "docs/building-block-plugins.md"
+        "docs/reference/navigation.md",
+        "docs/cookbook/building-block-plugins.md"
       ],
       "examples": [
         "src/plugins/puzzle-rules/rules.ts",
@@ -150,8 +150,8 @@
         "Keys are not receipts; the game retains crossing/eligibility, deduplication, time limits and notifications."
       ],
       "docs": [
-        "docs/sequences.md",
-        "docs/building-block-plugins.md"
+        "docs/reference/sequences.md",
+        "docs/cookbook/building-block-plugins.md"
       ],
       "examples": [
         "src/plugins/vehicle-racing/index.ts",
@@ -204,7 +204,7 @@
         "No automatic tick system, command deduplication, or observation of a pause/resume that happens entirely between calls."
       ],
       "docs": [
-        "docs/command-queues.md"
+        "docs/reference/command-queues.md"
       ],
       "examples": [
         "src/plugins/puzzle-rules/index.ts",
@@ -255,8 +255,8 @@
         "No automatic callbacks, recurring-job scheduler, production reservations, persistence, or replacement for shared action cooldowns."
       ],
       "docs": [
-        "docs/deadlines.md",
-        "docs/reusable-mechanics.md"
+        "docs/reference/deadlines.md",
+        "docs/reference/reusable-mechanics.md"
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
@@ -307,8 +307,8 @@
         "This is a composition fragment, not a full playable preset. Target legality and game-local effects stay in the consumer."
       ],
       "docs": [
-        "docs/reusable-mechanics.md",
-        "docs/mechanic-conformance.md"
+        "docs/reference/reusable-mechanics.md",
+        "docs/reference/mechanic-conformance.md"
       ],
       "examples": [
         "games/verdant/plugins/verdant-content/content.json",
@@ -367,8 +367,8 @@
         "Handle IDs must be unique per consumer/type. This supplies costs/cooldowns, not targeting, projectiles or animation."
       ],
       "docs": [
-        "docs/reusable-mechanics.md",
-        "docs/ember-bastion.md"
+        "docs/reference/reusable-mechanics.md",
+        "games/ember/README.md"
       ],
       "examples": [
         "games/ember/plugins/ember-game/index.ts"
@@ -420,7 +420,7 @@
         "Counters are session-only. Rewards, story text and persistence are separate responsibilities."
       ],
       "docs": [
-        "docs/reusable-mechanics.md"
+        "docs/reference/reusable-mechanics.md"
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
@@ -469,8 +469,8 @@
         "Host adapters are optional in headless sessions. A free-pointer experience policy alone does not validate commands or implement touch controls."
       ],
       "docs": [
-        "PLUGINS.md",
-        "ARCHITECTURE.md"
+        "docs/guide/plugins.md",
+        "docs/reference/architecture.md"
       ],
       "examples": [
         "src/plugins/puzzle-presentation/index.ts",
@@ -518,8 +518,8 @@
         "Presentation requires render capability and optional browser services. Geometry/picking are presentation-specific; use original SDK imports rather than npm Three.js imports."
       ],
       "docs": [
-        "PLUGINS.md",
-        "docs/stonewake.md"
+        "docs/guide/plugins.md",
+        "docs/games/stonewake.md"
       ],
       "examples": [
         "src/plugins/puzzle-presentation/index.ts",
@@ -562,8 +562,8 @@
         "Not a general game-state snapshot/restore system. Adventure's chapter saves are a family-specific example; callers validate stored data and handle unavailable storage."
       ],
       "docs": [
-        "CONTENT_FORMAT.md",
-        "docs/narrative-adventure.md"
+        "docs/reference/content-format.md",
+        "docs/games/narrative-adventure.md"
       ],
       "examples": [
         "src/plugins/example-arena/index.ts",
@@ -604,7 +604,7 @@
         "No general continuous music director or asynchronous audio-bundle loader. Confirm a semantic cue exists in the selected theme."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [
         "src/plugins/vehicle-presentation/index.ts",
@@ -652,7 +652,7 @@
         "Pending rewards can accumulate while the game continues; consumers decide when to present and consume them."
       ],
       "docs": [
-        "docs/progression.md"
+        "docs/reference/progression.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts"
@@ -703,7 +703,7 @@
         "No weight, grid shape, sockets, durability, persistence, loot tables, item effects or stat application. Capacity counts distinct stacks, not total quantity."
       ],
       "docs": [
-        "docs/inventory.md"
+        "docs/reference/inventory.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts",
@@ -755,7 +755,7 @@
         "No currency costs, recipe discovery/unlocks, skills, failure chance, stations, effects or UI. Inputs/output must use the selected inventory provider's item IDs."
       ],
       "docs": [
-        "docs/crafting.md"
+        "docs/reference/crafting.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts",
@@ -807,8 +807,8 @@
         "Orthographic projection of the existing 3D world, not a separate sprite engine. No pan, zoom, click picking or cutaway shaders. Pair with presentation/player-avatar and a PlayerAvatar component for a body; presentation must opt into hiding first-person-only layers."
       ],
       "docs": [
-        "docs/camera-modes.md",
-        "docs/weapon-rig.md"
+        "docs/reference/camera-modes.md",
+        "docs/reference/weapon-rig.md"
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json",

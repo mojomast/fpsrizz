@@ -4,7 +4,7 @@
 
 ## Compose
 
-Merge into a complete preset, such as [Verdant Relay](../../content/presets/verdant-relay.json):
+Merge into a complete preset, such as [Verdant Relay](../../../games/verdant/presets/verdant-relay.json):
 
 ```json
 { "plugins": ["mechanics/clock"], "roles": { "sdk/mechanic-clock": "mechanics/clock" } }
@@ -14,4 +14,4 @@ Consumers creating clocks during activation declare this role in both `requiresR
 
 IDs are unique per consumer among live clocks. Disposal is idempotent, and either provider or consumer scope disposal invalidates the handle. With no automatic ticking, callbacks, recurring timer or DOM dependency, clock behavior is deterministic for the caller's advances and works headlessly. For a pollable temporary duration, the SDK's `createDeadline` borrows a compatible clock; action cooldowns remain in [mechanics/actions](../mechanics-actions/README.md).
 
-See [mechanics semantics](../../../docs/reusable-mechanics.md), [deadlines](../../../docs/deadlines.md), [Sky consumer](../sky-game/index.ts), [provider tests](../../../tests/mechanics-providers.test.ts) and [deadline tests](../../../tests/deadlines.test.ts). Run `npm run check` from the repository root.
+See [mechanics semantics](../../../docs/reference/reusable-mechanics.md), [deadlines](../../../docs/reference/deadlines.md), [Sky consumer](../../../games/sky/plugins/sky-game/index.ts), [provider tests](../../../tests/mechanics-providers.test.ts) and [deadline tests](../../../tests/deadlines.test.ts). Run `npm run check` from the repository root.

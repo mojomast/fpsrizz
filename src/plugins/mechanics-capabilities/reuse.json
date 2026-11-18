@@ -26,7 +26,7 @@
     "No dependency graph, prerequisites, costs or automatic rewards; the consumer decides when to call unlock."
   ],
   "docs": [
-    "docs/hollowmere.md"
+    "games/hollowmere/README.md"
   ],
   "examples": [
     "games/hollowmere/plugins/hollowmere-game/index.ts"

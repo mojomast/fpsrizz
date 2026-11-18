@@ -3,5 +3,5 @@
   "keywords": ["vehicle", "racing", "drift", "lap", "checkpoint", "steering", "brake", "timer"],
   "entryPoints": ["Race", "RaceTracks", "sequenceMechanic"], "useWhen": "Author a track or a new presentation for the independent overhead racing rules.",
   "limitations": ["Planar arcade kinematics, not rigid-body vehicles or a generic spatial checkpoint service. Select a sequence provider; gate geometry and one-crossing-per-tick policy remain local."],
-  "docs": ["docs/overhead-racing.md", "docs/sequences.md"], "examples": ["src/plugins/vehicle-track/content.json", "src/content/presets/overhead-racing.json"], "tests": ["tests/overhead-racing.test.ts"]
+  "docs": ["docs/games/overhead-racing.md", "docs/reference/sequences.md"], "examples": ["src/plugins/vehicle-track/content.json", "src/content/presets/overhead-racing.json"], "tests": ["tests/overhead-racing.test.ts"]
 }

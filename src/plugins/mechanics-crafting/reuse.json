@@ -25,7 +25,7 @@
     "No currency costs, recipe discovery/unlocks, crafting skills, failure chance, stations, effects or UI; those remain consumer policy. Inputs and output must be item IDs from the selected inventory provider."
   ],
   "docs": [
-    "docs/crafting.md"
+    "docs/reference/crafting.md"
   ],
   "examples": [
     "games/cinder/plugins/cinder-game/index.ts",

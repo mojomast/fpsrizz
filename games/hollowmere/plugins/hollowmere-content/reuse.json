@@ -6,7 +6,7 @@
   "entryPoints": ["Items", "MetroidvaniaWorlds"],
   "useWhen": "Inspect or extend Hollowmere's authored rooms, item definitions and enemy roster; gameplay policy stays in hollowmere/game.",
   "limitations": ["Authored content, not a procedural generator. It depends on the family game loader and inventory item registry.", "Map coordinates, room rows and ability-gate references are validated but do not prove every route is physically reachable."],
-  "docs": ["docs/hollowmere.md"],
+  "docs": ["games/hollowmere/README.md"],
   "examples": ["games/hollowmere/presets/hollowmere-ascent.json"],
   "tests": ["games/hollowmere/tests/hollowmere.test.ts"]
 }

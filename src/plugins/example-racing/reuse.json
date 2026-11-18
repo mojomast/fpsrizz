@@ -6,7 +6,7 @@
   "entryPoints": ["ControllerRole", "ModeRole", "sequenceMechanic"],
   "useWhen": "Build a shooter-world driving controller or a single-pass checkpoint race from tagged map zones.",
   "limitations": ["Depends on shooter World and player contracts. The race mode requires a selected sequence factory; controller-only use does not.", "Spatial entry ordering, fractional deadlines and victory remain local race policy."],
-  "docs": ["docs/sequences.md", "PLUGINS.md"],
+  "docs": ["docs/reference/sequences.md", "docs/guide/plugins.md"],
   "examples": ["src/plugins/example-race-track/content.json", "src/content/presets/racing.json"],
   "tests": ["tests/racing.test.ts", "tests/race-track.test.ts"]
 }

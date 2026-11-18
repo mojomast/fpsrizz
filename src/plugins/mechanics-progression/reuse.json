@@ -6,7 +6,7 @@
   "entryPoints": ["ProgressionProviders", "ProgressionMechanicRole", "progressionMechanic", "MechanicProgressionChanged"],
   "useWhen": "Track lifetime/current XP, complete multiple levels atomically and let the game decide what each level reward is.",
   "limitations": ["Linear base + growth curve only. It does not own perks, stat changes, UI, persistence or automatic reward selection.", "Consumers call consumeLevel after applying their own level reward; the provider never applies gameplay effects."],
-  "docs": ["docs/progression.md"],
+  "docs": ["docs/reference/progression.md"],
   "examples": ["games/cinder/plugins/cinder-game/index.ts"],
   "tests": ["tests/mechanics-progression.test.ts", "games/cinder/tests/cinder-vault.test.ts"]
 }

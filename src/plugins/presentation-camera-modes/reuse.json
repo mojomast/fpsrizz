@@ -23,8 +23,8 @@
     "Shooter-family camera role. The isometric view is an orthographic 3D projection of existing billboard actors, not a separate 2D renderer. It provides a generic floor marker but no player sprite, cutaway shader, wall transparency, zoom, pan or click picking. Pair with presentation/player-avatar for a body; core presentation must honor ViewModes to hide first-person-only view models and ceilings."
   ],
   "docs": [
-    "docs/camera-modes.md",
-    "docs/cinder-vault.md"
+    "docs/reference/camera-modes.md",
+    "games/cinder/README.md"
   ],
   "examples": [
     "games/cinder/presets/cinder-vault.json",

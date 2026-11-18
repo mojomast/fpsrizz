@@ -4,6 +4,6 @@
   "entryPoints": ["Combat", "AttackBehaviors", "DamageModifiers", "PickupEffects", "Weapons", "AmmoTypes", "DealDamage", "Damaged", "Died"],
   "useWhen": "Add an attack behavior, modifier or pickup to the existing shooter ecosystem; new weapon numbers are usually content.",
   "limitations": ["Weapon inventory and targeting use shooter contracts. For generic resource costs/cooldowns, prefer mechanics/resources and mechanics/actions."],
-  "docs": ["PLUGINS.md", "CONTENT_FORMAT.md"], "examples": ["src/plugins/example-ricochet/index.ts", "src/plugins/example-ward/index.ts", "src/plugins/example-tactical-pack/content.json"],
+  "docs": ["docs/guide/plugins.md", "docs/reference/content-format.md"], "examples": ["src/plugins/example-ricochet/index.ts", "src/plugins/example-ward/index.ts", "src/plugins/example-tactical-pack/content.json"],
   "tests": ["tests/game-combat.test.ts", "tests/tactical-magazine.test.ts", "tests/ext-ricochet.test.ts"]
 }

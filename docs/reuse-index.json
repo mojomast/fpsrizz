@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "1e73ec81650d782915e21472ca1919a39b32d82a5f53fe098c76f6d0b1baeb04",
+  "sourceDigest": "044e8c5520a4cdb2d233b56ab6ce735b2ea6c86ea51e70f037fbfb517e61a2a2",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -76,7 +76,7 @@
       ],
       "docs": [
         "src/plugins/mechanics-conditions/README.md",
-        "docs/deadlines.md"
+        "docs/reference/deadlines.md"
       ],
       "examples": [
         "games/expeditions/plugins/silt-game/index.ts"
@@ -126,7 +126,7 @@
         "Mutations are blocked by SessionControl while play is paused; initialize the opening hand after play begins."
       ],
       "docs": [
-        "docs/portfolio-cards.md"
+        "docs/games/portfolio-cards.md"
       ],
       "examples": [
         "src/plugins/portfolio-cards-ash/index.ts",
@@ -175,7 +175,7 @@
         "All referenced metrics must be finite and supplied for evaluation. The last matching tier wins."
       ],
       "docs": [
-        "docs/portfolio-shared-mechanics.md"
+        "docs/reference/portfolio-shared-mechanics.md"
       ],
       "examples": [
         "src/plugins/vehicle-racing/index.ts",
@@ -225,8 +225,8 @@
         "Games own occupancy and graph construction. The pure provider has no session cache or instance lifecycle."
       ],
       "docs": [
-        "docs/navigation.md",
-        "docs/building-block-plugins.md"
+        "docs/reference/navigation.md",
+        "docs/cookbook/building-block-plugins.md"
       ],
       "examples": [
         "src/plugins/puzzle-rules/rules.ts",
@@ -281,8 +281,8 @@
         "Keys are not receipts; the game retains crossing/eligibility, deduplication, time limits and notifications."
       ],
       "docs": [
-        "docs/sequences.md",
-        "docs/building-block-plugins.md"
+        "docs/reference/sequences.md",
+        "docs/cookbook/building-block-plugins.md"
       ],
       "examples": [
         "src/plugins/vehicle-racing/index.ts",
@@ -337,7 +337,7 @@
         "No automatic tick system, command deduplication, or observation of a pause/resume that happens entirely between calls."
       ],
       "docs": [
-        "docs/command-queues.md"
+        "docs/reference/command-queues.md"
       ],
       "examples": [
         "src/plugins/puzzle-rules/index.ts",
@@ -390,8 +390,8 @@
         "No automatic callbacks, recurring-job scheduler, production reservations, persistence, or replacement for shared action cooldowns."
       ],
       "docs": [
-        "docs/deadlines.md",
-        "docs/reusable-mechanics.md"
+        "docs/reference/deadlines.md",
+        "docs/reference/reusable-mechanics.md"
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
@@ -444,8 +444,8 @@
         "This is a composition fragment, not a full playable preset. Target legality and game-local effects stay in the consumer."
       ],
       "docs": [
-        "docs/reusable-mechanics.md",
-        "docs/mechanic-conformance.md"
+        "docs/reference/reusable-mechanics.md",
+        "docs/reference/mechanic-conformance.md"
       ],
       "examples": [
         "games/verdant/plugins/verdant-content/content.json",
@@ -506,8 +506,8 @@
         "Handle IDs must be unique per consumer/type. This supplies costs/cooldowns, not targeting, projectiles or animation."
       ],
       "docs": [
-        "docs/reusable-mechanics.md",
-        "docs/ember-bastion.md"
+        "docs/reference/reusable-mechanics.md",
+        "games/ember/README.md"
       ],
       "examples": [
         "games/ember/plugins/ember-game/index.ts"
@@ -561,7 +561,7 @@
         "Counters are session-only. Rewards, story text and persistence are separate responsibilities."
       ],
       "docs": [
-        "docs/reusable-mechanics.md"
+        "docs/reference/reusable-mechanics.md"
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
@@ -612,8 +612,8 @@
         "Host adapters are optional in headless sessions. A free-pointer experience policy alone does not validate commands or implement touch controls."
       ],
       "docs": [
-        "PLUGINS.md",
-        "ARCHITECTURE.md"
+        "docs/guide/plugins.md",
+        "docs/reference/architecture.md"
       ],
       "examples": [
         "src/plugins/puzzle-presentation/index.ts",
@@ -663,8 +663,8 @@
         "Presentation requires render capability and optional browser services. Geometry/picking are presentation-specific; use original SDK imports rather than npm Three.js imports."
       ],
       "docs": [
-        "PLUGINS.md",
-        "docs/stonewake.md"
+        "docs/guide/plugins.md",
+        "docs/games/stonewake.md"
       ],
       "examples": [
         "src/plugins/puzzle-presentation/index.ts",
@@ -709,8 +709,8 @@
         "Not a general game-state snapshot/restore system. Adventure's chapter saves are a family-specific example; callers validate stored data and handle unavailable storage."
       ],
       "docs": [
-        "CONTENT_FORMAT.md",
-        "docs/narrative-adventure.md"
+        "docs/reference/content-format.md",
+        "docs/games/narrative-adventure.md"
       ],
       "examples": [
         "src/plugins/example-arena/index.ts",
@@ -753,7 +753,7 @@
         "No general continuous music director or asynchronous audio-bundle loader. Confirm a semantic cue exists in the selected theme."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [
         "src/plugins/vehicle-presentation/index.ts",
@@ -803,7 +803,7 @@
         "Pending rewards can accumulate while the game continues; consumers decide when to present and consume them."
       ],
       "docs": [
-        "docs/progression.md"
+        "docs/reference/progression.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts"
@@ -856,7 +856,7 @@
         "No weight, grid shape, sockets, durability, persistence, loot tables, item effects or stat application. Capacity counts distinct stacks, not total quantity."
       ],
       "docs": [
-        "docs/inventory.md"
+        "docs/reference/inventory.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts",
@@ -910,7 +910,7 @@
         "No currency costs, recipe discovery/unlocks, skills, failure chance, stations, effects or UI. Inputs/output must use the selected inventory provider's item IDs."
       ],
       "docs": [
-        "docs/crafting.md"
+        "docs/reference/crafting.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts",
@@ -964,8 +964,8 @@
         "Orthographic projection of the existing 3D world, not a separate sprite engine. No pan, zoom, click picking or cutaway shaders. Pair with presentation/player-avatar and a PlayerAvatar component for a body; presentation must opt into hiding first-person-only layers."
       ],
       "docs": [
-        "docs/camera-modes.md",
-        "docs/weapon-rig.md"
+        "docs/reference/camera-modes.md",
+        "docs/reference/weapon-rig.md"
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json",
@@ -1013,7 +1013,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -1068,7 +1068,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -1151,8 +1151,8 @@
         "Only graph traversal is independently selected through NavigationRole; AP conversion, occupancy, move commits, attack legality and enemy destination policy remain family authority."
       ],
       "docs": [
-        "docs/turn-tactics.md",
-        "docs/navigation.md"
+        "docs/games/turn-tactics.md",
+        "docs/reference/navigation.md"
       ],
       "examples": [
         "src/plugins/board-mission/content.json",
@@ -1273,11 +1273,11 @@
         "Authored generator recipe and content, not runtime map swapping. Gameplay policy, threat tiers, elite affixes, encounter composition, loot rolls, ember costs, item effects, NPCs and boons live in cinder/game."
       ],
       "docs": [
-        "docs/cinder-classes.md",
-        "docs/cinder-vault.md",
-        "docs/crafting.md",
-        "docs/dungeon-generator.md",
-        "docs/inventory.md"
+        "games/cinder/docs/classes.md",
+        "games/cinder/README.md",
+        "docs/reference/crafting.md",
+        "docs/reference/dungeon-generator.md",
+        "docs/reference/inventory.md"
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json"
@@ -1717,16 +1717,16 @@
         "Shooter-family authority with one generated three-wing dungeon and one arena tile theme; no runtime map replacement or run save/restore."
       ],
       "docs": [
-        "docs/camera-modes.md",
-        "docs/cinder-classes.md",
-        "docs/cinder-vault.md",
-        "docs/crafting.md",
-        "docs/dungeon-generator.md",
-        "docs/inventory.md",
-        "docs/progression.md",
-        "docs/research/difficulty-replayability-qol-2026-11-16.md",
-        "docs/research/turn-based-roguelite-2026-11-16.md",
-        "docs/research/ux-world-features-2026-11-16.md"
+        "docs/reference/camera-modes.md",
+        "games/cinder/docs/classes.md",
+        "games/cinder/README.md",
+        "docs/reference/crafting.md",
+        "docs/reference/dungeon-generator.md",
+        "docs/reference/inventory.md",
+        "docs/reference/progression.md",
+        "docs/archive/research/difficulty-replayability-qol-2026-11-16.md",
+        "docs/archive/research/turn-based-roguelite-2026-11-16.md",
+        "docs/archive/research/ux-world-features-2026-11-16.md"
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json",
@@ -1987,9 +1987,9 @@
         "Consumes the Cinder family service; pointer-locked play uses keyboard selections. Desktop keyboard/mouse controls; automap is hidden on narrow screens while the tactical grid remains available. Camera-mode chrome is presentation-only and depends on an optional ViewModes service."
       ],
       "docs": [
-        "docs/camera-modes.md",
-        "docs/cinder-vault.md",
-        "docs/research/difficulty-replayability-qol-2026-11-16.md"
+        "docs/reference/camera-modes.md",
+        "games/cinder/README.md",
+        "docs/archive/research/difficulty-replayability-qol-2026-11-16.md"
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json"
@@ -2147,7 +2147,7 @@
         "Family-specific rules; house editing is session-only, with abstract resident movement and no in-progress save."
       ],
       "docs": [
-        "docs/common-ground.md",
+        "games/expeditions/docs/common-ground.md",
         "games/expeditions/plugins/common-ground-game/README.md"
       ],
       "examples": [
@@ -2230,7 +2230,7 @@
         "Specific to the Hearth household contract; the scene is illustrative rather than spatial simulation."
       ],
       "docs": [
-        "docs/common-ground.md"
+        "games/expeditions/docs/common-ground.md"
       ],
       "examples": [
         "games/expeditions/plugins/common-ground-presentation/index.ts"
@@ -2315,8 +2315,8 @@
         "Weapon inventory and targeting use shooter contracts. For generic resource costs/cooldowns, prefer mechanics/resources and mechanics/actions."
       ],
       "docs": [
-        "PLUGINS.md",
-        "CONTENT_FORMAT.md"
+        "docs/guide/plugins.md",
+        "docs/reference/content-format.md"
       ],
       "examples": [
         "src/plugins/example-ricochet/index.ts",
@@ -2604,7 +2604,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -2901,7 +2901,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -3160,7 +3160,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -3386,7 +3386,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -3537,7 +3537,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -3914,7 +3914,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -4179,8 +4179,8 @@
         "Not a general 3D physics engine or a genre-neutral navigation provider; requires the shooter mode/world vocabulary."
       ],
       "docs": [
-        "ARCHITECTURE.md",
-        "CONTENT_FORMAT.md"
+        "docs/reference/architecture.md",
+        "docs/reference/content-format.md"
       ],
       "examples": [
         "src/plugins/example-keys/index.ts",
@@ -4450,7 +4450,7 @@
         "Layout is deterministic for a recipe seed; per-run encounter composition must be varied by the consuming game."
       ],
       "docs": [
-        "docs/dungeon-generator.md"
+        "docs/reference/dungeon-generator.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-content/content.json",
@@ -4526,7 +4526,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -4605,8 +4605,8 @@
         "Lane movement, target choice and wave orchestration remain tower-defense rules. The firing cooldown implementation is mechanics/actions."
       ],
       "docs": [
-        "docs/ember-bastion.md",
-        "docs/reusable-mechanics.md"
+        "games/ember/README.md",
+        "docs/reference/reusable-mechanics.md"
       ],
       "examples": [
         "games/ember/plugins/ember-content/content.json",
@@ -4686,7 +4686,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -4739,7 +4739,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -4828,7 +4828,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -4949,7 +4949,7 @@
         "Uses the shooter player and collision world. For an unrelated genre's dash cost/cooldown, compose mechanics/actions with that genre's movement."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [
         "src/content/presets/arena-score.json"
@@ -5082,7 +5082,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -5145,7 +5145,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -5219,7 +5219,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -5301,7 +5301,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -5388,7 +5388,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -5453,7 +5453,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -5538,8 +5538,8 @@
         "Uses core/world and core/combat actor/world semantics; it is not an independent lock-and-key service for all families."
       ],
       "docs": [
-        "CONTENT_FORMAT.md",
-        "PLUGINS.md"
+        "docs/reference/content-format.md",
+        "docs/guide/plugins.md"
       ],
       "examples": [
         "src/plugins/example-key-dungeon/content.json",
@@ -5609,7 +5609,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -5719,7 +5719,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -5790,8 +5790,8 @@
         "Spatial entry ordering, fractional deadlines and victory remain local race policy."
       ],
       "docs": [
-        "docs/sequences.md",
-        "PLUGINS.md"
+        "docs/reference/sequences.md",
+        "docs/guide/plugins.md"
       ],
       "examples": [
         "src/plugins/example-race-track/content.json",
@@ -5890,7 +5890,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -5976,7 +5976,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -6044,7 +6044,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -6101,7 +6101,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -6160,7 +6160,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -6275,7 +6275,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -6358,7 +6358,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -6442,7 +6442,7 @@
         "A shooter modifier example, not a general cross-genre status-effect stack."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [
         "src/plugins/example-ward/index.ts"
@@ -6534,7 +6534,7 @@
         "Silt has no run identifier, so an unobserved restart to an identical snapshot is indistinguishable."
       ],
       "docs": [
-        "docs/expedition-assist.md",
+        "games/expeditions/docs/expedition-assist.md",
         "games/expeditions/plugins/expedition-assist/README.md"
       ],
       "examples": [
@@ -6634,7 +6634,7 @@
         "Map coordinates, room rows and ability-gate references are validated but do not prove every route is physically reachable."
       ],
       "docs": [
-        "docs/hollowmere.md"
+        "games/hollowmere/README.md"
       ],
       "examples": [
         "games/hollowmere/presets/hollowmere-ascent.json"
@@ -6752,8 +6752,8 @@
         "Save is checkpoint-based and schema-versioned; no mid-room restore or cloud sync."
       ],
       "docs": [
-        "docs/hollowmere.md",
-        "docs/research/game-composer-2026-11-16.md"
+        "games/hollowmere/README.md",
+        "docs/archive/research/game-composer-2026-11-16.md"
       ],
       "examples": [
         "games/hollowmere/presets/hollowmere-ascent.json",
@@ -6914,7 +6914,7 @@
         "Keyboard-first pause navigation with optional pointer buttons; no gamepad or remappable bindings yet."
       ],
       "docs": [
-        "docs/hollowmere.md"
+        "games/hollowmere/README.md"
       ],
       "examples": [
         "games/hollowmere/presets/hollowmere-ascent.json"
@@ -7006,7 +7006,7 @@
         "Validate targets/range/occupancy before execute. Transaction covers resource costs and cooldown, not arbitrary game-local rollback or an ability scripting language."
       ],
       "docs": [
-        "docs/reusable-mechanics.md"
+        "docs/reference/reusable-mechanics.md"
       ],
       "examples": [
         "games/ember/plugins/ember-game/index.ts",
@@ -7174,7 +7174,7 @@
         "No dependency graph, prerequisites, costs or automatic rewards; the consumer decides when to call unlock."
       ],
       "docs": [
-        "docs/hollowmere.md"
+        "games/hollowmere/README.md"
       ],
       "examples": [
         "games/hollowmere/plugins/hollowmere-game/index.ts"
@@ -7256,9 +7256,9 @@
         "No automatic advancement, callbacks, recurring timers or catch-up. Turns use positive safe integers. Deadline durations must be positive; action cooldowns remain in mechanics/actions. The SDK helper accepts compatible clocks independently of this provider."
       ],
       "docs": [
-        "docs/reusable-mechanics.md",
-        "docs/deadlines.md",
-        "docs/owned-instances.md"
+        "docs/reference/reusable-mechanics.md",
+        "docs/reference/deadlines.md",
+        "docs/reference/owned-instances.md"
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
@@ -7525,7 +7525,7 @@
         "No currency costs, recipe discovery/unlocks, crafting skills, failure chance, stations, effects or UI; those remain consumer policy. Inputs and output must be item IDs from the selected inventory provider."
       ],
       "docs": [
-        "docs/crafting.md"
+        "docs/reference/crafting.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts",
@@ -7630,7 +7630,7 @@
         "The consumer owns hint text, ordering, eligibility, persistence and context-change policy; no automatic reveal or game rules."
       ],
       "docs": [
-        "docs/portfolio-assist.md",
+        "docs/games/portfolio-assist.md",
         "src/plugins/mechanics-hints/README.md"
       ],
       "examples": [
@@ -7780,7 +7780,7 @@
         "Capacity is measured in distinct item stacks; equipment items are stored outside the bag. No weight, grid shape, sockets, durability or transactions across inventories."
       ],
       "docs": [
-        "docs/inventory.md"
+        "docs/reference/inventory.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts",
@@ -7916,8 +7916,8 @@
         "Kit loader supplies definitions, not runtime providers. Enable and select the four mechanic roles; validate game-specific assumptions as well."
       ],
       "docs": [
-        "docs/reusable-mechanics.md",
-        "CONTENT_FORMAT.md"
+        "docs/reference/reusable-mechanics.md",
+        "docs/reference/content-format.md"
       ],
       "examples": [
         "games/sky/plugins/sky-content/content.json",
@@ -8064,7 +8064,7 @@
         "Static content validation is separate from this runtime selection seam; the plugin has no graph content kind, owned handles or cache."
       ],
       "docs": [
-        "docs/navigation.md"
+        "docs/reference/navigation.md"
       ],
       "examples": [
         "src/plugins/puzzle-rules/rules.ts",
@@ -8207,7 +8207,7 @@
         "Session-only counters, not a persisted quest journal. Successful receipt memory is bounded at 4096; victory and rewards remain game orchestration."
       ],
       "docs": [
-        "docs/reusable-mechanics.md"
+        "docs/reference/reusable-mechanics.md"
       ],
       "examples": [
         "games/ember/plugins/ember-game/index.ts",
@@ -8381,7 +8381,7 @@
         "Does not collect metrics, establish victory, persist records, calculate weighted scores or award rewards. Tier precedence is authored order."
       ],
       "docs": [
-        "docs/portfolio-shared-mechanics.md"
+        "docs/reference/portfolio-shared-mechanics.md"
       ],
       "examples": [
         "src/plugins/vehicle-racing/index.ts",
@@ -8497,7 +8497,7 @@
         "One-way platforms and drop-through are supported through the collision query, but authored map semantics stay with the game."
       ],
       "docs": [
-        "docs/hollowmere.md"
+        "games/hollowmere/README.md"
       ],
       "examples": [
         "games/hollowmere/plugins/hollowmere-game/index.ts"
@@ -8574,7 +8574,7 @@
         "Consumers call consumeLevel after applying their own level reward; the provider never applies gameplay effects."
       ],
       "docs": [
-        "docs/progression.md"
+        "docs/reference/progression.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts"
@@ -8792,8 +8792,8 @@
         "Not a slotted or unique-item inventory. Overflow rejects rather than clamping; gains cannot finance a debit in the same transaction."
       ],
       "docs": [
-        "docs/reusable-mechanics.md",
-        "docs/mechanic-conformance.md"
+        "docs/reference/reusable-mechanics.md",
+        "docs/reference/mechanic-conformance.md"
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
@@ -8960,7 +8960,7 @@
         "The provider validates room rectangles and links but does not prove spatial reachability or ability gates."
       ],
       "docs": [
-        "docs/hollowmere.md"
+        "games/hollowmere/README.md"
       ],
       "examples": [
         "games/hollowmere/plugins/hollowmere-game/index.ts"
@@ -9050,7 +9050,7 @@
         "Consumers decide when an advance is legal; tested consumers use directional gate crossings in two racing compositions."
       ],
       "docs": [
-        "docs/sequences.md"
+        "docs/reference/sequences.md"
       ],
       "examples": [
         "src/plugins/vehicle-racing/index.ts",
@@ -9151,7 +9151,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9208,7 +9208,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9277,7 +9277,7 @@
         "Draw rejects atomically when fewer than the requested cards remain."
       ],
       "docs": [
-        "docs/portfolio-cards.md"
+        "docs/games/portfolio-cards.md"
       ],
       "examples": [
         "src/plugins/portfolio-cards-ash/index.ts",
@@ -9350,7 +9350,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9408,7 +9408,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9472,7 +9472,7 @@
         "Presentation-specific heuristics are limited to existing card summaries and puzzle campaign/state; no solver or gameplay mutation."
       ],
       "docs": [
-        "docs/portfolio-assist.md",
+        "docs/games/portfolio-assist.md",
         "src/plugins/portfolio-assist/README.md"
       ],
       "examples": [
@@ -9554,7 +9554,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9610,7 +9610,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9666,7 +9666,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9722,7 +9722,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9776,7 +9776,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9847,7 +9847,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9912,7 +9912,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -9977,7 +9977,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -10047,8 +10047,8 @@
         "Shooter-family camera role. The isometric view is an orthographic 3D projection of existing billboard actors, not a separate 2D renderer. It provides a generic floor marker but no player sprite, cutaway shader, wall transparency, zoom, pan or click picking. Pair with presentation/player-avatar for a body; core presentation must honor ViewModes to hide first-person-only view models and ceilings."
       ],
       "docs": [
-        "docs/camera-modes.md",
-        "docs/cinder-vault.md"
+        "docs/reference/camera-modes.md",
+        "games/cinder/README.md"
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json",
@@ -10204,7 +10204,7 @@
         "Needs a consumer to add PlayerAvatar and a ViewModes provider; the selected theme must define the visual key. It only manages a Visual component, not animation graphs, equipment visuals or collision."
       ],
       "docs": [
-        "docs/camera-modes.md"
+        "docs/reference/camera-modes.md"
       ],
       "examples": [
         "games/cinder/plugins/cinder-game/index.ts",
@@ -10268,7 +10268,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -10323,7 +10323,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -10417,9 +10417,9 @@
         "Static authored chamber connectivity remains a registration-time local validator, separate from selected runtime navigation."
       ],
       "docs": [
-        "docs/stonewake.md",
-        "docs/command-queues.md",
-        "docs/navigation.md"
+        "docs/games/stonewake.md",
+        "docs/reference/command-queues.md",
+        "docs/reference/navigation.md"
       ],
       "examples": [
         "src/plugins/puzzle-chambers/content.json",
@@ -10515,7 +10515,7 @@
         "Campaign-specific decisions and encounters are implemented by salt/game."
       ],
       "docs": [
-        "docs/salt-ledger.md"
+        "games/expeditions/docs/salt-ledger.md"
       ],
       "examples": [
         "games/expeditions/plugins/salt-rpg-content/content.json"
@@ -10755,7 +10755,7 @@
         "The interface is specific to Salt Ledger's command vocabulary."
       ],
       "docs": [
-        "docs/salt-ledger.md"
+        "games/expeditions/docs/salt-ledger.md"
       ],
       "examples": [
         "games/expeditions/plugins/salt-rpg-presentation/index.ts"
@@ -10821,7 +10821,7 @@
         "Chamber templates are interpreted by silt/game; they do not define encounters or new mechanics."
       ],
       "docs": [
-        "docs/silt-archive.md"
+        "games/expeditions/docs/silt-archive.md"
       ],
       "examples": [
         "games/expeditions/plugins/silt-content/content.json"
@@ -10892,7 +10892,7 @@
         "Family-specific expedition policy and chamber format; no in-progress save or generic dungeon generator."
       ],
       "docs": [
-        "docs/silt-archive.md",
+        "games/expeditions/docs/silt-archive.md",
         "games/expeditions/plugins/silt-game/README.md"
       ],
       "examples": [
@@ -11052,7 +11052,7 @@
         "Requires the Silt family service and does not implement gameplay."
       ],
       "docs": [
-        "docs/silt-archive.md"
+        "games/expeditions/docs/silt-archive.md"
       ],
       "examples": [
         "games/expeditions/plugins/silt-presentation/index.ts"
@@ -11110,7 +11110,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -11191,9 +11191,9 @@
         "Planar flight and matching cargo are family rules; reuse the mechanics/* providers separately for other movement genres."
       ],
       "docs": [
-        "docs/sky-salvage.md",
-        "docs/reusable-mechanics.md",
-        "docs/deadlines.md"
+        "games/sky/README.md",
+        "docs/reference/reusable-mechanics.md",
+        "docs/reference/deadlines.md"
       ],
       "examples": [
         "games/sky/plugins/sky-content/content.json",
@@ -11286,7 +11286,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -11374,8 +11374,8 @@
         "Only the SDK command queue is genre-neutral: capacity 128, action validation and save/load/reset ordering remain Story policy."
       ],
       "docs": [
-        "docs/narrative-adventure.md",
-        "docs/command-queues.md"
+        "docs/games/narrative-adventure.md",
+        "docs/reference/command-queues.md"
       ],
       "examples": [
         "src/plugins/story-chapter/content.json",
@@ -11457,7 +11457,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -11511,7 +11511,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -11575,7 +11575,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -11685,8 +11685,8 @@
       ],
       "docs": [
         "assets/weapons/fantasy/README.md",
-        "docs/cinder-vault.md",
-        "docs/hollowmere.md"
+        "games/cinder/README.md",
+        "games/hollowmere/README.md"
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json",
@@ -11918,7 +11918,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12067,7 +12067,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12166,7 +12166,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12247,7 +12247,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12331,8 +12331,8 @@
         "Planar arcade kinematics, not rigid-body vehicles or a generic spatial checkpoint service. Select a sequence provider; gate geometry and one-crossing-per-tick policy remain local."
       ],
       "docs": [
-        "docs/overhead-racing.md",
-        "docs/sequences.md"
+        "docs/games/overhead-racing.md",
+        "docs/reference/sequences.md"
       ],
       "examples": [
         "src/plugins/vehicle-track/content.json",
@@ -12443,7 +12443,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12498,7 +12498,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12581,9 +12581,9 @@
         "Weather drain, stations and victory conditions are family orchestration, not generic providers."
       ],
       "docs": [
-        "docs/verdant-relay.md",
-        "docs/reusable-mechanics.md",
-        "docs/deadlines.md"
+        "games/verdant/README.md",
+        "docs/reference/reusable-mechanics.md",
+        "docs/reference/deadlines.md"
       ],
       "examples": [
         "games/verdant/plugins/verdant-content/content.json",
@@ -12676,7 +12676,7 @@
         "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
       ],
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12734,7 +12734,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/mechanics.ts:137",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12764,7 +12764,7 @@
       "token": "sdk/mechanic-actions",
       "source": "src/sdk/contracts/mechanics.ts:102",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12794,7 +12794,7 @@
       "token": "actor-renderer",
       "source": "src/sdk/render.ts:89",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12822,7 +12822,7 @@
       "token": "sdk/adventure",
       "source": "src/sdk/contracts/adventure.ts:66",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12850,7 +12850,7 @@
       "token": "sdk/adventure-action-resolved",
       "source": "src/sdk/contracts/adventure.ts:64",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12878,7 +12878,7 @@
       "token": "adventure-chapter",
       "source": "src/sdk/contracts/adventure.ts:65",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12910,7 +12910,7 @@
       "token": "ai-behavior",
       "source": "src/sdk/contracts/shooter.ts:534",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12939,7 +12939,7 @@
       "token": "ammo",
       "source": "src/sdk/contracts/shooter.ts:431",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12970,7 +12970,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/shooter.ts:727",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -12995,7 +12995,7 @@
       "token": "attack-behavior",
       "source": "src/sdk/contracts/shooter.ts:390",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13026,7 +13026,7 @@
       "token": "sdk/attack-fired",
       "source": "src/sdk/contracts/shooter.ts:359",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13052,7 +13052,7 @@
       "token": "sdk/audio",
       "source": "src/sdk/contracts/shooter.ts:640",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13080,7 +13080,7 @@
       "token": "sdk/camera",
       "source": "src/sdk/contracts/shooter.ts:662",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13112,7 +13112,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/capabilities.ts:53",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13139,7 +13139,7 @@
       "token": "sdk/capabilities",
       "source": "src/sdk/contracts/capabilities.ts:50",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13170,7 +13170,7 @@
       "token": "sdk/capability-unlocked",
       "source": "src/sdk/contracts/capabilities.ts:51",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13197,7 +13197,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/portfolio-cards.ts:18",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13226,7 +13226,7 @@
       "token": "portfolio-card-piles-provider",
       "source": "src/sdk/contracts/portfolio-cards.ts:16",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13258,7 +13258,7 @@
       "token": "sdk/portfolio-card-piles",
       "source": "src/sdk/contracts/portfolio-cards.ts:17",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13289,7 +13289,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/mechanics.ts:132",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13320,7 +13320,7 @@
       "token": "sdk/mechanic-clock",
       "source": "src/sdk/contracts/mechanics.ts:101",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13352,7 +13352,7 @@
       "token": "sdk/collider",
       "source": "src/sdk/contracts/shooter.ts:36",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13378,7 +13378,7 @@
       "token": "sdk/combat",
       "source": "src/sdk/contracts/shooter.ts:479",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13405,7 +13405,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/conditions.ts:23",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13434,7 +13434,7 @@
       "token": "sdk/mechanic-conditions",
       "source": "src/sdk/contracts/conditions.ts:22",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13466,7 +13466,7 @@
       "token": "mechanic-condition-provider",
       "source": "src/sdk/contracts/conditions.ts:21",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13498,7 +13498,7 @@
       "token": "sdk/controller",
       "source": "src/sdk/contracts/shooter.ts:660",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13531,7 +13531,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/crafting.ts:33",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13560,7 +13560,7 @@
       "token": "sdk/mechanic-crafting",
       "source": "src/sdk/contracts/crafting.ts:31",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13592,7 +13592,7 @@
       "token": "mechanic-crafting-provider",
       "source": "src/sdk/contracts/crafting.ts:30",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13624,7 +13624,7 @@
       "token": "crafting-recipe",
       "source": "src/sdk/contracts/crafting.ts:17",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13657,7 +13657,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/command-queue.ts:33",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13688,7 +13688,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/deadlines.ts:32",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13718,7 +13718,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/mechanics.ts:148",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13750,7 +13750,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/owned-instances.ts:15",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13776,7 +13776,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/platforming.ts:123",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13803,7 +13803,7 @@
       "token": "sdk/damaged",
       "source": "src/sdk/contracts/shooter.ts:357",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13831,7 +13831,7 @@
       "token": "damage-modifier",
       "source": "src/sdk/contracts/shooter.ts:439",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13866,7 +13866,7 @@
       "token": "sdk/deal-damage",
       "source": "src/sdk/contracts/shooter.ts:355",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13893,7 +13893,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:30",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13917,7 +13917,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:28",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13941,7 +13941,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:29",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13965,7 +13965,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:35",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -13989,7 +13989,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:32",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14013,7 +14013,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:33",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14037,7 +14037,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:31",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14062,7 +14062,7 @@
       "token": "sdk/died",
       "source": "src/sdk/contracts/shooter.ts:358",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14090,7 +14090,7 @@
       "token": "sdk/door-changed",
       "source": "src/sdk/contracts/shooter.ts:312",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14118,7 +14118,7 @@
       "token": "enemy",
       "source": "src/sdk/contracts/shooter.ts:525",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14148,7 +14148,7 @@
       "token": "sdk/enemy",
       "source": "src/sdk/contracts/shooter.ts:105",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14174,7 +14174,7 @@
       "token": "sdk/enemies",
       "source": "src/sdk/contracts/shooter.ts:553",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14200,7 +14200,7 @@
       "token": "sdk/enemy-alerted",
       "source": "src/sdk/contracts/shooter.ts:365",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14226,7 +14226,7 @@
       "token": "sdk/experience",
       "source": "src/sdk/contracts/experience.ts:10",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14272,7 +14272,7 @@
       "token": "sdk/flow",
       "source": "src/sdk/contracts/shooter.ts:631",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14298,7 +14298,7 @@
       "token": "sdk/flow-ended",
       "source": "src/sdk/contracts/shooter.ts:632",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14324,7 +14324,7 @@
       "token": "sdk/health",
       "source": "src/sdk/contracts/shooter.ts:43",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14349,7 +14349,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/hints.ts:22",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14378,7 +14378,7 @@
       "token": "sdk/mechanic-hints",
       "source": "src/sdk/contracts/hints.ts:21",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14408,7 +14408,7 @@
       "token": "mechanic-hint-provider",
       "source": "src/sdk/contracts/hints.ts:20",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14438,7 +14438,7 @@
       "token": "sdk/hud",
       "source": "src/sdk/contracts/shooter.ts:666",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14472,7 +14472,7 @@
       "token": "sdk/impact",
       "source": "src/sdk/contracts/shooter.ts:361",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14498,7 +14498,7 @@
       "token": "sdk/input",
       "source": "src/sdk/contracts/shooter.ts:580",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14528,7 +14528,7 @@
       "token": "input-action",
       "source": "src/sdk/contracts/shooter.ts:564",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14564,7 +14564,7 @@
       "token": "sdk/input-contexts",
       "source": "src/sdk/contracts/shooter.ts:606",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14594,7 +14594,7 @@
       "token": "sdk/intent",
       "source": "src/sdk/contracts/shooter.ts:60",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14620,7 +14620,7 @@
       "token": "sdk/interactions",
       "source": "src/sdk/contracts/shooter.ts:293",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14649,7 +14649,7 @@
       "token": "sdk/inventory",
       "source": "src/sdk/contracts/shooter.ts:84",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14674,7 +14674,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/inventory.ts:58",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14705,7 +14705,7 @@
       "token": "sdk/mechanic-inventory",
       "source": "src/sdk/contracts/inventory.ts:48",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14737,7 +14737,7 @@
       "token": "mechanic-inventory-provider",
       "source": "src/sdk/contracts/inventory.ts:47",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14768,7 +14768,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:36",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14793,7 +14793,7 @@
       "token": "item",
       "source": "src/sdk/contracts/inventory.ts:16",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14829,7 +14829,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:1",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14853,7 +14853,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/shooter.ts:733",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14878,7 +14878,7 @@
       "token": "map-format",
       "source": "src/sdk/contracts/shooter.ts:310",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14910,7 +14910,7 @@
       "token": "map",
       "source": "src/sdk/contracts/shooter.ts:303",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14948,7 +14948,7 @@
       "token": "mechanics/action-committed",
       "source": "src/sdk/contracts/mechanics.ts:106",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -14978,7 +14978,7 @@
       "token": "mechanic-action-provider",
       "source": "src/sdk/contracts/mechanics.ts:98",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15008,7 +15008,7 @@
       "token": "mechanic-clock-provider",
       "source": "src/sdk/contracts/mechanics.ts:97",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15038,7 +15038,7 @@
       "token": "mechanics/inventory-changed",
       "source": "src/sdk/contracts/inventory.ts:49",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15068,7 +15068,7 @@
       "token": "mechanic-kit",
       "source": "src/sdk/contracts/mechanics.ts:116",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15105,7 +15105,7 @@
       "token": "mechanics/objective-changed",
       "source": "src/sdk/contracts/mechanics.ts:107",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15135,7 +15135,7 @@
       "token": "mechanics/progression-changed",
       "source": "src/sdk/contracts/progression.ts:47",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15165,7 +15165,7 @@
       "token": "mechanics/resources-changed",
       "source": "src/sdk/contracts/mechanics.ts:105",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15193,7 +15193,7 @@
       "token": "sdk/mode",
       "source": "src/sdk/contracts/shooter.ts:664",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15232,7 +15232,7 @@
       "token": "sdk/mechanic-navigation",
       "source": "src/sdk/contracts/navigation.ts:34",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15266,7 +15266,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/mechanics.ts:142",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15296,7 +15296,7 @@
       "token": "sdk/mechanic-objectives",
       "source": "src/sdk/contracts/mechanics.ts:103",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15328,7 +15328,7 @@
       "token": "mechanic-objective-provider",
       "source": "src/sdk/contracts/mechanics.ts:99",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15357,7 +15357,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:81",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15381,7 +15381,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/outcome-rating.ts:24",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15410,7 +15410,7 @@
       "token": "mechanic-outcome-rating-provider",
       "source": "src/sdk/contracts/outcome-rating.ts:22",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15442,7 +15442,7 @@
       "token": "sdk/mechanic-outcome-rating",
       "source": "src/sdk/contracts/outcome-rating.ts:23",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15473,7 +15473,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:25",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15498,7 +15498,7 @@
       "token": "sdk/pickup",
       "source": "src/sdk/contracts/shooter.ts:110",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15524,7 +15524,7 @@
       "token": "sdk/pickup-collected",
       "source": "src/sdk/contracts/shooter.ts:364",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15550,7 +15550,7 @@
       "token": "pickup-effect",
       "source": "src/sdk/contracts/shooter.ts:492",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15585,7 +15585,7 @@
       "token": "pickup",
       "source": "src/sdk/contracts/shooter.ts:502",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15618,7 +15618,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/platforming.ts:29",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15644,7 +15644,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/platforming.ts:139",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15669,7 +15669,7 @@
       "token": "sdk/platformer",
       "source": "src/sdk/contracts/platforming.ts:121",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15700,7 +15700,7 @@
       "token": "sdk/player",
       "source": "src/sdk/contracts/shooter.ts:70",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15726,7 +15726,7 @@
       "token": "sdk/player-avatar",
       "source": "src/sdk/contracts/shooter.ts:140",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15755,7 +15755,7 @@
       "token": "portfolio/cards-game",
       "source": "src/sdk/contracts/portfolio-cards.ts:31",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15783,7 +15783,7 @@
       "token": "prefab",
       "source": "src/sdk/contracts/shooter.ts:332",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15826,7 +15826,7 @@
       "token": "sdk/profile",
       "source": "src/sdk/contracts/profile.ts:15",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15855,7 +15855,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/progression.ts:60",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15885,7 +15885,7 @@
       "token": "sdk/mechanic-progression",
       "source": "src/sdk/contracts/progression.ts:45",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15917,7 +15917,7 @@
       "token": "mechanic-progression-provider",
       "source": "src/sdk/contracts/progression.ts:44",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15949,7 +15949,7 @@
       "token": "puzzle/push",
       "source": "src/sdk/contracts/puzzle.ts:45",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -15978,7 +15978,7 @@
       "token": "push-puzzle",
       "source": "src/sdk/contracts/puzzle.ts:44",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16010,7 +16010,7 @@
       "token": "puzzle/resolved",
       "source": "src/sdk/contracts/puzzle.ts:46",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16038,7 +16038,7 @@
       "token": "vehicle/race",
       "source": "src/sdk/contracts/racing.ts:41",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16066,7 +16066,7 @@
       "token": "vehicle/track",
       "source": "src/sdk/contracts/racing.ts:21",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16096,7 +16096,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/relationships.ts:30",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16126,7 +16126,7 @@
       "token": "sdk/mechanic-relationships",
       "source": "src/sdk/contracts/relationships.ts:29",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16158,7 +16158,7 @@
       "token": "mechanic-relationship-provider",
       "source": "src/sdk/contracts/relationships.ts:28",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16190,7 +16190,7 @@
       "token": "sdk/render",
       "source": "src/sdk/render.ts:54",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16217,7 +16217,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:47",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16241,7 +16241,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/mechanics.ts:127",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16270,7 +16270,7 @@
       "token": "sdk/mechanic-resources",
       "source": "src/sdk/contracts/mechanics.ts:100",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16300,7 +16300,7 @@
       "token": "mechanic-resource-provider",
       "source": "src/sdk/contracts/mechanics.ts:96",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16330,7 +16330,7 @@
       "token": "sdk/room-map-changed",
       "source": "src/sdk/contracts/room-map.ts:44",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16357,7 +16357,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/room-map.ts:46",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16384,7 +16384,7 @@
       "token": "sdk/room-map",
       "source": "src/sdk/contracts/room-map.ts:43",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16414,7 +16414,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:45",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16438,7 +16438,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/scope.ts:4",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16462,7 +16462,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/core.ts:10",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16486,7 +16486,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/sequence.ts:41",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16517,7 +16517,7 @@
       "token": "sdk/mechanic-sequence",
       "source": "src/sdk/contracts/sequence.ts:38",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16549,7 +16549,7 @@
       "token": "mechanic-sequence-provider",
       "source": "src/sdk/contracts/sequence.ts:37",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16581,7 +16581,7 @@
       "token": "sdk/session-control",
       "source": "src/sdk/contracts/experience.ts:16",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16613,7 +16613,7 @@
       "token": "sdk/settings",
       "source": "src/sdk/contracts/shooter.ts:638",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16640,7 +16640,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/shooter.ts:335",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16665,7 +16665,7 @@
       "token": "board/tactics",
       "source": "src/sdk/contracts/tactics.ts:42",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16693,7 +16693,7 @@
       "token": "board-mission",
       "source": "src/sdk/contracts/tactics.ts:17",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16725,7 +16725,7 @@
       "token": "board/resolved",
       "source": "src/sdk/contracts/tactics.ts:44",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16753,7 +16753,7 @@
       "token": "sdk/theme",
       "source": "src/sdk/contracts/shooter.ts:715",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16790,7 +16790,7 @@
       "importFrom": "src/sdk/render.ts",
       "source": "src/sdk/render.ts:12",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16815,7 +16815,7 @@
       "token": "sdk/transform",
       "source": "src/sdk/contracts/shooter.ts:26",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16841,7 +16841,7 @@
       "token": "sdk/trigger-fired",
       "source": "src/sdk/contracts/shooter.ts:313",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16869,7 +16869,7 @@
       "token": "sdk/turn-control",
       "source": "src/sdk/contracts/turns.ts:15",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16897,7 +16897,7 @@
       "token": "sdk/ui",
       "source": "src/sdk/contracts/shooter.ts:649",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16931,7 +16931,7 @@
       "token": "sdk/use-failed",
       "source": "src/sdk/contracts/shooter.ts:315",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16956,7 +16956,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:69",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -16980,7 +16980,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:65",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17004,7 +17004,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:51",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17029,7 +17029,7 @@
       "token": "sdk/view",
       "source": "src/sdk/contracts/shooter.ts:680",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17055,7 +17055,7 @@
       "token": "sdk/view-mode-changed",
       "source": "src/sdk/contracts/viewmodes.ts:24",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17086,7 +17086,7 @@
       "token": "sdk/view-modes",
       "source": "src/sdk/contracts/viewmodes.ts:23",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17119,7 +17119,7 @@
       "token": "sdk/visual",
       "source": "src/sdk/contracts/shooter.ts:130",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17144,7 +17144,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:86",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17168,7 +17168,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:57",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17192,7 +17192,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:40",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17216,7 +17216,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:76",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17240,7 +17240,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/kernel/validate.ts:44",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17265,7 +17265,7 @@
       "token": "sdk/weapon-dry",
       "source": "src/sdk/contracts/shooter.ts:363",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17291,7 +17291,7 @@
       "token": "sdk/weapon-runtime",
       "source": "src/sdk/contracts/shooter.ts:91",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17317,7 +17317,7 @@
       "token": "weapon",
       "source": "src/sdk/contracts/shooter.ts:423",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17351,7 +17351,7 @@
       "token": "sdk/weapon-switched",
       "source": "src/sdk/contracts/shooter.ts:362",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17377,7 +17377,7 @@
       "token": "sdk/world",
       "source": "src/sdk/contracts/shooter.ts:271",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17406,7 +17406,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/shooter.ts:722",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17430,7 +17430,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/shooter.ts:723",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17454,7 +17454,7 @@
       "importFrom": "src/sdk/index.ts",
       "source": "src/sdk/contracts/shooter.ts:725",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17479,7 +17479,7 @@
       "token": "cinder/run",
       "source": "games/cinder/contracts/cinder.ts:196",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17509,7 +17509,7 @@
       "token": "ember/bastion",
       "source": "games/ember/contracts/ember.ts:52",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17538,7 +17538,7 @@
       "token": "ember-defense",
       "source": "games/ember/contracts/ember.ts:18",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17569,7 +17569,7 @@
       "token": "common/hearth",
       "source": "games/expeditions/contracts/hearth-sim.ts:20",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17600,7 +17600,7 @@
       "token": "hearth-household",
       "source": "games/expeditions/contracts/hearth-sim.ts:7",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17631,7 +17631,7 @@
       "token": "salt-campaign",
       "source": "games/expeditions/contracts/salt-ledger.ts:16",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17663,7 +17663,7 @@
       "token": "sdk/salt-ledger",
       "source": "games/expeditions/contracts/salt-ledger.ts:17",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17694,7 +17694,7 @@
       "token": "silt/archive",
       "source": "games/expeditions/contracts/silt-archive.ts:44",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17725,7 +17725,7 @@
       "token": "silt-archive",
       "source": "games/expeditions/contracts/silt-archive.ts:13",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17757,7 +17757,7 @@
       "token": "hollowmere/run",
       "source": "games/hollowmere/contracts/metroidvania.ts:239",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17787,7 +17787,7 @@
       "token": "metroidvania-world",
       "source": "games/hollowmere/contracts/metroidvania.ts:237",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17819,7 +17819,7 @@
       "token": "sky/salvage",
       "source": "games/sky/contracts/sky.ts:16",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17848,7 +17848,7 @@
       "token": "sky-route",
       "source": "games/sky/contracts/sky.ts:7",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17880,7 +17880,7 @@
       "token": "verdant/relay",
       "source": "games/verdant/contracts/verdant.ts:38",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],
@@ -17909,7 +17909,7 @@
       "token": "verdant-world",
       "source": "games/verdant/contracts/verdant.ts:16",
       "docs": [
-        "PLUGINS.md"
+        "docs/guide/plugins.md"
       ],
       "examples": [],
       "tests": [],

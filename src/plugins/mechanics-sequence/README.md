@@ -22,4 +22,4 @@ Definitions require nonempty, unique, nonblank keys of at most 128 characters an
 
 Definitions are copied and frozen. Live instance IDs are unique per consumer and provider, and are released on idempotent disposal or either owning scope's disposal. State transitions are deterministic and headless; no rendering or UI service is needed.
 
-See the [sequence guide](../../../docs/sequences.md), [racing consumer](../vehicle-racing/index.ts), [provider tests](../../../tests/mechanics-sequence.test.ts) and [racing tests](../../../tests/overhead-racing.test.ts). Run `npm run check` from the repository root.
+See the [sequence guide](../../../docs/reference/sequences.md), [racing consumer](../vehicle-racing/index.ts), [provider tests](../../../tests/mechanics-sequence.test.ts) and [racing tests](../../../tests/overhead-racing.test.ts). Run `npm run check` from the repository root.

@@ -2,17 +2,17 @@
 
 `common/game` validates `hearth-household` content and publishes the `Hearth` service for a deterministic, turn-based
 household simulation. Three residents have independent needs, jobs, autonomy and relationships; the household manages
-money, an editable lot, furnishings, projects, debt and a neighborhood gathering. See [the game guide](../../../docs/common-ground.md).
+money, an editable lot, furnishings, projects, debt and a neighborhood gathering. See [the game guide](../../docs/common-ground.md).
 
 ## Compose
 
-Use [the bundled preset](../../content/presets/common-ground.json): enable the rules, household content, presentation,
+Use [the bundled preset](../../presets/common-ground.json): enable the rules, household content, presentation,
 and `mechanics/resources`, `mechanics/clock`, `mechanics/actions`, `mechanics/objectives` and `mechanics/relationships`; select each provider for
 its corresponding `sdk/mechanic-*` role. `options.household` selects an installed household. The presentation provides
 `sdk/experience` as `common/presentation`.
 
 Consumers read detached `Hearth.state()` observations and enqueue semantic commands through the SDK contract in
-[`hearth-sim.ts`](../../sdk/contracts/hearth-sim.ts). Accepted activities advance 30 minutes, while invalid commands
+[`hearth-sim.ts`](../../contracts/hearth-sim.ts). Accepted activities advance 30 minutes, while invalid commands
 do not. The simulation owns its clock, resource pools, action and objective handles and command queue; it runs headless.
 The game is turn-based and has no in-progress save, spatial routing or continuous autonomous clock.
 House construction, room zoning, surface finishes and single-square furniture placement use the same owned resource

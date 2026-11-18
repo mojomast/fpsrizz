@@ -6,7 +6,7 @@
   "entryPoints": ["HudRole", "Metroidvania", "ThemeRole", "Ui", "Profile"],
   "useWhen": "Present Hollowmere's state or reuse the tabbed journal pattern around a compatible family service.",
   "limitations": ["Consumes Hollowmere's observation contract; canvas drawing is not a general scene renderer.", "Keyboard-first pause navigation with optional pointer buttons; no gamepad or remappable bindings yet."],
-  "docs": ["docs/hollowmere.md"],
+  "docs": ["games/hollowmere/README.md"],
   "examples": ["games/hollowmere/presets/hollowmere-ascent.json"],
   "tests": ["games/hollowmere/tests/hollowmere.test.ts", "tests/hollowmere-demo/run.mjs"]
 }

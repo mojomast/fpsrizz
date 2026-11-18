@@ -12,7 +12,7 @@ Use [`portfolio-atelier-puzzle.json`](../../content/presets/portfolio-atelier-pu
 { "name": "First Weight", "hint": "Push toward the seal.", "par": 20, "rows": ["#######", "#....E#", "#..O..#", "#..B..#", "#..P..#", "#######"] }
 ```
 
-`#` is wall, `.` floor, `P` player, `B` stone, `O` seal and `E` exit. Check full validation and mechanics in [Stonewake](../../../docs/stonewake.md) and the [portfolio puzzle guide](../../../docs/portfolio-puzzles.md).
+`#` is wall, `.` floor, `P` player, `B` stone, `O` seal and `E` exit. Check full validation and mechanics in [Stonewake](../../../docs/games/stonewake.md) and the [portfolio puzzle guide](../../../docs/games/portfolio-puzzles.md).
 
 ## Exercise and limits
 

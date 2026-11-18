@@ -6,4 +6,4 @@ Headless authority for Stonewake-style push puzzles: boulders, plates, exits, re
 
 WASD/arrows step or push, Space waits, Z undoes, R resets the chamber, Q/E orbit. Only accepted turns advance play; undo retains 256 turns. Campaign progress is session-only. Command ingress is bounded to 32 and resolves one command per control tick; it rejects paused input. State snapshots are copies and definitions are frozen.
 
-The [Stonewake guide](../../../docs/stonewake.md) documents the `push-puzzle` row symbols, validation bounds, examples and limitations: connectivity validation does not prove a puzzle solvable. See also [portfolio puzzles](../../../docs/portfolio-puzzles.md). Verify with `node --test tests/stonewake.test.ts tests/portfolio-puzzles.test.ts` and `npm run check`.
+The [Stonewake guide](../../../docs/games/stonewake.md) documents the `push-puzzle` row symbols, validation bounds, examples and limitations: connectivity validation does not prove a puzzle solvable. See also [portfolio puzzles](../../../docs/games/portfolio-puzzles.md). Verify with `node --test tests/stonewake.test.ts tests/portfolio-puzzles.test.ts` and `npm run check`.

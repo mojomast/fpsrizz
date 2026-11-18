@@ -12,7 +12,7 @@ The campaign's [`content.json`](content.json) defines named chambers with hints,
 { "name": "Long Hall", "hint": "Keep moving after the push.", "par": 30, "rows": ["#########", "#......E#", "#..B.O..#", "#.P.....#", "#.....G.#", "#########"] }
 ```
 
-`#`, `.`, `P`, `B`, `O`, `E` and `G` denote wall, floor, player, stone, seal, exit and watcher. See [Stonewake](../../../docs/stonewake.md) and the [portfolio puzzle guide](../../../docs/portfolio-puzzles.md) for full rules and constraints.
+`#`, `.`, `P`, `B`, `O`, `E` and `G` denote wall, floor, player, stone, seal, exit and watcher. See [Stonewake](../../../docs/games/stonewake.md) and the [portfolio puzzle guide](../../../docs/games/portfolio-puzzles.md) for full rules and constraints.
 
 ## Exercise and limits
 

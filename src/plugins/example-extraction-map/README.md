@@ -10,4 +10,4 @@ The pack registers content at staging and has no session system, role or configu
 
 ## Verify
 
-Run `node --test tests/extraction-map.test.ts tests/extraction.test.ts` from the repository root. See [content formats](../../../CONTENT_FORMAT.md).
+Run `node --test tests/extraction-map.test.ts tests/extraction.test.ts` from the repository root. See [content formats](../../../docs/reference/content-format.md).

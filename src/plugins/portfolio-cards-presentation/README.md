@@ -10,4 +10,4 @@ The HUD presents instructions, status, hand actions and an announced message. Bu
 
 ## Ownership, tests and limits
 
-The UI mount, styles, input listener and frame system are session-owned. If `Ui` is absent the plugin returns after resolving the game service. It implements no gameplay or random decisions and does not persist a game. Run `node --test tests/portfolio-cards.test.ts` for game integration and `npm run build && npm run smoke` for browser acceptance; see the [card guide](../../../docs/portfolio-cards.md).
+The UI mount, styles, input listener and frame system are session-owned. If `Ui` is absent the plugin returns after resolving the game service. It implements no gameplay or random decisions and does not persist a game. Run `node --test tests/portfolio-cards.test.ts` for game integration and `npm run build && npm run smoke` for browser acceptance; see the [card guide](../../../docs/games/portfolio-cards.md).

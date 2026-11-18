@@ -6,7 +6,7 @@
   "entryPoints": ["HintProviders", "HintMechanicRole", "hintMechanic"],
   "useWhen": "Track how many hints have been requested independently for consumer-selected topics.",
   "limitations": ["The consumer owns hint text, ordering, eligibility, persistence and context-change policy; no automatic reveal or game rules."],
-  "docs": ["docs/portfolio-assist.md", "src/plugins/mechanics-hints/README.md"],
+  "docs": ["docs/games/portfolio-assist.md", "src/plugins/mechanics-hints/README.md"],
   "examples": ["src/plugins/portfolio-assist/index.ts"],
   "tests": ["tests/portfolio-assist.test.ts"]
 }

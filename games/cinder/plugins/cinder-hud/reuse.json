@@ -47,9 +47,9 @@
     "Consumes the Cinder family service; pointer-locked play uses keyboard selections. Desktop keyboard/mouse controls; automap is hidden on narrow screens while the tactical grid remains available. Camera-mode chrome is presentation-only and depends on an optional ViewModes service."
   ],
   "docs": [
-    "docs/camera-modes.md",
-    "docs/cinder-vault.md",
-    "docs/research/difficulty-replayability-qol-2026-11-16.md"
+    "docs/reference/camera-modes.md",
+    "games/cinder/README.md",
+    "docs/archive/research/difficulty-replayability-qol-2026-11-16.md"
   ],
   "examples": [
     "games/cinder/presets/cinder-vault.json"

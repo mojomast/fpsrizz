@@ -54,7 +54,7 @@ export class Scheduler {
   private systems: Entry<SystemDef>[] = [];
   /**
    * Execution snapshot. Systems added while a tick runs start on the next tick. Removed systems are flagged and skipped
-   * at once, so they never run again (not even later in the current tick). See ARCHITECTURE.md, "Tick".
+   * at once, so they never run again (not even later in the current tick). See docs/reference/architecture.md, "Tick".
    */
   private tickList: Entry<SystemDef>[] = [];
   private dirty = false;

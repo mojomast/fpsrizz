@@ -2,27 +2,27 @@
 
 Bulkhead is a plugin-driven TypeScript game foundation with a 2.5D shooter reference game and independent racing,
 turn-tactics, narrative-adventure, 3D push-puzzle, drone-courier, tower-defense and colony-restoration families. The last
-three share role-selected resource/action/clock/objective plugins; see `docs/reusable-mechanics.md`. The public SDK is version 2; production rendering uses official Three.js
-0.187.0. Read [ARCHITECTURE.md](ARCHITECTURE.md) before changing
-structure, [PLUGINS.md](PLUGINS.md) before writing plugins, and [CREATE_GAME.md](CREATE_GAME.md) for the complete game-creation workflow.
+three share role-selected resource/action/clock/objective plugins; see `docs/reference/reusable-mechanics.md`. The public SDK is version 2; production rendering uses official Three.js
+0.187.0. Read [docs/reference/architecture.md](docs/reference/architecture.md) before changing
+structure, [docs/guide/plugins.md](docs/guide/plugins.md) before writing plugins, and [docs/guide/create-a-game.md](docs/guide/create-a-game.md) for the complete game-creation workflow.
 
 ## Reuse first — before implementing a mechanic
 
-1. Read [REUSE.md](REUSE.md). Break the request into capabilities and search each with
+1. Read [docs/guide/reuse.md](docs/guide/reuse.md). Break the request into capabilities and search each with
    `npm run find-reuse -- "stamina cooldown"` (substitute the actual need). Use several short phrases for compound needs.
 2. Inspect promising results with `npm run find-reuse -- --show <id>`. Read the linked SDK declaration, working consumer
    and tests. Results label cross-genre providers versus family-bound behavior; respect those limits.
 3. Prefer existing content/config, then provider composition, then existing extension points. Add a new contract/provider
    only for a concrete missing behavior; do not copy resource, cooldown, objective, input or ownership algorithms.
 4. Record the chosen candidate IDs and reuse/extend/new rationale in task notes or the implementation summary. A name
-   mismatch or a search returning no hits is not evidence that the behavior is absent; consult `REUSE_INDEX.md` too.
+   mismatch or a search returning no hits is not evidence that the behavior is absent; consult `docs/reference/reuse-index.md` too.
 5. Maintain plugin-local `reuse.json` and relevant recipes when adding/changing reusable behavior. Run `npm run index-reuse`
    after source/catalog/metadata changes; `npm run check` rejects stale generated references and broken metadata links.
 
-Use the [capability design/evidence note](docs/reusable-capability-template.md) for new shared contracts. Existing SDK
+Use the [capability design/evidence note](docs/cookbook/reusable-capability-template.md) for new shared contracts. Existing SDK
 helpers include owned bounded `createCommandQueue` ingress and `createDeadline` over a borrowed explicit clock;
 inspect their recipes and consumer policies before creating another queue or effect-duration timer. Resource provider
-changes should exercise the shared [conformance cases](docs/mechanic-conformance.md) against both implementations.
+changes should exercise the shared [conformance cases](docs/reference/mechanic-conformance.md) against both implementations.
 Search `mechanics/navigation` for deterministic ordered unit-edge graph queries and `mechanics/sequence` for ordered
 steps repeated over finite rounds. Games retain occupancy/cost/crossing policy. Stateful factories can use
 `createOwnedInstances` for consumer-local live IDs and dual-scope cleanup instead of copying lifetime bookkeeping.
@@ -108,14 +108,14 @@ any environmental failures. Changes to audio or pointer lock also need manual ve
 
 | Task | Start here | Verification / documentation |
 |---|---|---|
-| Host, lifecycle, scheduling | `src/kernel/host.ts`, `scope.ts`, `scheduler.ts` | `tests/host-lifecycle.test.ts`, kernel tests, `ARCHITECTURE.md` |
-| Gameplay or SDK contracts | `src/sdk/contracts/`, provider and consumer plugins | `tests/helpers/game.ts`, extension tests, `PLUGINS.md` |
-| Content or preset | content-kind plugin, `src/app/catalog.ts`, `src/content/presets/` | content tests, `CONTENT_FORMAT.md`, game guide |
+| Host, lifecycle, scheduling | `src/kernel/host.ts`, `scope.ts`, `scheduler.ts` | `tests/host-lifecycle.test.ts`, kernel tests, `docs/reference/architecture.md` |
+| Gameplay or SDK contracts | `src/sdk/contracts/`, provider and consumer plugins | `tests/helpers/game.ts`, extension tests, `docs/guide/plugins.md` |
+| Content or preset | content-kind plugin, `src/app/catalog.ts`, `src/content/presets/` | content tests, `docs/reference/content-format.md`, game guide |
 | Browser UI or rendering | `src/app/`, `src/platform/`, relevant presentation plugin | build and smoke; creator test for panel changes |
 
 Registration survives restart; activation runs again per session. A failed staging operation preserves the old session,
 but failure during activation after commit does not restore it. Factories run lazily in their registering owner's
-context, and selected roles activate after all plugins; see the lifecycle notes in `PLUGINS.md`.
+context, and selected roles activate after all plugins; see the lifecycle notes in `docs/guide/plugins.md`.
 
 ## Adding a plugin
 
@@ -137,25 +137,25 @@ context, and selected roles activate after all plugins; see the lifecycle notes 
   contract in `src/sdk/contracts` (and bump `SDK_VERSION` when a contract changes incompatibly) rather than adding
   shortcuts, global state or cross-plugin imports.
 - Do not edit a plugin's behaviour from another plugin's folder; extend through registries, roles, events and services.
-- Keep `README.md`, `SPEC.md` and the other docs truthful: describe planned work as planned.
+- Keep `README.md`, `docs/reference/spec.md` and the other docs truthful: describe planned work as planned.
 
 ## Documentation map (keep in sync)
 
 | File | Update it when you change |
 |---|---|
-| `PLUGINS.md` | The public SDK, extension points, lifecycle rules or API signatures |
-| `CONTENT_FORMAT.md` | Any JSON format, content kind, parameter range or the persistence keys |
-| `ARCHITECTURE.md` | Layers, boundaries, ownership, simulation order and systems, rendering, key decisions |
-| `SPEC.md` | Implemented scope, limitations, extension boundaries, reference-game content |
+| `docs/guide/plugins.md` | The public SDK, extension points, lifecycle rules or API signatures |
+| `docs/reference/content-format.md` | Any JSON format, content kind, parameter range or the persistence keys |
+| `docs/reference/architecture.md` | Layers, boundaries, ownership, simulation order and systems, rendering, key decisions |
+| `docs/reference/spec.md` | Implemented scope, limitations, extension boundaries, reference-game content |
 | `README.md` | Commands, controls, presets, layout |
-| `devplan.md` | Milestone status and next steps |
-| `docs/overhead-racing.md`, `docs/turn-tactics.md`, `docs/narrative-adventure.md` | Independent family content formats, controls, progression and family-specific persistence |
-| `docs/stonewake.md` | 3D push-puzzle rules, chamber format, controls, asset use and completion routes |
-| `REUSE.md`, plugin `reuse.json`, `docs/reuse-recipes.json` | Capability scope, search vocabulary, composition recipes, SDK entry points and examples |
-| `REUSE_INDEX.md`, `docs/reuse-index.json` | Generated only: run `npm run index-reuse` after source/catalog/metadata changes |
+| `docs/archive/devplan.md` | Milestone status and next steps |
+| `docs/games/overhead-racing.md`, `docs/games/turn-tactics.md`, `docs/games/narrative-adventure.md` | Independent family content formats, controls, progression and family-specific persistence |
+| `docs/games/stonewake.md` | 3D push-puzzle rules, chamber format, controls, asset use and completion routes |
+| `docs/guide/reuse.md`, plugin `reuse.json`, `docs/reuse-recipes.json` | Capability scope, search vocabulary, composition recipes, SDK entry points and examples |
+| `docs/reference/reuse-index.md`, `docs/reuse-index.json` | Generated only: run `npm run index-reuse` after source/catalog/metadata changes |
 
-When you add or rename a system, update the system tables in `ARCHITECTURE.md`. When you change the arena, weapons or
-enemies, update the reference-game section of `SPEC.md`.
+When you add or rename a system, update the system tables in `docs/reference/architecture.md`. When you change the arena, weapons or
+enemies, update the reference-game section of `docs/reference/spec.md`.
 
 ## Environment notes
 
