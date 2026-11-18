@@ -85,7 +85,7 @@ not full scene picking, and the optional avatar presenter supplies the player bo
 
 ## Evidence
 
-`tests/render-three.test.ts` checks same-context camera replacement and out-of-order lease cleanup. `tests/cinder-vault.test.ts`
+`tests/render-three.test.ts` checks same-context camera replacement and out-of-order lease cleanup. `games/cinder/tests/cinder-vault.test.ts`
 toggles through the public `ViewModes` service while confirming gameplay continues, checks the supported mode list,
 attaches/removes the class avatar Visual and rejects an unknown mode. `tests/cinder-demo/run.mjs` captures the production isometric view, verifies the HUD dataset and
 crosshair state, and returns to first person. The visual check also exercises hidden ceilings, the player floor marker and

@@ -48,7 +48,7 @@ ways, widen build/run variety without replacing the existing systems, and reduce
 
 ## Implementation notes
 
-- `CinderThreats` in `src/plugins/cinder-game/threats.ts` is data, not hidden state. `CinderState` exposes the selected
+- `CinderThreats` in `games/cinder/plugins/cinder-game/threats.ts` is data, not hidden state. `CinderState` exposes the selected
   threat, all threat definitions, the best clear and the AP hover preview.
 - `Elite` is a Cinder-local component. Affixes are applied at spawn and read by the manual enemy turn; the autonomous core
   AI remains suspended by `TurnControl`.

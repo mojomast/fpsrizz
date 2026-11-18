@@ -7,6 +7,6 @@
   "useWhen": "A shooter-family overhead mode needs a visible player body while first-person must stay bodyless.",
   "limitations": ["Needs a consumer to add PlayerAvatar and a ViewModes provider; the selected theme must define the visual key. It only manages a Visual component, not animation graphs, equipment visuals or collision."],
   "docs": ["docs/camera-modes.md"],
-  "examples": ["src/plugins/cinder-game/index.ts", "src/content/presets/cinder-vault.json"],
-  "tests": ["tests/cinder-vault.test.ts", "tests/cinder-demo/run.mjs"]
+  "examples": ["games/cinder/plugins/cinder-game/index.ts", "games/cinder/presets/cinder-vault.json"],
+  "tests": ["games/cinder/tests/cinder-vault.test.ts", "tests/cinder-demo/run.mjs"]
 }

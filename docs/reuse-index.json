@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "175013202b159daffefeb14d08a39b5b5a4123eae4b1f7dd9b68cc2e75febd09",
+  "sourceDigest": "c05258a906a7d0c8f53e480404b21a92f170f5081cd80606f728c23c86f1aa45",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -806,11 +806,11 @@
         "docs/progression.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts"
+        "games/cinder/plugins/cinder-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-progression.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "id": "recipe/experience-levels",
       "name": "XP curves, levels and pending rewards",
@@ -859,12 +859,12 @@
         "docs/inventory.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts",
-        "src/plugins/cinder-content/content.json"
+        "games/cinder/plugins/cinder-game/index.ts",
+        "games/cinder/plugins/cinder-content/content.json"
       ],
       "tests": [
         "tests/mechanics-inventory.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "id": "recipe/stack-inventory",
       "name": "Stack inventory and equipment slots",
@@ -913,12 +913,12 @@
         "docs/crafting.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts",
-        "src/plugins/cinder-content/content.json"
+        "games/cinder/plugins/cinder-game/index.ts",
+        "games/cinder/plugins/cinder-content/content.json"
       ],
       "tests": [
         "tests/mechanics-crafting.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "id": "recipe/known-crafting",
       "name": "Known item recipes and atomic crafting",
@@ -968,12 +968,12 @@
         "docs/weapon-rig.md"
       ],
       "examples": [
-        "src/content/presets/cinder-vault.json",
+        "games/cinder/presets/cinder-vault.json",
         "src/plugins/core-presentation/index.ts"
       ],
       "tests": [
         "tests/render-three.test.ts",
-        "tests/cinder-vault.test.ts",
+        "games/cinder/tests/cinder-vault.test.ts",
         "tests/cinder-demo/run.mjs"
       ],
       "id": "recipe/isometric-camera-toggle",
@@ -1226,7 +1226,7 @@
       "name": "Cinder Vault dungeon content",
       "scope": "content",
       "summary": "Cinder Vault content: seeded dungeon, six-weapon armory, twelve gear/consumable/Ember Shard items, nine forge recipes, seven enemy archetypes, threat caches and turn kit.",
-      "source": "src/plugins/cinder-content",
+      "source": "games/cinder/plugins/cinder-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -1280,10 +1280,10 @@
         "docs/inventory.md"
       ],
       "examples": [
-        "src/content/presets/cinder-vault.json"
+        "games/cinder/presets/cinder-vault.json"
       ],
       "tests": [
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "dependencies": {
         "core/world": "^1.0.0",
@@ -1636,7 +1636,7 @@
       "name": "Cinder Vault roguelite",
       "scope": "family",
       "summary": "Turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, telegraphed enemies, loot/inventory, NPC forge and Oracle bargains, fogged automap/grid, first-person/isometric view, field guide/AP hover preview and persistent mastery.",
-      "source": "src/plugins/cinder-game",
+      "source": "games/cinder/plugins/cinder-game",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -1729,11 +1729,11 @@
         "docs/research/ux-world-features-2026-11-16.md"
       ],
       "examples": [
-        "src/content/presets/cinder-vault.json",
-        "src/plugins/cinder-content/content.json"
+        "games/cinder/presets/cinder-vault.json",
+        "games/cinder/plugins/cinder-content/content.json"
       ],
       "tests": [
-        "tests/cinder-vault.test.ts",
+        "games/cinder/tests/cinder-vault.test.ts",
         "tests/cinder-demo/run.mjs"
       ],
       "dependencies": {
@@ -1937,7 +1937,7 @@
       "name": "Cinder Vault illustrated HUD",
       "scope": "presentation",
       "summary": "Cinder turn-based HUD: class/threat selection and transitions, field guide, first-person/isometric view badge, automap/tactical grid, action points/intents, AP hover preview, pack filters/drop, forge, NPC dialogue, boons and weapons.",
-      "source": "src/plugins/cinder-hud",
+      "source": "games/cinder/plugins/cinder-hud",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -1992,10 +1992,10 @@
         "docs/research/difficulty-replayability-qol-2026-11-16.md"
       ],
       "examples": [
-        "src/content/presets/cinder-vault.json"
+        "games/cinder/presets/cinder-vault.json"
       ],
       "tests": [
-        "tests/cinder-vault.test.ts",
+        "games/cinder/tests/cinder-vault.test.ts",
         "tests/cinder-demo/run.mjs"
       ],
       "dependencies": {
@@ -4453,12 +4453,12 @@
         "docs/dungeon-generator.md"
       ],
       "examples": [
-        "src/plugins/cinder-content/content.json",
-        "src/content/presets/cinder-vault.json"
+        "games/cinder/plugins/cinder-content/content.json",
+        "games/cinder/presets/cinder-vault.json"
       ],
       "tests": [
         "tests/dungeon-generator.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "dependencies": {
         "core/world": "^1.0.0"
@@ -7528,12 +7528,12 @@
         "docs/crafting.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts",
-        "src/plugins/cinder-content/content.json"
+        "games/cinder/plugins/cinder-game/index.ts",
+        "games/cinder/plugins/cinder-content/content.json"
       ],
       "tests": [
         "tests/mechanics-crafting.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -7783,12 +7783,12 @@
         "docs/inventory.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts",
-        "src/plugins/cinder-content/content.json"
+        "games/cinder/plugins/cinder-game/index.ts",
+        "games/cinder/plugins/cinder-content/content.json"
       ],
       "tests": [
         "tests/mechanics-inventory.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -8577,11 +8577,11 @@
         "docs/progression.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts"
+        "games/cinder/plugins/cinder-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-progression.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -10051,11 +10051,11 @@
         "docs/cinder-vault.md"
       ],
       "examples": [
-        "src/content/presets/cinder-vault.json",
+        "games/cinder/presets/cinder-vault.json",
         "src/plugins/core-presentation/index.ts"
       ],
       "tests": [
-        "tests/cinder-vault.test.ts",
+        "games/cinder/tests/cinder-vault.test.ts",
         "tests/render-three.test.ts",
         "tests/cinder-demo/run.mjs"
       ],
@@ -10207,11 +10207,11 @@
         "docs/camera-modes.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts",
-        "src/content/presets/cinder-vault.json"
+        "games/cinder/plugins/cinder-game/index.ts",
+        "games/cinder/presets/cinder-vault.json"
       ],
       "tests": [
-        "tests/cinder-vault.test.ts",
+        "games/cinder/tests/cinder-vault.test.ts",
         "tests/cinder-demo/run.mjs"
       ],
       "dependencies": {},
@@ -11689,13 +11689,13 @@
         "docs/hollowmere.md"
       ],
       "examples": [
-        "src/content/presets/cinder-vault.json",
+        "games/cinder/presets/cinder-vault.json",
         "src/content/presets/hollowmere-ascent.json",
         "src/plugins/core-presentation/index.ts"
       ],
       "tests": [
         "tests/cinder-demo/run.mjs",
-        "tests/cinder-vault.test.ts",
+        "games/cinder/tests/cinder-vault.test.ts",
         "tests/hollowmere-demo/run.mjs",
         "tests/hollowmere.test.ts"
       ],
@@ -13279,35 +13279,6 @@
       "implementations": [
         "portfolio-cards/piles"
       ]
-    },
-    {
-      "id": "sdk/Cinder",
-      "type": "contract",
-      "name": "Cinder",
-      "scope": "contract",
-      "summary": "Public SDK value: cinder/run",
-      "importFrom": "src/sdk/index.ts",
-      "token": "cinder/run",
-      "source": "src/sdk/contracts/cinder.ts:196",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Cinder",
-        "cinder/run"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "cinder/game",
-        "cinder/hud"
-      ],
-      "recipes": [],
-      "implementations": []
     },
     {
       "id": "sdk/clockMechanic",
@@ -17737,6 +17708,36 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/cinder/Cinder",
+      "type": "contract",
+      "name": "Cinder",
+      "scope": "contract",
+      "summary": "Game-family contract value: cinder/run",
+      "importFrom": "games/cinder/contracts/cinder.ts",
+      "token": "cinder/run",
+      "source": "games/cinder/contracts/cinder.ts:196",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Cinder",
+        "cinder",
+        "cinder/run"
+      ],
+      "useWhen": "Game-specific contract of the cinder family; plugins in games/cinder/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the cinder family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "cinder/game",
+        "cinder/hud"
+      ],
       "recipes": [],
       "implementations": []
     },

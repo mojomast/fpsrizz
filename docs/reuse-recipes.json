@@ -655,11 +655,11 @@
         "docs/progression.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts"
+        "games/cinder/plugins/cinder-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-progression.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "plugins": [
         "mechanics/progression"
@@ -706,12 +706,12 @@
         "docs/inventory.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts",
-        "src/plugins/cinder-content/content.json"
+        "games/cinder/plugins/cinder-game/index.ts",
+        "games/cinder/plugins/cinder-content/content.json"
       ],
       "tests": [
         "tests/mechanics-inventory.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "plugins": [
         "mechanics/inventory"
@@ -758,12 +758,12 @@
         "docs/crafting.md"
       ],
       "examples": [
-        "src/plugins/cinder-game/index.ts",
-        "src/plugins/cinder-content/content.json"
+        "games/cinder/plugins/cinder-game/index.ts",
+        "games/cinder/plugins/cinder-content/content.json"
       ],
       "tests": [
         "tests/mechanics-crafting.test.ts",
-        "tests/cinder-vault.test.ts"
+        "games/cinder/tests/cinder-vault.test.ts"
       ],
       "plugins": [
         "mechanics/inventory",
@@ -811,12 +811,12 @@
         "docs/weapon-rig.md"
       ],
       "examples": [
-        "src/content/presets/cinder-vault.json",
+        "games/cinder/presets/cinder-vault.json",
         "src/plugins/core-presentation/index.ts"
       ],
       "tests": [
         "tests/render-three.test.ts",
-        "tests/cinder-vault.test.ts",
+        "games/cinder/tests/cinder-vault.test.ts",
         "tests/cinder-demo/run.mjs"
       ],
       "plugins": [

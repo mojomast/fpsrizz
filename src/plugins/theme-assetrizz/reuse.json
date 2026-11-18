@@ -51,13 +51,13 @@
     "docs/hollowmere.md"
   ],
   "examples": [
-    "src/content/presets/cinder-vault.json",
+    "games/cinder/presets/cinder-vault.json",
     "src/content/presets/hollowmere-ascent.json",
     "src/plugins/core-presentation/index.ts"
   ],
   "tests": [
     "tests/cinder-demo/run.mjs",
-    "tests/cinder-vault.test.ts",
+    "games/cinder/tests/cinder-vault.test.ts",
     "tests/hollowmere-demo/run.mjs",
     "tests/hollowmere.test.ts"
   ]

@@ -1,5 +1,6 @@
-import { Cinder, HudRole, Inventory, Player, Transform, Ui, ViewModes, WeaponRuntime, Weapons, angleDelta, definePlugin } from '../../sdk/index.ts';
-import type { CinderMapView } from '../../sdk/index.ts';
+import { HudRole, Inventory, Player, Transform, Ui, ViewModes, WeaponRuntime, Weapons, angleDelta, definePlugin } from '../../../../src/sdk/index.ts';
+import { Cinder } from '../../contracts/cinder.ts';
+import type { CinderMapView } from '../../contracts/cinder.ts';
 import { css } from './style.ts';
 
 export default definePlugin({ register(ctx) {

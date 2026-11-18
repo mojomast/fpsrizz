@@ -1,24 +1,25 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import assetConfig from '../scripts/assetrizz.json' with { type: 'json' };
-import previewConfig from '../scripts/weapon-previews.json' with { type: 'json' };
-import previews from '../public/weapons/provenance.json' with { type: 'json' };
-import content from '../src/plugins/cinder-content/content.json' with { type: 'json' };
-import contentManifest from '../src/plugins/cinder-content/manifest.json' with { type: 'json' };
-import { catalog } from '../src/app/catalog.ts';
-import preset from '../src/content/presets/cinder-vault.json' with { type: 'json' };
-import { cinderArsenal } from '../src/plugins/cinder-game/arsenal.ts';
-import { CinderClasses } from '../src/plugins/cinder-game/classes.ts';
-import type { CinderClassId } from '../src/plugins/cinder-game/classes.ts';
-import { weaponTextures as cinderWeapons } from '../src/plugins/theme-assetrizz/cinder-weapons.ts';
-import { AiBehaviors, Cinder, Combat, Enemies, Enemy, Flow, Health, Inventory, MechanicProgressionChanged,
-  MechanicResourcesChanged, Pickup, Player, PlayerAvatar, Profile, SessionControl, Transform, ViewModeChanged, ViewModes, Visual, WeaponRuntime, Weapons, World, definePlugin, yawOf } from '../src/sdk/index.ts';
-import type { CinderCommand, ProfileService } from '../src/sdk/index.ts';
-import { coreCatalog, createHeadlessGame } from './helpers/game.ts';
-import { createProfileStore } from '../src/platform/profile-store.ts';
-import { ALTERNATE, alternateEntry } from './helpers/alternate-resources.ts';
-import { progressionProviders } from './helpers/alternate-progression.ts';
+import assetConfig from '../../../scripts/assetrizz.json' with { type: 'json' };
+import previewConfig from '../../../scripts/weapon-previews.json' with { type: 'json' };
+import previews from '../../../public/weapons/provenance.json' with { type: 'json' };
+import content from '../plugins/cinder-content/content.json' with { type: 'json' };
+import contentManifest from '../plugins/cinder-content/manifest.json' with { type: 'json' };
+import { catalog } from '../../../src/app/catalog.ts';
+import preset from '../presets/cinder-vault.json' with { type: 'json' };
+import { cinderArsenal } from '../plugins/cinder-game/arsenal.ts';
+import { CinderClasses } from '../plugins/cinder-game/classes.ts';
+import type { CinderClassId } from '../plugins/cinder-game/classes.ts';
+import { weaponTextures as cinderWeapons } from '../../../src/plugins/theme-assetrizz/cinder-weapons.ts';
+import { AiBehaviors, Combat, Enemies, Enemy, Flow, Health, Inventory, MechanicProgressionChanged, MechanicResourcesChanged, Pickup, Player, PlayerAvatar, Profile, SessionControl, Transform, ViewModeChanged, ViewModes, Visual, WeaponRuntime, Weapons, World, definePlugin, yawOf } from '../../../src/sdk/index.ts';
+import { Cinder } from '../contracts/cinder.ts';
+import type { ProfileService } from '../../../src/sdk/index.ts';
+import type { CinderCommand } from '../contracts/cinder.ts';
+import { coreCatalog, createHeadlessGame } from '../../../tests/helpers/game.ts';
+import { createProfileStore } from '../../../src/platform/profile-store.ts';
+import { ALTERNATE, alternateEntry } from '../../../tests/helpers/alternate-resources.ts';
+import { progressionProviders } from '../../../tests/helpers/alternate-progression.ts';
 
 async function setup(seed = 27841, options: { profile?: ProfileService; resources?: boolean; progression?: boolean; classId?: CinderClassId | null; threatId?: string } = {}) {
   const control = { playing: true };

@@ -1,4 +1,4 @@
-import type { CinderRelic } from '../../sdk/index.ts';
+import type { CinderRelic } from '../../contracts/cinder.ts';
 
 export const relics: readonly CinderRelic[] = Object.freeze([
   { id: 'power', name: 'Oath of the Blade', description: '+25% weapon and pulse damage. Let the vault remember your name.', icon: 'cinder-power' },

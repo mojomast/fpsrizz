@@ -1,4 +1,4 @@
-import { defineService } from '../core.ts';
+import { defineService } from '../../../src/sdk/index.ts';
 
 export type CinderRelicId = 'power' | 'vitality' | 'shell' | 'siphon' | 'pulse' | 'bounty' | 'execution' | 'emberheart' | 'shardfinder' | 'warpath';
 export interface CinderRelic {

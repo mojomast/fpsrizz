@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `175013202b159daffefeb14d08a39b5b5a4123eae4b1f7dd9b68cc2e75febd09`
+Source digest: `c05258a906a7d0c8f53e480404b21a92f170f5081cd80606f728c23c86f1aa45`
 
 ## Composition recipes
 
@@ -39,9 +39,9 @@ Source digest: `175013202b159daffefeb14d08a39b5b5a4123eae4b1f7dd9b68cc2e75febd09
 | `board/mission` | content | A compact authored tactical encounter. | [source](src/plugins/board-mission) |
 | `board/presentation` | unreviewed | Orthographic board and tactical command interface. | [source](src/plugins/board-presentation) |
 | `board/tactics` | family | Turn-tactics authority composing selected graph reachability with local occupancy, AP spending, attacks and deterministic enemy turns. | [source](src/plugins/board-tactics) |
-| `cinder/content` | content | Cinder Vault content: seeded dungeon, six-weapon armory, twelve gear/consumable/Ember Shard items, nine forge recipes, seven enemy archetypes, threat caches and turn kit. | [source](src/plugins/cinder-content) |
-| `cinder/game` | family | Turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, telegraphed enemies, loot/inventory, NPC forge and Oracle bargains, fogged automap/grid, first-person/isometric view, field guide/AP hover preview and persistent mastery. | [source](src/plugins/cinder-game) |
-| `cinder/hud` | presentation | Cinder turn-based HUD: class/threat selection and transitions, field guide, first-person/isometric view badge, automap/tactical grid, action points/intents, AP hover preview, pack filters/drop, forge, NPC dialogue, boons and weapons. | [source](src/plugins/cinder-hud) |
+| `cinder/content` | content | Cinder Vault content: seeded dungeon, six-weapon armory, twelve gear/consumable/Ember Shard items, nine forge recipes, seven enemy archetypes, threat caches and turn kit. | [source](games/cinder/plugins/cinder-content) |
+| `cinder/game` | family | Turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, telegraphed enemies, loot/inventory, NPC forge and Oracle bargains, fogged automap/grid, first-person/isometric view, field guide/AP hover preview and persistent mastery. | [source](games/cinder/plugins/cinder-game) |
+| `cinder/hud` | presentation | Cinder turn-based HUD: class/threat selection and transitions, field guide, first-person/isometric view badge, automap/tactical grid, action points/intents, AP hover preview, pack filters/drop, forge, NPC dialogue, boons and weapons. | [source](games/cinder/plugins/cinder-hud) |
 | `common/content` | content | Original Common Ground residents, visitors and furnishings. | [source](src/plugins/common-ground-content) |
 | `common/game` | family | Turn-based household simulation with editable house lot, furnishing placement, needs, careers and relationships. | [source](src/plugins/common-ground-game) |
 | `common/presentation` | presentation | Responsive dollhouse and accessible controls for the Common Ground household. | [source](src/plugins/common-ground-presentation) |
@@ -165,7 +165,6 @@ Source digest: `175013202b159daffefeb14d08a39b5b5a4123eae4b1f7dd9b68cc2e75febd09
 | `sdk/cardPilesMechanic` | contract | Public helper/class | [source](src/sdk/contracts/portfolio-cards.ts#L18) |
 | `sdk/CardPilesProviders` | contract | Public SDK value: portfolio-card-piles-provider | [source](src/sdk/contracts/portfolio-cards.ts#L16) |
 | `sdk/CardPilesRole` | contract | Public SDK value: sdk/portfolio-card-piles | [source](src/sdk/contracts/portfolio-cards.ts#L17) |
-| `sdk/Cinder` | contract | Public SDK value: cinder/run | [source](src/sdk/contracts/cinder.ts#L196) |
 | `sdk/clockMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L132) |
 | `sdk/ClockMechanicRole` | contract | Public SDK value: sdk/mechanic-clock | [source](src/sdk/contracts/mechanics.ts#L101) |
 | `sdk/Collider` | contract | Public SDK value: sdk/collider | [source](src/sdk/contracts/shooter.ts#L36) |
@@ -319,6 +318,7 @@ Source digest: `175013202b159daffefeb14d08a39b5b5a4123eae4b1f7dd9b68cc2e75febd09
 | `sdk/yawDirX` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L722) |
 | `sdk/yawDirZ` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L723) |
 | `sdk/yawOf` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L725) |
+| `games/cinder/Cinder` | contract | Game-family contract value: cinder/run | [source](games/cinder/contracts/cinder.ts#L196) |
 | `games/ember/Ember` | contract | Game-family contract value: ember/bastion | [source](games/ember/contracts/ember.ts#L52) |
 | `games/ember/EmberConfigs` | contract | Game-family contract value: ember-defense | [source](games/ember/contracts/ember.ts#L18) |
 | `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](games/sky/contracts/sky.ts#L16) |

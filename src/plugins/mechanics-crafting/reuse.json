@@ -28,11 +28,11 @@
     "docs/crafting.md"
   ],
   "examples": [
-    "src/plugins/cinder-game/index.ts",
-    "src/plugins/cinder-content/content.json"
+    "games/cinder/plugins/cinder-game/index.ts",
+    "games/cinder/plugins/cinder-content/content.json"
   ],
   "tests": [
     "tests/mechanics-crafting.test.ts",
-    "tests/cinder-vault.test.ts"
+    "games/cinder/tests/cinder-vault.test.ts"
   ]
 }

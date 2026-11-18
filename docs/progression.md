@@ -75,13 +75,13 @@ reserved. Restart creates a fresh provider and fresh ledgers.
 | Evidence | Cases |
 |---|---|
 | `tests/mechanics-progression.test.ts` | Default and independent counted-total providers; initial state; single/multi-level grants; queued pending rewards; max cap; invalid amounts/definitions; pause; frozen definitions; owner isolation; both scopes; ID reuse; restart |
-| `tests/cinder-vault.test.ts` | In-level level-up while enemies remain and weapon fire continues; boon selection; queued offers; full three-depth victory under the independent progression provider |
+| `games/cinder/tests/cinder-vault.test.ts` | In-level level-up while enemies remain and weapon fire continues; boon selection; queued offers; full three-depth victory under the independent progression provider |
 | `tests/helpers/alternate-progression.ts` | Independent algorithm derives level/pending from one accepted-XP total rather than duplicating the production loop |
 
 Focused command:
 
 ```sh
-node --test tests/mechanics-progression.test.ts tests/cinder-vault.test.ts
+node --test tests/mechanics-progression.test.ts games/cinder/tests/cinder-vault.test.ts
 ```
 
 See also [reuse discovery](../REUSE.md), [reusable mechanics](reusable-mechanics.md), [Cinder Vault](cinder-vault.md) and

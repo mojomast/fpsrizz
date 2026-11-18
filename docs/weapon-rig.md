@@ -25,5 +25,5 @@ changed.
 ## Evidence
 
 `tests/cinder-demo/run.mjs` captures the production first-person view after the rig change. The isometric screenshot
-verifies the weapon is hidden in overhead mode. `tests/cinder-vault.test.ts` retains the AP/fire behavior tests; the rig is
+verifies the weapon is hidden in overhead mode. `games/cinder/tests/cinder-vault.test.ts` retains the AP/fire behavior tests; the rig is
 presentation-only.

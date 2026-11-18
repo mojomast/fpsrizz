@@ -286,7 +286,7 @@ thumbnails and `public/weapons/provenance.json` (`--check` verifies them). Weapo
 `tests/mechanics-progression.test.ts` exercises the default and independent counted-total progression providers.
 `tests/mechanics-inventory.test.ts` covers stack capacity, atomic add/remove, gear swaps, full-bag rejection, pause,
 ownership and restart. `tests/dungeon-generator.test.ts` verifies layouts, connectivity, markers and recipe rejection.
-`tests/cinder-vault.test.ts` covers class and threat selection, threat health scaling, guaranteed Ashbound elites, boss
+`games/cinder/tests/cinder-vault.test.ts` covers class and threat selection, threat health scaling, guaranteed Ashbound elites, boss
 enrage, the new enemy/`cinder/manual` registrations, the Oracle blood pact, field-guide blocking, one-tile action-point
 turns, suspended autonomous AI, enemy intent and damage, inventory consumption/equipment, in-level level-up, weapon caches,
 all three depths, the Keeper, validation, pause/death/profile/restart and pulse legality under default and independent

@@ -32,7 +32,7 @@ import stonewakePreset from '../content/presets/stonewake.json' with { type: 'js
 import skyPreset from '../../games/sky/presets/sky-salvage.json' with { type: 'json' };
 import emberPreset from '../../games/ember/presets/ember-bastion.json' with { type: 'json' };
 import verdantPreset from '../../games/verdant/presets/verdant-relay.json' with { type: 'json' };
-import cinderPreset from '../content/presets/cinder-vault.json' with { type: 'json' };
+import cinderPreset from '../../games/cinder/presets/cinder-vault.json' with { type: 'json' };
 import hollowmerePreset from '../content/presets/hollowmere-ascent.json' with { type: 'json' };
 import portfolioAtelierPreset from '../content/presets/portfolio-atelier-puzzle.json' with { type: 'json' };
 import portfolioWatchPreset from '../content/presets/portfolio-watch-puzzle.json' with { type: 'json' };

@@ -61,5 +61,5 @@ drop-by-one (Cinder binds it to Delete), a forge panel and NPC services.
 ## Evidence
 
 `tests/mechanics-inventory.test.ts` covers stack filling/capacity rejection, atomic remove, unknown items, pause, equipment
-swaps and full-bag rejection, early/provider disposal and restart. `tests/cinder-vault.test.ts` covers the Cinder bag,
+swaps and full-bag rejection, early/provider disposal and restart. `games/cinder/tests/cinder-vault.test.ts` covers the Cinder bag,
 consumable action cost, gear drops/equipment and persistent class mastery.

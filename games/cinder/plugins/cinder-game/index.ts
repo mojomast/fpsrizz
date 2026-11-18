@@ -1,15 +1,7 @@
-import {
-  AiBehaviors, AmmoTypes, AttackFired, Cinder, Collider, Combat, ControllerRole, CraftingMechanicRole, CraftingProviders, CraftingRecipes, DamageModifiers, Died, Enemies, Enemy, ExperienceRole, Flow,
-  Health, Impact, Input, InputActions, Interactions, Intent, Inventory, InventoryMechanicRole, InventoryProviders, Items, Maps, MechanicKits, ModeRole,
-  Pickups, Player, PlayerAvatar, Prefabs, Profile, ProgressionMechanicRole, ProgressionProviders, SessionControl, Settings, Transform, TurnControl,
-  ViewModes, Visual, Weapons, WeaponRuntime, World, craftingMechanic, createCommandQueue, createMechanicKit, defineComponent, definePlugin, inventoryMechanic, isObject, makeTransform,
-  progressionMechanic, spawnPrefab, yawDirX, yawDirZ, yawOf,
-} from '../../sdk/index.ts';
-import type {
-  CinderCommand, CinderDialogueOption, CinderDialogueView, CinderHover, CinderInventoryFilter, CinderItemView, CinderMapMarker,
-  CinderMapView, CinderOffer, CinderRecipeView, CinderRelicId, CinderState, CinderThreatId, CinderThreatView, CinderWeaponOffer, EnemyDef, EntityId,
-  InventoryHandle, SessionContext,
-} from '../../sdk/index.ts';
+import { AiBehaviors, AmmoTypes, AttackFired, Collider, Combat, ControllerRole, CraftingMechanicRole, CraftingProviders, CraftingRecipes, DamageModifiers, Died, Enemies, Enemy, ExperienceRole, Flow, Health, Impact, Input, InputActions, Interactions, Intent, Inventory, InventoryMechanicRole, InventoryProviders, Items, Maps, MechanicKits, ModeRole, Pickups, Player, PlayerAvatar, Prefabs, Profile, ProgressionMechanicRole, ProgressionProviders, SessionControl, Settings, Transform, TurnControl, ViewModes, Visual, Weapons, WeaponRuntime, World, craftingMechanic, createCommandQueue, createMechanicKit, defineComponent, definePlugin, inventoryMechanic, isObject, makeTransform, progressionMechanic, spawnPrefab, yawDirX, yawDirZ, yawOf } from '../../../../src/sdk/index.ts';
+import { Cinder } from '../../contracts/cinder.ts';
+import type { EnemyDef, EntityId, InventoryHandle, SessionContext } from '../../../../src/sdk/index.ts';
+import type { CinderCommand, CinderDialogueOption, CinderDialogueView, CinderHover, CinderInventoryFilter, CinderItemView, CinderMapMarker, CinderMapView, CinderOffer, CinderRecipeView, CinderRelicId, CinderState, CinderThreatId, CinderThreatView, CinderWeaponOffer } from '../../contracts/cinder.ts';
 import { cinderArsenal, weaponView } from './arsenal.ts';
 import { CinderClasses, classById, masteryBonuses, masteryNext, masteryRank } from './classes.ts';
 import type { CinderClassDefinition, CinderClassId } from './classes.ts';

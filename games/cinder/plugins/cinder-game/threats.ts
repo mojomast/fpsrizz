@@ -1,4 +1,4 @@
-import type { CinderThreatId, CinderThreatView } from '../../sdk/index.ts';
+import type { CinderThreatId, CinderThreatView } from '../../contracts/cinder.ts';
 
 export const CinderThreats: readonly CinderThreatView[] = Object.freeze([
   Object.freeze({

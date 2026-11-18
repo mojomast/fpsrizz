@@ -85,5 +85,5 @@ to spawn it, so it is safe as a validation placeholder.
 
 `tests/dungeon-generator.test.ts` covers deterministic same-seed output, different-seed variation, one-wing and
 three-wing maps, sealed borders, room-marker connectivity per wing, role/descent markers, declared points in free space,
-and invalid recipes (room count, wing count, dimensions and seed). `tests/cinder-vault.test.ts` composes the generated map
+and invalid recipes (room count, wing count, dimensions and seed). `games/cinder/tests/cinder-vault.test.ts` composes the generated map
 with three populated depths and transitions.

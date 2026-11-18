@@ -27,11 +27,11 @@
     "docs/cinder-vault.md"
   ],
   "examples": [
-    "src/content/presets/cinder-vault.json",
+    "games/cinder/presets/cinder-vault.json",
     "src/plugins/core-presentation/index.ts"
   ],
   "tests": [
-    "tests/cinder-vault.test.ts",
+    "games/cinder/tests/cinder-vault.test.ts",
     "tests/render-three.test.ts",
     "tests/cinder-demo/run.mjs"
   ]

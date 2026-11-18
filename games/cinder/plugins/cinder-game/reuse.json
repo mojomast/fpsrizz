@@ -90,11 +90,11 @@
     "docs/research/ux-world-features-2026-11-16.md"
   ],
   "examples": [
-    "src/content/presets/cinder-vault.json",
-    "src/plugins/cinder-content/content.json"
+    "games/cinder/presets/cinder-vault.json",
+    "games/cinder/plugins/cinder-content/content.json"
   ],
   "tests": [
-    "tests/cinder-vault.test.ts",
+    "games/cinder/tests/cinder-vault.test.ts",
     "tests/cinder-demo/run.mjs"
   ]
 }

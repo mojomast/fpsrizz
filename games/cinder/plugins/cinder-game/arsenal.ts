@@ -1,4 +1,4 @@
-import type { CinderWeapon } from '../../sdk/index.ts';
+import type { CinderWeapon } from '../../contracts/cinder.ts';
 
 /** Presentation metadata for the six-weapon armory. Gameplay names, slots and attack stats remain content-defined. */
 export interface CinderArsenalEntry {

@@ -80,7 +80,7 @@ The CLI uses the generated `docs/reuse-index.json` catalog and supports:
 
 ```bash
 npm run graph -- plugins
-npm run graph -- from-preset src/content/presets/cinder-vault.json --out /tmp/cinder.graph.json
+npm run graph -- from-preset games/cinder/presets/cinder-vault.json --out /tmp/cinder.graph.json
 npm run graph -- validate /tmp/cinder.graph.json
 npm run graph -- to-preset /tmp/cinder.graph.json --out /tmp/cinder.preset.json
 npm run graph -- layout /tmp/cinder.graph.json --out /tmp/cinder.graph.json

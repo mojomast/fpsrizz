@@ -52,10 +52,10 @@
     "docs/research/difficulty-replayability-qol-2026-11-16.md"
   ],
   "examples": [
-    "src/content/presets/cinder-vault.json"
+    "games/cinder/presets/cinder-vault.json"
   ],
   "tests": [
-    "tests/cinder-vault.test.ts",
+    "games/cinder/tests/cinder-vault.test.ts",
     "tests/cinder-demo/run.mjs"
   ]
 }

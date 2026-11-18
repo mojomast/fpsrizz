@@ -5,124 +5,124 @@ import p0 from '../plugins/board-mission/manifest.json' with { type: 'json' };
 import p0c from '../plugins/board-mission/content.json' with { type: 'json' };
 import p1 from '../plugins/board-presentation/manifest.json' with { type: 'json' };
 import p2 from '../plugins/board-tactics/manifest.json' with { type: 'json' };
-import p3 from '../plugins/cinder-content/manifest.json' with { type: 'json' };
-import p3c from '../plugins/cinder-content/content.json' with { type: 'json' };
-import p4 from '../plugins/cinder-game/manifest.json' with { type: 'json' };
-import p5 from '../plugins/cinder-hud/manifest.json' with { type: 'json' };
-import p6 from '../plugins/common-ground-content/manifest.json' with { type: 'json' };
-import p6c from '../plugins/common-ground-content/content.json' with { type: 'json' };
-import p7 from '../plugins/common-ground-game/manifest.json' with { type: 'json' };
-import p8 from '../plugins/common-ground-presentation/manifest.json' with { type: 'json' };
-import p9 from '../plugins/core-combat/manifest.json' with { type: 'json' };
-import p10 from '../plugins/core-content/manifest.json' with { type: 'json' };
-import p10c from '../plugins/core-content/content.json' with { type: 'json' };
-import p11 from '../plugins/core-enemies/manifest.json' with { type: 'json' };
-import p12 from '../plugins/core-hud/manifest.json' with { type: 'json' };
-import p13 from '../plugins/core-modes/manifest.json' with { type: 'json' };
-import p14 from '../plugins/core-player/manifest.json' with { type: 'json' };
-import p15 from '../plugins/core-presentation/manifest.json' with { type: 'json' };
-import p16 from '../plugins/core-world/manifest.json' with { type: 'json' };
-import p17 from '../plugins/dungeon-generator/manifest.json' with { type: 'json' };
-import p18 from '../plugins/example-adventure-pack/manifest.json' with { type: 'json' };
-import p18c from '../plugins/example-adventure-pack/content.json' with { type: 'json' };
-import p19 from '../plugins/example-arena/manifest.json' with { type: 'json' };
-import p20 from '../plugins/example-dash-controller/manifest.json' with { type: 'json' };
-import p21 from '../plugins/example-escape/manifest.json' with { type: 'json' };
-import p22 from '../plugins/example-extraction/manifest.json' with { type: 'json' };
-import p23 from '../plugins/example-extraction-map/manifest.json' with { type: 'json' };
-import p23c from '../plugins/example-extraction-map/content.json' with { type: 'json' };
-import p24 from '../plugins/example-holdout/manifest.json' with { type: 'json' };
-import p25 from '../plugins/example-hud/manifest.json' with { type: 'json' };
-import p26 from '../plugins/example-key-dungeon/manifest.json' with { type: 'json' };
-import p26c from '../plugins/example-key-dungeon/content.json' with { type: 'json' };
-import p27 from '../plugins/example-keys/manifest.json' with { type: 'json' };
-import p28 from '../plugins/example-pack/manifest.json' with { type: 'json' };
-import p28c from '../plugins/example-pack/content.json' with { type: 'json' };
-import p29 from '../plugins/example-race-track/manifest.json' with { type: 'json' };
-import p29c from '../plugins/example-race-track/content.json' with { type: 'json' };
-import p30 from '../plugins/example-racing/manifest.json' with { type: 'json' };
-import p31 from '../plugins/example-ricochet/manifest.json' with { type: 'json' };
-import p32 from '../plugins/example-roguelite/manifest.json' with { type: 'json' };
-import p33 from '../plugins/example-stealth/manifest.json' with { type: 'json' };
-import p34 from '../plugins/example-stealth-map/manifest.json' with { type: 'json' };
-import p34c from '../plugins/example-stealth-map/content.json' with { type: 'json' };
-import p35 from '../plugins/example-survival/manifest.json' with { type: 'json' };
-import p36 from '../plugins/example-tactical-pack/manifest.json' with { type: 'json' };
-import p36c from '../plugins/example-tactical-pack/content.json' with { type: 'json' };
-import p37 from '../plugins/example-time-trial/manifest.json' with { type: 'json' };
-import p38 from '../plugins/example-ward/manifest.json' with { type: 'json' };
-import p39 from '../plugins/expedition-assist/manifest.json' with { type: 'json' };
-import p40 from '../plugins/hollowmere-content/manifest.json' with { type: 'json' };
-import p40c from '../plugins/hollowmere-content/content.json' with { type: 'json' };
-import p41 from '../plugins/hollowmere-game/manifest.json' with { type: 'json' };
-import p42 from '../plugins/hollowmere-presentation/manifest.json' with { type: 'json' };
-import p43 from '../plugins/mechanics-actions/manifest.json' with { type: 'json' };
-import p44 from '../plugins/mechanics-capabilities/manifest.json' with { type: 'json' };
-import p45 from '../plugins/mechanics-clock/manifest.json' with { type: 'json' };
-import p46 from '../plugins/mechanics-conditions/manifest.json' with { type: 'json' };
-import p47 from '../plugins/mechanics-crafting/manifest.json' with { type: 'json' };
-import p48 from '../plugins/mechanics-hints/manifest.json' with { type: 'json' };
-import p49 from '../plugins/mechanics-inventory/manifest.json' with { type: 'json' };
-import p50 from '../plugins/mechanics-kits/manifest.json' with { type: 'json' };
-import p51 from '../plugins/mechanics-navigation/manifest.json' with { type: 'json' };
-import p52 from '../plugins/mechanics-objectives/manifest.json' with { type: 'json' };
-import p53 from '../plugins/mechanics-outcome-rating/manifest.json' with { type: 'json' };
-import p54 from '../plugins/mechanics-platforming/manifest.json' with { type: 'json' };
-import p55 from '../plugins/mechanics-progression/manifest.json' with { type: 'json' };
-import p56 from '../plugins/mechanics-relationships/manifest.json' with { type: 'json' };
-import p57 from '../plugins/mechanics-resources/manifest.json' with { type: 'json' };
-import p58 from '../plugins/mechanics-room-map/manifest.json' with { type: 'json' };
-import p59 from '../plugins/mechanics-sequence/manifest.json' with { type: 'json' };
-import p60 from '../plugins/portfolio-archive-adventure/manifest.json' with { type: 'json' };
-import p60c from '../plugins/portfolio-archive-adventure/content.json' with { type: 'json' };
-import p61 from '../plugins/portfolio-assist/manifest.json' with { type: 'json' };
-import p62 from '../plugins/portfolio-atelier-puzzle/manifest.json' with { type: 'json' };
-import p62c from '../plugins/portfolio-atelier-puzzle/content.json' with { type: 'json' };
-import p63 from '../plugins/portfolio-breach-tactics/manifest.json' with { type: 'json' };
-import p63c from '../plugins/portfolio-breach-tactics/content.json' with { type: 'json' };
-import p64 from '../plugins/portfolio-cards-ash/manifest.json' with { type: 'json' };
-import p65 from '../plugins/portfolio-cards-cloud/manifest.json' with { type: 'json' };
-import p66 from '../plugins/portfolio-cards-piles/manifest.json' with { type: 'json' };
-import p67 from '../plugins/portfolio-cards-presentation/manifest.json' with { type: 'json' };
-import p68 from '../plugins/portfolio-crossfire-tactics/manifest.json' with { type: 'json' };
-import p68c from '../plugins/portfolio-crossfire-tactics/content.json' with { type: 'json' };
-import p69 from '../plugins/portfolio-orchard-adventure/manifest.json' with { type: 'json' };
-import p69c from '../plugins/portfolio-orchard-adventure/content.json' with { type: 'json' };
-import p70 from '../plugins/portfolio-racing/manifest.json' with { type: 'json' };
-import p70c from '../plugins/portfolio-racing/content.json' with { type: 'json' };
-import p71 from '../plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
-import p71c from '../plugins/portfolio-sky-resource/content.json' with { type: 'json' };
-import p72 from '../plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
-import p72c from '../plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
-import p73 from '../plugins/portfolio-watch-puzzle/manifest.json' with { type: 'json' };
-import p73c from '../plugins/portfolio-watch-puzzle/content.json' with { type: 'json' };
-import p74 from '../plugins/presentation-camera-modes/manifest.json' with { type: 'json' };
-import p75 from '../plugins/presentation-player-avatar/manifest.json' with { type: 'json' };
-import p76 from '../plugins/puzzle-chambers/manifest.json' with { type: 'json' };
-import p76c from '../plugins/puzzle-chambers/content.json' with { type: 'json' };
-import p77 from '../plugins/puzzle-presentation/manifest.json' with { type: 'json' };
-import p78 from '../plugins/puzzle-rules/manifest.json' with { type: 'json' };
-import p79 from '../plugins/salt-rpg-content/manifest.json' with { type: 'json' };
-import p79c from '../plugins/salt-rpg-content/content.json' with { type: 'json' };
-import p80 from '../plugins/salt-rpg-game/manifest.json' with { type: 'json' };
-import p81 from '../plugins/salt-rpg-presentation/manifest.json' with { type: 'json' };
-import p82 from '../plugins/silt-content/manifest.json' with { type: 'json' };
-import p82c from '../plugins/silt-content/content.json' with { type: 'json' };
-import p83 from '../plugins/silt-game/manifest.json' with { type: 'json' };
-import p84 from '../plugins/silt-presentation/manifest.json' with { type: 'json' };
-import p85 from '../plugins/story-adventure/manifest.json' with { type: 'json' };
-import p86 from '../plugins/story-chapter/manifest.json' with { type: 'json' };
-import p86c from '../plugins/story-chapter/content.json' with { type: 'json' };
-import p87 from '../plugins/story-presentation/manifest.json' with { type: 'json' };
-import p88 from '../plugins/theme-arcade/manifest.json' with { type: 'json' };
-import p89 from '../plugins/theme-assetrizz/manifest.json' with { type: 'json' };
-import p90 from '../plugins/theme-board/manifest.json' with { type: 'json' };
-import p91 from '../plugins/theme-industrial/manifest.json' with { type: 'json' };
-import p92 from '../plugins/theme-story/manifest.json' with { type: 'json' };
-import p93 from '../plugins/vehicle-presentation/manifest.json' with { type: 'json' };
-import p94 from '../plugins/vehicle-racing/manifest.json' with { type: 'json' };
-import p95 from '../plugins/vehicle-track/manifest.json' with { type: 'json' };
-import p95c from '../plugins/vehicle-track/content.json' with { type: 'json' };
+import p3 from '../plugins/common-ground-content/manifest.json' with { type: 'json' };
+import p3c from '../plugins/common-ground-content/content.json' with { type: 'json' };
+import p4 from '../plugins/common-ground-game/manifest.json' with { type: 'json' };
+import p5 from '../plugins/common-ground-presentation/manifest.json' with { type: 'json' };
+import p6 from '../plugins/core-combat/manifest.json' with { type: 'json' };
+import p7 from '../plugins/core-content/manifest.json' with { type: 'json' };
+import p7c from '../plugins/core-content/content.json' with { type: 'json' };
+import p8 from '../plugins/core-enemies/manifest.json' with { type: 'json' };
+import p9 from '../plugins/core-hud/manifest.json' with { type: 'json' };
+import p10 from '../plugins/core-modes/manifest.json' with { type: 'json' };
+import p11 from '../plugins/core-player/manifest.json' with { type: 'json' };
+import p12 from '../plugins/core-presentation/manifest.json' with { type: 'json' };
+import p13 from '../plugins/core-world/manifest.json' with { type: 'json' };
+import p14 from '../plugins/dungeon-generator/manifest.json' with { type: 'json' };
+import p15 from '../plugins/example-adventure-pack/manifest.json' with { type: 'json' };
+import p15c from '../plugins/example-adventure-pack/content.json' with { type: 'json' };
+import p16 from '../plugins/example-arena/manifest.json' with { type: 'json' };
+import p17 from '../plugins/example-dash-controller/manifest.json' with { type: 'json' };
+import p18 from '../plugins/example-escape/manifest.json' with { type: 'json' };
+import p19 from '../plugins/example-extraction/manifest.json' with { type: 'json' };
+import p20 from '../plugins/example-extraction-map/manifest.json' with { type: 'json' };
+import p20c from '../plugins/example-extraction-map/content.json' with { type: 'json' };
+import p21 from '../plugins/example-holdout/manifest.json' with { type: 'json' };
+import p22 from '../plugins/example-hud/manifest.json' with { type: 'json' };
+import p23 from '../plugins/example-key-dungeon/manifest.json' with { type: 'json' };
+import p23c from '../plugins/example-key-dungeon/content.json' with { type: 'json' };
+import p24 from '../plugins/example-keys/manifest.json' with { type: 'json' };
+import p25 from '../plugins/example-pack/manifest.json' with { type: 'json' };
+import p25c from '../plugins/example-pack/content.json' with { type: 'json' };
+import p26 from '../plugins/example-race-track/manifest.json' with { type: 'json' };
+import p26c from '../plugins/example-race-track/content.json' with { type: 'json' };
+import p27 from '../plugins/example-racing/manifest.json' with { type: 'json' };
+import p28 from '../plugins/example-ricochet/manifest.json' with { type: 'json' };
+import p29 from '../plugins/example-roguelite/manifest.json' with { type: 'json' };
+import p30 from '../plugins/example-stealth/manifest.json' with { type: 'json' };
+import p31 from '../plugins/example-stealth-map/manifest.json' with { type: 'json' };
+import p31c from '../plugins/example-stealth-map/content.json' with { type: 'json' };
+import p32 from '../plugins/example-survival/manifest.json' with { type: 'json' };
+import p33 from '../plugins/example-tactical-pack/manifest.json' with { type: 'json' };
+import p33c from '../plugins/example-tactical-pack/content.json' with { type: 'json' };
+import p34 from '../plugins/example-time-trial/manifest.json' with { type: 'json' };
+import p35 from '../plugins/example-ward/manifest.json' with { type: 'json' };
+import p36 from '../plugins/expedition-assist/manifest.json' with { type: 'json' };
+import p37 from '../plugins/hollowmere-content/manifest.json' with { type: 'json' };
+import p37c from '../plugins/hollowmere-content/content.json' with { type: 'json' };
+import p38 from '../plugins/hollowmere-game/manifest.json' with { type: 'json' };
+import p39 from '../plugins/hollowmere-presentation/manifest.json' with { type: 'json' };
+import p40 from '../plugins/mechanics-actions/manifest.json' with { type: 'json' };
+import p41 from '../plugins/mechanics-capabilities/manifest.json' with { type: 'json' };
+import p42 from '../plugins/mechanics-clock/manifest.json' with { type: 'json' };
+import p43 from '../plugins/mechanics-conditions/manifest.json' with { type: 'json' };
+import p44 from '../plugins/mechanics-crafting/manifest.json' with { type: 'json' };
+import p45 from '../plugins/mechanics-hints/manifest.json' with { type: 'json' };
+import p46 from '../plugins/mechanics-inventory/manifest.json' with { type: 'json' };
+import p47 from '../plugins/mechanics-kits/manifest.json' with { type: 'json' };
+import p48 from '../plugins/mechanics-navigation/manifest.json' with { type: 'json' };
+import p49 from '../plugins/mechanics-objectives/manifest.json' with { type: 'json' };
+import p50 from '../plugins/mechanics-outcome-rating/manifest.json' with { type: 'json' };
+import p51 from '../plugins/mechanics-platforming/manifest.json' with { type: 'json' };
+import p52 from '../plugins/mechanics-progression/manifest.json' with { type: 'json' };
+import p53 from '../plugins/mechanics-relationships/manifest.json' with { type: 'json' };
+import p54 from '../plugins/mechanics-resources/manifest.json' with { type: 'json' };
+import p55 from '../plugins/mechanics-room-map/manifest.json' with { type: 'json' };
+import p56 from '../plugins/mechanics-sequence/manifest.json' with { type: 'json' };
+import p57 from '../plugins/portfolio-archive-adventure/manifest.json' with { type: 'json' };
+import p57c from '../plugins/portfolio-archive-adventure/content.json' with { type: 'json' };
+import p58 from '../plugins/portfolio-assist/manifest.json' with { type: 'json' };
+import p59 from '../plugins/portfolio-atelier-puzzle/manifest.json' with { type: 'json' };
+import p59c from '../plugins/portfolio-atelier-puzzle/content.json' with { type: 'json' };
+import p60 from '../plugins/portfolio-breach-tactics/manifest.json' with { type: 'json' };
+import p60c from '../plugins/portfolio-breach-tactics/content.json' with { type: 'json' };
+import p61 from '../plugins/portfolio-cards-ash/manifest.json' with { type: 'json' };
+import p62 from '../plugins/portfolio-cards-cloud/manifest.json' with { type: 'json' };
+import p63 from '../plugins/portfolio-cards-piles/manifest.json' with { type: 'json' };
+import p64 from '../plugins/portfolio-cards-presentation/manifest.json' with { type: 'json' };
+import p65 from '../plugins/portfolio-crossfire-tactics/manifest.json' with { type: 'json' };
+import p65c from '../plugins/portfolio-crossfire-tactics/content.json' with { type: 'json' };
+import p66 from '../plugins/portfolio-orchard-adventure/manifest.json' with { type: 'json' };
+import p66c from '../plugins/portfolio-orchard-adventure/content.json' with { type: 'json' };
+import p67 from '../plugins/portfolio-racing/manifest.json' with { type: 'json' };
+import p67c from '../plugins/portfolio-racing/content.json' with { type: 'json' };
+import p68 from '../plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
+import p68c from '../plugins/portfolio-sky-resource/content.json' with { type: 'json' };
+import p69 from '../plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
+import p69c from '../plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
+import p70 from '../plugins/portfolio-watch-puzzle/manifest.json' with { type: 'json' };
+import p70c from '../plugins/portfolio-watch-puzzle/content.json' with { type: 'json' };
+import p71 from '../plugins/presentation-camera-modes/manifest.json' with { type: 'json' };
+import p72 from '../plugins/presentation-player-avatar/manifest.json' with { type: 'json' };
+import p73 from '../plugins/puzzle-chambers/manifest.json' with { type: 'json' };
+import p73c from '../plugins/puzzle-chambers/content.json' with { type: 'json' };
+import p74 from '../plugins/puzzle-presentation/manifest.json' with { type: 'json' };
+import p75 from '../plugins/puzzle-rules/manifest.json' with { type: 'json' };
+import p76 from '../plugins/salt-rpg-content/manifest.json' with { type: 'json' };
+import p76c from '../plugins/salt-rpg-content/content.json' with { type: 'json' };
+import p77 from '../plugins/salt-rpg-game/manifest.json' with { type: 'json' };
+import p78 from '../plugins/salt-rpg-presentation/manifest.json' with { type: 'json' };
+import p79 from '../plugins/silt-content/manifest.json' with { type: 'json' };
+import p79c from '../plugins/silt-content/content.json' with { type: 'json' };
+import p80 from '../plugins/silt-game/manifest.json' with { type: 'json' };
+import p81 from '../plugins/silt-presentation/manifest.json' with { type: 'json' };
+import p82 from '../plugins/story-adventure/manifest.json' with { type: 'json' };
+import p83 from '../plugins/story-chapter/manifest.json' with { type: 'json' };
+import p83c from '../plugins/story-chapter/content.json' with { type: 'json' };
+import p84 from '../plugins/story-presentation/manifest.json' with { type: 'json' };
+import p85 from '../plugins/theme-arcade/manifest.json' with { type: 'json' };
+import p86 from '../plugins/theme-assetrizz/manifest.json' with { type: 'json' };
+import p87 from '../plugins/theme-board/manifest.json' with { type: 'json' };
+import p88 from '../plugins/theme-industrial/manifest.json' with { type: 'json' };
+import p89 from '../plugins/theme-story/manifest.json' with { type: 'json' };
+import p90 from '../plugins/vehicle-presentation/manifest.json' with { type: 'json' };
+import p91 from '../plugins/vehicle-racing/manifest.json' with { type: 'json' };
+import p92 from '../plugins/vehicle-track/manifest.json' with { type: 'json' };
+import p92c from '../plugins/vehicle-track/content.json' with { type: 'json' };
+import p93 from '../../games/cinder/plugins/cinder-content/manifest.json' with { type: 'json' };
+import p93c from '../../games/cinder/plugins/cinder-content/content.json' with { type: 'json' };
+import p94 from '../../games/cinder/plugins/cinder-game/manifest.json' with { type: 'json' };
+import p95 from '../../games/cinder/plugins/cinder-hud/manifest.json' with { type: 'json' };
 import p96 from '../../games/ember/plugins/ember-content/manifest.json' with { type: 'json' };
 import p96c from '../../games/ember/plugins/ember-content/content.json' with { type: 'json' };
 import p97 from '../../games/ember/plugins/ember-game/manifest.json' with { type: 'json' };
@@ -141,99 +141,99 @@ export const catalog: CatalogEntry[] = [
   { manifest: p0, content: p0c }, // board/mission
   { manifest: p1, load: () => import('../plugins/board-presentation/index.ts') }, // board/presentation
   { manifest: p2, load: () => import('../plugins/board-tactics/index.ts') }, // board/tactics
-  { manifest: p3, content: p3c }, // cinder/content
-  { manifest: p4, load: () => import('../plugins/cinder-game/index.ts') }, // cinder/game
-  { manifest: p5, load: () => import('../plugins/cinder-hud/index.ts') }, // cinder/hud
-  { manifest: p6, content: p6c }, // common/content
-  { manifest: p7, load: () => import('../plugins/common-ground-game/index.ts') }, // common/game
-  { manifest: p8, load: () => import('../plugins/common-ground-presentation/index.ts') }, // common/presentation
-  { manifest: p9, load: () => import('../plugins/core-combat/index.ts') }, // core/combat
-  { manifest: p10, content: p10c }, // core/content
-  { manifest: p11, load: () => import('../plugins/core-enemies/index.ts') }, // core/enemies
-  { manifest: p12, load: () => import('../plugins/core-hud/index.ts') }, // core/hud
-  { manifest: p13, load: () => import('../plugins/core-modes/index.ts') }, // core/modes
-  { manifest: p14, load: () => import('../plugins/core-player/index.ts') }, // core/player
-  { manifest: p15, load: () => import('../plugins/core-presentation/index.ts') }, // core/presentation
-  { manifest: p16, load: () => import('../plugins/core-world/index.ts') }, // core/world
-  { manifest: p17, load: () => import('../plugins/dungeon-generator/index.ts') }, // dungeon/generator
-  { manifest: p18, content: p18c }, // example/adventure-pack
-  { manifest: p19, load: () => import('../plugins/example-arena/index.ts') }, // example/arena
-  { manifest: p20, load: () => import('../plugins/example-dash-controller/index.ts') }, // example/dash-controller
-  { manifest: p21, load: () => import('../plugins/example-escape/index.ts') }, // example/escape
-  { manifest: p22, load: () => import('../plugins/example-extraction/index.ts') }, // example/extraction
-  { manifest: p23, content: p23c }, // example/extraction-map
-  { manifest: p24, load: () => import('../plugins/example-holdout/index.ts') }, // example/holdout
-  { manifest: p25, load: () => import('../plugins/example-hud/index.ts') }, // example/hud
-  { manifest: p26, content: p26c }, // example/key-dungeon
-  { manifest: p27, load: () => import('../plugins/example-keys/index.ts') }, // example/keys
-  { manifest: p28, content: p28c }, // example/pack
-  { manifest: p29, content: p29c }, // example/race-track
-  { manifest: p30, load: () => import('../plugins/example-racing/index.ts') }, // example/racing
-  { manifest: p31, load: () => import('../plugins/example-ricochet/index.ts') }, // example/ricochet
-  { manifest: p32, load: () => import('../plugins/example-roguelite/index.ts') }, // example/roguelite
-  { manifest: p33, load: () => import('../plugins/example-stealth/index.ts') }, // example/stealth
-  { manifest: p34, content: p34c }, // example/stealth-map
-  { manifest: p35, load: () => import('../plugins/example-survival/index.ts') }, // example/survival
-  { manifest: p36, content: p36c }, // example/tactical-pack
-  { manifest: p37, load: () => import('../plugins/example-time-trial/index.ts') }, // example/time-trial
-  { manifest: p38, load: () => import('../plugins/example-ward/index.ts') }, // example/ward
-  { manifest: p39, load: () => import('../plugins/expedition-assist/index.ts') }, // expedition/assist
-  { manifest: p40, content: p40c }, // hollowmere/content
-  { manifest: p41, load: () => import('../plugins/hollowmere-game/index.ts') }, // hollowmere/game
-  { manifest: p42, load: () => import('../plugins/hollowmere-presentation/index.ts') }, // hollowmere/presentation
-  { manifest: p43, load: () => import('../plugins/mechanics-actions/index.ts') }, // mechanics/actions
-  { manifest: p44, load: () => import('../plugins/mechanics-capabilities/index.ts') }, // mechanics/capabilities
-  { manifest: p45, load: () => import('../plugins/mechanics-clock/index.ts') }, // mechanics/clock
-  { manifest: p46, load: () => import('../plugins/mechanics-conditions/index.ts') }, // mechanics/conditions
-  { manifest: p47, load: () => import('../plugins/mechanics-crafting/index.ts') }, // mechanics/crafting
-  { manifest: p48, load: () => import('../plugins/mechanics-hints/index.ts') }, // mechanics/hints
-  { manifest: p49, load: () => import('../plugins/mechanics-inventory/index.ts') }, // mechanics/inventory
-  { manifest: p50, load: () => import('../plugins/mechanics-kits/index.ts') }, // mechanics/kits
-  { manifest: p51, load: () => import('../plugins/mechanics-navigation/index.ts') }, // mechanics/navigation
-  { manifest: p52, load: () => import('../plugins/mechanics-objectives/index.ts') }, // mechanics/objectives
-  { manifest: p53, load: () => import('../plugins/mechanics-outcome-rating/index.ts') }, // mechanics/outcome-rating
-  { manifest: p54, load: () => import('../plugins/mechanics-platforming/index.ts') }, // mechanics/platforming
-  { manifest: p55, load: () => import('../plugins/mechanics-progression/index.ts') }, // mechanics/progression
-  { manifest: p56, load: () => import('../plugins/mechanics-relationships/index.ts') }, // mechanics/relationships
-  { manifest: p57, load: () => import('../plugins/mechanics-resources/index.ts') }, // mechanics/resources
-  { manifest: p58, load: () => import('../plugins/mechanics-room-map/index.ts') }, // mechanics/room-map
-  { manifest: p59, load: () => import('../plugins/mechanics-sequence/index.ts') }, // mechanics/sequence
-  { manifest: p60, content: p60c }, // portfolio/archive-adventure
-  { manifest: p61, load: () => import('../plugins/portfolio-assist/index.ts') }, // portfolio/assist
-  { manifest: p62, content: p62c }, // portfolio/atelier-puzzle
-  { manifest: p63, content: p63c }, // portfolio/breach-tactics
-  { manifest: p64, load: () => import('../plugins/portfolio-cards-ash/index.ts') }, // portfolio-cards/ash
-  { manifest: p65, load: () => import('../plugins/portfolio-cards-cloud/index.ts') }, // portfolio-cards/cloud
-  { manifest: p66, load: () => import('../plugins/portfolio-cards-piles/index.ts') }, // portfolio-cards/piles
-  { manifest: p67, load: () => import('../plugins/portfolio-cards-presentation/index.ts') }, // portfolio-cards/presentation
-  { manifest: p68, content: p68c }, // portfolio/crossfire-tactics
-  { manifest: p69, content: p69c }, // portfolio/orchard-adventure
-  { manifest: p70, content: p70c }, // portfolio/racing
-  { manifest: p71, content: p71c }, // portfolio/sky-resource
-  { manifest: p72, content: p72c }, // portfolio/verdant-resource
-  { manifest: p73, content: p73c }, // portfolio/watch-puzzle
-  { manifest: p74, load: () => import('../plugins/presentation-camera-modes/index.ts') }, // presentation/camera-modes
-  { manifest: p75, load: () => import('../plugins/presentation-player-avatar/index.ts') }, // presentation/player-avatar
-  { manifest: p76, content: p76c }, // puzzle/chambers
-  { manifest: p77, load: () => import('../plugins/puzzle-presentation/index.ts') }, // puzzle/presentation
-  { manifest: p78, load: () => import('../plugins/puzzle-rules/index.ts') }, // puzzle/rules
-  { manifest: p79, content: p79c }, // salt/content
-  { manifest: p80, load: () => import('../plugins/salt-rpg-game/index.ts') }, // salt/game
-  { manifest: p81, load: () => import('../plugins/salt-rpg-presentation/index.ts') }, // salt/presentation
-  { manifest: p82, content: p82c }, // silt/content
-  { manifest: p83, load: () => import('../plugins/silt-game/index.ts') }, // silt/game
-  { manifest: p84, load: () => import('../plugins/silt-presentation/index.ts') }, // silt/presentation
-  { manifest: p85, load: () => import('../plugins/story-adventure/index.ts') }, // story/adventure
-  { manifest: p86, content: p86c }, // story/chapter
-  { manifest: p87, load: () => import('../plugins/story-presentation/index.ts') }, // story/presentation
-  { manifest: p88, load: () => import('../plugins/theme-arcade/index.ts') }, // theme/arcade
-  { manifest: p89, load: () => import('../plugins/theme-assetrizz/index.ts') }, // theme/assetrizz
-  { manifest: p90, load: () => import('../plugins/theme-board/index.ts') }, // theme/board
-  { manifest: p91, load: () => import('../plugins/theme-industrial/index.ts') }, // theme/industrial
-  { manifest: p92, load: () => import('../plugins/theme-story/index.ts') }, // theme/story
-  { manifest: p93, load: () => import('../plugins/vehicle-presentation/index.ts') }, // vehicle/presentation
-  { manifest: p94, load: () => import('../plugins/vehicle-racing/index.ts') }, // vehicle/racing
-  { manifest: p95, content: p95c }, // vehicle/track
+  { manifest: p3, content: p3c }, // common/content
+  { manifest: p4, load: () => import('../plugins/common-ground-game/index.ts') }, // common/game
+  { manifest: p5, load: () => import('../plugins/common-ground-presentation/index.ts') }, // common/presentation
+  { manifest: p6, load: () => import('../plugins/core-combat/index.ts') }, // core/combat
+  { manifest: p7, content: p7c }, // core/content
+  { manifest: p8, load: () => import('../plugins/core-enemies/index.ts') }, // core/enemies
+  { manifest: p9, load: () => import('../plugins/core-hud/index.ts') }, // core/hud
+  { manifest: p10, load: () => import('../plugins/core-modes/index.ts') }, // core/modes
+  { manifest: p11, load: () => import('../plugins/core-player/index.ts') }, // core/player
+  { manifest: p12, load: () => import('../plugins/core-presentation/index.ts') }, // core/presentation
+  { manifest: p13, load: () => import('../plugins/core-world/index.ts') }, // core/world
+  { manifest: p14, load: () => import('../plugins/dungeon-generator/index.ts') }, // dungeon/generator
+  { manifest: p15, content: p15c }, // example/adventure-pack
+  { manifest: p16, load: () => import('../plugins/example-arena/index.ts') }, // example/arena
+  { manifest: p17, load: () => import('../plugins/example-dash-controller/index.ts') }, // example/dash-controller
+  { manifest: p18, load: () => import('../plugins/example-escape/index.ts') }, // example/escape
+  { manifest: p19, load: () => import('../plugins/example-extraction/index.ts') }, // example/extraction
+  { manifest: p20, content: p20c }, // example/extraction-map
+  { manifest: p21, load: () => import('../plugins/example-holdout/index.ts') }, // example/holdout
+  { manifest: p22, load: () => import('../plugins/example-hud/index.ts') }, // example/hud
+  { manifest: p23, content: p23c }, // example/key-dungeon
+  { manifest: p24, load: () => import('../plugins/example-keys/index.ts') }, // example/keys
+  { manifest: p25, content: p25c }, // example/pack
+  { manifest: p26, content: p26c }, // example/race-track
+  { manifest: p27, load: () => import('../plugins/example-racing/index.ts') }, // example/racing
+  { manifest: p28, load: () => import('../plugins/example-ricochet/index.ts') }, // example/ricochet
+  { manifest: p29, load: () => import('../plugins/example-roguelite/index.ts') }, // example/roguelite
+  { manifest: p30, load: () => import('../plugins/example-stealth/index.ts') }, // example/stealth
+  { manifest: p31, content: p31c }, // example/stealth-map
+  { manifest: p32, load: () => import('../plugins/example-survival/index.ts') }, // example/survival
+  { manifest: p33, content: p33c }, // example/tactical-pack
+  { manifest: p34, load: () => import('../plugins/example-time-trial/index.ts') }, // example/time-trial
+  { manifest: p35, load: () => import('../plugins/example-ward/index.ts') }, // example/ward
+  { manifest: p36, load: () => import('../plugins/expedition-assist/index.ts') }, // expedition/assist
+  { manifest: p37, content: p37c }, // hollowmere/content
+  { manifest: p38, load: () => import('../plugins/hollowmere-game/index.ts') }, // hollowmere/game
+  { manifest: p39, load: () => import('../plugins/hollowmere-presentation/index.ts') }, // hollowmere/presentation
+  { manifest: p40, load: () => import('../plugins/mechanics-actions/index.ts') }, // mechanics/actions
+  { manifest: p41, load: () => import('../plugins/mechanics-capabilities/index.ts') }, // mechanics/capabilities
+  { manifest: p42, load: () => import('../plugins/mechanics-clock/index.ts') }, // mechanics/clock
+  { manifest: p43, load: () => import('../plugins/mechanics-conditions/index.ts') }, // mechanics/conditions
+  { manifest: p44, load: () => import('../plugins/mechanics-crafting/index.ts') }, // mechanics/crafting
+  { manifest: p45, load: () => import('../plugins/mechanics-hints/index.ts') }, // mechanics/hints
+  { manifest: p46, load: () => import('../plugins/mechanics-inventory/index.ts') }, // mechanics/inventory
+  { manifest: p47, load: () => import('../plugins/mechanics-kits/index.ts') }, // mechanics/kits
+  { manifest: p48, load: () => import('../plugins/mechanics-navigation/index.ts') }, // mechanics/navigation
+  { manifest: p49, load: () => import('../plugins/mechanics-objectives/index.ts') }, // mechanics/objectives
+  { manifest: p50, load: () => import('../plugins/mechanics-outcome-rating/index.ts') }, // mechanics/outcome-rating
+  { manifest: p51, load: () => import('../plugins/mechanics-platforming/index.ts') }, // mechanics/platforming
+  { manifest: p52, load: () => import('../plugins/mechanics-progression/index.ts') }, // mechanics/progression
+  { manifest: p53, load: () => import('../plugins/mechanics-relationships/index.ts') }, // mechanics/relationships
+  { manifest: p54, load: () => import('../plugins/mechanics-resources/index.ts') }, // mechanics/resources
+  { manifest: p55, load: () => import('../plugins/mechanics-room-map/index.ts') }, // mechanics/room-map
+  { manifest: p56, load: () => import('../plugins/mechanics-sequence/index.ts') }, // mechanics/sequence
+  { manifest: p57, content: p57c }, // portfolio/archive-adventure
+  { manifest: p58, load: () => import('../plugins/portfolio-assist/index.ts') }, // portfolio/assist
+  { manifest: p59, content: p59c }, // portfolio/atelier-puzzle
+  { manifest: p60, content: p60c }, // portfolio/breach-tactics
+  { manifest: p61, load: () => import('../plugins/portfolio-cards-ash/index.ts') }, // portfolio-cards/ash
+  { manifest: p62, load: () => import('../plugins/portfolio-cards-cloud/index.ts') }, // portfolio-cards/cloud
+  { manifest: p63, load: () => import('../plugins/portfolio-cards-piles/index.ts') }, // portfolio-cards/piles
+  { manifest: p64, load: () => import('../plugins/portfolio-cards-presentation/index.ts') }, // portfolio-cards/presentation
+  { manifest: p65, content: p65c }, // portfolio/crossfire-tactics
+  { manifest: p66, content: p66c }, // portfolio/orchard-adventure
+  { manifest: p67, content: p67c }, // portfolio/racing
+  { manifest: p68, content: p68c }, // portfolio/sky-resource
+  { manifest: p69, content: p69c }, // portfolio/verdant-resource
+  { manifest: p70, content: p70c }, // portfolio/watch-puzzle
+  { manifest: p71, load: () => import('../plugins/presentation-camera-modes/index.ts') }, // presentation/camera-modes
+  { manifest: p72, load: () => import('../plugins/presentation-player-avatar/index.ts') }, // presentation/player-avatar
+  { manifest: p73, content: p73c }, // puzzle/chambers
+  { manifest: p74, load: () => import('../plugins/puzzle-presentation/index.ts') }, // puzzle/presentation
+  { manifest: p75, load: () => import('../plugins/puzzle-rules/index.ts') }, // puzzle/rules
+  { manifest: p76, content: p76c }, // salt/content
+  { manifest: p77, load: () => import('../plugins/salt-rpg-game/index.ts') }, // salt/game
+  { manifest: p78, load: () => import('../plugins/salt-rpg-presentation/index.ts') }, // salt/presentation
+  { manifest: p79, content: p79c }, // silt/content
+  { manifest: p80, load: () => import('../plugins/silt-game/index.ts') }, // silt/game
+  { manifest: p81, load: () => import('../plugins/silt-presentation/index.ts') }, // silt/presentation
+  { manifest: p82, load: () => import('../plugins/story-adventure/index.ts') }, // story/adventure
+  { manifest: p83, content: p83c }, // story/chapter
+  { manifest: p84, load: () => import('../plugins/story-presentation/index.ts') }, // story/presentation
+  { manifest: p85, load: () => import('../plugins/theme-arcade/index.ts') }, // theme/arcade
+  { manifest: p86, load: () => import('../plugins/theme-assetrizz/index.ts') }, // theme/assetrizz
+  { manifest: p87, load: () => import('../plugins/theme-board/index.ts') }, // theme/board
+  { manifest: p88, load: () => import('../plugins/theme-industrial/index.ts') }, // theme/industrial
+  { manifest: p89, load: () => import('../plugins/theme-story/index.ts') }, // theme/story
+  { manifest: p90, load: () => import('../plugins/vehicle-presentation/index.ts') }, // vehicle/presentation
+  { manifest: p91, load: () => import('../plugins/vehicle-racing/index.ts') }, // vehicle/racing
+  { manifest: p92, content: p92c }, // vehicle/track
+  { manifest: p93, content: p93c }, // cinder/content
+  { manifest: p94, load: () => import('../../games/cinder/plugins/cinder-game/index.ts') }, // cinder/game
+  { manifest: p95, load: () => import('../../games/cinder/plugins/cinder-hud/index.ts') }, // cinder/hud
   { manifest: p96, content: p96c }, // ember/content
   { manifest: p97, load: () => import('../../games/ember/plugins/ember-game/index.ts') }, // ember/game
   { manifest: p98, load: () => import('../../games/ember/plugins/ember-presentation/index.ts') }, // ember/presentation
