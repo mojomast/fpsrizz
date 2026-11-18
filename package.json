@@ -25,7 +25,8 @@
     "validate-game": "node scripts/validate-game.mjs",
     "vendor-three": "node scripts/vendor-three.mjs",
     "graph": "node scripts/game-graph.mjs",
-    "gen-catalog": "node scripts/gen-catalog.mjs"
+    "gen-catalog": "node scripts/gen-catalog.mjs",
+    "pack-painters": "node scripts/pack-painters.mjs"
   },
   "devDependencies": {
     "@types/three": "0.187.0",

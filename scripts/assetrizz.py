@@ -8,6 +8,7 @@ curated files are fetched from the pinned GitHub revision.
 """
 import base64
 import hashlib
+import subprocess
 import json
 from pathlib import Path
 import sys
@@ -121,6 +122,9 @@ def main(args):
         (ROOT / 'src/plugins/theme-assetrizz' / filename).write_text('\n'.join(lines))
     write_painters('generated.ts', 'assetrizzTextures', outputs)
     write_painters('fantasy-generated.ts', 'fantasyTextures', fantasy)
+    # Keep pixel data out of JavaScript: move it into content-hashed packs under public/packs/.
+    subprocess.run(['node', str(ROOT / 'scripts' / 'pack-painters.mjs'), 'src/plugins/theme-assetrizz/generated.ts',
+                    'src/plugins/theme-assetrizz/fantasy-generated.ts'], check=True, cwd=ROOT)
     print('Imported', len(outputs) + len(fantasy), 'verified Assetrizz textures and', len(ui), 'original-size UI images')
 
 

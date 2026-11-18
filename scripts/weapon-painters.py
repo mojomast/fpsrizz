@@ -17,6 +17,7 @@ import json
 import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 
 from PIL import Image
@@ -113,6 +114,9 @@ def main(argv=None):
     with output.open('w' if args.force else 'x', encoding='utf-8', newline='\n') as target:
         target.write(result)
     print(f'Generated {len(sprites)} painter(s) in {output}')
+    # Plugin modules keep pixel data out of JavaScript: move it into a content-hashed pack under public/packs/.
+    if (ROOT / 'src' / 'plugins') in output.resolve().parents:
+        subprocess.run(['node', str(ROOT / 'scripts' / 'pack-painters.mjs'), str(output)], check=True)
 
 
 if __name__ == '__main__':

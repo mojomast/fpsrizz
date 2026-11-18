@@ -3,6 +3,7 @@
  * src/platform. (Rendering plugins additionally use src/sdk/render.ts, which exposes the Three-style scene API.)
  */
 export * from './core.ts';
+export * from './static-asset.ts';
 export * from './contracts/shooter.ts';
 export * from './contracts/experience.ts';
 export * from './contracts/racing.ts';

@@ -1,7 +1,7 @@
 // Browser verification of the creator/developer panel against the real app bundle.
 // Run: node tests/creator-demo/run.mjs   (screenshots -> .smoke/creator-*.png)
 import assert from 'node:assert/strict';
-import { copyFileSync, mkdirSync, rmSync } from 'node:fs';
+import { copyFileSync, cpSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { resolveTool, root } from '../../scripts/tools.mjs';
 import { launchBrowser, startStaticServer } from '../../scripts/smoke-lib.mjs';
@@ -21,6 +21,8 @@ await esbuild.build({
   logLevel: 'warning',
 });
 copyFileSync(resolve(root, 'index.html'), resolve(buildDir, 'index.html'));
+// Static files (including the content-hashed art packs plugins load at import time).
+if (existsSync(resolve(root, 'public'))) cpSync(resolve(root, 'public'), buildDir, { recursive: true });
 
 const server = await startStaticServer(buildDir);
 let browser;

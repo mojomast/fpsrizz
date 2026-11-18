@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "bea960e210d6e73c670bb611b6aec5fc4453fbcb6c786c693d2dc52217f63558",
+  "sourceDigest": "598ebaf649f55b50dda33f8b19ef1ae93ff07194bcfc4b9974e21451fe5d539e",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -14966,6 +14966,30 @@
         "salt/game",
         "silt/game"
       ]
+    },
+    {
+      "id": "sdk/loadStaticAsset",
+      "type": "contract",
+      "name": "loadStaticAsset",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/core.ts:1",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "loadStaticAsset"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "sdk/makeTransform",

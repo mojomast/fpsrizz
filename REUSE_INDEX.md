@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `bea960e210d6e73c670bb611b6aec5fc4453fbcb6c786c693d2dc52217f63558`
+Source digest: `598ebaf649f55b50dda33f8b19ef1ae93ff07194bcfc4b9974e21451fe5d539e`
 
 ## Composition recipes
 
@@ -223,6 +223,7 @@ Source digest: `bea960e210d6e73c670bb611b6aec5fc4453fbcb6c786c693d2dc52217f63558
 | `sdk/InventoryProviders` | contract | Public SDK value: mechanic-inventory-provider | [source](src/sdk/contracts/inventory.ts#L47) |
 | `sdk/isObject` | contract | Public helper/class | [source](src/kernel/validate.ts#L36) |
 | `sdk/Items` | contract | Public SDK value: item | [source](src/sdk/contracts/inventory.ts#L16) |
+| `sdk/loadStaticAsset` | contract | Public helper/class | [source](src/sdk/core.ts#L1) |
 | `sdk/makeTransform` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L733) |
 | `sdk/MapFormats` | contract | Public SDK value: map-format | [source](src/sdk/contracts/shooter.ts#L310) |
 | `sdk/Maps` | contract | Public SDK value: map | [source](src/sdk/contracts/shooter.ts#L303) |
