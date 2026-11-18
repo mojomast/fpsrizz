@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `d87afcfb5f4d3fbe3bc3e0e3aad477e4829ed6bcd8925916349625a9a1cd45ac`
+Source digest: `96988eb6df357f0f4d6e76d2f977efa271921d57ec1ef407950ccf2784a8abbe`
 
 ## Composition recipes
 
@@ -36,9 +36,9 @@ Source digest: `d87afcfb5f4d3fbe3bc3e0e3aad477e4829ed6bcd8925916349625a9a1cd45ac
 
 | ID | Scope | What exists | Source |
 |---|---|---|---|
-| `board/mission` | content | A compact authored tactical encounter. | [source](../../src/plugins/board-mission) |
-| `board/presentation` | unreviewed | Orthographic board and tactical command interface. | [source](../../src/plugins/board-presentation) |
-| `board/tactics` | family | Turn-tactics authority composing selected graph reachability with local occupancy, AP spending, attacks and deterministic enemy turns. | [source](../../src/plugins/board-tactics) |
+| `board/mission` | content | A compact authored tactical encounter. | [source](../../games/tactics/plugins/board-mission) |
+| `board/presentation` | unreviewed | Orthographic board and tactical command interface. | [source](../../games/tactics/plugins/board-presentation) |
+| `board/tactics` | family | Turn-tactics authority composing selected graph reachability with local occupancy, AP spending, attacks and deterministic enemy turns. | [source](../../games/tactics/plugins/board-tactics) |
 | `cinder/content` | content | Cinder Vault content: seeded dungeon, six-weapon armory, twelve gear/consumable/Ember Shard items, nine forge recipes, seven enemy archetypes, threat caches and turn kit. | [source](../../games/cinder/plugins/cinder-content) |
 | `cinder/game` | family | Turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, telegraphed enemies, loot/inventory, NPC forge and Oracle bargains, fogged automap/grid, first-person/isometric view, field guide/AP hover preview and persistent mastery. | [source](../../games/cinder/plugins/cinder-game) |
 | `cinder/hud` | presentation | Cinder turn-based HUD: class/threat selection and transitions, field guide, first-person/isometric view badge, automap/tactical grid, action points/intents, AP hover preview, pack filters/drop, forge, NPC dialogue, boons and weapons. | [source](../../games/cinder/plugins/cinder-hud) |
@@ -106,8 +106,8 @@ Source digest: `d87afcfb5f4d3fbe3bc3e0e3aad477e4829ed6bcd8925916349625a9a1cd45ac
 | `portfolio/archive-adventure` | content | A contested archive and a missing name. | [source](../../src/plugins/portfolio-archive-adventure) |
 | `portfolio/assist` | presentation | Optional on-demand contextual assistance for public card and puzzle services. | [source](../../src/plugins/portfolio-assist) |
 | `portfolio/atelier-puzzle` | content | Three quiet chambers of multi-stone positioning. | [source](../../src/plugins/portfolio-atelier-puzzle) |
-| `portfolio/breach-tactics` | content | A three-agent assault through a divided conservatory. | [source](../../src/plugins/portfolio-breach-tactics) |
-| `portfolio/crossfire-tactics` | content | A two-scout stand against an encircling raiding party. | [source](../../src/plugins/portfolio-crossfire-tactics) |
+| `portfolio/breach-tactics` | content | A three-agent assault through a divided conservatory. | [source](../../games/tactics/plugins/portfolio-breach-tactics) |
+| `portfolio/crossfire-tactics` | content | A two-scout stand against an encircling raiding party. | [source](../../games/tactics/plugins/portfolio-crossfire-tactics) |
 | `portfolio/orchard-adventure` | content | A seedship garden and a difficult inheritance. | [source](../../src/plugins/portfolio-orchard-adventure) |
 | `portfolio/racing` | content | Two independent arcade time-trial tracks. | [source](../../games/racing/plugins/portfolio-racing) |
 | `portfolio/sky-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../src/plugins/portfolio-sky-resource) |
@@ -278,9 +278,6 @@ Source digest: `d87afcfb5f4d3fbe3bc3e0e3aad477e4829ed6bcd8925916349625a9a1cd45ac
 | `sdk/SessionControl` | contract | Public SDK value: sdk/session-control | [source](../../src/sdk/contracts/experience.ts#L16) |
 | `sdk/Settings` | contract | Public SDK value: sdk/settings | [source](../../src/sdk/contracts/shooter.ts#L638) |
 | `sdk/spawnPrefab` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L335) |
-| `sdk/Tactics` | contract | Public SDK value: board/tactics | [source](../../src/sdk/contracts/tactics.ts#L42) |
-| `sdk/TacticsMissions` | contract | Public SDK value: board-mission | [source](../../src/sdk/contracts/tactics.ts#L17) |
-| `sdk/TacticsResolved` | contract | Public SDK value: board/resolved | [source](../../src/sdk/contracts/tactics.ts#L44) |
 | `sdk/ThemeRole` | contract | Public SDK value: sdk/theme | [source](../../src/sdk/contracts/shooter.ts#L715) |
 | `sdk/THREE` | contract | Public SDK value | [source](../../src/sdk/render.ts#L12) |
 | `sdk/Transform` | contract | Public SDK value: sdk/transform | [source](../../src/sdk/contracts/shooter.ts#L26) |
@@ -323,5 +320,8 @@ Source digest: `d87afcfb5f4d3fbe3bc3e0e3aad477e4829ed6bcd8925916349625a9a1cd45ac
 | `games/racing/RaceTracks` | contract | Game-family contract value: vehicle/track | [source](../../games/racing/contracts/racing.ts#L21) |
 | `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](../../games/sky/contracts/sky.ts#L16) |
 | `games/sky/SkyRoutes` | contract | Game-family contract value: sky-route | [source](../../games/sky/contracts/sky.ts#L7) |
+| `games/tactics/Tactics` | contract | Game-family contract value: board/tactics | [source](../../games/tactics/contracts/tactics.ts#L42) |
+| `games/tactics/TacticsMissions` | contract | Game-family contract value: board-mission | [source](../../games/tactics/contracts/tactics.ts#L17) |
+| `games/tactics/TacticsResolved` | contract | Game-family contract value: board/resolved | [source](../../games/tactics/contracts/tactics.ts#L44) |
 | `games/verdant/Verdant` | contract | Game-family contract value: verdant/relay | [source](../../games/verdant/contracts/verdant.ts#L38) |
 | `games/verdant/VerdantWorlds` | contract | Game-family contract value: verdant-world | [source](../../games/verdant/contracts/verdant.ts#L16) |

@@ -4,7 +4,7 @@ import { catalog } from '../src/app/catalog.ts';
 import { PluginHost } from '../src/kernel/host.ts';
 import { PHASES, SDK_VERSION, defineService } from '../src/sdk/index.ts';
 import type { SessionContext } from '../src/sdk/index.ts';
-import board from '../src/content/presets/turn-tactics.json' with { type: 'json' };
+import board from '../games/tactics/presets/turn-tactics.json' with { type: 'json' };
 import puzzle from '../src/content/presets/stonewake.json' with { type: 'json' };
 
 test('genre namespaces do not prohibit neutral reusable plugins in board or puzzle experiences', async () => {

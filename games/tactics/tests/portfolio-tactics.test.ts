@@ -1,27 +1,27 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Tactics } from '../src/sdk/index.ts';
-import type { TacticsCommand } from '../src/sdk/index.ts';
-import tacticsManifest from '../src/plugins/board-tactics/manifest.json' with { type: 'json' };
-import navigationManifest from '../src/plugins/mechanics-navigation/manifest.json' with { type: 'json' };
-import outcomeRating from '../src/plugins/mechanics-outcome-rating/manifest.json' with { type: 'json' };
-import presentationManifest from '../src/plugins/board-presentation/manifest.json' with { type: 'json' };
-import themeManifest from '../src/plugins/theme-board/manifest.json' with { type: 'json' };
-import breachManifest from '../src/plugins/portfolio-breach-tactics/manifest.json' with { type: 'json' };
-import breachContent from '../src/plugins/portfolio-breach-tactics/content.json' with { type: 'json' };
-import crossfireManifest from '../src/plugins/portfolio-crossfire-tactics/manifest.json' with { type: 'json' };
-import crossfireContent from '../src/plugins/portfolio-crossfire-tactics/content.json' with { type: 'json' };
-import breachPreset from '../src/content/presets/portfolio-breach-tactics.json' with { type: 'json' };
-import crossfirePreset from '../src/content/presets/portfolio-crossfire-tactics.json' with { type: 'json' };
-import { createHeadlessGame } from './helpers/game.ts';
+import { Tactics } from '../contracts/tactics.ts';
+import type { TacticsCommand } from '../contracts/tactics.ts';
+import tacticsManifest from '../plugins/board-tactics/manifest.json' with { type: 'json' };
+import navigationManifest from '../../../src/plugins/mechanics-navigation/manifest.json' with { type: 'json' };
+import outcomeRating from '../../../src/plugins/mechanics-outcome-rating/manifest.json' with { type: 'json' };
+import presentationManifest from '../plugins/board-presentation/manifest.json' with { type: 'json' };
+import themeManifest from '../../../src/plugins/theme-board/manifest.json' with { type: 'json' };
+import breachManifest from '../plugins/portfolio-breach-tactics/manifest.json' with { type: 'json' };
+import breachContent from '../plugins/portfolio-breach-tactics/content.json' with { type: 'json' };
+import crossfireManifest from '../plugins/portfolio-crossfire-tactics/manifest.json' with { type: 'json' };
+import crossfireContent from '../plugins/portfolio-crossfire-tactics/content.json' with { type: 'json' };
+import breachPreset from '../presets/portfolio-breach-tactics.json' with { type: 'json' };
+import crossfirePreset from '../presets/portfolio-crossfire-tactics.json' with { type: 'json' };
+import { createHeadlessGame } from '../../../tests/helpers/game.ts';
 
 function gameFor() {
   return createHeadlessGame([
-    { manifest: navigationManifest, load: () => import('../src/plugins/mechanics-navigation/index.ts') },
-    { manifest: outcomeRating, load: () => import('../src/plugins/mechanics-outcome-rating/index.ts') },
-    { manifest: tacticsManifest, load: () => import('../src/plugins/board-tactics/index.ts') },
-    { manifest: presentationManifest, load: () => import('../src/plugins/board-presentation/index.ts') },
-    { manifest: themeManifest, load: () => import('../src/plugins/theme-board/index.ts') },
+    { manifest: navigationManifest, load: () => import('../../../src/plugins/mechanics-navigation/index.ts') },
+    { manifest: outcomeRating, load: () => import('../../../src/plugins/mechanics-outcome-rating/index.ts') },
+    { manifest: tacticsManifest, load: () => import('../plugins/board-tactics/index.ts') },
+    { manifest: presentationManifest, load: () => import('../plugins/board-presentation/index.ts') },
+    { manifest: themeManifest, load: () => import('../../../src/plugins/theme-board/index.ts') },
     { manifest: breachManifest, content: breachContent },
     { manifest: crossfireManifest, content: crossfireContent },
   ]);

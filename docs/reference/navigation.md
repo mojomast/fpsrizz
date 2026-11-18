@@ -22,7 +22,7 @@ activation callback. During consumer activation, resolve `ctx.role(NavigationRol
 Staging rejects a missing or invalid selection before replacing an existing session.
 
 The working presets are [Stonewake](../../src/content/presets/stonewake.json) and
-[Signal Break](../../src/content/presets/turn-tactics.json). No shooter, renderer or platform service is required.
+[Signal Break](../../games/tactics/presets/turn-tactics.json). No shooter, renderer or platform service is required.
 
 ## Public contract
 
@@ -104,7 +104,7 @@ or a promise that a push puzzle is solvable. Runtime provider activation is not 
 
 ### Signal Break
 
-[`board-tactics/index.ts`](../../src/plugins/board-tactics/index.ts) constructs legal adjacency with the same N/W/E/S order.
+[`board-tactics/index.ts`](../../games/tactics/plugins/board-tactics/index.ts) constructs legal adjacency with the same N/W/E/S order.
 Walls, out-of-bounds cells and all living units block destinations; dead units do not. The moving unit's occupied origin
 is included in the search and omitted from public reachable results. Cover is an ordinary unit-distance tile.
 
@@ -149,7 +149,7 @@ Evidence is headless and uses normal role selection and real command services:
 - [`tests/helpers/alternate-navigation.ts`](../../tests/helpers/alternate-navigation.ts) uses independent whole-distance
   layers and does not import or delegate to the production implementation. Behavioral expectations are hand-derived,
   rather than merely checking calls or comparing two implementations with no external oracle.
-- Existing [`stonewake.test.ts`](../../tests/stonewake.test.ts), [`turn-tactics.test.ts`](../../tests/turn-tactics.test.ts), and
+- Existing [`stonewake.test.ts`](../../tests/stonewake.test.ts), [`turn-tactics.test.ts`](../../games/tactics/tests/turn-tactics.test.ts), and
   [`command-queue-consumers.test.ts`](../../tests/command-queue-consumers.test.ts) retain their assertions with navigation
   added to restricted test catalogs/presets. No claims about browser rendering or performance follow from these tests.
 
@@ -157,7 +157,7 @@ Focused verification:
 
 ```bash
 node --test tests/mechanics-navigation.test.ts tests/navigation-consumers.test.ts \
-  tests/stonewake.test.ts tests/turn-tactics.test.ts tests/command-queue-consumers.test.ts
+  tests/stonewake.test.ts games/tactics/tests/turn-tactics.test.ts tests/command-queue-consumers.test.ts
 npm run typecheck
 npm run lint
 ```

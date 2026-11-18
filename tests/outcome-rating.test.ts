@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, OutcomeRatingProviders, Tactics, outcomeRatingMechanic } from '../src/sdk/index.ts';
+import { Flow, OutcomeRatingProviders, outcomeRatingMechanic } from '../src/sdk/index.ts';
+import { Tactics } from '../games/tactics/contracts/tactics.ts';
 import { Race } from '../games/racing/contracts/racing.ts';
 import type { OutcomeRating, SessionContext } from '../src/sdk/index.ts';
 import ratingManifest from '../src/plugins/mechanics-outcome-rating/manifest.json' with { type: 'json' };
@@ -9,8 +10,8 @@ import navigationManifest from '../src/plugins/mechanics-navigation/manifest.jso
 import racingManifest from '../games/racing/plugins/vehicle-racing/manifest.json' with { type: 'json' };
 import trackManifest from '../games/racing/plugins/vehicle-track/manifest.json' with { type: 'json' };
 import track from '../games/racing/plugins/vehicle-track/content.json' with { type: 'json' };
-import tacticsManifest from '../src/plugins/board-tactics/manifest.json' with { type: 'json' };
-import missionManifest from '../src/plugins/board-mission/manifest.json' with { type: 'json' };
+import tacticsManifest from '../games/tactics/plugins/board-tactics/manifest.json' with { type: 'json' };
+import missionManifest from '../games/tactics/plugins/board-mission/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { codePlugin } from './helpers/host.ts';
 
@@ -60,7 +61,7 @@ test('tactics victory uses the selected evaluator to report a medal', async () =
     { id: 'b', name: 'B', team: 'enemy', x: 3, y: 0, hp: 2, ap: 2 },
   ] } }];
   const game = createHeadlessGame([ratingEntry, { manifest: navigationManifest, load: () => import('../src/plugins/mechanics-navigation/index.ts') },
-    { manifest: tacticsManifest, load: () => import('../src/plugins/board-tactics/index.ts') }, { manifest: missionManifest, content: mission }]);
+    { manifest: tacticsManifest, load: () => import('../games/tactics/plugins/board-tactics/index.ts') }, { manifest: missionManifest, content: mission }]);
   await game.host.apply(headlessPreset({ plugins: ['mechanics/outcome-rating', 'mechanics/navigation', 'board/tactics', 'board/mission'], roles: { 'sdk/experience': 'board/tactics', 'sdk/mechanic-navigation': 'mechanics/navigation', 'sdk/mechanic-outcome-rating': 'mechanics/outcome-rating' }, options: { mission: 'board/test' } }));
   try {
     game.session().services.get(Tactics).enqueue({ id: 'shot', type: 'attack', unit: 'a', target: 'b' });

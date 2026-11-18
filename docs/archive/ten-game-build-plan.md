@@ -42,7 +42,7 @@ The research and portfolio guides record the resulting titles, reuse decisions, 
 | Need | Inspected candidate | Decision |
 |---|---|---|
 | Ordered checkpoints and laps | `mechanics/sequence`, `vehicle/racing`, `games/racing/tests/overhead-racing.test.ts` | Reuse the existing selected sequence provider. Crossing geometry and time limits remain race policy. |
-| Tactical and puzzle movement | `mechanics/navigation`, `board/tactics`, `puzzle/rules`, `tests/turn-tactics.test.ts` | Reuse deterministic unit-edge queries; each game retains occupancy, legality, costs and enemy decisions. |
+| Tactical and puzzle movement | `mechanics/navigation`, `board/tactics`, `puzzle/rules`, `games/tactics/tests/turn-tactics.test.ts` | Reuse deterministic unit-edge queries; each game retains occupancy, legality, costs and enemy decisions. |
 | Energy, costs, cooldowns and goals | `mechanics/resources`, `mechanics/actions`, `mechanics/clock`, `mechanics/objectives`, `mechanics/kits` | Compose the existing providers with authored definitions. Seconds and turns remain explicit. |
 | Narrative conversations and puzzles | `story/adventure` and its chapter format | Reuse the family authority and author new chapters; it is not a general-purpose inventory provider. |
 | Push-puzzle rules | `puzzle/rules` and its chamber format | Reuse the existing family authority; validate each new chamber with a real solution. |

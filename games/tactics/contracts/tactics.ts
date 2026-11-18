@@ -1,4 +1,4 @@
-import { defineEvent, defineRegistry, defineService } from '../core.ts';
+import { defineEvent, defineRegistry, defineService } from '../../../src/sdk/index.ts';
 
 export interface TacticsUnit {
   id: string;

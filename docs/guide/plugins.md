@@ -369,7 +369,7 @@ older headless input fakes to omit it. These APIs provide contextual bindings, n
 | Contract | Authority | Separate consumers and authoring |
 |---|---|---|
 | `Race`, `RaceTracks` | `vehicle/racing` owns motion, gates, laps and deadline | `vehicle/presentation`, `vehicle-track` content; [guide](../../games/racing/README.md) |
-| `Tactics`, `TacticsMissions` | `board/tactics` owns units, AP and queued turn commands | `board/presentation`, `board-mission` content; [guide](../games/turn-tactics.md) |
+| `Tactics`, `TacticsMissions` | `board/tactics` owns units, AP and queued turn commands | `board/presentation`, `board-mission` content; [guide](../../games/tactics/README.md) |
 | `Adventure`, `AdventureChapters` | `story/adventure` owns room/item/flag state and queued actions | `story/presentation`, `adventure-chapter` content; [guide](../games/narrative-adventure.md) |
 | `PushPuzzle`, `PuzzleCampaigns` | `puzzle/rules` owns stones, plates, deterministic pursuit, undo and chamber progression | `puzzle/presentation`, `push-puzzle` content; [guide](../games/stonewake.md) |
 | `Sky`, `SkyRoutes` | `sky/game` composes recovery, matching deliveries and moving hazards | `sky/presentation`, `sky-route` content; [guide](../../games/sky/README.md) |

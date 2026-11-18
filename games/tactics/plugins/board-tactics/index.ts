@@ -1,22 +1,7 @@
-import type { NavigationNode, TacticsCommand, TacticsForecast, TacticsMission, TacticsUnit } from '../../sdk/index.ts';
-import {
-  ExperienceRole,
-  Flow,
-  NavigationRole,
-  OutcomeRatingRole,
-  OutcomeRatingProviders,
-  SessionControl,
-  Tactics,
-  TacticsMissions,
-  TacticsResolved,
-  definePlugin,
-  isObject,
-  outcomeRatingMechanic,
-  vArray,
-  vNumber,
-  vOneOf,
-  vString,
-} from '../../sdk/index.ts';
+import type { NavigationNode } from '../../../../src/sdk/index.ts';
+import type { TacticsCommand, TacticsForecast, TacticsMission, TacticsUnit } from '../../contracts/tactics.ts';
+import { ExperienceRole, Flow, NavigationRole, OutcomeRatingRole, OutcomeRatingProviders, SessionControl, definePlugin, isObject, outcomeRatingMechanic, vArray, vNumber, vOneOf, vString } from '../../../../src/sdk/index.ts';
+import { Tactics, TacticsMissions, TacticsResolved } from '../../contracts/tactics.ts';
 
 export default definePlugin({
   register(ctx) {

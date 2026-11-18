@@ -10,8 +10,8 @@ victory routes and family limitations are documented below. Select them from the
 | The Watchman's Run | `portfolio/watch-puzzle` | Open gates and escape four chambers under golem pursuit. | [Puzzles](portfolio-puzzles.md) |
 | Salt Flats — Endurance Loop | `portfolio/salt-racing` | Drive three timed laps on a wide circuit, crossing gates in order. | [Racing](../../games/racing/docs/portfolio-racing.md) |
 | Copper Switchback — Canyon Sprint | `portfolio/copper-racing` | Drive one timed lap of a narrower, asymmetric circuit. | [Racing](../../games/racing/docs/portfolio-racing.md) |
-| Glasshouse Breach | `portfolio/breach-tactics` | Lead three agents through a defended central bottleneck. | [Tactics](portfolio-tactics.md) |
-| Salt Flats Crossfire | `portfolio/crossfire-tactics` | Command two surrounded scouts against four raiders. | [Tactics](portfolio-tactics.md) |
+| Glasshouse Breach | `portfolio/breach-tactics` | Lead three agents through a defended central bottleneck. | [Tactics](../../games/tactics/docs/portfolio-tactics.md) |
+| Salt Flats Crossfire | `portfolio/crossfire-tactics` | Command two surrounded scouts against four raiders. | [Tactics](../../games/tactics/docs/portfolio-tactics.md) |
 | The Quiet Index | `portfolio/quiet-index` | Reconstruct a concealed register and choose how to disclose it. | [Adventures](portfolio-adventures.md) |
 | The Night Orchard | `portfolio/night-orchard` | Save a seedship cutting and choose which specialist to wake. | [Adventures](portfolio-adventures.md) |
 | Crosswind Dispatch | `portfolio/sky-resource` | Deliver four matched emergency instruments while conserving energy. | [Resource games](portfolio-resource-games.md) |
@@ -45,7 +45,7 @@ revealed hints without taking actions for the player. See [portfolio assistance]
 
 ## Verification
 
-`games/racing/tests/portfolio-racing.test.ts`, `tests/portfolio-tactics.test.ts`, `tests/portfolio-adventures.test.ts`,
+`games/racing/tests/portfolio-racing.test.ts`, `games/tactics/tests/portfolio-tactics.test.ts`, `tests/portfolio-adventures.test.ts`,
 `tests/portfolio-puzzles.test.ts` and `tests/portfolio-resource-games.test.ts` exercise actual winning routes for all
 ten games through their authoritative services. `tests/outcome-rating.test.ts` covers the shared rating contract and
 real racing and tactics consumers. `tests/portfolio-demo/run.mjs` launches selected bundled presets in a browser;

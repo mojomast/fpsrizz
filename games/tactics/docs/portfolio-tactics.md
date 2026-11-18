@@ -28,4 +28,4 @@ Both games share elimination as the only implemented victory objective, the same
 
 ## Integration
 
-Both content packs and presets are registered in the bundled catalog. `tests/portfolio-tactics.test.ts` activates the complete presets, exercises the routes, checks rejected moves and blocked shots without AP loss, and verifies fresh mission state after restart against an explicit headless catalog.
+Both content packs and presets are registered in the bundled catalog. `games/tactics/tests/portfolio-tactics.test.ts` activates the complete presets, exercises the routes, checks rejected moves and blocked shots without AP loss, and verifies fresh mission state after restart against an explicit headless catalog.

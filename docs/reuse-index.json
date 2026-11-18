@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "d87afcfb5f4d3fbe3bc3e0e3aad477e4829ed6bcd8925916349625a9a1cd45ac",
+  "sourceDigest": "96988eb6df357f0f4d6e76d2f977efa271921d57ec1ef407950ccf2784a8abbe",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -179,7 +179,7 @@
       ],
       "examples": [
         "games/racing/plugins/vehicle-racing/index.ts",
-        "src/plugins/board-tactics/index.ts"
+        "games/tactics/plugins/board-tactics/index.ts"
       ],
       "tests": [
         "tests/outcome-rating.test.ts"
@@ -230,13 +230,13 @@
       ],
       "examples": [
         "src/plugins/puzzle-rules/rules.ts",
-        "src/plugins/board-tactics/index.ts"
+        "games/tactics/plugins/board-tactics/index.ts"
       ],
       "tests": [
         "tests/mechanics-navigation.test.ts",
         "tests/navigation-consumers.test.ts",
         "tests/stonewake.test.ts",
-        "tests/turn-tactics.test.ts"
+        "games/tactics/tests/turn-tactics.test.ts"
       ],
       "id": "recipe/ordered-navigation",
       "name": "Ordered graph reachability and first steps",
@@ -1001,7 +1001,7 @@
       "name": "Signal Break",
       "scope": "content",
       "summary": "A compact authored tactical encounter.",
-      "source": "src/plugins/board-mission",
+      "source": "games/tactics/plugins/board-mission",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -1056,7 +1056,7 @@
       "name": "Tactical Board",
       "scope": "unreviewed",
       "summary": "Orthographic board and tactical command interface.",
-      "source": "src/plugins/board-presentation",
+      "source": "games/tactics/plugins/board-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -1125,7 +1125,7 @@
       "name": "Tactics Rules",
       "scope": "family",
       "summary": "Turn-tactics authority composing selected graph reachability with local occupancy, AP spending, attacks and deterministic enemy turns.",
-      "source": "src/plugins/board-tactics",
+      "source": "games/tactics/plugins/board-tactics",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -1151,15 +1151,15 @@
         "Only graph traversal is independently selected through NavigationRole; AP conversion, occupancy, move commits, attack legality and enemy destination policy remain family authority."
       ],
       "docs": [
-        "docs/games/turn-tactics.md",
+        "games/tactics/README.md",
         "docs/reference/navigation.md"
       ],
       "examples": [
-        "src/plugins/board-mission/content.json",
-        "src/content/presets/turn-tactics.json"
+        "games/tactics/plugins/board-mission/content.json",
+        "games/tactics/presets/turn-tactics.json"
       ],
       "tests": [
-        "tests/turn-tactics.test.ts",
+        "games/tactics/tests/turn-tactics.test.ts",
         "tests/navigation-consumers.test.ts"
       ],
       "dependencies": {},
@@ -8068,9 +8068,9 @@
       ],
       "examples": [
         "src/plugins/puzzle-rules/rules.ts",
-        "src/plugins/board-tactics/index.ts",
+        "games/tactics/plugins/board-tactics/index.ts",
         "src/content/presets/stonewake.json",
-        "src/content/presets/turn-tactics.json"
+        "games/tactics/presets/turn-tactics.json"
       ],
       "tests": [
         "tests/mechanics-navigation.test.ts",
@@ -8385,7 +8385,7 @@
       ],
       "examples": [
         "games/racing/plugins/vehicle-racing/index.ts",
-        "src/plugins/board-tactics/index.ts"
+        "games/tactics/plugins/board-tactics/index.ts"
       ],
       "tests": [
         "tests/outcome-rating.test.ts"
@@ -9598,7 +9598,7 @@
       "name": "Glasshouse Breach",
       "scope": "content",
       "summary": "A three-agent assault through a divided conservatory.",
-      "source": "src/plugins/portfolio-breach-tactics",
+      "source": "games/tactics/plugins/portfolio-breach-tactics",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9654,7 +9654,7 @@
       "name": "Salt Flats Crossfire",
       "scope": "content",
       "summary": "A two-scout stand against an encircling raiding party.",
-      "source": "src/plugins/portfolio-crossfire-tactics",
+      "source": "games/tactics/plugins/portfolio-crossfire-tactics",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -16597,94 +16597,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/Tactics",
-      "type": "contract",
-      "name": "Tactics",
-      "scope": "contract",
-      "summary": "Public SDK value: board/tactics",
-      "importFrom": "src/sdk/index.ts",
-      "token": "board/tactics",
-      "source": "src/sdk/contracts/tactics.ts:42",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Tactics",
-        "board/tactics"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "board/tactics"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/TacticsMissions",
-      "type": "contract",
-      "name": "TacticsMissions",
-      "scope": "contract",
-      "summary": "Public SDK value: board-mission",
-      "importFrom": "src/sdk/index.ts",
-      "token": "board-mission",
-      "source": "src/sdk/contracts/tactics.ts:17",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "TacticsMissions",
-        "board-mission"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "board/tactics"
-      ],
-      "recipes": [],
-      "implementations": [
-        "board/mission",
-        "portfolio/breach-tactics",
-        "portfolio/crossfire-tactics"
-      ]
-    },
-    {
-      "id": "sdk/TacticsResolved",
-      "type": "contract",
-      "name": "TacticsResolved",
-      "scope": "contract",
-      "summary": "Public SDK value: board/resolved",
-      "importFrom": "src/sdk/index.ts",
-      "token": "board/resolved",
-      "source": "src/sdk/contracts/tactics.ts:44",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "TacticsResolved",
-        "board/resolved"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "board/tactics"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
       "id": "sdk/ThemeRole",
       "type": "contract",
       "name": "ThemeRole",
@@ -17871,6 +17783,97 @@
         "portfolio/sky-resource",
         "sky/content"
       ]
+    },
+    {
+      "id": "games/tactics/Tactics",
+      "type": "contract",
+      "name": "Tactics",
+      "scope": "contract",
+      "summary": "Game-family contract value: board/tactics",
+      "importFrom": "games/tactics/contracts/tactics.ts",
+      "token": "board/tactics",
+      "source": "games/tactics/contracts/tactics.ts:42",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Tactics",
+        "tactics",
+        "board/tactics"
+      ],
+      "useWhen": "Game-specific contract of the tactics family; plugins in games/tactics/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the tactics family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "board/tactics"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/tactics/TacticsMissions",
+      "type": "contract",
+      "name": "TacticsMissions",
+      "scope": "contract",
+      "summary": "Game-family contract value: board-mission",
+      "importFrom": "games/tactics/contracts/tactics.ts",
+      "token": "board-mission",
+      "source": "games/tactics/contracts/tactics.ts:17",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "TacticsMissions",
+        "tactics",
+        "board-mission"
+      ],
+      "useWhen": "Game-specific contract of the tactics family; plugins in games/tactics/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the tactics family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "board/tactics"
+      ],
+      "recipes": [],
+      "implementations": [
+        "board/mission",
+        "portfolio/breach-tactics",
+        "portfolio/crossfire-tactics"
+      ]
+    },
+    {
+      "id": "games/tactics/TacticsResolved",
+      "type": "contract",
+      "name": "TacticsResolved",
+      "scope": "contract",
+      "summary": "Game-family contract value: board/resolved",
+      "importFrom": "games/tactics/contracts/tactics.ts",
+      "token": "board/resolved",
+      "source": "games/tactics/contracts/tactics.ts:44",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "TacticsResolved",
+        "tactics",
+        "board/resolved"
+      ],
+      "useWhen": "Game-specific contract of the tactics family; plugins in games/tactics/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the tactics family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "board/tactics"
+      ],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "games/verdant/Verdant",

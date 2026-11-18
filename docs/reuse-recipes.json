@@ -63,7 +63,7 @@
       "useWhen": "A game has already determined an outcome and wants a reproducible rating from one or more measured metrics.",
       "limitations": ["The game owns metric collection, thresholds and victory; ratings do not persist records or award rewards.", "All referenced metrics must be finite and supplied for evaluation. The last matching tier wins."],
       "docs": ["docs/reference/portfolio-shared-mechanics.md"],
-      "examples": ["games/racing/plugins/vehicle-racing/index.ts", "src/plugins/board-tactics/index.ts"],
+      "examples": ["games/racing/plugins/vehicle-racing/index.ts", "games/tactics/plugins/board-tactics/index.ts"],
       "tests": ["tests/outcome-rating.test.ts"],
       "plugins": ["mechanics/outcome-rating"],
       "roles": {"sdk/mechanic-outcome-rating": "mechanics/outcome-rating"},
@@ -101,13 +101,13 @@
       ],
       "examples": [
         "src/plugins/puzzle-rules/rules.ts",
-        "src/plugins/board-tactics/index.ts"
+        "games/tactics/plugins/board-tactics/index.ts"
       ],
       "tests": [
         "tests/mechanics-navigation.test.ts",
         "tests/navigation-consumers.test.ts",
         "tests/stonewake.test.ts",
-        "tests/turn-tactics.test.ts"
+        "games/tactics/tests/turn-tactics.test.ts"
       ],
       "plugins": [
         "mechanics/navigation"

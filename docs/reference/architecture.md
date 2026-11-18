@@ -165,7 +165,7 @@ reads that contract and treats browser services as optional in headless sessions
 | Simulation / service | Presentation | Data pack (folder) / content kind | Theme | Format and gameplay guide |
 |---|---|---|---|---|
 | `vehicle/racing` / `Race` | `vehicle/presentation` | `vehicle/track` (`vehicle-track`) / `vehicle-track` | `theme/arcade` | [Overhead racing](../../games/racing/README.md) |
-| `board/tactics` / `Tactics` | `board/presentation` | `board/mission` (`board-mission`) / `board-mission` | `theme/board` | [Turn tactics](../games/turn-tactics.md) |
+| `board/tactics` / `Tactics` | `board/presentation` | `board/mission` (`board-mission`) / `board-mission` | `theme/board` | [Turn tactics](../../games/tactics/README.md) |
 | `story/adventure` / `Adventure` | `story/presentation` | `story/chapter` (`story-chapter`) / `adventure-chapter` | `theme/story` | [Narrative adventure](../games/narrative-adventure.md) |
 | `puzzle/rules` / `PushPuzzle` | `puzzle/presentation` | `puzzle/chambers` (`puzzle-chambers`) / `push-puzzle` | `theme/board` | [Stonewake](../games/stonewake.md) |
 | `hollowmere/game` / `Metroidvania` | `hollowmere/presentation` | `hollowmere/content` (`metroidvania-world`) / `metroidvania-world` | `theme/assetrizz` (`theme/assetrizz-hollowmere`) | [Hollowmere](../../games/hollowmere/README.md) |

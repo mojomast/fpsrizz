@@ -1,6 +1,6 @@
 # Outcome ratings
 
-`mechanics/outcome-rating` provides `sdk/mechanic-outcome-rating`, a deterministic classifier for explicitly supplied numeric outcome metrics. It has no manifest dependencies or content/config. Real optional consumers are `vehicle/racing` and `board/tactics`; they collect their own metrics and select the provider in the [portfolio racing](../../../games/racing/presets/portfolio-salt-racing.json) and [tactics](../../content/presets/portfolio-breach-tactics.json) presets.
+`mechanics/outcome-rating` provides `sdk/mechanic-outcome-rating`, a deterministic classifier for explicitly supplied numeric outcome metrics. It has no manifest dependencies or content/config. Real optional consumers are `vehicle/racing` and `board/tactics`; they collect their own metrics and select the provider in the [portfolio racing](../../../games/racing/presets/portfolio-salt-racing.json) and [tactics](../../../games/tactics/presets/portfolio-breach-tactics.json) presets.
 
 ## SDK contract
 
