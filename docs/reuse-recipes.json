@@ -12,8 +12,8 @@
       "useWhen": "A game needs symmetric relationship scores while retaining its own social rules and consequences.",
       "limitations": ["Pairs and bounds are explicit; no automatic actor creation, dialogue, social simulation, or persistence.", "Changes clamp to the bounds and reject while paused."],
       "docs": ["src/plugins/mechanics-relationships/README.md"],
-      "examples": ["src/plugins/common-ground-game/index.ts", "src/plugins/salt-rpg-game/index.ts"],
-      "tests": ["tests/mechanics-relationships.test.ts", "tests/common-ground-simulation.test.ts", "tests/salt-ledger.test.ts"],
+      "examples": ["games/expeditions/plugins/common-ground-game/index.ts", "games/expeditions/plugins/salt-rpg-game/index.ts"],
+      "tests": ["tests/mechanics-relationships.test.ts", "games/expeditions/tests/common-ground-simulation.test.ts", "games/expeditions/tests/salt-ledger.test.ts"],
       "plugins": ["mechanics/relationships"],
       "roles": {"sdk/mechanic-relationships": "mechanics/relationships"},
       "steps": ["Enable a relationship provider and select its role; declare a role dependency when resolving the factory during activation.", "Create a consumer-owned ledger with bounds and distinct explicit actor pairs.", "Validate interactions in game policy, apply score changes only while playing, and dispose the ledger on restart."]
@@ -29,8 +29,8 @@
       "useWhen": "A consumer needs multiple independently named effect windows and retains policy for their consequences.",
       "limitations": ["The consumer advances the borrowed clock and owns targeting, effect consequences and persistence.", "There are no automatic callbacks or periodic damage; application and removal reject while paused."],
       "docs": ["src/plugins/mechanics-conditions/README.md", "docs/deadlines.md"],
-      "examples": ["src/plugins/silt-game/index.ts"],
-      "tests": ["tests/mechanics-conditions.test.ts", "tests/silt-archive-combat.test.ts"],
+      "examples": ["games/expeditions/plugins/silt-game/index.ts"],
+      "tests": ["tests/mechanics-conditions.test.ts", "games/expeditions/tests/silt-archive-combat.test.ts"],
       "plugins": ["mechanics/clock", "mechanics/conditions"],
       "roles": {"sdk/mechanic-clock": "mechanics/clock", "sdk/mechanic-conditions": "mechanics/conditions"},
       "steps": ["Select the clock and conditions providers and create an owned explicit clock and condition ledger.", "Apply or refresh a named condition on a validated target; advance the clock only according to the game's accepted-turn or seconds policy.", "Read live conditions to implement game-owned effects; dispose the ledger before its borrowed clock."]

@@ -46,9 +46,9 @@ import portfolioArchivePreset from '../content/presets/portfolio-archive-adventu
 import portfolioOrchardPreset from '../content/presets/portfolio-orchard-adventure.json' with { type: 'json' };
 import portfolioCardsAshPreset from '../content/presets/portfolio-cards-ash.json' with { type: 'json' };
 import portfolioCardsCloudPreset from '../content/presets/portfolio-cards-cloud.json' with { type: 'json' };
-import commonGroundPreset from '../content/presets/common-ground.json' with { type: 'json' };
-import saltPreset from '../content/presets/salt-ledger.json' with { type: 'json' };
-import siltPreset from '../content/presets/silt-archive.json' with { type: 'json' };
+import commonGroundPreset from '../../games/expeditions/presets/common-ground.json' with { type: 'json' };
+import saltPreset from '../../games/expeditions/presets/salt-ledger.json' with { type: 'json' };
+import siltPreset from '../../games/expeditions/presets/silt-archive.json' with { type: 'json' };
 
 /** Built-in presets offered by the start screen and creator panel. The first one is the default. */
 export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset, hollowmerePreset, portfolioAtelierPreset, portfolioWatchPreset, portfolioSaltPreset, portfolioCopperPreset, portfolioSkyPreset, portfolioVerdantPreset, portfolioBreachPreset, portfolioCrossfirePreset, portfolioArchivePreset, portfolioOrchardPreset, portfolioCardsAshPreset, portfolioCardsCloudPreset, commonGroundPreset, saltPreset, siltPreset];

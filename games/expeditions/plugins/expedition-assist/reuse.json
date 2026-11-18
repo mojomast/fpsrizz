@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "presentation",
+  "summary": "Optional state-aware, progressively requested hints for Silt, Salt and Common Ground.",
+  "keywords": ["assistance", "contextual hints", "next action", "silt", "salt", "common ground", "accessibility"],
+  "entryPoints": ["Silt", "SaltLedger", "Hearth", "hintMechanic"],
+  "useWhen": "Offer opt-in guidance using the detached observations of one supported game family.",
+  "limitations": ["Family-specific heuristics are not a solver and issue no commands.", "Silt has no run identifier, so an unobserved restart to an identical snapshot is indistinguishable."],
+  "docs": ["docs/expedition-assist.md", "games/expeditions/plugins/expedition-assist/README.md"],
+  "examples": ["games/expeditions/plugins/expedition-assist/index.ts"],
+  "tests": ["games/expeditions/tests/expedition-assist.test.ts"]
+}

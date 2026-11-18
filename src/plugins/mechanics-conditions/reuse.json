@@ -7,6 +7,6 @@
   "useWhen": "Track named temporary states for targets using a consumer-advanced clock.",
   "limitations": ["Game code owns effect policy, periodic effects, target legality and clock advancement. Reapplication replaces duration rather than stacking; no persistence or callbacks."],
   "docs": ["src/plugins/mechanics-conditions/README.md"],
-  "examples": ["src/plugins/silt-game/index.ts"],
-  "tests": ["tests/mechanics-conditions.test.ts", "tests/silt-archive-combat.test.ts"]
+  "examples": ["games/expeditions/plugins/silt-game/index.ts"],
+  "tests": ["tests/mechanics-conditions.test.ts", "games/expeditions/tests/silt-archive-combat.test.ts"]
 }

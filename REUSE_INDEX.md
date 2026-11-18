@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3`
+Source digest: `1e73ec81650d782915e21472ca1919a39b32d82a5f53fe098c76f6d0b1baeb04`
 
 ## Composition recipes
 
@@ -42,9 +42,9 @@ Source digest: `44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3
 | `cinder/content` | content | Cinder Vault content: seeded dungeon, six-weapon armory, twelve gear/consumable/Ember Shard items, nine forge recipes, seven enemy archetypes, threat caches and turn kit. | [source](games/cinder/plugins/cinder-content) |
 | `cinder/game` | family | Turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, telegraphed enemies, loot/inventory, NPC forge and Oracle bargains, fogged automap/grid, first-person/isometric view, field guide/AP hover preview and persistent mastery. | [source](games/cinder/plugins/cinder-game) |
 | `cinder/hud` | presentation | Cinder turn-based HUD: class/threat selection and transitions, field guide, first-person/isometric view badge, automap/tactical grid, action points/intents, AP hover preview, pack filters/drop, forge, NPC dialogue, boons and weapons. | [source](games/cinder/plugins/cinder-hud) |
-| `common/content` | content | Original Common Ground residents, visitors and furnishings. | [source](src/plugins/common-ground-content) |
-| `common/game` | family | Turn-based household simulation with editable house lot, furnishing placement, needs, careers and relationships. | [source](src/plugins/common-ground-game) |
-| `common/presentation` | presentation | Responsive dollhouse and accessible controls for the Common Ground household. | [source](src/plugins/common-ground-presentation) |
+| `common/content` | content | Original Common Ground residents, visitors and furnishings. | [source](games/expeditions/plugins/common-ground-content) |
+| `common/game` | family | Turn-based household simulation with editable house lot, furnishing placement, needs, careers and relationships. | [source](games/expeditions/plugins/common-ground-game) |
+| `common/presentation` | presentation | Responsive dollhouse and accessible controls for the Common Ground household. | [source](games/expeditions/plugins/common-ground-presentation) |
 | `core/combat` | family | Shooter damage pipeline, weapons/ammo, hitscan/projectile/melee attacks, pickups and damage modifiers. | [source](src/plugins/core-combat) |
 | `core/content` | content | Data-only reference content: two weapons, two enemies, three pickups, two ammo types and the Bulkhead Station arena. | [source](src/plugins/core-content) |
 | `core/enemies` | unreviewed | Enemy definitions (data), the enemy state machine, path-following movement, and two AI behaviours: a melee chaser and a ranged attacker that respects line of sight. | [source](src/plugins/core-enemies) |
@@ -78,7 +78,7 @@ Source digest: `44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3
 | `example/tactical-pack` | content | A compact objective mission and magazine-fed carbine using the industrial theme. | [source](src/plugins/example-tactical-pack) |
 | `example/time-trial` | unreviewed | Activate the objective switches and escape before time runs out. | [source](src/plugins/example-time-trial) |
 | `example/ward` | family | Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry. | [source](src/plugins/example-ward) |
-| `expedition/assist` | presentation | Optional state-aware, progressively requested hints for Silt, Salt and Common Ground. | [source](src/plugins/expedition-assist) |
+| `expedition/assist` | presentation | Optional state-aware, progressively requested hints for Silt, Salt and Common Ground. | [source](games/expeditions/plugins/expedition-assist) |
 | `hollowmere/content` | content | Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family. | [source](games/hollowmere/plugins/hollowmere-content) |
 | `hollowmere/game` | family | Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss. | [source](games/hollowmere/plugins/hollowmere-game) |
 | `hollowmere/presentation` | presentation | Canvas-rendered room view plus DOM field journal: world map, inventory, capabilities, stats and persisted options. | [source](games/hollowmere/plugins/hollowmere-presentation) |
@@ -118,12 +118,12 @@ Source digest: `44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3
 | `puzzle/chambers` | content | Three authored chambers introducing weight, pursuit and a double seal. | [source](src/plugins/puzzle-chambers) |
 | `puzzle/presentation` | unreviewed | Lit low-poly ruins, articulated explorer and golems, orbiting camera, picking and puzzle HUD. | [source](src/plugins/puzzle-presentation) |
 | `puzzle/rules` | family | Grid push puzzles composing selected graph navigation for deterministic pursuit, bounded command ingress and reversible turns. | [source](src/plugins/puzzle-rules) |
-| `salt/content` | content | Salt Ledger's Tern campaign locations, journal and endings. | [source](src/plugins/salt-rpg-content) |
-| `salt/game` | family | Salt Ledger party campaign, tracked side quests, equipment, party bonds and tactical battles with cover, hazards and obstacles. | [source](src/plugins/salt-rpg-game) |
-| `salt/presentation` | presentation | Responsive Salt Ledger party and tactical board interface. | [source](src/plugins/salt-rpg-presentation) |
-| `silt/content` | content | Three districts of four-socket chambers for The Silt Archive. | [source](src/plugins/silt-content) |
-| `silt/game` | family | Turn-based flooded archive exploration with room graphs, encounters, tide, equipment and extraction. | [source](src/plugins/silt-game) |
-| `silt/presentation` | presentation | Responsive top-down chamber, district map and controls for The Silt Archive. | [source](src/plugins/silt-presentation) |
+| `salt/content` | content | Salt Ledger's Tern campaign locations, journal and endings. | [source](games/expeditions/plugins/salt-rpg-content) |
+| `salt/game` | family | Salt Ledger party campaign, tracked side quests, equipment, party bonds and tactical battles with cover, hazards and obstacles. | [source](games/expeditions/plugins/salt-rpg-game) |
+| `salt/presentation` | presentation | Responsive Salt Ledger party and tactical board interface. | [source](games/expeditions/plugins/salt-rpg-presentation) |
+| `silt/content` | content | Three districts of four-socket chambers for The Silt Archive. | [source](games/expeditions/plugins/silt-content) |
+| `silt/game` | family | Turn-based flooded archive exploration with room graphs, encounters, tide, equipment and extraction. | [source](games/expeditions/plugins/silt-game) |
+| `silt/presentation` | presentation | Responsive top-down chamber, district map and controls for The Silt Archive. | [source](games/expeditions/plugins/silt-presentation) |
 | `sky/content` | content | Courier resources, actions and delivery objectives. | [source](games/sky/plugins/sky-content) |
 | `sky/game` | family | Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines. | [source](games/sky/plugins/sky-game) |
 | `sky/presentation` | unreviewed | Volumetric floating islands and drone cockpit HUD. | [source](games/sky/plugins/sky-presentation) |
@@ -202,8 +202,6 @@ Source digest: `44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3
 | `sdk/Flow` | contract | Public SDK value: sdk/flow | [source](src/sdk/contracts/shooter.ts#L631) |
 | `sdk/FlowEnded` | contract | Public SDK value: sdk/flow-ended | [source](src/sdk/contracts/shooter.ts#L632) |
 | `sdk/Health` | contract | Public SDK value: sdk/health | [source](src/sdk/contracts/shooter.ts#L43) |
-| `sdk/Hearth` | contract | Public SDK value: common/hearth | [source](src/sdk/contracts/hearth-sim.ts#L20) |
-| `sdk/HearthHouseholds` | contract | Public SDK value: hearth-household | [source](src/sdk/contracts/hearth-sim.ts#L7) |
 | `sdk/hintMechanic` | contract | Public helper/class | [source](src/sdk/contracts/hints.ts#L22) |
 | `sdk/HintMechanicRole` | contract | Public SDK value: sdk/mechanic-hints | [source](src/sdk/contracts/hints.ts#L21) |
 | `sdk/HintProviders` | contract | Public SDK value: mechanic-hint-provider | [source](src/sdk/contracts/hints.ts#L20) |
@@ -273,8 +271,6 @@ Source digest: `44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3
 | `sdk/RoomMapChanged` | contract | Public SDK value: sdk/room-map-changed | [source](src/sdk/contracts/room-map.ts#L44) |
 | `sdk/roomMapMechanic` | contract | Public helper/class | [source](src/sdk/contracts/room-map.ts#L46) |
 | `sdk/RoomMapRole` | contract | Public SDK value: sdk/room-map | [source](src/sdk/contracts/room-map.ts#L43) |
-| `sdk/SaltCampaigns` | contract | Public SDK value: salt-campaign | [source](src/sdk/contracts/salt-ledger.ts#L16) |
-| `sdk/SaltLedger` | contract | Public SDK value: sdk/salt-ledger | [source](src/sdk/contracts/salt-ledger.ts#L17) |
 | `sdk/Scope` | contract | Public helper/class | [source](src/sdk/core.ts#L45) |
 | `sdk/ScopeDisposedError` | contract | Public helper/class | [source](src/kernel/scope.ts#L4) |
 | `sdk/SDK_VERSION` | contract | Public SDK value | [source](src/sdk/core.ts#L10) |
@@ -283,8 +279,6 @@ Source digest: `44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3
 | `sdk/SequenceProviders` | contract | Public SDK value: mechanic-sequence-provider | [source](src/sdk/contracts/sequence.ts#L37) |
 | `sdk/SessionControl` | contract | Public SDK value: sdk/session-control | [source](src/sdk/contracts/experience.ts#L16) |
 | `sdk/Settings` | contract | Public SDK value: sdk/settings | [source](src/sdk/contracts/shooter.ts#L638) |
-| `sdk/Silt` | contract | Public SDK value: silt/archive | [source](src/sdk/contracts/silt-archive.ts#L44) |
-| `sdk/SiltArchives` | contract | Public SDK value: silt-archive | [source](src/sdk/contracts/silt-archive.ts#L13) |
 | `sdk/spawnPrefab` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L335) |
 | `sdk/Tactics` | contract | Public SDK value: board/tactics | [source](src/sdk/contracts/tactics.ts#L42) |
 | `sdk/TacticsMissions` | contract | Public SDK value: board-mission | [source](src/sdk/contracts/tactics.ts#L17) |
@@ -319,6 +313,12 @@ Source digest: `44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3
 | `games/cinder/Cinder` | contract | Game-family contract value: cinder/run | [source](games/cinder/contracts/cinder.ts#L196) |
 | `games/ember/Ember` | contract | Game-family contract value: ember/bastion | [source](games/ember/contracts/ember.ts#L52) |
 | `games/ember/EmberConfigs` | contract | Game-family contract value: ember-defense | [source](games/ember/contracts/ember.ts#L18) |
+| `games/expeditions/Hearth` | contract | Game-family contract value: common/hearth | [source](games/expeditions/contracts/hearth-sim.ts#L20) |
+| `games/expeditions/HearthHouseholds` | contract | Game-family contract value: hearth-household | [source](games/expeditions/contracts/hearth-sim.ts#L7) |
+| `games/expeditions/SaltCampaigns` | contract | Game-family contract value: salt-campaign | [source](games/expeditions/contracts/salt-ledger.ts#L16) |
+| `games/expeditions/SaltLedger` | contract | Game-family contract value: sdk/salt-ledger | [source](games/expeditions/contracts/salt-ledger.ts#L17) |
+| `games/expeditions/Silt` | contract | Game-family contract value: silt/archive | [source](games/expeditions/contracts/silt-archive.ts#L44) |
+| `games/expeditions/SiltArchives` | contract | Game-family contract value: silt-archive | [source](games/expeditions/contracts/silt-archive.ts#L13) |
 | `games/hollowmere/Metroidvania` | contract | Game-family contract value: hollowmere/run | [source](games/hollowmere/contracts/metroidvania.ts#L239) |
 | `games/hollowmere/MetroidvaniaWorlds` | contract | Game-family contract value: metroidvania-world | [source](games/hollowmere/contracts/metroidvania.ts#L237) |
 | `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](games/sky/contracts/sky.ts#L16) |

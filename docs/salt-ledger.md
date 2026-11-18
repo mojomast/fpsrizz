@@ -39,4 +39,4 @@ Reuse decisions: `mechanics/navigation` / `recipe/ordered-navigation` supplies g
 occupancy and AP. `recipe/bounded-command-queue` supplies owned, pause-aware ingress; `mechanics/progression` owns XP
 and pending levels; `mechanics/objectives` tracks side-quest steps and `mechanics/inventory` owns item stacks and
 equipment storage; `mechanics/relationships` tracks party bonds. Effects and quest policy remain game-owned. The UI is an optional scoped `Ui` consumer. Tests use a
-real local host catalog: `node --test tests/salt-ledger.test.ts`.
+real local host catalog: `node --test games/expeditions/tests/salt-ledger.test.ts`.

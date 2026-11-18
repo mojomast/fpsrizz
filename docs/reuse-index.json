@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3",
+  "sourceDigest": "1e73ec81650d782915e21472ca1919a39b32d82a5f53fe098c76f6d0b1baeb04",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -28,13 +28,13 @@
         "src/plugins/mechanics-relationships/README.md"
       ],
       "examples": [
-        "src/plugins/common-ground-game/index.ts",
-        "src/plugins/salt-rpg-game/index.ts"
+        "games/expeditions/plugins/common-ground-game/index.ts",
+        "games/expeditions/plugins/salt-rpg-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-relationships.test.ts",
-        "tests/common-ground-simulation.test.ts",
-        "tests/salt-ledger.test.ts"
+        "games/expeditions/tests/common-ground-simulation.test.ts",
+        "games/expeditions/tests/salt-ledger.test.ts"
       ],
       "id": "recipe/symmetric-relationships",
       "name": "Bounded actor relationships",
@@ -79,11 +79,11 @@
         "docs/deadlines.md"
       ],
       "examples": [
-        "src/plugins/silt-game/index.ts"
+        "games/expeditions/plugins/silt-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-conditions.test.ts",
-        "tests/silt-archive-combat.test.ts"
+        "games/expeditions/tests/silt-archive-combat.test.ts"
       ],
       "id": "recipe/timed-conditions",
       "name": "Named temporary conditions",
@@ -2055,7 +2055,7 @@
       "name": "Common Ground household",
       "scope": "content",
       "summary": "Original Common Ground residents, visitors and furnishings.",
-      "source": "src/plugins/common-ground-content",
+      "source": "games/expeditions/plugins/common-ground-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -2071,13 +2071,13 @@
         "Requires the family-specific hearth-household loader and selected Common Ground mechanic roles."
       ],
       "docs": [
-        "src/plugins/common-ground-content/README.md"
+        "games/expeditions/plugins/common-ground-content/README.md"
       ],
       "examples": [
-        "src/plugins/common-ground-content/content.json"
+        "games/expeditions/plugins/common-ground-content/content.json"
       ],
       "tests": [
-        "tests/common-ground-content.test.ts"
+        "games/expeditions/tests/common-ground-content.test.ts"
       ],
       "dependencies": {
         "common/game": "^1.0.0"
@@ -2122,7 +2122,7 @@
       "name": "Common Ground Rules",
       "scope": "family",
       "summary": "Turn-based household simulation with editable house lot, furnishing placement, needs, careers and relationships.",
-      "source": "src/plugins/common-ground-game",
+      "source": "games/expeditions/plugins/common-ground-game",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -2148,14 +2148,14 @@
       ],
       "docs": [
         "docs/common-ground.md",
-        "src/plugins/common-ground-game/README.md"
+        "games/expeditions/plugins/common-ground-game/README.md"
       ],
       "examples": [
-        "src/content/presets/common-ground.json"
+        "games/expeditions/presets/common-ground.json"
       ],
       "tests": [
-        "tests/common-ground-content.test.ts",
-        "tests/common-ground-simulation.test.ts"
+        "games/expeditions/tests/common-ground-content.test.ts",
+        "games/expeditions/tests/common-ground-simulation.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -2208,7 +2208,7 @@
       "name": "Common Ground presentation",
       "scope": "presentation",
       "summary": "Responsive dollhouse and accessible controls for the Common Ground household.",
-      "source": "src/plugins/common-ground-presentation",
+      "source": "games/expeditions/plugins/common-ground-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -2233,7 +2233,7 @@
         "docs/common-ground.md"
       ],
       "examples": [
-        "src/plugins/common-ground-presentation/index.ts"
+        "games/expeditions/plugins/common-ground-presentation/index.ts"
       ],
       "tests": [],
       "dependencies": {
@@ -6508,7 +6508,7 @@
       "name": "Expedition assist",
       "scope": "presentation",
       "summary": "Optional state-aware, progressively requested hints for Silt, Salt and Common Ground.",
-      "source": "src/plugins/expedition-assist",
+      "source": "games/expeditions/plugins/expedition-assist",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6535,13 +6535,13 @@
       ],
       "docs": [
         "docs/expedition-assist.md",
-        "src/plugins/expedition-assist/README.md"
+        "games/expeditions/plugins/expedition-assist/README.md"
       ],
       "examples": [
-        "src/plugins/expedition-assist/index.ts"
+        "games/expeditions/plugins/expedition-assist/index.ts"
       ],
       "tests": [
-        "tests/expedition-assist.test.ts"
+        "games/expeditions/tests/expedition-assist.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -7443,11 +7443,11 @@
         "src/plugins/mechanics-conditions/README.md"
       ],
       "examples": [
-        "src/plugins/silt-game/index.ts"
+        "games/expeditions/plugins/silt-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-conditions.test.ts",
-        "tests/silt-archive-combat.test.ts"
+        "games/expeditions/tests/silt-archive-combat.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -8690,11 +8690,11 @@
         "src/plugins/mechanics-relationships/README.md"
       ],
       "examples": [
-        "src/plugins/common-ground-game/index.ts"
+        "games/expeditions/plugins/common-ground-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-relationships.test.ts",
-        "tests/common-ground-simulation.test.ts"
+        "games/expeditions/tests/common-ground-simulation.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -10496,7 +10496,7 @@
       "name": "The Salt Ledger campaign",
       "scope": "content",
       "summary": "Salt Ledger's Tern campaign locations, journal and endings.",
-      "source": "src/plugins/salt-rpg-content",
+      "source": "games/expeditions/plugins/salt-rpg-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10518,10 +10518,10 @@
         "docs/salt-ledger.md"
       ],
       "examples": [
-        "src/plugins/salt-rpg-content/content.json"
+        "games/expeditions/plugins/salt-rpg-content/content.json"
       ],
       "tests": [
-        "tests/salt-ledger.test.ts"
+        "games/expeditions/tests/salt-ledger.test.ts"
       ],
       "dependencies": {
         "salt/game": "^1.0.0"
@@ -10567,7 +10567,7 @@
       "name": "The Salt Ledger rules",
       "scope": "family",
       "summary": "Salt Ledger party campaign, tracked side quests, equipment, party bonds and tactical battles with cover, hazards and obstacles.",
-      "source": "src/plugins/salt-rpg-game",
+      "source": "games/expeditions/plugins/salt-rpg-game",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10603,14 +10603,14 @@
         "No save/load or crafting is implemented."
       ],
       "docs": [
-        "src/plugins/salt-rpg-game/README.md"
+        "games/expeditions/plugins/salt-rpg-game/README.md"
       ],
       "examples": [
-        "src/plugins/salt-rpg-game/quests.ts",
-        "src/content/presets/salt-ledger.json"
+        "games/expeditions/plugins/salt-rpg-game/quests.ts",
+        "games/expeditions/presets/salt-ledger.json"
       ],
       "tests": [
-        "tests/salt-ledger.test.ts"
+        "games/expeditions/tests/salt-ledger.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -10735,7 +10735,7 @@
       "name": "Salt Ledger presentation",
       "scope": "presentation",
       "summary": "Responsive Salt Ledger party and tactical board interface.",
-      "source": "src/plugins/salt-rpg-presentation",
+      "source": "games/expeditions/plugins/salt-rpg-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10758,10 +10758,10 @@
         "docs/salt-ledger.md"
       ],
       "examples": [
-        "src/plugins/salt-rpg-presentation/index.ts"
+        "games/expeditions/plugins/salt-rpg-presentation/index.ts"
       ],
       "tests": [
-        "tests/salt-ledger.test.ts"
+        "games/expeditions/tests/salt-ledger.test.ts"
       ],
       "dependencies": {
         "salt/game": "^1.0.0"
@@ -10801,7 +10801,7 @@
       "name": "The Silt Archive Chambers",
       "scope": "content",
       "summary": "Three districts of four-socket chambers for The Silt Archive.",
-      "source": "src/plugins/silt-content",
+      "source": "games/expeditions/plugins/silt-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10824,7 +10824,7 @@
         "docs/silt-archive.md"
       ],
       "examples": [
-        "src/plugins/silt-content/content.json"
+        "games/expeditions/plugins/silt-content/content.json"
       ],
       "tests": [],
       "dependencies": {
@@ -10871,7 +10871,7 @@
       "name": "The Silt Archive Rules",
       "scope": "family",
       "summary": "Turn-based flooded archive exploration with room graphs, encounters, tide, equipment and extraction.",
-      "source": "src/plugins/silt-game",
+      "source": "games/expeditions/plugins/silt-game",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10893,14 +10893,14 @@
       ],
       "docs": [
         "docs/silt-archive.md",
-        "src/plugins/silt-game/README.md"
+        "games/expeditions/plugins/silt-game/README.md"
       ],
       "examples": [
-        "src/content/presets/silt-archive.json"
+        "games/expeditions/presets/silt-archive.json"
       ],
       "tests": [
-        "tests/silt-archive-bundled.test.ts",
-        "tests/silt-archive-combat.test.ts"
+        "games/expeditions/tests/silt-archive-bundled.test.ts",
+        "games/expeditions/tests/silt-archive-combat.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -11028,7 +11028,7 @@
       "name": "The Silt Archive Presentation",
       "scope": "presentation",
       "summary": "Responsive top-down chamber, district map and controls for The Silt Archive.",
-      "source": "src/plugins/silt-presentation",
+      "source": "games/expeditions/plugins/silt-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -11055,7 +11055,7 @@
         "docs/silt-archive.md"
       ],
       "examples": [
-        "src/plugins/silt-presentation/index.ts"
+        "games/expeditions/plugins/silt-presentation/index.ts"
       ],
       "tests": [],
       "dependencies": {
@@ -14341,66 +14341,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/Hearth",
-      "type": "contract",
-      "name": "Hearth",
-      "scope": "contract",
-      "summary": "Public SDK value: common/hearth",
-      "importFrom": "src/sdk/index.ts",
-      "token": "common/hearth",
-      "source": "src/sdk/contracts/hearth-sim.ts:20",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Hearth",
-        "common/hearth"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "common/game",
-        "common/presentation",
-        "expedition/assist"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/HearthHouseholds",
-      "type": "contract",
-      "name": "HearthHouseholds",
-      "scope": "contract",
-      "summary": "Public SDK value: hearth-household",
-      "importFrom": "src/sdk/index.ts",
-      "token": "hearth-household",
-      "source": "src/sdk/contracts/hearth-sim.ts:7",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "HearthHouseholds",
-        "hearth-household"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "common/game"
-      ],
-      "recipes": [],
-      "implementations": [
-        "common/content"
-      ]
-    },
-    {
       "id": "sdk/hintMechanic",
       "type": "contract",
       "name": "hintMechanic",
@@ -16466,67 +16406,6 @@
       ]
     },
     {
-      "id": "sdk/SaltCampaigns",
-      "type": "contract",
-      "name": "SaltCampaigns",
-      "scope": "contract",
-      "summary": "Public SDK value: salt-campaign",
-      "importFrom": "src/sdk/index.ts",
-      "token": "salt-campaign",
-      "source": "src/sdk/contracts/salt-ledger.ts:16",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "SaltCampaigns",
-        "salt-campaign"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "salt/content",
-        "salt/game"
-      ],
-      "recipes": [],
-      "implementations": [
-        "salt/content"
-      ]
-    },
-    {
-      "id": "sdk/SaltLedger",
-      "type": "contract",
-      "name": "SaltLedger",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/salt-ledger",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/salt-ledger",
-      "source": "src/sdk/contracts/salt-ledger.ts:17",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "SaltLedger",
-        "sdk/salt-ledger"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "expedition/assist",
-        "salt/game",
-        "salt/presentation"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
       "id": "sdk/Scope",
       "type": "contract",
       "name": "Scope",
@@ -16751,67 +16630,6 @@
         "recipe/profile-storage"
       ],
       "implementations": []
-    },
-    {
-      "id": "sdk/Silt",
-      "type": "contract",
-      "name": "Silt",
-      "scope": "contract",
-      "summary": "Public SDK value: silt/archive",
-      "importFrom": "src/sdk/index.ts",
-      "token": "silt/archive",
-      "source": "src/sdk/contracts/silt-archive.ts:44",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Silt",
-        "silt/archive"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "expedition/assist",
-        "silt/game",
-        "silt/presentation"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/SiltArchives",
-      "type": "contract",
-      "name": "SiltArchives",
-      "scope": "contract",
-      "summary": "Public SDK value: silt-archive",
-      "importFrom": "src/sdk/index.ts",
-      "token": "silt-archive",
-      "source": "src/sdk/contracts/silt-archive.ts:13",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "SiltArchives",
-        "silt-archive"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "silt/content",
-        "silt/game"
-      ],
-      "recipes": [],
-      "implementations": [
-        "silt/content"
-      ]
     },
     {
       "id": "sdk/spawnPrefab",
@@ -17739,6 +17557,194 @@
       "recipes": [],
       "implementations": [
         "ember/content"
+      ]
+    },
+    {
+      "id": "games/expeditions/Hearth",
+      "type": "contract",
+      "name": "Hearth",
+      "scope": "contract",
+      "summary": "Game-family contract value: common/hearth",
+      "importFrom": "games/expeditions/contracts/hearth-sim.ts",
+      "token": "common/hearth",
+      "source": "games/expeditions/contracts/hearth-sim.ts:20",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Hearth",
+        "expeditions",
+        "common/hearth"
+      ],
+      "useWhen": "Game-specific contract of the expeditions family; plugins in games/expeditions/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the expeditions family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "common/game",
+        "common/presentation",
+        "expedition/assist"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/expeditions/HearthHouseholds",
+      "type": "contract",
+      "name": "HearthHouseholds",
+      "scope": "contract",
+      "summary": "Game-family contract value: hearth-household",
+      "importFrom": "games/expeditions/contracts/hearth-sim.ts",
+      "token": "hearth-household",
+      "source": "games/expeditions/contracts/hearth-sim.ts:7",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "HearthHouseholds",
+        "expeditions",
+        "hearth-household"
+      ],
+      "useWhen": "Game-specific contract of the expeditions family; plugins in games/expeditions/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the expeditions family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "common/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "common/content"
+      ]
+    },
+    {
+      "id": "games/expeditions/SaltCampaigns",
+      "type": "contract",
+      "name": "SaltCampaigns",
+      "scope": "contract",
+      "summary": "Game-family contract value: salt-campaign",
+      "importFrom": "games/expeditions/contracts/salt-ledger.ts",
+      "token": "salt-campaign",
+      "source": "games/expeditions/contracts/salt-ledger.ts:16",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SaltCampaigns",
+        "expeditions",
+        "salt-campaign"
+      ],
+      "useWhen": "Game-specific contract of the expeditions family; plugins in games/expeditions/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the expeditions family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "salt/content",
+        "salt/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "salt/content"
+      ]
+    },
+    {
+      "id": "games/expeditions/SaltLedger",
+      "type": "contract",
+      "name": "SaltLedger",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/salt-ledger",
+      "importFrom": "games/expeditions/contracts/salt-ledger.ts",
+      "token": "sdk/salt-ledger",
+      "source": "games/expeditions/contracts/salt-ledger.ts:17",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SaltLedger",
+        "expeditions",
+        "sdk/salt-ledger"
+      ],
+      "useWhen": "Game-specific contract of the expeditions family; plugins in games/expeditions/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the expeditions family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "expedition/assist",
+        "salt/game",
+        "salt/presentation"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/expeditions/Silt",
+      "type": "contract",
+      "name": "Silt",
+      "scope": "contract",
+      "summary": "Game-family contract value: silt/archive",
+      "importFrom": "games/expeditions/contracts/silt-archive.ts",
+      "token": "silt/archive",
+      "source": "games/expeditions/contracts/silt-archive.ts:44",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Silt",
+        "expeditions",
+        "silt/archive"
+      ],
+      "useWhen": "Game-specific contract of the expeditions family; plugins in games/expeditions/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the expeditions family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "expedition/assist",
+        "silt/game",
+        "silt/presentation"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/expeditions/SiltArchives",
+      "type": "contract",
+      "name": "SiltArchives",
+      "scope": "contract",
+      "summary": "Game-family contract value: silt-archive",
+      "importFrom": "games/expeditions/contracts/silt-archive.ts",
+      "token": "silt-archive",
+      "source": "games/expeditions/contracts/silt-archive.ts:13",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SiltArchives",
+        "expeditions",
+        "silt-archive"
+      ],
+      "useWhen": "Game-specific contract of the expeditions family; plugins in games/expeditions/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the expeditions family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "silt/content",
+        "silt/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "silt/content"
       ]
     },
     {
