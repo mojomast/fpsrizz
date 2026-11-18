@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/preset.schema.json",
   "schema": 1,
   "id": "example/annex",
   "name": "Bulkhead Annex \u2014 content-pack map",

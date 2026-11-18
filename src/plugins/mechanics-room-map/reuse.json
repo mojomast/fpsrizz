@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations.",

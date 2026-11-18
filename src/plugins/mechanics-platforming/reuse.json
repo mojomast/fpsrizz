@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "AABB side-scrolling movement with coyote/buffered jumps, variable height, double jump, dash, wall slide and wall jump.",

@@ -1,0 +1,46 @@
+{
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "manifest.json"
+      ],
+      "url": "./schemas/plugin-manifest.schema.json"
+    },
+    {
+      "fileMatch": [
+        "/games/*/presets/*.json"
+      ],
+      "url": "./schemas/preset.schema.json"
+    },
+    {
+      "fileMatch": [
+        "reuse.json"
+      ],
+      "url": "./schemas/reuse.schema.json"
+    },
+    {
+      "fileMatch": [
+        "content.json"
+      ],
+      "url": "./schemas/content-pack.schema.json"
+    },
+    {
+      "fileMatch": [
+        "*.replay.json"
+      ],
+      "url": "./schemas/replay.schema.json"
+    },
+    {
+      "fileMatch": [
+        "/assets/models.json"
+      ],
+      "url": "./schemas/models.schema.json"
+    },
+    {
+      "fileMatch": [
+        "/docs/reuse-recipes.json"
+      ],
+      "url": "./schemas/reuse-recipes.schema.json"
+    }
+  ]
+}

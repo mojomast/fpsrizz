@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Actor-specific key pickup and keyed-door interaction for shooter-world maps.",
   "keywords": ["key", "keyed", "door", "gate", "lock", "unlock", "access", "inventory"],
   "entryPoints": ["PickupEffects", "Prefabs", "Interactions", "World"],

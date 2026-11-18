@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GameGraph v1 (composer authoring model)",
+  "description": "Plugin and role nodes plus dependency/selects edges; compiles to a preset (src/app/game-graph.ts).",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "seed",
+    "options",
+    "config",
+    "nodes",
+    "edges"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$",
+      "description": "Namespaced id like \"core/world\" (lowercase, at least one slash)."
+    },
+    "layout": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "collapsed": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor hint: path or URL of this file's JSON Schema. Ignored at runtime."
+    },
+    "schema": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "options": {
+      "type": "object"
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "plugin"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^plugin:"
+              },
+              "type": {
+                "const": "plugin"
+              },
+              "plugin": {
+                "$ref": "#/$defs/id"
+              },
+              "layout": {
+                "$ref": "#/$defs/layout"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "role"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^role:"
+              },
+              "type": {
+                "const": "role"
+              },
+              "role": {
+                "$ref": "#/$defs/id"
+              },
+              "layout": {
+                "$ref": "#/$defs/layout"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "from",
+              "to"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "const": "dependency"
+              },
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "from",
+              "to",
+              "provider"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "const": "selects"
+              },
+              "from": {
+                "type": "string"
+              },
+              "to": {
+                "type": "string"
+              },
+              "provider": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

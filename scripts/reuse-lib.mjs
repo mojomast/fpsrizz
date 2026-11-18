@@ -29,7 +29,7 @@ function pathExists(path, label) {
 const keys = ['schema', 'scope', 'summary', 'keywords', 'entryPoints', 'useWhen', 'limitations', 'docs', 'examples', 'tests'];
 export function validateMetadata(data, label, symbols) {
   if (!data || typeof data !== 'object' || Array.isArray(data)) fail(label, 'expected an object');
-  for (const key of Object.keys(data)) if (!keys.includes(key)) fail(`${label}.${key}`, 'unknown property');
+  for (const key of Object.keys(data)) if (key !== '$schema' && !keys.includes(key)) fail(`${label}.${key}`, 'unknown property');
   if (data.schema !== 1) fail(`${label}.schema`, 'expected 1');
   if (!scopes.includes(data.scope)) fail(`${label}.scope`, `expected ${scopes.join(', ')}`);
   for (const key of ['summary', 'useWhen']) if (typeof data[key] !== 'string' || !data[key].trim()) fail(`${label}.${key}`, 'expected a nonblank string');
@@ -157,7 +157,7 @@ export async function buildReuseIndex() {
   }
   const recipeData = json('docs/reuse-recipes.json');
   if (!recipeData || recipeData.schema !== 1 || !Array.isArray(recipeData.recipes)) fail('docs/reuse-recipes.json', 'expected schema 1 and recipes array');
-  for (const key of Object.keys(recipeData)) if (!['schema', 'recipes'].includes(key)) fail(`docs/reuse-recipes.json.${key}`, 'unknown property');
+  for (const key of Object.keys(recipeData)) if (!['$schema', 'schema', 'recipes'].includes(key)) fail(`docs/reuse-recipes.json.${key}`, 'unknown property');
   const recipes = recipeData.recipes.map(recipe => {
     if (!recipe || typeof recipe !== 'object' || Array.isArray(recipe)) fail('recipe', 'expected an object');
     const { id, name, plugins: enabled = [], roles = {}, steps, ...metadata } = recipe;

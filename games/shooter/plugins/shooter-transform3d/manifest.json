@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
   "schema": 1,
   "id": "shooter/transform3d",
   "name": "Shooter Transform3D bridge",

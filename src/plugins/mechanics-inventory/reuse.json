@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations.",

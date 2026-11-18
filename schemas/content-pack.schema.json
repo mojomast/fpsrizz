@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Content pack data (content.json)",
+  "description": "An array of {kind, id, data} entries. Each kind's `data` is validated by the content-kind loader registered by the plugin that owns the kind (TypeScript), so only the envelope is described here. Arrays cannot carry $schema: editors map content.json through .vscode/settings.json.",
+  "type": "array",
+  "maxItems": 2000,
+  "items": {
+    "type": "object",
+    "required": [
+      "kind",
+      "id",
+      "data"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "kind": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 60,
+        "description": "Content kind, e.g. \"weapon\", \"map\", \"prefab\"."
+      },
+      "id": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$",
+        "description": "Namespaced id like \"core/world\" (lowercase, at least one slash)."
+      },
+      "data": {
+        "description": "Any JSON value."
+      }
+    }
+  }
+}

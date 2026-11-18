@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "family",
   "summary": "Seeded room-and-corridor dungeon map format. It emits multiple isolated wings in one bounded grid, with room markers, descent pads and lights for a game mode to populate.",

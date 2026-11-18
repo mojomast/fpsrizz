@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service.",

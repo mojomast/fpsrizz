@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "Pure deterministic unit-edge graph queries returning ordered shortest distances and canonical first steps.",

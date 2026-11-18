@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "presentation",
   "summary": "Optional on-demand contextual assistance for public card and puzzle services.",

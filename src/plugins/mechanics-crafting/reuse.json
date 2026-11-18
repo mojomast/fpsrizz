@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback.",

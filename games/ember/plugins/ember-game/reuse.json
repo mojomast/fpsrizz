@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Tower-defense orchestration with independent shared tower actions, construction and authored enemy waves.",
   "keywords": ["tower", "defense", "building", "wave", "target", "turret", "cooldown", "repair"],
   "entryPoints": ["Ember", "EmberConfigs", "createMechanicKit", "actionMechanic"], "useWhen": "Author a defense lane or copy the composition pattern for independent per-actor action handles.",

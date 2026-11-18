@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/reuse-recipes.schema.json",
   "schema": 1,
   "recipes": [
     {

@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Reuse recipes (docs/reuse-recipes.json)",
+  "type": "object",
+  "required": [
+    "schema",
+    "recipes"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "strings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "paths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[^/\\\\][^\\\\]*$"
+      },
+      "uniqueItems": true
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor hint: path or URL of this file's JSON Schema. Ignored at runtime."
+    },
+    "schema": {
+      "const": 1
+    },
+    "recipes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "schema",
+          "scope",
+          "summary",
+          "keywords",
+          "entryPoints",
+          "useWhen",
+          "limitations",
+          "docs",
+          "examples",
+          "tests"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^recipe/[a-z0-9-]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "schema": {
+            "const": 1
+          },
+          "scope": {
+            "enum": [
+              "cross-genre",
+              "family",
+              "presentation",
+              "content",
+              "unreviewed"
+            ]
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "keywords": {
+            "$ref": "#/$defs/strings"
+          },
+          "entryPoints": {
+            "$ref": "#/$defs/strings"
+          },
+          "useWhen": {
+            "type": "string",
+            "minLength": 1
+          },
+          "limitations": {
+            "$ref": "#/$defs/strings"
+          },
+          "docs": {
+            "$ref": "#/$defs/paths"
+          },
+          "examples": {
+            "$ref": "#/$defs/paths"
+          },
+          "tests": {
+            "$ref": "#/$defs/paths"
+          },
+          "plugins": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$"
+            },
+            "uniqueItems": true
+          },
+          "roles": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$"
+            }
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "cross-genre",
   "summary": "Objective counters, prerequisite unlocks and idempotent progress receipts for quests, deliveries, waves and restoration.",
   "keywords": ["objective", "quest", "mission", "progress", "counter", "unlock", "prerequisite", "achievement", "receipt", "deduplication", "wave", "delivery"],

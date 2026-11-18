@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Run snapshot (quicksave)",
+  "description": "host.snapshot() output (src/kernel/snapshot.ts).",
+  "type": "object",
+  "required": [
+    "format",
+    "schema",
+    "sdk",
+    "preset",
+    "plugins",
+    "tick",
+    "nextEntityId",
+    "rng",
+    "entities",
+    "state"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor hint: path or URL of this file's JSON Schema. Ignored at runtime."
+    },
+    "format": {
+      "const": "fpsrizz-snapshot"
+    },
+    "schema": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "sdk": {
+      "type": "string"
+    },
+    "preset": {
+      "type": "object",
+      "required": [
+        "id",
+        "seed"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$",
+          "description": "Namespaced id like \"core/world\" (lowercase, at least one slash)."
+        },
+        "seed": {
+          "type": "integer"
+        }
+      }
+    },
+    "plugins": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "tick": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "nextEntityId": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "rng": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer"
+      }
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "owner",
+          "components"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "owner": {
+            "type": "string"
+          },
+          "components": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "state": {
+      "type": "object"
+    }
+  }
+}

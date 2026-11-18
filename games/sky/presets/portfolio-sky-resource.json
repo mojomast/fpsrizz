@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/preset.schema.json",
   "schema": 1,
   "id": "portfolio/sky-resource",
   "name": "Crosswind Dispatch",

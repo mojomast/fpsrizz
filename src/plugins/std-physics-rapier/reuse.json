@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "Rapier 3D physics: rigid bodies, colliders, sensors/triggers, raycasts and a kinematic character controller.",

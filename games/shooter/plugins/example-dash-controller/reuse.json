@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Planar first-person sprint and directional dash controller.",
   "keywords": ["dash", "sprint", "movement", "controller", "cooldown", "first person"],
   "entryPoints": ["ControllerRole", "Input", "World"], "useWhen": "Replace the shooter controller with sprint/dash movement.",

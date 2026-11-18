@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
   "schema": 1, "id": "portfolio/assist", "name": "Portfolio assist", "version": "1.0.0",
   "kind": "code", "sdk": "^2.0.0", "description": "Optional on-demand contextual hints for cards and push puzzles.",
   "dependencies": {}, "roleDependencies": ["sdk/mechanic-hints"], "capabilities": ["ui"]

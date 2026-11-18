@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion.",

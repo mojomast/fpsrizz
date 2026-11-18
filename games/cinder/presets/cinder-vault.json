@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/preset.schema.json",
   "schema": 1, "id": "cinder/vault", "name": "CINDER VAULT — Turn-Based Ashbound Roguelite",
   "plugins": ["core/world", "core/combat", "core/player", "core/enemies", "core/presentation", "presentation/camera-modes", "presentation/player-avatar", "theme/assetrizz", "dungeon/generator", "mechanics/resources", "mechanics/clock", "mechanics/actions", "mechanics/objectives", "mechanics/progression", "mechanics/inventory", "mechanics/crafting", "mechanics/kits", "cinder/content", "cinder/game", "cinder/hud"],
   "roles": {

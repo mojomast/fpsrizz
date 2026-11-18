@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
   "schema": 1, "id": "puzzle/presentation", "name": "Stonewake 3D", "version": "1.0.0",
   "kind": "code", "sdk": "^2.0.0", "description": "Lit low-poly ruins, articulated explorer and golems, orbiting camera, picking and puzzle HUD.",
   "dependencies": { "puzzle/rules": "^1.0.0" }, "capabilities": ["render", "ui", "audio"], "requiresRoles": ["sdk/theme"]

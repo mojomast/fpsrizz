@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/preset.schema.json",
   "schema": 1,
   "id": "example/survival",
   "name": "Survival \u2014 waves, Visor HUD",

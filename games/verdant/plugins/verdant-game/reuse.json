@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Turn-based colony orchestration composing shared conversion, cooldowns, restoration and successful-turn weather/season deadlines.",
   "keywords": ["colony", "restoration", "production", "crafting", "water", "biomass", "turn", "forecast", "weather", "deadline", "season", "dry-wind"],
   "entryPoints": ["Verdant", "VerdantWorlds", "createMechanicKit", "createDeadline"], "useWhen": "Author another restoration world or study successful-turn deadlines and explicit weather rearming over shared mechanic providers.",

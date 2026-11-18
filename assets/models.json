@@ -1,4 +1,5 @@
 {
+  "$schema": "../schemas/models.schema.json",
   "schema": 1,
   "$comment": "Source models optimised by `npm run assets` (scripts/assets.mjs) into public/models/. Paths are repo-relative.",
   "models": [

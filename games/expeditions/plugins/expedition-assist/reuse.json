@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "presentation",
   "summary": "Optional state-aware, progressively requested hints for Silt, Salt and Common Ground.",
