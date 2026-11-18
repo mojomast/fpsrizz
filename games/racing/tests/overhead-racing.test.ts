@@ -1,18 +1,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import { codePlugin, hostFailure } from './helpers/host.ts';
-import { ExperienceRole, SequenceMechanicRole, SequenceProviders } from '../src/sdk/index.ts';
-import { sequenceProviders } from './helpers/alternate-sequence.ts';
-import { Race } from '../src/sdk/contracts/racing.ts';
-import racing from '../src/plugins/vehicle-racing/manifest.json' with { type: 'json' };
-import trackManifest from '../src/plugins/vehicle-track/manifest.json' with { type: 'json' };
-import content from '../src/plugins/vehicle-track/content.json' with { type: 'json' };
+import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
+import { codePlugin, hostFailure } from '../../../tests/helpers/host.ts';
+import { ExperienceRole, SequenceMechanicRole, SequenceProviders } from '../../../src/sdk/index.ts';
+import { sequenceProviders } from '../../../tests/helpers/alternate-sequence.ts';
+import { Race } from '../contracts/racing.ts';
+import racing from '../plugins/vehicle-racing/manifest.json' with { type: 'json' };
+import trackManifest from '../plugins/vehicle-track/manifest.json' with { type: 'json' };
+import content from '../plugins/vehicle-track/content.json' with { type: 'json' };
 
 for (const selected of sequenceProviders) {
 const catalog = [
   selected.entry,
-  { manifest: racing, load: () => import('../src/plugins/vehicle-racing/index.ts') },
+  { manifest: racing, load: () => import('../plugins/vehicle-racing/index.ts') },
   { manifest: trackManifest, content },
 ];
 const preset = headlessPreset({
@@ -63,7 +63,7 @@ test(`track data reports unknown keys and degenerate centerlines and gates at th
   data.gates[1] = { ...data.gates[0]! };
   const game = createHeadlessGame([
     selected.entry,
-    { manifest: racing, load: () => import('../src/plugins/vehicle-racing/index.ts') },
+    { manifest: racing, load: () => import('../plugins/vehicle-racing/index.ts') },
     { manifest: trackManifest, content: invalid },
   ]);
   const error = await hostFailure(game.host.apply(preset));
@@ -138,7 +138,7 @@ test(`invalid track and missing track are rejected during staging (${selected.id
   ];
   const malformed = createHeadlessGame([
     selected.entry,
-    { manifest: racing, load: () => import('../src/plugins/vehicle-racing/index.ts') },
+    { manifest: racing, load: () => import('../plugins/vehicle-racing/index.ts') },
     { manifest: trackManifest, content: bad },
   ]);
   await assert.rejects(
@@ -225,7 +225,7 @@ test(`gates only count in order and in their authored travel direction (${select
   ];
   const game = createHeadlessGame([
     selected.entry,
-    { manifest: racing, load: () => import('../src/plugins/vehicle-racing/index.ts') },
+    { manifest: racing, load: () => import('../plugins/vehicle-racing/index.ts') },
     { manifest: trackManifest, content: custom },
   ]);
   await game.host.apply(
@@ -256,7 +256,7 @@ test(`vehicle credits only one directional gate per tick and a final crossing pr
   async function drive(gates: number[], timeLimit: number) {
     const game = createHeadlessGame([
       selected.entry,
-      { manifest: racing, load: () => import('../src/plugins/vehicle-racing/index.ts') },
+      { manifest: racing, load: () => import('../plugins/vehicle-racing/index.ts') },
       { manifest: trackManifest, content: [{ kind: 'vehicle-track', id: 'vehicle/straight', data: {
         name: 'Straight boundary route', width: 10, laps: 1, timeLimit,
         start: { x: 0, z: 0, yaw: -Math.PI / 2 },
@@ -299,7 +299,7 @@ test('vehicle staging rejects an absent sequence selection or a role without its
   } });
   const game = createHeadlessGame([
     metadataOnly,
-    { manifest: racing, load: () => import('../src/plugins/vehicle-racing/index.ts') },
+    { manifest: racing, load: () => import('../plugins/vehicle-racing/index.ts') },
     { manifest: trackManifest, content },
   ]);
   try {

@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import defaultPresetJson from '../src/content/presets/default.json' with { type: 'json' };
-import overheadRacingPresetJson from '../src/content/presets/overhead-racing.json' with { type: 'json' };
+import overheadRacingPresetJson from '../games/racing/presets/overhead-racing.json' with { type: 'json' };
 import coreContentManifest from '../src/plugins/core-content/manifest.json' with { type: 'json' };
 import coreCombatManifest from '../src/plugins/core-combat/manifest.json' with { type: 'json' };
 import coreEnemiesManifest from '../src/plugins/core-enemies/manifest.json' with { type: 'json' };
@@ -16,9 +16,9 @@ import exampleSurvivalManifest from '../src/plugins/example-survival/manifest.js
 import mechanicsSequenceManifest from '../src/plugins/mechanics-sequence/manifest.json' with { type: 'json' };
 import themeArcadeManifest from '../src/plugins/theme-arcade/manifest.json' with { type: 'json' };
 import themeIndustrialManifest from '../src/plugins/theme-industrial/manifest.json' with { type: 'json' };
-import vehiclePresentationManifest from '../src/plugins/vehicle-presentation/manifest.json' with { type: 'json' };
-import vehicleRacingManifest from '../src/plugins/vehicle-racing/manifest.json' with { type: 'json' };
-import vehicleTrackManifest from '../src/plugins/vehicle-track/manifest.json' with { type: 'json' };
+import vehiclePresentationManifest from '../games/racing/plugins/vehicle-presentation/manifest.json' with { type: 'json' };
+import vehicleRacingManifest from '../games/racing/plugins/vehicle-racing/manifest.json' with { type: 'json' };
+import vehicleTrackManifest from '../games/racing/plugins/vehicle-track/manifest.json' with { type: 'json' };
 import {
   GAME_GRAPH_SCHEMA,
   addPluginNode,

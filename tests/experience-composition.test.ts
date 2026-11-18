@@ -6,7 +6,7 @@ import { createFlow } from '../src/platform/flow.ts';
 import { createInputCore } from '../src/platform/input.ts';
 import { Flow, FlowEnded, Input, PHASES, SDK_VERSION } from '../src/sdk/index.ts';
 import shooter from '../src/content/presets/default.json' with { type: 'json' };
-import racer from '../src/content/presets/overhead-racing.json' with { type: 'json' };
+import racer from '../games/racing/presets/overhead-racing.json' with { type: 'json' };
 import tactics from '../src/content/presets/turn-tactics.json' with { type: 'json' };
 import adventure from '../src/content/presets/narrative-adventure.json' with { type: 'json' };
 import puzzle from '../src/content/presets/stonewake.json' with { type: 'json' };

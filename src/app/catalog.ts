@@ -25,7 +25,7 @@ import roguelitePreset from '../content/presets/roguelite.json' with { type: 'js
 import racingPreset from '../content/presets/racing.json' with { type: 'json' };
 import extractionPreset from '../content/presets/extraction.json' with { type: 'json' };
 import tacticalPreset from '../content/presets/tactical.json' with { type: 'json' };
-import overheadRacingPreset from '../content/presets/overhead-racing.json' with { type: 'json' };
+import overheadRacingPreset from '../../games/racing/presets/overhead-racing.json' with { type: 'json' };
 import turnTacticsPreset from '../content/presets/turn-tactics.json' with { type: 'json' };
 import narrativeAdventurePreset from '../content/presets/narrative-adventure.json' with { type: 'json' };
 import stonewakePreset from '../content/presets/stonewake.json' with { type: 'json' };
@@ -36,8 +36,8 @@ import cinderPreset from '../../games/cinder/presets/cinder-vault.json' with { t
 import hollowmerePreset from '../../games/hollowmere/presets/hollowmere-ascent.json' with { type: 'json' };
 import portfolioAtelierPreset from '../content/presets/portfolio-atelier-puzzle.json' with { type: 'json' };
 import portfolioWatchPreset from '../content/presets/portfolio-watch-puzzle.json' with { type: 'json' };
-import portfolioSaltPreset from '../content/presets/portfolio-salt-racing.json' with { type: 'json' };
-import portfolioCopperPreset from '../content/presets/portfolio-copper-racing.json' with { type: 'json' };
+import portfolioSaltPreset from '../../games/racing/presets/portfolio-salt-racing.json' with { type: 'json' };
+import portfolioCopperPreset from '../../games/racing/presets/portfolio-copper-racing.json' with { type: 'json' };
 import portfolioSkyPreset from '../content/presets/portfolio-sky-resource.json' with { type: 'json' };
 import portfolioVerdantPreset from '../content/presets/portfolio-verdant-resource.json' with { type: 'json' };
 import portfolioBreachPreset from '../content/presets/portfolio-breach-tactics.json' with { type: 'json' };

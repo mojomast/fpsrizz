@@ -63,7 +63,7 @@
       "useWhen": "A game has already determined an outcome and wants a reproducible rating from one or more measured metrics.",
       "limitations": ["The game owns metric collection, thresholds and victory; ratings do not persist records or award rewards.", "All referenced metrics must be finite and supplied for evaluation. The last matching tier wins."],
       "docs": ["docs/reference/portfolio-shared-mechanics.md"],
-      "examples": ["src/plugins/vehicle-racing/index.ts", "src/plugins/board-tactics/index.ts"],
+      "examples": ["games/racing/plugins/vehicle-racing/index.ts", "src/plugins/board-tactics/index.ts"],
       "tests": ["tests/outcome-rating.test.ts"],
       "plugins": ["mechanics/outcome-rating"],
       "roles": {"sdk/mechanic-outcome-rating": "mechanics/outcome-rating"},
@@ -154,12 +154,12 @@
         "docs/cookbook/building-block-plugins.md"
       ],
       "examples": [
-        "src/plugins/vehicle-racing/index.ts",
+        "games/racing/plugins/vehicle-racing/index.ts",
         "src/plugins/example-racing/index.ts"
       ],
       "tests": [
         "tests/mechanics-sequence.test.ts",
-        "tests/overhead-racing.test.ts",
+        "games/racing/tests/overhead-racing.test.ts",
         "tests/racing.test.ts",
         "tests/race-track.test.ts"
       ],
@@ -474,7 +474,7 @@
       ],
       "examples": [
         "src/plugins/puzzle-presentation/index.ts",
-        "src/plugins/vehicle-racing/index.ts"
+        "games/racing/plugins/vehicle-racing/index.ts"
       ],
       "tests": [
         "tests/experience-input.test.ts",
@@ -607,7 +607,7 @@
         "docs/guide/plugins.md"
       ],
       "examples": [
-        "src/plugins/vehicle-presentation/index.ts",
+        "games/racing/plugins/vehicle-presentation/index.ts",
         "src/plugins/theme-board/index.ts"
       ],
       "tests": [

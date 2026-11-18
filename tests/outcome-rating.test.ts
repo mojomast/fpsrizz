@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, OutcomeRatingProviders, Race, Tactics, outcomeRatingMechanic } from '../src/sdk/index.ts';
+import { Flow, OutcomeRatingProviders, Tactics, outcomeRatingMechanic } from '../src/sdk/index.ts';
+import { Race } from '../games/racing/contracts/racing.ts';
 import type { OutcomeRating, SessionContext } from '../src/sdk/index.ts';
 import ratingManifest from '../src/plugins/mechanics-outcome-rating/manifest.json' with { type: 'json' };
 import sequenceManifest from '../src/plugins/mechanics-sequence/manifest.json' with { type: 'json' };
 import navigationManifest from '../src/plugins/mechanics-navigation/manifest.json' with { type: 'json' };
-import racingManifest from '../src/plugins/vehicle-racing/manifest.json' with { type: 'json' };
-import trackManifest from '../src/plugins/vehicle-track/manifest.json' with { type: 'json' };
-import track from '../src/plugins/vehicle-track/content.json' with { type: 'json' };
+import racingManifest from '../games/racing/plugins/vehicle-racing/manifest.json' with { type: 'json' };
+import trackManifest from '../games/racing/plugins/vehicle-track/manifest.json' with { type: 'json' };
+import track from '../games/racing/plugins/vehicle-track/content.json' with { type: 'json' };
 import tacticsManifest from '../src/plugins/board-tactics/manifest.json' with { type: 'json' };
 import missionManifest from '../src/plugins/board-mission/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
@@ -70,7 +71,7 @@ test('tactics victory uses the selected evaluator to report a medal', async () =
 
 test('racing victory rates the actual elapsed time', async () => {
   const game = createHeadlessGame([ratingEntry, { manifest: sequenceManifest, load: () => import('../src/plugins/mechanics-sequence/index.ts') },
-    { manifest: racingManifest, load: () => import('../src/plugins/vehicle-racing/index.ts') }, { manifest: trackManifest, content: track }]);
+    { manifest: racingManifest, load: () => import('../games/racing/plugins/vehicle-racing/index.ts') }, { manifest: trackManifest, content: track }]);
   await game.host.apply(headlessPreset({ plugins: ['mechanics/outcome-rating', 'mechanics/sequence', 'vehicle/racing', 'vehicle/track'], roles: { 'sdk/experience': 'vehicle/arcade-race', 'sdk/mechanic-sequence': 'mechanics/sequence', 'sdk/mechanic-outcome-rating': 'mechanics/outcome-rating' }, options: { track: 'vehicle/neon-circuit' } }));
   try {
     const race = game.session().services.get(Race), points = race.track.points;

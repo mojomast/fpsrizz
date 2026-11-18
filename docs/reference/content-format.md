@@ -88,7 +88,7 @@ These use the same content-entry envelope and staged `Reporter` validation, with
 
 | Kind | Loader plugin | Preset option | Canonical shipped content / schema guide |
 |---|---|---|---|
-| `vehicle-track` | `vehicle/racing` | `options.track` | `src/plugins/vehicle-track/content.json`; [racing schema](../games/overhead-racing.md) |
+| `vehicle-track` | `vehicle/racing` | `options.track` | `games/racing/plugins/vehicle-track/content.json`; [racing schema](../../games/racing/README.md) |
 | `board-mission` | `board/tactics` | `options.mission` | `src/plugins/board-mission/content.json`; [tactics schema](../games/turn-tactics.md) |
 | `adventure-chapter` | `story/adventure` | `options.chapter` | `src/plugins/story-chapter/content.json`; [adventure schema and save format](../games/narrative-adventure.md) |
 | `push-puzzle` | `puzzle/rules` | `options.campaign` | `src/plugins/puzzle-chambers/content.json`; [Stonewake schema](../games/stonewake.md) |

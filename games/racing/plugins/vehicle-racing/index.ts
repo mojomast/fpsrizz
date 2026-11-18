@@ -1,23 +1,7 @@
-import type { RaceGate, RacePoint, RaceState, RaceTrack, Reporter } from '../../sdk/index.ts';
-import {
-  ExperienceRole,
-  Flow,
-  Input,
-  InputActions,
-  OutcomeRatingRole,
-  OutcomeRatingProviders,
-  Race,
-  RaceTracks,
-  SequenceMechanicRole,
-  SequenceProviders,
-  definePlugin,
-  isObject,
-  outcomeRatingMechanic,
-  sequenceMechanic,
-  vArray,
-  vNumber,
-  vString,
-} from '../../sdk/index.ts';
+import type { Reporter } from '../../../../src/sdk/index.ts';
+import type { RaceGate, RacePoint, RaceState, RaceTrack } from '../../contracts/racing.ts';
+import { ExperienceRole, Flow, Input, InputActions, OutcomeRatingRole, OutcomeRatingProviders, SequenceMechanicRole, SequenceProviders, definePlugin, isObject, outcomeRatingMechanic, sequenceMechanic, vArray, vNumber, vString } from '../../../../src/sdk/index.ts';
+import { Race, RaceTracks } from '../../contracts/racing.ts';
 
 const actions = {
   gas: 'vehicle/gas',

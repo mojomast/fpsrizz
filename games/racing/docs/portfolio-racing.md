@@ -17,10 +17,10 @@ Gold requires a finish within half the time limit (75s on Salt, 45s on Copper), 
 
 Both presets enable `portfolio/racing`, `vehicle/racing`, `vehicle/presentation`, `theme/arcade`, `mechanics/sequence` and `mechanics/outcome-rating`, selecting the appropriate providers in their respective roles. `portfolio/racing` supplies only `vehicle-track` content. Reuse decisions: `vehicle/track` supplies the format example; `vehicle/racing` supplies motion, crossing legality and timed win/loss; `mechanics/sequence` and `recipe/ordered-rounds` supply ordered gates and laps; `mechanics/outcome-rating` classifies the final time.
 
-`tests/portfolio-racing.test.ts` stages and activates each complete preset with a local catalog, drives every lap using input, checks the terminal cursor, then verifies restart and timeout. It also checks drift's handling tradeoff and a fractional deadline. Run with Node 22.18 or newer:
+`games/racing/tests/portfolio-racing.test.ts` stages and activates each complete preset with a local catalog, drives every lap using input, checks the terminal cursor, then verifies restart and timeout. It also checks drift's handling tradeoff and a fractional deadline. Run with Node 22.18 or newer:
 
 ```sh
-node --test tests/portfolio-racing.test.ts
+node --test games/racing/tests/portfolio-racing.test.ts
 ```
 
 The pack and presets are registered in `src/app/catalog.ts`. Headless tests do not verify browser presentation or manual driving.

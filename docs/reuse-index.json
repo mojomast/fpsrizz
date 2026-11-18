@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "044e8c5520a4cdb2d233b56ab6ce735b2ea6c86ea51e70f037fbfb517e61a2a2",
+  "sourceDigest": "d87afcfb5f4d3fbe3bc3e0e3aad477e4829ed6bcd8925916349625a9a1cd45ac",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -178,7 +178,7 @@
         "docs/reference/portfolio-shared-mechanics.md"
       ],
       "examples": [
-        "src/plugins/vehicle-racing/index.ts",
+        "games/racing/plugins/vehicle-racing/index.ts",
         "src/plugins/board-tactics/index.ts"
       ],
       "tests": [
@@ -285,12 +285,12 @@
         "docs/cookbook/building-block-plugins.md"
       ],
       "examples": [
-        "src/plugins/vehicle-racing/index.ts",
+        "games/racing/plugins/vehicle-racing/index.ts",
         "src/plugins/example-racing/index.ts"
       ],
       "tests": [
         "tests/mechanics-sequence.test.ts",
-        "tests/overhead-racing.test.ts",
+        "games/racing/tests/overhead-racing.test.ts",
         "tests/racing.test.ts",
         "tests/race-track.test.ts"
       ],
@@ -617,7 +617,7 @@
       ],
       "examples": [
         "src/plugins/puzzle-presentation/index.ts",
-        "src/plugins/vehicle-racing/index.ts"
+        "games/racing/plugins/vehicle-racing/index.ts"
       ],
       "tests": [
         "tests/experience-input.test.ts",
@@ -756,7 +756,7 @@
         "docs/guide/plugins.md"
       ],
       "examples": [
-        "src/plugins/vehicle-presentation/index.ts",
+        "games/racing/plugins/vehicle-presentation/index.ts",
         "src/plugins/theme-board/index.ts"
       ],
       "tests": [
@@ -8384,7 +8384,7 @@
         "docs/reference/portfolio-shared-mechanics.md"
       ],
       "examples": [
-        "src/plugins/vehicle-racing/index.ts",
+        "games/racing/plugins/vehicle-racing/index.ts",
         "src/plugins/board-tactics/index.ts"
       ],
       "tests": [
@@ -9053,14 +9053,14 @@
         "docs/reference/sequences.md"
       ],
       "examples": [
-        "src/plugins/vehicle-racing/index.ts",
+        "games/racing/plugins/vehicle-racing/index.ts",
         "src/plugins/example-racing/index.ts",
-        "src/content/presets/overhead-racing.json",
+        "games/racing/presets/overhead-racing.json",
         "src/content/presets/racing.json"
       ],
       "tests": [
         "tests/mechanics-sequence.test.ts",
-        "tests/overhead-racing.test.ts",
+        "games/racing/tests/overhead-racing.test.ts",
         "tests/racing.test.ts",
         "tests/race-track.test.ts"
       ],
@@ -9764,7 +9764,7 @@
       "name": "Portfolio racing tracks",
       "scope": "content",
       "summary": "Two independent arcade time-trial tracks.",
-      "source": "src/plugins/portfolio-racing",
+      "source": "games/racing/plugins/portfolio-racing",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12235,7 +12235,7 @@
       "name": "Neon race presentation",
       "scope": "unreviewed",
       "summary": "Overhead race scene, HUD and sound.",
-      "source": "src/plugins/vehicle-presentation",
+      "source": "games/racing/plugins/vehicle-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12306,7 +12306,7 @@
       "name": "Neon racing",
       "scope": "family",
       "summary": "Arcade vehicle motion, drifting, directional gates and timeout, composing shared ordered sequence and lap progression.",
-      "source": "src/plugins/vehicle-racing",
+      "source": "games/racing/plugins/vehicle-racing",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12331,15 +12331,15 @@
         "Planar arcade kinematics, not rigid-body vehicles or a generic spatial checkpoint service. Select a sequence provider; gate geometry and one-crossing-per-tick policy remain local."
       ],
       "docs": [
-        "docs/games/overhead-racing.md",
+        "games/racing/README.md",
         "docs/reference/sequences.md"
       ],
       "examples": [
-        "src/plugins/vehicle-track/content.json",
-        "src/content/presets/overhead-racing.json"
+        "games/racing/plugins/vehicle-track/content.json",
+        "games/racing/presets/overhead-racing.json"
       ],
       "tests": [
-        "tests/overhead-racing.test.ts"
+        "games/racing/tests/overhead-racing.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -12431,7 +12431,7 @@
       "name": "Neon circuit",
       "scope": "content",
       "summary": "An authored neon circuit.",
-      "source": "src/plugins/vehicle-track",
+      "source": "games/racing/plugins/vehicle-track",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -16029,65 +16029,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/Race",
-      "type": "contract",
-      "name": "Race",
-      "scope": "contract",
-      "summary": "Public SDK value: vehicle/race",
-      "importFrom": "src/sdk/index.ts",
-      "token": "vehicle/race",
-      "source": "src/sdk/contracts/racing.ts:41",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Race",
-        "vehicle/race"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "vehicle/racing"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/RaceTracks",
-      "type": "contract",
-      "name": "RaceTracks",
-      "scope": "contract",
-      "summary": "Public SDK value: vehicle/track",
-      "importFrom": "src/sdk/index.ts",
-      "token": "vehicle/track",
-      "source": "src/sdk/contracts/racing.ts:21",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "RaceTracks",
-        "vehicle/track"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "vehicle/racing"
-      ],
-      "recipes": [],
-      "implementations": [
-        "portfolio/racing",
-        "vehicle/track"
-      ]
-    },
-    {
       "id": "sdk/relationshipMechanic",
       "type": "contract",
       "name": "relationshipMechanic",
@@ -17807,6 +17748,67 @@
       "recipes": [],
       "implementations": [
         "hollowmere/content"
+      ]
+    },
+    {
+      "id": "games/racing/Race",
+      "type": "contract",
+      "name": "Race",
+      "scope": "contract",
+      "summary": "Game-family contract value: vehicle/race",
+      "importFrom": "games/racing/contracts/racing.ts",
+      "token": "vehicle/race",
+      "source": "games/racing/contracts/racing.ts:41",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Race",
+        "racing",
+        "vehicle/race"
+      ],
+      "useWhen": "Game-specific contract of the racing family; plugins in games/racing/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the racing family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "vehicle/racing"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/racing/RaceTracks",
+      "type": "contract",
+      "name": "RaceTracks",
+      "scope": "contract",
+      "summary": "Game-family contract value: vehicle/track",
+      "importFrom": "games/racing/contracts/racing.ts",
+      "token": "vehicle/track",
+      "source": "games/racing/contracts/racing.ts:21",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "RaceTracks",
+        "racing",
+        "vehicle/track"
+      ],
+      "useWhen": "Game-specific contract of the racing family; plugins in games/racing/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the racing family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "vehicle/racing"
+      ],
+      "recipes": [],
+      "implementations": [
+        "portfolio/racing",
+        "vehicle/track"
       ]
     },
     {

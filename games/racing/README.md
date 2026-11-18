@@ -8,9 +8,9 @@ The `vehicle/racing` plugin owns the only vehicle motion and progression system 
 
 The bundled recipe selects experience `vehicle/arcade-race`, theme `theme/arcade`, track `vehicle/neon-circuit`, and plugins `vehicle/racing`, `vehicle/track`, `vehicle/presentation`, `theme/arcade`, and `mechanics/sequence`. `vehicle/racing` requires its own experience selection and a selected sequence factory at staging. The presentation asks the theme for `track-surface`, `race-marker`, `race-vehicle` and sounds `race-checkpoint`, `race-finish`, `race-skid`, `race-engine`.
 
-Ordered gate/lap progression uses the [sequence provider](../reference/sequences.md) selected under `sdk/mechanic-sequence`.
+Ordered gate/lap progression uses the [sequence provider](../../docs/reference/sequences.md) selected under `sdk/mechanic-sequence`.
 The game retains directional gate geometry and its one-expected-crossing-per-tick policy. At completion, the public
 lap remains the final lap and `nextGate` is the gate-count sentinel; a final crossing is evaluated before timeout.
 Custom presets must enable and select a sequence implementation; track data and the `Race` service are unchanged.
 
-`tests/overhead-racing.test.ts` exercises the real host without rendering, including a complete two-lap input-driven route, direction and order, timeout, restart, determinism, off-track handling, and data validation.
+`games/racing/tests/overhead-racing.test.ts` exercises the real host without rendering, including a complete two-lap input-driven route, direction and order, timeout, restart, determinism, off-track handling, and data validation.

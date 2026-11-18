@@ -1,5 +1,6 @@
-import { Audio, Race, ThemeRole, Ui, definePlugin } from '../../sdk/index.ts';
-import { Render, THREE } from '../../sdk/render.ts';
+import { Audio, ThemeRole, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { Race } from '../../contracts/racing.ts';
+import { Render, THREE } from '../../../../src/sdk/render.ts';
 
 export default definePlugin({
   activate(ctx) {

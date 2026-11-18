@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `044e8c5520a4cdb2d233b56ab6ce735b2ea6c86ea51e70f037fbfb517e61a2a2`
+Source digest: `d87afcfb5f4d3fbe3bc3e0e3aad477e4829ed6bcd8925916349625a9a1cd45ac`
 
 ## Composition recipes
 
@@ -109,7 +109,7 @@ Source digest: `044e8c5520a4cdb2d233b56ab6ce735b2ea6c86ea51e70f037fbfb517e61a2a2
 | `portfolio/breach-tactics` | content | A three-agent assault through a divided conservatory. | [source](../../src/plugins/portfolio-breach-tactics) |
 | `portfolio/crossfire-tactics` | content | A two-scout stand against an encircling raiding party. | [source](../../src/plugins/portfolio-crossfire-tactics) |
 | `portfolio/orchard-adventure` | content | A seedship garden and a difficult inheritance. | [source](../../src/plugins/portfolio-orchard-adventure) |
-| `portfolio/racing` | content | Two independent arcade time-trial tracks. | [source](../../src/plugins/portfolio-racing) |
+| `portfolio/racing` | content | Two independent arcade time-trial tracks. | [source](../../games/racing/plugins/portfolio-racing) |
 | `portfolio/sky-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../src/plugins/portfolio-sky-resource) |
 | `portfolio/verdant-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../src/plugins/portfolio-verdant-resource) |
 | `portfolio/watch-puzzle` | content | Three pursuit chambers with shifting routes around stone and walls. | [source](../../src/plugins/portfolio-watch-puzzle) |
@@ -135,9 +135,9 @@ Source digest: `044e8c5520a4cdb2d233b56ab6ce735b2ea6c86ea51e70f037fbfb517e61a2a2
 | `theme/board` | unreviewed | Pinned Assetrizz voxel explorer, chalk golem, rock cover and timber tiles with synthesized tactile board-game cues. | [source](../../src/plugins/theme-board) |
 | `theme/industrial` | unreviewed | Procedural industrial-sci-fi art, sprites and synthesized sound effects. | [source](../../src/plugins/theme-industrial) |
 | `theme/story` | unreviewed | Pinned Assetrizz ink-watercolor observatory, keeper and loupe, a hand-painted brass key, and synthesized glass-like story cues. | [source](../../src/plugins/theme-story) |
-| `vehicle/presentation` | unreviewed | Overhead race scene, HUD and sound. | [source](../../src/plugins/vehicle-presentation) |
-| `vehicle/racing` | family | Arcade vehicle motion, drifting, directional gates and timeout, composing shared ordered sequence and lap progression. | [source](../../src/plugins/vehicle-racing) |
-| `vehicle/track` | content | An authored neon circuit. | [source](../../src/plugins/vehicle-track) |
+| `vehicle/presentation` | unreviewed | Overhead race scene, HUD and sound. | [source](../../games/racing/plugins/vehicle-presentation) |
+| `vehicle/racing` | family | Arcade vehicle motion, drifting, directional gates and timeout, composing shared ordered sequence and lap progression. | [source](../../games/racing/plugins/vehicle-racing) |
+| `vehicle/track` | content | An authored neon circuit. | [source](../../games/racing/plugins/vehicle-track) |
 | `verdant/content` | content | The three islands and their restoration kit. | [source](../../games/verdant/plugins/verdant-content) |
 | `verdant/game` | family | Turn-based colony orchestration composing shared conversion, cooldowns, restoration and successful-turn weather/season deadlines. | [source](../../games/verdant/plugins/verdant-game) |
 | `verdant/presentation` | unreviewed | Volumetric archipelago and colony management interface. | [source](../../games/verdant/plugins/verdant-presentation) |
@@ -258,8 +258,6 @@ Source digest: `044e8c5520a4cdb2d233b56ab6ce735b2ea6c86ea51e70f037fbfb517e61a2a2
 | `sdk/PushPuzzle` | contract | Public SDK value: puzzle/push | [source](../../src/sdk/contracts/puzzle.ts#L45) |
 | `sdk/PuzzleCampaigns` | contract | Public SDK value: push-puzzle | [source](../../src/sdk/contracts/puzzle.ts#L44) |
 | `sdk/PuzzleResolved` | contract | Public SDK value: puzzle/resolved | [source](../../src/sdk/contracts/puzzle.ts#L46) |
-| `sdk/Race` | contract | Public SDK value: vehicle/race | [source](../../src/sdk/contracts/racing.ts#L41) |
-| `sdk/RaceTracks` | contract | Public SDK value: vehicle/track | [source](../../src/sdk/contracts/racing.ts#L21) |
 | `sdk/relationshipMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/relationships.ts#L30) |
 | `sdk/RelationshipMechanicRole` | contract | Public SDK value: sdk/mechanic-relationships | [source](../../src/sdk/contracts/relationships.ts#L29) |
 | `sdk/RelationshipProviders` | contract | Public SDK value: mechanic-relationship-provider | [source](../../src/sdk/contracts/relationships.ts#L28) |
@@ -321,6 +319,8 @@ Source digest: `044e8c5520a4cdb2d233b56ab6ce735b2ea6c86ea51e70f037fbfb517e61a2a2
 | `games/expeditions/SiltArchives` | contract | Game-family contract value: silt-archive | [source](../../games/expeditions/contracts/silt-archive.ts#L13) |
 | `games/hollowmere/Metroidvania` | contract | Game-family contract value: hollowmere/run | [source](../../games/hollowmere/contracts/metroidvania.ts#L239) |
 | `games/hollowmere/MetroidvaniaWorlds` | contract | Game-family contract value: metroidvania-world | [source](../../games/hollowmere/contracts/metroidvania.ts#L237) |
+| `games/racing/Race` | contract | Game-family contract value: vehicle/race | [source](../../games/racing/contracts/racing.ts#L41) |
+| `games/racing/RaceTracks` | contract | Game-family contract value: vehicle/track | [source](../../games/racing/contracts/racing.ts#L21) |
 | `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](../../games/sky/contracts/sky.ts#L16) |
 | `games/sky/SkyRoutes` | contract | Game-family contract value: sky-route | [source](../../games/sky/contracts/sky.ts#L7) |
 | `games/verdant/Verdant` | contract | Game-family contract value: verdant/relay | [source](../../games/verdant/contracts/verdant.ts#L38) |
