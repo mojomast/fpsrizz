@@ -169,7 +169,7 @@ Play online: **https://mojomast.github.io/fpsrizz/** (served from the `gh-pages`
 - [Cinder Vault — direct preset link](https://mojomast.github.io/fpsrizz/?preset=cinder/vault)
 - [Bulkhead Station — default preset](https://mojomast.github.io/fpsrizz/?preset=core/default)
 
-Or run it locally (Node >= 22.18):
+Or run it locally (Node >= 22.18; `nvm use` reads `.nvmrc`):
 
 ```bash
 npm ci             # install locked devDependencies
@@ -314,7 +314,7 @@ relabelled MIT. Synthesized sounds and explicitly labelled procedural fallback a
 
 - A browser with **WebGL2**; the first-person experiences also need **pointer lock**. Web Audio is used for sound; without it the game runs silently.
   The repository's browser checks drive Chrome only.
-- **Node >= 22.18** for tooling (`engines` in `package.json`).
+- **Node >= 22.18** for tooling (`engines` in `package.json`, `.nvmrc`; `.npmrc` sets `engine-strict` and `npm run check` preflights the version).
 - Opening the page with `?test` removes the pointer-lock requirement so automated browsers can drive the game (see
   [ARCHITECTURE.md](ARCHITECTURE.md)). `window.__bulkhead` is a debugging and automation handle used by the smoke script;
   it is tooling, not part of the plugin API.

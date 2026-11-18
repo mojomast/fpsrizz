@@ -3,6 +3,10 @@ import { createRequire } from 'node:module';
 import { delimiter, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { assertNodeVersion } from './check-node.mjs';
+
+assertNodeVersion();
+
 export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 function searchDirs() {
