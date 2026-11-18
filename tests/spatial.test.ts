@@ -166,3 +166,15 @@ test('shooter/transform3d mirrors the planar Transform into Transform3D and Prev
   closeQ(t.rotation, quatFromEuler(0.5));
   host.stop();
 });
+
+test('std/render-sync also draws entities created by plugins that activated before it', async () => {
+  const { service, scene } = fakeRender();
+  const early = codePlugin('a-test/early', { activate(ctx) { const e = ctx.world.create(); ctx.world.add(e, Transform3D, transform3d()); ctx.world.add(e, Renderable, { shape: 'box' }); } }, { sdk: '^3.0.0' });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) { session.services.provide(Render, service, 'host', scope); } });
+  host.setCatalog([early, real('src/plugins/std-transform'), real('src/plugins/std-render-sync')]);
+  const session = await host.apply(presetOf('test/p', ['a-test/early', 'std/transform', 'std/render-sync']));
+  assert.equal(session.order[0], 'a-test/early', 'the entity owner activates first');
+  session.scheduler.runFrame(0, 0);
+  assert.equal(scene.children[0]!.children.length, 1);
+  host.stop();
+});

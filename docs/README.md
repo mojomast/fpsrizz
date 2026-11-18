@@ -16,6 +16,7 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Content format](reference/content-format.md): every JSON format and content kind.
 - [Entity queries](reference/queries.md): multi-component queries with added/removed/changed tracking.
 - [Spatial](reference/spatial.md): SDK 3 `Transform3D`, interpolation and `std/render-sync`.
+- [Physics](reference/physics.md): `std/physics-rapier` bodies, sensors, raycasts and the character controller.
 - SDK API: generated from TSDoc by `npm run docs:api` into `docs/reference/api/` (not committed).
 - [Reuse index](reference/reuse-index.md): generated list of plugins, recipes and contracts (`npm run index-reuse`).
 - Mechanics: [reusable mechanics](reference/reusable-mechanics.md), [conformance](reference/mechanic-conformance.md),

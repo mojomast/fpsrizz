@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `12886779bd9178c6d0851b4c565a19464e8cecf33178f7e9da6fa6d1019ae0a0`
+Source digest: `be4b46c047c45f1673267bf151c0659fa85a17d733a4e08aedd3d6b542b709ca`
 
 ## Composition recipes
 
@@ -121,6 +121,8 @@ Source digest: `12886779bd9178c6d0851b4c565a19464e8cecf33178f7e9da6fa6d1019ae0a0
 | `salt/content` | content | Salt Ledger's Tern campaign locations, journal and endings. | [source](../../games/expeditions/plugins/salt-rpg-content) |
 | `salt/game` | family | Salt Ledger party campaign, tracked side quests, equipment, party bonds and tactical battles with cover, hazards and obstacles. | [source](../../games/expeditions/plugins/salt-rpg-game) |
 | `salt/presentation` | presentation | Responsive Salt Ledger party and tactical board interface. | [source](../../games/expeditions/plugins/salt-rpg-presentation) |
+| `sandbox/game` | family | Physics sandbox game: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors). | [source](../../games/sandbox/plugins/sandbox-game) |
+| `sandbox/presentation` | family | Physics sandbox presentation: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors). | [source](../../games/sandbox/plugins/sandbox-presentation) |
 | `shooter/transform3d` | family | Mirrors the shooter's planar Transform into SDK 3 Transform3D/PrevTransform. | [source](../../games/shooter/plugins/shooter-transform3d) |
 | `silt/content` | content | Three districts of four-socket chambers for The Silt Archive. | [source](../../games/expeditions/plugins/silt-content) |
 | `silt/game` | family | Turn-based flooded archive exploration with room graphs, encounters, tide, equipment and extraction. | [source](../../games/expeditions/plugins/silt-game) |
@@ -128,7 +130,8 @@ Source digest: `12886779bd9178c6d0851b4c565a19464e8cecf33178f7e9da6fa6d1019ae0a0
 | `sky/content` | content | Courier resources, actions and delivery objectives. | [source](../../games/sky/plugins/sky-content) |
 | `sky/game` | family | Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines. | [source](../../games/sky/plugins/sky-game) |
 | `sky/presentation` | unreviewed | Volumetric floating islands and drone cockpit HUD. | [source](../../games/sky/plugins/sky-presentation) |
-| `std/render-sync` | unreviewed | Draws every entity with Transform3D + Renderable (shapes, prefabs, glTF models) and poses it each frame, interpolated between simulation ticks. | [source](../../src/plugins/std-render-sync) |
+| `std/physics-rapier` | cross-genre | Rapier 3D physics: rigid bodies, colliders, sensors/triggers, raycasts and a kinematic character controller. | [source](../../src/plugins/std-physics-rapier) |
+| `std/render-sync` | presentation | Generic render sync: Renderable shapes, prefabs and glTF models posed from interpolated Transform3D. | [source](../../src/plugins/std-render-sync) |
 | `std/transform` | cross-genre | Previous-tick pose capture for Transform3D, enabling interpolated rendering. | [source](../../src/plugins/std-transform) |
 | `story/adventure` | family | Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load. | [source](../../games/adventure/plugins/story-adventure) |
 | `story/chapter` | content | A lighthouse mystery in three rooms. | [source](../../games/adventure/plugins/story-chapter) |
@@ -162,6 +165,9 @@ Source digest: `12886779bd9178c6d0851b4c565a19464e8cecf33178f7e9da6fa6d1019ae0a0
 | `sdk/capabilityMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/capabilities.ts#L53) |
 | `sdk/CapabilityRole` | contract | Public SDK value: sdk/capabilities | [source](../../src/sdk/contracts/capabilities.ts#L50) |
 | `sdk/CapabilityUnlocked` | contract | Public SDK value: sdk/capability-unlocked | [source](../../src/sdk/contracts/capabilities.ts#L51) |
+| `sdk/CharacterController` | contract | Public SDK value: sdk/character-controller | [source](../../src/sdk/contracts/physics.ts#L57) |
+| `sdk/CharacterMove` | contract | Public SDK value: sdk/character-move | [source](../../src/sdk/contracts/physics.ts#L61) |
+| `sdk/CharacterState` | contract | Public SDK value: sdk/character-state | [source](../../src/sdk/contracts/physics.ts#L65) |
 | `sdk/clockMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L132) |
 | `sdk/ClockMechanicRole` | contract | Public SDK value: sdk/mechanic-clock | [source](../../src/sdk/contracts/mechanics.ts#L101) |
 | `sdk/clonePose` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L116) |
@@ -243,6 +249,9 @@ Source digest: `12886779bd9178c6d0851b4c565a19464e8cecf33178f7e9da6fa6d1019ae0a0
 | `sdk/OutcomeRatingProviders` | contract | Public SDK value: mechanic-outcome-rating-provider | [source](../../src/sdk/contracts/outcome-rating.ts#L22) |
 | `sdk/OutcomeRatingRole` | contract | Public SDK value: sdk/mechanic-outcome-rating | [source](../../src/sdk/contracts/outcome-rating.ts#L23) |
 | `sdk/PHASES` | contract | Public SDK value | [source](../../src/sdk/core.ts#L30) |
+| `sdk/Physics` | contract | Public SDK value: sdk/physics | [source](../../src/sdk/contracts/physics.ts#L85) |
+| `sdk/PhysicsCollider` | contract | Public SDK value: sdk/physics-collider | [source](../../src/sdk/contracts/physics.ts#L38) |
+| `sdk/PhysicsCollision` | contract | Public SDK value: sdk/physics-collision | [source](../../src/sdk/contracts/physics.ts#L69) |
 | `sdk/Pickup` | contract | Public SDK value: sdk/pickup | [source](../../src/sdk/contracts/shooter.ts#L110) |
 | `sdk/PickupCollected` | contract | Public SDK value: sdk/pickup-collected | [source](../../src/sdk/contracts/shooter.ts#L364) |
 | `sdk/PickupEffects` | contract | Public SDK value: pickup-effect | [source](../../src/sdk/contracts/shooter.ts#L492) |
@@ -273,6 +282,7 @@ Source digest: `12886779bd9178c6d0851b4c565a19464e8cecf33178f7e9da6fa6d1019ae0a0
 | `sdk/resourceMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L127) |
 | `sdk/ResourceMechanicRole` | contract | Public SDK value: sdk/mechanic-resources | [source](../../src/sdk/contracts/mechanics.ts#L100) |
 | `sdk/ResourcePoolProviders` | contract | Public SDK value: mechanic-resource-provider | [source](../../src/sdk/contracts/mechanics.ts#L96) |
+| `sdk/RigidBody` | contract | Public SDK value: sdk/rigid-body | [source](../../src/sdk/contracts/physics.ts#L23) |
 | `sdk/RoomMapChanged` | contract | Public SDK value: sdk/room-map-changed | [source](../../src/sdk/contracts/room-map.ts#L44) |
 | `sdk/roomMapMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/room-map.ts#L46) |
 | `sdk/RoomMapRole` | contract | Public SDK value: sdk/room-map | [source](../../src/sdk/contracts/room-map.ts#L43) |
@@ -343,6 +353,7 @@ Source digest: `12886779bd9178c6d0851b4c565a19464e8cecf33178f7e9da6fa6d1019ae0a0
 | `games/puzzles/PuzzleResolved` | contract | Game-family contract value: puzzle/resolved | [source](../../games/puzzles/contracts/puzzle.ts#L46) |
 | `games/racing/Race` | contract | Game-family contract value: vehicle/race | [source](../../games/racing/contracts/racing.ts#L41) |
 | `games/racing/RaceTracks` | contract | Game-family contract value: vehicle/track | [source](../../games/racing/contracts/racing.ts#L21) |
+| `games/sandbox/Sandbox` | contract | Game-family contract value: sandbox/state | [source](../../games/sandbox/contracts/sandbox.ts#L13) |
 | `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](../../games/sky/contracts/sky.ts#L16) |
 | `games/sky/SkyRoutes` | contract | Game-family contract value: sky-route | [source](../../games/sky/contracts/sky.ts#L7) |
 | `games/tactics/Tactics` | contract | Game-family contract value: board/tactics | [source](../../games/tactics/contracts/tactics.ts#L42) |

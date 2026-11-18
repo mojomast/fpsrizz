@@ -72,6 +72,10 @@ const cases: Case[] = [
   { name: 'game plugin -> render with capability ok', file: 'games/sky/plugins/sky-game/index.ts', src: `import { r } from '../../../../src/sdk/render.ts';`, caps: ['render'], rules: [] },
   { name: 'game contracts -> sdk index ok', file: 'games/sky/contracts/sky.ts', src: `import { defineService } from '../../../src/sdk/index.ts';`, rules: [] },
   { name: 'game contracts -> sdk core denied', file: 'games/sky/contracts/sky.ts', src: `import { defineService } from '../../../src/sdk/core.ts';`, rules: ['family-contracts'] },
+  // vendor packages (VENDOR_PACKAGES): bare imports gated by a manifest capability
+  { name: 'vendor package with capability ok', file: P, src: `import RAPIER from '@dimforge/rapier3d-compat';`, caps: ['physics'], rules: [] },
+  { name: 'vendor package without capability denied', file: P, src: `import RAPIER from '@dimforge/rapier3d-compat';`, rules: ['vendor-package'] },
+  { name: 'unlisted bare package denied', file: P, src: `import _ from 'lodash';`, caps: ['physics'], rules: ['plugin-isolation'] },
   { name: 'game contracts -> plugin denied', file: 'games/sky/contracts/sky.ts', src: `import { x } from '../plugins/sky-game/index.ts';`, rules: ['family-contracts'] },
 ];
 

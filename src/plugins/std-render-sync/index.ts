@@ -33,6 +33,8 @@ export default definePlugin({
     root.name = 'std/render-sync';
     const visuals = new Map<EntityId, Built>();
     const drawn = ctx.world.query({ with: [Transform3D, Renderable] });
+    // Entities created by plugins that activated earlier: queries report no backlog, so draw them on the first frame.
+    let initial: EntityId[] | undefined = drawn.ids();
     const warned = new Set<string>();
     const warnOnce = (msg: string): void => { if (!warned.has(msg)) { warned.add(msg); ctx.log.warn(msg); } };
 
@@ -77,7 +79,9 @@ export default definePlugin({
       id: 'std/render-sync.frame',
       order: 100,
       update(alpha) {
-        const { added, removed, changed } = drawn.drain();
+        const { added: addedNow, removed, changed } = drawn.drain();
+        const added = [...addedNow];
+        if (initial) { added.unshift(...initial.filter((e) => drawn.has(e) && !added.includes(e))); initial = undefined; }
         for (const e of removed) drop(e);
         for (const e of [...added, ...changed]) {
           const r = ctx.world.get(e, Renderable);

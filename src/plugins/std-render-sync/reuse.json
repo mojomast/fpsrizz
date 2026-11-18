@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "presentation",
+  "summary": "Generic render sync: Renderable shapes, prefabs and glTF models posed from interpolated Transform3D.",
+  "keywords": ["render", "sync", "mesh", "interpolation", "renderable", "prefab", "model", "gltf", "scene", "3d"],
+  "entryPoints": ["Renderable", "RenderablePrefabs", "Models"],
+  "useWhen": "Draw SDK 3 entities without writing a presentation plugin per family.",
+  "limitations": ["MeshStandardMaterial only; the scene needs lights.", "Rebuilds a visual when its Renderable fields change."],
+  "docs": ["docs/reference/spatial.md"],
+  "examples": ["games/sandbox/presets/physics-sandbox.json"],
+  "tests": ["tests/spatial.test.ts"]
+}

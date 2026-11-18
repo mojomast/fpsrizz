@@ -40,5 +40,8 @@
     "three": "0.187.0",
     "typescript": "^7.0.2"
   },
-  "packageManager": "npm@10.9.9"
+  "packageManager": "npm@10.9.9",
+  "dependencies": {
+    "@dimforge/rapier3d-compat": "0.19.3"
+  }
 }

@@ -1,0 +1,1 @@
+{"schema":1,"id":"sandbox/physics","name":"Physics Sandbox (SDK 3)","plugins":["std/transform","std/render-sync","std/physics-rapier","sandbox/game","sandbox/presentation"],"roles":{"sdk/experience":"sandbox/physics"},"seed":3}

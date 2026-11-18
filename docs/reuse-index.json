@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "12886779bd9178c6d0851b4c565a19464e8cecf33178f7e9da6fa6d1019ae0a0",
+  "sourceDigest": "be4b46c047c45f1673267bf151c0659fa85a17d733a4e08aedd3d6b542b709ca",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -10796,6 +10796,173 @@
       "recipes": []
     },
     {
+      "id": "sandbox/game",
+      "type": "plugin",
+      "name": "Physics sandbox rules",
+      "scope": "family",
+      "summary": "Physics sandbox game: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors).",
+      "source": "games/sandbox/plugins/sandbox-game",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "sandbox",
+        "physics",
+        "sdk 3",
+        "example",
+        "character",
+        "crates"
+      ],
+      "entryPoints": [
+        "Transform3D",
+        "Renderable",
+        "RigidBody",
+        "PhysicsCollider",
+        "CharacterController"
+      ],
+      "useWhen": "Copy this family to start a 3D physics prototype.",
+      "limitations": [
+        "Example content only; no objectives or end state."
+      ],
+      "docs": [
+        "games/sandbox/README.md"
+      ],
+      "examples": [
+        "games/sandbox/presets/physics-sandbox.json"
+      ],
+      "tests": [
+        "games/sandbox/tests/sandbox.test.ts"
+      ],
+      "dependencies": {
+        "std/transform": "^1.0.0",
+        "std/physics-rapier": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/experience"
+      ],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "sandbox/game",
+        "std/physics-rapier",
+        "std/transform"
+      ],
+      "registrations": [
+        {
+          "kind": "input-action",
+          "id": "sandbox/back",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "sandbox/forward",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "sandbox/jump",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "sandbox/left",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "sandbox/right",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/experience",
+          "id": "sandbox/physics",
+          "description": "Walk around, shove a stack of crates and step on the glowing pad. Built only from SDK 3 components."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "sandbox/presentation",
+      "type": "plugin",
+      "name": "Physics sandbox view",
+      "scope": "family",
+      "summary": "Physics sandbox presentation: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors).",
+      "source": "games/sandbox/plugins/sandbox-presentation",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "sandbox",
+        "physics",
+        "sdk 3",
+        "example",
+        "character",
+        "crates"
+      ],
+      "entryPoints": [
+        "Transform3D",
+        "Renderable",
+        "RigidBody",
+        "PhysicsCollider",
+        "CharacterController"
+      ],
+      "useWhen": "Copy this family to start a 3D physics prototype.",
+      "limitations": [
+        "Example content only; no objectives or end state."
+      ],
+      "docs": [
+        "games/sandbox/README.md"
+      ],
+      "examples": [
+        "games/sandbox/presets/physics-sandbox.json"
+      ],
+      "tests": [
+        "games/sandbox/tests/sandbox.test.ts"
+      ],
+      "dependencies": {
+        "sandbox/game": "^1.0.0",
+        "std/render-sync": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/physics-rapier",
+        "std/render-sync",
+        "std/transform"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
       "id": "shooter/transform3d",
       "type": "plugin",
       "name": "Shooter Transform3D bridge",
@@ -11386,27 +11553,130 @@
       "recipes": []
     },
     {
+      "id": "std/physics-rapier",
+      "type": "plugin",
+      "name": "Physics (Rapier 3D)",
+      "scope": "cross-genre",
+      "summary": "Rapier 3D physics: rigid bodies, colliders, sensors/triggers, raycasts and a kinematic character controller.",
+      "source": "src/plugins/std-physics-rapier",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "physics",
+        "rapier",
+        "rigid body",
+        "collider",
+        "collision",
+        "trigger",
+        "sensor",
+        "raycast",
+        "character controller",
+        "gravity",
+        "impulse"
+      ],
+      "entryPoints": [
+        "RigidBody",
+        "PhysicsCollider",
+        "CharacterController",
+        "CharacterMove",
+        "CharacterState",
+        "PhysicsCollision",
+        "Physics"
+      ],
+      "useWhen": "A 3D prototype needs bodies that fall, stack, collide or trigger, or a character that walks on arbitrary geometry.",
+      "limitations": [
+        "One collider per body; no joints or trimesh colliders yet.",
+        "Bodies must be root entities.",
+        "Locally deterministic only.",
+        "Adds a ~2.2 MB lazy WASM chunk."
+      ],
+      "docs": [
+        "docs/reference/physics.md"
+      ],
+      "examples": [
+        "games/sandbox/plugins/sandbox-game/index.ts"
+      ],
+      "tests": [
+        "tests/physics-rapier.test.ts",
+        "games/sandbox/tests/sandbox.test.ts"
+      ],
+      "dependencies": {
+        "std/transform": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {
+        "gravityY": {
+          "type": "number",
+          "label": "Vertical gravity (m/s²)",
+          "default": -9.81,
+          "min": -100,
+          "max": 100
+        }
+      },
+      "enable": [
+        "std/physics-rapier",
+        "std/transform"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
       "id": "std/render-sync",
       "type": "plugin",
       "name": "Render sync",
-      "scope": "unreviewed",
-      "summary": "Draws every entity with Transform3D + Renderable (shapes, prefabs, glTF models) and poses it each frame, interpolated between simulation ticks.",
+      "scope": "presentation",
+      "summary": "Generic render sync: Renderable shapes, prefabs and glTF models posed from interpolated Transform3D.",
       "source": "src/plugins/std-render-sync",
       "version": "1.0.0",
       "sdk": "^3.0.0",
       "builtIn": true,
-      "reviewed": false,
-      "keywords": [],
-      "entryPoints": [],
-      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "reviewed": true,
+      "keywords": [
+        "render",
+        "sync",
+        "mesh",
+        "interpolation",
+        "renderable",
+        "prefab",
+        "model",
+        "gltf",
+        "scene",
+        "3d"
+      ],
+      "entryPoints": [
+        "Renderable",
+        "RenderablePrefabs",
+        "Models"
+      ],
+      "useWhen": "Draw SDK 3 entities without writing a presentation plugin per family.",
       "limitations": [
-        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+        "MeshStandardMaterial only; the scene needs lights.",
+        "Rebuilds a visual when its Renderable fields change."
       ],
       "docs": [
-        "docs/guide/plugins.md"
+        "docs/reference/spatial.md"
       ],
-      "examples": [],
-      "tests": [],
+      "examples": [
+        "games/sandbox/presets/physics-sandbox.json"
+      ],
+      "tests": [
+        "tests/spatial.test.ts"
+      ],
       "dependencies": {
         "std/transform": "^1.0.0"
       },
@@ -11421,7 +11691,15 @@
       ],
       "registrations": [],
       "contentKinds": [],
-      "presets": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
       "recipes": []
     },
     {
@@ -11480,7 +11758,15 @@
       ],
       "registrations": [],
       "contentKinds": [],
-      "presets": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
       "recipes": []
     },
     {
@@ -13249,6 +13535,92 @@
       "implementations": []
     },
     {
+      "id": "sdk/CharacterController",
+      "type": "contract",
+      "name": "CharacterController",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/character-controller",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/character-controller",
+      "source": "src/sdk/contracts/physics.ts:57",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CharacterController",
+        "sdk/character-controller"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/CharacterMove",
+      "type": "contract",
+      "name": "CharacterMove",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/character-move",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/character-move",
+      "source": "src/sdk/contracts/physics.ts:61",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CharacterMove",
+        "sdk/character-move"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/CharacterState",
+      "type": "contract",
+      "name": "CharacterState",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/character-state",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/character-state",
+      "source": "src/sdk/contracts/physics.ts:65",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CharacterState",
+        "sdk/character-state"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/clockMechanic",
       "type": "contract",
       "name": "clockMechanic",
@@ -14271,6 +14643,7 @@
         "portfolio-cards/cloud",
         "puzzle/rules",
         "salt/game",
+        "sandbox/game",
         "silt/game",
         "sky/game",
         "story/adventure",
@@ -14567,6 +14940,7 @@
         "example/racing",
         "hollowmere/game",
         "presentation/camera-modes",
+        "sandbox/game",
         "vehicle/racing"
       ]
     },
@@ -15295,7 +15669,9 @@
       "limitations": [
         "Rendering SDK imports require the render manifest capability."
       ],
-      "documentedBy": [],
+      "documentedBy": [
+        "std/render-sync"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -15601,6 +15977,92 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/Physics",
+      "type": "contract",
+      "name": "Physics",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/physics",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/physics",
+      "source": "src/sdk/contracts/physics.ts:85",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Physics",
+        "sdk/physics"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/PhysicsCollider",
+      "type": "contract",
+      "name": "PhysicsCollider",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/physics-collider",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/physics-collider",
+      "source": "src/sdk/contracts/physics.ts:38",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PhysicsCollider",
+        "sdk/physics-collider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/PhysicsCollision",
+      "type": "contract",
+      "name": "PhysicsCollision",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/physics-collision",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/physics-collision",
+      "source": "src/sdk/contracts/physics.ts:69",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PhysicsCollision",
+        "sdk/physics-collision"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/physics-rapier"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -16321,7 +16783,11 @@
       "limitations": [
         "Rendering SDK imports require the render manifest capability."
       ],
-      "documentedBy": [],
+      "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/render-sync"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -16347,7 +16813,9 @@
       "limitations": [
         "Rendering SDK imports require the render manifest capability."
       ],
-      "documentedBy": [],
+      "documentedBy": [
+        "std/render-sync"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -16462,6 +16930,36 @@
       "implementations": [
         "mechanics/resources"
       ]
+    },
+    {
+      "id": "sdk/RigidBody",
+      "type": "contract",
+      "name": "RigidBody",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/rigid-body",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/rigid-body",
+      "source": "src/sdk/contracts/physics.ts:23",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "RigidBody",
+        "sdk/rigid-body"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "sdk/RoomMapChanged",
@@ -17033,6 +17531,8 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
         "shooter/transform3d",
         "std/transform"
       ],
@@ -18436,6 +18936,33 @@
       ]
     },
     {
+      "id": "games/sandbox/Sandbox",
+      "type": "contract",
+      "name": "Sandbox",
+      "scope": "contract",
+      "summary": "Game-family contract value: sandbox/state",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "token": "sandbox/state",
+      "source": "games/sandbox/contracts/sandbox.ts:13",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Sandbox",
+        "sandbox",
+        "sandbox/state"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "games/sky/Sky",
       "type": "contract",
       "name": "Sky",
@@ -19513,6 +20040,20 @@
         "sdk/mechanic-hints": "mechanics/hints",
         "sdk/mechanic-clock": "mechanics/clock",
         "sdk/mechanic-conditions": "mechanics/conditions"
+      }
+    },
+    {
+      "id": "sandbox/physics",
+      "name": "Physics Sandbox (SDK 3)",
+      "plugins": [
+        "std/transform",
+        "std/render-sync",
+        "std/physics-rapier",
+        "sandbox/game",
+        "sandbox/presentation"
+      ],
+      "roles": {
+        "sdk/experience": "sandbox/physics"
       }
     }
   ]

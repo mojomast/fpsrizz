@@ -29,6 +29,7 @@ Plugins are discovered automatically (`npm run gen-catalog`).
 | [`ember`](ember/) | Ember Bastion (tower defense) | [README](ember/README.md) |
 | [`cinder`](cinder/) | Cinder Vault (roguelite shooter) | [README](cinder/README.md), [classes](cinder/docs/classes.md) |
 | [`hollowmere`](hollowmere/) | Hollowmere (metroidvania) | [README](hollowmere/README.md) |
+| [`sandbox`](sandbox/) | Physics sandbox: the SDK 3 reference composition (Transform3D, render sync, Rapier) | [README](sandbox/README.md) |
 | [`expeditions`](expeditions/) | The Silt Archive, The Salt Ledger, Common Ground, plus the shared expedition assist | [README](expeditions/README.md) |
 
 Cross-family guides: [ten-game portfolio](../docs/games/ten-game-portfolio.md) and

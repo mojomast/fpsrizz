@@ -27,3 +27,4 @@ export * from './contracts/hints.ts';
 export * from './contracts/relationships.ts';
 export * from './contracts/conditions.ts';
 export * from './contracts/spatial.ts';
+export * from './contracts/physics.ts';
