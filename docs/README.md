@@ -17,6 +17,7 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Entity queries](reference/queries.md): multi-component queries with added/removed/changed tracking.
 - [Spatial](reference/spatial.md): SDK 3 `Transform3D`, interpolation and `std/render-sync`.
 - [Physics](reference/physics.md): `std/physics-rapier` bodies, sensors, raycasts and the character controller.
+- [Input v2](reference/input.md): axes, gamepads, touch controls, the default map and rebinding.
 - [Assets](reference/assets.md): the asset service, manifest preloads, `std/assets` glTF models, Blender custom
   properties as components and the `npm run assets` build step.
 - SDK API: generated from TSDoc by `npm run docs:api` into `docs/reference/api/` (not committed).

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "637ca12fbba6be5cbf233dc576b1cca91994b1ca2d29fa02ed27a8bce0492e4e",
+  "sourceDigest": "9e5e29d6a359e512f1986986408780f5c3912dc364875f65e1c861a44cba0d43",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -10863,6 +10863,11 @@
         },
         {
           "kind": "input-action",
+          "id": "sandbox/interact",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
           "id": "sandbox/jump",
           "description": ""
         },
@@ -10874,6 +10879,16 @@
         {
           "kind": "input-action",
           "id": "sandbox/right",
+          "description": ""
+        },
+        {
+          "kind": "input-axis",
+          "id": "sandbox/look",
+          "description": ""
+        },
+        {
+          "kind": "input-axis",
+          "id": "sandbox/move",
           "description": ""
         },
         {
@@ -13380,7 +13395,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:727",
+      "source": "src/sdk/contracts/shooter.ts:732",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13388,6 +13403,30 @@
       "tests": [],
       "keywords": [
         "angleDelta"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/applyDeadzone",
+      "type": "contract",
+      "name": "applyDeadzone",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:52",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "applyDeadzone"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -13490,7 +13529,7 @@
       "summary": "Public SDK value: sdk/audio",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/audio",
-      "source": "src/sdk/contracts/shooter.ts:640",
+      "source": "src/sdk/contracts/shooter.ts:645",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13518,7 +13557,7 @@
       "summary": "Public SDK value: sdk/camera",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/camera",
-      "source": "src/sdk/contracts/shooter.ts:662",
+      "source": "src/sdk/contracts/shooter.ts:667",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14002,7 +14041,7 @@
       "summary": "Public SDK value: sdk/controller",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/controller",
-      "source": "src/sdk/contracts/shooter.ts:660",
+      "source": "src/sdk/contracts/shooter.ts:665",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14801,7 +14840,7 @@
       "summary": "Public SDK value: sdk/flow",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/flow",
-      "source": "src/sdk/contracts/shooter.ts:631",
+      "source": "src/sdk/contracts/shooter.ts:636",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14827,7 +14866,7 @@
       "summary": "Public SDK value: sdk/flow-ended",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/flow-ended",
-      "source": "src/sdk/contracts/shooter.ts:632",
+      "source": "src/sdk/contracts/shooter.ts:637",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14836,6 +14875,30 @@
       "keywords": [
         "FlowEnded",
         "sdk/flow-ended"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/GAMEPAD_BUTTONS",
+      "type": "contract",
+      "name": "GAMEPAD_BUTTONS",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:20",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "GAMEPAD_BUTTONS"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -15019,7 +15082,7 @@
       "summary": "Public SDK value: sdk/hud",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/hud",
-      "source": "src/sdk/contracts/shooter.ts:666",
+      "source": "src/sdk/contracts/shooter.ts:671",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15079,7 +15142,7 @@
       "summary": "Public SDK value: sdk/input",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/input",
-      "source": "src/sdk/contracts/shooter.ts:580",
+      "source": "src/sdk/contracts/shooter.ts:585",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15109,7 +15172,7 @@
       "summary": "Public SDK value: input-action",
       "importFrom": "src/sdk/index.ts",
       "token": "input-action",
-      "source": "src/sdk/contracts/shooter.ts:564",
+      "source": "src/sdk/contracts/shooter.ts:567",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15139,6 +15202,60 @@
       ]
     },
     {
+      "id": "sdk/InputAxes",
+      "type": "contract",
+      "name": "InputAxes",
+      "scope": "contract",
+      "summary": "Public SDK value: input-axis",
+      "importFrom": "src/sdk/index.ts",
+      "token": "input-axis",
+      "source": "src/sdk/contracts/input.ts:41",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "InputAxes",
+        "input-axis"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": [
+        "sandbox/game"
+      ]
+    },
+    {
+      "id": "sdk/InputBindings",
+      "type": "contract",
+      "name": "InputBindings",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/input-bindings",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/input-bindings",
+      "source": "src/sdk/contracts/input.ts:82",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "InputBindings",
+        "sdk/input-bindings"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/InputContexts",
       "type": "contract",
       "name": "InputContexts",
@@ -15146,7 +15263,7 @@
       "summary": "Public SDK value: sdk/input-contexts",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/input-contexts",
-      "source": "src/sdk/contracts/shooter.ts:606",
+      "source": "src/sdk/contracts/shooter.ts:611",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15533,7 +15650,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:733",
+      "source": "src/sdk/contracts/shooter.ts:738",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15902,7 +16019,7 @@
       "summary": "Public SDK value: sdk/mode",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/mode",
-      "source": "src/sdk/contracts/shooter.ts:664",
+      "source": "src/sdk/contracts/shooter.ts:669",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16636,6 +16753,30 @@
       ]
     },
     {
+      "id": "sdk/prettyKey",
+      "type": "contract",
+      "name": "prettyKey",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:90",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "prettyKey"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/PrevTransform",
       "type": "contract",
       "name": "PrevTransform",
@@ -16874,6 +17015,54 @@
       "tests": [],
       "keywords": [
         "quatNormalize"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/readAxis",
+      "type": "contract",
+      "name": "readAxis",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:47",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "readAxis"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/registerStandardControls",
+      "type": "contract",
+      "name": "registerStandardControls",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:115",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "registerStandardControls"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -17543,7 +17732,7 @@
       "summary": "Public SDK value: sdk/settings",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/settings",
-      "source": "src/sdk/contracts/shooter.ts:638",
+      "source": "src/sdk/contracts/shooter.ts:643",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17671,7 +17860,7 @@
       "summary": "Public SDK value: sdk/theme",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/theme",
-      "source": "src/sdk/contracts/shooter.ts:715",
+      "source": "src/sdk/contracts/shooter.ts:720",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17716,6 +17905,30 @@
       "tests": [],
       "keywords": [
         "THREE"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/TOUCH_BUTTONS",
+      "type": "contract",
+      "name": "TOUCH_BUTTONS",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:25",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "TOUCH_BUTTONS"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -17872,7 +18085,7 @@
       "summary": "Public SDK value: sdk/ui",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/ui",
-      "source": "src/sdk/contracts/shooter.ts:649",
+      "source": "src/sdk/contracts/shooter.ts:654",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18028,7 +18241,7 @@
       "summary": "Public SDK value: sdk/view",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/view",
-      "source": "src/sdk/contracts/shooter.ts:680",
+      "source": "src/sdk/contracts/shooter.ts:685",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18431,7 +18644,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:722",
+      "source": "src/sdk/contracts/shooter.ts:727",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18455,7 +18668,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:723",
+      "source": "src/sdk/contracts/shooter.ts:728",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18479,7 +18692,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:725",
+      "source": "src/sdk/contracts/shooter.ts:730",
       "docs": [
         "docs/guide/plugins.md"
       ],

@@ -43,9 +43,49 @@ try {
     await page.waitForTimeout(300);
     await page.screenshot({ path: resolve(out, 'sandbox-physics.png') });
     if (errors.length) throw new Error(errors.join('\n'));
+    // Input v2: rebind "forward" from the pause menu, then walk with the new key.
+    await page.keyboard.press('Escape');
+    await page.locator('button[data-action="sandbox/forward"]').click({ timeout: 10000 });
+    await page.keyboard.press('KeyI');
+    await page.getByRole('button', { name: /^resume$/i }).click();
+    const z0 = (await hero()).z;
+    await page.keyboard.down('KeyI'); await page.waitForTimeout(500); await page.keyboard.up('KeyI');
+    const z1 = (await hero()).z;
+    if (!(z1 < z0 - 1)) throw new Error(`rebound key did not walk forward: ${z0} -> ${z1}`);
+    await page.evaluate(() => window.__bulkhead.inputBindings.reset());
     console.log(`PASS sandbox: ${scene.engine}, ${scene.physics.bodies} bodies, hero walked ${(after.x - before.x).toFixed(1)} m, pad entries ${after.entries}, ${scene.assets.loaded} assets loaded`);
   } catch (error) {
     failures++; console.error(`FAIL sandbox: ${error.stack ?? error}`);
   } finally { await page.close(); }
+
+  // Touch: the on-screen stick (forced on with ?touch=1) walks the hero.
+  const touch = await browser.newPage({ viewport: { width: 900, height: 600 }, hasTouch: true });
+  const touchErrors = [];
+  touch.on('pageerror', (e) => touchErrors.push(e.message));
+  try {
+    await touch.goto(`${server.url}?test=&preset=sandbox/physics&touch=1`, { waitUntil: 'domcontentloaded' });
+    await touch.getByRole('button', { name: /^play$/i }).click({ timeout: 90000 });
+    await touch.waitForFunction(() => window.__bulkhead?.host?.session?.services.tryGet({ id: 'sandbox/state' }), null, { timeout: 90000 });
+    const x = () => touch.evaluate(() => { const s = window.__bulkhead.host.session; return s.entities.get(s.services.get({ id: 'sandbox/state' }).hero, { id: 'sdk/transform3d' }).position.x; });
+    const x0 = await x();
+    await touch.evaluate(async () => {
+      const zone = document.querySelector('.bh-touch-zone.left');
+      const r = zone.getBoundingClientRect();
+      const at = (dx) => ({ pointerId: 7, pointerType: 'touch', isPrimary: true, bubbles: true, clientX: r.left + r.width / 2 + dx, clientY: r.top + r.height / 2 });
+      zone.dispatchEvent(new PointerEvent('pointerdown', at(0)));
+      zone.dispatchEvent(new PointerEvent('pointermove', at(80)));
+      await new Promise((res) => setTimeout(res, 700));
+      zone.dispatchEvent(new PointerEvent('pointerup', at(80)));
+    });
+    const x1 = await x();
+    const buttons = await touch.locator('.bh-touch-btn').count();
+    if (!(x1 > x0 + 1.5)) throw new Error(`touch stick did not walk right: ${x0} -> ${x1}`);
+    if (buttons < 2) throw new Error(`expected touch buttons for jump and interact, got ${buttons}`);
+    await touch.screenshot({ path: resolve(out, 'sandbox-touch.png') });
+    if (touchErrors.length) throw new Error(touchErrors.join('\n'));
+    console.log(`PASS sandbox touch: stick walked ${(x1 - x0).toFixed(1)} m, ${buttons} touch buttons`);
+  } catch (error) {
+    failures++; console.error(`FAIL sandbox touch: ${error.stack ?? error}`);
+  } finally { await touch.close(); }
 } finally { await browser.close(); await server.close(); }
 if (failures) process.exitCode = 1;

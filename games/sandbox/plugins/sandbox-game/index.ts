@@ -1,8 +1,8 @@
-import { CharacterController, CharacterMove, CharacterState, ExperienceRole, Input, InputActions, PhysicsCollider, PhysicsCollision, Renderable, RigidBody, Transform3D, definePlugin, quatFromEuler, spawnGltfScene, transform3d } from '../../../../src/sdk/index.ts';
+import { CharacterController, CharacterMove, CharacterState, ExperienceRole, Input, PhysicsCollider, PhysicsCollision, Renderable, RigidBody, Transform3D, definePlugin, quatFromEuler, readAxis, registerStandardControls, spawnGltfScene, transform3d } from '../../../../src/sdk/index.ts';
 import type { EntityId, SessionContext } from '../../../../src/sdk/index.ts';
 import { DISPLAY_MODEL, LEVEL_MODEL, Sandbox, SandboxGoal } from '../../contracts/sandbox.ts';
 
-export const ACTIONS = { forward: 'sandbox/forward', back: 'sandbox/back', left: 'sandbox/left', right: 'sandbox/right', jump: 'sandbox/jump' } as const;
+export const ACTIONS = { forward: 'sandbox/forward', back: 'sandbox/back', left: 'sandbox/left', right: 'sandbox/right', jump: 'sandbox/jump', move: 'sandbox/move' } as const;
 const SPEED = 5, JUMP = 5.5, GRAVITY = -9.81;
 
 function solid(ctx: SessionContext, pos: { x: number; y: number; z: number }, size: { x: number; y: number; z: number }, color: number, type: 'fixed' | 'dynamic'): EntityId {
@@ -18,13 +18,10 @@ export default definePlugin({
   register(ctx) {
     ctx.provideRole(ExperienceRole, 'sandbox/physics', {
       name: 'Physics sandbox', description: 'Walk around, shove a stack of crates and step on the glowing pad. Built only from SDK 3 components.', pointer: 'free',
-      controls: [['WASD / arrows', 'Walk'], ['Space', 'Jump']],
+      controls: [['WASD / arrows / left stick / touch stick', 'Walk'], ['Space / pad A / touch A', 'Jump']],
     });
-    ctx.register(InputActions, ACTIONS.forward, { label: 'Walk forward', keys: ['KeyW', 'ArrowUp'] });
-    ctx.register(InputActions, ACTIONS.back, { label: 'Walk back', keys: ['KeyS', 'ArrowDown'] });
-    ctx.register(InputActions, ACTIONS.left, { label: 'Walk left', keys: ['KeyA', 'ArrowLeft'] });
-    ctx.register(InputActions, ACTIONS.right, { label: 'Walk right', keys: ['KeyD', 'ArrowRight'] });
-    ctx.register(InputActions, ACTIONS.jump, { label: 'Jump', keys: ['Space'] });
+    // Keyboard + gamepad + touch default map (rebindable from the pause menu); ids match ACTIONS.
+    registerStandardControls(ctx, 'sandbox');
   },
   async activate(ctx) {
     solid(ctx, { x: 0, y: -0.5, z: 0 }, { x: 30, y: 1, z: 30 }, 0x4a5a4a, 'fixed');
@@ -78,14 +75,13 @@ export default definePlugin({
     ctx.systems.add({
       id: 'sandbox/hero-control', phase: 'control', update: (dt) => {
         const input = ctx.services.tryGet(Input)?.tick;
-        const ix = input ? Number(input.held(ACTIONS.right)) - Number(input.held(ACTIONS.left)) : 0;
-        const iz = input ? Number(input.held(ACTIONS.back)) - Number(input.held(ACTIONS.forward)) : 0;
-        const len = Math.hypot(ix, iz) || 1;
+        // One axis for keys, D-pad, gamepad stick and touch stick (analog magnitude scales the speed).
+        const { x: ix, y: iz } = input ? readAxis(input, ACTIONS.move) : { x: 0, y: 0 };
         const grounded = ctx.world.get(hero, CharacterState)?.grounded ?? false;
         if (grounded && vy <= 0) vy = input?.pressed(ACTIONS.jump) ? JUMP : -1;
         else vy += GRAVITY * dt;
         const move = ctx.world.get(hero, CharacterMove)!;
-        move.desired = { x: (ix / len) * SPEED * dt, y: vy * dt, z: (iz / len) * SPEED * dt };
+        move.desired = { x: ix * SPEED * dt, y: vy * dt, z: iz * SPEED * dt };
         if (ix || iz) ctx.world.get(hero, Transform3D)!.rotation = quatFromEuler(Math.atan2(-ix, -iz));
       },
     });

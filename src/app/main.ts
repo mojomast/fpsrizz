@@ -8,6 +8,9 @@ import { createAssetService, preloadManifestAssets } from '../platform/assets.ts
 import { createAudioService } from '../platform/audio.ts';
 import { createFlow } from '../platform/flow.ts';
 import { bindDomInput, createInputCore, isInputEditableTarget } from '../platform/input.ts';
+import { bindGamepads } from '../platform/gamepad.ts';
+import { createInputBindings } from '../platform/input-bindings.ts';
+import { bindTouchControls } from '../platform/touch.ts';
 import { createProfileStore } from '../platform/profile-store.ts';
 import type { ProfileStorage } from '../platform/profile-store.ts';
 import { isWebGL2Available } from '../platform/render/mini3/index.ts';
@@ -16,7 +19,7 @@ import type { RenderHost } from '../platform/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
 import { createUiService } from '../platform/ui.ts';
 import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
-import { Assets, Audio, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputContexts, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
+import { Assets, Audio, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputAxes, InputBindings, InputContexts, prettyKey, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
 import { Render } from '../sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
@@ -49,6 +52,11 @@ function boot(): void {
       onQuitToMenu: () => toMenu(),
       onSettingsChange: (s) => applySettings(s),
       onOpenCreator: () => creator.toggle(),
+      bindings: {
+        list: () => inputBindings.list().map((r) => ({ action: r.action, label: r.label, keys: r.keys.map(prettyKey).join(' / ') || '(unbound)', overridden: r.overridden })),
+        rebind: (action) => captureBinding(action),
+        reset: () => inputBindings.reset(),
+      },
     },
     settings,
   );
@@ -70,6 +78,15 @@ function boot(): void {
   let profileStorage: ProfileStorage | null = null;
   try { profileStorage = globalThis.localStorage ?? null; } catch { /* access denied */ }
   const profile = createProfileStore(profileStorage);
+  // Input v2: rebinding overrides (own profile store so game profiles never clobber them), gamepads, touch, axes.
+  const refreshInput = (): void => { domInput.refresh(); gamepads.refresh(); touch.refresh(); };
+  const inputBindings = createInputBindings({
+    core: inputCore,
+    store: createProfileStore(profileStorage, 'fpsrizz/input-bindings'),
+    actions: () => host.active?.registries.entries(InputActions) ?? [],
+    onChange: () => refreshInput(),
+  });
+  inputCore.setAxes(() => host.active?.registries.entries(InputAxes).map((e) => [e.id, e.value] as const) ?? []);
   const ui = createUiService({ hud: shell.hudLayer, overlay: shell.overlayLayer });
   const settingsService: SettingsService = {
     get lookSensitivity() {
@@ -102,7 +119,8 @@ function boot(): void {
       session.services.provide(Settings, settingsService, 'host', scope);
       session.services.provide(Profile, profile, 'host', scope);
       session.services.provide(Flow, createFlow((r) => session.events.emit(FlowEnded, r), () => session.scheduler.time), 'host', scope);
-      session.addBeforeTick(() => inputCore.beginTick(), scope);
+      session.services.provide(InputBindings, inputBindings, 'host', scope);
+      session.addBeforeTick(() => { gamepads.poll(); inputCore.beginTick(); }, scope);
       session.events.on(FlowEnded, (r) => onFlowEnded(session, r), 'host', scope);
       session.onFault = (f) => {
         state = 'error';
@@ -129,11 +147,27 @@ function boot(): void {
   };
   const needsPointerLock = (): boolean => (experience()?.pointer ?? 'locked') === 'locked';
   const captured = (): boolean => !needsPointerLock() || testMode || document.pointerLockElement === canvas;
-  const domInput = bindDomInput(inputCore, {
-    target: canvas,
-    actions: () => host.active?.registries.entries(InputActions).map((e) => ({ id: e.id, keys: e.value.keys })) ?? [],
-    isCaptured: () => state === 'playing' && captured(),
+  const inputActive = (): boolean => state === 'playing' && captured();
+  const domInput = bindDomInput(inputCore, { target: canvas, actions: () => inputBindings.effective(), isCaptured: inputActive });
+  const gamepads = bindGamepads(inputCore, { actions: () => inputBindings.effective(), isCaptured: inputActive });
+  const touchParam = new URLSearchParams(location.search).get('touch');
+  const touch = bindTouchControls(inputCore, {
+    mount: (layer) => shell.hudLayer.after(layer),
+    actions: () => inputBindings.effective(),
+    isCaptured: inputActive,
+    ...(touchParam !== null ? { enabled: touchParam !== '0' } : {}),
   });
+  /** Pause-menu rebinding: waits for the next key / button (gamepads are polled while the session is paused). */
+  async function captureBinding(action: string): Promise<string | undefined> {
+    let polling = true;
+    const pollPads = (): void => { if (!polling) return; gamepads.poll(); requestAnimationFrame(pollPads); };
+    const pending = inputBindings.capture();
+    requestAnimationFrame(pollPads);
+    const key = await pending;
+    polling = false;
+    if (key) inputBindings.rebind(action, [key]);
+    return key;
+  }
 
   // ---- state transitions ---------------------------------------------------------------------------------------------
   const requestPointer = (): void => {
@@ -172,11 +206,13 @@ function boot(): void {
   function describeControls(): [string, string][] {
     const selected = experience();
     const out: [string, string][] = selected?.controls?.map(([key, label]) => [key, label]) ?? (needsPointerLock() ? [['Mouse', 'Aim (yaw)']] : []);
-    const pretty = (k: string): string => k.replace(/^Key/, '').replace(/^Digit/, '').replace('Mouse0', 'Left click').replace('Mouse1', 'Middle click').replace('Mouse2', 'Right click').replace('ArrowUp', '↑').replace('ArrowDown', '↓').replace('ArrowLeft', '←').replace('ArrowRight', '→').replace('WheelUp', 'Wheel up').replace('WheelDown', 'Wheel down');
+    const pretty = prettyKey;
     const slots: string[] = [];
-    for (const e of selected?.controls ? [] : host.active?.registries.entries(InputActions) ?? []) {
-      if (/weapon-\d+$/.test(e.id)) slots.push(...e.value.keys.map(pretty));
-      else out.push([e.value.keys.map(pretty).join(' / '), e.value.label]);
+    for (const e of selected?.controls ? [] : inputBindings.effective()) {
+      // Gamepad / touch virtual keys are listed in the pause menu's key bindings, not the keyboard summary.
+      const keys = e.keys.filter((k) => !/^(Gamepad|Touch)/.test(k));
+      if (/weapon-\d+$/.test(e.id)) slots.push(...keys.map(pretty));
+      else if (keys.length) out.push([keys.map(pretty).join(' / '), e.label]);
     }
     if (slots.length) out.push([`${slots[0]}–${slots[slots.length - 1]}`, 'Select weapon']);
     out.push(['Esc', needsPointerLock() ? 'Release mouse / pause' : 'Pause'], ['` (backquote)', 'Creator tools']);
@@ -234,7 +270,7 @@ function boot(): void {
     sessionUsed = true;
     shell.hide();
     shell.setHint(captured() ? null : 'Click the game view to capture the mouse — Esc releases it');
-    domInput.refresh();
+    refreshInput();
     setPaused(false);
   }
 
@@ -280,7 +316,7 @@ function boot(): void {
     }
     saveSelectedPreset(host.active!.preset);
     sessionUsed = false;
-    domInput.refresh();
+    refreshInput();
     toMenu();
     return { ok: true };
   }
@@ -388,6 +424,8 @@ function boot(): void {
   (window as unknown as Record<string, unknown>)['__bulkhead'] = {
     host,
     inputCore,
+    inputBindings,
+    gamepads,
     renderHost,
     audio,
     ui,

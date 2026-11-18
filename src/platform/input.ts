@@ -1,4 +1,9 @@
 import type { InputContextsService, InputService, TickInput } from '../sdk/contracts/shooter.ts';
+import { applyDeadzone } from '../sdk/contracts/input.ts';
+import type { AnalogSource, AxisValue, InputAxisDef, InputDevice } from '../sdk/contracts/input.ts';
+
+type AxisResolver = (id: string, held: (action: string) => boolean) => AxisValue;
+const ZERO: AxisValue = Object.freeze({ x: 0, y: 0 });
 
 export interface InputCore {
   press(action: string): void;
@@ -14,9 +19,21 @@ export interface InputCore {
   /** Wipes held state, pending edges, the snapshot and look. Generates no release edges. */
   clear(): void;
   readonly service: InputService;
+  // ---- SDK 3 (input v2) ----
+  /** Axis definitions (the active session's InputAxes registry). */
+  setAxes(defs: () => Iterable<readonly [string, InputAxisDef]>): void;
+  /** Latest raw analog value of a source (gamepad poll, touch stick); sampled into the tick at beginTick. */
+  setAnalog(source: AnalogSource, x: number, y: number): void;
+  noteDevice(device: InputDevice): void;
+  readonly lastDevice: InputDevice;
+  /** Starts capturing the next physical key (rebinding). Resolves undefined on timeout, Escape or clear(). */
+  capture(timeoutMs?: number): Promise<string | undefined>;
+  /** Adapters call this before routing a pressed key; true = the key was captured and must not reach gameplay. */
+  offerCapture(key: string): boolean;
+  readonly capturing: boolean;
 }
 
-function createInputState() {
+function createInputState(axisOf: AxisResolver = () => ZERO) {
   const held = new Set<string>();
   const pendPressed = new Set<string>();
   const pendReleased = new Set<string>();
@@ -36,6 +53,7 @@ function createInputState() {
     get lookX() { return snapX; },
     get lookY() { return snapY; },
     get pointer() { return snapPointer; },
+    axis: (id) => axisOf(id, (a) => held.has(a)),
   };
 
   return {
@@ -81,7 +99,38 @@ function createInputState() {
 }
 
 export function createInputCore(): InputCore {
-  const legacy = createInputState();
+  let axisDefs: () => Iterable<readonly [string, InputAxisDef]> = () => [];
+  let axisCache: Map<string, InputAxisDef> | undefined;
+  const pendAnalog = new Map<AnalogSource, AxisValue>();
+  const snapAnalog = new Map<AnalogSource, AxisValue>();
+  let lastDevice: InputDevice = 'keyboard';
+  let pendingCapture: { resolve: (key: string | undefined) => void; timer: ReturnType<typeof setTimeout> | undefined } | undefined;
+  const endCapture = (key: string | undefined): void => {
+    const c = pendingCapture;
+    if (!c) return;
+    pendingCapture = undefined;
+    if (c.timer !== undefined) clearTimeout(c.timer);
+    c.resolve(key);
+  };
+  const resolveAxis: AxisResolver = (id, held) => {
+    axisCache ??= new Map(axisDefs());
+    const def = axisCache.get(id);
+    if (!def) return ZERO;
+    const dx = def.x ? Number(held(def.x[1])) - Number(held(def.x[0])) : 0;
+    const dy = def.y ? Number(held(def.y[1])) - Number(held(def.y[0])) : 0;
+    const dl = Math.hypot(dx, dy);
+    let best: AxisValue = dl > 0 ? { x: dx / dl, y: dy / dl } : ZERO;
+    let bestLen = dl > 0 ? 1 : 0;
+    for (const src of def.sticks ?? []) {
+      const raw = snapAnalog.get(src);
+      if (!raw) continue;
+      const v = applyDeadzone(raw.x, raw.y, def.deadzone ?? 0.15);
+      const l = Math.hypot(v.x, v.y);
+      if (l > bestLen) { best = v; bestLen = l; }
+    }
+    return best;
+  };
+  const legacy = createInputState(resolveAxis);
   type State = ReturnType<typeof createInputState>;
   const contexts: { state: State; bindings: Map<string, string[]>; priority: number; consume: boolean; exclusive: boolean; enabled: boolean }[] = [];
   const down = new Map<string, { state: State; action: string }[]>();
@@ -102,15 +151,35 @@ export function createInputCore(): InputCore {
   };
   return {
     service: legacy.service,
+    setAxes(defs) { axisDefs = defs; axisCache = undefined; },
+    setAnalog(source, x, y) { pendAnalog.set(source, { x, y }); },
+    noteDevice(device) { lastDevice = device; },
+    get lastDevice() { return lastDevice; },
+    get capturing() { return pendingCapture !== undefined; },
+    capture(timeoutMs = 8000) {
+      endCapture(undefined);
+      cancel();
+      return new Promise((resolve) => {
+        pendingCapture = { resolve, timer: timeoutMs > 0 ? setTimeout(() => endCapture(undefined), timeoutMs) : undefined };
+      });
+    },
+    offerCapture(key) {
+      if (!pendingCapture) return false;
+      endCapture(key === 'Escape' ? undefined : key);
+      return true;
+    },
     press: (action) => legacy.press(action),
     release: (action) => legacy.release(action),
     addLook(dx, dy) { for (const s of pointerStates()) s.addLook(dx, dy); },
     setPointer(x, y, inside) { for (const s of pointerStates()) s.setPointer(x, y, inside); },
     beginTick() {
+      axisCache = undefined;
+      snapAnalog.clear();
+      for (const [k, v] of pendAnalog) snapAnalog.set(k, v);
       legacy.beginTick();
       for (const c of contexts) c.state.beginTick();
     },
-    clear() { cancel(); down.clear(); },
+    clear() { cancel(); down.clear(); pendAnalog.clear(); snapAnalog.clear(); endCapture(undefined); },
     pressKey(key, legacyActions) {
       if (down.has(key)) return down.get(key)!.length > 0;
       const routes: { state: State; action: string }[] = [];
@@ -138,7 +207,7 @@ export function createInputCore(): InputCore {
       create(ctx, options) {
         const bindings = new Map<string, string[]>();
         for (const b of options.bindings) for (const key of b.keys) bindings.set(key, [...(bindings.get(key) ?? []), b.action]);
-        const c = { state: createInputState(), bindings, priority: options.priority ?? 0, consume: options.consume ?? true, exclusive: options.exclusive ?? false, enabled: options.enabled ?? true };
+        const c = { state: createInputState(resolveAxis), bindings, priority: options.priority ?? 0, consume: options.consume ?? true, exclusive: options.exclusive ?? false, enabled: options.enabled ?? true };
         cancel();
         contexts.push(c);
         let disposed = false;
@@ -186,25 +255,44 @@ export interface DomInputOptions {
  * Returns { dispose, refresh }. `refresh()` invalidates the key -> action lookup (rebuilt lazily from `actions()` on
  * the next event); call it when the action registry changes. `dispose()` removes every listener.
  */
-export function bindDomInput(core: InputCore, opts: DomInputOptions): { dispose(): void; refresh(): void } {
-  const { target, actions, isCaptured } = opts;
+/** Lazily built physical key -> action ids map; `refresh()` drops it after the action list changed. */
+export function createActionLookup(actions: () => ReadonlyArray<{ id: string; keys: readonly string[] }>): { get(key: string): string[]; refresh(): void } {
   let map: Map<string, string[]> | null = null;
-  const lookup = (key: string): string[] | undefined => {
-    if (!map) {
-      map = new Map();
-      for (const a of actions()) {
-        for (const k of a.keys) {
-          const l = map.get(k);
-          if (l) l.push(a.id);
-          else map.set(k, [a.id]);
+  return {
+    get(key) {
+      if (!map) {
+        map = new Map();
+        for (const a of actions()) {
+          for (const k of a.keys) {
+            const l = map.get(k);
+            if (l) l.push(a.id);
+            else map.set(k, [a.id]);
+          }
         }
       }
-    }
-    return map.get(key);
+      return map.get(key) ?? [];
+    },
+    refresh() { map = null; },
+  };
+}
+
+export function bindDomInput(core: InputCore, opts: DomInputOptions): { dispose(): void; refresh(): void } {
+  const { target, actions, isCaptured } = opts;
+  const actionLookup = createActionLookup(actions);
+  const lookup = (key: string): string[] => actionLookup.get(key);
+  // Rebinding capture runs in the capture phase so the key (Escape included) never reaches the shell or gameplay.
+  const onCaptureKeyDown = (e: KeyboardEvent): void => {
+    if (!core.capturing || e.repeat || e.isComposing) return;
+    if (core.offerCapture(e.code)) { e.preventDefault(); e.stopImmediatePropagation(); }
+  };
+  const onCaptureMouseDown = (e: MouseEvent): void => {
+    if (!core.capturing || isInputUiTarget(e.target)) return;
+    if (core.offerCapture(`Mouse${e.button}`)) { e.preventDefault(); e.stopImmediatePropagation(); }
   };
   const onKeyDown = (e: KeyboardEvent): void => {
     if (!isCaptured() || e.defaultPrevented || e.isComposing || isInputUiTarget(e.target) || isInputUiTarget(document.activeElement)) return;
     if (e.repeat) return;
+    core.noteDevice('keyboard');
     if (core.pressKey(e.code, lookup(e.code) ?? [])) e.preventDefault();
   };
   const onKeyUp = (e: KeyboardEvent): void => {
@@ -212,6 +300,7 @@ export function bindDomInput(core: InputCore, opts: DomInputOptions): { dispose(
   };
   const onMouseDown = (e: MouseEvent): void => {
     if (!isCaptured() || e.defaultPrevented || isInputUiTarget(e.target)) return;
+    core.noteDevice('mouse');
     // A mapped canvas click prevents native defaults, so explicitly return focus from form controls.
     if (typeof HTMLElement !== 'undefined' && document.activeElement instanceof HTMLElement && isInputUiTarget(document.activeElement)) document.activeElement.blur();
     updatePointer(e);
@@ -242,6 +331,8 @@ export function bindDomInput(core: InputCore, opts: DomInputOptions): { dispose(
   const onVisibility = (): void => { if (document.visibilityState === 'hidden') core.clear(); };
   const onLock = (): void => { if (!document.pointerLockElement) core.clear(); };
 
+  window.addEventListener('keydown', onCaptureKeyDown, true);
+  window.addEventListener('mousedown', onCaptureMouseDown, true);
   window.addEventListener('keydown', onKeyDown);
   window.addEventListener('keyup', onKeyUp);
   window.addEventListener('mouseup', onMouseUp);
@@ -254,9 +345,11 @@ export function bindDomInput(core: InputCore, opts: DomInputOptions): { dispose(
   target.addEventListener('wheel', onWheel, { passive: false });
 
   return {
-    refresh() { map = null; core.clear(); },
+    refresh() { actionLookup.refresh(); core.clear(); },
     dispose() {
       core.clear();
+      window.removeEventListener('keydown', onCaptureKeyDown, true);
+      window.removeEventListener('mousedown', onCaptureMouseDown, true);
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('keyup', onKeyUp);
       window.removeEventListener('mouseup', onMouseUp);

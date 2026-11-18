@@ -30,3 +30,4 @@ export * from './contracts/spatial.ts';
 export * from './contracts/physics.ts';
 export * from './contracts/assets.ts';
 export * from './contracts/gltf.ts';
+export * from './contracts/input.ts';
