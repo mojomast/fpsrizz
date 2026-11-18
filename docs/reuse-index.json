@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "450ebb830a6f702ea5d118fc996de25effcf5aa9bf9c0b855e14ff0752ae43ef",
+  "sourceDigest": "50ff14b889a608d6335d02976bf1da0a7d72328495158b4e8628e4f55c574e56",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -16237,6 +16237,30 @@
         "example/survival",
         "example/time-trial"
       ]
+    },
+    {
+      "id": "sdk/morphChildren",
+      "type": "contract",
+      "name": "morphChildren",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/dom-morph.ts:10",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "morphChildren"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "sdk/NavigationRole",

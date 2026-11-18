@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `450ebb830a6f702ea5d118fc996de25effcf5aa9bf9c0b855e14ff0752ae43ef`
+Source digest: `50ff14b889a608d6335d02976bf1da0a7d72328495158b4e8628e4f55c574e56`
 
 ## Composition recipes
 
@@ -258,6 +258,7 @@ Source digest: `450ebb830a6f702ea5d118fc996de25effcf5aa9bf9c0b855e14ff0752ae43ef
 | `sdk/migrateSnapshot` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L41) |
 | `sdk/Models` | contract | Public SDK value: sdk/models | [source](../../src/sdk/render.ts#L114) |
 | `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](../../src/sdk/contracts/shooter.ts#L669) |
+| `sdk/morphChildren` | contract | Public helper/class | [source](../../src/sdk/dom-morph.ts#L10) |
 | `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](../../src/sdk/contracts/navigation.ts#L34) |
 | `sdk/objectiveMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L142) |
 | `sdk/ObjectiveMechanicRole` | contract | Public SDK value: sdk/mechanic-objectives | [source](../../src/sdk/contracts/mechanics.ts#L103) |

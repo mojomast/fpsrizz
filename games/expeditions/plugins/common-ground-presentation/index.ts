@@ -1,4 +1,4 @@
-import { ExperienceRole, SessionControl, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, SessionControl, Ui, definePlugin, morphChildren } from '../../../../src/sdk/index.ts';
 import { Hearth } from '../../contracts/hearth-sim.ts';
 import type { HearthActivity, HearthCommand, HearthFinish, HearthRoom } from '../../contracts/hearth-sim.ts';
 
@@ -27,7 +27,10 @@ export default definePlugin({
     const root = ui.mount(ctx, 'hud', 'common-ground');
     const doc = root.ownerDocument;
     const main = doc.createElement('main'); main.className = 'cg'; root.appendChild(main);
-    const wrap = doc.createElement('div'); wrap.className = 'wrap'; main.appendChild(wrap);
+    const live = doc.createElement('div'); live.className = 'wrap'; main.appendChild(live);
+    // Each change renders into a detached tree that is then morphed into the live one, so buttons stay the same
+    // nodes across turns (clicks and hovers survive Play/Fast time; focus and the open catalog are kept).
+    let wrap = doc.createElement('div');
     const make = <K extends keyof HTMLElementTagNameMap>(parent: HTMLElement, tag: K, cls = '', text = ''): HTMLElementTagNameMap[K] => {
       const el = doc.createElement(tag); if (cls) el.className = cls; if (text) el.textContent = text; parent.appendChild(el); return el;
     };
@@ -75,7 +78,8 @@ export default definePlugin({
     };
     main.addEventListener('click', onClick); ctx.scope.add(() => main.removeEventListener('click', onClick), 'common-ui-listener');
     let revision = -1;
-    const status = doc.createElement('p'); status.className = 'notice'; status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
+    const makeStatus = (): HTMLParagraphElement => { const p = doc.createElement('p'); p.className = 'notice'; p.dataset.key = 'status'; p.setAttribute('role', 'status'); p.setAttribute('aria-live', 'polite'); return p; };
+    let status = makeStatus();
     ctx.systems.addFrame({ id: 'common/presentation.frame', update(_alpha, dt) {
       const s = game.state();
       if (speed && !s.paused && ctx.services.tryGet(SessionControl)?.playing !== false) {
@@ -84,8 +88,9 @@ export default definePlugin({
       } else elapsed = 0;
       if (s.revision === revision) return; revision = s.revision;
       const focused = doc.activeElement instanceof doc.defaultView!.HTMLElement && main.contains(doc.activeElement) ? doc.activeElement.dataset.key : undefined;
-      const openCatalog = wrap.querySelector<HTMLDetailsElement>('details')?.open ?? false;
-      wrap.replaceChildren();
+      const openCatalog = live.querySelector<HTMLDetailsElement>('details')?.open ?? false;
+      wrap = doc.createElement('div');
+      status = makeStatus();
       const header = make(wrap, 'header', 'header'); const title = make(header, 'div'); make(title, 'p', 'eyebrow', 'A little life, together'); make(title, 'h1', '', game.household.name); make(title, 'p', 'intro', game.household.intro);
       const stats = make(header, 'div', 'topstats');
       const clock = `${String(Math.floor(s.minute / 60)).padStart(2, '0')}:${String(s.minute % 60).padStart(2, '0')}`;
@@ -154,7 +159,9 @@ export default definePlugin({
       for (const project of s.projects) { const el = make(community, 'div', 'project'); make(el, 'strong', '', `${project.complete ? '✓ ' : '○ '}${project.id.split('-').map(word => word[0]!.toUpperCase() + word.slice(1)).join(' ')} · ${project.value}/${project.target}`); make(el, 'small', '', descriptions[project.id] ?? 'Household project'); }
       const journal = make(right, 'section', 'panel'); make(journal, 'h2', '', 'House journal'); const list = make(journal, 'ol', 'events'); if (!s.events.length) make(list, 'li', '', 'Your story starts here.'); else for (const event of [...s.events].reverse()) make(list, 'li', '', event);
       const footer = make(wrap, 'p', 'footer', 'Made for a little more togetherness · '); const link = make(footer, 'a', '', 'Furniture art provenance'); link.href = './assetrizz/LICENSE.txt';
-      if (focused) { const replacement = Array.from(main.querySelectorAll<HTMLElement>('[data-key]')).find(el => el.dataset.key === focused); replacement?.focus({ preventScroll: true }); }
+      morphChildren(live, wrap);
+      status = live.querySelector<HTMLParagraphElement>('[data-key="status"]') ?? status;
+      if (focused && !(doc.activeElement instanceof doc.defaultView!.HTMLElement && doc.activeElement.dataset.key === focused)) { const replacement = Array.from(main.querySelectorAll<HTMLElement>('[data-key]')).find(el => el.dataset.key === focused); replacement?.focus({ preventScroll: true }); }
     } });
   },
 });

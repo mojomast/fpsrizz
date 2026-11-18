@@ -22,12 +22,11 @@ try {
       const state = () => page.evaluate(() => window.__bulkhead.host.session.services.get({ id: 'common/hearth' }).state());
       // Select by semantic command data; actions are still sent through real button clicks.
       const act = async (payload) => {
-        const button = page.locator('.cg button[data-command]').all();
-        for (const candidate of await button) {
-          const value = await candidate.getAttribute('data-command');
-          if (value === JSON.stringify(payload)) { await candidate.click({ timeout: 30000 }); return; }
-        }
-        throw new Error(`Missing UI command ${JSON.stringify(payload)}`);
+        const json = JSON.stringify(payload);
+        if (json.includes("'")) throw new Error(`cannot select ${json}`);
+        const button = page.locator(`.cg button[data-command='${json}']`);
+        if (!(await button.count())) throw new Error(`Missing UI command ${json}`);
+        await button.first().click({ timeout: 30000 });
       };
       const before = await state();
       await page.getByRole('button', { name: 'Show a hint', exact: true }).click();
@@ -49,6 +48,12 @@ try {
       const prior = (await state()).turn;
       await page.getByRole('button', { name: 'Fast', exact: true }).click();
       await page.waitForFunction(turn => window.__bulkhead.host.session.services.get({ id: 'common/hearth' }).state().turn > turn, prior);
+      // Turns advancing under Fast must not replace the buttons (they used to be rebuilt every turn, so clicks could
+      // land on detached nodes on slow machines).
+      const pauseHandle = await page.locator(`.cg button[data-key='{"type":"pause"}']`).elementHandle();
+      const turnNow = (await state()).turn;
+      await page.waitForFunction(turn => window.__bulkhead.host.session.services.get({ id: 'common/hearth' }).state().turn > turn + 1, turnNow);
+      if (!(await pauseHandle.evaluate((el) => el.isConnected))) throw new Error('Pause button was re-created while time advanced');
       await act({ type: 'pause', paused: true });
       await page.waitForFunction(() => window.__bulkhead.host.session.services.get({ id: 'common/hearth' }).state().paused);
       const pausedTurn = (await state()).turn;
