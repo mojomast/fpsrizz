@@ -2,7 +2,7 @@ import { THREE } from '../../src/sdk/render.ts';
 import { createRenderHost } from '../../src/platform/render/service.ts';
 import { PluginHost } from '../../src/kernel/host.ts';
 import type { SessionContext } from '../../src/kernel/host.ts';
-import { SDK_VERSION } from '../../src/sdk/index.ts';
+import { SDK_COMPAT, SDK_VERSION } from '../../src/sdk/index.ts';
 
 async function run(): Promise<[string, boolean][]> {
   const checks: [string, boolean][] = [];
@@ -14,7 +14,7 @@ async function run(): Promise<[string, boolean][]> {
   host.resize();
   const render = host.service;
   const contexts = new Map<string, SessionContext>();
-  const session = new PluginHost({ sdkVersion: SDK_VERSION, phases: [] });
+  const session = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: [] });
   session.setCatalog(['test/world', 'test/view'].map(id => ({
     manifest: { schema: 1, id, name: id, version: '1.0.0', kind: 'code', sdk: `^${SDK_VERSION}` },
     load: async () => ({ default: { activate(ctx: SessionContext) { contexts.set(id, ctx); } } }),

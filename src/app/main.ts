@@ -15,7 +15,7 @@ import type { RenderHost } from '../platform/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
 import { createUiService } from '../platform/ui.ts';
 import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
-import { Audio, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputContexts, PHASES, Profile, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
+import { Audio, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputContexts, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
 import { Render } from '../sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
@@ -84,7 +84,7 @@ function boot(): void {
   audio.setMasterVolume(settings.volume);
 
   const host = new PluginHost({
-    sdkVersion: SDK_VERSION,
+    sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
     phases: PHASES,
     installHostServices(session, scope) {
       session.services.provide(Input, inputCore.service, 'host', scope);

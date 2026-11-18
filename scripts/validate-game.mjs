@@ -2,7 +2,7 @@
 import { readFile } from 'node:fs/promises';
 import { catalog, presets } from '../src/app/catalog.ts';
 import { HostError, PluginHost } from '../src/kernel/host.ts';
-import { PHASES, SDK_VERSION } from '../src/sdk/index.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '../src/sdk/index.ts';
 
 const usage = 'Usage: npm run validate-game -- <preset.json | --bundled> [--pack <pack.json> ...]';
 const record = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
@@ -36,7 +36,7 @@ async function main(args) {
   }
   if (!target) throw new Error(usage);
 
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
   const catalogIssues = host.setCatalog(catalog);
   if (catalogIssues.length) throw new HostError('catalog', catalogIssues);
   const installed = host.installed();

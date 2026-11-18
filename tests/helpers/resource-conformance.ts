@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost, HostError } from '../../src/kernel/host.ts';
 import type { CatalogEntry } from '../../src/kernel/host.ts';
-import { PHASES, SDK_VERSION, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, resourceMechanic } from '../../src/sdk/index.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, resourceMechanic } from '../../src/sdk/index.ts';
 import type { ResourceAmounts, ResourceDefinition, ResourcePool, ResourceTransaction } from '../../src/sdk/index.ts';
 import resourcesManifest from '../../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
 import { ALTERNATE, alternateEntry } from './alternate-resources.ts';
@@ -23,7 +23,7 @@ const definitions = (): ResourceDefinition[] => [
 async function fixture(candidate: ResourceProviderCase, options: { control?: boolean; playing?: boolean; selected?: boolean } = {}) {
   const events: ResourceReceipt[] = [], gate = { playing: options.playing ?? true };
   const selected = options.selected ?? true;
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES, installHostServices(session, scope) {
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) {
     session.events.on(MechanicResourcesChanged, event => events.push(event), 'test', scope);
     if (options.control) session.services.provide(SessionControl, gate, 'test', scope);
   } });

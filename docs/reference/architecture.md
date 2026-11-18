@@ -51,7 +51,7 @@ How Bulkhead is put together and why. For what is and is not implemented see [do
   validation helpers); `contracts/shooter.ts` is the shared shooter vocabulary (components, events, services, registries
    and roles that shooter plugins use to cooperate without importing each other). Separate contracts define experience
    policy, vehicle racing, turn tactics, narrative adventure, push puzzles and audio. `render.ts` is the rendering SDK; `index.ts` is
-  the general entry point. `SDK_VERSION` is `2.0.0`; bundled manifests declare `"sdk": "^2.0.0"`.
+  the general entry point. `SDK_VERSION` is `3.0.0`; SDK 3 is additive, so `SDK_COMPAT` keeps accepting the bundled `"sdk": "^2.0.0"` manifests, and new SDK 3 plugins (`std/*`) declare `^3.0.0`.
 - **Platform** (`src/platform`): adapters for the browser: DOM input, Web Audio, `localStorage`, UI mounting, the flow
   service, the render host and vendored official Three.js behind the historical mini3 facade.
 - **App** (`src/app`): wires adapters into sessions as host services, owns the catalog of compiled-in plugins, the frame

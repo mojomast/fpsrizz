@@ -354,7 +354,7 @@ the planar shooter `Transform`. Cooperating plugins need shared typed contracts 
 **Needs an SDK version bump.** Vertical movement and stacked floors (a height in `Transform` and `WorldDescription`,
 pitch and jumping in the controller and camera contracts, 3D collision queries); non-grid collision; networking and
 rollback; general run saves with versioned migration; shared model/animation asset services; new host-level phases.
-These change shared contracts, so they require a new SDK version and manifests that declare it (`SDK_VERSION` is `2.0.0` and plugins declare a
+These change shared contracts, so they require a new SDK version and manifests that declare it (`SDK_VERSION` is `3.0.0`, with `SDK_COMPAT` still accepting `2.0.0` manifests, and plugins declare a
 compatible range in `sdk`).
 
 ## 7. Asset provenance

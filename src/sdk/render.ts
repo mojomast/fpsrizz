@@ -87,3 +87,26 @@ export interface ActorRenderer {
   start(ctx: SessionContext): (entity: EntityId, visual: Readonly<Visual>) => ActorHandle;
 }
 export const ActorRenderers = defineRegistry<ActorRenderer>('actor-renderer');
+
+// ---------------------------------------------------------------------------------------------------------------------
+// SDK 3: Renderable prefabs (drawn by std/render-sync)
+// ---------------------------------------------------------------------------------------------------------------------
+import type { Renderable } from './index.ts';
+
+/** Builds the scene object for entities whose Renderable has `prefab` equal to this registry id. */
+export interface RenderablePrefab {
+  description: string;
+  /** Called in the registering plugin's context. The object is posed by render sync every frame. */
+  create(ctx: SessionContext, renderable: Readonly<Renderable>, entity: EntityId): { object: THREE.Object3D; dispose?(): void };
+}
+export const RenderablePrefabs = defineRegistry<RenderablePrefab>('renderable-prefab');
+
+/**
+ * Model service (provided by std/assets). `instance` resolves to a fresh scene-graph copy of a glTF/GLB that shares
+ * geometry and materials with every other instance of the same URL; shared GPU resources are released when the
+ * last owning scope ends.
+ */
+export interface ModelService {
+  instance(ctx: SessionContext, url: string): Promise<THREE.Object3D>;
+}
+export const Models = defineService<ModelService>('sdk/models');

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost } from '../../../src/kernel/host.ts';
-import { PHASES, SDK_VERSION } from '../../../src/sdk/index.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '../../../src/sdk/index.ts';
 import { Hearth } from '../contracts/hearth-sim.ts';
 import type { HearthCommand } from '../contracts/hearth-sim.ts';
 import game from '../plugins/common-ground-game/manifest.json' with { type: 'json' };
@@ -14,7 +14,7 @@ import objectives from '../../../src/plugins/mechanics-objectives/manifest.json'
 import relationships from '../../../src/plugins/mechanics-relationships/manifest.json' with { type: 'json' };
 
 async function setup() {
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
   assert.deepEqual(host.setCatalog([
     { manifest: game, load: () => import('../plugins/common-ground-game/index.ts') }, { manifest: pack, content },
     { manifest: resources, load: () => import('../../../src/plugins/mechanics-resources/index.ts') },

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { catalog, presets } from '../../../src/app/catalog.ts';
 import { PluginHost } from '../../../src/kernel/host.ts';
-import { PHASES, SDK_VERSION } from '../../../src/sdk/index.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '../../../src/sdk/index.ts';
 import { Silt } from '../contracts/silt-archive.ts';
 import type { SiltCommand, SiltState } from '../contracts/silt-archive.ts';
 import preset from '../presets/silt-archive.json' with { type: 'json' };
@@ -14,7 +14,7 @@ async function setup(seed = preset.seed) {
   assert.ok(presets.includes(preset));
   assert.equal(preset.roles['sdk/experience'], 'silt/archive');
   assert.equal(preset.roles['sdk/room-map'], 'mechanics/room-map');
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
   assert.deepEqual(host.setCatalog(catalog), []);
   await host.apply({ ...preset, seed, plugins: [...new Set([...preset.plugins, 'mechanics/inventory', 'mechanics/crafting', 'mechanics/progression'])], roles: { ...preset.roles, 'sdk/mechanic-inventory': 'mechanics/inventory', 'sdk/mechanic-crafting': 'mechanics/crafting', 'sdk/mechanic-progression': 'mechanics/progression' } });
   const session = host.session!;

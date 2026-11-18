@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost } from '../../../src/kernel/host.ts';
-import { PHASES, SDK_VERSION } from '../../../src/sdk/index.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '../../../src/sdk/index.ts';
 import { Adventure } from '../contracts/adventure.ts';
 import rules from '../plugins/story-adventure/manifest.json' with { type: 'json' };
 import presentation from '../plugins/story-presentation/manifest.json' with { type: 'json' };
@@ -14,7 +14,7 @@ import archivePreset from '../presets/portfolio-archive-adventure.json' with { t
 import orchardPreset from '../presets/portfolio-orchard-adventure.json' with { type: 'json' };
 
 function fixture() {
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
   host.setCatalog([
     { manifest: rules, load: () => import('../plugins/story-adventure/index.ts') },
     { manifest: presentation, load: () => import('../plugins/story-presentation/index.ts') },

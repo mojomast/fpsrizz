@@ -3,7 +3,9 @@
 Everything in the reference game — weapons, enemies, maps, rules, HUD, rendering — is a plugin or a content pack
 built on the API described here. Third-party authors get exactly the same API.
 
-- **SDK version:** `2.0.0` (`SDK_VERSION`). Manifests declare a compatible range in `sdk`.
+- **SDK version:** `3.0.0` (`SDK_VERSION`). Manifests declare a compatible range in `sdk`. SDK 3 only added APIs,
+  so the host also accepts `^2.0.0` manifests (`SDK_COMPAT`); new plugins should declare `^3.0.0`. See
+  [Migrating to SDK 3](#migrating-to-sdk-3).
 - **One entry point:** `src/sdk/index.ts`. Rendering plugins may additionally import `src/sdk/render.ts`.
 - **Enforced:** `npm run lint` (`scripts/boundaries.ts`) fails if a plugin imports anything else — the kernel,
   platform adapters, the app, another plugin's files, or an npm package.
@@ -74,7 +76,7 @@ src/plugins/my-plugin/
   "name": "Ricochet Rifle",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^2.0.0",
+  "sdk": "^3.0.0",
   "description": "…",
   "dependencies": { "core/combat": "^1.0.0" },
   "optionalDependencies": {},
@@ -314,6 +316,14 @@ Removing a mesh from the scene does **not** free GPU memory — always route res
 
 Gameplay refers to **theme keys** (`"enemy-grunt"`, `"pistol-fire"`), never to files or textures. The selected
 `ThemeRole` provider maps keys to painters, visuals and sounds, so a different art pack needs no gameplay change.
+
+### Migrating to SDK 3
+
+Nothing breaks: SDK 3 is additive and the host keeps loading `^2.0.0` manifests. Change a manifest to `^3.0.0` when
+the plugin starts using an SDK 3 API (entity queries, `Transform3D` / `Renderable`, render sync, physics, assets,
+input axes, audio buses, snapshots), so older hosts reject it cleanly. New families should use `Transform3D` with
+`std/transform` and `std/render-sync` ([spatial reference](../reference/spatial.md)) instead of the shooter's planar
+`Transform`; shooter presets can opt into both through the `shooter/transform3d` bridge.
 
 ### Migrating rendering plugins to SDK 2
 

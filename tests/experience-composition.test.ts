@@ -4,7 +4,7 @@ import { catalog } from '../src/app/catalog.ts';
 import { PluginHost } from '../src/kernel/host.ts';
 import { createFlow } from '../src/platform/flow.ts';
 import { createInputCore } from '../src/platform/input.ts';
-import { Flow, FlowEnded, Input, PHASES, SDK_VERSION } from '../src/sdk/index.ts';
+import { Flow, FlowEnded, Input, PHASES, SDK_COMPAT, SDK_VERSION } from '../src/sdk/index.ts';
 import shooter from '../games/shooter/presets/default.json' with { type: 'json' };
 import racer from '../games/racing/presets/overhead-racing.json' with { type: 'json' };
 import tactics from '../games/tactics/presets/turn-tactics.json' with { type: 'json' };
@@ -16,7 +16,7 @@ const shooterOnly = new Set(['core/player', 'core/world', 'core/combat', 'core/e
 test('independent experience graphs activate headlessly and cleanly switch back to the shooter', async () => {
   const input = createInputCore();
   const host = new PluginHost({
-    sdkVersion: SDK_VERSION,
+    sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
     phases: PHASES,
     installHostServices(session, scope) {
       session.services.provide(Input, input.service, 'host', scope);

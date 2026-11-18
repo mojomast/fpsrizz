@@ -13,7 +13,7 @@ export interface GraphResult {
  * Tie-breaker: among plugins whose dependencies are all satisfied, the lexicographically smallest id goes first.
  * Dependencies are never auto-enabled: a preset must list every plugin it activates.
  */
-export function resolveGraph(installed: ReadonlyMap<string, PluginManifest>, requested: readonly string[], sdkVersion: string): GraphResult {
+export function resolveGraph(installed: ReadonlyMap<string, PluginManifest>, requested: readonly string[], sdkVersion: string, sdkCompat: readonly string[] = []): GraphResult {
   const issues: Issue[] = [];
   const err = (source: string, path: string, message: string): void => void issues.push({ source, path, message });
   const active = new Map<string, PluginManifest>();
@@ -35,7 +35,7 @@ export function resolveGraph(installed: ReadonlyMap<string, PluginManifest>, req
   for (const [id, m] of active) {
     const deps = new Set<string>();
     edges.set(id, deps);
-    if (!satisfies(sdkVersion, m.sdk)) err(id, 'sdk', `Plugin "${id}" needs SDK ${m.sdk} but this build provides SDK ${sdkVersion}.`);
+    if (!satisfies(sdkVersion, m.sdk) && !sdkCompat.some((v) => satisfies(v, m.sdk))) err(id, 'sdk', `Plugin "${id}" needs SDK ${m.sdk} but this build provides SDK ${[sdkVersion, ...sdkCompat].join(', ')}.`);
     for (const [dep, range] of Object.entries(m.dependencies)) {
       const dm = active.get(dep);
       if (!dm) {

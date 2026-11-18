@@ -292,6 +292,8 @@ export interface CatalogStatus {
 
 export interface HostOptions {
   sdkVersion: string;
+  /** Older SDK versions this build still implements; manifests targeting them load unchanged (compat). */
+  sdkCompat?: readonly string[];
   phases: readonly string[];
   /** Called for every new session before plugins activate. Provide platform services with owner "host". */
   installHostServices?(session: Session, scope: Scope): void;
@@ -425,7 +427,7 @@ export class PluginHost {
     if (cat.issues.length > 0) throw new HostError('catalog', cat.issues);
     const manifests = new Map([...cat.map].map(([id, e]) => [id, e.manifest]));
 
-    const graph = resolveGraph(manifests, preset.plugins, this.options.sdkVersion);
+    const graph = resolveGraph(manifests, preset.plugins, this.options.sdkVersion, this.options.sdkCompat);
     if (graph.issues.length > 0) throw new HostError('graph', graph.issues);
 
     // Plugin configuration: manifest defaults overlaid with preset values.

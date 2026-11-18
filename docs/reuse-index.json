@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "803c13cdb75993da296b6ee7e762c9102303c0c2e84e7190957f2973fca91dfc",
+  "sourceDigest": "12886779bd9178c6d0851b4c565a19464e8cecf33178f7e9da6fa6d1019ae0a0",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -10796,6 +10796,56 @@
       "recipes": []
     },
     {
+      "id": "shooter/transform3d",
+      "type": "plugin",
+      "name": "Shooter Transform3D bridge",
+      "scope": "family",
+      "summary": "Mirrors the shooter's planar Transform into SDK 3 Transform3D/PrevTransform.",
+      "source": "games/shooter/plugins/shooter-transform3d",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "transform3d",
+        "bridge",
+        "adapter",
+        "planar",
+        "compat",
+        "sdk 3"
+      ],
+      "entryPoints": [
+        "Transform3D",
+        "PrevTransform",
+        "planarToTransform3D"
+      ],
+      "useWhen": "A shooter preset needs SDK 3 systems (render sync, physics sensors, inspectors) to see its planar entities.",
+      "limitations": [
+        "One-way: planar Transform is authoritative.",
+        "y is 0 unless the consumer sets it."
+      ],
+      "docs": [
+        "docs/reference/spatial.md"
+      ],
+      "examples": [],
+      "tests": [
+        "tests/spatial.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "shooter/transform3d"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [],
+      "recipes": []
+    },
+    {
       "id": "silt/content",
       "type": "plugin",
       "name": "The Silt Archive Chambers",
@@ -11333,6 +11383,104 @@
           }
         }
       ],
+      "recipes": []
+    },
+    {
+      "id": "std/render-sync",
+      "type": "plugin",
+      "name": "Render sync",
+      "scope": "unreviewed",
+      "summary": "Draws every entity with Transform3D + Renderable (shapes, prefabs, glTF models) and poses it each frame, interpolated between simulation ticks.",
+      "source": "src/plugins/std-render-sync",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "std/transform": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "std/render-sync",
+        "std/transform"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [],
+      "recipes": []
+    },
+    {
+      "id": "std/transform",
+      "type": "plugin",
+      "name": "Transform3D bookkeeping",
+      "scope": "cross-genre",
+      "summary": "Previous-tick pose capture for Transform3D, enabling interpolated rendering.",
+      "source": "src/plugins/std-transform",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "transform",
+        "3d",
+        "position",
+        "rotation",
+        "quaternion",
+        "interpolation",
+        "prev",
+        "pose",
+        "parent",
+        "hierarchy"
+      ],
+      "entryPoints": [
+        "Transform3D",
+        "PrevTransform",
+        "transform3d",
+        "worldPose",
+        "snapTransform",
+        "interpolatePose"
+      ],
+      "useWhen": "Any game whose entities move in 3D (or 2D on a plane) and are drawn by std/render-sync or simulated by std/physics-rapier.",
+      "limitations": [
+        "Pose only; velocity lives in physics or your own component.",
+        "Parent links are resolved on read (worldPose); deep hierarchies cost O(depth) per lookup."
+      ],
+      "docs": [
+        "docs/reference/spatial.md"
+      ],
+      "examples": [
+        "src/plugins/std-render-sync/index.ts"
+      ],
+      "tests": [
+        "tests/spatial.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "std/transform"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [],
       "recipes": []
     },
     {
@@ -13163,6 +13311,30 @@
       ]
     },
     {
+      "id": "sdk/clonePose",
+      "type": "contract",
+      "name": "clonePose",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:116",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "clonePose"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Collider",
       "type": "contract",
       "name": "Collider",
@@ -13213,6 +13385,30 @@
       "documentedBy": [
         "core/combat"
       ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/composePose",
+      "type": "contract",
+      "name": "composePose",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:106",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "composePose"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
       "recipes": [],
       "implementations": []
     },
@@ -13711,7 +13907,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:30",
+      "source": "src/sdk/core.ts:35",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13735,7 +13931,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:28",
+      "source": "src/sdk/core.ts:33",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13759,7 +13955,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:29",
+      "source": "src/sdk/core.ts:34",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13783,7 +13979,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:35",
+      "source": "src/sdk/core.ts:40",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13807,7 +14003,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:32",
+      "source": "src/sdk/core.ts:37",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13831,7 +14027,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:33",
+      "source": "src/sdk/core.ts:38",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13855,7 +14051,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:31",
+      "source": "src/sdk/core.ts:36",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14460,6 +14656,32 @@
       "implementations": []
     },
     {
+      "id": "sdk/interpolatePose",
+      "type": "contract",
+      "name": "interpolatePose",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:99",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "interpolatePose"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/transform"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Inventory",
       "type": "contract",
       "name": "Inventory",
@@ -14639,6 +14861,54 @@
         "salt/game",
         "silt/game"
       ]
+    },
+    {
+      "id": "sdk/lerp",
+      "type": "contract",
+      "name": "lerp",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:86",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "lerp"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/lerpVec3",
+      "type": "contract",
+      "name": "lerpVec3",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:87",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "lerpVec3"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "sdk/loadStaticAsset",
@@ -15004,6 +15274,32 @@
       "implementations": []
     },
     {
+      "id": "sdk/Models",
+      "type": "contract",
+      "name": "Models",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/models",
+      "importFrom": "src/sdk/render.ts",
+      "token": "sdk/models",
+      "source": "src/sdk/render.ts:112",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Models",
+        "sdk/models"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/ModeRole",
       "type": "contract",
       "name": "ModeRole",
@@ -15291,7 +15587,7 @@
       "scope": "contract",
       "summary": "Public SDK value",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:25",
+      "source": "src/sdk/core.ts:30",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15428,6 +15724,32 @@
         "example/pack",
         "example/tactical-pack"
       ]
+    },
+    {
+      "id": "sdk/planarToTransform3D",
+      "type": "contract",
+      "name": "planarToTransform3D",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:155",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "planarToTransform3D"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "shooter/transform3d"
+      ],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "sdk/PLATFORMER_DEFAULTS",
@@ -15609,6 +15931,35 @@
       ]
     },
     {
+      "id": "sdk/PrevTransform",
+      "type": "contract",
+      "name": "PrevTransform",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/prev-transform",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/prev-transform",
+      "source": "src/sdk/contracts/spatial.ts:23",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PrevTransform",
+        "sdk/prev-transform"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "shooter/transform3d",
+        "std/transform"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Profile",
       "type": "contract",
       "name": "Profile",
@@ -15732,6 +16083,102 @@
       ]
     },
     {
+      "id": "sdk/quatFromEuler",
+      "type": "contract",
+      "name": "quatFromEuler",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:55",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "quatFromEuler"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/quatIdentity",
+      "type": "contract",
+      "name": "quatIdentity",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:52",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "quatIdentity"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/quatMultiply",
+      "type": "contract",
+      "name": "quatMultiply",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:66",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "quatMultiply"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/quatNormalize",
+      "type": "contract",
+      "name": "quatNormalize",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:75",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "quatNormalize"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/relationshipMechanic",
       "type": "contract",
       "name": "relationshipMechanic",
@@ -15853,13 +16300,65 @@
       "implementations": []
     },
     {
+      "id": "sdk/Renderable",
+      "type": "contract",
+      "name": "Renderable",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/renderable",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/renderable",
+      "source": "src/sdk/contracts/spatial.ts:44",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Renderable",
+        "sdk/renderable"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/RenderablePrefabs",
+      "type": "contract",
+      "name": "RenderablePrefabs",
+      "scope": "contract",
+      "summary": "Public SDK value: renderable-prefab",
+      "importFrom": "src/sdk/render.ts",
+      "token": "renderable-prefab",
+      "source": "src/sdk/render.ts:102",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "RenderablePrefabs",
+        "renderable-prefab"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Reporter",
       "type": "contract",
       "name": "Reporter",
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:47",
+      "source": "src/sdk/core.ts:52",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16050,13 +16549,37 @@
       ]
     },
     {
+      "id": "sdk/rotateVec3",
+      "type": "contract",
+      "name": "rotateVec3",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:81",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "rotateVec3"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Scope",
       "type": "contract",
       "name": "Scope",
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:45",
+      "source": "src/sdk/core.ts:50",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16088,6 +16611,30 @@
       "tests": [],
       "keywords": [
         "ScopeDisposedError"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SDK_COMPAT",
+      "type": "contract",
+      "name": "SDK_COMPAT",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/core.ts:15",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SDK_COMPAT"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -16276,6 +16823,56 @@
       "implementations": []
     },
     {
+      "id": "sdk/slerp",
+      "type": "contract",
+      "name": "slerp",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:90",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "slerp"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/snapTransform",
+      "type": "contract",
+      "name": "snapTransform",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:149",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "snapTransform"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/transform"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/spawnPrefab",
       "type": "contract",
       "name": "spawnPrefab",
@@ -16384,6 +16981,61 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/transform3d",
+      "type": "contract",
+      "name": "transform3d",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:119",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "transform3d"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/transform"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/Transform3D",
+      "type": "contract",
+      "name": "Transform3D",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/transform3d",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/transform3d",
+      "source": "src/sdk/contracts/spatial.ts:20",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Transform3D",
+        "sdk/transform3d"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "shooter/transform3d",
+        "std/transform"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -16542,6 +17194,30 @@
       "tests": [],
       "keywords": [
         "vBool"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/vec3",
+      "type": "contract",
+      "name": "vec3",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:51",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "vec3"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -16949,6 +17625,32 @@
         "core/world",
         "example/dash-controller",
         "example/keys"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/worldPose",
+      "type": "contract",
+      "name": "worldPose",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:130",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "worldPose"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/transform"
       ],
       "recipes": [],
       "implementations": []

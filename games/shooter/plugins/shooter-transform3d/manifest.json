@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "shooter/transform3d",
+  "name": "Shooter Transform3D bridge",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "Mirrors the planar shooter Transform (x, z, yaw) into SDK 3 Transform3D/PrevTransform at the end of every tick, so std/render-sync, physics and inspectors see shooter entities.",
+  "dependencies": {},
+  "capabilities": ["simulation"]
+}

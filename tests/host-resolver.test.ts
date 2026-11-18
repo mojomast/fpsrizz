@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { resolveGraph, dependentsOf } from '../src/kernel/resolver.ts';
-import { codePlugin, fullManifest, hostFailure, manifestMap, newHost, presetOf, PluginHost, PHASES, SDK_VERSION } from './helpers/host.ts';
+import { codePlugin, fullManifest, hostFailure, manifestMap, newHost, presetOf, PluginHost, PHASES, SDK_COMPAT, SDK_VERSION } from './helpers/host.ts';
 
 const A = 'test/a';
 const B = 'test/b';
@@ -78,16 +78,26 @@ test('resolver: compatible dependency version passes (range edge: 1.9.9 satisfie
 });
 
 test('resolver: incompatible SDK range is reported against the host SDK version', () => {
-  const r = resolve([fullManifest(A, { sdk: '^3.0.0' })], [A]);
+  const r = resolve([fullManifest(A, { sdk: '^4.0.0' })], [A]);
   assert.equal(r.issues.length, 1);
   assert.equal(r.issues[0]!.path, 'sdk');
-  assert.match(r.issues[0]!.message, /"test\/a" needs SDK \^3\.0\.0/);
+  assert.match(r.issues[0]!.message, /"test\/a" needs SDK \^4\.0\.0/);
   assert.ok(r.issues[0]!.message.includes(SDK_VERSION));
 });
 
-test('resolver: SDK 1 plugins are incompatible with SDK 2', () => {
-  assert.equal(SDK_VERSION, '2.0.0');
-  const r = resolve([fullManifest(A, { sdk: '^1.0.0' })], [A]);
+test('resolver: SDK 2 plugins load on SDK 3 through the compat list, and only through it', () => {
+  assert.equal(SDK_VERSION, '3.0.0');
+  assert.deepEqual(SDK_COMPAT, ['2.0.0']);
+  assert.deepEqual(resolveGraph(manifestMap([fullManifest(A, { sdk: '^2.0.0' })]), [A], SDK_VERSION, SDK_COMPAT).issues, []);
+  assert.deepEqual(resolveGraph(manifestMap([fullManifest(A, { sdk: '^3.0.0' })]), [A], SDK_VERSION, SDK_COMPAT).issues, []);
+  const strict = resolve([fullManifest(A, { sdk: '^2.0.0' })], [A]);
+  assert.equal(strict.issues.length, 1, 'without sdkCompat an SDK 2 manifest is rejected');
+  const withCompat = resolveGraph(manifestMap([fullManifest(A, { sdk: '^4.0.0' })]), [A], SDK_VERSION, SDK_COMPAT);
+  assert.match(withCompat.issues[0]!.message, /provides SDK 3\.0\.0, 2\.0\.0/);
+});
+
+test('resolver: SDK 1 plugins are incompatible with SDK 3 and its compat versions', () => {
+  const r = resolveGraph(manifestMap([fullManifest(A, { sdk: '^1.0.0' })]), [A], SDK_VERSION, SDK_COMPAT);
   assert.equal(r.issues.length, 1);
   assert.equal(r.issues[0]!.path, 'sdk');
   assert.match(r.issues[0]!.message, /"test\/a" needs SDK \^1\.0\.0/);
@@ -95,7 +105,7 @@ test('resolver: SDK 1 plugins are incompatible with SDK 2', () => {
 });
 
 test('resolver: incompatible SDK through host.stage fails at "graph"', async () => {
-  const host = newHost([codePlugin(A, {}, { sdk: '>=3.0.0' })]);
+  const host = newHost([codePlugin(A, {}, { sdk: '>=4.0.0' })]);
   const e = await hostFailure(host.stage(presetOf('test/p', [A])));
   assert.equal(e.stage, 'graph');
   assert.match(e.message, /"test\/a"/);
@@ -142,7 +152,7 @@ test('resolver: a cycle made only of an optional edge also counts as a cycle', (
 // ---- duplicate ids in the catalog -------------------------------------------------------------------------------------
 
 test('catalog: duplicate plugin id is reported by setCatalog and the duplicate entry is excluded', () => {
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
   const first = codePlugin(A, {}, { version: '1.0.0' });
   const second = codePlugin(A, {}, { version: '2.0.0' });
   const issues = host.setCatalog([first, second, codePlugin(B)]);

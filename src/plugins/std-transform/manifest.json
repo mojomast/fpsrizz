@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "std/transform",
+  "name": "Transform3D bookkeeping",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "Captures each Transform3D's pose into PrevTransform at the start of every simulation tick, so renderers can interpolate between ticks.",
+  "dependencies": {},
+  "capabilities": ["simulation"]
+}
