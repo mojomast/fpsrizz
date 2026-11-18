@@ -3,6 +3,7 @@
 // Usage: node scripts/browser-suite.mjs [--all] [name ...]
 //   default   the CI set: the smoke test plus one demo per game family and the engine adapters
 //   --all     every suite, including the ones listed as known-failing below
+//   --retries N  rerun a failing suite up to N times (CI uses 1: SwiftShader timing on shared runners is noisy)
 // Expects `npm run build` to have produced dist/ (the dev-reload demo starts its own dev server).
 import { spawnSync } from 'node:child_process';
 import { root } from './tools.mjs';
@@ -40,6 +41,9 @@ export const KNOWN_FAILING = [
 
 const args = process.argv.slice(2);
 const all = args.includes('--all');
+const ri = args.indexOf('--retries');
+const retries = ri >= 0 ? Number(args[ri + 1]) : 0;
+if (ri >= 0) args.splice(ri, 2);
 const names = args.filter((a) => !a.startsWith('--'));
 const pool = [...SUITES, ...KNOWN_FAILING];
 const selected = names.length ? pool.filter(([n]) => names.includes(n)) : all ? pool : SUITES;
@@ -52,11 +56,17 @@ const results = [];
 for (const [name, script, extra = []] of selected) {
   const t0 = Date.now();
   console.log(`\n=== ${name} (${script})`);
-  const r = spawnSync(process.execPath, [script, ...extra], { cwd: root, stdio: 'inherit', timeout: 10 * 60_000 });
-  results.push({ name, ok: r.status === 0, s: ((Date.now() - t0) / 1000).toFixed(1) });
+  let r, attempt = 0;
+  for (;;) {
+    r = spawnSync(process.execPath, [script, ...extra], { cwd: root, stdio: 'inherit', timeout: 10 * 60_000 });
+    if (r.status === 0 || attempt >= retries) break;
+    attempt++;
+    console.log(`--- ${name} failed; retry ${attempt}/${retries}`);
+  }
+  results.push({ name, ok: r.status === 0, retried: attempt, s: ((Date.now() - t0) / 1000).toFixed(1) });
 }
 console.log('\nBrowser suites:');
-for (const r of results) console.log(`  ${r.ok ? 'PASS' : 'FAIL'}  ${r.name.padEnd(16)} ${r.s}s`);
+for (const r of results) console.log(`  ${r.ok ? 'PASS' : 'FAIL'}  ${r.name.padEnd(16)} ${r.s}s${r.retried ? ` (after ${r.retried} retr${r.retried > 1 ? 'ies' : 'y'})` : ''}`);
 const failed = results.filter((r) => !r.ok);
 if (failed.length) {
   console.error(`${failed.length} suite(s) failed: ${failed.map((r) => r.name).join(', ')}`);

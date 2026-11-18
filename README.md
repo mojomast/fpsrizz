@@ -270,7 +270,8 @@ index.html     Page shell.
 |---|---|
 | `npm ci` | Installs locked devDependencies (esbuild, Playwright, TypeScript). |
 | `npm run dev` | esbuild watch build and server at `127.0.0.1:5173`; `-- --port N` changes the port. |
-| `npm run build` | Bundles `src/app/main.ts` into `dist/` (minified ES2022 plus source map). |
+| `npm run build` | Bundles `src/app/main.ts` into `dist/`: minified ES2022 split into content-hashed chunks (one per plugin `load()`), art packs from `public/`, and a bundle-size budget check. Source maps go to `.sourcemaps/` and are not deployed (`KEEP_SOURCEMAPS=1` keeps them in `dist/`). |
+| `npm run budget` | Builds in memory and checks the bundle-size budget in `scripts/bundle-budget.mjs` (part of `npm run check`). |
 | `npm run preview` | Serves `dist/` at `127.0.0.1:4173`; `-- --port N` changes the port. |
 | `npm run typecheck` | `tsc -p tsconfig.json --noEmit`. |
 | `npm run lint` | Import-boundary checker (`scripts/boundaries.ts`). |
