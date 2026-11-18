@@ -28,3 +28,5 @@ export * from './contracts/relationships.ts';
 export * from './contracts/conditions.ts';
 export * from './contracts/spatial.ts';
 export * from './contracts/physics.ts';
+export * from './contracts/assets.ts';
+export * from './contracts/gltf.ts';

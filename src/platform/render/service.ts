@@ -38,6 +38,7 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
   const stats = { calls: 0, triangles: 0, geometries: 0, textures: 0 };
   const cameras = createWorldCameraSelection(camera, () => service.width / service.height);
   const service: RenderService & { width: number; height: number; pixelRatio: number } = {
+    renderer,
     camera,
     viewCamera,
     setWorldCamera: (ctx, selected) => cameras.set(ctx, selected),

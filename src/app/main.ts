@@ -4,6 +4,7 @@
  */
 import { HostError, PluginHost, errText } from '../kernel/host.ts';
 import type { Session } from '../kernel/host.ts';
+import { createAssetService, preloadManifestAssets } from '../platform/assets.ts';
 import { createAudioService } from '../platform/audio.ts';
 import { createFlow } from '../platform/flow.ts';
 import { bindDomInput, createInputCore, isInputEditableTarget } from '../platform/input.ts';
@@ -15,7 +16,7 @@ import type { RenderHost } from '../platform/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
 import { createUiService } from '../platform/ui.ts';
 import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
-import { Audio, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputContexts, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
+import { Assets, Audio, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputContexts, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
 import { Render } from '../sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
@@ -83,10 +84,13 @@ function boot(): void {
   const audio = createAudioService((id) => themeOf()?.sounds[id]);
   audio.setMasterVolume(settings.volume);
 
+  const assets = createAssetService();
   const host = new PluginHost({
     sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
     phases: PHASES,
+    beforeActivate: preloadManifestAssets(assets),
     installHostServices(session, scope) {
+      session.services.provide(Assets, assets, 'host', scope);
       session.services.provide(Input, inputCore.service, 'host', scope);
       session.services.provide(InputContexts, inputCore.contexts, 'host', scope);
       session.services.provide(SessionControl, {

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "be4b46c047c45f1673267bf151c0659fa85a17d733a4e08aedd3d6b542b709ca",
+  "sourceDigest": "637ca12fbba6be5cbf233dc576b1cca91994b1ca2d29fa02ed27a8bce0492e4e",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -11553,6 +11553,70 @@
       "recipes": []
     },
     {
+      "id": "std/assets",
+      "type": "plugin",
+      "name": "glTF models",
+      "scope": "cross-genre",
+      "summary": "glTF/GLB model loading (Meshopt, KTX2) for Renderable.model, with shared GPU resources and per-node instances.",
+      "source": "src/plugins/std-assets",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "gltf",
+        "glb",
+        "model",
+        "mesh",
+        "blender",
+        "ktx2",
+        "meshopt",
+        "asset",
+        "loader"
+      ],
+      "entryPoints": [
+        "Models",
+        "Assets",
+        "spawnGltfScene",
+        "GltfExtras"
+      ],
+      "useWhen": "A 3D prototype draws authored models or builds levels from a Blender/glTF scene.",
+      "limitations": [
+        "Animations are not played yet (clips are loaded but no mixer runs).",
+        "KTX2 textures need the WebGL renderer (absent in headless sessions)."
+      ],
+      "docs": [
+        "docs/reference/assets.md"
+      ],
+      "examples": [
+        "games/sandbox/plugins/sandbox-game/index.ts"
+      ],
+      "tests": [
+        "tests/assets.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "std/assets"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
       "id": "std/physics-rapier",
       "type": "plugin",
       "name": "Physics (Rapier 3D)",
@@ -11680,7 +11744,9 @@
       "dependencies": {
         "std/transform": "^1.0.0"
       },
-      "optionalDependencies": {},
+      "optionalDependencies": {
+        "std/assets": "^1.0.0"
+      },
       "conflicts": [],
       "requiresRoles": [],
       "roleDependencies": [],
@@ -13226,7 +13292,7 @@
       "summary": "Public SDK value: actor-renderer",
       "importFrom": "src/sdk/render.ts",
       "token": "actor-renderer",
-      "source": "src/sdk/render.ts:89",
+      "source": "src/sdk/render.ts:91",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13328,6 +13394,34 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/Assets",
+      "type": "contract",
+      "name": "Assets",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/assets",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/assets",
+      "source": "src/sdk/contracts/assets.ts:37",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Assets",
+        "sdk/assets"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/assets"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -13723,6 +13817,30 @@
       "keywords": [
         "Collider",
         "sdk/collider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/colliderFromBounds",
+      "type": "contract",
+      "name": "colliderFromBounds",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:252",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "colliderFromBounds"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -14273,6 +14391,30 @@
       "implementations": []
     },
     {
+      "id": "sdk/decomposeMatrix",
+      "type": "contract",
+      "name": "decomposeMatrix",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:90",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "decomposeMatrix"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/defineCommand",
       "type": "contract",
       "name": "defineCommand",
@@ -14694,6 +14836,58 @@
       "keywords": [
         "FlowEnded",
         "sdk/flow-ended"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/GltfExtras",
+      "type": "contract",
+      "name": "GltfExtras",
+      "scope": "contract",
+      "summary": "Public SDK value: gltf-extras",
+      "importFrom": "src/sdk/index.ts",
+      "token": "gltf-extras",
+      "source": "src/sdk/contracts/gltf.ts:214",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "GltfExtras",
+        "gltf-extras"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/assets"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/gltfNodes",
+      "type": "contract",
+      "name": "gltfNodes",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:171",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "gltfNodes"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -15176,6 +15370,30 @@
       ]
     },
     {
+      "id": "sdk/isMeshCarrier",
+      "type": "contract",
+      "name": "isMeshCarrier",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:161",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "isMeshCarrier"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/isObject",
       "type": "contract",
       "name": "isObject",
@@ -15655,7 +15873,7 @@
       "summary": "Public SDK value: sdk/models",
       "importFrom": "src/sdk/render.ts",
       "token": "sdk/models",
-      "source": "src/sdk/render.ts:112",
+      "source": "src/sdk/render.ts:114",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15670,6 +15888,7 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [
+        "std/assets",
         "std/render-sync"
       ],
       "recipes": [],
@@ -15955,6 +16174,30 @@
       "implementations": [
         "mechanics/outcome-rating"
       ]
+    },
+    {
+      "id": "sdk/parseGltf",
+      "type": "contract",
+      "name": "parseGltf",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:51",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "parseGltf"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "sdk/PHASES",
@@ -16741,7 +16984,7 @@
       "summary": "Public SDK value: sdk/render",
       "importFrom": "src/sdk/render.ts",
       "token": "sdk/render",
-      "source": "src/sdk/render.ts:54",
+      "source": "src/sdk/render.ts:56",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16799,7 +17042,7 @@
       "summary": "Public SDK value: renderable-prefab",
       "importFrom": "src/sdk/render.ts",
       "token": "renderable-prefab",
-      "source": "src/sdk/render.ts:102",
+      "source": "src/sdk/render.ts:104",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17366,6 +17609,32 @@
       ],
       "documentedBy": [
         "std/transform"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/spawnGltfScene",
+      "type": "contract",
+      "name": "spawnGltfScene",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/core.ts:1",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "spawnGltfScene"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/assets"
       ],
       "recipes": [],
       "implementations": []
@@ -18936,6 +19205,56 @@
       ]
     },
     {
+      "id": "games/sandbox/DISPLAY_MODEL",
+      "type": "contract",
+      "name": "DISPLAY_MODEL",
+      "scope": "contract",
+      "summary": "Game-family contract value",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "source": "games/sandbox/contracts/sandbox.ts:29",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "DISPLAY_MODEL",
+        "sandbox"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/sandbox/LEVEL_MODEL",
+      "type": "contract",
+      "name": "LEVEL_MODEL",
+      "scope": "contract",
+      "summary": "Game-family contract value",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "source": "games/sandbox/contracts/sandbox.ts:28",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "LEVEL_MODEL",
+        "sandbox"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "games/sandbox/Sandbox",
       "type": "contract",
       "name": "Sandbox",
@@ -18943,7 +19262,7 @@
       "summary": "Game-family contract value: sandbox/state",
       "importFrom": "games/sandbox/contracts/sandbox.ts",
       "token": "sandbox/state",
-      "source": "games/sandbox/contracts/sandbox.ts:13",
+      "source": "games/sandbox/contracts/sandbox.ts:18",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18953,6 +19272,60 @@
         "Sandbox",
         "sandbox",
         "sandbox/state"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/sandbox/SandboxGlow",
+      "type": "contract",
+      "name": "SandboxGlow",
+      "scope": "contract",
+      "summary": "Game-family contract value: sandbox/glow",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "token": "sandbox/glow",
+      "source": "games/sandbox/contracts/sandbox.ts:23",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SandboxGlow",
+        "sandbox",
+        "sandbox/glow"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/sandbox/SandboxGoal",
+      "type": "contract",
+      "name": "SandboxGoal",
+      "scope": "contract",
+      "summary": "Game-family contract value: sandbox/goal",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "token": "sandbox/goal",
+      "source": "games/sandbox/contracts/sandbox.ts:25",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SandboxGoal",
+        "sandbox",
+        "sandbox/goal"
       ],
       "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -20047,6 +20420,7 @@
       "name": "Physics Sandbox (SDK 3)",
       "plugins": [
         "std/transform",
+        "std/assets",
         "std/render-sync",
         "std/physics-rapier",
         "sandbox/game",

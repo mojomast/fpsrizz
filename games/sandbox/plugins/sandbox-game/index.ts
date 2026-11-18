@@ -1,6 +1,6 @@
-import { CharacterController, CharacterMove, CharacterState, ExperienceRole, Input, InputActions, PhysicsCollider, PhysicsCollision, Renderable, RigidBody, Transform3D, definePlugin, quatFromEuler, transform3d } from '../../../../src/sdk/index.ts';
+import { CharacterController, CharacterMove, CharacterState, ExperienceRole, Input, InputActions, PhysicsCollider, PhysicsCollision, Renderable, RigidBody, Transform3D, definePlugin, quatFromEuler, spawnGltfScene, transform3d } from '../../../../src/sdk/index.ts';
 import type { EntityId, SessionContext } from '../../../../src/sdk/index.ts';
-import { Sandbox } from '../../contracts/sandbox.ts';
+import { DISPLAY_MODEL, LEVEL_MODEL, Sandbox, SandboxGoal } from '../../contracts/sandbox.ts';
 
 export const ACTIONS = { forward: 'sandbox/forward', back: 'sandbox/back', left: 'sandbox/left', right: 'sandbox/right', jump: 'sandbox/jump' } as const;
 const SPEED = 5, JUMP = 5.5, GRAVITY = -9.81;
@@ -26,7 +26,7 @@ export default definePlugin({
     ctx.register(InputActions, ACTIONS.right, { label: 'Walk right', keys: ['KeyD', 'ArrowRight'] });
     ctx.register(InputActions, ACTIONS.jump, { label: 'Jump', keys: ['Space'] });
   },
-  activate(ctx) {
+  async activate(ctx) {
     solid(ctx, { x: 0, y: -0.5, z: 0 }, { x: 30, y: 1, z: 30 }, 0x4a5a4a, 'fixed');
     for (const [x, z, w, d] of [[0, -15, 30, 1], [0, 15, 30, 1], [-15, 0, 1, 30], [15, 0, 1, 30]] as const) solid(ctx, { x, y: 1, z }, { x: w, y: 2, z: d }, 0x6b6f78, 'fixed');
     const crates: EntityId[] = [];
@@ -46,14 +46,33 @@ export default definePlugin({
     ctx.world.add(hero, CharacterMove, { desired: { x: 0, y: 0, z: 0 } });
     ctx.world.add(hero, Renderable, { shape: 'capsule', size: { x: 0.7, y: 1.8, z: 0.7 }, color: 0xe8d8a0 });
 
-    const state = { hero, crates, pad, padEntries: 0, onPad: false };
+    // A rotating display model (Renderable.model, drawn by std/render-sync through std/assets).
+    const display = ctx.world.create();
+    ctx.world.add(display, Transform3D, transform3d({ position: { x: -3, y: 1.3, z: 7 }, scale: 2.5 }));
+    ctx.world.add(display, Renderable, { model: DISPLAY_MODEL });
+    solid(ctx, { x: -3, y: 0.4, z: 7 }, { x: 1, y: 0.8, z: 1 }, 0x8a8f99, 'fixed');
+
+    const state = { hero, crates, pad, padEntries: 0, onPad: false, goal: undefined as EntityId | undefined, goalEntries: 0, props: new Map<string, EntityId>() };
     ctx.services.provide(Sandbox, state);
+    // The level corner authored as glTF: node custom properties become bodies, colliders and sandbox components.
+    // Preloaded (manifest "preload"), so this resolves without a network round trip.
+    const level = await spawnGltfScene(ctx, LEVEL_MODEL);
+    state.props = level.byName;
+    state.goal = ctx.world.query({ with: [SandboxGoal] }).ids()[0];
+    if (level.unknownExtras.length) ctx.log.warn(`unmapped level properties: ${level.unknownExtras.join(', ')}`);
+    ctx.events.on(PhysicsCollision, (c) => {
+      if (c.sensor && c.started && state.goal !== undefined && ((c.a === hero && c.b === state.goal) || (c.b === hero && c.a === state.goal))) state.goalEntries++;
+    });
     ctx.events.on(PhysicsCollision, (c) => {
       if (!c.sensor || !((c.a === hero && c.b === pad) || (c.a === pad && c.b === hero))) return;
       state.onPad = c.started;
       if (c.started) state.padEntries++;
       ctx.world.add(pad, Renderable, { shape: 'box', size: { x: 2, y: 0.1, z: 2 }, color: c.started ? 0x7fffd4 : 0x2f8f9f });
     });
+
+    ctx.systems.add({ id: 'sandbox/display-spin', phase: 'world', update: () => {
+      ctx.world.get(display, Transform3D)!.rotation = quatFromEuler(ctx.time.now * 0.8);
+    } });
 
     let vy = 0;
     ctx.systems.add({

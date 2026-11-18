@@ -35,6 +35,11 @@ export interface PluginManifest {
   /** Selected roles whose owning plugins must activate first. Also requires a selection. Defaults to []. */
   roleDependencies?: string[];
   config: Record<string, ConfigField>;
+  /**
+   * Static assets (page-relative URLs such as "models/crate.glb") loaded before this plugin activates, when the host
+   * provides an asset service. Defaults to [] (SDK 3).
+   */
+  preload?: string[];
 }
 
 export interface ContentEntry {
@@ -105,6 +110,15 @@ export function parseManifest(raw: unknown, r: Reporter): PluginManifest | undef
   const capabilities = vIdList(o.capabilities, r.at('capabilities'), false);
   const requiresRoles = vIdList(o.requiresRoles, r.at('requiresRoles'));
   const roleDependencies = vIdList(o.roleDependencies, r.at('roleDependencies'));
+  const preload: string[] = [];
+  if (o.preload !== undefined) {
+    const pr = r.at('preload');
+    if (!Array.isArray(o.preload)) pr.error('expected an array of asset paths');
+    else o.preload.forEach((u, i) => {
+      if (typeof u !== 'string' || !/^[A-Za-z0-9_][A-Za-z0-9_./-]*$/.test(u) || u.includes('..')) pr.at(String(i)).error('expected a relative asset path like "models/crate.glb" (no "..", no scheme)');
+      else preload.push(u);
+    });
+  }
   const config: Record<string, ConfigField> = {};
   if (o.config !== undefined) {
     const c = vObject(o.config, r.at('config'));
@@ -128,7 +142,7 @@ export function parseManifest(raw: unknown, r: Reporter): PluginManifest | undef
   }
   if (r.issues.length > before) return undefined;
   if (id! in dependencies!) return r.at('dependencies').error('a plugin cannot depend on itself');
-  return { schema: 1, id: id!, name: name!, version: version!, kind: kind!, sdk: sdk!, description: description!, dependencies: dependencies!, optionalDependencies: optionalDependencies!, conflicts: conflicts!, capabilities: capabilities!, requiresRoles: requiresRoles!, roleDependencies: roleDependencies!, config };
+  return { schema: 1, id: id!, name: name!, version: version!, kind: kind!, sdk: sdk!, description: description!, dependencies: dependencies!, optionalDependencies: optionalDependencies!, conflicts: conflicts!, capabilities: capabilities!, requiresRoles: requiresRoles!, roleDependencies: roleDependencies!, config, ...(preload.length ? { preload } : {}) };
 }
 
 export function checkConfigValue(field: ConfigField, v: Json): string | undefined {

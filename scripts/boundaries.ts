@@ -17,6 +17,8 @@ const SDK_RENDER = 'src/sdk/render.ts';
  */
 export const VENDOR_PACKAGES: readonly { pkg: string; capability: string }[] = [
   { pkg: '@dimforge/rapier3d-compat', capability: 'physics' },
+  // Official Three.js addons (loaders, decoders). The build resolves their bare "three" import to the vendored runtime.
+  { pkg: 'three/examples/jsm', capability: 'render' },
 ];
 
 // ---------------------------------------------------------------- tokenizer

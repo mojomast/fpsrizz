@@ -297,6 +297,11 @@ export interface HostOptions {
   phases: readonly string[];
   /** Called for every new session before plugins activate. Provide platform services with owner "host". */
   installHostServices?(session: Session, scope: Scope): void;
+  /**
+   * Awaited right before each plugin's activate() (SDK 3). The app uses it to preload `manifest.preload` through the
+   * asset service, so plugins can read their assets synchronously. A rejection fails activation like a throw would.
+   */
+  beforeActivate?(ctx: SessionContext): void | Promise<void>;
   onLog?(entry: LogEntry): void;
 }
 
@@ -672,6 +677,8 @@ export class PluginHost {
         current = id;
         const ctx = this.makeContext(session, staged, id, reader);
         contexts.set(id, ctx);
+        await this.options.beforeActivate?.(ctx);
+        if (!alive()) throw new Error('session was disposed while activating');
         await staged.modules.get(id)?.activate?.(ctx);
         if (!alive()) throw new Error('session was disposed while activating');
       }

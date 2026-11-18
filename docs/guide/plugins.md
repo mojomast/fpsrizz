@@ -101,6 +101,9 @@ src/plugins/my-plugin/
   plugin. Also requires a valid selection. Use this when resolving an owner-bound factory in `activate`; the consumer
   depends on the role contract rather than a concrete implementation ID. Self-owner edges are ignored, and cycles
   are rejected during staging before the previous session is replaced.
+- `preload` (optional, SDK 3): static asset paths relative to the site root (`"models/level.glb"`), loaded through the
+  host asset service before `activate()` runs, so `Assets.peek()` works synchronously there. A missing file fails
+  activation. See the [assets reference](../reference/assets.md).
 - `config`: typed settings (`number` | `boolean` | `string` | `select` with `options`). A preset overrides them under
   `config["<plugin id>"]`; plugins read `ctx.config`.
 

@@ -6,8 +6,14 @@ the pad (a sensor; it lights up and counts entries). Preset: `sandbox/physics` (
 
 | Plugin | Role |
 |---|---|
-| `sandbox/game` | Spawns ground, walls, crates, the sensor pad and the character; maps input to `CharacterMove` |
-| `sandbox/presentation` | Lights, sky and a follow camera (no meshes of its own) |
+| `sandbox/game` | Spawns ground, walls, crates, the sensor pad and the character; maps input to `CharacterMove`; spawns the glTF corner and a display model |
+| `sandbox/presentation` | Lights (plus a point light per `sandbox/glow` entity), sky and a follow camera (no meshes of its own) |
+
+The back-left corner (ramp, barrel stack, lamp, invisible goal trigger) is `models/levels/sandbox-props.glb`, spawned
+with `spawnGltfScene`: its node custom properties (`body`, `collider`, `sandbox/glow`, `sandbox/goal`...) become
+components, exactly as a Blender export would. The rifle on the pedestal is a `Renderable.model`. Both are optimised
+by `npm run assets`; see [assets](../../docs/reference/assets.md).
 
 Copy this folder to start a 3D prototype: rename the family, keep the preset's `std/*` plugins, then replace the
-spawn code. See [spatial](../../docs/reference/spatial.md) and [physics](../../docs/reference/physics.md).
+spawn code. See [spatial](../../docs/reference/spatial.md), [physics](../../docs/reference/physics.md) and
+[assets](../../docs/reference/assets.md).

@@ -6,6 +6,13 @@
   "kind": "code",
   "sdk": "^3.0.0",
   "description": "Draws every entity with Transform3D + Renderable (shapes, prefabs, glTF models) and poses it each frame, interpolated between simulation ticks.",
-  "dependencies": { "std/transform": "^1.0.0" },
-  "capabilities": ["render"]
+  "dependencies": {
+    "std/transform": "^1.0.0"
+  },
+  "capabilities": [
+    "render"
+  ],
+  "optionalDependencies": {
+    "std/assets": "^1.0.0"
+  }
 }

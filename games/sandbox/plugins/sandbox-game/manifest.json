@@ -5,8 +5,18 @@
   "version": "1.0.0",
   "kind": "code",
   "sdk": "^3.0.0",
-  "description": "A walkable SDK 3 sandbox: a character controller, a stack of dynamic crates and a sensor pad, all from Transform3D + Renderable + physics components.",
-  "dependencies": { "std/transform": "^1.0.0", "std/physics-rapier": "^1.0.0" },
-  "capabilities": ["simulation"],
-  "requiresRoles": ["sdk/experience"]
+  "description": "A walkable SDK 3 sandbox: a character controller, a stack of dynamic crates, a sensor pad and a glTF-authored corner (ramp, barrels, lamp, goal trigger) whose node custom properties become components.",
+  "dependencies": {
+    "std/transform": "^1.0.0",
+    "std/physics-rapier": "^1.0.0"
+  },
+  "capabilities": [
+    "simulation"
+  ],
+  "requiresRoles": [
+    "sdk/experience"
+  ],
+  "preload": [
+    "models/levels/sandbox-props.glb"
+  ]
 }

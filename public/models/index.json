@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "pipeline": "dedup+prune+weld+meshopt-medium/v1",
+  "models": {
+    "public/models/levels/sandbox-props.glb": {
+      "src": "assets/levels/sandbox-props.glb",
+      "srcSha256": "c3cee9aaf4db29c871d009885ea2bd3ee5fff64c48e9a7ad602068098a1e6bbc",
+      "outSha256": "7681ad026cdde57006219a71f87e0b0667b3554bb2fdb9a2bedccc16095f0ee8",
+      "pipeline": "dedup+prune+weld+meshopt-medium/v1",
+      "bytesIn": 10240,
+      "bytesOut": 7072
+    },
+    "public/models/weapons/assault_rifle.glb": {
+      "src": "assets/weapons/generic/assault_rifle.glb",
+      "srcSha256": "c725ac78b67258b7416422a698e21cab55e1fcc68d02bba245dd66c59286e634",
+      "outSha256": "3a377632b9828ee2335e8e2b1e0801afed64560db5aa59d1c7f05b0cb2d2116b",
+      "pipeline": "dedup+prune+weld+meshopt-medium/v1",
+      "bytesIn": 93164,
+      "bytesOut": 30052
+    },
+    "public/models/weapons/knife.glb": {
+      "src": "assets/weapons/generic/knife.glb",
+      "srcSha256": "91119afa21ebb13e53b603ad4f3e10f0c8b95583bad6404e0498aca931055a9a",
+      "outSha256": "ef7ae45e614743a1519631f1f630d9cdbc9a1037634fc8e7625cda7716ec5640",
+      "pipeline": "dedup+prune+weld+meshopt-medium/v1",
+      "bytesIn": 25240,
+      "bytesOut": 9872
+    }
+  }
+}

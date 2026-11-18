@@ -48,6 +48,8 @@ export interface RenderService {
   readonly width: number;
   readonly height: number;
   readonly pixelRatio: number;
+  /** The WebGL renderer, for loaders that must query GPU support (KTX2). Absent in headless/test render services. */
+  readonly renderer?: THREE.WebGLRenderer;
   /** Stats of the last rendered frame. */
   readonly stats: { calls: number; triangles: number; geometries: number; textures: number };
 }

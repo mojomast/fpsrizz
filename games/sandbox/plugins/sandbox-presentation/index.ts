@@ -1,6 +1,6 @@
 import { definePlugin, worldPose } from '../../../../src/sdk/index.ts';
 import { Render, THREE } from '../../../../src/sdk/render.ts';
-import { Sandbox } from '../../contracts/sandbox.ts';
+import { Sandbox, SandboxGlow } from '../../contracts/sandbox.ts';
 
 export default definePlugin({
   activate(ctx) {
@@ -11,6 +11,18 @@ export default definePlugin({
     const root = render.createRoot(ctx, 'world');
     root.add(new THREE.HemisphereLight(0xdfefff, 0x404830, 1.6));
     const sun = new THREE.DirectionalLight(0xfff2d8, 2.2); sun.position.set(-6, 12, 8); root.add(sun);
+    // Lamps authored in the glTF level (custom property sandbox/glow) get a point light.
+    const glows = ctx.world.query({ with: [SandboxGlow] });
+    const lit = new Set<number>();
+    const light = (e: number): void => {
+      const pose = worldPose(ctx.world, e);
+      if (!pose || lit.has(e)) return;
+      lit.add(e);
+      const l = new THREE.PointLight(0xffd890, (ctx.world.get(e, SandboxGlow)?.intensity ?? 1) * 4, 12);
+      l.position.set(pose.position.x, pose.position.y, pose.position.z);
+      root.add(l);
+    };
+    for (const e of glows.ids()) light(e);
     const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 200);
     render.setWorldCamera(ctx, camera);
     const target = new THREE.Vector3();
