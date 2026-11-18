@@ -6,6 +6,8 @@ three share role-selected resource/action/clock/objective plugins; see `docs/ref
 0.187.0. Read [docs/reference/architecture.md](docs/reference/architecture.md) before changing
 structure, [docs/guide/plugins.md](docs/guide/plugins.md) before writing plugins, and [docs/guide/create-a-game.md](docs/guide/create-a-game.md) for the complete game-creation workflow.
 
+Start from [`llms.txt`](llms.txt) (the minimal file set) and [`docs/README.md`](docs/README.md) (the docs map).
+
 ## Reuse first — before implementing a mechanic
 
 1. Read [docs/guide/reuse.md](docs/guide/reuse.md). Break the request into capabilities and search each with
@@ -38,13 +40,14 @@ loading the complete `docs/reuse-index.json`. The CLI observes trusted registrat
 | `src/sdk` | SDK 2 public API: `index.ts` (entry), `core.ts` (generic), `contracts/` (shooter, experience, vehicle, tactics, adventure and audio vocabulary), `render.ts` |
 | `src/platform` | Browser adapters (input, audio, storage, ui, flow, render host); official Three.js behind the historical `render/mini3/index.ts` facade, vendored in `render/mini3/vendor/`; `legacy.ts` retains the old renderer for fixtures |
 | `src/app` | Composition root: `main.ts` (frame loop), `catalog.ts` (presets; re-exports the generated `catalog.generated.ts`), `shell.ts`, `creator.ts` |
-| `src/plugins/<ns>-<name>` | One folder per plugin or content pack: `manifest.json`, `index.ts` and/or `content.json` |
-| `src/content/presets` | Preset JSON files |
-| `tests` | `*.test.ts` run by `npm test`; `helpers/` harness; subfolders with browser demo scripts run by hand |
+| `src/plugins/<ns>-<name>` | Engine-level and shared plugins (core shooter stack, mechanics, presentation, themes, examples) and games not yet moved into `games/`: `manifest.json`, `index.ts` or `content.json` |
+| `games/<family>/` | One game family: `plugins/<name>/`, `contracts/` (family-only SDK vocabulary), `presets/`, `tests/`, `README.md` and `docs/` |
+| `src/content/presets` | Preset JSON files of the shooter stack and games still in `src/plugins` |
+| `tests` | `*.test.ts` run by `npm test` (as are `games/**/*.test.ts`); `helpers/` harness; subfolders with browser demos run by `npm run test:browser` |
 | `scripts` | build, dev, preview, smoke, boundary checker, reuse discovery/indexing, plugin scaffolder, tool resolution |
 | `assets/weapons` | Blender weapon sources, GLB exports, first-person renders and an agent authoring workflow |
 | `assets/experiences` | Curated racing, board and story theme images with pinned source/hash provenance |
-| `docs/` | Independent family guides and formats: `overhead-racing.md`, `turn-tactics.md`, `narrative-adventure.md` |
+| `docs/` | `guide/`, `reference/` (plus generated `reference/api/` from `npm run docs:api`), `cookbook/`, `games/` (guides for games in `src/plugins`), `archive/` (historical plans; may be stale) |
 
 ## Import boundaries (enforced by `npm run lint`)
 
@@ -96,21 +99,21 @@ plugins or the SDK. Regenerate the pinned runtime, WebGL/core declarations, lice
 
 ```bash
 npm run index-reuse                # refresh discovery after source/catalog/metadata changes
-npm run check                      # typecheck + boundaries + reuse-index freshness + tests
+npm run check                      # node version, catalog freshness, typecheck, boundaries, docs links, reuse index, bundle budget, tests
 npm run validate-game -- --bundled  # stage bundled presets; no activation
-npm run build && npm run smoke     # browser acceptance run against dist/ (needs Chrome; CHROME_PATH overrides the path)
+npm run build && npm run test:browser  # smoke + one browser demo per family against dist/ (Chrome; CHROME_PATH overrides)
 ```
 
 Run `npm run check` after every change. Run the smoke test when touching the app, platform, presentation, HUD, host
 lifecycle or anything the browser exercises. For creator-panel changes also run `node tests/creator-demo/run.mjs`.
-Browser scripts need Playwright and Chrome; CI runs check and build, not browser acceptance. Record actual results and
+Browser scripts need Playwright and Chrome; CI runs check, build and `npm run test:browser`. Record actual results and
 any environmental failures. Changes to audio or pointer lock also need manual verification in a real browser.
 
 | Task | Start here | Verification / documentation |
 |---|---|---|
 | Host, lifecycle, scheduling | `src/kernel/host.ts`, `scope.ts`, `scheduler.ts` | `tests/host-lifecycle.test.ts`, kernel tests, `docs/reference/architecture.md` |
-| Gameplay or SDK contracts | `src/sdk/contracts/`, provider and consumer plugins | `tests/helpers/game.ts`, extension tests, `docs/guide/plugins.md` |
-| Content or preset | content-kind plugin, `src/app/catalog.ts`, `src/content/presets/` | content tests, `docs/reference/content-format.md`, game guide |
+| Gameplay or SDK contracts | `src/sdk/contracts/` (shared), `games/<family>/contracts/` (one family), provider and consumer plugins | `tests/helpers/game.ts`, extension tests, `docs/guide/plugins.md` |
+| Content or preset | content-kind plugin, `src/app/catalog.ts` (preset list), `src/content/presets/` or `games/<family>/presets/` | content tests, `docs/reference/content-format.md`, game guide |
 | Browser UI or rendering | `src/app/`, `src/platform/`, relevant presentation plugin | build and smoke; creator test for panel changes |
 
 Registration survives restart; activation runs again per session. A failed staging operation preserves the old session,
@@ -134,9 +137,12 @@ context, and selected roles activate after all plugins; see the lifecycle notes 
 - **Never weaken, skip or delete a test to make a change pass**, and never loosen a lint rule. If a test or rule blocks
   you, the design is wrong or the test is revealing a bug: fix the cause.
 - **Never move gameplay into the kernel.** The kernel stays generic. If plugins cannot cooperate, extend the shared
-  contract in `src/sdk/contracts` (and bump `SDK_VERSION` when a contract changes incompatibly) rather than adding
+  contract in `src/sdk/contracts` (shared) or `games/<family>/contracts` (one family) (and bump `SDK_VERSION` when a contract changes incompatibly) rather than adding
   shortcuts, global state or cross-plugin imports.
 - Do not edit a plugin's behaviour from another plugin's folder; extend through registries, roles, events and services.
+- Game plugins import only their own folder, the SDK entry point, `src/sdk/render.ts` (with the `render` capability) and
+  their own family's `contracts/`; engine code never imports `games/` (only the `src/app` composition root does).
+- Never inline large binary art into TypeScript; generated painters keep pixel data in `public/packs/` (`npm run pack-painters`).
 - Keep `README.md`, `docs/reference/spec.md` and the other docs truthful: describe planned work as planned.
 
 ## Documentation map (keep in sync)
@@ -148,7 +154,7 @@ context, and selected roles activate after all plugins; see the lifecycle notes 
 | `docs/reference/architecture.md` | Layers, boundaries, ownership, simulation order and systems, rendering, key decisions |
 | `docs/reference/spec.md` | Implemented scope, limitations, extension boundaries, reference-game content |
 | `README.md` | Commands, controls, presets, layout |
-| `docs/archive/devplan.md` | Milestone status and next steps |
+| `docs/roadmap.md` | Engine roadmap and status (the P0–P3 checklist) |
 | `docs/games/overhead-racing.md`, `docs/games/turn-tactics.md`, `docs/games/narrative-adventure.md` | Independent family content formats, controls, progression and family-specific persistence |
 | `docs/games/stonewake.md` | 3D push-puzzle rules, chamber format, controls, asset use and completion routes |
 | `docs/guide/reuse.md`, plugin `reuse.json`, `docs/reuse-recipes.json` | Capability scope, search vocabulary, composition recipes, SDK entry points and examples |

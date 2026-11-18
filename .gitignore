@@ -5,3 +5,4 @@ dist
 .dev
 .sourcemaps
 .build
+docs/reference/api

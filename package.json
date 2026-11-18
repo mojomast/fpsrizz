@@ -17,6 +17,7 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "node scripts/boundaries.ts",
     "lint:docs": "node scripts/check-links.mjs",
+    "docs:api": "node scripts/docs-api.mjs",
     "test": "node --test \"tests/**/*.test.ts\" \"games/**/*.test.ts\" tests/validate-game.test.mjs tests/reuse-discovery.test.mjs",
     "smoke": "node scripts/smoke.mjs",
     "test:browser": "node scripts/browser-suite.mjs",
@@ -28,7 +29,8 @@
     "vendor-three": "node scripts/vendor-three.mjs",
     "graph": "node scripts/game-graph.mjs",
     "gen-catalog": "node scripts/gen-catalog.mjs",
-    "pack-painters": "node scripts/pack-painters.mjs"
+    "pack-painters": "node scripts/pack-painters.mjs",
+    "move-to-game": "node scripts/move-to-game.mjs"
   },
   "devDependencies": {
     "@types/three": "0.187.0",

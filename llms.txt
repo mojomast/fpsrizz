@@ -1,0 +1,39 @@
+# Bulkhead (fpsrizz)
+
+> A plugin-driven TypeScript engine for rapidly prototyping browser games. A generic kernel (host, registries, entity
+> store, buses, scheduler, scopes) runs plugins that declare manifests; games are composed from presets that pick
+> plugins and exclusive roles. Rendering uses Three.js 0.187 behind a capability-gated render SDK. Node >= 22.18,
+> esbuild, node:test, Playwright.
+
+Rules agents must follow: reuse existing mechanics before writing new ones (`npm run find-reuse -- "<need>"`); never
+move gameplay into `src/kernel`; game plugins import only their own folder, `src/sdk/index.ts`, `src/sdk/render.ts`
+and their family's contracts; run `npm run check` after every change and never weaken a test or lint rule.
+
+## Start here
+
+- [AGENTS.md](AGENTS.md): layout, import boundaries, conventions, checks, rules
+- [Docs map](docs/README.md): guide, reference, cookbook, games, archive
+- [Create a game](docs/guide/create-a-game.md): end-to-end workflow from preset to playable family
+- [Plugins and SDK](docs/guide/plugins.md): manifests, lifecycle, roles, registries, events, services
+- [Reuse](docs/guide/reuse.md): capability search and composition before new code
+
+## Reference
+
+- [Architecture](docs/reference/architecture.md): layers, ownership, tick order, rendering decisions
+- [Content format](docs/reference/content-format.md): manifests, content packs, presets, persistence keys
+- [Reuse index](docs/reference/reuse-index.md): generated catalog of plugins, recipes and contracts
+- [Reusable mechanics](docs/reference/reusable-mechanics.md): shared resource/action/clock/objective providers
+- [SDK entry point](src/sdk/index.ts): the public plugin API (TypeDoc: `npm run docs:api`)
+
+## Cookbook
+
+- [Edit loop](docs/cookbook/edit-loop.md): live reload, resume, `?seed=`
+- [New game family](docs/cookbook/new-game-family.md): scaffold plugins, then `npm run move-to-game`
+- [Large art](docs/cookbook/large-art.md): painter packs and the bundle budget
+
+## Optional
+
+- [Game families](games/README.md): the games in `games/` and their contracts
+- [Spec](docs/reference/spec.md): implemented scope and the reference shooter
+- [Roadmap](docs/roadmap.md): engine roadmap and status
+- [Archive](docs/archive/README.md): historical plans (may be stale)

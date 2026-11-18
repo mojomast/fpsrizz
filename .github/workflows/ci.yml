@@ -17,6 +17,8 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
+      - name: SDK API reference (TypeDoc)
+        run: npm run docs:api
 
   browser:
     # The browser suites are the real acceptance tests: smoke plus one demo per game family, in headless Chrome with

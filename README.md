@@ -255,8 +255,10 @@ src/
   sdk/         Public plugin API: core.ts, contracts/ (experience and game-family vocabulary), render.ts.
   platform/    Browser adapters: contextual input, audio, storage, UI, flow and the Three.js render host.
   app/         Composition root: main.ts (frame loop), catalog.ts, shell.ts (menus), creator.ts (creator panel).
-  plugins/     Shooter, vehicle, board and story families, presentation, themes and data-only content packs.
+  plugins/     Shooter stack, mechanics, presentation, themes, content packs, and games not yet in games/.
   content/     Presets (presets/*.json).
+games/         One folder per game family: plugins/, contracts/, presets/, tests/, README.md (see games/README.md).
+docs/          guide/, reference/, cookbook/, games/, archive/ (see docs/README.md).
 scripts/       build, dev, preview, smoke test, boundary checker, plugin scaffolder, tool resolution.
 tests/         node:test suites and helpers; subfolders with browser demo scripts (`npm run test:browser` runs them; CI does too).
 templates/     plugin-starter, used by npm run new-plugin.
@@ -324,25 +326,17 @@ relabelled MIT. Synthesized sounds and explicitly labelled procedural fallback a
 
 ## Documentation
 
-| File | Contents |
-|---|---|
-| [docs/reference/spec.md](docs/reference/spec.md) | Implemented scope, limitations, extension boundaries, asset provenance. |
-| [docs/reference/architecture.md](docs/reference/architecture.md) | Layers, ownership model, lifecycle, simulation and rendering design, key decisions. |
-| [docs/guide/plugins.md](docs/guide/plugins.md) | Public SDK and plugin authoring guide with API reference. |
-| [docs/guide/create-a-game.md](docs/guide/create-a-game.md) | End-to-end game, content and plugin authoring workflow. |
-| [docs/archive/game-plugin-roadmap.md](docs/archive/game-plugin-roadmap.md) | Proposed reusable mechanics, game recipes and engine prerequisites. |
-| [docs/archive/game-platform-strategy.md](docs/archive/game-platform-strategy.md) | Research-backed plan for genuinely different genres, complete presentation stacks and broader platform capabilities. |
-| [docs/archive/parallel-build-plan.md](docs/archive/parallel-build-plan.md) | Parallel workstreams, model allocation, shared contracts and acceptance gates for the independent game families. |
-| [docs/archive/build-order.md](docs/archive/build-order.md) | Cross-genre implementation dependencies and acceptance gates. |
-| [assets/weapons/README.md](assets/weapons/README.md) | Low-poly weapon sets, source models, previews and integration notes. |
-| [docs/reference/content-format.md](docs/reference/content-format.md) | JSON formats: manifests, content packs, maps, presets. |
-| [Cinder Vault](games/cinder/README.md) / [classes](games/cinder/docs/classes.md) / [inventory](docs/reference/inventory.md) / [crafting](docs/reference/crafting.md) / [camera modes](docs/reference/camera-modes.md) / [weapon rig](docs/reference/weapon-rig.md) | Turn-based dungeon rules, threat tiers/elites, class mastery, pack/gear, Ember Shard recipes, NPC/Oracle services, the reusable isometric camera/avatars and bottom-center weapon rig. |
-| [Hollowmere](games/hollowmere/README.md) / [game composer](docs/reference/game-composer.md) | Side-scrolling metroidvania rules, platforming/capability/room-map contracts, Assetrizz world presentation, tabbed journal and the JSON-first human/agent composition canvas. |
-| [Ten-game portfolio](docs/games/ten-game-portfolio.md) / [build plan](docs/archive/ten-game-build-plan.md) / [shared ratings](docs/reference/portfolio-shared-mechanics.md) / [research](docs/archive/research/ten-game-portfolio-2026-11-16.md) | New authored scenarios, shared provider composition, completion routes and design evidence. |
-| [Turn-based research](docs/archive/research/turn-based-roguelite-2026-11-16.md) / [UX/world research](docs/archive/research/ux-world-features-2026-11-16.md) / [difficulty/QoL research](docs/archive/research/difficulty-replayability-qol-2026-11-16.md) / [composer research](docs/archive/research/game-composer-2026-11-16.md) / [UI polish audit](docs/archive/research/ui-polish-2026-11-16.md) | Design sources and decisions behind turns, maps, transitions, inventory, NPCs, crafting, threat tiers, field guide/QoL, the composition canvas and combat/HUD polish. |
-| [docs/archive/devplan.md](docs/archive/devplan.md) | Milestone status and next steps. |
-| [AGENTS.md](AGENTS.md) | Guidance for coding agents working in this repository. |
-| [docs/archive/handoff.md](docs/archive/handoff.md) | Verification results and open items. |
+Start at [docs/README.md](docs/README.md), which maps everything:
+
+- **Guide:** [create a game](docs/guide/create-a-game.md), [plugins and the SDK](docs/guide/plugins.md), [reuse](docs/guide/reuse.md).
+- **Reference:** [architecture](docs/reference/architecture.md), [spec](docs/reference/spec.md),
+  [content format](docs/reference/content-format.md), the mechanics references, and the SDK API generated by
+  `npm run docs:api` (into `docs/reference/api/`).
+- **Cookbook:** [edit loop](docs/cookbook/edit-loop.md), [new game family](docs/cookbook/new-game-family.md),
+  [large art](docs/cookbook/large-art.md), [building blocks](docs/cookbook/building-block-plugins.md).
+- **Games:** [games/README.md](games/README.md) and [docs/games/](docs/README.md#games).
+- **Roadmap and history:** [docs/roadmap.md](docs/roadmap.md); plans and hand-offs in [docs/archive/](docs/archive/README.md).
+- **Agents:** [AGENTS.md](AGENTS.md) and [llms.txt](llms.txt).
 
 ## Testing and verification
 
