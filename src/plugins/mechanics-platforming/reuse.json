@@ -33,7 +33,7 @@
     "docs/hollowmere.md"
   ],
   "examples": [
-    "src/plugins/hollowmere-game/index.ts"
+    "games/hollowmere/plugins/hollowmere-game/index.ts"
   ],
   "tests": [
     "tests/mechanics-metroidvania-providers.test.ts"

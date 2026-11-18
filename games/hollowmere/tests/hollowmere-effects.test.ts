@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { drawScreenEffects } from '../src/plugins/hollowmere-presentation/effects.ts';
-import type { Canvas2D, ScreenEffectView } from '../src/plugins/hollowmere-presentation/effects.ts';
+import { drawScreenEffects } from '../plugins/hollowmere-presentation/effects.ts';
+import type { Canvas2D, ScreenEffectView } from '../plugins/hollowmere-presentation/effects.ts';
 
 class MockCanvas implements Canvas2D {
   globalAlpha = 1; fillStyle: string | object = ''; strokeStyle: string | object = ''; lineWidth = 1;

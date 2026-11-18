@@ -161,7 +161,7 @@ regenerates public art and painters. No audio asset is claimed; the current pres
 
 - `tests/mechanics-metroidvania-providers.test.ts` covers jump/dash/wall-jump behavior, capability non-regression and
   room-map visited/revealed/dispose state.
-- `tests/hollowmere.test.ts` stages the full 12-room production preset, moves between rooms, binds a checkpoint, opens
+- `games/hollowmere/tests/hollowmere.test.ts` stages the full 12-room production preset, moves between rooms, binds a checkpoint, opens
   dialogue, uses a consumable while paused and checks map/ability/inventory observations.
 - `tests/hollowmere-demo/run.mjs` drives the production bundle through the canvas, movement, journal tabs, map,
   inventory, capabilities, stats, options and pause/resume.

@@ -54,7 +54,7 @@ For every shared role actually consumed, run its existing conformance cases and 
 
 ## Existing patterns and evidence boundaries
 
-- `tests/hollowmere.test.ts`: fixed-tick real-input movement, public commands, graph checks and checkpoint fixtures; graph reachability alone does not establish all legal paths.
+- `games/hollowmere/tests/hollowmere.test.ts`: fixed-tick real-input movement, public commands, graph checks and checkpoint fixtures; graph reachability alone does not establish all legal paths.
 - `tests/portfolio-resource-games.test.ts`: state-reactive complete routes, rejection, events and restart; direct command tests are not browser-control evidence.
 - `tests/host-lifecycle.test.ts` and `tests/helpers/game.ts`: real host lifecycle and headless fake platform services; test registration survives restart while activation is fresh.
 - `scripts/smoke.mjs` drives actual keyboard events and records browser resources but also uses debug fast-forward and teleportation for some checks. `tests/portfolio-qol-demo/run.mjs` uses read-only service state and UI actions at desktop and narrow sizes. Browser scripts are separate from `npm test` and need Playwright and Chrome.

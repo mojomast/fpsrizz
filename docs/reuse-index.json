@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "c05258a906a7d0c8f53e480404b21a92f170f5081cd80606f728c23c86f1aa45",
+  "sourceDigest": "44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -6607,7 +6607,7 @@
       "name": "Hollowmere world and relics",
       "scope": "content",
       "summary": "Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family.",
-      "source": "src/plugins/hollowmere-content",
+      "source": "games/hollowmere/plugins/hollowmere-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6637,10 +6637,10 @@
         "docs/hollowmere.md"
       ],
       "examples": [
-        "src/content/presets/hollowmere-ascent.json"
+        "games/hollowmere/presets/hollowmere-ascent.json"
       ],
       "tests": [
-        "tests/hollowmere.test.ts"
+        "games/hollowmere/tests/hollowmere.test.ts"
       ],
       "dependencies": {
         "hollowmere/game": "^1.0.0",
@@ -6715,7 +6715,7 @@
       "name": "Hollowmere metroidvania",
       "scope": "family",
       "summary": "Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss.",
-      "source": "src/plugins/hollowmere-game",
+      "source": "games/hollowmere/plugins/hollowmere-game",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6756,11 +6756,11 @@
         "docs/research/game-composer-2026-11-16.md"
       ],
       "examples": [
-        "src/content/presets/hollowmere-ascent.json",
-        "src/plugins/hollowmere-content/content.json"
+        "games/hollowmere/presets/hollowmere-ascent.json",
+        "games/hollowmere/plugins/hollowmere-content/content.json"
       ],
       "tests": [
-        "tests/hollowmere.test.ts",
+        "games/hollowmere/tests/hollowmere.test.ts",
         "tests/hollowmere-demo/run.mjs"
       ],
       "dependencies": {
@@ -6883,7 +6883,7 @@
       "name": "Hollowmere canvas presentation",
       "scope": "presentation",
       "summary": "Canvas-rendered room view plus DOM field journal: world map, inventory, capabilities, stats and persisted options.",
-      "source": "src/plugins/hollowmere-presentation",
+      "source": "games/hollowmere/plugins/hollowmere-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6917,10 +6917,10 @@
         "docs/hollowmere.md"
       ],
       "examples": [
-        "src/content/presets/hollowmere-ascent.json"
+        "games/hollowmere/presets/hollowmere-ascent.json"
       ],
       "tests": [
-        "tests/hollowmere.test.ts",
+        "games/hollowmere/tests/hollowmere.test.ts",
         "tests/hollowmere-demo/run.mjs"
       ],
       "dependencies": {
@@ -7177,7 +7177,7 @@
         "docs/hollowmere.md"
       ],
       "examples": [
-        "src/plugins/hollowmere-game/index.ts"
+        "games/hollowmere/plugins/hollowmere-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-metroidvania-providers.test.ts"
@@ -8500,7 +8500,7 @@
         "docs/hollowmere.md"
       ],
       "examples": [
-        "src/plugins/hollowmere-game/index.ts"
+        "games/hollowmere/plugins/hollowmere-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-metroidvania-providers.test.ts"
@@ -8963,7 +8963,7 @@
         "docs/hollowmere.md"
       ],
       "examples": [
-        "src/plugins/hollowmere-game/index.ts"
+        "games/hollowmere/plugins/hollowmere-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-metroidvania-providers.test.ts"
@@ -11690,14 +11690,14 @@
       ],
       "examples": [
         "games/cinder/presets/cinder-vault.json",
-        "src/content/presets/hollowmere-ascent.json",
+        "games/hollowmere/presets/hollowmere-ascent.json",
         "src/plugins/core-presentation/index.ts"
       ],
       "tests": [
         "tests/cinder-demo/run.mjs",
         "games/cinder/tests/cinder-vault.test.ts",
         "tests/hollowmere-demo/run.mjs",
-        "tests/hollowmere.test.ts"
+        "games/hollowmere/tests/hollowmere.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -15244,66 +15244,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/Metroidvania",
-      "type": "contract",
-      "name": "Metroidvania",
-      "scope": "contract",
-      "summary": "Public SDK value: hollowmere/run",
-      "importFrom": "src/sdk/index.ts",
-      "token": "hollowmere/run",
-      "source": "src/sdk/contracts/metroidvania.ts:239",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Metroidvania",
-        "hollowmere/run"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "hollowmere/game",
-        "hollowmere/presentation"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/MetroidvaniaWorlds",
-      "type": "contract",
-      "name": "MetroidvaniaWorlds",
-      "scope": "contract",
-      "summary": "Public SDK value: metroidvania-world",
-      "importFrom": "src/sdk/index.ts",
-      "token": "metroidvania-world",
-      "source": "src/sdk/contracts/metroidvania.ts:237",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "MetroidvaniaWorlds",
-        "metroidvania-world"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "hollowmere/content",
-        "hollowmere/game"
-      ],
-      "recipes": [],
-      "implementations": [
-        "hollowmere/content"
-      ]
-    },
-    {
       "id": "sdk/ModeRole",
       "type": "contract",
       "name": "ModeRole",
@@ -17799,6 +17739,68 @@
       "recipes": [],
       "implementations": [
         "ember/content"
+      ]
+    },
+    {
+      "id": "games/hollowmere/Metroidvania",
+      "type": "contract",
+      "name": "Metroidvania",
+      "scope": "contract",
+      "summary": "Game-family contract value: hollowmere/run",
+      "importFrom": "games/hollowmere/contracts/metroidvania.ts",
+      "token": "hollowmere/run",
+      "source": "games/hollowmere/contracts/metroidvania.ts:239",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Metroidvania",
+        "hollowmere",
+        "hollowmere/run"
+      ],
+      "useWhen": "Game-specific contract of the hollowmere family; plugins in games/hollowmere/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the hollowmere family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "hollowmere/game",
+        "hollowmere/presentation"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/hollowmere/MetroidvaniaWorlds",
+      "type": "contract",
+      "name": "MetroidvaniaWorlds",
+      "scope": "contract",
+      "summary": "Game-family contract value: metroidvania-world",
+      "importFrom": "games/hollowmere/contracts/metroidvania.ts",
+      "token": "metroidvania-world",
+      "source": "games/hollowmere/contracts/metroidvania.ts:237",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "MetroidvaniaWorlds",
+        "hollowmere",
+        "metroidvania-world"
+      ],
+      "useWhen": "Game-specific contract of the hollowmere family; plugins in games/hollowmere/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the hollowmere family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "hollowmere/content",
+        "hollowmere/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "hollowmere/content"
       ]
     },
     {

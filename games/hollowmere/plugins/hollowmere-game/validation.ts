@@ -1,18 +1,7 @@
-import type {
-  ContentLoadContext,
-  MetroAbility,
-  MetroDoor,
-  MetroEnemySpawn,
-  MetroEnemyType,
-  MetroNpcSpawn,
-  MetroPickupSpawn,
-  MetroProp,
-  MetroRegion,
-  MetroRoom,
-  MetroCheckpoint,
-  MetroWorld,
-} from '../../sdk/index.ts';
-import { MetroidvaniaWorlds, isObject } from '../../sdk/index.ts';
+import type { ContentLoadContext } from '../../../../src/sdk/index.ts';
+import type { MetroAbility, MetroDoor, MetroEnemySpawn, MetroEnemyType, MetroNpcSpawn, MetroPickupSpawn, MetroProp, MetroRegion, MetroRoom, MetroCheckpoint, MetroWorld } from '../../contracts/metroidvania.ts';
+import { isObject } from '../../../../src/sdk/index.ts';
+import { MetroidvaniaWorlds } from '../../contracts/metroidvania.ts';
 
 const ID = /^[a-z0-9][a-z0-9./_-]*$/i;
 const TILE_CHARS = /^[.#=^]+$/;

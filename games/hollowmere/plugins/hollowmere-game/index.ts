@@ -1,47 +1,7 @@
-import type {
-  CapabilityState,
-  MetroBossView,
-  MetroCheckpoint,
-  MetroCommand,
-  MetroDoor,
-  MetroEffectView,
-  MetroEnemyType,
-  MetroEnemyView,
-  MetroInventoryView,
-  MetroNpcSpawn,
-  MetroPickupSpawn,
-  MetroRoom,
-  MetroState,
-  MetroStatus,
-  MetroWorld,
-  PlatformerBody,
-  RoomMapDefinition,
-  RoomMapHandle,
-  SessionContext,
-} from '../../sdk/index.ts';
-import {
-  CapabilityRole,
-  ExperienceRole,
-  Flow,
-  Input,
-  InputActions,
-  Items,
-  Metroidvania,
-  MetroidvaniaWorlds,
-  PlatformerRole,
-  Profile,
-  RoomMapRole,
-  SessionControl,
-  ThemeRole,
-  capabilityMechanic,
-  createCommandQueue,
-  createPlatformerBody,
-  definePlugin,
-  inventoryMechanic,
-  isObject,
-  platformerMechanic,
-  roomMapMechanic,
-} from '../../sdk/index.ts';
+import type { CapabilityState, PlatformerBody, RoomMapDefinition, RoomMapHandle, SessionContext } from '../../../../src/sdk/index.ts';
+import type { MetroBossView, MetroCheckpoint, MetroCommand, MetroDoor, MetroEffectView, MetroEnemyType, MetroEnemyView, MetroInventoryView, MetroNpcSpawn, MetroPickupSpawn, MetroRoom, MetroState, MetroStatus, MetroWorld } from '../../contracts/metroidvania.ts';
+import { CapabilityRole, ExperienceRole, Flow, Input, InputActions, Items, PlatformerRole, Profile, RoomMapRole, SessionControl, ThemeRole, capabilityMechanic, createCommandQueue, createPlatformerBody, definePlugin, inventoryMechanic, isObject, platformerMechanic, roomMapMechanic } from '../../../../src/sdk/index.ts';
+import { Metroidvania, MetroidvaniaWorlds } from '../../contracts/metroidvania.ts';
 import { loadWorld } from './validation.ts';
 
 const SAVE_KEY = 'hollowmere/save.v1';

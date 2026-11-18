@@ -1,5 +1,7 @@
-import type { MetroState, Painter, SessionContext } from '../../sdk/index.ts';
-import { HudRole, Metroidvania, Profile, SessionControl, ThemeRole, Ui, definePlugin } from '../../sdk/index.ts';
+import type { Painter, SessionContext } from '../../../../src/sdk/index.ts';
+import type { MetroState } from '../../contracts/metroidvania.ts';
+import { HudRole, Profile, SessionControl, ThemeRole, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { Metroidvania } from '../../contracts/metroidvania.ts';
 import { styles } from './styles.ts';
 import { drawScreenEffects, projectWorld } from './effects.ts';
 

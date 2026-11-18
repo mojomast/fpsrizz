@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `c05258a906a7d0c8f53e480404b21a92f170f5081cd80606f728c23c86f1aa45`
+Source digest: `44c49c3921e9df41ebf8141abff7cf0302a67f188f4066c027551ad2568434b3`
 
 ## Composition recipes
 
@@ -79,9 +79,9 @@ Source digest: `c05258a906a7d0c8f53e480404b21a92f170f5081cd80606f728c23c86f1aa45
 | `example/time-trial` | unreviewed | Activate the objective switches and escape before time runs out. | [source](src/plugins/example-time-trial) |
 | `example/ward` | family | Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry. | [source](src/plugins/example-ward) |
 | `expedition/assist` | presentation | Optional state-aware, progressively requested hints for Silt, Salt and Common Ground. | [source](src/plugins/expedition-assist) |
-| `hollowmere/content` | content | Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family. | [source](src/plugins/hollowmere-content) |
-| `hollowmere/game` | family | Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss. | [source](src/plugins/hollowmere-game) |
-| `hollowmere/presentation` | presentation | Canvas-rendered room view plus DOM field journal: world map, inventory, capabilities, stats and persisted options. | [source](src/plugins/hollowmere-presentation) |
+| `hollowmere/content` | content | Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family. | [source](games/hollowmere/plugins/hollowmere-content) |
+| `hollowmere/game` | family | Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss. | [source](games/hollowmere/plugins/hollowmere-game) |
+| `hollowmere/presentation` | presentation | Canvas-rendered room view plus DOM field journal: world map, inventory, capabilities, stats and persisted options. | [source](games/hollowmere/plugins/hollowmere-presentation) |
 | `mechanics/actions` | cross-genre | Data-defined action costs, gains and cooldowns for abilities, crafting, repairs, attacks and production. | [source](src/plugins/mechanics-actions) |
 | `mechanics/capabilities` | cross-genre | Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects. | [source](src/plugins/mechanics-capabilities) |
 | `mechanics/clock` | cross-genre | Explicit, consumer-advanced seconds or turn clocks; the SDK createDeadline helper borrows compatible clocks for pollable duration windows. | [source](src/plugins/mechanics-clock) |
@@ -232,8 +232,6 @@ Source digest: `c05258a906a7d0c8f53e480404b21a92f170f5081cd80606f728c23c86f1aa45
 | `sdk/MechanicObjectiveChanged` | contract | Public SDK value: mechanics/objective-changed | [source](src/sdk/contracts/mechanics.ts#L107) |
 | `sdk/MechanicProgressionChanged` | contract | Public SDK value: mechanics/progression-changed | [source](src/sdk/contracts/progression.ts#L47) |
 | `sdk/MechanicResourcesChanged` | contract | Public SDK value: mechanics/resources-changed | [source](src/sdk/contracts/mechanics.ts#L105) |
-| `sdk/Metroidvania` | contract | Public SDK value: hollowmere/run | [source](src/sdk/contracts/metroidvania.ts#L239) |
-| `sdk/MetroidvaniaWorlds` | contract | Public SDK value: metroidvania-world | [source](src/sdk/contracts/metroidvania.ts#L237) |
 | `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](src/sdk/contracts/shooter.ts#L664) |
 | `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](src/sdk/contracts/navigation.ts#L34) |
 | `sdk/objectiveMechanic` | contract | Public helper/class | [source](src/sdk/contracts/mechanics.ts#L142) |
@@ -321,6 +319,8 @@ Source digest: `c05258a906a7d0c8f53e480404b21a92f170f5081cd80606f728c23c86f1aa45
 | `games/cinder/Cinder` | contract | Game-family contract value: cinder/run | [source](games/cinder/contracts/cinder.ts#L196) |
 | `games/ember/Ember` | contract | Game-family contract value: ember/bastion | [source](games/ember/contracts/ember.ts#L52) |
 | `games/ember/EmberConfigs` | contract | Game-family contract value: ember-defense | [source](games/ember/contracts/ember.ts#L18) |
+| `games/hollowmere/Metroidvania` | contract | Game-family contract value: hollowmere/run | [source](games/hollowmere/contracts/metroidvania.ts#L239) |
+| `games/hollowmere/MetroidvaniaWorlds` | contract | Game-family contract value: metroidvania-world | [source](games/hollowmere/contracts/metroidvania.ts#L237) |
 | `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](games/sky/contracts/sky.ts#L16) |
 | `games/sky/SkyRoutes` | contract | Game-family contract value: sky-route | [source](games/sky/contracts/sky.ts#L7) |
 | `games/verdant/Verdant` | contract | Game-family contract value: verdant/relay | [source](games/verdant/contracts/verdant.ts#L38) |
