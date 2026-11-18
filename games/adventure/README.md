@@ -4,7 +4,7 @@ An independent point-and-click story. `story/adventure` owns the authoritative r
 
 Actions are queued through `Adventure.enqueue` and committed FIFO by `story/adventure.commands` in the `rules` phase. The optional `SessionControl` service rejects ingress while not playing. Invalid actions do not change state or spend items. The service returns copies of state arrays.
 
-The queue uses the shared SDK [bounded command helper](../reference/command-queues.md), with capacity 128 and snapshot-batch
+The queue uses the shared SDK [bounded command helper](../../docs/reference/command-queues.md), with capacity 128 and snapshot-batch
 draining: each tick processes the batch present at its start. Commands enqueued during processing wait for a later tick.
 Reset/load/save retain their positions within that batch. The helper owns pause/disposal gating and pending-command
 cleanup; chapter command normalization, item/flag legality and save replay remain story responsibilities. Enqueue

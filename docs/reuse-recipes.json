@@ -208,13 +208,13 @@
       ],
       "examples": [
         "src/plugins/puzzle-rules/index.ts",
-        "src/plugins/story-adventure/index.ts"
+        "games/adventure/plugins/story-adventure/index.ts"
       ],
       "tests": [
         "tests/command-queue.test.ts",
         "tests/command-queue-consumers.test.ts",
         "tests/stonewake.test.ts",
-        "tests/narrative-adventure.test.ts"
+        "games/adventure/tests/narrative-adventure.test.ts"
       ],
       "plugins": [],
       "roles": {},
@@ -563,11 +563,11 @@
       ],
       "docs": [
         "docs/reference/content-format.md",
-        "docs/games/narrative-adventure.md"
+        "games/adventure/README.md"
       ],
       "examples": [
         "src/plugins/example-arena/index.ts",
-        "src/plugins/story-adventure/index.ts"
+        "games/adventure/plugins/story-adventure/index.ts"
       ],
       "tests": [
         "tests/profile-store.test.ts",

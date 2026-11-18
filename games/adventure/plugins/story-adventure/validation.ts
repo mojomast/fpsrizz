@@ -1,5 +1,7 @@
-import type { AdventureChapter, ContentLoadContext } from '../../sdk/index.ts';
-import { AdventureChapters, isObject } from '../../sdk/index.ts';
+import type { ContentLoadContext } from '../../../../src/sdk/index.ts';
+import type { AdventureChapter } from '../../contracts/adventure.ts';
+import { isObject } from '../../../../src/sdk/index.ts';
+import { AdventureChapters } from '../../contracts/adventure.ts';
 
 const IDENTIFIER = /^[a-z][a-z0-9-]{0,63}$/;
 const THEME_KEY = /^[a-z][a-z0-9-]{0,63}$/;

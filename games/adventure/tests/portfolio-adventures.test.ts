@@ -1,23 +1,24 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost } from '../src/kernel/host.ts';
-import { Adventure, PHASES, SDK_VERSION } from '../src/sdk/index.ts';
-import rules from '../src/plugins/story-adventure/manifest.json' with { type: 'json' };
-import presentation from '../src/plugins/story-presentation/manifest.json' with { type: 'json' };
-import theme from '../src/plugins/theme-story/manifest.json' with { type: 'json' };
-import archive from '../src/plugins/portfolio-archive-adventure/manifest.json' with { type: 'json' };
-import archiveContent from '../src/plugins/portfolio-archive-adventure/content.json' with { type: 'json' };
-import orchard from '../src/plugins/portfolio-orchard-adventure/manifest.json' with { type: 'json' };
-import orchardContent from '../src/plugins/portfolio-orchard-adventure/content.json' with { type: 'json' };
-import archivePreset from '../src/content/presets/portfolio-archive-adventure.json' with { type: 'json' };
-import orchardPreset from '../src/content/presets/portfolio-orchard-adventure.json' with { type: 'json' };
+import { PluginHost } from '../../../src/kernel/host.ts';
+import { PHASES, SDK_VERSION } from '../../../src/sdk/index.ts';
+import { Adventure } from '../contracts/adventure.ts';
+import rules from '../plugins/story-adventure/manifest.json' with { type: 'json' };
+import presentation from '../plugins/story-presentation/manifest.json' with { type: 'json' };
+import theme from '../../../src/plugins/theme-story/manifest.json' with { type: 'json' };
+import archive from '../plugins/portfolio-archive-adventure/manifest.json' with { type: 'json' };
+import archiveContent from '../plugins/portfolio-archive-adventure/content.json' with { type: 'json' };
+import orchard from '../plugins/portfolio-orchard-adventure/manifest.json' with { type: 'json' };
+import orchardContent from '../plugins/portfolio-orchard-adventure/content.json' with { type: 'json' };
+import archivePreset from '../presets/portfolio-archive-adventure.json' with { type: 'json' };
+import orchardPreset from '../presets/portfolio-orchard-adventure.json' with { type: 'json' };
 
 function fixture() {
   const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
   host.setCatalog([
-    { manifest: rules, load: () => import('../src/plugins/story-adventure/index.ts') },
-    { manifest: presentation, load: () => import('../src/plugins/story-presentation/index.ts') },
-    { manifest: theme, load: () => import('../src/plugins/theme-story/index.ts') },
+    { manifest: rules, load: () => import('../plugins/story-adventure/index.ts') },
+    { manifest: presentation, load: () => import('../plugins/story-presentation/index.ts') },
+    { manifest: theme, load: () => import('../../../src/plugins/theme-story/index.ts') },
     { manifest: archive, content: archiveContent },
     { manifest: orchard, content: orchardContent },
   ]);

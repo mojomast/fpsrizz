@@ -50,15 +50,15 @@ All six discovery commands succeeded. They inspect registration, not activated g
 Primary inspected implementation evidence:
 
 - [`example-keys/index.ts`](../../src/plugins/example-keys/index.ts): `Keyring`, pickup factory, keyed-gate `use`.
-- [`story-adventure/index.ts`](../../src/plugins/story-adventure/index.ts): `initial`, `apply`, detached `state()`, load replay.
-- [`story-adventure/validation.ts`](../../src/plugins/story-adventure/validation.ts): unique lists, item references, consumed-items requirement.
-- [`story-presentation/index.ts`](../../src/plugins/story-presentation/index.ts): inventory display order and action readiness.
-- [`contracts/adventure.ts`](../../src/sdk/contracts/adventure.ts), [`contracts/mechanics.ts`](../../src/sdk/contracts/mechanics.ts),
+- [`story-adventure/index.ts`](../../games/adventure/plugins/story-adventure/index.ts): `initial`, `apply`, detached `state()`, load replay.
+- [`story-adventure/validation.ts`](../../games/adventure/plugins/story-adventure/validation.ts): unique lists, item references, consumed-items requirement.
+- [`story-presentation/index.ts`](../../games/adventure/plugins/story-presentation/index.ts): inventory display order and action readiness.
+- [`contracts/adventure.ts`](../../games/adventure/contracts/adventure.ts), [`contracts/mechanics.ts`](../../src/sdk/contracts/mechanics.ts),
   [`contracts/shooter.ts`](../../src/sdk/contracts/shooter.ts): public state, transaction and inventory shapes.
 - [`mechanics-resources/index.ts`](../../src/plugins/mechanics-resources/index.ts),
   [`verdant-game/index.ts`](../../games/verdant/plugins/verdant-game/index.ts): actual provider and working resource consumer.
 - [`keys-gates.test.ts`](../../tests/keys-gates.test.ts), [`key-dungeon.test.ts`](../../tests/key-dungeon.test.ts),
-  [`narrative-adventure.test.ts`](../../tests/narrative-adventure.test.ts),
+  [`narrative-adventure.test.ts`](../../games/adventure/tests/narrative-adventure.test.ts),
   [`mechanics-providers.test.ts`](../../tests/mechanics-providers.test.ts): existing behavioral assertions.
 
 ## Semantics an extraction must preserve

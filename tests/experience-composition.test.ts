@@ -8,7 +8,7 @@ import { Flow, FlowEnded, Input, PHASES, SDK_VERSION } from '../src/sdk/index.ts
 import shooter from '../src/content/presets/default.json' with { type: 'json' };
 import racer from '../games/racing/presets/overhead-racing.json' with { type: 'json' };
 import tactics from '../games/tactics/presets/turn-tactics.json' with { type: 'json' };
-import adventure from '../src/content/presets/narrative-adventure.json' with { type: 'json' };
+import adventure from '../games/adventure/presets/narrative-adventure.json' with { type: 'json' };
 import puzzle from '../src/content/presets/stonewake.json' with { type: 'json' };
 
 const shooterOnly = new Set(['core/player', 'core/world', 'core/combat', 'core/enemies', 'core/content', 'core/hud', 'core/presentation']);

@@ -30,16 +30,16 @@
     "Only the SDK command queue is genre-neutral: capacity 128, action validation and save/load/reset ordering remain Story policy."
   ],
   "docs": [
-    "docs/games/narrative-adventure.md",
+    "games/adventure/README.md",
     "docs/reference/command-queues.md"
   ],
   "examples": [
-    "src/plugins/story-chapter/content.json",
-    "src/content/presets/narrative-adventure.json",
-    "src/plugins/story-adventure/index.ts"
+    "games/adventure/plugins/story-chapter/content.json",
+    "games/adventure/presets/narrative-adventure.json",
+    "games/adventure/plugins/story-adventure/index.ts"
   ],
   "tests": [
-    "tests/narrative-adventure.test.ts",
+    "games/adventure/tests/narrative-adventure.test.ts",
     "tests/command-queue.test.ts",
     "tests/command-queue-consumers.test.ts"
   ]

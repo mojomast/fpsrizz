@@ -1,11 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost } from '../src/kernel/host.ts';
-import { Adventure, AdventureActionResolved, ExperienceRole, PHASES, Profile, SDK_VERSION, SessionControl, definePlugin } from '../src/sdk/index.ts';
-import type { ProfileData } from '../src/sdk/index.ts';
-import rules from '../src/plugins/story-adventure/manifest.json' with { type: 'json' };
-import chapter from '../src/plugins/story-chapter/manifest.json' with { type: 'json' };
-import content from '../src/plugins/story-chapter/content.json' with { type: 'json' };
+import { PluginHost } from '../../../src/kernel/host.ts';
+import { ExperienceRole, PHASES, Profile, SDK_VERSION, SessionControl, definePlugin } from '../../../src/sdk/index.ts';
+import { Adventure, AdventureActionResolved } from '../contracts/adventure.ts';
+import type { ProfileData } from '../../../src/sdk/index.ts';
+import rules from '../plugins/story-adventure/manifest.json' with { type: 'json' };
+import chapter from '../plugins/story-chapter/manifest.json' with { type: 'json' };
+import content from '../plugins/story-chapter/content.json' with { type: 'json' };
 
 function fixture() {
   let stored: ProfileData | null = { values: { other: 42 } };
@@ -28,7 +29,7 @@ function fixture() {
     },
   });
   host.setCatalog([
-    { manifest: rules, load: () => import('../src/plugins/story-adventure/index.ts') },
+    { manifest: rules, load: () => import('../plugins/story-adventure/index.ts') },
     { manifest: chapter, content },
     {
       manifest: { schema: 1, id: 'test/other-experience', name: 'Other', version: '1.0.0', kind: 'code', sdk: SDK_VERSION, description: 'Other family' },

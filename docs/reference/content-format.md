@@ -90,7 +90,7 @@ These use the same content-entry envelope and staged `Reporter` validation, with
 |---|---|---|---|
 | `vehicle-track` | `vehicle/racing` | `options.track` | `games/racing/plugins/vehicle-track/content.json`; [racing schema](../../games/racing/README.md) |
 | `board-mission` | `board/tactics` | `options.mission` | `games/tactics/plugins/board-mission/content.json`; [tactics schema](../../games/tactics/README.md) |
-| `adventure-chapter` | `story/adventure` | `options.chapter` | `src/plugins/story-chapter/content.json`; [adventure schema and save format](../games/narrative-adventure.md) |
+| `adventure-chapter` | `story/adventure` | `options.chapter` | `games/adventure/plugins/story-chapter/content.json`; [adventure schema and save format](../../games/adventure/README.md) |
 | `push-puzzle` | `puzzle/rules` | `options.campaign` | `src/plugins/puzzle-chambers/content.json`; [Stonewake schema](../games/stonewake.md) |
 | `mechanic-kit` | `mechanics/kits` | Referenced by a game definition | Immutable resources, actions, explicit clock domain and objectives; [schema and limits](reusable-mechanics.md#strict-mechanic-kit-content) |
 | `item` | `mechanics/inventory` | Referenced by inventory consumers | Stackable item definitions with optional equipment slot, rarity and presentation icon; [inventory](inventory.md) |
@@ -345,7 +345,7 @@ Imported packs are held in memory for the session only (planned: persist them al
 
 **Adventure chapter saves (implemented):** `story/adventure` stores a versioned JSON action history as a profile string
 under `story/save/<chapter-id>`. Loading validates the chapter identity/version and replays the history before committing
-state. See [the adventure guide](../games/narrative-adventure.md) for limits and explicit Save/Load behavior.
+state. See [the adventure guide](../../games/adventure/README.md) for limits and explicit Save/Load behavior.
 
 **General run snapshots (planned, not implemented):** entities and components are already plain JSON
 (`EntityStore.snapshot()`). A save file will record `{ saveSchema, sdkVersion, preset, plugins: { id: version },

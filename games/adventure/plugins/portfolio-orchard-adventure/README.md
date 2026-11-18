@@ -4,7 +4,7 @@
 
 ## Use and author
 
-Enable this pack, `story/adventure`, `story/presentation` and `theme/story`; select `sdk/experience: story/adventure` and `sdk/theme: theme/story`, with `options.chapter: portfolio/night-orchard`. See the complete [`portfolio-orchard-adventure.json`](../../content/presets/portfolio-orchard-adventure.json).
+Enable this pack, `story/adventure`, `story/presentation` and `theme/story`; select `sdk/experience: story/adventure` and `sdk/theme: theme/story`, with `options.chapter: portfolio/night-orchard`. See the complete [`portfolio-orchard-adventure.json`](../../presets/portfolio-orchard-adventure.json).
 
 The version 1 chapter in [`content.json`](content.json) defines rooms, items, actions, a start room and a victory flag. Actions express movement, prerequisites, inventory changes, flags, one-time actions and journal entries. For example, this **action fragment** adds an observation to the existing atrium:
 
@@ -12,8 +12,8 @@ The version 1 chapter in [`content.json`](content.json) defines rooms, items, ac
 { "id": "inspect-leaf", "label": "Inspect a leaf", "room": "atrium", "text": "Salt crystals edge the leaf.", "flags": ["leaf-seen"], "once": "leaf-seen" }
 ```
 
-See the [adventure format](../../../docs/games/narrative-adventure.md) and [portfolio guide](../../../docs/games/portfolio-adventures.md) for reference and progression rules.
+See the [adventure format](../../README.md) and [portfolio guide](../../docs/portfolio-adventures.md) for reference and progression rules.
 
 ## Exercise and limits
 
-Run `node --test tests/portfolio-adventures.test.ts` and `npm run validate-game -- --bundled`. In play, filter water, prepare the cutting and choose a sleeper. The pack contains authored data only; the adventure runtime owns session state, deterministic action evaluation, presentation integration and persistence.
+Run `node --test games/adventure/tests/portfolio-adventures.test.ts` and `npm run validate-game -- --bundled`. In play, filter water, prepare the cutting and choose a sleeper. The pack contains authored data only; the adventure runtime owns session state, deterministic action evaluation, presentation integration and persistence.

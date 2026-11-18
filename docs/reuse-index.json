@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "96988eb6df357f0f4d6e76d2f977efa271921d57ec1ef407950ccf2784a8abbe",
+  "sourceDigest": "a1649abf1e0ba4393755f0b1910a49d38e27cff20672949e1209c57afb931697",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -341,13 +341,13 @@
       ],
       "examples": [
         "src/plugins/puzzle-rules/index.ts",
-        "src/plugins/story-adventure/index.ts"
+        "games/adventure/plugins/story-adventure/index.ts"
       ],
       "tests": [
         "tests/command-queue.test.ts",
         "tests/command-queue-consumers.test.ts",
         "tests/stonewake.test.ts",
-        "tests/narrative-adventure.test.ts"
+        "games/adventure/tests/narrative-adventure.test.ts"
       ],
       "id": "recipe/bounded-command-queue",
       "name": "Owned bounded semantic command queues",
@@ -710,11 +710,11 @@
       ],
       "docs": [
         "docs/reference/content-format.md",
-        "docs/games/narrative-adventure.md"
+        "games/adventure/README.md"
       ],
       "examples": [
         "src/plugins/example-arena/index.ts",
-        "src/plugins/story-adventure/index.ts"
+        "games/adventure/plugins/story-adventure/index.ts"
       ],
       "tests": [
         "tests/profile-store.test.ts",
@@ -9396,7 +9396,7 @@
       "name": "The Quiet Index",
       "scope": "content",
       "summary": "A contested archive and a missing name.",
-      "source": "src/plugins/portfolio-archive-adventure",
+      "source": "games/adventure/plugins/portfolio-archive-adventure",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9710,7 +9710,7 @@
       "name": "The Night Orchard",
       "scope": "content",
       "summary": "A seedship garden and a difficult inheritance.",
-      "source": "src/plugins/portfolio-orchard-adventure",
+      "source": "games/adventure/plugins/portfolio-orchard-adventure",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -11341,7 +11341,7 @@
       "name": "Adventure rules",
       "scope": "family",
       "summary": "Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load.",
-      "source": "src/plugins/story-adventure",
+      "source": "games/adventure/plugins/story-adventure",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -11374,16 +11374,16 @@
         "Only the SDK command queue is genre-neutral: capacity 128, action validation and save/load/reset ordering remain Story policy."
       ],
       "docs": [
-        "docs/games/narrative-adventure.md",
+        "games/adventure/README.md",
         "docs/reference/command-queues.md"
       ],
       "examples": [
-        "src/plugins/story-chapter/content.json",
-        "src/content/presets/narrative-adventure.json",
-        "src/plugins/story-adventure/index.ts"
+        "games/adventure/plugins/story-chapter/content.json",
+        "games/adventure/presets/narrative-adventure.json",
+        "games/adventure/plugins/story-adventure/index.ts"
       ],
       "tests": [
-        "tests/narrative-adventure.test.ts",
+        "games/adventure/tests/narrative-adventure.test.ts",
         "tests/command-queue.test.ts",
         "tests/command-queue-consumers.test.ts"
       ],
@@ -11445,7 +11445,7 @@
       "name": "The Last Light",
       "scope": "content",
       "summary": "A lighthouse mystery in three rooms.",
-      "source": "src/plugins/story-chapter",
+      "source": "games/adventure/plugins/story-chapter",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -11499,7 +11499,7 @@
       "name": "Adventure presentation",
       "scope": "unreviewed",
       "summary": "Illustrated point-and-click adventure interface.",
-      "source": "src/plugins/story-presentation",
+      "source": "games/adventure/plugins/story-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12810,94 +12810,6 @@
       "recipes": [],
       "implementations": [
         "core/presentation"
-      ]
-    },
-    {
-      "id": "sdk/Adventure",
-      "type": "contract",
-      "name": "Adventure",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/adventure",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/adventure",
-      "source": "src/sdk/contracts/adventure.ts:66",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Adventure",
-        "sdk/adventure"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "story/adventure"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/AdventureActionResolved",
-      "type": "contract",
-      "name": "AdventureActionResolved",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/adventure-action-resolved",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/adventure-action-resolved",
-      "source": "src/sdk/contracts/adventure.ts:64",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "AdventureActionResolved",
-        "sdk/adventure-action-resolved"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "story/adventure"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/AdventureChapters",
-      "type": "contract",
-      "name": "AdventureChapters",
-      "scope": "contract",
-      "summary": "Public SDK value: adventure-chapter",
-      "importFrom": "src/sdk/index.ts",
-      "token": "adventure-chapter",
-      "source": "src/sdk/contracts/adventure.ts:65",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "AdventureChapters",
-        "adventure-chapter"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "story/adventure"
-      ],
-      "recipes": [],
-      "implementations": [
-        "portfolio/archive-adventure",
-        "portfolio/orchard-adventure",
-        "story/chapter"
       ]
     },
     {
@@ -17321,6 +17233,97 @@
       "documentedBy": [],
       "recipes": [],
       "implementations": []
+    },
+    {
+      "id": "games/adventure/Adventure",
+      "type": "contract",
+      "name": "Adventure",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/adventure",
+      "importFrom": "games/adventure/contracts/adventure.ts",
+      "token": "sdk/adventure",
+      "source": "games/adventure/contracts/adventure.ts:66",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Adventure",
+        "adventure",
+        "sdk/adventure"
+      ],
+      "useWhen": "Game-specific contract of the adventure family; plugins in games/adventure/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the adventure family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "story/adventure"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/adventure/AdventureActionResolved",
+      "type": "contract",
+      "name": "AdventureActionResolved",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/adventure-action-resolved",
+      "importFrom": "games/adventure/contracts/adventure.ts",
+      "token": "sdk/adventure-action-resolved",
+      "source": "games/adventure/contracts/adventure.ts:64",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AdventureActionResolved",
+        "adventure",
+        "sdk/adventure-action-resolved"
+      ],
+      "useWhen": "Game-specific contract of the adventure family; plugins in games/adventure/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the adventure family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "story/adventure"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/adventure/AdventureChapters",
+      "type": "contract",
+      "name": "AdventureChapters",
+      "scope": "contract",
+      "summary": "Game-family contract value: adventure-chapter",
+      "importFrom": "games/adventure/contracts/adventure.ts",
+      "token": "adventure-chapter",
+      "source": "games/adventure/contracts/adventure.ts:65",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AdventureChapters",
+        "adventure",
+        "adventure-chapter"
+      ],
+      "useWhen": "Game-specific contract of the adventure family; plugins in games/adventure/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the adventure family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "story/adventure"
+      ],
+      "recipes": [],
+      "implementations": [
+        "portfolio/archive-adventure",
+        "portfolio/orchard-adventure",
+        "story/chapter"
+      ]
     },
     {
       "id": "games/cinder/Cinder",

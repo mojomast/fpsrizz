@@ -1,5 +1,7 @@
-import { Adventure, AdventureActionResolved, Audio, SessionControl, ThemeRole, Ui, definePlugin } from '../../sdk/index.ts';
-import type { AdventureCommand, Painter } from '../../sdk/index.ts';
+import { Audio, SessionControl, ThemeRole, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { Adventure, AdventureActionResolved } from '../../contracts/adventure.ts';
+import type { Painter } from '../../../../src/sdk/index.ts';
+import type { AdventureCommand } from '../../contracts/adventure.ts';
 import { STORY_CSS } from './styles.ts';
 
 export default definePlugin({

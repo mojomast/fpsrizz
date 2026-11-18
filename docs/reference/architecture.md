@@ -166,7 +166,7 @@ reads that contract and treats browser services as optional in headless sessions
 |---|---|---|---|---|
 | `vehicle/racing` / `Race` | `vehicle/presentation` | `vehicle/track` (`vehicle-track`) / `vehicle-track` | `theme/arcade` | [Overhead racing](../../games/racing/README.md) |
 | `board/tactics` / `Tactics` | `board/presentation` | `board/mission` (`board-mission`) / `board-mission` | `theme/board` | [Turn tactics](../../games/tactics/README.md) |
-| `story/adventure` / `Adventure` | `story/presentation` | `story/chapter` (`story-chapter`) / `adventure-chapter` | `theme/story` | [Narrative adventure](../games/narrative-adventure.md) |
+| `story/adventure` / `Adventure` | `story/presentation` | `story/chapter` (`story-chapter`) / `adventure-chapter` | `theme/story` | [Narrative adventure](../../games/adventure/README.md) |
 | `puzzle/rules` / `PushPuzzle` | `puzzle/presentation` | `puzzle/chambers` (`puzzle-chambers`) / `push-puzzle` | `theme/board` | [Stonewake](../games/stonewake.md) |
 | `hollowmere/game` / `Metroidvania` | `hollowmere/presentation` | `hollowmere/content` (`metroidvania-world`) / `metroidvania-world` | `theme/assetrizz` (`theme/assetrizz-hollowmere`) | [Hollowmere](../../games/hollowmere/README.md) |
 
@@ -505,7 +505,7 @@ If WebGL2 or the renderer is unavailable, the app shows an "Unsupported" screen 
   Imported packs live in the host's in-memory catalog only. There is no general run/session save. `story/adventure` has
   an explicit chapter-specific Save/Load: a versioned action history stored through `Profile` under
   `story/save/<chapter-id>` is replayed into temporary state and committed only after validation. Chapter identity and
-  version must match; reset/restart does not overwrite the save. See [Narrative adventure](../games/narrative-adventure.md).
+  version must match; reset/restart does not overwrite the save. See [Narrative adventure](../../games/adventure/README.md).
 
 ## 8. Platform, input, audio and rendering
 

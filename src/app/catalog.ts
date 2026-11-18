@@ -27,7 +27,7 @@ import extractionPreset from '../content/presets/extraction.json' with { type: '
 import tacticalPreset from '../content/presets/tactical.json' with { type: 'json' };
 import overheadRacingPreset from '../../games/racing/presets/overhead-racing.json' with { type: 'json' };
 import turnTacticsPreset from '../../games/tactics/presets/turn-tactics.json' with { type: 'json' };
-import narrativeAdventurePreset from '../content/presets/narrative-adventure.json' with { type: 'json' };
+import narrativeAdventurePreset from '../../games/adventure/presets/narrative-adventure.json' with { type: 'json' };
 import stonewakePreset from '../content/presets/stonewake.json' with { type: 'json' };
 import skyPreset from '../../games/sky/presets/sky-salvage.json' with { type: 'json' };
 import emberPreset from '../../games/ember/presets/ember-bastion.json' with { type: 'json' };
@@ -42,8 +42,8 @@ import portfolioSkyPreset from '../content/presets/portfolio-sky-resource.json' 
 import portfolioVerdantPreset from '../content/presets/portfolio-verdant-resource.json' with { type: 'json' };
 import portfolioBreachPreset from '../../games/tactics/presets/portfolio-breach-tactics.json' with { type: 'json' };
 import portfolioCrossfirePreset from '../../games/tactics/presets/portfolio-crossfire-tactics.json' with { type: 'json' };
-import portfolioArchivePreset from '../content/presets/portfolio-archive-adventure.json' with { type: 'json' };
-import portfolioOrchardPreset from '../content/presets/portfolio-orchard-adventure.json' with { type: 'json' };
+import portfolioArchivePreset from '../../games/adventure/presets/portfolio-archive-adventure.json' with { type: 'json' };
+import portfolioOrchardPreset from '../../games/adventure/presets/portfolio-orchard-adventure.json' with { type: 'json' };
 import portfolioCardsAshPreset from '../content/presets/portfolio-cards-ash.json' with { type: 'json' };
 import portfolioCardsCloudPreset from '../content/presets/portfolio-cards-cloud.json' with { type: 'json' };
 import commonGroundPreset from '../../games/expeditions/presets/common-ground.json' with { type: 'json' };

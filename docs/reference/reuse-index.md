@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `96988eb6df357f0f4d6e76d2f977efa271921d57ec1ef407950ccf2784a8abbe`
+Source digest: `a1649abf1e0ba4393755f0b1910a49d38e27cff20672949e1209c57afb931697`
 
 ## Composition recipes
 
@@ -103,12 +103,12 @@ Source digest: `96988eb6df357f0f4d6e76d2f977efa271921d57ec1ef407950ccf2784a8abbe
 | `portfolio-cards/cloud` | unreviewed | A weather-card expedition planning game. | [source](../../src/plugins/portfolio-cards-cloud) |
 | `portfolio-cards/piles` | cross-genre | Owned ordered unique-card draw, hand and discard partition. | [source](../../src/plugins/portfolio-cards-piles) |
 | `portfolio-cards/presentation` | unreviewed | Accessible browser card table for the portfolio card games. | [source](../../src/plugins/portfolio-cards-presentation) |
-| `portfolio/archive-adventure` | content | A contested archive and a missing name. | [source](../../src/plugins/portfolio-archive-adventure) |
+| `portfolio/archive-adventure` | content | A contested archive and a missing name. | [source](../../games/adventure/plugins/portfolio-archive-adventure) |
 | `portfolio/assist` | presentation | Optional on-demand contextual assistance for public card and puzzle services. | [source](../../src/plugins/portfolio-assist) |
 | `portfolio/atelier-puzzle` | content | Three quiet chambers of multi-stone positioning. | [source](../../src/plugins/portfolio-atelier-puzzle) |
 | `portfolio/breach-tactics` | content | A three-agent assault through a divided conservatory. | [source](../../games/tactics/plugins/portfolio-breach-tactics) |
 | `portfolio/crossfire-tactics` | content | A two-scout stand against an encircling raiding party. | [source](../../games/tactics/plugins/portfolio-crossfire-tactics) |
-| `portfolio/orchard-adventure` | content | A seedship garden and a difficult inheritance. | [source](../../src/plugins/portfolio-orchard-adventure) |
+| `portfolio/orchard-adventure` | content | A seedship garden and a difficult inheritance. | [source](../../games/adventure/plugins/portfolio-orchard-adventure) |
 | `portfolio/racing` | content | Two independent arcade time-trial tracks. | [source](../../games/racing/plugins/portfolio-racing) |
 | `portfolio/sky-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../src/plugins/portfolio-sky-resource) |
 | `portfolio/verdant-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../src/plugins/portfolio-verdant-resource) |
@@ -127,9 +127,9 @@ Source digest: `96988eb6df357f0f4d6e76d2f977efa271921d57ec1ef407950ccf2784a8abbe
 | `sky/content` | content | Courier resources, actions and delivery objectives. | [source](../../games/sky/plugins/sky-content) |
 | `sky/game` | family | Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines. | [source](../../games/sky/plugins/sky-game) |
 | `sky/presentation` | unreviewed | Volumetric floating islands and drone cockpit HUD. | [source](../../games/sky/plugins/sky-presentation) |
-| `story/adventure` | family | Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load. | [source](../../src/plugins/story-adventure) |
-| `story/chapter` | content | A lighthouse mystery in three rooms. | [source](../../src/plugins/story-chapter) |
-| `story/presentation` | unreviewed | Illustrated point-and-click adventure interface. | [source](../../src/plugins/story-presentation) |
+| `story/adventure` | family | Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load. | [source](../../games/adventure/plugins/story-adventure) |
+| `story/chapter` | content | A lighthouse mystery in three rooms. | [source](../../games/adventure/plugins/story-chapter) |
+| `story/presentation` | unreviewed | Illustrated point-and-click adventure interface. | [source](../../games/adventure/plugins/story-presentation) |
 | `theme/arcade` | unreviewed | Pinned Assetrizz synth tiles, pennant, city and scooter badge; original top-down vehicle and synthesized arcade cues. | [source](../../src/plugins/theme-arcade) |
 | `theme/assetrizz` | presentation | Pinned Assetrizz sci-fi and hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops, ornate icons, six original Gloamforge weapon views and Cinder/Hollowmere theme variants. | [source](../../src/plugins/theme-assetrizz) |
 | `theme/board` | unreviewed | Pinned Assetrizz voxel explorer, chalk golem, rock cover and timber tiles with synthesized tactile board-game cues. | [source](../../src/plugins/theme-board) |
@@ -149,9 +149,6 @@ Source digest: `96988eb6df357f0f4d6e76d2f977efa271921d57ec1ef407950ccf2784a8abbe
 | `sdk/actionMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L137) |
 | `sdk/ActionMechanicRole` | contract | Public SDK value: sdk/mechanic-actions | [source](../../src/sdk/contracts/mechanics.ts#L102) |
 | `sdk/ActorRenderers` | contract | Public SDK value: actor-renderer | [source](../../src/sdk/render.ts#L89) |
-| `sdk/Adventure` | contract | Public SDK value: sdk/adventure | [source](../../src/sdk/contracts/adventure.ts#L66) |
-| `sdk/AdventureActionResolved` | contract | Public SDK value: sdk/adventure-action-resolved | [source](../../src/sdk/contracts/adventure.ts#L64) |
-| `sdk/AdventureChapters` | contract | Public SDK value: adventure-chapter | [source](../../src/sdk/contracts/adventure.ts#L65) |
 | `sdk/AiBehaviors` | contract | Public SDK value: ai-behavior | [source](../../src/sdk/contracts/shooter.ts#L534) |
 | `sdk/AmmoTypes` | contract | Public SDK value: ammo | [source](../../src/sdk/contracts/shooter.ts#L431) |
 | `sdk/angleDelta` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L727) |
@@ -305,6 +302,9 @@ Source digest: `96988eb6df357f0f4d6e76d2f977efa271921d57ec1ef407950ccf2784a8abbe
 | `sdk/yawDirX` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L722) |
 | `sdk/yawDirZ` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L723) |
 | `sdk/yawOf` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L725) |
+| `games/adventure/Adventure` | contract | Game-family contract value: sdk/adventure | [source](../../games/adventure/contracts/adventure.ts#L66) |
+| `games/adventure/AdventureActionResolved` | contract | Game-family contract value: sdk/adventure-action-resolved | [source](../../games/adventure/contracts/adventure.ts#L64) |
+| `games/adventure/AdventureChapters` | contract | Game-family contract value: adventure-chapter | [source](../../games/adventure/contracts/adventure.ts#L65) |
 | `games/cinder/Cinder` | contract | Game-family contract value: cinder/run | [source](../../games/cinder/contracts/cinder.ts#L196) |
 | `games/ember/Ember` | contract | Game-family contract value: ember/bastion | [source](../../games/ember/contracts/ember.ts#L52) |
 | `games/ember/EmberConfigs` | contract | Game-family contract value: ember-defense | [source](../../games/ember/contracts/ember.ts#L18) |

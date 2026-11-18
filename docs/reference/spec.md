@@ -141,7 +141,7 @@ theme. They share host lifecycle, services, deterministic scheduling and the pub
 | `salt/ledger` | Party RPG across 16 locations with tactical battles, side quests and three endings | Session-only; no terrain tactics, crafting or persistent save |
 | `common/ground` | Three-resident household with needs, work, relationships, editable floor plan and furniture, projects and gathering | Turn-based; no spatial pathfinding or in-progress household save |
 
-See [racing](../../games/racing/README.md), [tactics](../../games/tactics/README.md), [adventure](../games/narrative-adventure.md),
+See [racing](../../games/racing/README.md), [tactics](../../games/tactics/README.md), [adventure](../../games/adventure/README.md),
 [Stonewake](../games/stonewake.md) and [Hollowmere](../../games/hollowmere/README.md) for
 content schemas, controls and completion routes. Art directions use curated Assetrizz images and original procedural
 elements; each theme supplies its own synthesized cues. Sampled music and a continuous audio-director API are future work.

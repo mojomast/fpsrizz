@@ -78,7 +78,7 @@ already-transferred batch must decide that locally. The helper has no processing
 | Consumer | Bound / drain | Local policy retained |
 |---|---|---|
 | [`puzzle/rules`](../../src/plugins/puzzle-rules/index.ts) / Stonewake | 32 pending; `drainOne` in `puzzle/rules.commands` (`control`) | One command per tick; cardinal movement and turn legality; clear pending commands after undo, restart/replay, next (even unsuccessful next), chamber clear and capture; board history and committed cues |
-| [`story/adventure`](../../src/plugins/story-adventure/index.ts) / The Last Light | 128 pending; `drainBatch` in `story/adventure.commands` (`rules`) | Strict command fields; action ID length; original batch continues across save/load/reset; newly enqueued commands wait for the next tick; action prerequisites, inventory, flags, journal, history and replay validation |
+| [`story/adventure`](../../games/adventure/plugins/story-adventure/index.ts) / The Last Light | 128 pending; `drainBatch` in `story/adventure.commands` (`rules`) | Strict command fields; action ID length; original batch continues across save/load/reset; newly enqueued commands wait for the next tick; action prerequisites, inventory, flags, journal, history and replay validation |
 
 Neither game spends turns or advances story state while idle. Stonewake keeps its existing transition clearing sites;
 Story resets game state/history without cancelling the rest of its transferred batch or recursively enqueued pending
@@ -98,7 +98,7 @@ Searches: `command queue`, `input focus pause`; then targeted `--show` inspectio
 | `recipe/scoped-input`, `sdk/SessionControl`, `sdk/InputContexts` | SDK experience/input declarations; puzzle presentation; `tests/experience-input.test.ts`; ownership and ingress sections in `docs/guide/plugins.md` / `docs/reference/architecture.md` | Reuse host pause and scope facilities. Input contexts manage physical bindings/focus, not pending semantic commands. |
 | `sdk/defineCommand` | `src/sdk/core.ts` and the command-bus contract | Immediate single-handler dispatch does not supply bounded deferred ingress. Keep that mechanism unchanged. |
 | `puzzle/rules`, `sdk/PushPuzzle` | Puzzle command declaration, rules authority and `tests/stonewake.test.ts` | Extract pending FIFO plumbing; preserve single-command/transition policy in the game. |
-| `story/adventure`, `sdk/Adventure` | Adventure command declaration, authority and `tests/narrative-adventure.test.ts` | Use the same helper with snapshot batch transfer. Inventory and save replay remain local. |
+| `story/adventure`, `sdk/Adventure` | Adventure command declaration, authority and `games/adventure/tests/narrative-adventure.test.ts` | Use the same helper with snapshot batch transfer. Inventory and save replay remain local. |
 
 The concrete missing seam was owned semantic buffering shared by these two authorities. An SDK helper avoids a new
 plugin selection or ID namespace for state that is already private to a consumer. Tactics' accepted request-ID memory,
@@ -133,13 +133,13 @@ evidence; there is no interchangeable provider or substitution claim.
   pause and three restarts per family with stable ownership counts and rejected stale ingress. These run the authored
   `puzzle/sleeping-ruins` and `story/last-light` content, explicit scheduler ticks and fixture seed 1.
 - Existing [`tests/stonewake.test.ts`](../../tests/stonewake.test.ts) and
-  [`tests/narrative-adventure.test.ts`](../../tests/narrative-adventure.test.ts) remain intact, retaining full legal routes,
+  [`games/adventure/tests/narrative-adventure.test.ts`](../../games/adventure/tests/narrative-adventure.test.ts) remain intact, retaining full legal routes,
   idle behavior, undo, replay, save corruption and storage-error coverage.
 
 Focused run under Node 22.19.0:
 
 ```bash
-node --test tests/command-queue.test.ts tests/command-queue-consumers.test.ts tests/stonewake.test.ts tests/narrative-adventure.test.ts
+node --test tests/command-queue.test.ts tests/command-queue-consumers.test.ts tests/stonewake.test.ts games/adventure/tests/narrative-adventure.test.ts
 ```
 
 **29 passed, 0 failed, 0 skipped.** Typechecking, boundary lint and live discovery inspection of `createCommandQueue`

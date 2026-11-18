@@ -155,7 +155,7 @@ context, and selected roles activate after all plugins; see the lifecycle notes 
 | `docs/reference/spec.md` | Implemented scope, limitations, extension boundaries, reference-game content |
 | `README.md` | Commands, controls, presets, layout |
 | `docs/roadmap.md` | Engine roadmap and status (the P0–P3 checklist) |
-| `games/racing/README.md`, `games/tactics/README.md`, `docs/games/narrative-adventure.md` | Independent family content formats, controls, progression and family-specific persistence |
+| `games/racing/README.md`, `games/tactics/README.md`, `games/adventure/README.md` | Independent family content formats, controls, progression and family-specific persistence |
 | `docs/games/stonewake.md` | 3D push-puzzle rules, chamber format, controls, asset use and completion routes |
 | `docs/guide/reuse.md`, plugin `reuse.json`, `docs/reuse-recipes.json` | Capability scope, search vocabulary, composition recipes, SDK entry points and examples |
 | `docs/reference/reuse-index.md`, `docs/reuse-index.json` | Generated only: run `npm run index-reuse` after source/catalog/metadata changes |

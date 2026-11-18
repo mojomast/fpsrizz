@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { catalog } from '../src/app/catalog.ts';
-import { Adventure, AdventureActionResolved, Profile, PushPuzzle, SessionControl, definePlugin } from '../src/sdk/index.ts';
-import type { AdventureCommand, ProfileData, PuzzleCommand, PuzzleDirection } from '../src/sdk/index.ts';
+import { Profile, PushPuzzle, SessionControl, definePlugin } from '../src/sdk/index.ts';
+import { Adventure, AdventureActionResolved } from '../games/adventure/contracts/adventure.ts';
+import type { ProfileData, PuzzleCommand, PuzzleDirection } from '../src/sdk/index.ts';
+import type { AdventureCommand } from '../games/adventure/contracts/adventure.ts';
 import { createHeadlessGame } from './helpers/game.ts';
 
 async function game(family: 'puzzle' | 'story') {

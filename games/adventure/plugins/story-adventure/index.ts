@@ -1,5 +1,6 @@
-import type { AdventureAction, AdventureCommand, AdventureState } from '../../sdk/index.ts';
-import { Adventure, AdventureActionResolved, AdventureChapters, ExperienceRole, Profile, createCommandQueue, definePlugin, isObject } from '../../sdk/index.ts';
+import type { AdventureAction, AdventureCommand, AdventureState } from '../../contracts/adventure.ts';
+import { ExperienceRole, Profile, createCommandQueue, definePlugin, isObject } from '../../../../src/sdk/index.ts';
+import { Adventure, AdventureActionResolved, AdventureChapters } from '../../contracts/adventure.ts';
 import { loadChapter } from './validation.ts';
 
 const MAX_QUEUE = 128;
