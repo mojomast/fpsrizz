@@ -12,7 +12,7 @@ import { root } from './tools.mjs';
 /** Which schema covers which files (first match wins). `embed: false` = arrays, mapped through editor settings only. */
 export const SCHEMA_MAP = [
   { schema: 'plugin-manifest', match: /(^|\/)manifest\.json$/, glob: '**/manifest.json' },
-  { schema: 'preset', match: /^games\/[^/]+\/presets\/[^/]+\.json$/, glob: 'games/*/presets/*.json' },
+  { schema: 'preset', match: /^(templates\/)?games\/[^/]+\/presets\/[^/]+\.json$/, glob: '{games,templates/games}/*/presets/*.json' },
   { schema: 'reuse', match: /(^|\/)reuse\.json$/, glob: '**/reuse.json' },
   { schema: 'content-pack', match: /(^|\/)content\.json$/, glob: '**/content.json', embed: false },
   { schema: 'replay', match: /\.replay\.json$/, glob: '**/*.replay.json' },
@@ -21,7 +21,7 @@ export const SCHEMA_MAP = [
 ];
 /** Tool configs, provenance records and generated indexes: not engine data formats. */
 const NOT_DATA = [
-  /^package(-lock)?\.json$/, /(^|\/)tsconfig\.json$/, /^typedoc\.json$/, /(^|\/)provenance\.json$/, /^scripts\/[^/]+\.json$/,
+  /(^|\/)package(-lock)?\.json$/, /(^|\/)tsconfig\.json$/, /^typedoc\.json$/, /(^|\/)provenance\.json$/, /^scripts\/[^/]+\.json$/,
   /^assets\/weapons\//, /^docs\/reuse-index\.json$/, /^public\/models\/index\.json$/, /^src\/app\/catalog-providers\.json$/,
   /^schemas\//, /^\.vscode\//, /^games\/expeditions\/plugins\/salt-rpg-content\/campaign-draft\.json$/,
 ];
@@ -35,7 +35,7 @@ const validatorFor = (name) => {
   return validators.get(name);
 };
 // Templates carry placeholders that new-plugin replaces; validate them with sample values.
-const fillTemplate = (text) => text.replace(/__ID__/g, 'template/starter').replace(/__[A-Z_]+__/g, 'Template');
+const fillTemplate = (text) => text.replace(/__ID__/g, 'template/starter').replace(/__NS__/g, 'template').replace(/__[A-Z_]+__/g, 'Template');
 
 const problems = [];
 const unclassified = [];

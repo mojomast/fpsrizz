@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "__NS__/game",
+  "name": "__TITLE__",
+  "version": "0.1.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "Sliding-tile puzzle drawn with the DOM UI service.",
+  "dependencies": {},
+  "capabilities": [
+    "simulation"
+  ],
+  "requiresRoles": [
+    "sdk/experience"
+  ]
+}

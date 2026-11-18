@@ -8,6 +8,7 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Create a game](guide/create-a-game.md): from preset to playable family, end to end.
 - [Plugins](guide/plugins.md): the SDK, manifests, lifecycle, roles, registries, events and services.
 - [Reuse](guide/reuse.md): find and compose existing capabilities before writing new ones.
+- [Bulkhead CLI and templates](guide/bulkhead-cli.md): `npm run bulkhead -- create <name> --template fps|platformer|topdown|puzzle|cards|blank`.
 
 ## Reference (what exists, exactly)
 

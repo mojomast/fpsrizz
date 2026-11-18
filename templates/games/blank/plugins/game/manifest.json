@@ -1,0 +1,21 @@
+{
+  "$schema": "../../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "__NS__/game",
+  "name": "__TITLE__",
+  "version": "0.1.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "An empty SDK 3 scene to start from.",
+  "dependencies": {
+    "std/transform": "^1.0.0",
+    "std/render-sync": "^1.0.0"
+  },
+  "capabilities": [
+    "simulation",
+    "render"
+  ],
+  "requiresRoles": [
+    "sdk/experience"
+  ]
+}

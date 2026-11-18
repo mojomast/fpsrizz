@@ -9,6 +9,7 @@
  */
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
 import { PluginHost } from '../../src/kernel/host.ts';
 import type { CatalogEntry, Session } from '../../src/kernel/host.ts';
 import { hashSnapshot } from '../../src/kernel/snapshot.ts';
@@ -31,9 +32,10 @@ export interface Run {
   stop(): void;
 }
 
+/** `dir` is repo-relative (run from the repo root) or absolute (e.g. from `fileURLToPath(new URL(..., import.meta.url))`). */
 const entry = (dir: string): CatalogEntry => ({
   manifest: JSON.parse(readFileSync(`${dir}/manifest.json`, 'utf8') as string),
-  load: () => import(`../../${dir}/index.ts`),
+  load: () => import(dir.startsWith('/') ? pathToFileURL(`${dir}/index.ts`).href : `../../${dir}/index.ts`),
 });
 
 /** Boots `spec`; `beforeTick(tick)` runs right before the input snapshot of every tick (replay feeding). */

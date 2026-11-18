@@ -8,7 +8,7 @@
     },
     {
       "fileMatch": [
-        "/games/*/presets/*.json"
+        "/{games,templates/games}/*/presets/*.json"
       ],
       "url": "./schemas/preset.schema.json"
     },

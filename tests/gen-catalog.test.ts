@@ -1,7 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readdirSync, existsSync } from 'node:fs';
-// @ts-expect-error Node's full type declarations are not installed.
 import { spawnSync } from 'node:child_process';
 // @ts-ignore -- plain .mjs tooling module without types
 import { discoverPlugins, renderCatalog } from '../scripts/gen-catalog.mjs';

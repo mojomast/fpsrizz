@@ -25,6 +25,7 @@
     "check": "node scripts/check-node.mjs && npm run gen-catalog -- --check && npm run assets -- --check && npm run schemas && npm run typecheck && npm run lint && npm run lint:docs && npm run index-reuse -- --check && npm run budget && npm run test",
     "find-reuse": "node scripts/find-reuse.mjs",
     "index-reuse": "node scripts/index-reuse.mjs",
+    "bulkhead": "node scripts/bulkhead.mjs",
     "new-plugin": "node scripts/new-plugin.mjs",
     "validate-game": "node scripts/validate-game.mjs",
     "vendor-three": "node scripts/vendor-three.mjs",
