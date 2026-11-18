@@ -38,8 +38,8 @@ import portfolioAtelierPreset from '../../games/puzzles/presets/portfolio-atelie
 import portfolioWatchPreset from '../../games/puzzles/presets/portfolio-watch-puzzle.json' with { type: 'json' };
 import portfolioSaltPreset from '../../games/racing/presets/portfolio-salt-racing.json' with { type: 'json' };
 import portfolioCopperPreset from '../../games/racing/presets/portfolio-copper-racing.json' with { type: 'json' };
-import portfolioSkyPreset from '../content/presets/portfolio-sky-resource.json' with { type: 'json' };
-import portfolioVerdantPreset from '../content/presets/portfolio-verdant-resource.json' with { type: 'json' };
+import portfolioSkyPreset from '../../games/sky/presets/portfolio-sky-resource.json' with { type: 'json' };
+import portfolioVerdantPreset from '../../games/verdant/presets/portfolio-verdant-resource.json' with { type: 'json' };
 import portfolioBreachPreset from '../../games/tactics/presets/portfolio-breach-tactics.json' with { type: 'json' };
 import portfolioCrossfirePreset from '../../games/tactics/presets/portfolio-crossfire-tactics.json' with { type: 'json' };
 import portfolioArchivePreset from '../../games/adventure/presets/portfolio-archive-adventure.json' with { type: 'json' };

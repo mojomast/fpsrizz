@@ -56,81 +56,81 @@ import p43 from '../plugins/mechanics-relationships/manifest.json' with { type: 
 import p44 from '../plugins/mechanics-resources/manifest.json' with { type: 'json' };
 import p45 from '../plugins/mechanics-room-map/manifest.json' with { type: 'json' };
 import p46 from '../plugins/mechanics-sequence/manifest.json' with { type: 'json' };
-import p47 from '../plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
-import p47c from '../plugins/portfolio-sky-resource/content.json' with { type: 'json' };
-import p48 from '../plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
-import p48c from '../plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
-import p49 from '../plugins/presentation-camera-modes/manifest.json' with { type: 'json' };
-import p50 from '../plugins/presentation-player-avatar/manifest.json' with { type: 'json' };
-import p51 from '../plugins/theme-arcade/manifest.json' with { type: 'json' };
-import p52 from '../plugins/theme-assetrizz/manifest.json' with { type: 'json' };
-import p53 from '../plugins/theme-board/manifest.json' with { type: 'json' };
-import p54 from '../plugins/theme-industrial/manifest.json' with { type: 'json' };
-import p55 from '../plugins/theme-story/manifest.json' with { type: 'json' };
-import p56 from '../../games/adventure/plugins/portfolio-archive-adventure/manifest.json' with { type: 'json' };
-import p56c from '../../games/adventure/plugins/portfolio-archive-adventure/content.json' with { type: 'json' };
-import p57 from '../../games/adventure/plugins/portfolio-orchard-adventure/manifest.json' with { type: 'json' };
-import p57c from '../../games/adventure/plugins/portfolio-orchard-adventure/content.json' with { type: 'json' };
-import p58 from '../../games/adventure/plugins/story-adventure/manifest.json' with { type: 'json' };
-import p59 from '../../games/adventure/plugins/story-chapter/manifest.json' with { type: 'json' };
-import p59c from '../../games/adventure/plugins/story-chapter/content.json' with { type: 'json' };
-import p60 from '../../games/adventure/plugins/story-presentation/manifest.json' with { type: 'json' };
-import p61 from '../../games/cinder/plugins/cinder-content/manifest.json' with { type: 'json' };
-import p61c from '../../games/cinder/plugins/cinder-content/content.json' with { type: 'json' };
-import p62 from '../../games/cinder/plugins/cinder-game/manifest.json' with { type: 'json' };
-import p63 from '../../games/cinder/plugins/cinder-hud/manifest.json' with { type: 'json' };
-import p64 from '../../games/ember/plugins/ember-content/manifest.json' with { type: 'json' };
-import p64c from '../../games/ember/plugins/ember-content/content.json' with { type: 'json' };
-import p65 from '../../games/ember/plugins/ember-game/manifest.json' with { type: 'json' };
-import p66 from '../../games/ember/plugins/ember-presentation/manifest.json' with { type: 'json' };
-import p67 from '../../games/expeditions/plugins/common-ground-content/manifest.json' with { type: 'json' };
-import p67c from '../../games/expeditions/plugins/common-ground-content/content.json' with { type: 'json' };
-import p68 from '../../games/expeditions/plugins/common-ground-game/manifest.json' with { type: 'json' };
-import p69 from '../../games/expeditions/plugins/common-ground-presentation/manifest.json' with { type: 'json' };
-import p70 from '../../games/expeditions/plugins/expedition-assist/manifest.json' with { type: 'json' };
-import p71 from '../../games/expeditions/plugins/salt-rpg-content/manifest.json' with { type: 'json' };
-import p71c from '../../games/expeditions/plugins/salt-rpg-content/content.json' with { type: 'json' };
-import p72 from '../../games/expeditions/plugins/salt-rpg-game/manifest.json' with { type: 'json' };
-import p73 from '../../games/expeditions/plugins/salt-rpg-presentation/manifest.json' with { type: 'json' };
-import p74 from '../../games/expeditions/plugins/silt-content/manifest.json' with { type: 'json' };
-import p74c from '../../games/expeditions/plugins/silt-content/content.json' with { type: 'json' };
-import p75 from '../../games/expeditions/plugins/silt-game/manifest.json' with { type: 'json' };
-import p76 from '../../games/expeditions/plugins/silt-presentation/manifest.json' with { type: 'json' };
-import p77 from '../../games/hollowmere/plugins/hollowmere-content/manifest.json' with { type: 'json' };
-import p77c from '../../games/hollowmere/plugins/hollowmere-content/content.json' with { type: 'json' };
-import p78 from '../../games/hollowmere/plugins/hollowmere-game/manifest.json' with { type: 'json' };
-import p79 from '../../games/hollowmere/plugins/hollowmere-presentation/manifest.json' with { type: 'json' };
-import p80 from '../../games/puzzles/plugins/portfolio-assist/manifest.json' with { type: 'json' };
-import p81 from '../../games/puzzles/plugins/portfolio-atelier-puzzle/manifest.json' with { type: 'json' };
-import p81c from '../../games/puzzles/plugins/portfolio-atelier-puzzle/content.json' with { type: 'json' };
-import p82 from '../../games/puzzles/plugins/portfolio-cards-ash/manifest.json' with { type: 'json' };
-import p83 from '../../games/puzzles/plugins/portfolio-cards-cloud/manifest.json' with { type: 'json' };
-import p84 from '../../games/puzzles/plugins/portfolio-cards-piles/manifest.json' with { type: 'json' };
-import p85 from '../../games/puzzles/plugins/portfolio-cards-presentation/manifest.json' with { type: 'json' };
-import p86 from '../../games/puzzles/plugins/portfolio-watch-puzzle/manifest.json' with { type: 'json' };
-import p86c from '../../games/puzzles/plugins/portfolio-watch-puzzle/content.json' with { type: 'json' };
-import p87 from '../../games/puzzles/plugins/puzzle-chambers/manifest.json' with { type: 'json' };
-import p87c from '../../games/puzzles/plugins/puzzle-chambers/content.json' with { type: 'json' };
-import p88 from '../../games/puzzles/plugins/puzzle-presentation/manifest.json' with { type: 'json' };
-import p89 from '../../games/puzzles/plugins/puzzle-rules/manifest.json' with { type: 'json' };
-import p90 from '../../games/racing/plugins/portfolio-racing/manifest.json' with { type: 'json' };
-import p90c from '../../games/racing/plugins/portfolio-racing/content.json' with { type: 'json' };
-import p91 from '../../games/racing/plugins/vehicle-presentation/manifest.json' with { type: 'json' };
-import p92 from '../../games/racing/plugins/vehicle-racing/manifest.json' with { type: 'json' };
-import p93 from '../../games/racing/plugins/vehicle-track/manifest.json' with { type: 'json' };
-import p93c from '../../games/racing/plugins/vehicle-track/content.json' with { type: 'json' };
-import p94 from '../../games/sky/plugins/sky-content/manifest.json' with { type: 'json' };
-import p94c from '../../games/sky/plugins/sky-content/content.json' with { type: 'json' };
-import p95 from '../../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
-import p96 from '../../games/sky/plugins/sky-presentation/manifest.json' with { type: 'json' };
-import p97 from '../../games/tactics/plugins/board-mission/manifest.json' with { type: 'json' };
-import p97c from '../../games/tactics/plugins/board-mission/content.json' with { type: 'json' };
-import p98 from '../../games/tactics/plugins/board-presentation/manifest.json' with { type: 'json' };
-import p99 from '../../games/tactics/plugins/board-tactics/manifest.json' with { type: 'json' };
-import p100 from '../../games/tactics/plugins/portfolio-breach-tactics/manifest.json' with { type: 'json' };
-import p100c from '../../games/tactics/plugins/portfolio-breach-tactics/content.json' with { type: 'json' };
-import p101 from '../../games/tactics/plugins/portfolio-crossfire-tactics/manifest.json' with { type: 'json' };
-import p101c from '../../games/tactics/plugins/portfolio-crossfire-tactics/content.json' with { type: 'json' };
+import p47 from '../plugins/presentation-camera-modes/manifest.json' with { type: 'json' };
+import p48 from '../plugins/presentation-player-avatar/manifest.json' with { type: 'json' };
+import p49 from '../plugins/theme-arcade/manifest.json' with { type: 'json' };
+import p50 from '../plugins/theme-assetrizz/manifest.json' with { type: 'json' };
+import p51 from '../plugins/theme-board/manifest.json' with { type: 'json' };
+import p52 from '../plugins/theme-industrial/manifest.json' with { type: 'json' };
+import p53 from '../plugins/theme-story/manifest.json' with { type: 'json' };
+import p54 from '../../games/adventure/plugins/portfolio-archive-adventure/manifest.json' with { type: 'json' };
+import p54c from '../../games/adventure/plugins/portfolio-archive-adventure/content.json' with { type: 'json' };
+import p55 from '../../games/adventure/plugins/portfolio-orchard-adventure/manifest.json' with { type: 'json' };
+import p55c from '../../games/adventure/plugins/portfolio-orchard-adventure/content.json' with { type: 'json' };
+import p56 from '../../games/adventure/plugins/story-adventure/manifest.json' with { type: 'json' };
+import p57 from '../../games/adventure/plugins/story-chapter/manifest.json' with { type: 'json' };
+import p57c from '../../games/adventure/plugins/story-chapter/content.json' with { type: 'json' };
+import p58 from '../../games/adventure/plugins/story-presentation/manifest.json' with { type: 'json' };
+import p59 from '../../games/cinder/plugins/cinder-content/manifest.json' with { type: 'json' };
+import p59c from '../../games/cinder/plugins/cinder-content/content.json' with { type: 'json' };
+import p60 from '../../games/cinder/plugins/cinder-game/manifest.json' with { type: 'json' };
+import p61 from '../../games/cinder/plugins/cinder-hud/manifest.json' with { type: 'json' };
+import p62 from '../../games/ember/plugins/ember-content/manifest.json' with { type: 'json' };
+import p62c from '../../games/ember/plugins/ember-content/content.json' with { type: 'json' };
+import p63 from '../../games/ember/plugins/ember-game/manifest.json' with { type: 'json' };
+import p64 from '../../games/ember/plugins/ember-presentation/manifest.json' with { type: 'json' };
+import p65 from '../../games/expeditions/plugins/common-ground-content/manifest.json' with { type: 'json' };
+import p65c from '../../games/expeditions/plugins/common-ground-content/content.json' with { type: 'json' };
+import p66 from '../../games/expeditions/plugins/common-ground-game/manifest.json' with { type: 'json' };
+import p67 from '../../games/expeditions/plugins/common-ground-presentation/manifest.json' with { type: 'json' };
+import p68 from '../../games/expeditions/plugins/expedition-assist/manifest.json' with { type: 'json' };
+import p69 from '../../games/expeditions/plugins/salt-rpg-content/manifest.json' with { type: 'json' };
+import p69c from '../../games/expeditions/plugins/salt-rpg-content/content.json' with { type: 'json' };
+import p70 from '../../games/expeditions/plugins/salt-rpg-game/manifest.json' with { type: 'json' };
+import p71 from '../../games/expeditions/plugins/salt-rpg-presentation/manifest.json' with { type: 'json' };
+import p72 from '../../games/expeditions/plugins/silt-content/manifest.json' with { type: 'json' };
+import p72c from '../../games/expeditions/plugins/silt-content/content.json' with { type: 'json' };
+import p73 from '../../games/expeditions/plugins/silt-game/manifest.json' with { type: 'json' };
+import p74 from '../../games/expeditions/plugins/silt-presentation/manifest.json' with { type: 'json' };
+import p75 from '../../games/hollowmere/plugins/hollowmere-content/manifest.json' with { type: 'json' };
+import p75c from '../../games/hollowmere/plugins/hollowmere-content/content.json' with { type: 'json' };
+import p76 from '../../games/hollowmere/plugins/hollowmere-game/manifest.json' with { type: 'json' };
+import p77 from '../../games/hollowmere/plugins/hollowmere-presentation/manifest.json' with { type: 'json' };
+import p78 from '../../games/puzzles/plugins/portfolio-assist/manifest.json' with { type: 'json' };
+import p79 from '../../games/puzzles/plugins/portfolio-atelier-puzzle/manifest.json' with { type: 'json' };
+import p79c from '../../games/puzzles/plugins/portfolio-atelier-puzzle/content.json' with { type: 'json' };
+import p80 from '../../games/puzzles/plugins/portfolio-cards-ash/manifest.json' with { type: 'json' };
+import p81 from '../../games/puzzles/plugins/portfolio-cards-cloud/manifest.json' with { type: 'json' };
+import p82 from '../../games/puzzles/plugins/portfolio-cards-piles/manifest.json' with { type: 'json' };
+import p83 from '../../games/puzzles/plugins/portfolio-cards-presentation/manifest.json' with { type: 'json' };
+import p84 from '../../games/puzzles/plugins/portfolio-watch-puzzle/manifest.json' with { type: 'json' };
+import p84c from '../../games/puzzles/plugins/portfolio-watch-puzzle/content.json' with { type: 'json' };
+import p85 from '../../games/puzzles/plugins/puzzle-chambers/manifest.json' with { type: 'json' };
+import p85c from '../../games/puzzles/plugins/puzzle-chambers/content.json' with { type: 'json' };
+import p86 from '../../games/puzzles/plugins/puzzle-presentation/manifest.json' with { type: 'json' };
+import p87 from '../../games/puzzles/plugins/puzzle-rules/manifest.json' with { type: 'json' };
+import p88 from '../../games/racing/plugins/portfolio-racing/manifest.json' with { type: 'json' };
+import p88c from '../../games/racing/plugins/portfolio-racing/content.json' with { type: 'json' };
+import p89 from '../../games/racing/plugins/vehicle-presentation/manifest.json' with { type: 'json' };
+import p90 from '../../games/racing/plugins/vehicle-racing/manifest.json' with { type: 'json' };
+import p91 from '../../games/racing/plugins/vehicle-track/manifest.json' with { type: 'json' };
+import p91c from '../../games/racing/plugins/vehicle-track/content.json' with { type: 'json' };
+import p92 from '../../games/sky/plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
+import p92c from '../../games/sky/plugins/portfolio-sky-resource/content.json' with { type: 'json' };
+import p93 from '../../games/sky/plugins/sky-content/manifest.json' with { type: 'json' };
+import p93c from '../../games/sky/plugins/sky-content/content.json' with { type: 'json' };
+import p94 from '../../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
+import p95 from '../../games/sky/plugins/sky-presentation/manifest.json' with { type: 'json' };
+import p96 from '../../games/tactics/plugins/board-mission/manifest.json' with { type: 'json' };
+import p96c from '../../games/tactics/plugins/board-mission/content.json' with { type: 'json' };
+import p97 from '../../games/tactics/plugins/board-presentation/manifest.json' with { type: 'json' };
+import p98 from '../../games/tactics/plugins/board-tactics/manifest.json' with { type: 'json' };
+import p99 from '../../games/tactics/plugins/portfolio-breach-tactics/manifest.json' with { type: 'json' };
+import p99c from '../../games/tactics/plugins/portfolio-breach-tactics/content.json' with { type: 'json' };
+import p100 from '../../games/tactics/plugins/portfolio-crossfire-tactics/manifest.json' with { type: 'json' };
+import p100c from '../../games/tactics/plugins/portfolio-crossfire-tactics/content.json' with { type: 'json' };
+import p101 from '../../games/verdant/plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
+import p101c from '../../games/verdant/plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
 import p102 from '../../games/verdant/plugins/verdant-content/manifest.json' with { type: 'json' };
 import p102c from '../../games/verdant/plugins/verdant-content/content.json' with { type: 'json' };
 import p103 from '../../games/verdant/plugins/verdant-game/manifest.json' with { type: 'json' };
@@ -185,61 +185,61 @@ export const catalog: CatalogEntry[] = [
   { manifest: p44, load: () => import('../plugins/mechanics-resources/index.ts') }, // mechanics/resources
   { manifest: p45, load: () => import('../plugins/mechanics-room-map/index.ts') }, // mechanics/room-map
   { manifest: p46, load: () => import('../plugins/mechanics-sequence/index.ts') }, // mechanics/sequence
-  { manifest: p47, content: p47c }, // portfolio/sky-resource
-  { manifest: p48, content: p48c }, // portfolio/verdant-resource
-  { manifest: p49, load: () => import('../plugins/presentation-camera-modes/index.ts') }, // presentation/camera-modes
-  { manifest: p50, load: () => import('../plugins/presentation-player-avatar/index.ts') }, // presentation/player-avatar
-  { manifest: p51, load: () => import('../plugins/theme-arcade/index.ts') }, // theme/arcade
-  { manifest: p52, load: () => import('../plugins/theme-assetrizz/index.ts') }, // theme/assetrizz
-  { manifest: p53, load: () => import('../plugins/theme-board/index.ts') }, // theme/board
-  { manifest: p54, load: () => import('../plugins/theme-industrial/index.ts') }, // theme/industrial
-  { manifest: p55, load: () => import('../plugins/theme-story/index.ts') }, // theme/story
-  { manifest: p56, content: p56c }, // portfolio/archive-adventure
-  { manifest: p57, content: p57c }, // portfolio/orchard-adventure
-  { manifest: p58, load: () => import('../../games/adventure/plugins/story-adventure/index.ts') }, // story/adventure
-  { manifest: p59, content: p59c }, // story/chapter
-  { manifest: p60, load: () => import('../../games/adventure/plugins/story-presentation/index.ts') }, // story/presentation
-  { manifest: p61, content: p61c }, // cinder/content
-  { manifest: p62, load: () => import('../../games/cinder/plugins/cinder-game/index.ts') }, // cinder/game
-  { manifest: p63, load: () => import('../../games/cinder/plugins/cinder-hud/index.ts') }, // cinder/hud
-  { manifest: p64, content: p64c }, // ember/content
-  { manifest: p65, load: () => import('../../games/ember/plugins/ember-game/index.ts') }, // ember/game
-  { manifest: p66, load: () => import('../../games/ember/plugins/ember-presentation/index.ts') }, // ember/presentation
-  { manifest: p67, content: p67c }, // common/content
-  { manifest: p68, load: () => import('../../games/expeditions/plugins/common-ground-game/index.ts') }, // common/game
-  { manifest: p69, load: () => import('../../games/expeditions/plugins/common-ground-presentation/index.ts') }, // common/presentation
-  { manifest: p70, load: () => import('../../games/expeditions/plugins/expedition-assist/index.ts') }, // expedition/assist
-  { manifest: p71, content: p71c }, // salt/content
-  { manifest: p72, load: () => import('../../games/expeditions/plugins/salt-rpg-game/index.ts') }, // salt/game
-  { manifest: p73, load: () => import('../../games/expeditions/plugins/salt-rpg-presentation/index.ts') }, // salt/presentation
-  { manifest: p74, content: p74c }, // silt/content
-  { manifest: p75, load: () => import('../../games/expeditions/plugins/silt-game/index.ts') }, // silt/game
-  { manifest: p76, load: () => import('../../games/expeditions/plugins/silt-presentation/index.ts') }, // silt/presentation
-  { manifest: p77, content: p77c }, // hollowmere/content
-  { manifest: p78, load: () => import('../../games/hollowmere/plugins/hollowmere-game/index.ts') }, // hollowmere/game
-  { manifest: p79, load: () => import('../../games/hollowmere/plugins/hollowmere-presentation/index.ts') }, // hollowmere/presentation
-  { manifest: p80, load: () => import('../../games/puzzles/plugins/portfolio-assist/index.ts') }, // portfolio/assist
-  { manifest: p81, content: p81c }, // portfolio/atelier-puzzle
-  { manifest: p82, load: () => import('../../games/puzzles/plugins/portfolio-cards-ash/index.ts') }, // portfolio-cards/ash
-  { manifest: p83, load: () => import('../../games/puzzles/plugins/portfolio-cards-cloud/index.ts') }, // portfolio-cards/cloud
-  { manifest: p84, load: () => import('../../games/puzzles/plugins/portfolio-cards-piles/index.ts') }, // portfolio-cards/piles
-  { manifest: p85, load: () => import('../../games/puzzles/plugins/portfolio-cards-presentation/index.ts') }, // portfolio-cards/presentation
-  { manifest: p86, content: p86c }, // portfolio/watch-puzzle
-  { manifest: p87, content: p87c }, // puzzle/chambers
-  { manifest: p88, load: () => import('../../games/puzzles/plugins/puzzle-presentation/index.ts') }, // puzzle/presentation
-  { manifest: p89, load: () => import('../../games/puzzles/plugins/puzzle-rules/index.ts') }, // puzzle/rules
-  { manifest: p90, content: p90c }, // portfolio/racing
-  { manifest: p91, load: () => import('../../games/racing/plugins/vehicle-presentation/index.ts') }, // vehicle/presentation
-  { manifest: p92, load: () => import('../../games/racing/plugins/vehicle-racing/index.ts') }, // vehicle/racing
-  { manifest: p93, content: p93c }, // vehicle/track
-  { manifest: p94, content: p94c }, // sky/content
-  { manifest: p95, load: () => import('../../games/sky/plugins/sky-game/index.ts') }, // sky/game
-  { manifest: p96, load: () => import('../../games/sky/plugins/sky-presentation/index.ts') }, // sky/presentation
-  { manifest: p97, content: p97c }, // board/mission
-  { manifest: p98, load: () => import('../../games/tactics/plugins/board-presentation/index.ts') }, // board/presentation
-  { manifest: p99, load: () => import('../../games/tactics/plugins/board-tactics/index.ts') }, // board/tactics
-  { manifest: p100, content: p100c }, // portfolio/breach-tactics
-  { manifest: p101, content: p101c }, // portfolio/crossfire-tactics
+  { manifest: p47, load: () => import('../plugins/presentation-camera-modes/index.ts') }, // presentation/camera-modes
+  { manifest: p48, load: () => import('../plugins/presentation-player-avatar/index.ts') }, // presentation/player-avatar
+  { manifest: p49, load: () => import('../plugins/theme-arcade/index.ts') }, // theme/arcade
+  { manifest: p50, load: () => import('../plugins/theme-assetrizz/index.ts') }, // theme/assetrizz
+  { manifest: p51, load: () => import('../plugins/theme-board/index.ts') }, // theme/board
+  { manifest: p52, load: () => import('../plugins/theme-industrial/index.ts') }, // theme/industrial
+  { manifest: p53, load: () => import('../plugins/theme-story/index.ts') }, // theme/story
+  { manifest: p54, content: p54c }, // portfolio/archive-adventure
+  { manifest: p55, content: p55c }, // portfolio/orchard-adventure
+  { manifest: p56, load: () => import('../../games/adventure/plugins/story-adventure/index.ts') }, // story/adventure
+  { manifest: p57, content: p57c }, // story/chapter
+  { manifest: p58, load: () => import('../../games/adventure/plugins/story-presentation/index.ts') }, // story/presentation
+  { manifest: p59, content: p59c }, // cinder/content
+  { manifest: p60, load: () => import('../../games/cinder/plugins/cinder-game/index.ts') }, // cinder/game
+  { manifest: p61, load: () => import('../../games/cinder/plugins/cinder-hud/index.ts') }, // cinder/hud
+  { manifest: p62, content: p62c }, // ember/content
+  { manifest: p63, load: () => import('../../games/ember/plugins/ember-game/index.ts') }, // ember/game
+  { manifest: p64, load: () => import('../../games/ember/plugins/ember-presentation/index.ts') }, // ember/presentation
+  { manifest: p65, content: p65c }, // common/content
+  { manifest: p66, load: () => import('../../games/expeditions/plugins/common-ground-game/index.ts') }, // common/game
+  { manifest: p67, load: () => import('../../games/expeditions/plugins/common-ground-presentation/index.ts') }, // common/presentation
+  { manifest: p68, load: () => import('../../games/expeditions/plugins/expedition-assist/index.ts') }, // expedition/assist
+  { manifest: p69, content: p69c }, // salt/content
+  { manifest: p70, load: () => import('../../games/expeditions/plugins/salt-rpg-game/index.ts') }, // salt/game
+  { manifest: p71, load: () => import('../../games/expeditions/plugins/salt-rpg-presentation/index.ts') }, // salt/presentation
+  { manifest: p72, content: p72c }, // silt/content
+  { manifest: p73, load: () => import('../../games/expeditions/plugins/silt-game/index.ts') }, // silt/game
+  { manifest: p74, load: () => import('../../games/expeditions/plugins/silt-presentation/index.ts') }, // silt/presentation
+  { manifest: p75, content: p75c }, // hollowmere/content
+  { manifest: p76, load: () => import('../../games/hollowmere/plugins/hollowmere-game/index.ts') }, // hollowmere/game
+  { manifest: p77, load: () => import('../../games/hollowmere/plugins/hollowmere-presentation/index.ts') }, // hollowmere/presentation
+  { manifest: p78, load: () => import('../../games/puzzles/plugins/portfolio-assist/index.ts') }, // portfolio/assist
+  { manifest: p79, content: p79c }, // portfolio/atelier-puzzle
+  { manifest: p80, load: () => import('../../games/puzzles/plugins/portfolio-cards-ash/index.ts') }, // portfolio-cards/ash
+  { manifest: p81, load: () => import('../../games/puzzles/plugins/portfolio-cards-cloud/index.ts') }, // portfolio-cards/cloud
+  { manifest: p82, load: () => import('../../games/puzzles/plugins/portfolio-cards-piles/index.ts') }, // portfolio-cards/piles
+  { manifest: p83, load: () => import('../../games/puzzles/plugins/portfolio-cards-presentation/index.ts') }, // portfolio-cards/presentation
+  { manifest: p84, content: p84c }, // portfolio/watch-puzzle
+  { manifest: p85, content: p85c }, // puzzle/chambers
+  { manifest: p86, load: () => import('../../games/puzzles/plugins/puzzle-presentation/index.ts') }, // puzzle/presentation
+  { manifest: p87, load: () => import('../../games/puzzles/plugins/puzzle-rules/index.ts') }, // puzzle/rules
+  { manifest: p88, content: p88c }, // portfolio/racing
+  { manifest: p89, load: () => import('../../games/racing/plugins/vehicle-presentation/index.ts') }, // vehicle/presentation
+  { manifest: p90, load: () => import('../../games/racing/plugins/vehicle-racing/index.ts') }, // vehicle/racing
+  { manifest: p91, content: p91c }, // vehicle/track
+  { manifest: p92, content: p92c }, // portfolio/sky-resource
+  { manifest: p93, content: p93c }, // sky/content
+  { manifest: p94, load: () => import('../../games/sky/plugins/sky-game/index.ts') }, // sky/game
+  { manifest: p95, load: () => import('../../games/sky/plugins/sky-presentation/index.ts') }, // sky/presentation
+  { manifest: p96, content: p96c }, // board/mission
+  { manifest: p97, load: () => import('../../games/tactics/plugins/board-presentation/index.ts') }, // board/presentation
+  { manifest: p98, load: () => import('../../games/tactics/plugins/board-tactics/index.ts') }, // board/tactics
+  { manifest: p99, content: p99c }, // portfolio/breach-tactics
+  { manifest: p100, content: p100c }, // portfolio/crossfire-tactics
+  { manifest: p101, content: p101c }, // portfolio/verdant-resource
   { manifest: p102, content: p102c }, // verdant/content
   { manifest: p103, load: () => import('../../games/verdant/plugins/verdant-game/index.ts') }, // verdant/game
   { manifest: p104, load: () => import('../../games/verdant/plugins/verdant-presentation/index.ts') }, // verdant/presentation

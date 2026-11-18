@@ -11,14 +11,14 @@ import objectives from '../src/plugins/mechanics-objectives/manifest.json' with 
 import kits from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
 import skyRules from '../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
 import skyPresentation from '../games/sky/plugins/sky-presentation/manifest.json' with { type: 'json' };
-import skyPack from '../src/plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
-import skyContent from '../src/plugins/portfolio-sky-resource/content.json' with { type: 'json' };
-import skyPreset from '../src/content/presets/portfolio-sky-resource.json' with { type: 'json' };
+import skyPack from '../games/sky/plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
+import skyContent from '../games/sky/plugins/portfolio-sky-resource/content.json' with { type: 'json' };
+import skyPreset from '../games/sky/presets/portfolio-sky-resource.json' with { type: 'json' };
 import verdantRules from '../games/verdant/plugins/verdant-game/manifest.json' with { type: 'json' };
 import verdantPresentation from '../games/verdant/plugins/verdant-presentation/manifest.json' with { type: 'json' };
-import verdantPack from '../src/plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
-import verdantContent from '../src/plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
-import verdantPreset from '../src/content/presets/portfolio-verdant-resource.json' with { type: 'json' };
+import verdantPack from '../games/verdant/plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
+import verdantContent from '../games/verdant/plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
+import verdantPreset from '../games/verdant/presets/portfolio-verdant-resource.json' with { type: 'json' };
 import theme from '../src/plugins/theme-board/manifest.json' with { type: 'json' };
 import { createHeadlessGame } from './helpers/game.ts';
 

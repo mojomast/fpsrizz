@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "1c70f6edb2caba3c22bd2ef07c2edf899a23fef9e86eaf5eac119adbcdf3e39b",
+  "sourceDigest": "93c1025a7ab132d94d840cefab1f5b47fd799cfe3323de95411f039e7c6e7779",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -9835,7 +9835,7 @@
       "name": "Crosswind Dispatch",
       "scope": "content",
       "summary": "Original portfolio scenario and mechanic kit.",
-      "source": "src/plugins/portfolio-sky-resource",
+      "source": "games/sky/plugins/portfolio-sky-resource",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9900,7 +9900,7 @@
       "name": "Last Rain Conservatory",
       "scope": "content",
       "summary": "Original portfolio scenario and mechanic kit.",
-      "source": "src/plugins/portfolio-verdant-resource",
+      "source": "games/verdant/plugins/portfolio-verdant-resource",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,

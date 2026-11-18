@@ -4,7 +4,7 @@
 
 ## Composition and content
 
-[`portfolio-verdant-resource.json`](../../content/presets/portfolio-verdant-resource.json) enables the pack, Verdant runtime and presentation, kit support, board theme and resource, clock, action and objective providers. It selects `sdk/experience: verdant/relay`, the four mechanic roles and `sdk/theme: theme/board`, with `options.world: portfolio/last-rain`.
+[`portfolio-verdant-resource.json`](../../presets/portfolio-verdant-resource.json) enables the pack, Verdant runtime and presentation, kit support, board theme and resource, clock, action and objective providers. It selects `sdk/experience: verdant/relay`, the four mechanic roles and `sdk/theme: theme/board`, with `options.world: portfolio/last-rain`.
 
 [`content.json`](content.json) defines a `turns` kit with bounded water, biomass and charge; actions with cooldowns and spend/gain maps; and a three-relay objective. The world specifies its kit, day limit and stations with IDs, names and X/Z positions. A fresh **station fragment** is:
 
@@ -12,7 +12,7 @@
 { "id": "nursery", "name": "Nursery", "x": 3, "z": -2 }
 ```
 
-Keep kit resource/action IDs compatible with Verdant and the objective target consistent with the world. See [Verdant Relay](../../../games/verdant/README.md), [reusable mechanics](../../../docs/reference/reusable-mechanics.md), and the [portfolio resource guide](../../../docs/games/portfolio-resource-games.md).
+Keep kit resource/action IDs compatible with Verdant and the objective target consistent with the world. See [Verdant Relay](../../README.md), [reusable mechanics](../../../../docs/reference/reusable-mechanics.md), and the [portfolio resource guide](../../../../docs/games/portfolio-resource-games.md).
 
 ## Exercise and limits
 

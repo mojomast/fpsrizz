@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `1c70f6edb2caba3c22bd2ef07c2edf899a23fef9e86eaf5eac119adbcdf3e39b`
+Source digest: `93c1025a7ab132d94d840cefab1f5b47fd799cfe3323de95411f039e7c6e7779`
 
 ## Composition recipes
 
@@ -110,8 +110,8 @@ Source digest: `1c70f6edb2caba3c22bd2ef07c2edf899a23fef9e86eaf5eac119adbcdf3e39b
 | `portfolio/crossfire-tactics` | content | A two-scout stand against an encircling raiding party. | [source](../../games/tactics/plugins/portfolio-crossfire-tactics) |
 | `portfolio/orchard-adventure` | content | A seedship garden and a difficult inheritance. | [source](../../games/adventure/plugins/portfolio-orchard-adventure) |
 | `portfolio/racing` | content | Two independent arcade time-trial tracks. | [source](../../games/racing/plugins/portfolio-racing) |
-| `portfolio/sky-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../src/plugins/portfolio-sky-resource) |
-| `portfolio/verdant-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../src/plugins/portfolio-verdant-resource) |
+| `portfolio/sky-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../games/sky/plugins/portfolio-sky-resource) |
+| `portfolio/verdant-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../games/verdant/plugins/portfolio-verdant-resource) |
 | `portfolio/watch-puzzle` | content | Three pursuit chambers with shifting routes around stone and walls. | [source](../../games/puzzles/plugins/portfolio-watch-puzzle) |
 | `presentation/camera-modes` | cross-genre | Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service. | [source](../../src/plugins/presentation-camera-modes) |
 | `presentation/player-avatar` | cross-genre | Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes. | [source](../../src/plugins/presentation-player-avatar) |
