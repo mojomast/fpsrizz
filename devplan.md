@@ -144,9 +144,6 @@ Not scheduled; none of these exist.
 - Recording and replay of per-tick input, building on the deterministic fixed-step simulation.
 - Runtime installation of third-party code plugins, which would first require a sandboxing model (today code plugins are
   compiled in and fully trusted).
-- Resolve the scheduler's removal contract: `ARCHITECTURE.md` says removals during a tick take effect on the next tick,
-  while `src/kernel/scheduler.ts` immediately skips a removed system. Decide the intended behavior and cover it with a
-  regression test before aligning implementation and documentation.
 
 ## Carried over from the offline build
 

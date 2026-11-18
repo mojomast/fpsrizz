@@ -273,7 +273,10 @@ for each system in order (phase index, then `order`, then id):
 tick += 1
 ```
 
-- Systems added or removed during a tick take effect from the next tick.
+- Systems added during a tick start running from the next tick. Removal takes effect immediately: a removed system
+  never runs again, including later in the tick in which it was removed (a system may remove itself; its current
+  `update` finishes). This keeps a disposed plugin's systems from touching resources its scope already released.
+  Covered by `tests/kernel-scheduler.test.ts`.
 - An event emitted while a system runs is delivered right after that system returns, before the next system. An event
   emitted by a handler is appended to the same delivery pass. Outside a tick (activation, frame systems, UI) events are
   delivered immediately. More than 10 000 events in one delivery is treated as a runaway loop and raises an error (a fault when it happens during a tick).

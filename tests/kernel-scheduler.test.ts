@@ -217,3 +217,42 @@ test('frame systems receive an alpha within [0, 1]', () => {
     assert.ok(a >= 0 && a <= 1, `alpha ${a} out of range`);
   }
 });
+
+// Removal contract (ARCHITECTURE.md §"Tick"): additions made during a tick start on the next tick; removals take
+// effect immediately, so a removed system never runs again, not even later in the tick in which it was removed.
+// This keeps a disposed plugin's systems from touching resources its scope has already released.
+test('a system removed mid-tick by an earlier system does not run later in that tick', () => {
+  const s = new Scheduler(PHASES, quietHooks());
+  const log: string[] = [];
+  let removeB: () => void = () => {};
+  s.addSystem({ id: 'a', phase: 'input', update: () => { log.push(`a${s.tick}`); if (s.tick === 1) removeB(); } }, 'p');
+  removeB = s.addSystem({ id: 'b', phase: 'sim', update: () => log.push(`b${s.tick}`) }, 'p');
+  s.runTick();
+  s.runTick();
+  s.runTick();
+  assert.deepEqual(log, ['a0', 'b0', 'a1', 'a2']);
+});
+
+test('a system may remove itself; it finishes its current update and never runs again', () => {
+  const s = new Scheduler(PHASES, quietHooks());
+  const log: string[] = [];
+  let removeSelf: () => void = () => {};
+  removeSelf = s.addSystem({ id: 'a', phase: 'sim', update: () => { log.push(`a${s.tick}`); removeSelf(); log.push('after'); } }, 'p');
+  s.addSystem({ id: 'b', phase: 'late', update: () => log.push(`b${s.tick}`) }, 'p');
+  s.runTick();
+  s.runTick();
+  assert.deepEqual(log, ['a0', 'after', 'b0', 'b1']);
+});
+
+test('a system added mid-tick starts on the next tick, even when its phase has not run yet', () => {
+  const s = new Scheduler(PHASES, quietHooks());
+  const log: string[] = [];
+  let added = false;
+  s.addSystem({ id: 'a', phase: 'input', update: () => {
+    log.push(`a${s.tick}`);
+    if (!added) { added = true; s.addSystem({ id: 'late-add', phase: 'late', update: () => log.push(`late${s.tick}`) }, 'p'); }
+  } }, 'p');
+  s.runTick();
+  s.runTick();
+  assert.deepEqual(log, ['a0', 'a1', 'late1']);
+});

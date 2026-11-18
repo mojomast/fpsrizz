@@ -52,7 +52,10 @@ export class Scheduler {
   lastFrameTicks = 0;
   private acc = 0;
   private systems: Entry<SystemDef>[] = [];
-  /** Execution snapshot: systems added or removed while a tick is running take effect from the next tick. */
+  /**
+   * Execution snapshot. Systems added while a tick runs start on the next tick. Removed systems are flagged and skipped
+   * at once, so they never run again (not even later in the current tick). See ARCHITECTURE.md, "Tick".
+   */
   private tickList: Entry<SystemDef>[] = [];
   private dirty = false;
   private frameSystems: Entry<FrameSystemDef>[] = [];

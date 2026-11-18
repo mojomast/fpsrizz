@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `57bac8a68a6574998009662a4fd8432a2f0215e298a8e6532d25b57f137a97c3`
+Source digest: `aa2dc9f5f6f2eea1f5439e6e599ef97a29bda854857ab9b62d351e1a83815c69`
 
 ## Composition recipes
 

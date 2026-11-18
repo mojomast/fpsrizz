@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "57bac8a68a6574998009662a4fd8432a2f0215e298a8e6532d25b57f137a97c3",
+  "sourceDigest": "aa2dc9f5f6f2eea1f5439e6e599ef97a29bda854857ab9b62d351e1a83815c69",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
