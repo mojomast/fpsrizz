@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "39bae8c1d20d01fea3abc9cfb9891a712d237b7f05622a35cde26c129b6294c9",
+  "sourceDigest": "175013202b159daffefeb14d08a39b5b5a4123eae4b1f7dd9b68cc2e75febd09",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -395,7 +395,7 @@
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
-        "src/plugins/verdant-game/index.ts"
+        "games/verdant/plugins/verdant-game/index.ts"
       ],
       "tests": [
         "tests/deadlines.test.ts",
@@ -448,9 +448,9 @@
         "docs/mechanic-conformance.md"
       ],
       "examples": [
-        "src/plugins/verdant-content/content.json",
-        "src/plugins/verdant-game/index.ts",
-        "src/content/presets/verdant-relay.json"
+        "games/verdant/plugins/verdant-content/content.json",
+        "games/verdant/plugins/verdant-game/index.ts",
+        "games/verdant/presets/verdant-relay.json"
       ],
       "tests": [
         "tests/mechanics-providers.test.ts",
@@ -510,10 +510,10 @@
         "docs/ember-bastion.md"
       ],
       "examples": [
-        "src/plugins/ember-game/index.ts"
+        "games/ember/plugins/ember-game/index.ts"
       ],
       "tests": [
-        "tests/ember-bastion.test.ts",
+        "games/ember/tests/ember-bastion.test.ts",
         "tests/mechanics-providers.test.ts"
       ],
       "id": "recipe/independent-actor-actions",
@@ -565,7 +565,7 @@
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
-        "src/plugins/verdant-content/content.json"
+        "games/verdant/plugins/verdant-content/content.json"
       ],
       "tests": [
         "tests/mechanics-providers.test.ts"
@@ -668,7 +668,7 @@
       ],
       "examples": [
         "src/plugins/puzzle-presentation/index.ts",
-        "src/plugins/verdant-presentation/scene.ts"
+        "games/verdant/plugins/verdant-presentation/scene.ts"
       ],
       "tests": [
         "tests/render-three.test.ts",
@@ -4514,7 +4514,7 @@
       "name": "Ember Bastion Content",
       "scope": "content",
       "summary": "Ash lane and three enemy waves.",
-      "source": "src/plugins/ember-content",
+      "source": "games/ember/plugins/ember-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -4579,7 +4579,7 @@
       "name": "Ember Bastion Rules",
       "scope": "family",
       "summary": "Tower-defense orchestration with independent shared tower actions, construction and authored enemy waves.",
-      "source": "src/plugins/ember-game",
+      "source": "games/ember/plugins/ember-game",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -4609,11 +4609,11 @@
         "docs/reusable-mechanics.md"
       ],
       "examples": [
-        "src/plugins/ember-content/content.json",
-        "src/content/presets/ember-bastion.json"
+        "games/ember/plugins/ember-content/content.json",
+        "games/ember/presets/ember-bastion.json"
       ],
       "tests": [
-        "tests/ember-bastion.test.ts",
+        "games/ember/tests/ember-bastion.test.ts",
         "tests/reusable-games.test.ts"
       ],
       "dependencies": {
@@ -4674,7 +4674,7 @@
       "name": "Ember Bastion Presentation",
       "scope": "unreviewed",
       "summary": "Lit 3D bastion and accessible controls.",
-      "source": "src/plugins/ember-presentation",
+      "source": "games/ember/plugins/ember-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -7009,13 +7009,13 @@
         "docs/reusable-mechanics.md"
       ],
       "examples": [
-        "src/plugins/ember-game/index.ts",
+        "games/ember/plugins/ember-game/index.ts",
         "games/sky/plugins/sky-game/index.ts",
-        "src/plugins/verdant-game/index.ts"
+        "games/verdant/plugins/verdant-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-providers.test.ts",
-        "tests/ember-bastion.test.ts",
+        "games/ember/tests/ember-bastion.test.ts",
         "tests/reusable-games.test.ts"
       ],
       "dependencies": {},
@@ -7262,7 +7262,7 @@
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
-        "src/plugins/verdant-game/index.ts"
+        "games/verdant/plugins/verdant-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-providers.test.ts",
@@ -7921,8 +7921,8 @@
       ],
       "examples": [
         "games/sky/plugins/sky-content/content.json",
-        "src/plugins/ember-content/content.json",
-        "src/plugins/verdant-content/content.json"
+        "games/ember/plugins/ember-content/content.json",
+        "games/verdant/plugins/verdant-content/content.json"
       ],
       "tests": [
         "tests/mechanics-providers.test.ts",
@@ -8210,8 +8210,8 @@
         "docs/reusable-mechanics.md"
       ],
       "examples": [
-        "src/plugins/ember-game/index.ts",
-        "src/plugins/verdant-game/index.ts"
+        "games/ember/plugins/ember-game/index.ts",
+        "games/verdant/plugins/verdant-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-providers.test.ts",
@@ -8797,8 +8797,8 @@
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
-        "src/plugins/ember-game/index.ts",
-        "src/plugins/verdant-game/index.ts"
+        "games/ember/plugins/ember-game/index.ts",
+        "games/verdant/plugins/verdant-game/index.ts"
       ],
       "tests": [
         "tests/mechanics-providers.test.ts",
@@ -12486,7 +12486,7 @@
       "name": "Verdant Relay Archipelago",
       "scope": "content",
       "summary": "The three islands and their restoration kit.",
-      "source": "src/plugins/verdant-content",
+      "source": "games/verdant/plugins/verdant-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12551,7 +12551,7 @@
       "name": "Verdant Relay Rules",
       "scope": "family",
       "summary": "Turn-based colony orchestration composing shared conversion, cooldowns, restoration and successful-turn weather/season deadlines.",
-      "source": "src/plugins/verdant-game",
+      "source": "games/verdant/plugins/verdant-game",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12586,11 +12586,11 @@
         "docs/deadlines.md"
       ],
       "examples": [
-        "src/plugins/verdant-content/content.json",
-        "src/content/presets/verdant-relay.json"
+        "games/verdant/plugins/verdant-content/content.json",
+        "games/verdant/presets/verdant-relay.json"
       ],
       "tests": [
-        "tests/verdant-relay.test.ts",
+        "games/verdant/tests/verdant-relay.test.ts",
         "tests/reusable-games.test.ts",
         "tests/deadline-consumers.test.ts"
       ],
@@ -12664,7 +12664,7 @@
       "name": "Verdant Relay Presentation",
       "scope": "unreviewed",
       "summary": "Volumetric archipelago and colony management interface.",
-      "source": "src/plugins/verdant-presentation",
+      "source": "games/verdant/plugins/verdant-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -14136,64 +14136,6 @@
       ],
       "recipes": [],
       "implementations": []
-    },
-    {
-      "id": "sdk/Ember",
-      "type": "contract",
-      "name": "Ember",
-      "scope": "contract",
-      "summary": "Public SDK value: ember/bastion",
-      "importFrom": "src/sdk/index.ts",
-      "token": "ember/bastion",
-      "source": "src/sdk/contracts/ember.ts:52",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Ember",
-        "ember/bastion"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "ember/game"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/EmberConfigs",
-      "type": "contract",
-      "name": "EmberConfigs",
-      "scope": "contract",
-      "summary": "Public SDK value: ember-defense",
-      "importFrom": "src/sdk/index.ts",
-      "token": "ember-defense",
-      "source": "src/sdk/contracts/ember.ts:18",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "EmberConfigs",
-        "ember-defense"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "ember/game"
-      ],
-      "recipes": [],
-      "implementations": [
-        "ember/content"
-      ]
     },
     {
       "id": "sdk/Enemies",
@@ -17325,65 +17267,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/Verdant",
-      "type": "contract",
-      "name": "Verdant",
-      "scope": "contract",
-      "summary": "Public SDK value: verdant/relay",
-      "importFrom": "src/sdk/index.ts",
-      "token": "verdant/relay",
-      "source": "src/sdk/contracts/verdant.ts:38",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Verdant",
-        "verdant/relay"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "verdant/game"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/VerdantWorlds",
-      "type": "contract",
-      "name": "VerdantWorlds",
-      "scope": "contract",
-      "summary": "Public SDK value: verdant-world",
-      "importFrom": "src/sdk/index.ts",
-      "token": "verdant-world",
-      "source": "src/sdk/contracts/verdant.ts:16",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "VerdantWorlds",
-        "verdant-world"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "verdant/game"
-      ],
-      "recipes": [],
-      "implementations": [
-        "portfolio/verdant-resource",
-        "verdant/content"
-      ]
-    },
-    {
       "id": "sdk/vId",
       "type": "contract",
       "name": "vId",
@@ -17858,6 +17741,66 @@
       "implementations": []
     },
     {
+      "id": "games/ember/Ember",
+      "type": "contract",
+      "name": "Ember",
+      "scope": "contract",
+      "summary": "Game-family contract value: ember/bastion",
+      "importFrom": "games/ember/contracts/ember.ts",
+      "token": "ember/bastion",
+      "source": "games/ember/contracts/ember.ts:52",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Ember",
+        "ember",
+        "ember/bastion"
+      ],
+      "useWhen": "Game-specific contract of the ember family; plugins in games/ember/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the ember family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "ember/game"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/ember/EmberConfigs",
+      "type": "contract",
+      "name": "EmberConfigs",
+      "scope": "contract",
+      "summary": "Game-family contract value: ember-defense",
+      "importFrom": "games/ember/contracts/ember.ts",
+      "token": "ember-defense",
+      "source": "games/ember/contracts/ember.ts:18",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "EmberConfigs",
+        "ember",
+        "ember-defense"
+      ],
+      "useWhen": "Game-specific contract of the ember family; plugins in games/ember/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the ember family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "ember/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "ember/content"
+      ]
+    },
+    {
       "id": "games/sky/Sky",
       "type": "contract",
       "name": "Sky",
@@ -17916,6 +17859,67 @@
       "implementations": [
         "portfolio/sky-resource",
         "sky/content"
+      ]
+    },
+    {
+      "id": "games/verdant/Verdant",
+      "type": "contract",
+      "name": "Verdant",
+      "scope": "contract",
+      "summary": "Game-family contract value: verdant/relay",
+      "importFrom": "games/verdant/contracts/verdant.ts",
+      "token": "verdant/relay",
+      "source": "games/verdant/contracts/verdant.ts:38",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Verdant",
+        "verdant",
+        "verdant/relay"
+      ],
+      "useWhen": "Game-specific contract of the verdant family; plugins in games/verdant/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the verdant family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "verdant/game"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/verdant/VerdantWorlds",
+      "type": "contract",
+      "name": "VerdantWorlds",
+      "scope": "contract",
+      "summary": "Game-family contract value: verdant-world",
+      "importFrom": "games/verdant/contracts/verdant.ts",
+      "token": "verdant-world",
+      "source": "games/verdant/contracts/verdant.ts:16",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "VerdantWorlds",
+        "verdant",
+        "verdant-world"
+      ],
+      "useWhen": "Game-specific contract of the verdant family; plugins in games/verdant/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the verdant family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "verdant/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "portfolio/verdant-resource",
+        "verdant/content"
       ]
     }
   ],

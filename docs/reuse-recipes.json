@@ -260,7 +260,7 @@
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
-        "src/plugins/verdant-game/index.ts"
+        "games/verdant/plugins/verdant-game/index.ts"
       ],
       "tests": [
         "tests/deadlines.test.ts",
@@ -311,9 +311,9 @@
         "docs/mechanic-conformance.md"
       ],
       "examples": [
-        "src/plugins/verdant-content/content.json",
-        "src/plugins/verdant-game/index.ts",
-        "src/content/presets/verdant-relay.json"
+        "games/verdant/plugins/verdant-content/content.json",
+        "games/verdant/plugins/verdant-game/index.ts",
+        "games/verdant/presets/verdant-relay.json"
       ],
       "tests": [
         "tests/mechanics-providers.test.ts",
@@ -371,10 +371,10 @@
         "docs/ember-bastion.md"
       ],
       "examples": [
-        "src/plugins/ember-game/index.ts"
+        "games/ember/plugins/ember-game/index.ts"
       ],
       "tests": [
-        "tests/ember-bastion.test.ts",
+        "games/ember/tests/ember-bastion.test.ts",
         "tests/mechanics-providers.test.ts"
       ],
       "plugins": [
@@ -424,7 +424,7 @@
       ],
       "examples": [
         "games/sky/plugins/sky-game/index.ts",
-        "src/plugins/verdant-content/content.json"
+        "games/verdant/plugins/verdant-content/content.json"
       ],
       "tests": [
         "tests/mechanics-providers.test.ts"
@@ -523,7 +523,7 @@
       ],
       "examples": [
         "src/plugins/puzzle-presentation/index.ts",
-        "src/plugins/verdant-presentation/scene.ts"
+        "games/verdant/plugins/verdant-presentation/scene.ts"
       ],
       "tests": [
         "tests/render-three.test.ts",

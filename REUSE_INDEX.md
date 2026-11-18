@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `39bae8c1d20d01fea3abc9cfb9891a712d237b7f05622a35cde26c129b6294c9`
+Source digest: `175013202b159daffefeb14d08a39b5b5a4123eae4b1f7dd9b68cc2e75febd09`
 
 ## Composition recipes
 
@@ -54,9 +54,9 @@ Source digest: `39bae8c1d20d01fea3abc9cfb9891a712d237b7f05622a35cde26c129b6294c9
 | `core/presentation` | unreviewed | Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks. Honors optional ViewModes to hide ceilings, first-person view models and fog for overhead presentations. | [source](src/plugins/core-presentation) |
 | `core/world` | family | Shooter-family planar collision, ray/sweep queries, pathfinding, doors, switches and trigger zones. | [source](src/plugins/core-world) |
 | `dungeon/generator` | family | Seeded room-and-corridor dungeon map format. It emits multiple isolated wings in one bounded grid, with room markers, descent pads and lights for a game mode to populate. | [source](src/plugins/dungeon-generator) |
-| `ember/content` | content | Ash lane and three enemy waves. | [source](src/plugins/ember-content) |
-| `ember/game` | family | Tower-defense orchestration with independent shared tower actions, construction and authored enemy waves. | [source](src/plugins/ember-game) |
-| `ember/presentation` | unreviewed | Lit 3D bastion and accessible controls. | [source](src/plugins/ember-presentation) |
+| `ember/content` | content | Ash lane and three enemy waves. | [source](games/ember/plugins/ember-content) |
+| `ember/game` | family | Tower-defense orchestration with independent shared tower actions, construction and authored enemy waves. | [source](games/ember/plugins/ember-game) |
+| `ember/presentation` | unreviewed | Lit 3D bastion and accessible controls. | [source](games/ember/plugins/ember-presentation) |
 | `example/adventure-pack` | content | Two small objective maps: a quiet switch hunt and a dark survival encounter. | [source](src/plugins/example-adventure-pack) |
 | `example/arena` | unreviewed | Score points by eliminating enemies before the kill or time limit. | [source](src/plugins/example-arena) |
 | `example/dash-controller` | family | Planar first-person sprint and directional dash controller. | [source](src/plugins/example-dash-controller) |
@@ -138,9 +138,9 @@ Source digest: `39bae8c1d20d01fea3abc9cfb9891a712d237b7f05622a35cde26c129b6294c9
 | `vehicle/presentation` | unreviewed | Overhead race scene, HUD and sound. | [source](src/plugins/vehicle-presentation) |
 | `vehicle/racing` | family | Arcade vehicle motion, drifting, directional gates and timeout, composing shared ordered sequence and lap progression. | [source](src/plugins/vehicle-racing) |
 | `vehicle/track` | content | An authored neon circuit. | [source](src/plugins/vehicle-track) |
-| `verdant/content` | content | The three islands and their restoration kit. | [source](src/plugins/verdant-content) |
-| `verdant/game` | family | Turn-based colony orchestration composing shared conversion, cooldowns, restoration and successful-turn weather/season deadlines. | [source](src/plugins/verdant-game) |
-| `verdant/presentation` | unreviewed | Volumetric archipelago and colony management interface. | [source](src/plugins/verdant-presentation) |
+| `verdant/content` | content | The three islands and their restoration kit. | [source](games/verdant/plugins/verdant-content) |
+| `verdant/game` | family | Turn-based colony orchestration composing shared conversion, cooldowns, restoration and successful-turn weather/season deadlines. | [source](games/verdant/plugins/verdant-game) |
+| `verdant/presentation` | unreviewed | Volumetric archipelago and colony management interface. | [source](games/verdant/plugins/verdant-presentation) |
 
 ## Public SDK values
 
@@ -195,8 +195,6 @@ Source digest: `39bae8c1d20d01fea3abc9cfb9891a712d237b7f05622a35cde26c129b6294c9
 | `sdk/defineService` | contract | Public helper/class | [source](src/sdk/core.ts#L31) |
 | `sdk/Died` | contract | Public SDK value: sdk/died | [source](src/sdk/contracts/shooter.ts#L358) |
 | `sdk/DoorChanged` | contract | Public SDK value: sdk/door-changed | [source](src/sdk/contracts/shooter.ts#L312) |
-| `sdk/Ember` | contract | Public SDK value: ember/bastion | [source](src/sdk/contracts/ember.ts#L52) |
-| `sdk/EmberConfigs` | contract | Public SDK value: ember-defense | [source](src/sdk/contracts/ember.ts#L18) |
 | `sdk/Enemies` | contract | Public SDK value: enemy | [source](src/sdk/contracts/shooter.ts#L525) |
 | `sdk/Enemy` | contract | Public SDK value: sdk/enemy | [source](src/sdk/contracts/shooter.ts#L105) |
 | `sdk/EnemyAi` | contract | Public SDK value: sdk/enemies | [source](src/sdk/contracts/shooter.ts#L553) |
@@ -303,8 +301,6 @@ Source digest: `39bae8c1d20d01fea3abc9cfb9891a712d237b7f05622a35cde26c129b6294c9
 | `sdk/UseFailed` | contract | Public SDK value: sdk/use-failed | [source](src/sdk/contracts/shooter.ts#L315) |
 | `sdk/vArray` | contract | Public helper/class | [source](src/kernel/validate.ts#L69) |
 | `sdk/vBool` | contract | Public helper/class | [source](src/kernel/validate.ts#L65) |
-| `sdk/Verdant` | contract | Public SDK value: verdant/relay | [source](src/sdk/contracts/verdant.ts#L38) |
-| `sdk/VerdantWorlds` | contract | Public SDK value: verdant-world | [source](src/sdk/contracts/verdant.ts#L16) |
 | `sdk/vId` | contract | Public helper/class | [source](src/kernel/validate.ts#L51) |
 | `sdk/View` | contract | Public SDK value: sdk/view | [source](src/sdk/contracts/shooter.ts#L680) |
 | `sdk/ViewModeChanged` | contract | Public SDK value: sdk/view-mode-changed | [source](src/sdk/contracts/viewmodes.ts#L24) |
@@ -323,5 +319,9 @@ Source digest: `39bae8c1d20d01fea3abc9cfb9891a712d237b7f05622a35cde26c129b6294c9
 | `sdk/yawDirX` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L722) |
 | `sdk/yawDirZ` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L723) |
 | `sdk/yawOf` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L725) |
+| `games/ember/Ember` | contract | Game-family contract value: ember/bastion | [source](games/ember/contracts/ember.ts#L52) |
+| `games/ember/EmberConfigs` | contract | Game-family contract value: ember-defense | [source](games/ember/contracts/ember.ts#L18) |
 | `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](games/sky/contracts/sky.ts#L16) |
 | `games/sky/SkyRoutes` | contract | Game-family contract value: sky-route | [source](games/sky/contracts/sky.ts#L7) |
+| `games/verdant/Verdant` | contract | Game-family contract value: verdant/relay | [source](games/verdant/contracts/verdant.ts#L38) |
+| `games/verdant/VerdantWorlds` | contract | Game-family contract value: verdant-world | [source](games/verdant/contracts/verdant.ts#L16) |

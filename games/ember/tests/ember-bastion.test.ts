@@ -1,19 +1,20 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Ember, SessionControl, Scope, MechanicActionCommitted, Reporter } from '../src/sdk/index.ts';
-import { loadDefense } from '../src/plugins/ember-game/content.ts';
-import { createHeadlessGame } from './helpers/game.ts';
-import resources from '../src/plugins/mechanics-resources/manifest.json' with {type:'json'};
-import clock from '../src/plugins/mechanics-clock/manifest.json' with {type:'json'};
-import actions from '../src/plugins/mechanics-actions/manifest.json' with {type:'json'};
-import objectives from '../src/plugins/mechanics-objectives/manifest.json' with {type:'json'};
-import kits from '../src/plugins/mechanics-kits/manifest.json' with {type:'json'};
-import game from '../src/plugins/ember-game/manifest.json' with {type:'json'};
-import pack from '../src/plugins/ember-content/manifest.json' with {type:'json'};
-import content from '../src/plugins/ember-content/content.json' with {type:'json'};
+import { SessionControl, Scope, MechanicActionCommitted, Reporter } from '../../../src/sdk/index.ts';
+import { Ember } from '../contracts/ember.ts';
+import { loadDefense } from '../plugins/ember-game/content.ts';
+import { createHeadlessGame } from '../../../tests/helpers/game.ts';
+import resources from '../../../src/plugins/mechanics-resources/manifest.json' with {type:'json'};
+import clock from '../../../src/plugins/mechanics-clock/manifest.json' with {type:'json'};
+import actions from '../../../src/plugins/mechanics-actions/manifest.json' with {type:'json'};
+import objectives from '../../../src/plugins/mechanics-objectives/manifest.json' with {type:'json'};
+import kits from '../../../src/plugins/mechanics-kits/manifest.json' with {type:'json'};
+import game from '../plugins/ember-game/manifest.json' with {type:'json'};
+import pack from '../plugins/ember-content/manifest.json' with {type:'json'};
+import content from '../plugins/ember-content/content.json' with {type:'json'};
 const preset = {schema:1,id:'ember/test',name:'Ember',plugins:['mechanics/resources','mechanics/clock','mechanics/actions','mechanics/objectives','mechanics/kits','ember/game','ember/content'],roles:{'sdk/experience':'ember/bastion','sdk/mechanic-resources':'mechanics/resources','sdk/mechanic-clock':'mechanics/clock','sdk/mechanic-actions':'mechanics/actions','sdk/mechanic-objectives':'mechanics/objectives'},options:{defense:'ember/ash-lane'},seed:1};
 function setup() {return createHeadlessGame([
- {manifest:resources,load:()=>import('../src/plugins/mechanics-resources/index.ts')}, {manifest:clock,load:()=>import('../src/plugins/mechanics-clock/index.ts')}, {manifest:actions,load:()=>import('../src/plugins/mechanics-actions/index.ts')}, {manifest:objectives,load:()=>import('../src/plugins/mechanics-objectives/index.ts')}, {manifest:kits,load:()=>import('../src/plugins/mechanics-kits/index.ts')}, {manifest:game,load:()=>import('../src/plugins/ember-game/index.ts')}, {manifest:pack,content},
+ {manifest:resources,load:()=>import('../../../src/plugins/mechanics-resources/index.ts')}, {manifest:clock,load:()=>import('../../../src/plugins/mechanics-clock/index.ts')}, {manifest:actions,load:()=>import('../../../src/plugins/mechanics-actions/index.ts')}, {manifest:objectives,load:()=>import('../../../src/plugins/mechanics-objectives/index.ts')}, {manifest:kits,load:()=>import('../../../src/plugins/mechanics-kits/index.ts')}, {manifest:game,load:()=>import('../plugins/ember-game/index.ts')}, {manifest:pack,content},
 ]);}
 test('forging, rejection, three actual waves and restart',async()=>{const h=setup();await h.host.apply(preset);const s=h.session().services.get(Ember);const send=(c:Parameters<typeof s.enqueue>[0])=>{assert.equal(s.enqueue(c),true);h.ticks(1);};
  send({type:'build',pad:-1});assert.equal(s.state().scrap,100);send({type:'build',pad:2});send({type:'build',pad:2});assert.equal(s.state().scrap,60);send({type:'build',pad:3});send({type:'build',pad:0});assert.equal(s.state().scrap,20);

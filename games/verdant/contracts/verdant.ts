@@ -1,5 +1,5 @@
-import { defineRegistry, defineService } from '../core.ts';
-import type { MechanicActionDefinition, ResourceAmounts } from './mechanics.ts';
+import { defineRegistry, defineService } from '../../../src/sdk/index.ts';
+import type { MechanicActionDefinition, ResourceAmounts } from '../../../src/sdk/index.ts';
 
 export interface VerdantStation {
   readonly id: string;

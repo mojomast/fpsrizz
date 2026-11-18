@@ -150,7 +150,7 @@ Focused command (installed Node 22; no browser required):
 PATH=/home/mojo/.local/node_modules/node/bin:/opt/emurizz/bin:$PATH \
   node --test tests/deadlines.test.ts tests/deadline-consumers.test.ts \
   tests/mechanics-providers.test.ts games/sky/tests/sky-salvage.test.ts \
-  tests/verdant-relay.test.ts tests/reusable-games.test.ts
+  games/verdant/tests/verdant-relay.test.ts tests/reusable-games.test.ts
 ```
 
 The first pre-migration consumer run passed all six cases after correcting a new test's ownership oracle to account for

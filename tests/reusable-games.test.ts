@@ -2,9 +2,12 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost, HostError } from '../src/kernel/host.ts';
 import type { CatalogEntry, Session } from '../src/kernel/host.ts';
-import { PHASES, SDK_VERSION, Ember, Verdant, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, resourceMechanic } from '../src/sdk/index.ts';
+import { PHASES, SDK_VERSION, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, resourceMechanic } from '../src/sdk/index.ts';
+import { Ember } from '../games/ember/contracts/ember.ts';
+import { Verdant } from '../games/verdant/contracts/verdant.ts';
 import { Sky } from '../games/sky/contracts/sky.ts';
-import type { ResourceTransaction, ResourcePool, ResourceAmounts, SessionContext, VerdantCommand } from '../src/sdk/index.ts';
+import type { ResourceTransaction, ResourcePool, ResourceAmounts, SessionContext } from '../src/sdk/index.ts';
+import type { VerdantCommand } from '../games/verdant/contracts/verdant.ts';
 import { ALTERNATE, alternateEntry } from './helpers/alternate-resources.ts';
 import resources from '../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
 import clock from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
@@ -15,14 +18,14 @@ import skyGame from '../games/sky/plugins/sky-game/manifest.json' with { type: '
 import skyPack from '../games/sky/plugins/sky-content/manifest.json' with { type: 'json' };
 import skyContent from '../games/sky/plugins/sky-content/content.json' with { type: 'json' };
 import skyPreset from '../games/sky/presets/sky-salvage.json' with { type: 'json' };
-import emberGame from '../src/plugins/ember-game/manifest.json' with { type: 'json' };
-import emberPack from '../src/plugins/ember-content/manifest.json' with { type: 'json' };
-import emberContent from '../src/plugins/ember-content/content.json' with { type: 'json' };
-import emberPreset from '../src/content/presets/ember-bastion.json' with { type: 'json' };
-import verdantGame from '../src/plugins/verdant-game/manifest.json' with { type: 'json' };
-import verdantPack from '../src/plugins/verdant-content/manifest.json' with { type: 'json' };
-import verdantContent from '../src/plugins/verdant-content/content.json' with { type: 'json' };
-import verdantPreset from '../src/content/presets/verdant-relay.json' with { type: 'json' };
+import emberGame from '../games/ember/plugins/ember-game/manifest.json' with { type: 'json' };
+import emberPack from '../games/ember/plugins/ember-content/manifest.json' with { type: 'json' };
+import emberContent from '../games/ember/plugins/ember-content/content.json' with { type: 'json' };
+import emberPreset from '../games/ember/presets/ember-bastion.json' with { type: 'json' };
+import verdantGame from '../games/verdant/plugins/verdant-game/manifest.json' with { type: 'json' };
+import verdantPack from '../games/verdant/plugins/verdant-content/manifest.json' with { type: 'json' };
+import verdantContent from '../games/verdant/plugins/verdant-content/content.json' with { type: 'json' };
+import verdantPreset from '../games/verdant/presets/verdant-relay.json' with { type: 'json' };
 
 function sharedCatalog(replacement: boolean): CatalogEntry[] {
   return [
@@ -99,10 +102,10 @@ const games = [
     catalog: [{ manifest: skyGame, load: () => import('../games/sky/plugins/sky-game/index.ts') }, { manifest: skyPack, content: skyContent }],
     actions: ['collect', 'deliver', 'collect', 'deliver', 'collect', 'deliver'] },
   { name: 'Ember', owner: 'ember/game', preset: emberPreset, manifest: emberGame, domain: 'seconds', route: completeEmber,
-    catalog: [{ manifest: emberGame, load: () => import('../src/plugins/ember-game/index.ts') }, { manifest: emberPack, content: emberContent }],
+    catalog: [{ manifest: emberGame, load: () => import('../games/ember/plugins/ember-game/index.ts') }, { manifest: emberPack, content: emberContent }],
     actions: ['build', 'build', 'build'] },
   { name: 'Verdant', owner: 'verdant/game', preset: verdantPreset, manifest: verdantGame, domain: 'turns', route: completeVerdant,
-    catalog: [{ manifest: verdantGame, load: () => import('../src/plugins/verdant-game/index.ts') }, { manifest: verdantPack, content: verdantContent }],
+    catalog: [{ manifest: verdantGame, load: () => import('../games/verdant/plugins/verdant-game/index.ts') }, { manifest: verdantPack, content: verdantContent }],
     actions: ['restore', 'biomass', 'convert', 'restore', 'water', 'biomass', 'convert', 'restore'] },
 ] as const;
 

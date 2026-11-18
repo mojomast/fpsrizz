@@ -1,5 +1,6 @@
-import { isObject, vArray, vNumber, vString } from '../../sdk/index.ts';
-import type { EmberConfig, EmberPoint, EmberWave, Reporter } from '../../sdk/index.ts';
+import { isObject, vArray, vNumber, vString } from '../../../../src/sdk/index.ts';
+import type { Reporter } from '../../../../src/sdk/index.ts';
+import type { EmberConfig, EmberPoint, EmberWave } from '../../contracts/ember.ts';
 
 function keys(data: Record<string, unknown>, allowed: readonly string[], r: Reporter): void {
   for (const key of Object.keys(data)) if (!allowed.includes(key)) r.at(key).error('unknown property');

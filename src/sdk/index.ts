@@ -11,8 +11,6 @@ export * from './contracts/tactics.ts';
 export * from './contracts/adventure.ts';
 export * from './contracts/puzzle.ts';
 export * from './contracts/mechanics.ts';
-export * from './contracts/ember.ts';
-export * from './contracts/verdant.ts';
 export * from './contracts/profile.ts';
 export type * from './contracts/audio.ts';
 export * from './contracts/deadlines.ts';

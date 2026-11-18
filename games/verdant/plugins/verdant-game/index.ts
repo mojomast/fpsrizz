@@ -1,5 +1,6 @@
-import { ExperienceRole, MechanicKits, SessionControl, Verdant, VerdantWorlds, createDeadline, createMechanicKit, definePlugin, isObject, vArray, vNumber, vString } from '../../sdk/index.ts';
-import type { VerdantCommand, VerdantStation } from '../../sdk/index.ts';
+import { ExperienceRole, MechanicKits, SessionControl, createDeadline, createMechanicKit, definePlugin, isObject, vArray, vNumber, vString } from '../../../../src/sdk/index.ts';
+import { Verdant, VerdantWorlds } from '../../contracts/verdant.ts';
+import type { VerdantCommand, VerdantStation } from '../../contracts/verdant.ts';
 
 const actions = ['water', 'biomass', 'convert', 'restore', 'wait'] as const;
 export default definePlugin({

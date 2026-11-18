@@ -1,6 +1,7 @@
-import { Ember, SessionControl, Ui, definePlugin } from '../../sdk/index.ts';
-import type { EmberActionView } from '../../sdk/index.ts';
-import { Render } from '../../sdk/render.ts';
+import { SessionControl, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { Ember } from '../../contracts/ember.ts';
+import type { EmberActionView } from '../../contracts/ember.ts';
+import { Render } from '../../../../src/sdk/render.ts';
 import { createScene } from './scene.ts';
 import { styles } from './styles.ts';
 

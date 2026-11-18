@@ -97,8 +97,8 @@ These use the same content-entry envelope and staged `Reporter` validation, with
 | `crafting-recipe` | `mechanics/crafting` | Known by a crafting consumer | 1–6 item inputs and one item output; no currency, failure or discovery in the generic format; [crafting](docs/crafting.md) |
 | `metroidvania-world` | `hollowmere/game` | `options.world` | Twelve-room graph, ability definitions, enemy archetypes, item/ability pickups, doors, checkpoints and NPCs for the Hollowmere family; [Hollowmere](docs/hollowmere.md) |
 | `sky-route` | `sky/game` | `options.route` | `games/sky/plugins/sky-content/content.json`; [flight schema](docs/sky-salvage.md) |
-| `ember-defense` | `ember/game` | `options.defense` | `src/plugins/ember-content/content.json`; [defense schema](docs/ember-bastion.md) |
-| `verdant-world` | `verdant/game` | `options.world` | `src/plugins/verdant-content/content.json`; [colony schema](docs/verdant-relay.md) |
+| `ember-defense` | `ember/game` | `options.defense` | `games/ember/plugins/ember-content/content.json`; [defense schema](docs/ember-bastion.md) |
+| `verdant-world` | `verdant/game` | `options.world` | `games/verdant/plugins/verdant-content/content.json`; [colony schema](docs/verdant-relay.md) |
 
 Enable the loader, pack, independent presentation and matching theme explicitly. Select their `sdk/experience`
 provider as shown in the presets. These content kinds do not produce the shooter's `WorldDescription` and do not

@@ -61,9 +61,9 @@ the implemented resource/cooldown/objective algorithms and do not enable the ori
 - Sky agent: `src/plugins/sky-{game,presentation,content}/`, `games/sky/contracts/sky.ts`,
   `games/sky/presets/sky-salvage.json`, `games/sky/tests/sky-salvage.test.ts`, `docs/sky-salvage.md`.
 - Ember agent: corresponding `ember-{game,presentation,content}`, `contracts/ember.ts`, `ember-bastion.json`,
-  `tests/ember-bastion.test.ts`, `docs/ember-bastion.md`.
+  `games/ember/tests/ember-bastion.test.ts`, `docs/ember-bastion.md`.
 - Verdant agent: corresponding `verdant-{game,presentation,content}`, `contracts/verdant.ts`, `verdant-relay.json`,
-  `tests/verdant-relay.test.ts`, `docs/verdant-relay.md`.
+  `games/verdant/tests/verdant-relay.test.ts`, `docs/verdant-relay.md`.
 - Research agent: `docs/research/reusable-mechanics-2026-11-16.md`.
 
 Do not edit another owner's files. No concurrent production builds or heavy browser suites; coordinator sequences them.

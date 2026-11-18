@@ -1,6 +1,8 @@
-import { SessionControl, Ui, Verdant, definePlugin } from '../../sdk/index.ts';
-import type { MechanicActionDefinition, VerdantCommand } from '../../sdk/index.ts';
-import { Render } from '../../sdk/render.ts';
+import { SessionControl, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { Verdant } from '../../contracts/verdant.ts';
+import type { MechanicActionDefinition } from '../../../../src/sdk/index.ts';
+import type { VerdantCommand } from '../../contracts/verdant.ts';
+import { Render } from '../../../../src/sdk/render.ts';
 import { createScene } from './scene.ts';
 
 const styles = `

@@ -1,5 +1,5 @@
-import { defineRegistry, defineService } from '../core.ts';
-import type { MechanicActionDefinition } from './mechanics.ts';
+import { defineRegistry, defineService } from '../../../src/sdk/index.ts';
+import type { MechanicActionDefinition } from '../../../src/sdk/index.ts';
 
 export interface EmberPoint { readonly x: number; readonly z: number }
 export interface EmberWave { readonly count: number; readonly health: number; readonly speed: number; readonly interval: number }

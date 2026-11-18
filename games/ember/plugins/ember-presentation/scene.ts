@@ -1,7 +1,8 @@
-import type { EmberService, SessionContext } from '../../sdk/index.ts';
-import { SessionControl } from '../../sdk/index.ts';
-import { THREE } from '../../sdk/render.ts';
-import type { RenderService } from '../../sdk/render.ts';
+import type { SessionContext } from '../../../../src/sdk/index.ts';
+import type { EmberService } from '../../contracts/ember.ts';
+import { SessionControl } from '../../../../src/sdk/index.ts';
+import { THREE } from '../../../../src/sdk/render.ts';
+import type { RenderService } from '../../../../src/sdk/render.ts';
 
 /** Original volumetric models, fitted to the authored XZ lane and pad bounds. */
 export function createScene(ctx: SessionContext, render: RenderService, game: EmberService, hud: () => HTMLElement | undefined) {

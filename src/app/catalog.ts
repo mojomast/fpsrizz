@@ -30,8 +30,8 @@ import turnTacticsPreset from '../content/presets/turn-tactics.json' with { type
 import narrativeAdventurePreset from '../content/presets/narrative-adventure.json' with { type: 'json' };
 import stonewakePreset from '../content/presets/stonewake.json' with { type: 'json' };
 import skyPreset from '../../games/sky/presets/sky-salvage.json' with { type: 'json' };
-import emberPreset from '../content/presets/ember-bastion.json' with { type: 'json' };
-import verdantPreset from '../content/presets/verdant-relay.json' with { type: 'json' };
+import emberPreset from '../../games/ember/presets/ember-bastion.json' with { type: 'json' };
+import verdantPreset from '../../games/verdant/presets/verdant-relay.json' with { type: 'json' };
 import cinderPreset from '../content/presets/cinder-vault.json' with { type: 'json' };
 import hollowmerePreset from '../content/presets/hollowmere-ascent.json' with { type: 'json' };
 import portfolioAtelierPreset from '../content/presets/portfolio-atelier-puzzle.json' with { type: 'json' };

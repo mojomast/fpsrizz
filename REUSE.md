@@ -117,7 +117,7 @@ game preset. In the consumer manifest, declare the content-loader dependency and
 ```
 
 This is a **fragment**, not a complete manifest. Copy a compatible kit from
-`src/plugins/verdant-content/content.json` (turns) or `games/sky/plugins/sky-content/content.json` (seconds), then inspect its
+`games/verdant/plugins/verdant-content/content.json` (turns) or `games/sky/plugins/sky-content/content.json` (seconds), then inspect its
 consumer. `createMechanicKit(ctx, definitionId, instanceId)` resolves selected implementations; the game owns target
 legality and local effects. `roleDependencies` orders provider owners before the consumer; `requiresRoles` alone
 only requires selection. See [complete mechanic semantics](docs/reusable-mechanics.md).
@@ -147,7 +147,7 @@ Optional `src/plugins/<folder>/reuse.json` describes semantics that names/manife
   "useWhen": "Named numeric resources need bounded atomic transactions.",
   "limitations": ["Not a slotted or unique-item inventory."],
   "docs": ["docs/reusable-mechanics.md"],
-  "examples": ["src/plugins/verdant-game/index.ts"],
+  "examples": ["games/verdant/plugins/verdant-game/index.ts"],
   "tests": ["tests/mechanics-providers.test.ts"]
 }
 ```

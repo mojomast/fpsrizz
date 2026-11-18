@@ -3,5 +3,5 @@
   "keywords": ["colony", "restoration", "production", "crafting", "water", "biomass", "turn", "forecast", "weather", "deadline", "season", "dry-wind"],
   "entryPoints": ["Verdant", "VerdantWorlds", "createMechanicKit", "createDeadline"], "useWhen": "Author another restoration world or study successful-turn deadlines and explicit weather rearming over shared mechanic providers.",
   "limitations": ["Weather drain, stations and victory conditions are family orchestration, not generic providers."],
-  "docs": ["docs/verdant-relay.md", "docs/reusable-mechanics.md", "docs/deadlines.md"], "examples": ["src/plugins/verdant-content/content.json", "src/content/presets/verdant-relay.json"], "tests": ["tests/verdant-relay.test.ts", "tests/reusable-games.test.ts", "tests/deadline-consumers.test.ts"]
+  "docs": ["docs/verdant-relay.md", "docs/reusable-mechanics.md", "docs/deadlines.md"], "examples": ["games/verdant/plugins/verdant-content/content.json", "games/verdant/presets/verdant-relay.json"], "tests": ["games/verdant/tests/verdant-relay.test.ts", "tests/reusable-games.test.ts", "tests/deadline-consumers.test.ts"]
 }
