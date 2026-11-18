@@ -1,15 +1,17 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { NavigationRole, PushPuzzle } from '../src/sdk/index.ts';
+import { NavigationRole } from '../src/sdk/index.ts';
+import { PushPuzzle } from '../games/puzzles/contracts/puzzle.ts';
 import { Tactics, TacticsResolved } from '../games/tactics/contracts/tactics.ts';
-import type { CatalogEntry, PuzzleCommand } from '../src/sdk/index.ts';
+import type { CatalogEntry } from '../src/sdk/index.ts';
+import type { PuzzleCommand } from '../games/puzzles/contracts/puzzle.ts';
 import type { TacticsCommand, TacticsUnit } from '../games/tactics/contracts/tactics.ts';
 import navigationManifest from '../src/plugins/mechanics-navigation/manifest.json' with { type: 'json' };
-import puzzleManifest from '../src/plugins/puzzle-rules/manifest.json' with { type: 'json' };
+import puzzleManifest from '../games/puzzles/plugins/puzzle-rules/manifest.json' with { type: 'json' };
 import tacticsManifest from '../games/tactics/plugins/board-tactics/manifest.json' with { type: 'json' };
 import tacticsContent from '../games/tactics/plugins/board-mission/content.json' with { type: 'json' };
-import puzzleContent from '../src/plugins/puzzle-chambers/content.json' with { type: 'json' };
-import { gateOpen } from '../src/plugins/puzzle-rules/rules.ts';
+import puzzleContent from '../games/puzzles/plugins/puzzle-chambers/content.json' with { type: 'json' };
+import { gateOpen } from '../games/puzzles/plugins/puzzle-rules/rules.ts';
 import { alternateNavigation, alternateNavigationId } from './helpers/alternate-navigation.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
@@ -32,7 +34,7 @@ for (const implementation of implementations) {
   async function puzzleGame(rows?: string[]) {
     const game = createHeadlessGame([
       implementation.entry,
-      { manifest: puzzleManifest, load: () => import('../src/plugins/puzzle-rules/index.ts') },
+      { manifest: puzzleManifest, load: () => import('../games/puzzles/plugins/puzzle-rules/index.ts') },
       { manifest: { schema: 1, id: 'test/puzzle-content', name: 'Puzzle content', version: '1.0.0', kind: 'content', sdk: '^2.0.0',
         dependencies: { 'puzzle/rules': '^1.0.0' } },
         content: rows ? [{ kind: 'push-puzzle', id: 'test/navigation-chamber', data: {

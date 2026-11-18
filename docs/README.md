@@ -38,9 +38,9 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - Families in [`games/`](../games/README.md): Sky Salvage, Verdant Relay, Ember Bastion, Cinder Vault, Hollowmere and
   the expeditions (Silt Archive, Salt Ledger, Common Ground).
 - Games still in `src/plugins`: [Neon Run](../games/racing/README.md), [Signal Break](../games/tactics/README.md),
-  [The Last Light](../games/adventure/README.md), [Stonewake](games/stonewake.md), and the
+  [The Last Light](../games/adventure/README.md), [Stonewake](../games/puzzles/docs/stonewake.md), and the
   [ten-game portfolio](games/ten-game-portfolio.md) ([adventures](../games/adventure/docs/portfolio-adventures.md),
-  [assist](games/portfolio-assist.md), [cards](games/portfolio-cards.md), [puzzles](games/portfolio-puzzles.md),
+  [assist](../games/puzzles/docs/portfolio-assist.md), [cards](../games/puzzles/docs/portfolio-cards.md), [puzzles](../games/puzzles/docs/portfolio-puzzles.md),
   [racing](../games/racing/docs/portfolio-racing.md), [resource games](games/portfolio-resource-games.md),
   [tactics](../games/tactics/docs/portfolio-tactics.md)).
 

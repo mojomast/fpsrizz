@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "a1649abf1e0ba4393755f0b1910a49d38e27cff20672949e1209c57afb931697",
+  "sourceDigest": "1c70f6edb2caba3c22bd2ef07c2edf899a23fef9e86eaf5eac119adbcdf3e39b",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -126,14 +126,14 @@
         "Mutations are blocked by SessionControl while play is paused; initialize the opening hand after play begins."
       ],
       "docs": [
-        "docs/games/portfolio-cards.md"
+        "games/puzzles/docs/portfolio-cards.md"
       ],
       "examples": [
-        "src/plugins/portfolio-cards-ash/index.ts",
-        "src/plugins/portfolio-cards-cloud/index.ts"
+        "games/puzzles/plugins/portfolio-cards-ash/index.ts",
+        "games/puzzles/plugins/portfolio-cards-cloud/index.ts"
       ],
       "tests": [
-        "tests/portfolio-cards.test.ts"
+        "games/puzzles/tests/portfolio-cards.test.ts"
       ],
       "id": "recipe/ordered-card-piles",
       "name": "Ordered draw, hand and discard piles",
@@ -229,13 +229,13 @@
         "docs/cookbook/building-block-plugins.md"
       ],
       "examples": [
-        "src/plugins/puzzle-rules/rules.ts",
+        "games/puzzles/plugins/puzzle-rules/rules.ts",
         "games/tactics/plugins/board-tactics/index.ts"
       ],
       "tests": [
         "tests/mechanics-navigation.test.ts",
         "tests/navigation-consumers.test.ts",
-        "tests/stonewake.test.ts",
+        "games/puzzles/tests/stonewake.test.ts",
         "games/tactics/tests/turn-tactics.test.ts"
       ],
       "id": "recipe/ordered-navigation",
@@ -340,13 +340,13 @@
         "docs/reference/command-queues.md"
       ],
       "examples": [
-        "src/plugins/puzzle-rules/index.ts",
+        "games/puzzles/plugins/puzzle-rules/index.ts",
         "games/adventure/plugins/story-adventure/index.ts"
       ],
       "tests": [
         "tests/command-queue.test.ts",
         "tests/command-queue-consumers.test.ts",
-        "tests/stonewake.test.ts",
+        "games/puzzles/tests/stonewake.test.ts",
         "games/adventure/tests/narrative-adventure.test.ts"
       ],
       "id": "recipe/bounded-command-queue",
@@ -616,7 +616,7 @@
         "docs/reference/architecture.md"
       ],
       "examples": [
-        "src/plugins/puzzle-presentation/index.ts",
+        "games/puzzles/plugins/puzzle-presentation/index.ts",
         "games/racing/plugins/vehicle-racing/index.ts"
       ],
       "tests": [
@@ -664,10 +664,10 @@
       ],
       "docs": [
         "docs/guide/plugins.md",
-        "docs/games/stonewake.md"
+        "games/puzzles/docs/stonewake.md"
       ],
       "examples": [
-        "src/plugins/puzzle-presentation/index.ts",
+        "games/puzzles/plugins/puzzle-presentation/index.ts",
         "games/verdant/plugins/verdant-presentation/scene.ts"
       ],
       "tests": [
@@ -7630,14 +7630,14 @@
         "The consumer owns hint text, ordering, eligibility, persistence and context-change policy; no automatic reveal or game rules."
       ],
       "docs": [
-        "docs/games/portfolio-assist.md",
+        "games/puzzles/docs/portfolio-assist.md",
         "src/plugins/mechanics-hints/README.md"
       ],
       "examples": [
-        "src/plugins/portfolio-assist/index.ts"
+        "games/puzzles/plugins/portfolio-assist/index.ts"
       ],
       "tests": [
-        "tests/portfolio-assist.test.ts"
+        "games/puzzles/tests/portfolio-assist.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -8067,9 +8067,9 @@
         "docs/reference/navigation.md"
       ],
       "examples": [
-        "src/plugins/puzzle-rules/rules.ts",
+        "games/puzzles/plugins/puzzle-rules/rules.ts",
         "games/tactics/plugins/board-tactics/index.ts",
-        "src/content/presets/stonewake.json",
+        "games/puzzles/presets/stonewake.json",
         "games/tactics/presets/turn-tactics.json"
       ],
       "tests": [
@@ -9139,7 +9139,7 @@
       "name": "Ash & Ink rules",
       "scope": "unreviewed",
       "summary": "A glyph-seal hand management duel.",
-      "source": "src/plugins/portfolio-cards-ash",
+      "source": "games/puzzles/plugins/portfolio-cards-ash",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9196,7 +9196,7 @@
       "name": "Cloud Cartographer rules",
       "scope": "unreviewed",
       "summary": "A weather-card expedition planning game.",
-      "source": "src/plugins/portfolio-cards-cloud",
+      "source": "games/puzzles/plugins/portfolio-cards-cloud",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9253,7 +9253,7 @@
       "name": "Ordered card piles",
       "scope": "cross-genre",
       "summary": "Owned ordered unique-card draw, hand and discard partition.",
-      "source": "src/plugins/portfolio-cards-piles",
+      "source": "games/puzzles/plugins/portfolio-cards-piles",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9277,14 +9277,14 @@
         "Draw rejects atomically when fewer than the requested cards remain."
       ],
       "docs": [
-        "docs/games/portfolio-cards.md"
+        "games/puzzles/docs/portfolio-cards.md"
       ],
       "examples": [
-        "src/plugins/portfolio-cards-ash/index.ts",
-        "src/plugins/portfolio-cards-cloud/index.ts"
+        "games/puzzles/plugins/portfolio-cards-ash/index.ts",
+        "games/puzzles/plugins/portfolio-cards-cloud/index.ts"
       ],
       "tests": [
-        "tests/portfolio-cards.test.ts"
+        "games/puzzles/tests/portfolio-cards.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -9338,7 +9338,7 @@
       "name": "Portfolio card table",
       "scope": "unreviewed",
       "summary": "Accessible browser card table for the portfolio card games.",
-      "source": "src/plugins/portfolio-cards-presentation",
+      "source": "games/puzzles/plugins/portfolio-cards-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9450,7 +9450,7 @@
       "name": "Portfolio assist",
       "scope": "presentation",
       "summary": "Optional on-demand contextual assistance for public card and puzzle services.",
-      "source": "src/plugins/portfolio-assist",
+      "source": "games/puzzles/plugins/portfolio-assist",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9472,14 +9472,14 @@
         "Presentation-specific heuristics are limited to existing card summaries and puzzle campaign/state; no solver or gameplay mutation."
       ],
       "docs": [
-        "docs/games/portfolio-assist.md",
-        "src/plugins/portfolio-assist/README.md"
+        "games/puzzles/docs/portfolio-assist.md",
+        "games/puzzles/plugins/portfolio-assist/README.md"
       ],
       "examples": [
-        "src/plugins/portfolio-assist/index.ts"
+        "games/puzzles/plugins/portfolio-assist/index.ts"
       ],
       "tests": [
-        "tests/portfolio-assist.test.ts"
+        "games/puzzles/tests/portfolio-assist.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -9542,7 +9542,7 @@
       "name": "The Counterweight Atelier",
       "scope": "content",
       "summary": "Three quiet chambers of multi-stone positioning.",
-      "source": "src/plugins/portfolio-atelier-puzzle",
+      "source": "games/puzzles/plugins/portfolio-atelier-puzzle",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9965,7 +9965,7 @@
       "name": "The Watchman's Run",
       "scope": "content",
       "summary": "Three pursuit chambers with shifting routes around stone and walls.",
-      "source": "src/plugins/portfolio-watch-puzzle",
+      "source": "games/puzzles/plugins/portfolio-watch-puzzle",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10256,7 +10256,7 @@
       "name": "Stonewake: The Sleeping Ruins",
       "scope": "content",
       "summary": "Three authored chambers introducing weight, pursuit and a double seal.",
-      "source": "src/plugins/puzzle-chambers",
+      "source": "games/puzzles/plugins/puzzle-chambers",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10311,7 +10311,7 @@
       "name": "Stonewake 3D",
       "scope": "unreviewed",
       "summary": "Lit low-poly ruins, articulated explorer and golems, orbiting camera, picking and puzzle HUD.",
-      "source": "src/plugins/puzzle-presentation",
+      "source": "games/puzzles/plugins/puzzle-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10382,7 +10382,7 @@
       "name": "Stonewake Rules",
       "scope": "family",
       "summary": "Grid push puzzles composing selected graph navigation for deterministic pursuit, bounded command ingress and reversible turns.",
-      "source": "src/plugins/puzzle-rules",
+      "source": "games/puzzles/plugins/puzzle-rules",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10417,17 +10417,17 @@
         "Static authored chamber connectivity remains a registration-time local validator, separate from selected runtime navigation."
       ],
       "docs": [
-        "docs/games/stonewake.md",
+        "games/puzzles/docs/stonewake.md",
         "docs/reference/command-queues.md",
         "docs/reference/navigation.md"
       ],
       "examples": [
-        "src/plugins/puzzle-chambers/content.json",
-        "src/content/presets/stonewake.json",
-        "src/plugins/puzzle-rules/index.ts"
+        "games/puzzles/plugins/puzzle-chambers/content.json",
+        "games/puzzles/presets/stonewake.json",
+        "games/puzzles/plugins/puzzle-rules/index.ts"
       ],
       "tests": [
-        "tests/stonewake.test.ts",
+        "games/puzzles/tests/stonewake.test.ts",
         "tests/command-queue.test.ts",
         "tests/command-queue-consumers.test.ts",
         "tests/navigation-consumers.test.ts"
@@ -13101,98 +13101,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/cardPilesMechanic",
-      "type": "contract",
-      "name": "cardPilesMechanic",
-      "scope": "contract",
-      "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/portfolio-cards.ts:18",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "cardPilesMechanic"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "portfolio-cards/piles"
-      ],
-      "recipes": [
-        "recipe/ordered-card-piles"
-      ],
-      "implementations": []
-    },
-    {
-      "id": "sdk/CardPilesProviders",
-      "type": "contract",
-      "name": "CardPilesProviders",
-      "scope": "contract",
-      "summary": "Public SDK value: portfolio-card-piles-provider",
-      "importFrom": "src/sdk/index.ts",
-      "token": "portfolio-card-piles-provider",
-      "source": "src/sdk/contracts/portfolio-cards.ts:16",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "CardPilesProviders",
-        "portfolio-card-piles-provider"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "portfolio-cards/piles"
-      ],
-      "recipes": [
-        "recipe/ordered-card-piles"
-      ],
-      "implementations": [
-        "portfolio-cards/piles"
-      ]
-    },
-    {
-      "id": "sdk/CardPilesRole",
-      "type": "contract",
-      "name": "CardPilesRole",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/portfolio-card-piles",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/portfolio-card-piles",
-      "source": "src/sdk/contracts/portfolio-cards.ts:17",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "CardPilesRole",
-        "sdk/portfolio-card-piles"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "portfolio-cards/piles"
-      ],
-      "recipes": [
-        "recipe/ordered-card-piles"
-      ],
-      "implementations": [
-        "portfolio-cards/piles"
-      ]
-    },
-    {
       "id": "sdk/clockMechanic",
       "type": "contract",
       "name": "clockMechanic",
@@ -15658,34 +15566,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/PortfolioCards",
-      "type": "contract",
-      "name": "PortfolioCards",
-      "scope": "contract",
-      "summary": "Public SDK value: portfolio/cards-game",
-      "importFrom": "src/sdk/index.ts",
-      "token": "portfolio/cards-game",
-      "source": "src/sdk/contracts/portfolio-cards.ts:31",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "PortfolioCards",
-        "portfolio/cards-game"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "portfolio/assist"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
       "id": "sdk/Prefabs",
       "type": "contract",
       "name": "Prefabs",
@@ -15850,95 +15730,6 @@
       "implementations": [
         "mechanics/progression"
       ]
-    },
-    {
-      "id": "sdk/PushPuzzle",
-      "type": "contract",
-      "name": "PushPuzzle",
-      "scope": "contract",
-      "summary": "Public SDK value: puzzle/push",
-      "importFrom": "src/sdk/index.ts",
-      "token": "puzzle/push",
-      "source": "src/sdk/contracts/puzzle.ts:45",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "PushPuzzle",
-        "puzzle/push"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "portfolio/assist",
-        "puzzle/rules"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/PuzzleCampaigns",
-      "type": "contract",
-      "name": "PuzzleCampaigns",
-      "scope": "contract",
-      "summary": "Public SDK value: push-puzzle",
-      "importFrom": "src/sdk/index.ts",
-      "token": "push-puzzle",
-      "source": "src/sdk/contracts/puzzle.ts:44",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "PuzzleCampaigns",
-        "push-puzzle"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "puzzle/rules"
-      ],
-      "recipes": [],
-      "implementations": [
-        "portfolio/atelier-puzzle",
-        "portfolio/watch-puzzle",
-        "puzzle/chambers"
-      ]
-    },
-    {
-      "id": "sdk/PuzzleResolved",
-      "type": "contract",
-      "name": "PuzzleResolved",
-      "scope": "contract",
-      "summary": "Public SDK value: puzzle/resolved",
-      "importFrom": "src/sdk/index.ts",
-      "token": "puzzle/resolved",
-      "source": "src/sdk/contracts/puzzle.ts:46",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "PuzzleResolved",
-        "puzzle/resolved"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "puzzle/rules"
-      ],
-      "recipes": [],
-      "implementations": []
     },
     {
       "id": "sdk/relationshipMechanic",
@@ -17664,6 +17455,222 @@
       "implementations": [
         "hollowmere/content"
       ]
+    },
+    {
+      "id": "games/puzzles/cardPilesMechanic",
+      "type": "contract",
+      "name": "cardPilesMechanic",
+      "scope": "contract",
+      "summary": "Game-family helper/class",
+      "importFrom": "games/puzzles/contracts/portfolio-cards.ts",
+      "source": "games/puzzles/contracts/portfolio-cards.ts:18",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "cardPilesMechanic",
+        "puzzles"
+      ],
+      "useWhen": "Game-specific contract of the puzzles family; plugins in games/puzzles/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the puzzles family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "portfolio-cards/piles"
+      ],
+      "recipes": [
+        "recipe/ordered-card-piles"
+      ],
+      "implementations": []
+    },
+    {
+      "id": "games/puzzles/CardPilesProviders",
+      "type": "contract",
+      "name": "CardPilesProviders",
+      "scope": "contract",
+      "summary": "Game-family contract value: portfolio-card-piles-provider",
+      "importFrom": "games/puzzles/contracts/portfolio-cards.ts",
+      "token": "portfolio-card-piles-provider",
+      "source": "games/puzzles/contracts/portfolio-cards.ts:16",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CardPilesProviders",
+        "puzzles",
+        "portfolio-card-piles-provider"
+      ],
+      "useWhen": "Game-specific contract of the puzzles family; plugins in games/puzzles/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the puzzles family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "portfolio-cards/piles"
+      ],
+      "recipes": [
+        "recipe/ordered-card-piles"
+      ],
+      "implementations": [
+        "portfolio-cards/piles"
+      ]
+    },
+    {
+      "id": "games/puzzles/CardPilesRole",
+      "type": "contract",
+      "name": "CardPilesRole",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/portfolio-card-piles",
+      "importFrom": "games/puzzles/contracts/portfolio-cards.ts",
+      "token": "sdk/portfolio-card-piles",
+      "source": "games/puzzles/contracts/portfolio-cards.ts:17",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CardPilesRole",
+        "puzzles",
+        "sdk/portfolio-card-piles"
+      ],
+      "useWhen": "Game-specific contract of the puzzles family; plugins in games/puzzles/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the puzzles family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "portfolio-cards/piles"
+      ],
+      "recipes": [
+        "recipe/ordered-card-piles"
+      ],
+      "implementations": [
+        "portfolio-cards/piles"
+      ]
+    },
+    {
+      "id": "games/puzzles/PortfolioCards",
+      "type": "contract",
+      "name": "PortfolioCards",
+      "scope": "contract",
+      "summary": "Game-family contract value: portfolio/cards-game",
+      "importFrom": "games/puzzles/contracts/portfolio-cards.ts",
+      "token": "portfolio/cards-game",
+      "source": "games/puzzles/contracts/portfolio-cards.ts:31",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PortfolioCards",
+        "puzzles",
+        "portfolio/cards-game"
+      ],
+      "useWhen": "Game-specific contract of the puzzles family; plugins in games/puzzles/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the puzzles family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "portfolio/assist"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/puzzles/PushPuzzle",
+      "type": "contract",
+      "name": "PushPuzzle",
+      "scope": "contract",
+      "summary": "Game-family contract value: puzzle/push",
+      "importFrom": "games/puzzles/contracts/puzzle.ts",
+      "token": "puzzle/push",
+      "source": "games/puzzles/contracts/puzzle.ts:45",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PushPuzzle",
+        "puzzles",
+        "puzzle/push"
+      ],
+      "useWhen": "Game-specific contract of the puzzles family; plugins in games/puzzles/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the puzzles family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "portfolio/assist",
+        "puzzle/rules"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/puzzles/PuzzleCampaigns",
+      "type": "contract",
+      "name": "PuzzleCampaigns",
+      "scope": "contract",
+      "summary": "Game-family contract value: push-puzzle",
+      "importFrom": "games/puzzles/contracts/puzzle.ts",
+      "token": "push-puzzle",
+      "source": "games/puzzles/contracts/puzzle.ts:44",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PuzzleCampaigns",
+        "puzzles",
+        "push-puzzle"
+      ],
+      "useWhen": "Game-specific contract of the puzzles family; plugins in games/puzzles/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the puzzles family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "puzzle/rules"
+      ],
+      "recipes": [],
+      "implementations": [
+        "portfolio/atelier-puzzle",
+        "portfolio/watch-puzzle",
+        "puzzle/chambers"
+      ]
+    },
+    {
+      "id": "games/puzzles/PuzzleResolved",
+      "type": "contract",
+      "name": "PuzzleResolved",
+      "scope": "contract",
+      "summary": "Game-family contract value: puzzle/resolved",
+      "importFrom": "games/puzzles/contracts/puzzle.ts",
+      "token": "puzzle/resolved",
+      "source": "games/puzzles/contracts/puzzle.ts:46",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PuzzleResolved",
+        "puzzles",
+        "puzzle/resolved"
+      ],
+      "useWhen": "Game-specific contract of the puzzles family; plugins in games/puzzles/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the puzzles family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "puzzle/rules"
+      ],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "games/racing/Race",

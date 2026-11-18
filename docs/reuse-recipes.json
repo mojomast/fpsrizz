@@ -45,9 +45,9 @@
       "entryPoints": ["CardPilesProviders", "CardPilesRole", "cardPilesMechanic"],
       "useWhen": "A game needs deterministic unique-card transfers with an explicit authored draw order.",
       "limitations": ["No shuffle, reshuffle, effects, deckbuilding or game turns; draw rejects atomically if there are too few cards.", "Mutations are blocked by SessionControl while play is paused; initialize the opening hand after play begins."],
-      "docs": ["docs/games/portfolio-cards.md"],
-      "examples": ["src/plugins/portfolio-cards-ash/index.ts", "src/plugins/portfolio-cards-cloud/index.ts"],
-      "tests": ["tests/portfolio-cards.test.ts"],
+      "docs": ["games/puzzles/docs/portfolio-cards.md"],
+      "examples": ["games/puzzles/plugins/portfolio-cards-ash/index.ts", "games/puzzles/plugins/portfolio-cards-cloud/index.ts"],
+      "tests": ["games/puzzles/tests/portfolio-cards.test.ts"],
       "plugins": ["portfolio-cards/piles"],
       "roles": {"sdk/portfolio-card-piles": "portfolio-cards/piles"},
       "steps": ["Enable a piles implementation and select sdk/portfolio-card-piles; declare a role dependency when resolving the factory during activation.", "Create an owned pile from distinct authored card IDs, and draw only while the session is playing.", "Validate the game's action before discarding; keep card effects, turns and victory in game policy, and dispose the handle on restart."]
@@ -100,13 +100,13 @@
         "docs/cookbook/building-block-plugins.md"
       ],
       "examples": [
-        "src/plugins/puzzle-rules/rules.ts",
+        "games/puzzles/plugins/puzzle-rules/rules.ts",
         "games/tactics/plugins/board-tactics/index.ts"
       ],
       "tests": [
         "tests/mechanics-navigation.test.ts",
         "tests/navigation-consumers.test.ts",
-        "tests/stonewake.test.ts",
+        "games/puzzles/tests/stonewake.test.ts",
         "games/tactics/tests/turn-tactics.test.ts"
       ],
       "plugins": [
@@ -207,13 +207,13 @@
         "docs/reference/command-queues.md"
       ],
       "examples": [
-        "src/plugins/puzzle-rules/index.ts",
+        "games/puzzles/plugins/puzzle-rules/index.ts",
         "games/adventure/plugins/story-adventure/index.ts"
       ],
       "tests": [
         "tests/command-queue.test.ts",
         "tests/command-queue-consumers.test.ts",
-        "tests/stonewake.test.ts",
+        "games/puzzles/tests/stonewake.test.ts",
         "games/adventure/tests/narrative-adventure.test.ts"
       ],
       "plugins": [],
@@ -473,7 +473,7 @@
         "docs/reference/architecture.md"
       ],
       "examples": [
-        "src/plugins/puzzle-presentation/index.ts",
+        "games/puzzles/plugins/puzzle-presentation/index.ts",
         "games/racing/plugins/vehicle-racing/index.ts"
       ],
       "tests": [
@@ -519,10 +519,10 @@
       ],
       "docs": [
         "docs/guide/plugins.md",
-        "docs/games/stonewake.md"
+        "games/puzzles/docs/stonewake.md"
       ],
       "examples": [
-        "src/plugins/puzzle-presentation/index.ts",
+        "games/puzzles/plugins/puzzle-presentation/index.ts",
         "games/verdant/plugins/verdant-presentation/scene.ts"
       ],
       "tests": [

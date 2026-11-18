@@ -371,7 +371,7 @@ older headless input fakes to omit it. These APIs provide contextual bindings, n
 | `Race`, `RaceTracks` | `vehicle/racing` owns motion, gates, laps and deadline | `vehicle/presentation`, `vehicle-track` content; [guide](../../games/racing/README.md) |
 | `Tactics`, `TacticsMissions` | `board/tactics` owns units, AP and queued turn commands | `board/presentation`, `board-mission` content; [guide](../../games/tactics/README.md) |
 | `Adventure`, `AdventureChapters` | `story/adventure` owns room/item/flag state and queued actions | `story/presentation`, `adventure-chapter` content; [guide](../../games/adventure/README.md) |
-| `PushPuzzle`, `PuzzleCampaigns` | `puzzle/rules` owns stones, plates, deterministic pursuit, undo and chamber progression | `puzzle/presentation`, `push-puzzle` content; [guide](../games/stonewake.md) |
+| `PushPuzzle`, `PuzzleCampaigns` | `puzzle/rules` owns stones, plates, deterministic pursuit, undo and chamber progression | `puzzle/presentation`, `push-puzzle` content; [guide](../../games/puzzles/docs/stonewake.md) |
 | `Sky`, `SkyRoutes` | `sky/game` composes recovery, matching deliveries and moving hazards | `sky/presentation`, `sky-route` content; [guide](../../games/sky/README.md) |
 | `Ember`, `EmberConfigs` | `ember/game` composes construction, lanes, waves and per-tower firing | `ember/presentation`, `ember-defense` content; [guide](../../games/ember/README.md) |
 | `Verdant`, `VerdantWorlds` | `verdant/game` composes restoration decisions and environmental drain | `verdant/presentation`, `verdant-world` content; [guide](../../games/verdant/README.md) |
@@ -441,7 +441,7 @@ The role is optional for these two consumers and is resolved on victory after ro
 unique card IDs in ordered draw, hand and discard zones. `cardPilesMechanic(ctx)` resolves the selected factory. Ash &
 Ink and Cloud Cartographer supply different actions and outcomes while using the same provider. Draws and discards
 are blocked while `SessionControl` is paused; initialize an opening hand after play starts. No shuffle, card effects,
-turns or reshuffle are provided. See [card games and piles](../games/portfolio-cards.md).
+turns or reshuffle are provided. See [card games and piles](../../games/puzzles/docs/portfolio-cards.md).
 
 Presets explicitly enable the selected implementations. Navigation consumers require the pure registration-time role;
 sequence consumers using factories during activation declare `roleDependencies`. Updated bundled presets contain the
@@ -528,7 +528,7 @@ selected provider ID only.
 `enqueue(PuzzleCommand): boolean`. Commands are `move` with a cardinal `direction`, `wait`, `undo`, `restart`, `next`
 and `replay`; at most 32 are queued, one commits per `control` tick. Paused/disposed services reject ingress. The
 `PuzzleResolved` event carries a semantic sound cue only after a turn or undo commits. See
-`src/sdk/contracts/puzzle.ts` for types and the game guide for rules and limits. This is additive to SDK 2.
+`games/puzzles/contracts/puzzle.ts` for types and the game guide for rules and limits. This is additive to SDK 2.
 
 ## 7. How do I…
 

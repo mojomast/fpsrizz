@@ -6,8 +6,8 @@ victory routes and family limitations are documented below. Select them from the
 
 | Game | Preset ID | Player's challenge | Guide |
 |---|---|---|---|
-| The Counterweight Atelier | `portfolio/atelier-puzzle` | Solve four multi-stone plate-and-gate chambers without pursuit. | [Puzzles](portfolio-puzzles.md) |
-| The Watchman's Run | `portfolio/watch-puzzle` | Open gates and escape four chambers under golem pursuit. | [Puzzles](portfolio-puzzles.md) |
+| The Counterweight Atelier | `portfolio/atelier-puzzle` | Solve four multi-stone plate-and-gate chambers without pursuit. | [Puzzles](../../games/puzzles/docs/portfolio-puzzles.md) |
+| The Watchman's Run | `portfolio/watch-puzzle` | Open gates and escape four chambers under golem pursuit. | [Puzzles](../../games/puzzles/docs/portfolio-puzzles.md) |
 | Salt Flats — Endurance Loop | `portfolio/salt-racing` | Drive three timed laps on a wide circuit, crossing gates in order. | [Racing](../../games/racing/docs/portfolio-racing.md) |
 | Copper Switchback — Canyon Sprint | `portfolio/copper-racing` | Drive one timed lap of a narrower, asymmetric circuit. | [Racing](../../games/racing/docs/portfolio-racing.md) |
 | Glasshouse Breach | `portfolio/breach-tactics` | Lead three agents through a defended central bottleneck. | [Tactics](../../games/tactics/docs/portfolio-tactics.md) |
@@ -27,7 +27,7 @@ not claims of distinct technology or assets for every title.
 The same build also includes **Ash & Ink** (`portfolio-cards/ash`), a glyph-seal and ink-management duel, and
 **Cloud Cartographer** (`portfolio-cards/cloud`), an island-survey and storm-management game. These small deterministic
 games use independent rule plugins and a shared `portfolio-cards/piles` provider for ordered draw, hand and discard
-zones. See [the card games guide](portfolio-cards.md) for rules, complete routes and the provider's limits.
+zones. See [the card games guide](../../games/puzzles/docs/portfolio-cards.md) for rules, complete routes and the provider's limits.
 
 ## Modular composition
 
@@ -41,15 +41,15 @@ the game retains its own victory, scoring thresholds and presentation policy. Se
 [build plan](../archive/ten-game-build-plan.md), and [research](../archive/research/ten-game-portfolio-2026-11-16.md).
 
 The puzzle and card presets also select `mechanics/hints` and `portfolio/assist`, which offer contextual, progressively
-revealed hints without taking actions for the player. See [portfolio assistance](portfolio-assist.md).
+revealed hints without taking actions for the player. See [portfolio assistance](../../games/puzzles/docs/portfolio-assist.md).
 
 ## Verification
 
 `games/racing/tests/portfolio-racing.test.ts`, `games/tactics/tests/portfolio-tactics.test.ts`, `games/adventure/tests/portfolio-adventures.test.ts`,
-`tests/portfolio-puzzles.test.ts` and `tests/portfolio-resource-games.test.ts` exercise actual winning routes for all
+`games/puzzles/tests/portfolio-puzzles.test.ts` and `tests/portfolio-resource-games.test.ts` exercise actual winning routes for all
 ten games through their authoritative services. `tests/outcome-rating.test.ts` covers the shared rating contract and
 real racing and tactics consumers. `tests/portfolio-demo/run.mjs` launches selected bundled presets in a browser;
-`tests/portfolio-cards.test.ts` tests both additional card games and their shared piles. The browser harness checks a
+`games/puzzles/tests/portfolio-cards.test.ts` tests both additional card games and their shared piles. The browser harness checks a
 player action in each portfolio preset; this evidence must be distinguished from full subjective playtesting.
 
 On the initial portfolio build, `npm run check` passed **791/791 tests**; bundled validation staged **37 presets**; the browser

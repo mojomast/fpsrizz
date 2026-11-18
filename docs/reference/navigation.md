@@ -21,7 +21,7 @@ The provider is a registration-time pure object, so it requires neither a `roleD
 activation callback. During consumer activation, resolve `ctx.role(NavigationRole)!.provider` from `src/sdk/index.ts`.
 Staging rejects a missing or invalid selection before replacing an existing session.
 
-The working presets are [Stonewake](../../src/content/presets/stonewake.json) and
+The working presets are [Stonewake](../../games/puzzles/presets/stonewake.json) and
 [Signal Break](../../games/tactics/presets/turn-tactics.json). No shooter, renderer or platform service is required.
 
 ## Public contract
@@ -89,8 +89,8 @@ the work; there is no asynchronous search, implicit infinite graph, best-effort 
 
 ### Stonewake
 
-[`puzzle-rules/index.ts`](../../src/plugins/puzzle-rules/index.ts) resolves the selected provider and passes it explicitly
-to `takeTurn` in [`rules.ts`](../../src/plugins/puzzle-rules/rules.ts). Each golem query constructs legal cell adjacency
+[`puzzle-rules/index.ts`](../../games/puzzles/plugins/puzzle-rules/index.ts) resolves the selected provider and passes it explicitly
+to `takeTurn` in [`rules.ts`](../../games/puzzles/plugins/puzzle-rules/rules.ts). Each golem query constructs legal cell adjacency
 in **north, west, east, south** order, excluding walls, rocks, other golems and the exit tile `E` even when its gate is
 open. The querying golem's origin is included. If no visit reaches the player, that golem stays in place.
 
@@ -149,7 +149,7 @@ Evidence is headless and uses normal role selection and real command services:
 - [`tests/helpers/alternate-navigation.ts`](../../tests/helpers/alternate-navigation.ts) uses independent whole-distance
   layers and does not import or delegate to the production implementation. Behavioral expectations are hand-derived,
   rather than merely checking calls or comparing two implementations with no external oracle.
-- Existing [`stonewake.test.ts`](../../tests/stonewake.test.ts), [`turn-tactics.test.ts`](../../games/tactics/tests/turn-tactics.test.ts), and
+- Existing [`stonewake.test.ts`](../../games/puzzles/tests/stonewake.test.ts), [`turn-tactics.test.ts`](../../games/tactics/tests/turn-tactics.test.ts), and
   [`command-queue-consumers.test.ts`](../../tests/command-queue-consumers.test.ts) retain their assertions with navigation
   added to restricted test catalogs/presets. No claims about browser rendering or performance follow from these tests.
 
@@ -157,7 +157,7 @@ Focused verification:
 
 ```bash
 node --test tests/mechanics-navigation.test.ts tests/navigation-consumers.test.ts \
-  tests/stonewake.test.ts games/tactics/tests/turn-tactics.test.ts tests/command-queue-consumers.test.ts
+  games/puzzles/tests/stonewake.test.ts games/tactics/tests/turn-tactics.test.ts tests/command-queue-consumers.test.ts
 npm run typecheck
 npm run lint
 ```

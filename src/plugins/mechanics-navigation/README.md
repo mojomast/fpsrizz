@@ -4,7 +4,7 @@
 
 ## Compose
 
-Merge this fragment into a complete preset, such as [Stonewake](../../content/presets/stonewake.json):
+Merge this fragment into a complete preset, such as [Stonewake](../../../games/puzzles/presets/stonewake.json):
 
 ```json
 { "plugins": ["mechanics/navigation"], "roles": { "sdk/mechanic-navigation": "mechanics/navigation" } }

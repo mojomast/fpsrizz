@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `a1649abf1e0ba4393755f0b1910a49d38e27cff20672949e1209c57afb931697`
+Source digest: `1c70f6edb2caba3c22bd2ef07c2edf899a23fef9e86eaf5eac119adbcdf3e39b`
 
 ## Composition recipes
 
@@ -99,25 +99,25 @@ Source digest: `a1649abf1e0ba4393755f0b1910a49d38e27cff20672949e1209c57afb931697
 | `mechanics/resources` | cross-genre | Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation. | [source](../../src/plugins/mechanics-resources) |
 | `mechanics/room-map` | cross-genre | Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations. | [source](../../src/plugins/mechanics-room-map) |
 | `mechanics/sequence` | cross-genre | Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion. | [source](../../src/plugins/mechanics-sequence) |
-| `portfolio-cards/ash` | unreviewed | A glyph-seal hand management duel. | [source](../../src/plugins/portfolio-cards-ash) |
-| `portfolio-cards/cloud` | unreviewed | A weather-card expedition planning game. | [source](../../src/plugins/portfolio-cards-cloud) |
-| `portfolio-cards/piles` | cross-genre | Owned ordered unique-card draw, hand and discard partition. | [source](../../src/plugins/portfolio-cards-piles) |
-| `portfolio-cards/presentation` | unreviewed | Accessible browser card table for the portfolio card games. | [source](../../src/plugins/portfolio-cards-presentation) |
+| `portfolio-cards/ash` | unreviewed | A glyph-seal hand management duel. | [source](../../games/puzzles/plugins/portfolio-cards-ash) |
+| `portfolio-cards/cloud` | unreviewed | A weather-card expedition planning game. | [source](../../games/puzzles/plugins/portfolio-cards-cloud) |
+| `portfolio-cards/piles` | cross-genre | Owned ordered unique-card draw, hand and discard partition. | [source](../../games/puzzles/plugins/portfolio-cards-piles) |
+| `portfolio-cards/presentation` | unreviewed | Accessible browser card table for the portfolio card games. | [source](../../games/puzzles/plugins/portfolio-cards-presentation) |
 | `portfolio/archive-adventure` | content | A contested archive and a missing name. | [source](../../games/adventure/plugins/portfolio-archive-adventure) |
-| `portfolio/assist` | presentation | Optional on-demand contextual assistance for public card and puzzle services. | [source](../../src/plugins/portfolio-assist) |
-| `portfolio/atelier-puzzle` | content | Three quiet chambers of multi-stone positioning. | [source](../../src/plugins/portfolio-atelier-puzzle) |
+| `portfolio/assist` | presentation | Optional on-demand contextual assistance for public card and puzzle services. | [source](../../games/puzzles/plugins/portfolio-assist) |
+| `portfolio/atelier-puzzle` | content | Three quiet chambers of multi-stone positioning. | [source](../../games/puzzles/plugins/portfolio-atelier-puzzle) |
 | `portfolio/breach-tactics` | content | A three-agent assault through a divided conservatory. | [source](../../games/tactics/plugins/portfolio-breach-tactics) |
 | `portfolio/crossfire-tactics` | content | A two-scout stand against an encircling raiding party. | [source](../../games/tactics/plugins/portfolio-crossfire-tactics) |
 | `portfolio/orchard-adventure` | content | A seedship garden and a difficult inheritance. | [source](../../games/adventure/plugins/portfolio-orchard-adventure) |
 | `portfolio/racing` | content | Two independent arcade time-trial tracks. | [source](../../games/racing/plugins/portfolio-racing) |
 | `portfolio/sky-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../src/plugins/portfolio-sky-resource) |
 | `portfolio/verdant-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../src/plugins/portfolio-verdant-resource) |
-| `portfolio/watch-puzzle` | content | Three pursuit chambers with shifting routes around stone and walls. | [source](../../src/plugins/portfolio-watch-puzzle) |
+| `portfolio/watch-puzzle` | content | Three pursuit chambers with shifting routes around stone and walls. | [source](../../games/puzzles/plugins/portfolio-watch-puzzle) |
 | `presentation/camera-modes` | cross-genre | Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service. | [source](../../src/plugins/presentation-camera-modes) |
 | `presentation/player-avatar` | cross-genre | Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes. | [source](../../src/plugins/presentation-player-avatar) |
-| `puzzle/chambers` | content | Three authored chambers introducing weight, pursuit and a double seal. | [source](../../src/plugins/puzzle-chambers) |
-| `puzzle/presentation` | unreviewed | Lit low-poly ruins, articulated explorer and golems, orbiting camera, picking and puzzle HUD. | [source](../../src/plugins/puzzle-presentation) |
-| `puzzle/rules` | family | Grid push puzzles composing selected graph navigation for deterministic pursuit, bounded command ingress and reversible turns. | [source](../../src/plugins/puzzle-rules) |
+| `puzzle/chambers` | content | Three authored chambers introducing weight, pursuit and a double seal. | [source](../../games/puzzles/plugins/puzzle-chambers) |
+| `puzzle/presentation` | unreviewed | Lit low-poly ruins, articulated explorer and golems, orbiting camera, picking and puzzle HUD. | [source](../../games/puzzles/plugins/puzzle-presentation) |
+| `puzzle/rules` | family | Grid push puzzles composing selected graph navigation for deterministic pursuit, bounded command ingress and reversible turns. | [source](../../games/puzzles/plugins/puzzle-rules) |
 | `salt/content` | content | Salt Ledger's Tern campaign locations, journal and endings. | [source](../../games/expeditions/plugins/salt-rpg-content) |
 | `salt/game` | family | Salt Ledger party campaign, tracked side quests, equipment, party bonds and tactical battles with cover, hazards and obstacles. | [source](../../games/expeditions/plugins/salt-rpg-game) |
 | `salt/presentation` | presentation | Responsive Salt Ledger party and tactical board interface. | [source](../../games/expeditions/plugins/salt-rpg-presentation) |
@@ -159,9 +159,6 @@ Source digest: `a1649abf1e0ba4393755f0b1910a49d38e27cff20672949e1209c57afb931697
 | `sdk/capabilityMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/capabilities.ts#L53) |
 | `sdk/CapabilityRole` | contract | Public SDK value: sdk/capabilities | [source](../../src/sdk/contracts/capabilities.ts#L50) |
 | `sdk/CapabilityUnlocked` | contract | Public SDK value: sdk/capability-unlocked | [source](../../src/sdk/contracts/capabilities.ts#L51) |
-| `sdk/cardPilesMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/portfolio-cards.ts#L18) |
-| `sdk/CardPilesProviders` | contract | Public SDK value: portfolio-card-piles-provider | [source](../../src/sdk/contracts/portfolio-cards.ts#L16) |
-| `sdk/CardPilesRole` | contract | Public SDK value: sdk/portfolio-card-piles | [source](../../src/sdk/contracts/portfolio-cards.ts#L17) |
 | `sdk/clockMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L132) |
 | `sdk/ClockMechanicRole` | contract | Public SDK value: sdk/mechanic-clock | [source](../../src/sdk/contracts/mechanics.ts#L101) |
 | `sdk/Collider` | contract | Public SDK value: sdk/collider | [source](../../src/sdk/contracts/shooter.ts#L36) |
@@ -246,15 +243,11 @@ Source digest: `a1649abf1e0ba4393755f0b1910a49d38e27cff20672949e1209c57afb931697
 | `sdk/PlatformerRole` | contract | Public SDK value: sdk/platformer | [source](../../src/sdk/contracts/platforming.ts#L121) |
 | `sdk/Player` | contract | Public SDK value: sdk/player | [source](../../src/sdk/contracts/shooter.ts#L70) |
 | `sdk/PlayerAvatar` | contract | Public SDK value: sdk/player-avatar | [source](../../src/sdk/contracts/shooter.ts#L140) |
-| `sdk/PortfolioCards` | contract | Public SDK value: portfolio/cards-game | [source](../../src/sdk/contracts/portfolio-cards.ts#L31) |
 | `sdk/Prefabs` | contract | Public SDK value: prefab | [source](../../src/sdk/contracts/shooter.ts#L332) |
 | `sdk/Profile` | contract | Public SDK value: sdk/profile | [source](../../src/sdk/contracts/profile.ts#L15) |
 | `sdk/progressionMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/progression.ts#L60) |
 | `sdk/ProgressionMechanicRole` | contract | Public SDK value: sdk/mechanic-progression | [source](../../src/sdk/contracts/progression.ts#L45) |
 | `sdk/ProgressionProviders` | contract | Public SDK value: mechanic-progression-provider | [source](../../src/sdk/contracts/progression.ts#L44) |
-| `sdk/PushPuzzle` | contract | Public SDK value: puzzle/push | [source](../../src/sdk/contracts/puzzle.ts#L45) |
-| `sdk/PuzzleCampaigns` | contract | Public SDK value: push-puzzle | [source](../../src/sdk/contracts/puzzle.ts#L44) |
-| `sdk/PuzzleResolved` | contract | Public SDK value: puzzle/resolved | [source](../../src/sdk/contracts/puzzle.ts#L46) |
 | `sdk/relationshipMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/relationships.ts#L30) |
 | `sdk/RelationshipMechanicRole` | contract | Public SDK value: sdk/mechanic-relationships | [source](../../src/sdk/contracts/relationships.ts#L29) |
 | `sdk/RelationshipProviders` | contract | Public SDK value: mechanic-relationship-provider | [source](../../src/sdk/contracts/relationships.ts#L28) |
@@ -316,6 +309,13 @@ Source digest: `a1649abf1e0ba4393755f0b1910a49d38e27cff20672949e1209c57afb931697
 | `games/expeditions/SiltArchives` | contract | Game-family contract value: silt-archive | [source](../../games/expeditions/contracts/silt-archive.ts#L13) |
 | `games/hollowmere/Metroidvania` | contract | Game-family contract value: hollowmere/run | [source](../../games/hollowmere/contracts/metroidvania.ts#L239) |
 | `games/hollowmere/MetroidvaniaWorlds` | contract | Game-family contract value: metroidvania-world | [source](../../games/hollowmere/contracts/metroidvania.ts#L237) |
+| `games/puzzles/cardPilesMechanic` | contract | Game-family helper/class | [source](../../games/puzzles/contracts/portfolio-cards.ts#L18) |
+| `games/puzzles/CardPilesProviders` | contract | Game-family contract value: portfolio-card-piles-provider | [source](../../games/puzzles/contracts/portfolio-cards.ts#L16) |
+| `games/puzzles/CardPilesRole` | contract | Game-family contract value: sdk/portfolio-card-piles | [source](../../games/puzzles/contracts/portfolio-cards.ts#L17) |
+| `games/puzzles/PortfolioCards` | contract | Game-family contract value: portfolio/cards-game | [source](../../games/puzzles/contracts/portfolio-cards.ts#L31) |
+| `games/puzzles/PushPuzzle` | contract | Game-family contract value: puzzle/push | [source](../../games/puzzles/contracts/puzzle.ts#L45) |
+| `games/puzzles/PuzzleCampaigns` | contract | Game-family contract value: push-puzzle | [source](../../games/puzzles/contracts/puzzle.ts#L44) |
+| `games/puzzles/PuzzleResolved` | contract | Game-family contract value: puzzle/resolved | [source](../../games/puzzles/contracts/puzzle.ts#L46) |
 | `games/racing/Race` | contract | Game-family contract value: vehicle/race | [source](../../games/racing/contracts/racing.ts#L41) |
 | `games/racing/RaceTracks` | contract | Game-family contract value: vehicle/track | [source](../../games/racing/contracts/racing.ts#L21) |
 | `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](../../games/sky/contracts/sky.ts#L16) |

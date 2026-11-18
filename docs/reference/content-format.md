@@ -91,7 +91,7 @@ These use the same content-entry envelope and staged `Reporter` validation, with
 | `vehicle-track` | `vehicle/racing` | `options.track` | `games/racing/plugins/vehicle-track/content.json`; [racing schema](../../games/racing/README.md) |
 | `board-mission` | `board/tactics` | `options.mission` | `games/tactics/plugins/board-mission/content.json`; [tactics schema](../../games/tactics/README.md) |
 | `adventure-chapter` | `story/adventure` | `options.chapter` | `games/adventure/plugins/story-chapter/content.json`; [adventure schema and save format](../../games/adventure/README.md) |
-| `push-puzzle` | `puzzle/rules` | `options.campaign` | `src/plugins/puzzle-chambers/content.json`; [Stonewake schema](../games/stonewake.md) |
+| `push-puzzle` | `puzzle/rules` | `options.campaign` | `games/puzzles/plugins/puzzle-chambers/content.json`; [Stonewake schema](../../games/puzzles/docs/stonewake.md) |
 | `mechanic-kit` | `mechanics/kits` | Referenced by a game definition | Immutable resources, actions, explicit clock domain and objectives; [schema and limits](reusable-mechanics.md#strict-mechanic-kit-content) |
 | `item` | `mechanics/inventory` | Referenced by inventory consumers | Stackable item definitions with optional equipment slot, rarity and presentation icon; [inventory](inventory.md) |
 | `crafting-recipe` | `mechanics/crafting` | Known by a crafting consumer | 1–6 item inputs and one item output; no currency, failure or discovery in the generic format; [crafting](crafting.md) |

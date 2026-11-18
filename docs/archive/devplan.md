@@ -23,7 +23,7 @@ The independent-family wave from [docs/archive/game-platform-strategy.md](game-p
 The follow-up **Stonewake** preset adds an independent 3D escape-puzzle family: three authored chambers, movable
 boulders/pressure plates, two-beat golem pursuit, reversible turns, articulated mesh actors and a rotatable camera.
 It reuses the curated Chalk & Timber imagery for floor material/portraits and authors new volumetric geometry in its
-presentation plugin. See [the game guide](../games/stonewake.md). General 3D physics and GLB loading remain separate work.
+presentation plugin. See [the game guide](../../games/puzzles/docs/stonewake.md). General 3D physics and GLB loading remain separate work.
 
 The **2026-11-16 cross-genre reuse wave** implements four shared mechanic providers, strict kit content, opt-in
 role-dependent activation ordering and three new 3D consumers: **Sky Salvage**, **Ember Bastion** and **Verdant Relay**.

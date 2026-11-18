@@ -46,7 +46,7 @@ Open **Creator tools → Load**, select a preset, then **Apply & restart → Pla
 | **NEON RUN — Circuit Trial** | Accelerate, brake and drift a visible car through two ordered laps | W/S or ↑/↓, A/D or ←/→, Space to drift; [racing guide](games/racing/README.md) |
 | **Signal Break — Turn Tactics** | Select a squad member, preview moves/attacks, spend AP, then end the turn | Cursor or keyboard, M/A for action mode, E to end turn; [tactics guide](games/tactics/README.md) |
 | **The Last Light** | Explore three rooms, talk to the keeper, combine items and restore a beacon | Click or Tab/Enter; explicit chapter Save/Load; [adventure guide](games/adventure/README.md) |
-| **Stonewake — 3D puzzle** | Push boulders onto seals, block pursuing golems and escape three volumetric chambers | WASD/arrows to step, Space to wait, Z undo, R retry, Q/E orbit; [Stonewake guide](docs/games/stonewake.md) |
+| **Stonewake — 3D puzzle** | Push boulders onto seals, block pursuing golems and escape three volumetric chambers | WASD/arrows to step, Space to wait, Z undo, R retry, Q/E orbit; [Stonewake guide](games/puzzles/docs/stonewake.md) |
 | **Sky Salvage — 3D courier** | Fly between floating islands, recover cargo and supply matching beacons while avoiding a storm drone | WASD/arrows or held direction buttons, E collect/deliver, Space boost, F repair; [flight guide](games/sky/README.md) |
 | **Ember Bastion — 3D tower defense** | Spend scrap on towers, defend three waves, repair the core or trigger a pulse | Click 3D pads or numbered buttons, then Launch wave; [defense guide](games/ember/README.md) |
 | **Verdant Relay — 3D colony restoration** | Balance water, biomass and charge to restore three relays before drought or the season ends | Select a station in 3D or its button, then collect, convert, restore or wait; [colony guide](games/verdant/README.md) |
@@ -67,9 +67,9 @@ pointer lock. The original first-person presets retain captured mouse aiming.
 campaigns, two racing trials, two tactical missions, two narrative adventures, a drone-courier route and a colony
 restoration scenario. They reuse existing family rules and presentations, shared mechanics and the new optional
 `mechanics/outcome-rating` provider; the guide identifies their actual differences, controls and completion routes.
-Two additional small card games, [Ash & Ink and Cloud Cartographer](docs/games/portfolio-cards.md), share the new ordered-card
+Two additional small card games, [Ash & Ink and Cloud Cartographer](games/puzzles/docs/portfolio-cards.md), share the new ordered-card
 piles provider while keeping their card effects, decisions and win rules independent. The puzzle and card presets also
-select [optional progressive assistance](docs/games/portfolio-assist.md), and each bundled plugin has a local README for authors.
+select [optional progressive assistance](games/puzzles/docs/portfolio-assist.md), and each bundled plugin has a local README for authors.
 
 Three further games are available as independent compositions: **[The Silt Archive](games/expeditions/docs/silt-archive.md)** is a
 turn-based flooded dungeon expedition; **[The Salt Ledger](games/expeditions/docs/salt-ledger.md)** is a party RPG with tactical encounters,

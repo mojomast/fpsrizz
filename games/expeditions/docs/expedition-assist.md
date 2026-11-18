@@ -24,6 +24,6 @@ than displaying a stale hint. Frequent state updates may clear guidance; request
 ## Reuse decision
 
 `mechanics/hints` supplies the owned pause-aware reveal ledger, composed using `hintMechanic`; `portfolio/assist`
-and its [composition note](../../../docs/games/portfolio-assist.md) demonstrate UI and context-reset policy. The three family services
+and its [composition note](../../puzzles/docs/portfolio-assist.md) demonstrate UI and context-reset policy. The three family services
 provide observations; only the family-specific interpretation is new. The ledger deliberately stores neither text
 nor context, and no second ledger, gameplay authority, or spoiler-generating solver is introduced.

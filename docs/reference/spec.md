@@ -142,12 +142,12 @@ theme. They share host lifecycle, services, deterministic scheduling and the pub
 | `common/ground` | Three-resident household with needs, work, relationships, editable floor plan and furniture, projects and gathering | Turn-based; no spatial pathfinding or in-progress household save |
 
 See [racing](../../games/racing/README.md), [tactics](../../games/tactics/README.md), [adventure](../../games/adventure/README.md),
-[Stonewake](../games/stonewake.md) and [Hollowmere](../../games/hollowmere/README.md) for
+[Stonewake](../../games/puzzles/docs/stonewake.md) and [Hollowmere](../../games/hollowmere/README.md) for
 content schemas, controls and completion routes. Art directions use curated Assetrizz images and original procedural
 elements; each theme supplies its own synthesized cues. Sampled music and a continuous audio-director API are future work.
 The [ten-game portfolio](../games/ten-game-portfolio.md) documents the authored scenarios and their verified routes.
 The two puzzle and two card presets select an optional shared hint ledger and contextual assistance; hints are requested
-by the player and do not submit game commands. See [portfolio assistance](../games/portfolio-assist.md).
+by the player and do not submit game commands. See [portfolio assistance](../../games/puzzles/docs/portfolio-assist.md).
 
 `ExperienceRole` selects locked/free/no-pointer input policy and launcher controls. `InputContexts` supplies scoped
 priority/consumption and exclusive focus. `SessionControl` gates gameplay ingress from UI. Tactics/adventure/puzzle state

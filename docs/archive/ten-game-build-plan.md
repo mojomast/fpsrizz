@@ -7,7 +7,7 @@ rules as supported by its family, and an executable completion route. Games shar
 as members of that family, not as ten new engines or ten unrelated genres.
 
 Two additional card games exercise a second new shared provider for ordered card zones. They are documented separately
-in [the card guide](../games/portfolio-cards.md), rather than being counted as two of the original ten slots.
+in [the card guide](../../games/puzzles/docs/portfolio-cards.md), rather than being counted as two of the original ten slots.
 
 ## Composition and ownership
 
