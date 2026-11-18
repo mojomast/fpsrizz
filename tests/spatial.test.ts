@@ -178,3 +178,46 @@ test('std/render-sync also draws entities created by plugins that activated befo
   assert.equal(scene.children[0]!.children.length, 1);
   host.stop();
 });
+
+test('std/render-sync batches Renderable.instanced into one InstancedMesh per shape/size/colour', async () => {
+  const { service, scene } = fakeRender();
+  const ids: number[] = [];
+  let world!: SessionContext['world'];
+  const game = codePlugin('test/scene', { activate(ctx) {
+    world = ctx.world;
+    for (let i = 0; i < 40; i++) {
+      const e = ctx.world.create(); ids.push(e);
+      ctx.world.add(e, Transform3D, transform3d({ position: { x: i } }));
+      ctx.world.add(e, Renderable, { shape: 'box', color: i < 30 ? 0x111111 : 0x222222, instanced: true });
+    }
+    const solo = ctx.world.create();
+    ctx.world.add(solo, Transform3D, transform3d());
+    ctx.world.add(solo, Renderable, { shape: 'sphere' });
+  } }, { sdk: '^3.0.0' });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) { session.services.provide(Render, service, 'host', scope); } });
+  host.setCatalog([real('src/plugins/std-transform'), real('src/plugins/std-render-sync'), game]);
+  const session = await host.apply(presetOf('test/p', ['std/transform', 'std/render-sync', 'test/scene']));
+  session.scheduler.runFrame(0, 1);
+  const root = scene.children[0]!;
+  const batches = () => root.children.filter((o): o is THREE.InstancedMesh => (o as THREE.InstancedMesh).isInstancedMesh === true);
+  assert.deepEqual(batches().map((b) => b.count).sort((a, b) => a - b), [10, 30], 'grew past the initial capacity of 16');
+  assert.equal(root.children.length, 3, 'two batches + the plain sphere');
+  const m = new THREE.Matrix4(), p = new THREE.Vector3();
+  const big = batches().find((b) => b.count === 30)!;
+  big.getMatrixAt(29, m); p.setFromMatrixPosition(m);
+  assert.equal(p.x, 29);
+  // Remove one instance: the last one is swapped into its slot and still drawn where it is.
+  world.destroy(ids[3]!);
+  session.entities.flush();
+  world.add(ids[5]!, Renderable, { shape: 'box', color: 0x111111, instanced: true, visible: false });
+  session.scheduler.runFrame(0, 1);
+  const after = batches().find((b) => b.count === 29)!;
+  after.getMatrixAt(3, m); p.setFromMatrixPosition(m);
+  assert.equal(p.x, 29, 'entity 29 moved into the freed slot');
+  const xs: number[] = [];
+  for (let i = 0; i < after.count; i++) { after.getMatrixAt(i, m); if (m.elements[0] !== 0) xs.push(m.elements[12]!); }
+  assert.equal(xs.length, 28, `the hidden instance has zero scale: ${JSON.stringify(xs)}`);
+  assert.ok(!xs.includes(3) && !xs.includes(5));
+  host.stop();
+  assert.equal(root.children.length, 0, 'batches disposed with the session');
+});

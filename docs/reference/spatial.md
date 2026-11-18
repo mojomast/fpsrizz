@@ -34,3 +34,22 @@ Rules:
 - `worldPose(ctx.world, e)` gives the current world pose for simulation code; cycles in `parent` are ignored.
 - SDK 2 games keep working unchanged (`SDK_COMPAT`); the shooter keeps its planar `Transform` and can expose
   `Transform3D` through the bridge.
+
+## Spatial index and instancing (P1.8)
+
+**`SpatialHash<K>`** (`src/sdk/contracts/spatial-index.ts`, exported from the SDK) is a uniform grid on the XZ plane
+with an optional Y range per box: `set(key, box)` (insert or move), `delete`, `query(box)`, `near(x, z, radius)`,
+`candidates(box)` (cell-level superset for callers with their own exact test) and `segment(x, z, dirX, dirZ,
+maxDist, pad)` (ray / swept-circle broad phase that walks only the cells the ray crosses). Results always come back
+in insertion order, so swapping an array loop for the hash keeps the same visiting order and the same results.
+
+- The shooter's `core-world` `CollisionWorld` switches to the hash for maps with at least `GRID_THRESHOLD` (128)
+  boxes; smaller maps keep the brute-force loop. `isFree` and `raycast` return exactly what brute force returns
+  (tests fuzz both against each other); on a 2000-box map queries are several times faster.
+- 3D games with `std/physics-rapier` use Rapier's own broad phase (`Physics.raycast`); use `SpatialHash` for
+  gameplay proximity queries (nearest enemy, pickups in range) instead of scanning every entity.
+
+**Instancing:** `Renderable.instanced: true` on a shape renderable (not `model` / `prefab`) makes `std/render-sync`
+draw it through one shared `InstancedMesh` per shape + size + colour. Instances are posed with the same alpha
+interpolation; `visible: false` gives the instance zero scale; batches grow by doubling and swap-remove on delete.
+Instanced batches are not frustum-culled per instance. The physics sandbox draws its 150+ pebbles in two draws.

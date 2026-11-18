@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `18f6492e692755a606a19d30e4d2fdd979dc3e300be5a0dbc740ea0dfd482673`
+Source digest: `450ebb830a6f702ea5d118fc996de25effcf5aa9bf9c0b855e14ff0752ae43ef`
 
 ## Composition recipes
 
@@ -322,6 +322,7 @@ Source digest: `18f6492e692755a606a19d30e4d2fdd979dc3e300be5a0dbc740ea0dfd482673
 | `sdk/SNAPSHOT_FORMAT` | contract | Public SDK value | [source](../../src/kernel/snapshot.ts#L9) |
 | `sdk/SNAPSHOT_SCHEMA` | contract | Public SDK value | [source](../../src/kernel/snapshot.ts#L10) |
 | `sdk/snapTransform` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L149) |
+| `sdk/SpatialHash` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial-index.ts#L19) |
 | `sdk/spawnGltfScene` | contract | Public helper/class | [source](../../src/sdk/core.ts#L1) |
 | `sdk/spawnPrefab` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L335) |
 | `sdk/stableStringify` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L55) |

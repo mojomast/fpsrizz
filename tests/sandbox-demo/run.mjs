@@ -40,6 +40,13 @@ try {
     // 17 hand-built bodies + pedestal + 6 from the glTF level (ramp, 3 barrels, lamp, goal trigger).
     if (scene.physics.bodies < 24 || !scene.goal) throw new Error(`expected the sandbox and glTF level bodies, got ${JSON.stringify(scene)}`);
     if (scene.assets.loaded < 2 || scene.assets.failed) throw new Error(`expected the level and display model to load, got ${JSON.stringify(scene.assets)}`);
+    // Instancing (P1.8): the pebbles are two InstancedMeshes (one per colour), not 150+ meshes.
+    const inst = await page.evaluate(() => {
+      const found = [];
+      window.__bulkhead.renderHost.worldScene.traverse((o) => { if (o.isInstancedMesh) found.push(o.count); });
+      return found;
+    });
+    if (inst.length !== 2 || inst.reduce((a, b) => a + b, 0) < 140) throw new Error(`expected 2 instanced batches with the pebbles, got ${JSON.stringify(inst)}`);
     await page.waitForTimeout(300);
     await page.screenshot({ path: resolve(out, 'sandbox-physics.png') });
     if (errors.length) throw new Error(errors.join('\n'));
@@ -68,7 +75,7 @@ try {
     if (Math.abs(loaded.x - saved.x) > 0.2 || Math.abs(loaded.z - saved.z) > 0.2) throw new Error(`quickload did not restore the hero: saved ${JSON.stringify(saved)}, loaded ${JSON.stringify(loaded)}`);
     await page.waitForTimeout(300);
     if (errors.length) throw new Error(errors.join('\n'));
-    console.log(`PASS sandbox: ${scene.engine}, ${scene.physics.bodies} bodies, hero walked ${(after.x - before.x).toFixed(1)} m, pad entries ${after.entries}, ${scene.assets.loaded} assets loaded, 3 samples decoded, quicksave/quickload ok`);
+    console.log(`PASS sandbox: ${scene.engine}, ${scene.physics.bodies} bodies, hero walked ${(after.x - before.x).toFixed(1)} m, pad entries ${after.entries}, ${scene.assets.loaded} assets loaded, 3 samples decoded, quicksave/quickload ok, ${inst.reduce((a, b) => a + b, 0)} instanced pebbles in ${inst.length} draws`);
   } catch (error) {
     failures++; console.error(`FAIL sandbox: ${error.stack ?? error}`);
   } finally { await page.close(); }

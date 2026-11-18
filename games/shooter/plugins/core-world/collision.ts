@@ -1,3 +1,4 @@
+import { SpatialHash } from '../../../../src/sdk/index.ts';
 import type { RayHit } from '../../../../src/sdk/index.ts';
 
 export interface Box {
@@ -10,24 +11,43 @@ export interface Box {
   active: boolean;
 }
 
+/** Maps with at least this many boxes use the spatial hash broad phase (P1.8); smaller ones stay brute force. */
+export const GRID_THRESHOLD = 128;
+
 /**
- * Planar kinematic collision against axis-aligned boxes. Small maps -> brute force over boxes is plenty
- * (a few hundred slab tests per query). All queries read the same box list, so door state is consistent everywhere.
+ * Planar kinematic collision against axis-aligned boxes. Small maps: brute force over boxes. Large maps: a uniform
+ * spatial hash narrows each query to nearby boxes, visited in the same (array) order, so `isFree` and `raycast`
+ * return exactly what brute force returns. All queries read the same box list, so door state is consistent everywhere.
+ * Box geometry is fixed after construction (only `active` may change).
  */
 export class CollisionWorld {
   readonly boxes: Box[];
   readonly maxX: number;
   readonly maxZ: number;
+  /** Broad phase over box indices (undefined for small maps). */
+  readonly grid: SpatialHash<number> | undefined;
 
-  constructor(boxes: Box[], maxX: number, maxZ: number) {
+  constructor(boxes: Box[], maxX: number, maxZ: number, options: { grid?: boolean; cellSize?: number } = {}) {
     this.boxes = boxes;
     this.maxX = maxX;
     this.maxZ = maxZ;
+    const useGrid = options.grid ?? boxes.length >= GRID_THRESHOLD;
+    if (useGrid) {
+      const grid = new SpatialHash<number>(options.cellSize ?? 4);
+      boxes.forEach((b, i) => grid.set(i, b));
+      this.grid = grid;
+    } else this.grid = undefined;
+  }
+
+  /** Boxes that may touch the disc (x, z, r), in array order. */
+  private around(x: number, z: number, r: number): readonly Box[] {
+    if (!this.grid) return this.boxes;
+    return this.grid.candidates({ minX: x - r, minZ: z - r, maxX: x + r, maxZ: z + r }).map((i) => this.boxes[i]!);
   }
 
   isFree(x: number, z: number, r: number): boolean {
     if (x - r < 0 || z - r < 0 || x + r > this.maxX || z + r > this.maxZ) return false;
-    for (const b of this.boxes) {
+    for (const b of this.around(x, z, r)) {
       if (!b.active) continue;
       const cx = x < b.minX ? b.minX : x > b.maxX ? b.maxX : x;
       const cz = z < b.minZ ? b.minZ : z > b.maxZ ? b.maxZ : z;
@@ -50,7 +70,9 @@ export class CollisionWorld {
       z += sz;
       for (let iter = 0; iter < 4; iter++) {
         let moved = false;
-        for (const b of this.boxes) {
+        // Grid maps: a push moves at most r (or out through a face), so 3r covers every box this pass can reach
+        // except after an inside-the-box escape, which the next pass picks up.
+        for (const b of this.around(x, z, r * 3)) {
           if (!b.active) continue;
           const cx = x < b.minX ? b.minX : x > b.maxX ? b.maxX : x;
           const cz = z < b.minZ ? b.minZ : z > b.maxZ ? b.maxZ : z;
@@ -96,7 +118,8 @@ export class CollisionWorld {
     let hitBox: Box | undefined;
     let nx = 0;
     let nz = 0;
-    for (const b of this.boxes) {
+    const candidates = this.grid ? this.grid.segment(x, z, dirX, dirZ, maxDist, r).map((i) => this.boxes[i]!) : this.boxes;
+    for (const b of candidates) {
       if (!b.active) continue;
       const minX = b.minX - r;
       const maxX = b.maxX + r;

@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "18f6492e692755a606a19d30e4d2fdd979dc3e300be5a0dbc740ea0dfd482673",
+  "sourceDigest": "450ebb830a6f702ea5d118fc996de25effcf5aa9bf9c0b855e14ff0752ae43ef",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -18035,6 +18035,30 @@
       "documentedBy": [
         "std/transform"
       ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SpatialHash",
+      "type": "contract",
+      "name": "SpatialHash",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial-index.ts:19",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SpatialHash"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
       "recipes": [],
       "implementations": []
     },

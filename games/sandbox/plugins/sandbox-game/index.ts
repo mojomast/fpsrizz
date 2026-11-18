@@ -29,6 +29,15 @@ export default definePlugin({
     const crates: EntityId[] = [];
     for (let layer = 0; layer < 4; layer++) for (let i = 0; i < 4 - layer; i++) crates.push(solid(ctx, { x: -1.6 + layer * 0.55 + i * 1.1, y: 0.55 + layer * 1.05, z: -5 }, { x: 1, y: 1, z: 1 }, [0xc08040, 0xb07038, 0xd09050][(i + layer) % 3]!, 'dynamic'));
 
+    // 160 decorative pebbles (no physics): one InstancedMesh draw call per colour via Renderable.instanced (P1.8).
+    for (let i = 0; i < 160; i++) {
+      const x = ctx.rng.range(-13.5, 13.5), z = ctx.rng.range(-13.5, 13.5);
+      if (Math.abs(x) < 3 && Math.abs(z - 4) < 3) continue; // keep the spawn clear
+      const pebble = ctx.world.create();
+      ctx.world.add(pebble, Transform3D, transform3d({ position: { x, y: 0.04, z }, yaw: ctx.rng.range(0, Math.PI), scale: ctx.rng.range(0.6, 1.4) }));
+      ctx.world.add(pebble, Renderable, { shape: 'box', size: { x: 0.18, y: 0.08, z: 0.14 }, color: i % 2 ? 0x8a8478 : 0x6f6a60, instanced: true });
+    }
+
     const pad = ctx.world.create();
     ctx.world.add(pad, Transform3D, transform3d({ position: { x: 5, y: 0.05, z: 2 } }));
     ctx.world.add(pad, RigidBody, { type: 'fixed' });

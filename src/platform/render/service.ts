@@ -14,6 +14,8 @@ export interface RenderHost {
   /** The world camera drawn last frame (audio listener follows it). */
   activeCamera(): THREE.Camera;
   liveRoots(): number;
+  /** The world scene (debugging and browser tests only; plugins draw through createRoot). */
+  readonly worldScene: THREE.Scene;
   dispose(): void;
 }
 
@@ -142,6 +144,7 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
     },
     activeCamera: () => cameras.current(),
     liveRoots: () => roots,
+    worldScene,
     dispose() {
       if (disposed) return;
       disposed = true;
