@@ -1,6 +1,7 @@
 # fpsrizz / Bulkhead: roadmap to a rapid-prototyping game engine
 
-> **Status (branch `engine/p0-foundations`, 2026-11-18).** P0 is in progress; this file is the audit as written, with
+> **Status (branch `engine/p1-core`, stacked on `engine/p0-foundations`, 2026-11-18).** P0 is done except the
+> P0.2 leftovers below; P1.1–P1.8 are done (KTX2 *encoding* in `npm run assets` deferred). This file is the audit as written, with
 > paths as they were at `14a2f15`. Many root documents have since moved (see [docs/README.md](README.md)).
 >
 > | Item | State |
@@ -12,6 +13,14 @@
 > | P0.4 Splitting, art packs, maps, budget | Done: per-plugin chunks, `public/packs/*.pack`, maps in `.sourcemaps/`, `npm run budget`. |
 > | P0.2 Engine/games split | Mostly done: all games (11 families) in `games/` with their family-only contracts; `src/plugins` holds only shared plugins. Not done: npm workspaces/`packages/`, moving the shooter contract out of the SDK, browser demos into `games/`. |
 > | P0.5 Docs | Done: Guide/Reference/Cookbook/archive, TypeDoc (`npm run docs:api`), `llms.txt`, link checker. |
+> | P1.1 Queries | Done: `world.query({ with, without })` with added/removed/changed per handle, `markChanged` ([queries](reference/queries.md)). |
+> | P1.2 Transform3D + render sync (SDK 3) | Done: `Transform3D`/`PrevTransform`/`Renderable`, `std/transform`, `std/render-sync` with alpha interpolation, SDK 3.0.0 with `SDK_COMPAT ['2.0.0']`, shooter bridge ([spatial](reference/spatial.md)). |
+> | P1.3 Rapier physics | Done: `std/physics-rapier` (rapier3d-compat 0.19.3, lazy vendor chunk): bodies, colliders, sensors, collision events, raycasts, character controller ([physics](reference/physics.md)). rapier2d not added. |
+> | P1.4 Assets | Done: `Assets` service, manifest `preload`, `std/assets` (GLTFLoader + Meshopt + KTX2 decode), glTF extras -> components, `npm run assets` (gltf-transform). KTX2 encoding deferred (needs toktx) ([assets](reference/assets.md)). |
+> | P1.5 Input v2 | Done: axes, gamepad, touch controls, rebinding in the pause menu persisted to the profile store ([input](reference/input.md)). |
+> | P1.6 Audio | Done: `AudioSamples`, buses wired to settings, PannerNode 3D voices, synth fallback ([audio](reference/audio.md)). |
+> | P1.7 Snapshots and replays | Done: `ctx.persist`, `host.snapshot/restore` with schema migrations, Rapier world persistence, F6/F9 quicksave, `?record` + F8 `.replay.json`, `tests/helpers/replay.ts` ([snapshots](reference/snapshots.md)). |
+> | P1.8 Spatial index and instancing | Done: `SpatialHash`, grid path in `core-world` for 128+ box maps, `Renderable.instanced` -> InstancedMesh ([spatial](reference/spatial.md)). |
 
 Audit date: 2026-11-18. Audited commit: `14a2f15` on `main` ("Bust stale production bundle caches").
 Scope: a read-only audit of the repo plus a review of current best practices. Nothing was pushed.
@@ -153,7 +162,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
 
 ### P1: Engine core
 
-- [ ] **P1.1 ECS queries and change detection.** M
+- [x] **P1.1 ECS queries and change detection.** M
   - *Why:* Single-component `each` forces manual joins and makes generic systems such as physics sync, render sync and inspectors awkward (W5).
   - *Change:*
     - Add cached `world.query({ with: [A, B], without: [C] })` backed by per-entity bitsets or archetype buckets.
@@ -165,7 +174,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - https://github.com/pmndrs/koota
     - https://github.com/hmans/miniplex
     - benchmarks https://github.com/ooflorent/ecs-benchmark
-- [ ] **P1.2 A generic 3D transform plus render sync (SDK 3).** L
+- [x] **P1.2 A generic 3D transform plus render sync (SDK 3).** L
   - *Why:* Planar `x, z, yaw` blocks platformers, flight, third-person and anything vertical (W6). Each 3D family currently hand-rolls its presentation.
   - *Change:*
     - Add core `Transform3D` (position, quaternion, scale, optional parent) and `PrevTransform` components.
@@ -174,7 +183,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - Keep the planar shooter as a family-level adapter.
     - Bump the SDK major version per `docs/reference/spec.md` §6.
   - Source: Fix Your Timestep (interpolating render state with alpha) https://gafferongames.com/post/fix_your_timestep/
-- [ ] **P1.3 A physics module (Rapier).** L
+- [x] **P1.3 A physics module (Rapier).** L
   - *Why:* Prototypes need rigid bodies, triggers, raycasts and a character controller without bespoke collision code (W6).
   - *Change:*
     - Add a `std/physics-rapier` plugin using `@dimforge/rapier3d-compat` (and `rapier2d` for 2D), stepped inside the fixed tick.
@@ -184,7 +193,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
   - Sources:
     - https://www.npmjs.com/package/@dimforge/rapier3d-compat (build flavours: standard is locally deterministic; `-deterministic` is cross-platform)
     - https://rapier.rs/docs/user_guides/bevy_plugin/determinism/
-- [ ] **P1.4 An async asset pipeline (glTF, KTX2, Meshopt).** M–L
+- [x] **P1.4 An async asset pipeline (glTF, KTX2, Meshopt).** M–L
   - *Why:* You can't drop in a model today. The GLBs in `assets/weapons/` are unused (W7).
   - *Change:*
     - Add a scoped `Assets.load(ctx, url)` service on top of `kernel/assets.ts` refcounting, with progress and preload lists in manifests.
@@ -195,14 +204,14 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - https://threejs.org/docs/pages/GLTFLoader.html
     - https://gltf-transform.dev/
     - Blender glTF exporter (custom properties → extras) https://docs.blender.org/manual/en/latest/addons/scene_gltf2.html
-- [ ] **P1.5 Input mapping v2.** M
+- [x] **P1.5 Input mapping v2.** M
   - *Why:* Keyboard/mouse-only input with no rebinding limits genres and playtesting (W8).
   - *Change:*
     - Add action maps with **axes** (move/look vectors) on top of existing `InputContexts`.
     - Support Gamepad API polling in `beginTick()`, touch/virtual sticks and rebinding persisted via `profile-store`.
     - Ship default maps per template.
   - Source: https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API
-- [ ] **P1.6 Sample-based audio with buses.** M
+- [x] **P1.6 Sample-based audio with buses.** M
   - *Why:* Synth-only `SoundDef`s are fine as placeholders, but prototypes need real SFX and music (W9).
   - *Change:*
     - Add `AudioBuffer` loading through the asset service.
@@ -210,7 +219,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - Add PannerNode spatial audio driven by the listener transform.
     - Keep the synth as a fallback. Optionally wrap Howler.js.
   - Sources: Web Audio https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API · https://howlerjs.com/
-- [ ] **P1.7 Snapshots, saves and input record/replay.** M–L
+- [x] **P1.7 Snapshots, saves and input record/replay.** M–L
   - *Why:* Determinism already exists but isn't cashed in (W11). Replays give one-file bug repros, deterministic regression tests and agent-verifiable gameplay.
   - *Change:*
     - Define `RunSnapshot { tick, rngStates, ecs.snapshot(), plugin state via serialize/restore hooks }`.
@@ -218,7 +227,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - Add a `node --test` helper that replays and asserts end state or hash.
     - Version snapshots with migrations, building on `story/adventure`'s chapter-save pattern.
   - Source: Gaffer On Games, deterministic lockstep https://gafferongames.com/post/deterministic_lockstep/
-- [ ] **P1.8 Spatial index and instancing.** M
+- [x] **P1.8 Spatial index and instancing.** M
   - *Why:* Brute-force queries are sized for "a few hundred boxes" (W15).
   - *Change:*
     - Add a uniform-grid/spatial-hash broadphase for the grid world, or rely on Rapier.
