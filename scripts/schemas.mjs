@@ -15,6 +15,8 @@ export const SCHEMA_MAP = [
   { schema: 'preset', match: /^(templates\/)?games\/[^/]+\/presets\/[^/]+\.json$/, glob: '{games,templates/games}/*/presets/*.json' },
   { schema: 'reuse', match: /(^|\/)reuse\.json$/, glob: '**/reuse.json' },
   { schema: 'content-pack', match: /(^|\/)content\.json$/, glob: '**/content.json', embed: false },
+  { schema: 'scene', match: /\.scene\.json$/, glob: '**/*.scene.json' },
+  { schema: 'prefab', match: /\.prefab\.json$/, glob: '**/*.prefab.json' },
   { schema: 'replay', match: /\.replay\.json$/, glob: '**/*.replay.json' },
   { schema: 'models', match: /^assets\/models\.json$/, glob: 'assets/models.json' },
   { schema: 'reuse-recipes', match: /^docs\/reuse-recipes\.json$/, glob: 'docs/reuse-recipes.json' },

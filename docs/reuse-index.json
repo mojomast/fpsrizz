@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "2dd082fa360d7b60101246824c3e9d1e3d00d95535b3250c62efbd19e6894469",
+  "sourceDigest": "800c7bf1d6dbc802829c04fb865c2d2667e59e7bf17461eb61c579b465558c04",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -11800,6 +11800,90 @@
       "recipes": []
     },
     {
+      "id": "std/scene",
+      "type": "plugin",
+      "name": "Prefabs and scenes",
+      "scope": "cross-genre",
+      "summary": "Data prefabs (component bags with extends/overrides), a Godot-style scene tree format, and Tiled / LDtk level importers.",
+      "source": "src/plugins/std-scene",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "prefab",
+        "scene",
+        "level",
+        "tiled",
+        "tmj",
+        "ldtk",
+        "tilemap",
+        "entity",
+        "template",
+        "spawn",
+        "overrides",
+        "extends",
+        "editor",
+        "import"
+      ],
+      "entryPoints": [
+        "spawnScene",
+        "spawnSceneFile",
+        "applyPrefabComponents",
+        "resolvePrefab",
+        "ScenePrefabs",
+        "Scenes",
+        "SceneNodeInfo",
+        "importTiled",
+        "importLdtk"
+      ],
+      "useWhen": "Levels or entity families described as data: hand-written scenes, prefabs shared across levels, or maps drawn in Tiled or LDtk.",
+      "limitations": [
+        "Tiled: orthogonal maps, CSV/array tile data and embedded tilesets only; tile flip flags are ignored.",
+        "LDtk: levels embedded in the project file; tiles map by tile id only.",
+        "One entity per tile (no greedy merging of tile runs into larger colliders yet)."
+      ],
+      "docs": [
+        "docs/reference/scenes.md"
+      ],
+      "examples": [
+        "tests/scene.test.ts"
+      ],
+      "tests": [
+        "tests/scene.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "std/scene"
+      ],
+      "registrations": [],
+      "contentKinds": [
+        {
+          "kind": "ldtk-level",
+          "description": "An LDtk project imported as a scene: { project, level?, cellSize?, plane?, entities?, intGrid?, tiles? }."
+        },
+        {
+          "kind": "prefab",
+          "description": "A reusable component bag: { extends?, components: { <component id or alias>: data }, children? }."
+        },
+        {
+          "kind": "scene",
+          "description": "An entity tree: { nodes: [{ prefab?, name?, transform?, overrides?, props?, children? }] }."
+        },
+        {
+          "kind": "tiled-map",
+          "description": "A Tiled JSON map imported as a scene: { map, cellSize?, plane?, tiles?, objects? } (see level-import.ts)."
+        }
+      ],
+      "presets": [],
+      "recipes": []
+    },
+    {
       "id": "std/transform",
       "type": "plugin",
       "name": "Transform3D bookkeeping",
@@ -13453,6 +13537,32 @@
       "implementations": []
     },
     {
+      "id": "sdk/applyPrefabComponents",
+      "type": "contract",
+      "name": "applyPrefabComponents",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:220",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "applyPrefabComponents"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/scene"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Assets",
       "type": "contract",
       "name": "Assets",
@@ -13870,6 +13980,30 @@
       "implementations": []
     },
     {
+      "id": "sdk/checkSceneReferences",
+      "type": "contract",
+      "name": "checkSceneReferences",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:163",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "checkSceneReferences"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/clockMechanic",
       "type": "contract",
       "name": "clockMechanic",
@@ -13988,7 +14122,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:252",
+      "source": "src/sdk/contracts/gltf.ts:254",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14030,6 +14164,54 @@
       "documentedBy": [
         "core/combat"
       ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/COMPONENT_ALIASES",
+      "type": "contract",
+      "name": "COMPONENT_ALIASES",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:51",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "COMPONENT_ALIASES"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/componentId",
+      "type": "contract",
+      "name": "componentId",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:55",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "componentId"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
       "recipes": [],
       "implementations": []
     },
@@ -14552,7 +14734,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:90",
+      "source": "src/sdk/contracts/gltf.ts:92",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15056,7 +15238,7 @@
       "summary": "Public SDK value: gltf-extras",
       "importFrom": "src/sdk/index.ts",
       "token": "gltf-extras",
-      "source": "src/sdk/contracts/gltf.ts:214",
+      "source": "src/sdk/contracts/gltf.ts:216",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15083,7 +15265,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:171",
+      "source": "src/sdk/contracts/gltf.ts:173",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15295,6 +15477,58 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/importLdtk",
+      "type": "contract",
+      "name": "importLdtk",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/level-import.ts:170",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "importLdtk"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/scene"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/importTiled",
+      "type": "contract",
+      "name": "importTiled",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/level-import.ts:79",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "importTiled"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/scene"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -15657,7 +15891,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:161",
+      "source": "src/sdk/contracts/gltf.ts:163",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16147,6 +16381,30 @@
       "implementations": []
     },
     {
+      "id": "sdk/mergeJson",
+      "type": "contract",
+      "name": "mergeJson",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:59",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "mergeJson"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/migrateSnapshot",
       "type": "contract",
       "name": "migrateSnapshot",
@@ -16511,7 +16769,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:51",
+      "source": "src/sdk/contracts/gltf.ts:53",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17488,6 +17746,32 @@
       "implementations": []
     },
     {
+      "id": "sdk/resolvePrefab",
+      "type": "contract",
+      "name": "resolvePrefab",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:84",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "resolvePrefab"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/scene"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/resourceMechanic",
       "type": "contract",
       "name": "resourceMechanic",
@@ -17711,6 +17995,138 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SceneError",
+      "type": "contract",
+      "name": "SceneError",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:81",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SceneError"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SceneNodeInfo",
+      "type": "contract",
+      "name": "SceneNodeInfo",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/scene-node",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/scene-node",
+      "source": "src/sdk/contracts/scene.ts:48",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SceneNodeInfo",
+        "sdk/scene-node"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/scene"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/scenePose",
+      "type": "contract",
+      "name": "scenePose",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:184",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "scenePose"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/ScenePrefabs",
+      "type": "contract",
+      "name": "ScenePrefabs",
+      "scope": "contract",
+      "summary": "Public SDK value: scene-prefab",
+      "importFrom": "src/sdk/index.ts",
+      "token": "scene-prefab",
+      "source": "src/sdk/contracts/scene.ts:44",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "ScenePrefabs",
+        "scene-prefab"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/scene"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/Scenes",
+      "type": "contract",
+      "name": "Scenes",
+      "scope": "contract",
+      "summary": "Public SDK value: scene",
+      "importFrom": "src/sdk/index.ts",
+      "token": "scene",
+      "source": "src/sdk/contracts/scene.ts:45",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Scenes",
+        "scene"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/scene"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -18137,6 +18553,58 @@
       "implementations": []
     },
     {
+      "id": "sdk/spawnScene",
+      "type": "contract",
+      "name": "spawnScene",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:226",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "spawnScene"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/scene"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/spawnSceneFile",
+      "type": "contract",
+      "name": "spawnSceneFile",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/core.ts:1",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "spawnSceneFile"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/scene"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/stableStringify",
       "type": "contract",
       "name": "stableStringify",
@@ -18436,6 +18904,78 @@
       "keywords": [
         "UseFailed",
         "sdk/use-failed"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/validatePrefab",
+      "type": "contract",
+      "name": "validatePrefab",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:143",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "validatePrefab"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/validateScene",
+      "type": "contract",
+      "name": "validateScene",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:155",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "validateScene"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/validateSceneNode",
+      "type": "contract",
+      "name": "validateSceneNode",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/scene.ts:127",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "validateSceneNode"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [

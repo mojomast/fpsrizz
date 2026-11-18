@@ -9,6 +9,7 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Plugins](guide/plugins.md): the SDK, manifests, lifecycle, roles, registries, events and services.
 - [Reuse](guide/reuse.md): find and compose existing capabilities before writing new ones.
 - [Bulkhead CLI and templates](guide/bulkhead-cli.md): `npm run bulkhead -- create <name> --template fps|platformer|topdown|puzzle|cards|blank`.
+- [Prefabs, scenes and level import](reference/scenes.md): data prefabs, scene trees, Tiled and LDtk importers.
 
 ## Reference (what exists, exactly)
 

@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Scene (std/scene, *.scene.json or the \"scene\" content kind)",
+  "description": "An entity tree modelled on Godot's .tscn: nodes of { prefab, name, transform, overrides, props, children }. See docs/reference/scenes.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "nodes"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/node"
+      }
+    }
+  },
+  "$defs": {
+    "transform": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Local pose relative to the parent node.",
+      "properties": {
+        "position": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "[x, y, z] metres."
+        },
+        "rotation": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 3,
+          "maxItems": 4,
+          "description": "Euler degrees [pitch x, yaw y, roll z] (YXZ order) or a quaternion [x, y, z, w]."
+        },
+        "scale": {
+          "oneOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "minItems": 3,
+              "maxItems": 3
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "pattern": "^(transform|renderable|body|collider|character|[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+)$"
+      },
+      "description": "Component id (\"game/coin\") or alias (transform, renderable, body, collider, character) -> component data. In overrides, null removes the component."
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[\\w .:#()/-]{1,80}$"
+        },
+        "prefab": {
+          "type": "string",
+          "description": "Prefab id registered with the std/scene \"prefab\" content kind."
+        },
+        "transform": {
+          "$ref": "#/$defs/transform"
+        },
+        "overrides": {
+          "$ref": "#/$defs/components"
+        },
+        "props": {
+          "type": "object",
+          "description": "Free-form designer data, exposed through the sdk/scene-node component."
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        }
+      }
+    },
+    "prefab": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "components"
+      ],
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "extends": {
+          "type": "string",
+          "description": "Base prefab id; its components are merged first."
+        },
+        "components": {
+          "$ref": "#/$defs/components"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/node"
+          }
+        }
+      }
+    }
+  }
+}

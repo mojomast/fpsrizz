@@ -32,5 +32,7 @@ export * from './contracts/spatial-index.ts';
 export * from './contracts/physics.ts';
 export * from './contracts/assets.ts';
 export * from './contracts/gltf.ts';
+export * from './contracts/scene.ts';
+export * from './contracts/level-import.ts';
 export * from './contracts/input.ts';
 export * from '../kernel/snapshot.ts';

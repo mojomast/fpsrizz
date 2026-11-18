@@ -37,3 +37,13 @@ test('schemas and the kernel validators agree on plugin manifests', () => {
     assert.equal(kernel(parseManifest, broken), false);
   }
 });
+
+test('scene and prefab schemas accept the documented format and reject typos the std/scene loaders also reject', () => {
+  const scene = schema('scene'), prefab = schema('prefab');
+  const ok = { nodes: [{ prefab: 'game/crate', name: 'crate-1', transform: { position: [1, 0, 2], rotation: [0, 90, 0], scale: 2 }, overrides: { renderable: { color: '#ff0000' }, 'game/tag': null }, children: [{ name: 'lid' }] }] };
+  assert.equal(scene(ok), true);
+  assert.equal(scene({ nodes: [{ prefab: 'game/crate', transfrom: {} }] }), false);
+  assert.equal(scene({ nodes: [{ transform: { position: [1, 2] } }] }), false);
+  assert.equal(prefab({ extends: 'game/block', components: { body: { type: 'dynamic' }, 'game/tag': { hp: 3 } } }), true);
+  assert.equal(prefab({ components: { colour: {} } }), false);
+});
