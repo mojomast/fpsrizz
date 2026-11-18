@@ -149,7 +149,7 @@ Focused command (installed Node 22; no browser required):
 ```bash
 PATH=/home/mojo/.local/node_modules/node/bin:/opt/emurizz/bin:$PATH \
   node --test tests/deadlines.test.ts tests/deadline-consumers.test.ts \
-  tests/mechanics-providers.test.ts tests/sky-salvage.test.ts \
+  tests/mechanics-providers.test.ts games/sky/tests/sky-salvage.test.ts \
   tests/verdant-relay.test.ts tests/reusable-games.test.ts
 ```
 

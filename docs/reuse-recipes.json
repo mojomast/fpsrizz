@@ -259,7 +259,7 @@
         "docs/reusable-mechanics.md"
       ],
       "examples": [
-        "src/plugins/sky-game/index.ts",
+        "games/sky/plugins/sky-game/index.ts",
         "src/plugins/verdant-game/index.ts"
       ],
       "tests": [
@@ -423,7 +423,7 @@
         "docs/reusable-mechanics.md"
       ],
       "examples": [
-        "src/plugins/sky-game/index.ts",
+        "games/sky/plugins/sky-game/index.ts",
         "src/plugins/verdant-content/content.json"
       ],
       "tests": [

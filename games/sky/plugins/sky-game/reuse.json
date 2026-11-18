@@ -3,5 +3,5 @@
   "keywords": ["drone", "flight", "cargo", "delivery", "boost", "repair", "courier", "deadline", "duration", "immunity"],
   "entryPoints": ["Sky", "SkyRoutes", "createMechanicKit", "createDeadline"], "useWhen": "Author another courier route or study how to compose shared mechanics and seconds-based windows with spatial legality.",
   "limitations": ["Planar flight and matching cargo are family rules; reuse the mechanics/* providers separately for other movement genres."],
-  "docs": ["docs/sky-salvage.md", "docs/reusable-mechanics.md", "docs/deadlines.md"], "examples": ["src/plugins/sky-content/content.json", "src/content/presets/sky-salvage.json"], "tests": ["tests/sky-salvage.test.ts", "tests/reusable-games.test.ts", "tests/deadline-consumers.test.ts"]
+  "docs": ["docs/sky-salvage.md", "docs/reusable-mechanics.md", "docs/deadlines.md"], "examples": ["games/sky/plugins/sky-content/content.json", "games/sky/presets/sky-salvage.json"], "tests": ["games/sky/tests/sky-salvage.test.ts", "tests/reusable-games.test.ts", "tests/deadline-consumers.test.ts"]
 }

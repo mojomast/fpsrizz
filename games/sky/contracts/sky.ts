@@ -1,5 +1,5 @@
-import { defineRegistry, defineService } from '../core.ts';
-import type { MechanicKitDefinition } from './mechanics.ts';
+import { defineRegistry, defineService } from '../../../src/sdk/index.ts';
+import type { MechanicKitDefinition } from '../../../src/sdk/index.ts';
 
 export interface SkyPoint { readonly x: number; readonly z: number }
 export interface SkyDelivery { readonly id: string; readonly pickup: SkyPoint; readonly beacon: SkyPoint }

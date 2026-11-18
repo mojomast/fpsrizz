@@ -6,7 +6,7 @@ Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `598ebaf649f55b50dda33f8b19ef1ae93ff07194bcfc4b9974e21451fe5d539e`
+Source digest: `39bae8c1d20d01fea3abc9cfb9891a712d237b7f05622a35cde26c129b6294c9`
 
 ## Composition recipes
 
@@ -124,9 +124,9 @@ Source digest: `598ebaf649f55b50dda33f8b19ef1ae93ff07194bcfc4b9974e21451fe5d539e
 | `silt/content` | content | Three districts of four-socket chambers for The Silt Archive. | [source](src/plugins/silt-content) |
 | `silt/game` | family | Turn-based flooded archive exploration with room graphs, encounters, tide, equipment and extraction. | [source](src/plugins/silt-game) |
 | `silt/presentation` | presentation | Responsive top-down chamber, district map and controls for The Silt Archive. | [source](src/plugins/silt-presentation) |
-| `sky/content` | content | Courier resources, actions and delivery objectives. | [source](src/plugins/sky-content) |
-| `sky/game` | family | Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines. | [source](src/plugins/sky-game) |
-| `sky/presentation` | unreviewed | Volumetric floating islands and drone cockpit HUD. | [source](src/plugins/sky-presentation) |
+| `sky/content` | content | Courier resources, actions and delivery objectives. | [source](games/sky/plugins/sky-content) |
+| `sky/game` | family | Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines. | [source](games/sky/plugins/sky-game) |
+| `sky/presentation` | unreviewed | Volumetric floating islands and drone cockpit HUD. | [source](games/sky/plugins/sky-presentation) |
 | `story/adventure` | family | Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load. | [source](src/plugins/story-adventure) |
 | `story/chapter` | content | A lighthouse mystery in three rooms. | [source](src/plugins/story-chapter) |
 | `story/presentation` | unreviewed | Illustrated point-and-click adventure interface. | [source](src/plugins/story-presentation) |
@@ -290,8 +290,6 @@ Source digest: `598ebaf649f55b50dda33f8b19ef1ae93ff07194bcfc4b9974e21451fe5d539e
 | `sdk/Settings` | contract | Public SDK value: sdk/settings | [source](src/sdk/contracts/shooter.ts#L638) |
 | `sdk/Silt` | contract | Public SDK value: silt/archive | [source](src/sdk/contracts/silt-archive.ts#L44) |
 | `sdk/SiltArchives` | contract | Public SDK value: silt-archive | [source](src/sdk/contracts/silt-archive.ts#L13) |
-| `sdk/Sky` | contract | Public SDK value: sky/salvage | [source](src/sdk/contracts/sky.ts#L16) |
-| `sdk/SkyRoutes` | contract | Public SDK value: sky-route | [source](src/sdk/contracts/sky.ts#L7) |
 | `sdk/spawnPrefab` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L335) |
 | `sdk/Tactics` | contract | Public SDK value: board/tactics | [source](src/sdk/contracts/tactics.ts#L42) |
 | `sdk/TacticsMissions` | contract | Public SDK value: board-mission | [source](src/sdk/contracts/tactics.ts#L17) |
@@ -325,3 +323,5 @@ Source digest: `598ebaf649f55b50dda33f8b19ef1ae93ff07194bcfc4b9974e21451fe5d539e
 | `sdk/yawDirX` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L722) |
 | `sdk/yawDirZ` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L723) |
 | `sdk/yawOf` | contract | Public helper/class | [source](src/sdk/contracts/shooter.ts#L725) |
+| `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](games/sky/contracts/sky.ts#L16) |
+| `games/sky/SkyRoutes` | contract | Game-family contract value: sky-route | [source](games/sky/contracts/sky.ts#L7) |

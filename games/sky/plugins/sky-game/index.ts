@@ -1,5 +1,6 @@
-import { ExperienceRole, MechanicKits, SessionControl, Sky, SkyRoutes, createDeadline, createMechanicKit, definePlugin, isObject } from '../../sdk/index.ts';
-import type { SkyCommand } from '../../sdk/index.ts';
+import { ExperienceRole, MechanicKits, SessionControl, createDeadline, createMechanicKit, definePlugin, isObject } from '../../../../src/sdk/index.ts';
+import { Sky, SkyRoutes } from '../../contracts/sky.ts';
+import type { SkyCommand } from '../../contracts/sky.ts';
 import { loadRoute } from './content.ts';
 
 const near = (x: number, z: number, p: { x: number; z: number }) => Math.hypot(x - p.x, z - p.z) <= 1.35;

@@ -96,7 +96,7 @@ These use the same content-entry envelope and staged `Reporter` validation, with
 | `item` | `mechanics/inventory` | Referenced by inventory consumers | Stackable item definitions with optional equipment slot, rarity and presentation icon; [inventory](docs/inventory.md) |
 | `crafting-recipe` | `mechanics/crafting` | Known by a crafting consumer | 1–6 item inputs and one item output; no currency, failure or discovery in the generic format; [crafting](docs/crafting.md) |
 | `metroidvania-world` | `hollowmere/game` | `options.world` | Twelve-room graph, ability definitions, enemy archetypes, item/ability pickups, doors, checkpoints and NPCs for the Hollowmere family; [Hollowmere](docs/hollowmere.md) |
-| `sky-route` | `sky/game` | `options.route` | `src/plugins/sky-content/content.json`; [flight schema](docs/sky-salvage.md) |
+| `sky-route` | `sky/game` | `options.route` | `games/sky/plugins/sky-content/content.json`; [flight schema](docs/sky-salvage.md) |
 | `ember-defense` | `ember/game` | `options.defense` | `src/plugins/ember-content/content.json`; [defense schema](docs/ember-bastion.md) |
 | `verdant-world` | `verdant/game` | `options.world` | `src/plugins/verdant-content/content.json`; [colony schema](docs/verdant-relay.md) |
 

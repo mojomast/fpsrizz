@@ -1,27 +1,28 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost } from '../src/kernel/host.ts';
-import { Scope } from '../src/kernel/scope.ts';
-import { MechanicActionCommitted, MechanicObjectiveChanged, PHASES, SDK_VERSION, SessionControl, Sky } from '../src/sdk/index.ts';
-import resources from '../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
-import clock from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
-import actions from '../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
-import objectives from '../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
-import kits from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
-import game from '../src/plugins/sky-game/manifest.json' with { type: 'json' };
-import pack from '../src/plugins/sky-content/manifest.json' with { type: 'json' };
-import content from '../src/plugins/sky-content/content.json' with { type: 'json' };
-import preset from '../src/content/presets/sky-salvage.json' with { type: 'json' };
+import { PluginHost } from '../../../src/kernel/host.ts';
+import { Scope } from '../../../src/kernel/scope.ts';
+import { MechanicActionCommitted, MechanicObjectiveChanged, PHASES, SDK_VERSION, SessionControl } from '../../../src/sdk/index.ts';
+import { Sky } from '../contracts/sky.ts';
+import resources from '../../../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
+import clock from '../../../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
+import actions from '../../../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
+import objectives from '../../../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
+import kits from '../../../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
+import game from '../plugins/sky-game/manifest.json' with { type: 'json' };
+import pack from '../plugins/sky-content/manifest.json' with { type: 'json' };
+import content from '../plugins/sky-content/content.json' with { type: 'json' };
+import preset from '../presets/sky-salvage.json' with { type: 'json' };
 
 async function setup(gate = { playing: true }, packContent: unknown = content) {
   const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES, installHostServices(session, scope) { session.services.provide(SessionControl, gate, 'host', scope); } });
   assert.deepEqual(host.setCatalog([
-    { manifest: resources, load: () => import('../src/plugins/mechanics-resources/index.ts') },
-    { manifest: clock, load: () => import('../src/plugins/mechanics-clock/index.ts') },
-    { manifest: actions, load: () => import('../src/plugins/mechanics-actions/index.ts') },
-    { manifest: objectives, load: () => import('../src/plugins/mechanics-objectives/index.ts') },
-    { manifest: kits, load: () => import('../src/plugins/mechanics-kits/index.ts') },
-    { manifest: game, load: () => import('../src/plugins/sky-game/index.ts') },
+    { manifest: resources, load: () => import('../../../src/plugins/mechanics-resources/index.ts') },
+    { manifest: clock, load: () => import('../../../src/plugins/mechanics-clock/index.ts') },
+    { manifest: actions, load: () => import('../../../src/plugins/mechanics-actions/index.ts') },
+    { manifest: objectives, load: () => import('../../../src/plugins/mechanics-objectives/index.ts') },
+    { manifest: kits, load: () => import('../../../src/plugins/mechanics-kits/index.ts') },
+    { manifest: game, load: () => import('../plugins/sky-game/index.ts') },
     { manifest: pack, content: packContent },
   ]), []);
   const roles = { ...preset.roles }; const { 'sdk/theme': _theme, ...headlessRoles } = roles;

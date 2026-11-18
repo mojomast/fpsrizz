@@ -193,7 +193,12 @@ export function checkSource(relPath: string, source: string, opts: { capabilitie
   const add = (line: number, specifier: string, rule: string, message: string) =>
     out.push({ file, line, specifier, rule, message });
 
-  const pluginMatch = /^src\/plugins\/([^/]+)\//.exec(file);
+  // Engine plugins live in src/plugins/<name>/; game plugins in games/<family>/plugins/<name>/.
+  const pluginMatch = /^(?:src\/plugins|games\/[^/]+\/plugins)\/([^/]+)\//.exec(file);
+  const pluginDir = pluginMatch ? file.slice(0, pluginMatch[0].length - 1) : '';
+  const familyMatch = /^games\/([^/]+)\//.exec(file);
+  const familyContracts = familyMatch ? `games/${familyMatch[1]}/contracts` : '';
+  const inFamilyContracts = familyContracts !== '' && under(file, familyContracts);
   const inKernel = under(file, 'src/kernel');
   const inSdk = under(file, 'src/sdk');
   const inPlatform = under(file, 'src/platform');
@@ -212,9 +217,10 @@ export function checkSource(relPath: string, source: string, opts: { capabilitie
     const { bare, path } = resolveSpecifier(file, specifier);
 
     if (pluginMatch) {
-      const own = `src/plugins/${pluginMatch[1]}`;
+      const own = pluginDir;
       if (!bare && under(path, own)) continue;
       if (!bare && path === SDK_INDEX) continue;
+      if (!bare && familyContracts && under(path, familyContracts)) continue;
       if (!bare && path === SDK_RENDER) {
         if (!(opts.capabilities ?? []).includes('render')) {
           add(line, specifier, 'render-capability',
@@ -223,8 +229,14 @@ export function checkSource(relPath: string, source: string, opts: { capabilitie
         continue;
       }
       add(line, specifier, 'plugin-isolation',
-        `Plugins may only import their own folder, the SDK entry point (${relFrom(file, SDK_INDEX)}) or, with the "render" capability, ${relFrom(file, SDK_RENDER)}. ` +
+        `Plugins may only import their own folder, the SDK entry point (${relFrom(file, SDK_INDEX)})` +
+        `${familyContracts ? `, their family's contracts (${familyContracts}/)` : ''} or, with the "render" capability, ${relFrom(file, SDK_RENDER)}. ` +
         `Import "${specifier}" from the SDK entry point instead.`);
+    } else if (inFamilyContracts) {
+      if (bare || !(path === SDK_INDEX || under(path, familyContracts))) {
+        add(line, specifier, 'family-contracts',
+          `Game contracts may only import the SDK entry point (${relFrom(file, SDK_INDEX)}) and other contracts of the same family; "${specifier}" is not allowed.`);
+      }
     } else if (inKernel) {
       if (bare || !under(path, 'src/kernel')) {
         add(line, specifier, 'kernel-purity', `src/kernel may only import other src/kernel files; "${specifier}" is not allowed.`);
@@ -260,16 +272,17 @@ function walk(dir: string, acc: string[]): void {
 }
 
 export function listSourceFiles(root: string): string[] {
-  const srcDir = resolve(root, 'src');
-  if (!existsSync(srcDir)) return [];
   const files: string[] = [];
-  walk(srcDir, files);
+  for (const top of ['src', 'games']) {
+    const dir = resolve(root, top);
+    if (existsSync(dir)) walk(dir, files);
+  }
   const prefix = resolve(root).replace(/\\/g, '/') + '/';
   return files.map((f) => f.replace(/\\/g, '/').replace(prefix, '')).sort();
 }
 
-function readCapabilities(root: string, plugin: string): string[] {
-  const p = join(root, 'src/plugins', plugin, 'manifest.json');
+function readCapabilities(root: string, pluginDir: string): string[] {
+  const p = join(root, pluginDir, 'manifest.json');
   if (!existsSync(p)) return [];
   try {
     const m = JSON.parse(readFileSync(p, 'utf8')) as { capabilities?: unknown };
@@ -282,8 +295,8 @@ function readCapabilities(root: string, plugin: string): string[] {
 export function checkRepo(root: string): Violation[] {
   const out: Violation[] = [];
   for (const rel of listSourceFiles(root)) {
-    const m = /^src\/plugins\/([^/]+)\//.exec(rel);
-    const capabilities = m ? readCapabilities(root, m[1]!) : [];
+    const m = /^(?:src\/plugins|games\/[^/]+\/plugins)\/[^/]+\//.exec(rel);
+    const capabilities = m ? readCapabilities(root, m[0].slice(0, -1)) : [];
     out.push(...checkSource(rel, readFileSync(join(root, rel), 'utf8'), { capabilities }));
   }
   return out;

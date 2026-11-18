@@ -1,14 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { MechanicActionCommitted, MechanicObjectiveChanged, Sky, Verdant } from '../src/sdk/index.ts';
+import { MechanicActionCommitted, MechanicObjectiveChanged, Verdant } from '../src/sdk/index.ts';
+import { Sky } from '../games/sky/contracts/sky.ts';
 import type { VerdantCommand } from '../src/sdk/index.ts';
 import resources from '../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
 import clock from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
 import actions from '../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
 import objectives from '../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
 import kits from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
-import skyRules from '../src/plugins/sky-game/manifest.json' with { type: 'json' };
-import skyPresentation from '../src/plugins/sky-presentation/manifest.json' with { type: 'json' };
+import skyRules from '../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
+import skyPresentation from '../games/sky/plugins/sky-presentation/manifest.json' with { type: 'json' };
 import skyPack from '../src/plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
 import skyContent from '../src/plugins/portfolio-sky-resource/content.json' with { type: 'json' };
 import skyPreset from '../src/content/presets/portfolio-sky-resource.json' with { type: 'json' };
@@ -27,8 +28,8 @@ function game() {
     { manifest: actions, load: () => import('../src/plugins/mechanics-actions/index.ts') },
     { manifest: objectives, load: () => import('../src/plugins/mechanics-objectives/index.ts') },
     { manifest: kits, load: () => import('../src/plugins/mechanics-kits/index.ts') },
-    { manifest: skyRules, load: () => import('../src/plugins/sky-game/index.ts') },
-    { manifest: skyPresentation, load: () => import('../src/plugins/sky-presentation/index.ts') },
+    { manifest: skyRules, load: () => import('../games/sky/plugins/sky-game/index.ts') },
+    { manifest: skyPresentation, load: () => import('../games/sky/plugins/sky-presentation/index.ts') },
     { manifest: skyPack, content: skyContent },
     { manifest: verdantRules, load: () => import('../src/plugins/verdant-game/index.ts') },
     { manifest: verdantPresentation, load: () => import('../src/plugins/verdant-presentation/index.ts') },

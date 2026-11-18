@@ -17,5 +17,5 @@
     "skipLibCheck": true,
     "types": []
   },
-  "include": ["src", "tests", "scripts/*.d.ts", "scripts/boundaries.ts"]
+  "include": ["src", "games", "tests", "scripts/*.d.ts", "scripts/boundaries.ts"]
 }

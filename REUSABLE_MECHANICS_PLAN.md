@@ -58,8 +58,8 @@ the implemented resource/cooldown/objective algorithms and do not enable the ori
 - Foundation agent: `src/plugins/mechanics-{resources,clock,actions,objectives,kits}/`, `tests/mechanics*.test.ts`,
   `docs/reusable-mechanics.md`. Report contract changes before making them.
 - Host agent: generic selected-role activation ordering in the kernel and focused host lifecycle tests.
-- Sky agent: `src/plugins/sky-{game,presentation,content}/`, `src/sdk/contracts/sky.ts`,
-  `src/content/presets/sky-salvage.json`, `tests/sky-salvage.test.ts`, `docs/sky-salvage.md`.
+- Sky agent: `src/plugins/sky-{game,presentation,content}/`, `games/sky/contracts/sky.ts`,
+  `games/sky/presets/sky-salvage.json`, `games/sky/tests/sky-salvage.test.ts`, `docs/sky-salvage.md`.
 - Ember agent: corresponding `ember-{game,presentation,content}`, `contracts/ember.ts`, `ember-bastion.json`,
   `tests/ember-bastion.test.ts`, `docs/ember-bastion.md`.
 - Verdant agent: corresponding `verdant-{game,presentation,content}`, `contracts/verdant.ts`, `verdant-relay.json`,

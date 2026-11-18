@@ -1,5 +1,6 @@
-import { isObject, vArray, vNumber, vString } from '../../sdk/index.ts';
-import type { Reporter, SkyPoint, SkyDelivery, SkyRoute } from '../../sdk/index.ts';
+import { isObject, vArray, vNumber, vString } from '../../../../src/sdk/index.ts';
+import type { Reporter } from '../../../../src/sdk/index.ts';
+import type { SkyPoint, SkyDelivery, SkyRoute } from '../../contracts/sky.ts';
 
 function keys(value: Record<string, unknown>, allowed: string[], r: Reporter) {
   for (const key of Object.keys(value)) if (!allowed.includes(key)) r.at(key).error('unknown property');

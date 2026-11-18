@@ -114,27 +114,27 @@ import p85 from '../plugins/silt-content/manifest.json' with { type: 'json' };
 import p85c from '../plugins/silt-content/content.json' with { type: 'json' };
 import p86 from '../plugins/silt-game/manifest.json' with { type: 'json' };
 import p87 from '../plugins/silt-presentation/manifest.json' with { type: 'json' };
-import p88 from '../plugins/sky-content/manifest.json' with { type: 'json' };
-import p88c from '../plugins/sky-content/content.json' with { type: 'json' };
-import p89 from '../plugins/sky-game/manifest.json' with { type: 'json' };
-import p90 from '../plugins/sky-presentation/manifest.json' with { type: 'json' };
-import p91 from '../plugins/story-adventure/manifest.json' with { type: 'json' };
-import p92 from '../plugins/story-chapter/manifest.json' with { type: 'json' };
-import p92c from '../plugins/story-chapter/content.json' with { type: 'json' };
-import p93 from '../plugins/story-presentation/manifest.json' with { type: 'json' };
-import p94 from '../plugins/theme-arcade/manifest.json' with { type: 'json' };
-import p95 from '../plugins/theme-assetrizz/manifest.json' with { type: 'json' };
-import p96 from '../plugins/theme-board/manifest.json' with { type: 'json' };
-import p97 from '../plugins/theme-industrial/manifest.json' with { type: 'json' };
-import p98 from '../plugins/theme-story/manifest.json' with { type: 'json' };
-import p99 from '../plugins/vehicle-presentation/manifest.json' with { type: 'json' };
-import p100 from '../plugins/vehicle-racing/manifest.json' with { type: 'json' };
-import p101 from '../plugins/vehicle-track/manifest.json' with { type: 'json' };
-import p101c from '../plugins/vehicle-track/content.json' with { type: 'json' };
-import p102 from '../plugins/verdant-content/manifest.json' with { type: 'json' };
-import p102c from '../plugins/verdant-content/content.json' with { type: 'json' };
-import p103 from '../plugins/verdant-game/manifest.json' with { type: 'json' };
-import p104 from '../plugins/verdant-presentation/manifest.json' with { type: 'json' };
+import p88 from '../plugins/story-adventure/manifest.json' with { type: 'json' };
+import p89 from '../plugins/story-chapter/manifest.json' with { type: 'json' };
+import p89c from '../plugins/story-chapter/content.json' with { type: 'json' };
+import p90 from '../plugins/story-presentation/manifest.json' with { type: 'json' };
+import p91 from '../plugins/theme-arcade/manifest.json' with { type: 'json' };
+import p92 from '../plugins/theme-assetrizz/manifest.json' with { type: 'json' };
+import p93 from '../plugins/theme-board/manifest.json' with { type: 'json' };
+import p94 from '../plugins/theme-industrial/manifest.json' with { type: 'json' };
+import p95 from '../plugins/theme-story/manifest.json' with { type: 'json' };
+import p96 from '../plugins/vehicle-presentation/manifest.json' with { type: 'json' };
+import p97 from '../plugins/vehicle-racing/manifest.json' with { type: 'json' };
+import p98 from '../plugins/vehicle-track/manifest.json' with { type: 'json' };
+import p98c from '../plugins/vehicle-track/content.json' with { type: 'json' };
+import p99 from '../plugins/verdant-content/manifest.json' with { type: 'json' };
+import p99c from '../plugins/verdant-content/content.json' with { type: 'json' };
+import p100 from '../plugins/verdant-game/manifest.json' with { type: 'json' };
+import p101 from '../plugins/verdant-presentation/manifest.json' with { type: 'json' };
+import p102 from '../../games/sky/plugins/sky-content/manifest.json' with { type: 'json' };
+import p102c from '../../games/sky/plugins/sky-content/content.json' with { type: 'json' };
+import p103 from '../../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
+import p104 from '../../games/sky/plugins/sky-presentation/manifest.json' with { type: 'json' };
 
 /** Every plugin found on disk, sorted by folder. Manifests are static; code loads lazily. */
 export const catalog: CatalogEntry[] = [
@@ -226,21 +226,21 @@ export const catalog: CatalogEntry[] = [
   { manifest: p85, content: p85c }, // silt/content
   { manifest: p86, load: () => import('../plugins/silt-game/index.ts') }, // silt/game
   { manifest: p87, load: () => import('../plugins/silt-presentation/index.ts') }, // silt/presentation
-  { manifest: p88, content: p88c }, // sky/content
-  { manifest: p89, load: () => import('../plugins/sky-game/index.ts') }, // sky/game
-  { manifest: p90, load: () => import('../plugins/sky-presentation/index.ts') }, // sky/presentation
-  { manifest: p91, load: () => import('../plugins/story-adventure/index.ts') }, // story/adventure
-  { manifest: p92, content: p92c }, // story/chapter
-  { manifest: p93, load: () => import('../plugins/story-presentation/index.ts') }, // story/presentation
-  { manifest: p94, load: () => import('../plugins/theme-arcade/index.ts') }, // theme/arcade
-  { manifest: p95, load: () => import('../plugins/theme-assetrizz/index.ts') }, // theme/assetrizz
-  { manifest: p96, load: () => import('../plugins/theme-board/index.ts') }, // theme/board
-  { manifest: p97, load: () => import('../plugins/theme-industrial/index.ts') }, // theme/industrial
-  { manifest: p98, load: () => import('../plugins/theme-story/index.ts') }, // theme/story
-  { manifest: p99, load: () => import('../plugins/vehicle-presentation/index.ts') }, // vehicle/presentation
-  { manifest: p100, load: () => import('../plugins/vehicle-racing/index.ts') }, // vehicle/racing
-  { manifest: p101, content: p101c }, // vehicle/track
-  { manifest: p102, content: p102c }, // verdant/content
-  { manifest: p103, load: () => import('../plugins/verdant-game/index.ts') }, // verdant/game
-  { manifest: p104, load: () => import('../plugins/verdant-presentation/index.ts') }, // verdant/presentation
+  { manifest: p88, load: () => import('../plugins/story-adventure/index.ts') }, // story/adventure
+  { manifest: p89, content: p89c }, // story/chapter
+  { manifest: p90, load: () => import('../plugins/story-presentation/index.ts') }, // story/presentation
+  { manifest: p91, load: () => import('../plugins/theme-arcade/index.ts') }, // theme/arcade
+  { manifest: p92, load: () => import('../plugins/theme-assetrizz/index.ts') }, // theme/assetrizz
+  { manifest: p93, load: () => import('../plugins/theme-board/index.ts') }, // theme/board
+  { manifest: p94, load: () => import('../plugins/theme-industrial/index.ts') }, // theme/industrial
+  { manifest: p95, load: () => import('../plugins/theme-story/index.ts') }, // theme/story
+  { manifest: p96, load: () => import('../plugins/vehicle-presentation/index.ts') }, // vehicle/presentation
+  { manifest: p97, load: () => import('../plugins/vehicle-racing/index.ts') }, // vehicle/racing
+  { manifest: p98, content: p98c }, // vehicle/track
+  { manifest: p99, content: p99c }, // verdant/content
+  { manifest: p100, load: () => import('../plugins/verdant-game/index.ts') }, // verdant/game
+  { manifest: p101, load: () => import('../plugins/verdant-presentation/index.ts') }, // verdant/presentation
+  { manifest: p102, content: p102c }, // sky/content
+  { manifest: p103, load: () => import('../../games/sky/plugins/sky-game/index.ts') }, // sky/game
+  { manifest: p104, load: () => import('../../games/sky/plugins/sky-presentation/index.ts') }, // sky/presentation
 ];

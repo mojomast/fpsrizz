@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "598ebaf649f55b50dda33f8b19ef1ae93ff07194bcfc4b9974e21451fe5d539e",
+  "sourceDigest": "39bae8c1d20d01fea3abc9cfb9891a712d237b7f05622a35cde26c129b6294c9",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -394,7 +394,7 @@
         "docs/reusable-mechanics.md"
       ],
       "examples": [
-        "src/plugins/sky-game/index.ts",
+        "games/sky/plugins/sky-game/index.ts",
         "src/plugins/verdant-game/index.ts"
       ],
       "tests": [
@@ -564,7 +564,7 @@
         "docs/reusable-mechanics.md"
       ],
       "examples": [
-        "src/plugins/sky-game/index.ts",
+        "games/sky/plugins/sky-game/index.ts",
         "src/plugins/verdant-content/content.json"
       ],
       "tests": [
@@ -7010,7 +7010,7 @@
       ],
       "examples": [
         "src/plugins/ember-game/index.ts",
-        "src/plugins/sky-game/index.ts",
+        "games/sky/plugins/sky-game/index.ts",
         "src/plugins/verdant-game/index.ts"
       ],
       "tests": [
@@ -7261,7 +7261,7 @@
         "docs/owned-instances.md"
       ],
       "examples": [
-        "src/plugins/sky-game/index.ts",
+        "games/sky/plugins/sky-game/index.ts",
         "src/plugins/verdant-game/index.ts"
       ],
       "tests": [
@@ -7920,7 +7920,7 @@
         "CONTENT_FORMAT.md"
       ],
       "examples": [
-        "src/plugins/sky-content/content.json",
+        "games/sky/plugins/sky-content/content.json",
         "src/plugins/ember-content/content.json",
         "src/plugins/verdant-content/content.json"
       ],
@@ -8796,7 +8796,7 @@
         "docs/mechanic-conformance.md"
       ],
       "examples": [
-        "src/plugins/sky-game/index.ts",
+        "games/sky/plugins/sky-game/index.ts",
         "src/plugins/ember-game/index.ts",
         "src/plugins/verdant-game/index.ts"
       ],
@@ -11098,7 +11098,7 @@
       "name": "Sky Salvage Flight Kit",
       "scope": "content",
       "summary": "Courier resources, actions and delivery objectives.",
-      "source": "src/plugins/sky-content",
+      "source": "games/sky/plugins/sky-content",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -11163,7 +11163,7 @@
       "name": "Sky Salvage Rules",
       "scope": "family",
       "summary": "Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines.",
-      "source": "src/plugins/sky-game",
+      "source": "games/sky/plugins/sky-game",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -11196,11 +11196,11 @@
         "docs/deadlines.md"
       ],
       "examples": [
-        "src/plugins/sky-content/content.json",
-        "src/content/presets/sky-salvage.json"
+        "games/sky/plugins/sky-content/content.json",
+        "games/sky/presets/sky-salvage.json"
       ],
       "tests": [
-        "tests/sky-salvage.test.ts",
+        "games/sky/tests/sky-salvage.test.ts",
         "tests/reusable-games.test.ts",
         "tests/deadline-consumers.test.ts"
       ],
@@ -11274,7 +11274,7 @@
       "name": "Sky Salvage 3D",
       "scope": "unreviewed",
       "summary": "Volumetric floating islands and drone cockpit HUD.",
-      "source": "src/plugins/sky-presentation",
+      "source": "games/sky/plugins/sky-presentation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -16961,65 +16961,6 @@
       ]
     },
     {
-      "id": "sdk/Sky",
-      "type": "contract",
-      "name": "Sky",
-      "scope": "contract",
-      "summary": "Public SDK value: sky/salvage",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sky/salvage",
-      "source": "src/sdk/contracts/sky.ts:16",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Sky",
-        "sky/salvage"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "sky/game"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/SkyRoutes",
-      "type": "contract",
-      "name": "SkyRoutes",
-      "scope": "contract",
-      "summary": "Public SDK value: sky-route",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sky-route",
-      "source": "src/sdk/contracts/sky.ts:7",
-      "docs": [
-        "PLUGINS.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "SkyRoutes",
-        "sky-route"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "sky/game"
-      ],
-      "recipes": [],
-      "implementations": [
-        "portfolio/sky-resource",
-        "sky/content"
-      ]
-    },
-    {
       "id": "sdk/spawnPrefab",
       "type": "contract",
       "name": "spawnPrefab",
@@ -17915,6 +17856,67 @@
       "documentedBy": [],
       "recipes": [],
       "implementations": []
+    },
+    {
+      "id": "games/sky/Sky",
+      "type": "contract",
+      "name": "Sky",
+      "scope": "contract",
+      "summary": "Game-family contract value: sky/salvage",
+      "importFrom": "games/sky/contracts/sky.ts",
+      "token": "sky/salvage",
+      "source": "games/sky/contracts/sky.ts:16",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Sky",
+        "sky",
+        "sky/salvage"
+      ],
+      "useWhen": "Game-specific contract of the sky family; plugins in games/sky/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sky family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "sky/game"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/sky/SkyRoutes",
+      "type": "contract",
+      "name": "SkyRoutes",
+      "scope": "contract",
+      "summary": "Game-family contract value: sky-route",
+      "importFrom": "games/sky/contracts/sky.ts",
+      "token": "sky-route",
+      "source": "games/sky/contracts/sky.ts:7",
+      "docs": [
+        "PLUGINS.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SkyRoutes",
+        "sky",
+        "sky-route"
+      ],
+      "useWhen": "Game-specific contract of the sky family; plugins in games/sky/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sky family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "sky/game"
+      ],
+      "recipes": [],
+      "implementations": [
+        "portfolio/sky-resource",
+        "sky/content"
+      ]
     }
   ],
   "presets": [

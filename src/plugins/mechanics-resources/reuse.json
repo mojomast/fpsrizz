@@ -6,6 +6,6 @@
   "useWhen": "You need named numeric resources with atomic multi-resource debit/credit and independently owned pools.",
   "limitations": ["Not a slotted or unique-item inventory. Overflow rejects rather than clamping; gains cannot finance a debit in the same transaction."],
   "docs": ["docs/reusable-mechanics.md", "docs/mechanic-conformance.md"],
-  "examples": ["src/plugins/sky-game/index.ts", "src/plugins/ember-game/index.ts", "src/plugins/verdant-game/index.ts"],
+  "examples": ["games/sky/plugins/sky-game/index.ts", "src/plugins/ember-game/index.ts", "src/plugins/verdant-game/index.ts"],
   "tests": ["tests/mechanics-providers.test.ts", "tests/helpers/resource-conformance.ts", "tests/reusable-games.test.ts"]
 }

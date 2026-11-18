@@ -8,6 +8,7 @@ import { parseManifest } from '../src/kernel/manifest.ts';
 import * as sdk from '../src/sdk/index.ts';
 import * as renderSdk from '../src/sdk/render.ts';
 import { root } from './tools.mjs';
+import { discoverPlugins } from './gen-catalog.mjs';
 
 export const indexFiles = { json: 'docs/reuse-index.json', markdown: 'REUSE_INDEX.md' };
 const scopes = ['cross-genre', 'family', 'presentation', 'content', 'unreviewed'];
@@ -39,6 +40,40 @@ export function validateMetadata(data, label, symbols) {
   for (const key of ['docs', 'examples', 'tests']) for (const path of data[key]) pathExists(path, `${label}.${key}`);
   if (data.scope === 'cross-genre' && (!data.entryPoints.length || !data.examples.length || !data.tests.length || !data.limitations.length)) fail(label, 'cross-genre claims need entry points, examples, tests and limitations');
   return data;
+}
+
+/** Game-family contract modules (games/<family>/contracts/*.ts), which left the SDK entry point. */
+export function familyContractFiles() {
+  if (!existsSync(resolve(root, 'games'))) return [];
+  return sorted(readdirSync(resolve(root, 'games'))).flatMap(family => existsSync(resolve(root, `games/${family}/contracts`))
+    ? files(`games/${family}/contracts`, path => path.endsWith('.ts')) : []);
+}
+
+function gamePresetFiles() {
+  if (!existsSync(resolve(root, 'games'))) return [];
+  return sorted(readdirSync(resolve(root, 'games'))).flatMap(family => existsSync(resolve(root, `games/${family}/presets`))
+    ? files(`games/${family}/presets`, path => path.endsWith('.json')) : []);
+}
+
+async function familyInventory() {
+  const out = [];
+  for (const path of familyContractFiles()) {
+    const family = path.split('/')[1];
+    const text = readFileSync(resolve(root, path), 'utf8');
+    const values = await import(resolve(root, path));
+    for (const name of sorted(Object.keys(values))) {
+      const declaration = new RegExp(`^export (?:const|function|class) ${name}\\b`, 'm');
+      const offset = text.search(declaration);
+      const line = offset < 0 ? 1 : text.slice(0, offset).split('\n').length;
+      const value = values[name];
+      const token = value && typeof value === 'object' ? value.id ?? value.kind : undefined;
+      out.push({ id: `games/${family}/${name}`, type: 'contract', name, scope: 'contract', summary: `${typeof value === 'function' ? 'Game-family helper/class' : 'Game-family contract value'}${token ? `: ${token}` : ''}`,
+        importFrom: path, token, source: `${path}:${line}`, docs: ['PLUGINS.md'], examples: [], tests: [], keywords: [name, family, ...(token ? [token] : [])],
+        useWhen: `Game-specific contract of the ${family} family; plugins in games/${family}/ import it directly. A token is a contract, not an installed implementation.`,
+        limitations: [`Only plugins of the ${family} family may import it (scripts/boundaries.ts).`] });
+    }
+  }
+  return out;
 }
 
 function sdkInventory() {
@@ -74,12 +109,11 @@ export function dependencyClosure(id, manifests) {
 }
 
 export async function buildReuseIndex() {
-  const contracts = sdkInventory(), symbols = new Set(contracts.map(item => item.name));
+  const contracts = [...sdkInventory(), ...await familyInventory()], symbols = new Set(contracts.map(item => item.name));
   const manifests = new Map(), folders = new Map();
   const inputs = new Set(['src/app/catalog.ts', 'src/app/catalog.generated.ts', 'scripts/reuse-lib.mjs', 'docs/reuse-recipes.json']);
-  for (const folder of sorted(readdirSync(resolve(root, 'src/plugins')))) {
-    const directory = `src/plugins/${folder}`, path = `${directory}/manifest.json`;
-    if (!existsSync(resolve(root, path))) continue;
+  for (const directory of sorted(discoverPlugins().map(plugin => plugin.dir))) {
+    const path = `${directory}/manifest.json`;
     const issues = [];
     const manifest = parseManifest(json(path), new sdk.Reporter(issues, path));
     if (!manifest || issues.length) fail(path, issues.map(issue => `${issue.path}: ${issue.message}`).join('; '));
@@ -87,7 +121,7 @@ export async function buildReuseIndex() {
     manifests.set(manifest.id, manifest); folders.set(manifest.id, directory);
     for (const file of files(directory, path => /\.(ts|json)$/.test(path))) inputs.add(file);
   }
-  for (const file of files('src/sdk', path => path.endsWith('.ts')).concat(files('src/kernel', path => path.endsWith('.ts')), files('src/content/presets', path => path.endsWith('.json')))) inputs.add(file);
+  for (const file of files('src/sdk', path => path.endsWith('.ts')).concat(files('src/kernel', path => path.endsWith('.ts')), files('src/content/presets', path => path.endsWith('.json')), familyContractFiles(), gamePresetFiles())) inputs.add(file);
   const installed = new Set(catalog.map(entry => entry.manifest.id));
   for (const id of installed) if (!manifests.has(id)) fail('catalog', `no source manifest found for ${id}`);
   const host = new PluginHost({ sdkVersion: sdk.SDK_VERSION, phases: sdk.PHASES });

@@ -2,10 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost, HostError } from '../src/kernel/host.ts';
 import type { CatalogEntry, Session } from '../src/kernel/host.ts';
-import {
-  PHASES, SDK_VERSION, Sky, Ember, Verdant, SessionControl, ResourceMechanicRole, ResourcePoolProviders,
-  MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, resourceMechanic,
-} from '../src/sdk/index.ts';
+import { PHASES, SDK_VERSION, Ember, Verdant, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, resourceMechanic } from '../src/sdk/index.ts';
+import { Sky } from '../games/sky/contracts/sky.ts';
 import type { ResourceTransaction, ResourcePool, ResourceAmounts, SessionContext, VerdantCommand } from '../src/sdk/index.ts';
 import { ALTERNATE, alternateEntry } from './helpers/alternate-resources.ts';
 import resources from '../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
@@ -13,10 +11,10 @@ import clock from '../src/plugins/mechanics-clock/manifest.json' with { type: 'j
 import actions from '../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
 import objectives from '../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
 import kits from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
-import skyGame from '../src/plugins/sky-game/manifest.json' with { type: 'json' };
-import skyPack from '../src/plugins/sky-content/manifest.json' with { type: 'json' };
-import skyContent from '../src/plugins/sky-content/content.json' with { type: 'json' };
-import skyPreset from '../src/content/presets/sky-salvage.json' with { type: 'json' };
+import skyGame from '../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
+import skyPack from '../games/sky/plugins/sky-content/manifest.json' with { type: 'json' };
+import skyContent from '../games/sky/plugins/sky-content/content.json' with { type: 'json' };
+import skyPreset from '../games/sky/presets/sky-salvage.json' with { type: 'json' };
 import emberGame from '../src/plugins/ember-game/manifest.json' with { type: 'json' };
 import emberPack from '../src/plugins/ember-content/manifest.json' with { type: 'json' };
 import emberContent from '../src/plugins/ember-content/content.json' with { type: 'json' };
@@ -98,7 +96,7 @@ function completeVerdant(session: Session) {
 
 const games = [
   { name: 'Sky', owner: 'sky/game', preset: skyPreset, manifest: skyGame, domain: 'seconds', route: completeSky,
-    catalog: [{ manifest: skyGame, load: () => import('../src/plugins/sky-game/index.ts') }, { manifest: skyPack, content: skyContent }],
+    catalog: [{ manifest: skyGame, load: () => import('../games/sky/plugins/sky-game/index.ts') }, { manifest: skyPack, content: skyContent }],
     actions: ['collect', 'deliver', 'collect', 'deliver', 'collect', 'deliver'] },
   { name: 'Ember', owner: 'ember/game', preset: emberPreset, manifest: emberGame, domain: 'seconds', route: completeEmber,
     catalog: [{ manifest: emberGame, load: () => import('../src/plugins/ember-game/index.ts') }, { manifest: emberPack, content: emberContent }],
