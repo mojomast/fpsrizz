@@ -1,6 +1,6 @@
 import type { CommandToken, EventToken, ServiceToken } from './bus.ts';
 import { CommandBus, EventBus, ServiceMap } from './bus.ts';
-import type { ComponentToken, EntityId } from './ecs.ts';
+import type { ComponentToken, EntityId, Query, QuerySpec } from './ecs.ts';
 import { EntityStore } from './ecs.ts';
 import type { ConfigField, ContentEntry, GamePreset, PluginManifest } from './manifest.ts';
 import { checkConfigValue, parseContentEntries, parseManifest, parsePreset } from './manifest.ts';
@@ -91,6 +91,13 @@ export interface EntityApi {
   first(token: ComponentToken<unknown>): EntityId | undefined;
   count(token?: ComponentToken<unknown>): number;
   ownerOf(id: EntityId): string | undefined;
+  /**
+   * Cached multi-component query with added/removed/changed tracking (SDK 3). The handle is disposed with the
+   * calling plugin's session scope. Create queries in activate(), not every tick.
+   */
+  query(spec: QuerySpec): Query;
+  /** Flags an in-place mutation so queries that require the component report the entity in `changed` (SDK 3). */
+  markChanged(id: EntityId, token: ComponentToken<unknown>): void;
 }
 
 export interface SessionContext {
@@ -708,6 +715,12 @@ export class PluginHost {
       first: (t) => ents.first(t),
       count: (t) => ents.count(t),
       ownerOf: (e) => ents.ownerOf(e),
+      query: (spec) => {
+        const q = ents.query(spec);
+        scope.add(() => q.dispose(), 'query');
+        return q;
+      },
+      markChanged: (e, t) => ents.markChanged(e, t),
     };
     const log = (level: LogEntry['level']) => (msg: string) => this.push(level, id, msg, sched.tick);
     return {

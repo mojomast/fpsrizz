@@ -35,7 +35,7 @@ export const defineRole = <T>(id: string): RoleToken<T> => ({ id });
 export const definePlugin = (m: PluginModule): PluginModule => m;
 
 export type { CommandToken, EventToken, ServiceToken } from '../kernel/bus.ts';
-export type { ComponentToken, EntityId } from '../kernel/ecs.ts';
+export type { ComponentToken, EntityId, Query, QueryChanges, QuerySpec } from '../kernel/ecs.ts';
 export type { ActivatableProvider, CatalogEntry, ContentKind, ContentLoadContext, EntityApi, PluginModule, RegisterContext, RegistryReader, RoleToken, SessionContext, ValidationContext } from '../kernel/host.ts';
 export type { ConfigField, ContentEntry, GamePreset, PluginManifest } from '../kernel/manifest.ts';
 export type { RegistryEntry, RegistryToken } from '../kernel/registry.ts';

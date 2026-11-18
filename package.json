@@ -30,7 +30,8 @@
     "graph": "node scripts/game-graph.mjs",
     "gen-catalog": "node scripts/gen-catalog.mjs",
     "pack-painters": "node scripts/pack-painters.mjs",
-    "move-to-game": "node scripts/move-to-game.mjs"
+    "move-to-game": "node scripts/move-to-game.mjs",
+    "bench:ecs": "node scripts/bench-ecs.ts"
   },
   "devDependencies": {
     "@types/three": "0.187.0",

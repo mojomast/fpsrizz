@@ -630,6 +630,18 @@ interface EntityApi {                       // ctx.world
   first(c: ComponentToken<unknown>): EntityId | undefined;
   count(c?: ComponentToken<unknown>): number;
   ownerOf(id: EntityId): string | undefined;
+  query(spec: { with: ComponentToken<unknown>[]; without?: ComponentToken<unknown>[] }): Query;  // SDK 3; see docs/reference/queries.md
+  markChanged(id: EntityId, c: ComponentToken<unknown>): void;  // SDK 3: report an in-place mutation to queries
+}
+
+interface Query {                           // cached, disposed with the plugin's session scope
+  readonly size: number;
+  each(fn: (id: EntityId) => void): void;   // snapshot-safe, match order
+  ids(): EntityId[];
+  has(id: EntityId): boolean;
+  peek(): QueryChanges;                     // { added, removed, changed } since the last drain
+  drain(): QueryChanges;                    // same, then clears this handle's tracking
+  dispose(): void;
 }
 
 interface RegistryReader {                  // ctx.registries, v.registries
