@@ -38,6 +38,7 @@ const ctx = await esbuild.context({
 await ctx.watch();
 const server = await ctx.serve({ servedir: out, port, host });
 console.log(`Dev server: http://${host}:${server.port}/`);
+console.log('Live reload is on: the page reloads after each rebuild and resumes the running game. Add ?seed=N to pin a seed.');
 
 let timer;
 const watchers = [watch(resolve(root, 'index.html'), () => {

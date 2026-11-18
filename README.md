@@ -173,7 +173,7 @@ Or run it locally (Node >= 22.18; `nvm use` reads `.nvmrc`):
 
 ```bash
 npm ci             # install locked devDependencies
-npm run dev        # dev server at http://127.0.0.1:5173/ (refresh after rebuild)
+npm run dev        # dev server at http://127.0.0.1:5173/ (live reload; resumes the running game)
 ```
 
 Changes to files in `public/` require restarting the dev server.
@@ -278,6 +278,7 @@ index.html     Page shell.
 | `npm run smoke` | Browser acceptance run against `dist/` (headless Chrome, software WebGL2). Run `npm run build` first. Uses `/usr/bin/google-chrome` if present, otherwise Playwright's Chromium (`npx playwright install chromium`); set `CHROME_PATH` to override. Writes screenshots and `smoke-report.json` to `.smoke/`. |
 | `npm run check` | Typecheck, boundaries, reuse-index freshness and tests in sequence. |
 | `npm run vendor-three` | Reproduces the pinned upstream renderer and declarations, licenses and hash manifest. |
+| `node tests/dev-reload-demo/run.mjs` | Starts the dev server, edits a source file and checks the page live-reloads back into the running game; checks `?seed=`. |
 | `node tests/experience-demo/run.mjs` | Plays the independent racer, tactics and adventure against `dist/`, without the pointer-lock bypass. |
 | `node tests/reusable-games-demo/run.mjs` | Plays Sky Salvage, Ember Bastion and Verdant Relay against `dist/`; checks 3D scenes, viewports, pause and scoped switching. |
 | `npm run new-plugin -- <ns/name> ["Name"]` | Scaffolds `src/plugins/<ns>-<name>/` from the starter template. |
