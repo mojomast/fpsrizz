@@ -19,7 +19,7 @@ import type { RenderHost } from '../platform/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
 import { createUiService } from '../platform/ui.ts';
 import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
-import { Assets, Audio, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputAxes, InputBindings, InputContexts, prettyKey, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
+import { Assets, Audio, AudioSamples, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputAxes, InputBindings, InputContexts, prettyKey, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
 import { Render } from '../sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
@@ -99,15 +99,26 @@ function boot(): void {
     return a && id ? (a.registries.get({ kind: 'role:sdk/theme' }, id) as ThemeProvider | undefined) : undefined;
   };
   const audio = createAudioService((id) => themeOf()?.sounds[id]);
-  audio.setMasterVolume(settings.volume);
+  const applyVolumes = (): void => {
+    audio.setMasterVolume(settings.volume);
+    audio.setBusVolume('music', settings.musicVolume);
+    for (const b of ['sfx', 'ui', 'ambience'] as const) audio.setBusVolume(b, settings.effectsVolume);
+  };
+  applyVolumes();
 
   const assets = createAssetService();
   const host = new PluginHost({
     sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
     phases: PHASES,
-    beforeActivate: preloadManifestAssets(assets),
+    async beforeActivate(ctx) {
+      await preloadManifestAssets(assets)(ctx);
+      // Samples decode in the background; the synth fallback plays until they are ready.
+      const mine = ctx.registries.entries(AudioSamples).filter((e) => e.owner === ctx.pluginId);
+      if (mine.length) void audio.loadSamples(mine.map((e) => ({ id: e.id, def: e.value, load: () => assets.bytes(ctx, e.value.url) })));
+    },
     installHostServices(session, scope) {
       session.services.provide(Assets, assets, 'host', scope);
+      audio.retainSamples(session.registries.entries(AudioSamples).map((e) => e.id));
       session.services.provide(Input, inputCore.service, 'host', scope);
       session.services.provide(InputContexts, inputCore.contexts, 'host', scope);
       session.services.provide(SessionControl, {
@@ -299,9 +310,9 @@ function boot(): void {
   }
 
   function applySettings(s: ShellSettings): void {
-    settings = { schema: 1, sensitivity: s.sensitivity, volume: s.volume, pixelRatioCap: s.pixelRatioCap };
+    settings = { schema: 1, sensitivity: s.sensitivity, volume: s.volume, musicVolume: s.musicVolume, effectsVolume: s.effectsVolume, pixelRatioCap: s.pixelRatioCap };
     saveSettings(settings);
-    audio.setMasterVolume(settings.volume);
+    applyVolumes();
     renderHost.setPixelRatioCap(settings.pixelRatioCap);
     renderHost.resize();
   }
@@ -396,6 +407,9 @@ function boot(): void {
       shell.showEnd(pendingEnd);
     }
     renderHost.render();
+    // 3D audio: the listener is the world camera.
+    const cam = renderHost.activeCamera().matrixWorld.elements;
+    audio.setListener({ position: { x: cam[12]!, y: cam[13]!, z: cam[14]! }, forward: { x: -cam[8]!, y: -cam[9]!, z: -cam[10]! }, up: { x: cam[4]!, y: cam[5]!, z: cam[6]! } });
     const work = performance.now() - t0;
     workMs += work;
     worst = Math.max(worst, dt * 1000);

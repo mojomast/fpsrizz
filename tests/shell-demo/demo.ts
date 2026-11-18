@@ -5,7 +5,7 @@ const log: string[] = [];
 const w = window as unknown as Record<string, unknown>;
 w['__log'] = log;
 const root = document.getElementById('app') as HTMLElement;
-const init: ShellSettings = { sensitivity: 1, volume: 0.6, pixelRatioCap: 1.5 };
+const init: ShellSettings = { sensitivity: 1, volume: 0.6, musicVolume: 0.7, effectsVolume: 1, pixelRatioCap: 1.5 };
 const shell: Shell = createShell(
   root,
   {

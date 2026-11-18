@@ -8,11 +8,15 @@ export interface UserSettings {
   sensitivity: number;
   /** Master volume 0..1. */
   volume: number;
+  /** Music bus 0..1 (SDK 3 audio buses). */
+  musicVolume: number;
+  /** Effects bus 0..1 (sfx, ui and ambience buses). */
+  effectsVolume: number;
   /** 1, 1.5 or 2. */
   pixelRatioCap: number;
 }
 
-export const DEFAULT_SETTINGS: Readonly<UserSettings> = { schema: 1, sensitivity: 1, volume: 0.6, pixelRatioCap: 1.5 };
+export const DEFAULT_SETTINGS: Readonly<UserSettings> = { schema: 1, sensitivity: 1, volume: 0.6, musicVolume: 0.7, effectsVolume: 1, pixelRatioCap: 1.5 };
 
 const num = (v: unknown, def: number, lo: number, hi: number): number =>
   typeof v === 'number' && Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : def;
@@ -31,6 +35,9 @@ export function sanitizeSettings(raw: unknown): UserSettings {
     schema: 1,
     sensitivity: num(r.sensitivity, d.sensitivity, 0.2, 3),
     volume: num(r.volume, d.volume, 0, 1),
+    // Added later in schema 1: missing values take the defaults.
+    musicVolume: num(r.musicVolume, d.musicVolume, 0, 1),
+    effectsVolume: num(r.effectsVolume, d.effectsVolume, 0, 1),
     pixelRatioCap: best,
   };
 }

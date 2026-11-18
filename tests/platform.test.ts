@@ -136,5 +136,6 @@ test('sanitizeSettings', () => {
   assert.equal(t.sensitivity, 1);
   assert.equal(t.volume, 0.6);
   assert.equal(t.pixelRatioCap, 2);
-  assert.deepEqual(sanitizeSettings({ schema: 1, sensitivity: 0.5, volume: 0.3, pixelRatioCap: 1 }), { schema: 1, sensitivity: 0.5, volume: 0.3, pixelRatioCap: 1 });
+  assert.deepEqual(sanitizeSettings({ schema: 1, sensitivity: 0.5, volume: 0.3, pixelRatioCap: 1 }), { schema: 1, sensitivity: 0.5, volume: 0.3, musicVolume: DEFAULT_SETTINGS.musicVolume, effectsVolume: DEFAULT_SETTINGS.effectsVolume, pixelRatioCap: 1 }, 'settings saved before the audio buses take the bus defaults');
+  assert.deepEqual(sanitizeSettings({ schema: 1, sensitivity: 0.5, volume: 0.3, musicVolume: 2, effectsVolume: 0.25, pixelRatioCap: 1 }), { schema: 1, sensitivity: 0.5, volume: 0.3, musicVolume: 1, effectsVolume: 0.25, pixelRatioCap: 1 });
 });

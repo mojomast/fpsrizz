@@ -43,6 +43,10 @@ try {
     await page.waitForTimeout(300);
     await page.screenshot({ path: resolve(out, 'sandbox-physics.png') });
     if (errors.length) throw new Error(errors.join('\n'));
+    // Audio (SDK 3): the three sandbox samples decode through the asset service; the wind loop plays on its bus.
+    await page.waitForFunction(() => window.__bulkhead.audio.samples.loaded === 3, null, { timeout: 15000 });
+    const voices = await page.evaluate(() => window.__bulkhead.audio.activeVoices);
+    if (voices < 1) throw new Error(`expected the ambience loop to be playing, got ${voices} voices`);
     // Input v2: rebind "forward" from the pause menu, then walk with the new key.
     await page.keyboard.press('Escape');
     await page.locator('button[data-action="sandbox/forward"]').click({ timeout: 10000 });
@@ -53,7 +57,7 @@ try {
     const z1 = (await hero()).z;
     if (!(z1 < z0 - 1)) throw new Error(`rebound key did not walk forward: ${z0} -> ${z1}`);
     await page.evaluate(() => window.__bulkhead.inputBindings.reset());
-    console.log(`PASS sandbox: ${scene.engine}, ${scene.physics.bodies} bodies, hero walked ${(after.x - before.x).toFixed(1)} m, pad entries ${after.entries}, ${scene.assets.loaded} assets loaded`);
+    console.log(`PASS sandbox: ${scene.engine}, ${scene.physics.bodies} bodies, hero walked ${(after.x - before.x).toFixed(1)} m, pad entries ${after.entries}, ${scene.assets.loaded} assets loaded, 3 samples decoded`);
   } catch (error) {
     failures++; console.error(`FAIL sandbox: ${error.stack ?? error}`);
   } finally { await page.close(); }

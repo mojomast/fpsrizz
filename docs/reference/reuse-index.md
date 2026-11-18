@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `9e5e29d6a359e512f1986986408780f5c3912dc364875f65e1c861a44cba0d43`
+Source digest: `92e3149b79a9c8373f0297ef734e49bf8fc4f4047b9b55a2b79241e7f87fa12a`
 
 ## Composition recipes
 
@@ -164,6 +164,8 @@ Source digest: `9e5e29d6a359e512f1986986408780f5c3912dc364875f65e1c861a44cba0d43
 | `sdk/AttackBehaviors` | contract | Public SDK value: attack-behavior | [source](../../src/sdk/contracts/shooter.ts#L390) |
 | `sdk/AttackFired` | contract | Public SDK value: sdk/attack-fired | [source](../../src/sdk/contracts/shooter.ts#L359) |
 | `sdk/Audio` | contract | Public SDK value: sdk/audio | [source](../../src/sdk/contracts/shooter.ts#L645) |
+| `sdk/AUDIO_BUSES` | contract | Public SDK value | [source](../../src/sdk/contracts/audio.ts#L34) |
+| `sdk/AudioSamples` | contract | Public SDK value: audio-sample | [source](../../src/sdk/contracts/audio.ts#L54) |
 | `sdk/CameraRole` | contract | Public SDK value: sdk/camera | [source](../../src/sdk/contracts/shooter.ts#L667) |
 | `sdk/capabilityMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/capabilities.ts#L53) |
 | `sdk/CapabilityRole` | contract | Public SDK value: sdk/capabilities | [source](../../src/sdk/contracts/capabilities.ts#L50) |

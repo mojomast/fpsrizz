@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "9e5e29d6a359e512f1986986408780f5c3912dc364875f65e1c861a44cba0d43",
+  "sourceDigest": "92e3149b79a9c8373f0297ef734e49bf8fc4f4047b9b55a2b79241e7f87fa12a",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -10964,7 +10964,23 @@
         "std/render-sync",
         "std/transform"
       ],
-      "registrations": [],
+      "registrations": [
+        {
+          "kind": "audio-sample",
+          "id": "sandbox/chime",
+          "description": ""
+        },
+        {
+          "kind": "audio-sample",
+          "id": "sandbox/thud",
+          "description": ""
+        },
+        {
+          "kind": "audio-sample",
+          "id": "sandbox/wind",
+          "description": ""
+        }
+      ],
       "contentKinds": [],
       "presets": [
         {
@@ -13548,6 +13564,58 @@
         "recipe/semantic-audio"
       ],
       "implementations": []
+    },
+    {
+      "id": "sdk/AUDIO_BUSES",
+      "type": "contract",
+      "name": "AUDIO_BUSES",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/audio.ts:34",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AUDIO_BUSES"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/AudioSamples",
+      "type": "contract",
+      "name": "AudioSamples",
+      "scope": "contract",
+      "summary": "Public SDK value: audio-sample",
+      "importFrom": "src/sdk/index.ts",
+      "token": "audio-sample",
+      "source": "src/sdk/contracts/audio.ts:54",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AudioSamples",
+        "audio-sample"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": [
+        "sandbox/presentation"
+      ]
     },
     {
       "id": "sdk/CameraRole",

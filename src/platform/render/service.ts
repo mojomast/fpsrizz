@@ -11,6 +11,8 @@ export interface RenderHost {
   setPixelRatioCap(n: number): void;
   resize(): void;
   render(): void;
+  /** The world camera drawn last frame (audio listener follows it). */
+  activeCamera(): THREE.Camera;
   liveRoots(): number;
   dispose(): void;
 }
@@ -138,6 +140,7 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
       stats.geometries = renderer.info.memory.geometries;
       stats.textures = renderer.info.memory.textures;
     },
+    activeCamera: () => cameras.current(),
     liveRoots: () => roots,
     dispose() {
       if (disposed) return;

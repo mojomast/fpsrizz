@@ -8,7 +8,7 @@ export * from './contracts/shooter.ts';
 export * from './contracts/experience.ts';
 export * from './contracts/mechanics.ts';
 export * from './contracts/profile.ts';
-export type * from './contracts/audio.ts';
+export * from './contracts/audio.ts';
 export * from './contracts/deadlines.ts';
 export * from './contracts/command-queue.ts';
 export * from './contracts/owned-instances.ts';

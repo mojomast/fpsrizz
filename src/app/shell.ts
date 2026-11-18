@@ -3,6 +3,8 @@ import { SHELL_CSS } from './shell-styles.ts';
 export interface ShellSettings {
   sensitivity: number;
   volume: number;
+  musicVolume: number;
+  effectsVolume: number;
   pixelRatioCap: number;
 }
 export interface ShellCallbacks {
@@ -191,6 +193,8 @@ export function createShell(root: HTMLElement, cb: ShellCallbacks, initial: Shel
     };
     mkSlider('Mouse sensitivity', 0.2, 3, 0.05, () => settings.sensitivity, (v) => { settings.sensitivity = v; }, (v) => v.toFixed(2));
     mkSlider('Volume', 0, 1, 0.05, () => settings.volume, (v) => { settings.volume = v; }, (v) => Math.round(v * 100) + '%');
+    mkSlider('Music', 0, 1, 0.05, () => settings.musicVolume, (v) => { settings.musicVolume = v; }, (v) => Math.round(v * 100) + '%');
+    mkSlider('Effects', 0, 1, 0.05, () => settings.effectsVolume, (v) => { settings.effectsVolume = v; }, (v) => Math.round(v * 100) + '%');
 
     const ql = el('label', undefined, 'Quality');
     const sel = el('select');
