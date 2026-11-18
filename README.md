@@ -258,7 +258,7 @@ src/
   plugins/     Shooter, vehicle, board and story families, presentation, themes and data-only content packs.
   content/     Presets (presets/*.json).
 scripts/       build, dev, preview, smoke test, boundary checker, plugin scaffolder, tool resolution.
-tests/         node:test suites and helpers; subfolders with browser demo scripts (run manually, not by npm test).
+tests/         node:test suites and helpers; subfolders with browser demo scripts (`npm run test:browser` runs them; CI does too).
 templates/     plugin-starter, used by npm run new-plugin.
 public/        Static files copied into the build, including curated Assetrizz source images and provenance.
 index.html     Page shell.
@@ -275,6 +275,7 @@ index.html     Page shell.
 | `npm run typecheck` | `tsc -p tsconfig.json --noEmit`. |
 | `npm run lint` | Import-boundary checker (`scripts/boundaries.ts`). |
 | `npm test` | Node unit and integration tests, including tooling tests. |
+| `npm run test:browser` | Builds nothing (run `npm run build` first). Runs the smoke test and one browser demo per game family, one at a time, as CI does; `-- --all` adds the known-failing suites listed in `scripts/browser-suite.mjs`. |
 | `npm run smoke` | Browser acceptance run against `dist/` (headless Chrome, software WebGL2). Run `npm run build` first. Uses `/usr/bin/google-chrome` if present, otherwise Playwright's Chromium (`npx playwright install chromium`); set `CHROME_PATH` to override. Writes screenshots and `smoke-report.json` to `.smoke/`. |
 | `npm run check` | Typecheck, boundaries, reuse-index freshness and tests in sequence. |
 | `npm run vendor-three` | Reproduces the pinned upstream renderer and declarations, licenses and hash manifest. |

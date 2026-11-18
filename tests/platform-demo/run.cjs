@@ -1,14 +1,15 @@
 // Bundles demo.ts, runs in headless Chrome (software WebGL2), verifies checks, saves .smoke/platform-demo.png
+const tool = (n) => { try { return require('node:module').createRequire(require('node:path').resolve(__dirname, '../../package.json'))(n); } catch { return require(`/opt/npm-tools/node_modules/${n}`); } };
 const path = require('path'), fs = require('fs');
-const esbuild = require('/opt/npm-tools/node_modules/esbuild');
-const { chromium } = require('/opt/npm-tools/node_modules/playwright');
+const esbuild = tool('esbuild');
+const { chromium } = tool('playwright');
 (async () => {
   const root = path.resolve(__dirname, '../..');
   const out = path.join(root, '.smoke/platform-demo-build');
   fs.mkdirSync(out, { recursive: true });
   await esbuild.build({ entryPoints: [path.join(__dirname, 'demo.ts')], bundle: true, outfile: path.join(out, 'demo.js'), format: 'iife', target: 'es2022' });
   fs.writeFileSync(path.join(out, 'index.html'), '<!doctype html><body style="margin:0;background:#000"><script src="demo.js"></script></body>');
-  const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+  const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || (require('fs').existsSync('/usr/bin/google-chrome') ? '/usr/bin/google-chrome' : undefined), args: ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
   const page = await browser.newPage({ viewport: { width: 480, height: 300 } });
   let bad = 0;
   page.on('console', (m) => { console.log('[page]', m.type(), m.text()); if (m.type() === 'error') bad++; });

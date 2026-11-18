@@ -1,8 +1,9 @@
+const tool = (n) => { try { return require('node:module').createRequire(require('node:path').resolve(__dirname, '../../package.json'))(n); } catch { return require(`/opt/npm-tools/node_modules/${n}`); } };
 const path = require('path');
 const fs = require('fs');
 const assert = require('assert');
-const esbuild = require('/opt/npm-tools/node_modules/esbuild');
-const { chromium } = require('/opt/npm-tools/node_modules/playwright');
+const esbuild = tool('esbuild');
+const { chromium } = tool('playwright');
 
 const here = __dirname;
 const out = path.resolve(here, '../../.smoke');
@@ -14,7 +15,7 @@ fs.mkdirSync(out, { recursive: true });
   const html = `<!doctype html><html><body style="margin:0"><div id="app" style="position:fixed;inset:0"></div><script>${js.replace(/<\/script/g, '<\\/script')}</script></body></html>`;
   fs.writeFileSync(path.join(out, 'shell-demo.html'), html);
 
-  const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--no-sandbox'] });
+  const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || (require('fs').existsSync('/usr/bin/google-chrome') ? '/usr/bin/google-chrome' : undefined), args: ['--no-sandbox'] });
   const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
