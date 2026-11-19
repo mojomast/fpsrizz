@@ -26,7 +26,7 @@ export const SCHEMA_MAP = [
 const NOT_DATA = [
   /(^|\/)package(-lock)?\.json$/, /(^|\/)tsconfig\.json$/, /^typedoc\.json$/, /(^|\/)provenance\.json$/, /^scripts\/[^/]+\.json$/,
   /^assets\/weapons\//, /^docs\/reuse-index\.json$/, /^public\/models\/index\.json$/, /^src\/app\/catalog-providers\.json$/,
-  /^schemas\//, /^\.vscode\//, /^games\/expeditions\/plugins\/salt-rpg-content\/campaign-draft\.json$/,
+  /^schemas\//, /^\.vscode\//, /^\.changeset\/config\.json$/, /^games\/expeditions\/plugins\/salt-rpg-content\/campaign-draft\.json$/,
 ];
 
 const write = process.argv.includes('--write');

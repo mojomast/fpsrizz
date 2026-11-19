@@ -16,6 +16,7 @@ and their family's contracts; run `npm run check` after every change and never w
 - [Create a game](docs/guide/create-a-game.md): end-to-end workflow from preset to playable family
 - [Plugins and SDK](docs/guide/plugins.md): manifests, lifecycle, roles, registries, events, services
 - [Reuse](docs/guide/reuse.md): capability search and composition before new code
+- [Releasing](docs/guide/releasing.md): Changesets, the fixed `@bulkhead/*` group = SDK version, migration notes in docs/migrations/
 - [Visual tests](docs/guide/visual-tests.md): `npm run test:visual`, Playwright goldens per template, Chromium/Firefox/WebKit
 - [Deploy and export](docs/guide/deploy.md): GitHub Pages and itch.io workflows (manual), `npm run export:itch`
 

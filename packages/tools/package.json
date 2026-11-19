@@ -1,6 +1,6 @@
 {
   "name": "@bulkhead/tools",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "description": "Bulkhead CLI entry point (bulkhead create/new/add/validate/graph); forwards to the engine checkout's scripts/.",
   "type": "module",
   "private": true,

@@ -1,6 +1,6 @@
 {
   "name": "@bulkhead/sdk",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "description": "Bulkhead SDK: the public plugin API (core, contracts, render surface).",
   "type": "module",
   "private": true,
@@ -21,7 +21,7 @@
     "src"
   ],
   "dependencies": {
-    "@bulkhead/kernel": "0.1.0",
-    "@bulkhead/platform-web": "0.1.0"
+    "@bulkhead/kernel": "3.0.0",
+    "@bulkhead/platform-web": "3.0.0"
   }
 }

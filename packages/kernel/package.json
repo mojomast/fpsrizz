@@ -1,6 +1,6 @@
 {
   "name": "@bulkhead/kernel",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "description": "Bulkhead kernel: plugin host, resolver, ECS, scheduler, registries, snapshots. No DOM.",
   "type": "module",
   "private": true,

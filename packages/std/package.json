@@ -1,6 +1,6 @@
 {
   "name": "@bulkhead/std",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "description": "Bulkhead standard plugins: shared mechanics-*, presentation, physics, scene, themes.",
   "type": "module",
   "private": true,
@@ -20,6 +20,6 @@
     "plugins"
   ],
   "dependencies": {
-    "@bulkhead/sdk": "0.1.0"
+    "@bulkhead/sdk": "3.0.0"
   }
 }
