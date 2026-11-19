@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bulkhead plugin manifest (manifest.json)",
+  "description": "Declares a plugin or content pack: identity, SDK range, dependencies, capabilities and typed config. Semantic checks (resolvable dependencies, semver ranges, config defaults) run in src/kernel/manifest.ts.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "version",
+    "kind",
+    "sdk"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$",
+      "description": "Namespaced id like \"core/world\" (lowercase, at least one slash)."
+    },
+    "rangeMap": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "description": "Semver range, e.g. \"^1.0.0\"."
+      }
+    },
+    "configField": {
+      "type": "object",
+      "required": [
+        "type",
+        "label",
+        "default"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "number",
+            "boolean",
+            "string",
+            "select"
+          ]
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "default": {
+          "description": "Any JSON value."
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor hint: path or URL of this file's JSON Schema. Ignored at runtime."
+    },
+    "schema": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[0-9A-Za-z.-]+)?$"
+    },
+    "kind": {
+      "enum": [
+        "code",
+        "content"
+      ]
+    },
+    "sdk": {
+      "type": "string",
+      "minLength": 1,
+      "description": "SDK version range, e.g. \"^3.0.0\"."
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 400
+    },
+    "dependencies": {
+      "$ref": "#/$defs/rangeMap"
+    },
+    "optionalDependencies": {
+      "$ref": "#/$defs/rangeMap"
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      },
+      "uniqueItems": true
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "requiresRoles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      },
+      "uniqueItems": true
+    },
+    "roleDependencies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      },
+      "uniqueItems": true
+    },
+    "preload": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_][A-Za-z0-9_./-]*$",
+        "not": {
+          "pattern": "\\.\\."
+        }
+      }
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/configField"
+      }
+    }
+  }
+}

@@ -1,1 +1,1 @@
-{"schema":1,"id":"salt/presentation","name":"Salt Ledger presentation","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Accessible campaign and tactical interface.","dependencies":{"salt/game":"^1.0.0"},"capabilities":["ui"]}
+{"$schema": "../../../../schemas/plugin-manifest.schema.json", "schema":1,"id":"salt/presentation","name":"Salt Ledger presentation","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Accessible campaign and tactical interface.","dependencies":{"salt/game":"^1.0.0"},"capabilities":["ui"]}

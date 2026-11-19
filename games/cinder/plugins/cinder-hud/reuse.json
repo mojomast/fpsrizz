@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "presentation",
   "summary": "Cinder turn-based HUD: class/threat selection and transitions, field guide, first-person/isometric view badge, automap/tactical grid, action points/intents, AP hover preview, pack filters/drop, forge, NPC dialogue, boons and weapons.",

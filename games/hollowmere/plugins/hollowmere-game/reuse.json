@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "family",
   "summary": "Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss.",

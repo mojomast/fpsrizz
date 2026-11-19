@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
   "schema": 1,
   "id": "example/pack",
   "name": "Example Pack: Scattergun, Brute and the Annex",

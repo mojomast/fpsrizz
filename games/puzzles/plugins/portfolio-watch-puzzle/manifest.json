@@ -1,1 +1,1 @@
-{"schema":1,"id":"portfolio/watch-puzzle","name":"The Watchman's Run","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"Three pursuit chambers with shifting routes around stone and walls.","dependencies":{"puzzle/rules":"^1.0.0"}}
+{"$schema": "../../../../schemas/plugin-manifest.schema.json", "schema":1,"id":"portfolio/watch-puzzle","name":"The Watchman's Run","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"Three pursuit chambers with shifting routes around stone and walls.","dependencies":{"puzzle/rules":"^1.0.0"}}

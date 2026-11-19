@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Plugin reuse metadata (reuse.json)",
+  "description": "Feeds `npm run find-reuse` and docs/reuse-index.json. Entry points must be exported SDK names and paths must exist (checked by scripts/reuse-lib.mjs).",
+  "type": "object",
+  "required": [
+    "schema",
+    "scope",
+    "summary",
+    "keywords",
+    "entryPoints",
+    "useWhen",
+    "limitations",
+    "docs",
+    "examples",
+    "tests"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "strings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "paths": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[^/\\\\][^\\\\]*$"
+      },
+      "uniqueItems": true
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor hint: path or URL of this file's JSON Schema. Ignored at runtime."
+    },
+    "schema": {
+      "const": 1
+    },
+    "scope": {
+      "enum": [
+        "cross-genre",
+        "family",
+        "presentation",
+        "content",
+        "unreviewed"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "keywords": {
+      "$ref": "#/$defs/strings"
+    },
+    "entryPoints": {
+      "$ref": "#/$defs/strings"
+    },
+    "useWhen": {
+      "type": "string",
+      "minLength": 1
+    },
+    "limitations": {
+      "$ref": "#/$defs/strings"
+    },
+    "docs": {
+      "$ref": "#/$defs/paths"
+    },
+    "examples": {
+      "$ref": "#/$defs/paths"
+    },
+    "tests": {
+      "$ref": "#/$defs/paths"
+    }
+  }
+}

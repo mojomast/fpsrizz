@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/preset.schema.json",
   "schema": 1,
   "id": "example/extended",
   "name": "Bulkhead Station \u2014 Extended arsenal",

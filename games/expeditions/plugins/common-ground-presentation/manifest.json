@@ -1,1 +1,1 @@
-{"schema":1,"id":"common/presentation","name":"Common Ground presentation","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Responsive household dollhouse and controls.","dependencies":{"common/game":"^1.0.0"},"capabilities":["ui"]}
+{"$schema": "../../../../schemas/plugin-manifest.schema.json", "schema":1,"id":"common/presentation","name":"Common Ground presentation","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Responsive household dollhouse and controls.","dependencies":{"common/game":"^1.0.0"},"capabilities":["ui"]}

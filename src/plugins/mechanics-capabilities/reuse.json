@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects.",

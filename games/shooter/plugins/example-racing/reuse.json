@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "family",
   "summary": "Shooter-backed planar driving and time-trial mode composing shared sequence progression with chronological swept checkpoints.",

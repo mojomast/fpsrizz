@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/plugin-manifest.schema.json",
   "schema": 1,
   "id": "theme/story",
   "name": "The Indigo Observatory Story Theme",

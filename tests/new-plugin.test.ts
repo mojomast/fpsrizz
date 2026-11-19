@@ -3,7 +3,6 @@ import assert from 'node:assert/strict';
 // The project maintains a minimal Node shim; these filesystem and process APIs are used only here.
 // @ts-expect-error Node's full type declarations are not installed.
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-// @ts-expect-error Node's full type declarations are not installed.
 import { spawnSync } from 'node:child_process';
 // @ts-expect-error Node's full type declarations are not installed.
 import { tmpdir } from 'node:os';

@@ -1,0 +1,22 @@
+{
+  "$schema": "../../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "__NS__/game",
+  "name": "__TITLE__",
+  "version": "0.1.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "First-person target range: look, move and shoot every target.",
+  "dependencies": {
+    "std/transform": "^1.0.0",
+    "std/render-sync": "^1.0.0",
+    "std/physics-rapier": "^1.0.0"
+  },
+  "capabilities": [
+    "simulation",
+    "render"
+  ],
+  "requiresRoles": [
+    "sdk/experience"
+  ]
+}

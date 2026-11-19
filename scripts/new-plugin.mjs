@@ -39,7 +39,7 @@ for (const file of fs.readdirSync(tpl)) {
   const text = fs.readFileSync(path.join(tpl, file), 'utf8').replace(
     /"__ID__"|"__NAME__"|'__NAME__ is active'/g,
     (placeholder) => JSON.stringify(placeholder === '"__ID__"' ? id : placeholder === '"__NAME__"' ? name : `${name} is active`),
-  );
+  ).replaceAll('"../../schemas/', '"../../../schemas/'); // templates/x -> src/plugins/x
   fs.writeFileSync(path.join(dir, file), text, { flag: 'wx' });
 }
 console.log(`Created src/plugins/${dirName}/ (manifest.json, index.ts, reuse.json)

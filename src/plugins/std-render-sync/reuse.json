@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "presentation",
   "summary": "Generic render sync: Renderable shapes, prefabs and glTF models posed from interpolated Transform3D.",

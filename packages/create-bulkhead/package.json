@@ -1,0 +1,11 @@
+{
+  "name": "create-bulkhead",
+  "version": "0.1.0",
+  "description": "Scaffold a Bulkhead game from a genre template (npm create bulkhead).",
+  "type": "module",
+  "private": true,
+  "bin": { "create-bulkhead": "./index.mjs" },
+  "files": ["index.mjs"],
+  "engines": { "node": ">=22" },
+  "license": "MIT"
+}

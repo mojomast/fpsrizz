@@ -1,1 +1,1 @@
-{"schema":1,"id":"verdant/content","name":"Verdant Relay Archipelago","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"The three islands and their restoration kit.","dependencies":{"verdant/game":"^1.0.0","mechanics/kits":"^1.0.0"}}
+{"$schema": "../../../../schemas/plugin-manifest.schema.json", "schema":1,"id":"verdant/content","name":"Verdant Relay Archipelago","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"The three islands and their restoration kit.","dependencies":{"verdant/game":"^1.0.0","mechanics/kits":"^1.0.0"}}

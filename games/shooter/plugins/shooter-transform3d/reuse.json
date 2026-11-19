@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "family",
   "summary": "Mirrors the shooter's planar Transform into SDK 3 Transform3D/PrevTransform.",

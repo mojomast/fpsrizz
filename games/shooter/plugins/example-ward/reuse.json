@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry.",
   "keywords": ["shield", "armor", "buff", "status effect", "resistance", "damage reduction", "duration", "pickup"],
   "entryPoints": ["DamageModifiers", "PickupEffects"], "useWhen": "A shooter needs temporary incoming-damage scaling; inspect this before introducing another damage pipeline.",

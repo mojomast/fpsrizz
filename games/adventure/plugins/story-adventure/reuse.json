@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "family",
   "summary": "Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load.",

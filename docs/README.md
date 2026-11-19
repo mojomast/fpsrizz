@@ -8,6 +8,11 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Create a game](guide/create-a-game.md): from preset to playable family, end to end.
 - [Plugins](guide/plugins.md): the SDK, manifests, lifecycle, roles, registries, events and services.
 - [Reuse](guide/reuse.md): find and compose existing capabilities before writing new ones.
+- [Bulkhead CLI and templates](guide/bulkhead-cli.md): `npm run bulkhead -- create <name> --template fps|platformer|topdown|puzzle|cards|blank`.
+- [Performance](guide/performance.md): perf HUD (F3), per-system timings JSON, perf budgets and CI job, Spector.js captures.
+- [Prefabs, scenes and level import](reference/scenes.md): data prefabs, scene trees, Tiled and LDtk importers.
+- [Inspector and debug draw](reference/inspector.md): entity inspector, live component editing, config tweaks, Debug.draw, time controls, state-preserving hot reload.
+- [Dev protocol and MCP server](reference/dev-protocol.md): JSON-RPC to a running dev build, MCP tools for agents.
 
 ## Reference (what exists, exactly)
 
@@ -20,6 +25,7 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Input v2](reference/input.md): axes, gamepads, touch controls, the default map and rebinding.
 - [Audio](reference/audio.md): sample sounds, mixer buses, 3D positioning and the synth fallback.
 - [Snapshots, saves and replays](reference/snapshots.md): `ctx.persist`, quicksave (F6/F9), `.replay.json` record/replay and replay regression tests.
+- [JSON Schemas](reference/schemas.md): `schemas/`, `$schema` in data files, `npm run schemas`, VS Code mapping.
 - [Assets](reference/assets.md): the asset service, manifest preloads, `std/assets` glTF models, Blender custom
   properties as components and the `npm run assets` build step.
 - SDK API: generated from TSDoc by `npm run docs:api` into `docs/reference/api/` (not committed).

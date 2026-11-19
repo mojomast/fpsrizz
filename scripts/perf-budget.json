@@ -1,0 +1,8 @@
+{
+  "$comment": "Frame-time budgets for scripts/perf-report.mjs --enforce (P2.7). CPU ms is the app's measured work per frame; on software GL (CI's SwiftShader) it includes GL emulation, so the CI numbers are loose regression guards, not real-hardware targets. Tighten them on a GPU runner.",
+  "seconds": 4,
+  "presets": {
+    "sandbox/physics": { "maxCpuMs": 40, "maxWorstMs": 400, "maxSystemMs": 4 },
+    "shooter/default": { "maxCpuMs": 40, "maxWorstMs": 400, "maxSystemMs": 4 }
+  }
+}

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/plugin-manifest.schema.json",
   "schema": 1,
   "id": "std/physics-rapier",
   "name": "Physics (Rapier 3D)",

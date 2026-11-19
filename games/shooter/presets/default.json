@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/preset.schema.json",
   "schema": 1,
   "id": "core/default",
   "name": "Bulkhead Station \u2014 Objective",

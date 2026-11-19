@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "cross-genre",
   "summary": "Explicit, consumer-advanced seconds or turn clocks; the SDK createDeadline helper borrows compatible clocks for pollable duration windows.",
   "keywords": ["time", "timer", "clock", "seconds", "turns", "turn-based", "realtime", "cooldown", "pause", "duration", "deadline", "expiry", "immunity", "arm", "cancel"],

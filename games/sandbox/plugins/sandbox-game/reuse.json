@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "family",
   "summary": "Physics sandbox game: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors).",

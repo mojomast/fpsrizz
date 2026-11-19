@@ -1,1 +1,1 @@
-{"schema":1,"id":"common/content","name":"Common Ground household","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"The residents and furnishings of Common Ground.","dependencies":{"common/game":"^1.0.0"},"capabilities":[],"requiresRoles":[]}
+{"$schema": "../../../../schemas/plugin-manifest.schema.json", "schema":1,"id":"common/content","name":"Common Ground household","version":"1.0.0","kind":"content","sdk":"^2.0.0","description":"The residents and furnishings of Common Ground.","dependencies":{"common/game":"^1.0.0"},"capabilities":[],"requiresRoles":[]}

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/preset.schema.json",
   "schema": 1,
   "id": "example/foundry-race",
   "name": "Foundry Circuit — Time Trial",

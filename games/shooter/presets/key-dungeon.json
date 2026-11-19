@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/preset.schema.json",
   "schema": 1,
   "id": "example/key-dungeon-game",
   "name": "Key Dungeon — Locked Escape",

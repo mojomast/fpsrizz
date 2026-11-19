@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "presentation",
   "summary": "Canvas-rendered room view plus DOM field journal: world map, inventory, capabilities, stats and persisted options.",

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "family",
   "summary": "Turn-based three-depth dungeon roguelite with selectable threat tiers, behavioral elites and boss phases, classes, telegraphed enemies, loot/inventory, NPC forge and Oracle bargains, fogged automap/grid, first-person/isometric view, field guide/AP hover preview and persistent mastery.",

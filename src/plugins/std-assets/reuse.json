@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "glTF/GLB model loading (Meshopt, KTX2) for Renderable.model, with shared GPU resources and per-node instances.",

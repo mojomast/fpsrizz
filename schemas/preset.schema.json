@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bulkhead game preset",
+  "description": "A runnable composition: the enabled plugins, exclusive role selections, options, per-plugin config and the RNG seed. Resolution (dependencies, roles, config types) is checked by the plugin host.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "plugins"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$",
+      "description": "Namespaced id like \"core/world\" (lowercase, at least one slash)."
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor hint: path or URL of this file's JSON Schema. Ignored at runtime."
+    },
+    "schema": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "description": {
+      "type": "string"
+    },
+    "plugins": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/id"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "roles": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/id"
+      }
+    },
+    "options": {
+      "type": "object"
+    },
+    "config": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$"
+      },
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295
+    }
+  }
+}

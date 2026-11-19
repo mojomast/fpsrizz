@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "presentation",
   "summary": "Pinned Assetrizz sci-fi and hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops, ornate icons, six original Gloamforge weapon views and Cinder/Hollowmere theme variants.",

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "content",
   "summary": "Cinder Vault content: seeded dungeon, six-weapon armory, twelve gear/consumable/Ember Shard items, nine forge recipes, seven enemy archetypes, threat caches and turn kit.",

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "cross-genre",
   "summary": "Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes.",

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
   "schema": 1,
   "id": "story/chapter",
   "name": "The Last Light",

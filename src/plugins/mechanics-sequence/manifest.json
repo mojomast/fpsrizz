@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/plugin-manifest.schema.json",
   "schema": 1,
   "id": "mechanics/sequence",
   "name": "Ordered steps and rounds",

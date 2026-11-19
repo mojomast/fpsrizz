@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Shooter damage pipeline, weapons/ammo, hitscan/projectile/melee attacks, pickups and damage modifiers.",
   "keywords": ["damage", "health", "armor", "attack", "weapon", "ammo", "inventory", "hitscan", "projectile", "melee", "reload", "pickup", "heal"],
   "entryPoints": ["Combat", "AttackBehaviors", "DamageModifiers", "PickupEffects", "Weapons", "AmmoTypes", "DealDamage", "Damaged", "Died"],

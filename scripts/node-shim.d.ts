@@ -6,6 +6,8 @@ declare module 'node:test' {
   export function it(name: string, fn: Fn): void;
   export function beforeEach(fn: Fn): void;
   export function afterEach(fn: Fn): void;
+  export function before(fn: Fn): void;
+  export function after(fn: Fn): void;
   export default test;
 }
 declare module 'node:assert/strict' {
@@ -31,6 +33,7 @@ declare module 'node:fs' {
   export function existsSync(path: string): boolean;
   export function statSync(path: string): { isDirectory(): boolean };
   export function writeFileSync(path: string, data: string): void;
+  export function rmSync(path: string, opts?: { recursive?: boolean; force?: boolean }): void;
 }
 declare module 'node:path' {
   export function join(...p: string[]): string;
@@ -38,9 +41,19 @@ declare module 'node:path' {
   export function relative(a: string, b: string): string;
   export function dirname(p: string): string;
 }
-declare module 'node:url' { export function fileURLToPath(u: string | URL): string; }
+declare module 'node:url' { export function fileURLToPath(u: string | URL): string; export function pathToFileURL(p: string): URL; }
+declare module 'node:child_process' {
+  export function spawnSync(cmd: string, args: string[], opts?: unknown): { status: number | null; stdout: string; stderr: string };
+  export function spawn(cmd: string, args: string[], opts?: unknown): {
+    stdin: { write(s: string): void } | null;
+    stdout: { on(ev: 'data', fn: (chunk: { toString(): string }) => void): void } | null;
+    kill(): void;
+  };
+}
 declare const process: {
   argv: string[];
+  pid: number;
+  execPath: string;
   env: Record<string, string | undefined>;
   exit(code?: number): never;
   cwd(): string;

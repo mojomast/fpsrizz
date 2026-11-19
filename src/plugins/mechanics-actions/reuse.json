@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "cross-genre",
   "summary": "Data-defined action costs, gains and cooldowns for abilities, crafting, repairs, attacks and production.",
   "keywords": ["ability", "action", "skill", "spell", "stamina", "mana", "cost", "cooldown", "crafting", "conversion", "repair", "boost", "fire", "tower", "production"],

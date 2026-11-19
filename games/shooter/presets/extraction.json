@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/preset.schema.json",
   "schema": 1,
   "id": "example/salvage-game",
   "name": "Salvage Run — Extraction",

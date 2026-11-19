@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Arcade vehicle motion, drifting, directional gates and timeout, composing shared ordered sequence and lap progression.",
   "keywords": ["vehicle", "racing", "drift", "lap", "checkpoint", "steering", "brake", "timer"],
   "entryPoints": ["Race", "RaceTracks", "sequenceMechanic"], "useWhen": "Author a track or a new presentation for the independent overhead racing rules.",

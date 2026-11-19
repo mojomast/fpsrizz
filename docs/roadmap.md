@@ -1,14 +1,15 @@
 # fpsrizz / Bulkhead: roadmap to a rapid-prototyping game engine
 
-> **Status (branch `engine/p1-core`, stacked on `engine/p0-foundations`, 2026-11-18).** P0 is done except the
-> P0.2 leftovers below; P1.1–P1.8 are done (KTX2 *encoding* in `npm run assets` deferred). This file is the audit as written, with
+> **Status (branch `engine/p2-tooling`, stacked on `engine/p1-core` and `engine/p0-foundations`, 2026-11-18).** P0 is done
+> except the P0.2 leftovers below; P1.1–P1.8 are done (KTX2 *encoding* in `npm run assets` deferred); P2.1–P2.7 are done
+> (npm publishing of `create-bulkhead` waits on P0.2 packages). This file is the audit as written, with
 > paths as they were at `14a2f15`. Many root documents have since moved (see [docs/README.md](README.md)).
 >
 > | Item | State |
 > |---|---|
 > | P0.1 Node pin and preflight | Done: `.nvmrc`, `.node-version`, `packageManager`, `engine-strict`, `scripts/check-node.mjs`, CI uses `.nvmrc`. |
 > | P0.6 Browser CI and scheduler contract | Done: `npm run test:browser` + CI job with screenshot artifacts; removal semantics documented and tested. |
-> | P2.1 step 1 Live reload | Done: esbuild live reload, resume of the running game, `?seed=`. |
+> | P2.1 Live / hot reload | Done: esbuild live reload, resume, `?seed=`; step 2: the RunSnapshot survives the reload for all-SDK-3 presets (code, presets and JSON content), config tweaks restart with state kept ([inspector](reference/inspector.md)). |
 > | P0.3 Catalog from manifests | Done: `scripts/gen-catalog.mjs` -> `src/app/catalog.generated.ts`. |
 > | P0.4 Splitting, art packs, maps, budget | Done: per-plugin chunks, `public/packs/*.pack`, maps in `.sourcemaps/`, `npm run budget`. |
 > | P0.2 Engine/games split | Mostly done: all games (11 families) in `games/` with their family-only contracts; `src/plugins` holds only shared plugins. Not done: npm workspaces/`packages/`, moving the shooter contract out of the SDK, browser demos into `games/`. |
@@ -21,6 +22,12 @@
 > | P1.6 Audio | Done: `AudioSamples`, buses wired to settings, PannerNode 3D voices, synth fallback ([audio](reference/audio.md)). |
 > | P1.7 Snapshots and replays | Done: `ctx.persist`, `host.snapshot/restore` with schema migrations, Rapier world persistence, F6/F9 quicksave, `?record` + F8 `.replay.json`, `tests/helpers/replay.ts` ([snapshots](reference/snapshots.md)). |
 > | P1.8 Spatial index and instancing | Done: `SpatialHash`, grid path in `core-world` for 128+ box maps, `Renderable.instanced` -> InstancedMesh ([spatial](reference/spatial.md)). |
+> | P2.2 JSON Schemas | Done: `schemas/*.schema.json` (draft 2020-12) for manifests, presets, reuse, content packs, game graphs, replays, snapshots, models, scenes, prefabs; `$schema` in every data file; `npm run schemas` in check; VS Code mapping ([schemas](reference/schemas.md)). |
+> | P2.3 CLI + templates | Done: `npm run bulkhead -- create/templates/new plugin/add/validate/graph`; templates blank, platformer, topdown, fps, puzzle, cards (plugin + preset + test + AGENTS.md), each scaffolded and tested in CI; `packages/create-bulkhead` wrapper (unpublished) ([CLI](guide/bulkhead-cli.md)). |
+> | P2.4 Prefabs and scenes | Done: `std/scene` with `prefab` (extends/overrides), `scene` (`{prefab, transform, overrides, children}`), `tiled-map` and `ldtk-level` kinds; `spawnScene`, `*.scene.json`; glTF `prefab` extra applies data prefabs ([scenes](reference/scenes.md)). Tile-run merging deferred. |
+> | P2.5 Inspector, tweaks, debug draw | Done: creator Inspect tab (entity list, live component editor, config tweak + export preset, time controls hold/run/step/0.25–4×), `debugDraw(ctx)` SDK, collider overlay ([inspector](reference/inspector.md)). Tweakpane not added. |
+> | P2.6 Agent protocol + MCP | Done: JSON-RPC 2.0 bridge started by `npm run dev` (world.query, entity.get/set, sim.step/pause/speed, input.press, preset/config, replay.run, screenshot, log.tail, perf.systems), method schemas, stdio MCP server `npm run mcp` ([dev protocol](reference/dev-protocol.md)). |
+> | P2.7 Perf HUD and budgets | Done: F3 / `?perf` HUD with GPU timer queries, per-system timings JSON, `npm run perf` + budgets, optional CI perf job (dispatch / `perf` label), Spector.js guide ([performance](guide/performance.md)). stats-gl not added. |
 
 Audit date: 2026-11-18. Audited commit: `14a2f15` on `main` ("Bust stale production bundle caches").
 Scope: a read-only audit of the repo plus a review of current best practices. Nothing was pushed.
@@ -236,14 +243,14 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
 
 ### P2: Prototyping tooling (the speed multiplier)
 
-- [ ] **P2.1 Live reload now, state-preserving hot reload next.** S, then M
+- [x] **P2.1 Live reload now, state-preserving hot reload next.** S, then M
   - *Why:* An edit, save and see loop under 1 s is the number-one prototyping feature (W4).
   - *Change, step 1 (S):* Add esbuild live reload (`new EventSource('/esbuild')…location.reload()`) behind `__DEV__`. Auto-resume the last preset and seed via `?dev`.
   - *Change, step 2 (M):* On change, take a `RunSnapshot` (P1.7), restage the changed plugins through the host (staged commit already exists), and restore. Alternatively, move the dev server to Vite and use `import.meta.hot.accept/dispose/data` per plugin module, keeping esbuild for prod if desired. Hot-reload JSON presets and content without a restart.
   - Sources:
     - https://esbuild.github.io/api/#live-reload
     - https://vite.dev/guide/api-hmr
-- [ ] **P2.2 JSON Schemas for every data format.** M
+- [x] **P2.2 JSON Schemas for every data format.** M
   - *Why:* Editors, the composer and agents get autocomplete and validation for free, and hand-written validators drift (W10).
   - *Change:*
     - Publish schemas for `manifest.json`, presets, `GameGraph`, `reuse.json` and each content kind.
@@ -254,7 +261,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - https://zod.dev/json-schema
     - https://json-schema.org/
     - https://code.visualstudio.com/docs/languages/json#_json-schemas-and-settings
-- [ ] **P2.3 A `create-bulkhead` scaffolding CLI with genre templates.** M
+- [x] **P2.3 A `create-bulkhead` scaffolding CLI with genre templates.** M
   - *Why:* "New game in one command" is the norm for web engines (W1). An example is Phaser's `npm create @phaserjs/game@latest`.
   - *Change:*
     - Add `npm create bulkhead@latest my-game -- --template fps|platformer|topdown|puzzle|cards|blank`, producing a standalone repo that depends on the engine packages from P0.2.
@@ -263,7 +270,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
   - Sources:
     - https://www.phaser.io/tutorials/create-game-app
     - https://github.com/phaserjs/create-game
-- [ ] **P2.4 Prefabs and a generic scene/level format.** L
+- [x] **P2.4 Prefabs and a generic scene/level format.** L
   - *Why:* Grid maps are the only level format, and entity definitions are per family.
   - *Change:*
     - Add a data-driven `prefab` content kind: component bags with `extends` and overrides, validated by schema.
@@ -274,7 +281,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - https://docs.godotengine.org/en/stable/engine_details/file_formats/tscn.html
     - https://doc.mapeditor.org/en/stable/reference/json-map-format/
     - https://ldtk.io/json/
-- [ ] **P2.5 A runtime entity inspector, tweak panel and debug draw.** M
+- [x] **P2.5 A runtime entity inspector, tweak panel and debug draw.** M
   - *Why:* Tuning by editing JSON and reloading is slow. The Debug tab shows stats but can't edit.
   - *Change:*
     - Extend `creator.ts` Debug into an entity list → component editor (live edit through commands).
@@ -284,7 +291,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
   - Sources:
     - https://tweakpane.github.io/docs/
     - Babylon Inspector (reference for scope) https://doc.babylonjs.com/toolsAndResources/inspector
-- [ ] **P2.6 An agent control protocol plus an MCP server.** M–L
+- [x] **P2.6 An agent control protocol plus an MCP server.** M–L
   - *Why:* You build with agents. Today `window.__bulkhead` is an undocumented test hook. A versioned remote protocol lets agents inspect and modify a running game, step it and take screenshots.
   - *Change:*
     - Add a dev-only JSON-RPC 2.0 endpoint over WebSocket from the dev server. Methods: `world.query`, `entity.get/set`, `sim.step(n)`, `sim.pause`, `preset.apply`, `replay.run`, `screenshot`, `log.tail`.
@@ -298,7 +305,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - https://github.com/ChromeDevTools/chrome-devtools-mcp
     - https://github.com/microsoft/playwright-mcp
     - https://modelcontextprotocol.io/
-- [ ] **P2.7 Perf HUD and budgets.** M
+- [x] **P2.7 Perf HUD and budgets.** M
   - *Why:* GPU performance is unmeasured (W15). Prototypes need a visible frame budget.
   - *Change:*
     - Add an FPS/CPU/GPU overlay: stats-gl on WebGL, or the three.js `Inspector` if moving to WebGPURenderer.

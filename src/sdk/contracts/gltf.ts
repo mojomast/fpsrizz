@@ -4,6 +4,7 @@
  *
  * - Transform3D from the node's TRS (or matrix), parented like the glTF hierarchy;
  * - Renderable `{ model: "<path>#<nodeIndex>" }` for mesh nodes (drawn by std/render-sync through std/assets);
+ * - a data prefab's components when the `prefab` extra names one registered with std/scene (P2.4);
  * - components from the node's `extras` - which is where Blender's glTF exporter writes Object custom properties
  *   (enable "Include > Custom Properties"). See docs/reference/assets.md for the property vocabulary.
  */
@@ -16,6 +17,7 @@ import { composePose, quatIdentity, Renderable, Transform3D, vec3 } from './spat
 import type { Pose, Quat, Vec3 } from './spatial.ts';
 import { PhysicsCollider, RigidBody } from './physics.ts';
 import type { BodyType, ColliderShape } from './physics.ts';
+import { ScenePrefabs, applyPrefabComponents } from './scene.ts';
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Reader
@@ -290,8 +292,11 @@ export async function spawnGltfScene(ctx: SessionContext, path: string, opts: Sp
     // Visual
     const prefab = typeof x.prefab === 'string' ? x.prefab : undefined;
     const showModel = opts.renderables !== false && x.renderable !== false && x.renderable !== 0 && x.renderable !== 'false';
-    if (prefab) w.add(e, Renderable, { prefab });
-    else if ((n.mesh !== undefined || (doc.json.nodes?.[n.index]?.children ?? []).some((c) => isMeshCarrier(doc.json, c))) && showModel) w.add(e, Renderable, { model: `${path}#${n.index}` });
+    // A data prefab (std/scene, P2.4) contributes its components; otherwise `prefab` names a RenderablePrefab.
+    const dataPrefab = prefab !== undefined && ctx.registries.get(ScenePrefabs, prefab) !== undefined;
+    if (dataPrefab) applyPrefabComponents(ctx, e, prefab!);
+    else if (prefab) w.add(e, Renderable, { prefab });
+    if (!w.has(e, Renderable) && (n.mesh !== undefined || (doc.json.nodes?.[n.index]?.children ?? []).some((c) => isMeshCarrier(doc.json, c))) && showModel) w.add(e, Renderable, { model: `${path}#${n.index}` });
     // Physics shorthands
     if (body) {
       const rb: RigidBody = { type: body };

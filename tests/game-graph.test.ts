@@ -79,7 +79,9 @@ const defaultPreset = defaultPresetJson as unknown as GamePreset;
 const overheadRacingPreset = overheadRacingPresetJson as unknown as GamePreset;
 
 function sortedIdentity(preset: GamePreset): GamePreset {
-  return { ...preset, plugins: [...preset.plugins].sort() };
+  // `$schema` is an editor hint in the JSON file, not part of the preset model.
+  const { $schema: _hint, ...rest } = preset as GamePreset & { $schema?: string };
+  return { ...rest, plugins: [...preset.plugins].sort() };
 }
 
 function format(issues: readonly GameGraphIssue[]): string {

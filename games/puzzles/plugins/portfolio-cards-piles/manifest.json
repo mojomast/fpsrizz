@@ -1,1 +1,1 @@
-{"schema":1,"id":"portfolio-cards/piles","name":"Ordered card piles","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Owned deterministic draw, hand and discard partitions.","dependencies":{},"capabilities":["simulation"]}
+{"$schema": "../../../../schemas/plugin-manifest.schema.json", "schema":1,"id":"portfolio-cards/piles","name":"Ordered card piles","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Owned deterministic draw, hand and discard partitions.","dependencies":{},"capabilities":["simulation"]}

@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../schemas/preset.schema.json",
+  "schema": 1,
+  "id": "__NS__/default",
+  "name": "__TITLE__",
+  "plugins": [
+    "std/transform",
+    "std/render-sync",
+    "std/physics-rapier",
+    "__NS__/game"
+  ],
+  "roles": {
+    "sdk/experience": "__NS__/game"
+  },
+  "seed": 1
+}

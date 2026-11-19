@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Input replay (*.replay.json)",
+  "description": "Seed + preset + tick-stamped input calls + final-state hash (src/platform/replay.ts).",
+  "type": "object",
+  "required": [
+    "format",
+    "version",
+    "sdk",
+    "preset",
+    "seed",
+    "ticks",
+    "events"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor hint: path or URL of this file's JSON Schema. Ignored at runtime."
+    },
+    "format": {
+      "const": "fpsrizz-replay"
+    },
+    "version": {
+      "const": 1
+    },
+    "sdk": {
+      "type": "string"
+    },
+    "preset": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*(/[a-z0-9][a-z0-9._-]*)+$",
+      "description": "Namespaced id like \"core/world\" (lowercase, at least one slash)."
+    },
+    "seed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "ticks": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "prefixItems": [
+          {
+            "type": "integer",
+            "minimum": 0
+          },
+          {
+            "enum": [
+              "p",
+              "r",
+              "l",
+              "ptr",
+              "k",
+              "ku",
+              "an",
+              "c"
+            ]
+          }
+        ]
+      }
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}$"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

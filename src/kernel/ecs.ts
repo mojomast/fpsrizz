@@ -314,6 +314,21 @@ export class EntityStore {
     this.nextId = Math.max(nextId, max + 1);
   }
 
+  /** Live entity ids in creation order (inspector and dev tools). */
+  ids(): EntityId[] {
+    const out: EntityId[] = [];
+    for (const id of this.owners.keys()) if (!this.doomed.has(id)) out.push(id);
+    return out;
+  }
+
+  /** One entity's owner and component ids → data (live references, not copies). Undefined when not alive. */
+  inspect(id: EntityId): { id: EntityId; owner: string; components: Record<string, unknown> } | undefined {
+    if (!this.isAlive(id)) return undefined;
+    const components: Record<string, unknown> = {};
+    for (const [cid, s] of this.stores) if (s.has(id)) components[cid] = s.get(id);
+    return { id, owner: this.owners.get(id)!, components };
+  }
+
   /** Plain-data snapshot (debugging, tests, and the shape future save files will use). */
   snapshot(): { id: EntityId; owner: string; components: Record<string, unknown> }[] {
     const out: { id: EntityId; owner: string; components: Record<string, unknown> }[] = [];

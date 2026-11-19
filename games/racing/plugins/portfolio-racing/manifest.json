@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
   "schema": 1,
   "id": "portfolio/racing",
   "name": "Portfolio racing tracks",

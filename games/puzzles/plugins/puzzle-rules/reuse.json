@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Grid push puzzles composing selected graph navigation for deterministic pursuit, bounded command ingress and reversible turns.",
   "keywords": ["sokoban", "push", "boulder", "pressure plate", "gate", "pursuit", "undo", "retry", "puzzle", "command queue", "bounded FIFO", "single drain", "navigation", "pathfinding"],
   "entryPoints": ["PushPuzzle", "PuzzleCampaigns", "PuzzleResolved", "createCommandQueue", "NavigationRole"], "useWhen": "Add chambers to Stonewake-style puzzles or study sequential occupied-grid pursuit using a selected pure graph-query provider and one-command-per-tick ingress.",

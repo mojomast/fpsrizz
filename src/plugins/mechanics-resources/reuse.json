@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "cross-genre",
   "summary": "Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation.",
   "keywords": ["resource", "balance", "economy", "currency", "money", "gold", "stamina", "mana", "energy", "health", "inventory", "capacity", "transaction", "spend", "gain", "cost", "crafting"],

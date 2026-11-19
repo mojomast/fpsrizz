@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Model build list (assets/models.json)",
+  "description": "Source models optimised by `npm run assets` into public/models/.",
+  "type": "object",
+  "required": [
+    "schema",
+    "models"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor hint: path or URL of this file's JSON Schema. Ignored at runtime."
+    },
+    "$comment": {
+      "type": "string"
+    },
+    "schema": {
+      "const": 1
+    },
+    "models": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "src",
+          "out"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "src": {
+            "type": "string",
+            "pattern": "^assets/.+\\.(glb|gltf)$"
+          },
+          "out": {
+            "type": "string",
+            "pattern": "^public/models/.+\\.glb$"
+          },
+          "textures": {
+            "enum": [
+              "keep",
+              "webp"
+            ]
+          },
+          "$comment": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Shooter-family planar collision, ray/sweep queries, pathfinding, doors, switches and trigger zones.",
   "keywords": ["collision", "raycast", "sweep", "navigation", "pathfinding", "line of sight", "door", "switch", "trigger", "wall", "map"],
   "entryPoints": ["World", "Interactions", "MapFormats", "Maps", "Prefabs", "TriggerFired", "DoorChanged"],

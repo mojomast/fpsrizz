@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1, "scope": "family", "summary": "Turn-tactics authority composing selected graph reachability with local occupancy, AP spending, attacks and deterministic enemy turns.",
   "keywords": ["turn", "tactics", "action points", "pathfinding", "grid", "squad", "cover", "line of sight"],
   "entryPoints": ["Tactics", "TacticsMissions", "TacticsResolved", "NavigationRole"], "useWhen": "Author another board mission or study how selected unit-edge graph reachability composes with current occupancy and per-three-step AP costs.",

@@ -1,4 +1,5 @@
 {
+  "$schema": "../../../../schemas/reuse.schema.json",
   "schema": 1,
   "scope": "content",
   "summary": "Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family.",
