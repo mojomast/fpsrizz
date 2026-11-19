@@ -25,10 +25,10 @@
     "The provider validates room rectangles and links but does not prove spatial reachability or ability gates."
   ],
   "docs": [
-    "docs/hollowmere.md"
+    "games/hollowmere/README.md"
   ],
   "examples": [
-    "src/plugins/hollowmere-game/index.ts"
+    "games/hollowmere/plugins/hollowmere-game/index.ts"
   ],
   "tests": [
     "tests/mechanics-metroidvania-providers.test.ts"

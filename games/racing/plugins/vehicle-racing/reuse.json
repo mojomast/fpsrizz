@@ -1,0 +1,7 @@
+{
+  "schema": 1, "scope": "family", "summary": "Arcade vehicle motion, drifting, directional gates and timeout, composing shared ordered sequence and lap progression.",
+  "keywords": ["vehicle", "racing", "drift", "lap", "checkpoint", "steering", "brake", "timer"],
+  "entryPoints": ["Race", "RaceTracks", "sequenceMechanic"], "useWhen": "Author a track or a new presentation for the independent overhead racing rules.",
+  "limitations": ["Planar arcade kinematics, not rigid-body vehicles or a generic spatial checkpoint service. Select a sequence provider; gate geometry and one-crossing-per-tick policy remain local."],
+  "docs": ["games/racing/README.md", "docs/reference/sequences.md"], "examples": ["games/racing/plugins/vehicle-track/content.json", "games/racing/presets/overhead-racing.json"], "tests": ["games/racing/tests/overhead-racing.test.ts"]
+}

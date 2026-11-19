@@ -2,8 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { Enemies, Weapons, Maps, Pickups, Inventory, Player, Enemy } from '../src/sdk/index.ts';
-import manifest from '../src/plugins/example-pack/manifest.json' with { type: 'json' };
-import content from '../src/plugins/example-pack/content.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-pack/manifest.json' with { type: 'json' };
+import content from '../games/shooter/plugins/example-pack/content.json' with { type: 'json' };
 
 const defaults = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content'];
 const withPack = (map: string) =>

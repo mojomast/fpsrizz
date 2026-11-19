@@ -14,8 +14,9 @@ if (!fs.existsSync(path.join(dist, 'index.html'))) {
 }
 const outDir = path.join(root, '.smoke');
 fs.mkdirSync(outDir, { recursive: true });
-const presetsDir = path.join(root, 'src', 'content', 'presets');
-const preset = (n) => JSON.parse(fs.readFileSync(path.join(presetsDir, `${n}.json`), 'utf8'));
+// Presets live in games/<family>/presets/ (the shooter's in games/shooter/presets/).
+const presetFile = (n) => fs.readdirSync(path.join(root, 'games')).map((f) => path.join(root, 'games', f, 'presets', `${n}.json`)).find((p) => fs.existsSync(p)) ?? path.join(root, 'games', 'shooter', 'presets', `${n}.json`);
+const preset = (n) => JSON.parse(fs.readFileSync(presetFile(n), 'utf8'));
 const P = { default: preset('default'), extended: preset('extended'), annex: preset('annex'), survival: preset('survival') };
 
 const results = [];

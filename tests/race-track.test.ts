@@ -3,14 +3,14 @@ import { test } from 'node:test';
 import { Collider, Flow, Player, SequenceProviders, Transform, World, angleDelta, yawOf } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { sequenceProviders } from './helpers/alternate-sequence.ts';
-import racing from '../src/plugins/example-racing/manifest.json' with { type: 'json' };
-import manifest from '../src/plugins/example-race-track/manifest.json' with { type: 'json' };
-import content from '../src/plugins/example-race-track/content.json' with { type: 'json' };
+import racing from '../games/shooter/plugins/example-racing/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-race-track/manifest.json' with { type: 'json' };
+import content from '../games/shooter/plugins/example-race-track/content.json' with { type: 'json' };
 
 for (const selected of sequenceProviders) test(`Foundry Circuit is sealed and the real driving controller can complete its ordered loop (${selected.id})`, async () => {
   const game = createHeadlessGame([
     selected.entry,
-    { manifest: racing as never, load: () => import('../src/plugins/example-racing/index.ts') },
+    { manifest: racing as never, load: () => import('../games/shooter/plugins/example-racing/index.ts') },
     { manifest: manifest as never, content: content as never },
   ]);
   try {

@@ -4,7 +4,7 @@
 
 ## Compose
 
-Merge this fragment into a complete preset, such as [The Last Light](../../content/presets/narrative-adventure.json):
+Merge this fragment into a complete preset, such as [The Last Light](../../../games/adventure/presets/narrative-adventure.json):
 
 ```json
 { "plugins": ["theme/story"], "roles": { "sdk/theme": "theme/story" } }
@@ -14,4 +14,4 @@ Texture keys are `story-room`, `story-portrait`, `story-key` and `story-lens`; s
 
 Registration provides a role value rather than a factory registry or mutable gameplay handles. Generated painters reproduce pinned pixels deterministically without runtime network access, and sounds are synthesis definitions. Selection works headlessly without renderer or audio services; actual painting and playback need the corresponding adapters. Staging validates role selection; chapter content validation belongs to the adventure content loader.
 
-See the [asset provenance](../../../assets/experiences/README.md), [narrative adventure guide](../../../docs/narrative-adventure.md), [theme contract](../../sdk/contracts/experience.ts), [presentation consumer](../story-presentation/index.ts) and [theme tests](../../../tests/experience-themes.test.ts). Run `npm run check` from the repository root.
+See the [asset provenance](../../../assets/experiences/README.md), [narrative adventure guide](../../../games/adventure/README.md), [theme contract](../../sdk/contracts/experience.ts), [presentation consumer](../../../games/adventure/plugins/story-presentation/index.ts) and [theme tests](../../../tests/experience-themes.test.ts). Run `npm run check` from the repository root.

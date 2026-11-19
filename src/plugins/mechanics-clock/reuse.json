@@ -5,7 +5,7 @@
   "entryPoints": ["MechanicClockProviders", "ClockMechanicRole", "clockMechanic", "createDeadline", "createOwnedInstances"],
   "useWhen": "A mechanic needs explicit seconds/turns; compose createDeadline for exact arm/cancel/remaining/due queries over an existing clock.",
   "limitations": ["No automatic advancement, callbacks, recurring timers or catch-up. Turns use positive safe integers. Deadline durations must be positive; action cooldowns remain in mechanics/actions. The SDK helper accepts compatible clocks independently of this provider."],
-  "docs": ["docs/reusable-mechanics.md", "docs/deadlines.md", "docs/owned-instances.md"],
-  "examples": ["src/plugins/sky-game/index.ts", "src/plugins/verdant-game/index.ts"],
+  "docs": ["docs/reference/reusable-mechanics.md", "docs/reference/deadlines.md", "docs/reference/owned-instances.md"],
+  "examples": ["games/sky/plugins/sky-game/index.ts", "games/verdant/plugins/verdant-game/index.ts"],
   "tests": ["tests/mechanics-providers.test.ts", "tests/reusable-games.test.ts", "tests/deadlines.test.ts", "tests/deadline-consumers.test.ts", "tests/owned-instances.test.ts"]
 }

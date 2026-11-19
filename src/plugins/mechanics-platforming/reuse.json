@@ -30,10 +30,10 @@
     "One-way platforms and drop-through are supported through the collision query, but authored map semantics stay with the game."
   ],
   "docs": [
-    "docs/hollowmere.md"
+    "games/hollowmere/README.md"
   ],
   "examples": [
-    "src/plugins/hollowmere-game/index.ts"
+    "games/hollowmere/plugins/hollowmere-game/index.ts"
   ],
   "tests": [
     "tests/mechanics-metroidvania-providers.test.ts"

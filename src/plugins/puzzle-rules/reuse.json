@@ -1,7 +1,0 @@
-{
-  "schema": 1, "scope": "family", "summary": "Grid push puzzles composing selected graph navigation for deterministic pursuit, bounded command ingress and reversible turns.",
-  "keywords": ["sokoban", "push", "boulder", "pressure plate", "gate", "pursuit", "undo", "retry", "puzzle", "command queue", "bounded FIFO", "single drain", "navigation", "pathfinding"],
-  "entryPoints": ["PushPuzzle", "PuzzleCampaigns", "PuzzleResolved", "createCommandQueue", "NavigationRole"], "useWhen": "Add chambers to Stonewake-style puzzles or study sequential occupied-grid pursuit using a selected pure graph-query provider and one-command-per-tick ingress.",
-  "limitations": ["Undo restores this ruleset's discrete board state, not arbitrary shared mechanics or a general ECS snapshot.", "Shared command ingress and graph traversal are genre-neutral; push legality, gate exclusions, golem occupancy/cadence, queue capacity and transition clearing remain family policies.", "Static authored chamber connectivity remains a registration-time local validator, separate from selected runtime navigation."],
-  "docs": ["docs/stonewake.md", "docs/command-queues.md", "docs/navigation.md"], "examples": ["src/plugins/puzzle-chambers/content.json", "src/content/presets/stonewake.json", "src/plugins/puzzle-rules/index.ts"], "tests": ["tests/stonewake.test.ts", "tests/command-queue.test.ts", "tests/command-queue-consumers.test.ts", "tests/navigation-consumers.test.ts"]
-}

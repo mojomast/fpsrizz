@@ -1,9 +1,0 @@
-{
-  "schema": 1, "scope": "family", "summary": "Shooter-family planar collision, ray/sweep queries, pathfinding, doors, switches and trigger zones.",
-  "keywords": ["collision", "raycast", "sweep", "navigation", "pathfinding", "line of sight", "door", "switch", "trigger", "wall", "map"],
-  "entryPoints": ["World", "Interactions", "MapFormats", "Maps", "Prefabs", "TriggerFired", "DoorChanged"],
-  "useWhen": "Extend a grid-authored planar shooter-family world or implement another compatible map format through MapFormats.",
-  "limitations": ["Not a general 3D physics engine or a genre-neutral navigation provider; requires the shooter mode/world vocabulary."],
-  "docs": ["ARCHITECTURE.md", "CONTENT_FORMAT.md"], "examples": ["src/plugins/example-keys/index.ts", "src/plugins/example-stealth/index.ts"],
-  "tests": ["tests/game-collision.test.ts", "tests/game-interactions.test.ts"]
-}

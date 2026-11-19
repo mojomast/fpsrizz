@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "content",
+  "summary": "Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family.",
+  "keywords": ["metroidvania", "assetrizz", "room graph", "world map", "sun sigil", "ability gate", "moss tonic", "hollow king", "goblin", "golem"],
+  "entryPoints": ["Items", "MetroidvaniaWorlds"],
+  "useWhen": "Inspect or extend Hollowmere's authored rooms, item definitions and enemy roster; gameplay policy stays in hollowmere/game.",
+  "limitations": ["Authored content, not a procedural generator. It depends on the family game loader and inventory item registry.", "Map coordinates, room rows and ability-gate references are validated but do not prove every route is physically reachable."],
+  "docs": ["games/hollowmere/README.md"],
+  "examples": ["games/hollowmere/presets/hollowmere-ascent.json"],
+  "tests": ["games/hollowmere/tests/hollowmere.test.ts"]
+}

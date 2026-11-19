@@ -3,3 +3,6 @@ dist
 .smoke
 *.log
 .dev
+.sourcemaps
+.build
+docs/reference/api

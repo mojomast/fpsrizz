@@ -3,16 +3,10 @@
  * src/platform. (Rendering plugins additionally use src/sdk/render.ts, which exposes the Three-style scene API.)
  */
 export * from './core.ts';
+export * from './static-asset.ts';
 export * from './contracts/shooter.ts';
 export * from './contracts/experience.ts';
-export * from './contracts/racing.ts';
-export * from './contracts/tactics.ts';
-export * from './contracts/adventure.ts';
-export * from './contracts/puzzle.ts';
 export * from './contracts/mechanics.ts';
-export * from './contracts/sky.ts';
-export * from './contracts/ember.ts';
-export * from './contracts/verdant.ts';
 export * from './contracts/profile.ts';
 export type * from './contracts/audio.ts';
 export * from './contracts/deadlines.ts';
@@ -25,16 +19,10 @@ export * from './contracts/inventory.ts';
 export * from './contracts/crafting.ts';
 export * from './contracts/turns.ts';
 export * from './contracts/viewmodes.ts';
-export * from './contracts/cinder.ts';
 export * from './contracts/platforming.ts';
 export * from './contracts/capabilities.ts';
 export * from './contracts/room-map.ts';
-export * from './contracts/metroidvania.ts';
 export * from './contracts/outcome-rating.ts';
-export * from './contracts/portfolio-cards.ts';
 export * from './contracts/hints.ts';
-export * from './contracts/silt-archive.ts';
-export * from './contracts/salt-ledger.ts';
-export * from './contracts/hearth-sim.ts';
 export * from './contracts/relationships.ts';
 export * from './contracts/conditions.ts';

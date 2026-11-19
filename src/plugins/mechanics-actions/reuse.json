@@ -5,7 +5,7 @@
   "entryPoints": ["MechanicActionProviders", "ActionMechanicRole", "actionMechanic", "MechanicActionCommitted"],
   "useWhen": "Bind actions to a resource pool and explicit clock; create separate handles when actors or towers need independent cooldowns.",
   "limitations": ["Validate targets/range/occupancy before execute. Transaction covers resource costs and cooldown, not arbitrary game-local rollback or an ability scripting language."],
-  "docs": ["docs/reusable-mechanics.md"],
-  "examples": ["src/plugins/ember-game/index.ts", "src/plugins/sky-game/index.ts", "src/plugins/verdant-game/index.ts"],
-  "tests": ["tests/mechanics-providers.test.ts", "tests/ember-bastion.test.ts", "tests/reusable-games.test.ts"]
+  "docs": ["docs/reference/reusable-mechanics.md"],
+  "examples": ["games/ember/plugins/ember-game/index.ts", "games/sky/plugins/sky-game/index.ts", "games/verdant/plugins/verdant-game/index.ts"],
+  "tests": ["tests/mechanics-providers.test.ts", "games/ember/tests/ember-bastion.test.ts", "tests/reusable-games.test.ts"]
 }

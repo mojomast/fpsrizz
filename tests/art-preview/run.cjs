@@ -1,8 +1,9 @@
 // Renders every procedural painter onto a contact sheet and smoke-tests the audio service.
+const tool = (n) => { try { return require('node:module').createRequire(require('node:path').resolve(__dirname, '../../package.json'))(n); } catch { return require(`/opt/npm-tools/node_modules/${n}`); } };
 const path = require('path');
 const fs = require('fs');
-const esbuild = require('/opt/npm-tools/node_modules/esbuild');
-const { chromium } = require('/opt/npm-tools/node_modules/playwright');
+const esbuild = tool('esbuild');
+const { chromium } = tool('playwright');
 
 const root = path.resolve(__dirname, '..', '..');
 const entry = path.join(__dirname, 'entry.gen.ts');
@@ -18,7 +19,7 @@ import { createAudioService } from '../../src/platform/audio.ts';
   fs.rmSync(entry, { force: true });
   const js = out.outputFiles[0].text;
 
-  const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', args: ['--autoplay-policy=no-user-gesture-required', '--no-sandbox'] });
+  const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || (require('fs').existsSync('/usr/bin/google-chrome') ? '/usr/bin/google-chrome' : undefined), args: ['--autoplay-policy=no-user-gesture-required', '--no-sandbox'] });
   const page = await browser.newPage({ viewport: { width: 1500, height: 900 } });
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));

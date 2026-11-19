@@ -1,15 +1,16 @@
 // Agent-facing discovery. Registration is observed in isolated stages; sessions are never activated.
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { posix, resolve } from 'node:path';
 import { catalog, presets } from '../src/app/catalog.ts';
 import { PluginHost } from '../src/kernel/host.ts';
 import { parseManifest } from '../src/kernel/manifest.ts';
 import * as sdk from '../src/sdk/index.ts';
 import * as renderSdk from '../src/sdk/render.ts';
 import { root } from './tools.mjs';
+import { discoverPlugins } from './gen-catalog.mjs';
 
-export const indexFiles = { json: 'docs/reuse-index.json', markdown: 'REUSE_INDEX.md' };
+export const indexFiles = { json: 'docs/reuse-index.json', markdown: 'docs/reference/reuse-index.md' };
 const scopes = ['cross-genre', 'family', 'presentation', 'content', 'unreviewed'];
 const sorted = values => [...values].sort((a, b) => a.localeCompare(b, 'en'));
 const json = path => JSON.parse(readFileSync(resolve(root, path), 'utf8'));
@@ -41,6 +42,40 @@ export function validateMetadata(data, label, symbols) {
   return data;
 }
 
+/** Game-family contract modules (games/<family>/contracts/*.ts), which left the SDK entry point. */
+export function familyContractFiles() {
+  if (!existsSync(resolve(root, 'games'))) return [];
+  return sorted(readdirSync(resolve(root, 'games'))).flatMap(family => existsSync(resolve(root, `games/${family}/contracts`))
+    ? files(`games/${family}/contracts`, path => path.endsWith('.ts')) : []);
+}
+
+function gamePresetFiles() {
+  if (!existsSync(resolve(root, 'games'))) return [];
+  return sorted(readdirSync(resolve(root, 'games'))).flatMap(family => existsSync(resolve(root, `games/${family}/presets`))
+    ? files(`games/${family}/presets`, path => path.endsWith('.json')) : []);
+}
+
+async function familyInventory() {
+  const out = [];
+  for (const path of familyContractFiles()) {
+    const family = path.split('/')[1];
+    const text = readFileSync(resolve(root, path), 'utf8');
+    const values = await import(resolve(root, path));
+    for (const name of sorted(Object.keys(values))) {
+      const declaration = new RegExp(`^export (?:const|function|class) ${name}\\b`, 'm');
+      const offset = text.search(declaration);
+      const line = offset < 0 ? 1 : text.slice(0, offset).split('\n').length;
+      const value = values[name];
+      const token = value && typeof value === 'object' ? value.id ?? value.kind : undefined;
+      out.push({ id: `games/${family}/${name}`, type: 'contract', name, scope: 'contract', summary: `${typeof value === 'function' ? 'Game-family helper/class' : 'Game-family contract value'}${token ? `: ${token}` : ''}`,
+        importFrom: path, token, source: `${path}:${line}`, docs: ['docs/guide/plugins.md'], examples: [], tests: [], keywords: [name, family, ...(token ? [token] : [])],
+        useWhen: `Game-specific contract of the ${family} family; plugins in games/${family}/ import it directly. A token is a contract, not an installed implementation.`,
+        limitations: [`Only plugins of the ${family} family may import it (scripts/boundaries.ts).`] });
+    }
+  }
+  return out;
+}
+
 function sdkInventory() {
   const sources = files('src/sdk', path => path.endsWith('.ts')).concat(files('src/kernel', path => path.endsWith('.ts')))
     .map(path => ({ path, text: readFileSync(resolve(root, path), 'utf8') }));
@@ -55,7 +90,7 @@ function sdkInventory() {
     const token = value && typeof value === 'object' ? value.id ?? value.kind : undefined;
     return { id: `sdk/${name}`, type: 'contract', name, scope: 'contract', summary: `${typeof value === 'function' ? 'Public helper/class' : 'Public SDK value'}${token ? `: ${token}` : ''}`,
       importFrom: name in renderSdk ? 'src/sdk/render.ts' : 'src/sdk/index.ts',
-      token, source: `${sourcePath}:${line}`, docs: ['PLUGINS.md'], examples: [], tests: [], keywords: [name, ...(token ? [token] : [])],
+      token, source: `${sourcePath}:${line}`, docs: ['docs/guide/plugins.md'], examples: [], tests: [], keywords: [name, ...(token ? [token] : [])],
       useWhen: 'Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.', limitations: ['Rendering SDK imports require the render manifest capability.'] };
   });
 }
@@ -74,12 +109,11 @@ export function dependencyClosure(id, manifests) {
 }
 
 export async function buildReuseIndex() {
-  const contracts = sdkInventory(), symbols = new Set(contracts.map(item => item.name));
+  const contracts = [...sdkInventory(), ...await familyInventory()], symbols = new Set(contracts.map(item => item.name));
   const manifests = new Map(), folders = new Map();
-  const inputs = new Set(['src/app/catalog.ts', 'scripts/reuse-lib.mjs', 'docs/reuse-recipes.json']);
-  for (const folder of sorted(readdirSync(resolve(root, 'src/plugins')))) {
-    const directory = `src/plugins/${folder}`, path = `${directory}/manifest.json`;
-    if (!existsSync(resolve(root, path))) continue;
+  const inputs = new Set(['src/app/catalog.ts', 'src/app/catalog.generated.ts', 'scripts/reuse-lib.mjs', 'docs/reuse-recipes.json']);
+  for (const directory of sorted(discoverPlugins().map(plugin => plugin.dir))) {
+    const path = `${directory}/manifest.json`;
     const issues = [];
     const manifest = parseManifest(json(path), new sdk.Reporter(issues, path));
     if (!manifest || issues.length) fail(path, issues.map(issue => `${issue.path}: ${issue.message}`).join('; '));
@@ -87,7 +121,7 @@ export async function buildReuseIndex() {
     manifests.set(manifest.id, manifest); folders.set(manifest.id, directory);
     for (const file of files(directory, path => /\.(ts|json)$/.test(path))) inputs.add(file);
   }
-  for (const file of files('src/sdk', path => path.endsWith('.ts')).concat(files('src/kernel', path => path.endsWith('.ts')), files('src/content/presets', path => path.endsWith('.json')))) inputs.add(file);
+  for (const file of files('src/sdk', path => path.endsWith('.ts')).concat(files('src/kernel', path => path.endsWith('.ts')), familyContractFiles(), gamePresetFiles())) inputs.add(file);
   const installed = new Set(catalog.map(entry => entry.manifest.id));
   for (const id of installed) if (!manifests.has(id)) fail('catalog', `no source manifest found for ${id}`);
   const host = new PluginHost({ sdkVersion: sdk.SDK_VERSION, phases: sdk.PHASES });
@@ -116,7 +150,7 @@ export async function buildReuseIndex() {
       summary: metadata?.summary ?? manifest.description ?? manifest.name, source: directory, version: manifest.version, sdk: manifest.sdk, builtIn: installed.has(id), reviewed: Boolean(metadata && metadata.scope !== 'unreviewed'),
       keywords: metadata?.keywords ?? [], entryPoints: metadata?.entryPoints ?? [], useWhen: metadata?.useWhen ?? 'Inspect the implementation and an existing preset before composing it.',
       limitations: metadata?.limitations ?? ['Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility.'],
-      docs: metadata?.docs ?? ['PLUGINS.md'], examples: metadata?.examples ?? [], tests: metadata?.tests ?? [],
+      docs: metadata?.docs ?? ['docs/guide/plugins.md'], examples: metadata?.examples ?? [], tests: metadata?.tests ?? [],
       dependencies: manifest.dependencies ?? {}, optionalDependencies: manifest.optionalDependencies ?? {}, conflicts: manifest.conflicts ?? [],
       requiresRoles: manifest.requiresRoles ?? [], roleDependencies: manifest.roleDependencies ?? [], config: manifest.config ?? {},
       enable, registrations, contentKinds: contentKinds.sort((a, b) => a.kind.localeCompare(b.kind, 'en')), presets: examples });
@@ -201,13 +235,15 @@ export function formatEntry(item, detailed = false) {
 
 export function renderIndex(index) {
   const escape = text => String(text).replaceAll('|', '\\|').replaceAll('\n', ' ');
+  // Links are written relative to the Markdown file's own folder.
+  const link = path => posix.relative(posix.dirname(indexFiles.markdown), path) || path;
   return '# Reuse index\n\nGenerated by `npm run index-reuse`. Do not edit this file directly.\n\n' +
-    'Start with [the reuse workflow](REUSE.md). Search by intent with `npm run find-reuse -- "stamina cooldown"`; inspect a result with `--show mechanics/actions`. Use `--json` for structured results.\n\n' +
+    `Start with [the reuse workflow](${link('docs/guide/reuse.md')}). Search by intent with \`npm run find-reuse -- "stamina cooldown"\`; inspect a result with \`--show mechanics/actions\`. Use \`--json\` for structured results.\n\n` +
     'Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.\n\n' +
     `Source digest: \`${index.sourceDigest}\`\n\n` +
     ['recipe', 'plugin', 'contract'].map(type => `## ${type === 'recipe' ? 'Composition recipes' : type === 'plugin' ? 'All source plugins' : 'Public SDK values'}\n\n` +
       '| ID | Scope | What exists | Source |\n|---|---|---|---|\n' + index.entries.filter(item => item.type === type).map(item => {
-        const source = item.source.replace(/:(\d+)$/, '#L$1');
+        const source = link(item.source.replace(/:(\d+)$/, '')) + (/:(\d+)$/.exec(item.source) ? `#L${/:(\d+)$/.exec(item.source)[1]}` : '');
         return `| \`${item.id}\` | ${item.scope} | ${escape(item.summary)} | [source](${source}) |`;
       }).join('\n')).join('\n\n') + '\n';
 }

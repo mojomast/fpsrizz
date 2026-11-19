@@ -3,7 +3,7 @@ import { test } from 'node:test';
 import { Collider, Health, Intent, Player, Transform, World } from '../src/sdk/index.ts';
 import type { CatalogEntry } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import manifest from '../src/plugins/example-dash-controller/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-dash-controller/manifest.json' with { type: 'json' };
 
 const map: CatalogEntry = {
   manifest: { schema: 1, id: 'test/dash-map', name: 'Dash map', version: '1.0.0', kind: 'content', sdk: '^2.0.0', dependencies: { 'core/world': '^1.0.0' } },
@@ -16,7 +16,7 @@ const map: CatalogEntry = {
 };
 
 async function setup() {
-  const game = createHeadlessGame([map, { manifest, load: () => import('../src/plugins/example-dash-controller/index.ts') }]);
+  const game = createHeadlessGame([map, { manifest, load: () => import('../games/shooter/plugins/example-dash-controller/index.ts') }]);
   await game.host.apply(headlessPreset({
     plugins: ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content', 'test/dash-map', 'example/dash-controller'],
     roles: { 'sdk/controller': 'example/dash-controller', 'sdk/camera': 'core/fp-camera', 'sdk/mode': 'core/objective' },

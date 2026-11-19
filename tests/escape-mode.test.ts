@@ -1,15 +1,15 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Combat, Flow, Pickup, Player, Transform, TriggerFired, World } from '../src/sdk/index.ts';
-import escape from '../src/plugins/example-escape/manifest.json' with { type: 'json' };
-import keys from '../src/plugins/example-keys/manifest.json' with { type: 'json' };
-import dungeon from '../src/plugins/example-key-dungeon/manifest.json' with { type: 'json' };
-import content from '../src/plugins/example-key-dungeon/content.json' with { type: 'json' };
+import escape from '../games/shooter/plugins/example-escape/manifest.json' with { type: 'json' };
+import keys from '../games/shooter/plugins/example-keys/manifest.json' with { type: 'json' };
+import dungeon from '../games/shooter/plugins/example-key-dungeon/manifest.json' with { type: 'json' };
+import content from '../games/shooter/plugins/example-key-dungeon/content.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const entries = [
-  { manifest: escape, load: () => import('../src/plugins/example-escape/index.ts') },
-  { manifest: keys, load: () => import('../src/plugins/example-keys/index.ts') },
+  { manifest: escape, load: () => import('../games/shooter/plugins/example-escape/index.ts') },
+  { manifest: keys, load: () => import('../games/shooter/plugins/example-keys/index.ts') },
   { manifest: dungeon, content },
 ] as never;
 const plugins = ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/content', 'example/escape', 'example/keys', 'example/key-dungeon'];

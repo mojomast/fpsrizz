@@ -47,12 +47,8 @@ test('scaffolder safely serializes display names and suggests valid identifiers'
     assert.equal(JSON.parse(notification[1]), `${name} is active`);
     const syntax = spawnSync('node', ['--check', join(dir, 'index.ts')], { encoding: 'utf8' });
     assert.equal(syntax.status, 0, syntax.stderr);
-    const identifier = result.stdout.match(/import (\S+) from/);
-    assert.ok(identifier?.[1]);
-    const catalogSyntax = spawnSync('node', ['--check', '--input-type=module'], {
-      input: `import ${identifier[1]} from './manifest.json' with { type: 'json' };`, encoding: 'utf8',
-    });
-    assert.equal(catalogSyntax.status, 0, catalogSyntax.stderr);
+    // The catalog is generated, so no hand-written import line (or identifier) is printed any more.
+    assert.match(result.stdout, /gen-catalog/);
   });
 });
 

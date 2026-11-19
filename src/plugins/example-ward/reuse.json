@@ -1,7 +1,0 @@
-{
-  "schema": 1, "scope": "family", "summary": "Temporary damage-reduction pickup implemented through the shared shooter damage modifier registry.",
-  "keywords": ["shield", "armor", "buff", "status effect", "resistance", "damage reduction", "duration", "pickup"],
-  "entryPoints": ["DamageModifiers", "PickupEffects"], "useWhen": "A shooter needs temporary incoming-damage scaling; inspect this before introducing another damage pipeline.",
-  "limitations": ["A shooter modifier example, not a general cross-genre status-effect stack."],
-  "docs": ["PLUGINS.md"], "examples": ["src/plugins/example-ward/index.ts"], "tests": ["tests/ward-effect.test.ts"]
-}

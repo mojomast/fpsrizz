@@ -1,22 +1,24 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { MechanicActionCommitted, MechanicObjectiveChanged, Sky, Verdant } from '../src/sdk/index.ts';
-import type { VerdantCommand } from '../src/sdk/index.ts';
+import { MechanicActionCommitted, MechanicObjectiveChanged } from '../src/sdk/index.ts';
+import { Verdant } from '../games/verdant/contracts/verdant.ts';
+import { Sky } from '../games/sky/contracts/sky.ts';
+import type { VerdantCommand } from '../games/verdant/contracts/verdant.ts';
 import resources from '../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
 import clock from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
 import actions from '../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
 import objectives from '../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
 import kits from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
-import skyRules from '../src/plugins/sky-game/manifest.json' with { type: 'json' };
-import skyPresentation from '../src/plugins/sky-presentation/manifest.json' with { type: 'json' };
-import skyPack from '../src/plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
-import skyContent from '../src/plugins/portfolio-sky-resource/content.json' with { type: 'json' };
-import skyPreset from '../src/content/presets/portfolio-sky-resource.json' with { type: 'json' };
-import verdantRules from '../src/plugins/verdant-game/manifest.json' with { type: 'json' };
-import verdantPresentation from '../src/plugins/verdant-presentation/manifest.json' with { type: 'json' };
-import verdantPack from '../src/plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
-import verdantContent from '../src/plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
-import verdantPreset from '../src/content/presets/portfolio-verdant-resource.json' with { type: 'json' };
+import skyRules from '../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
+import skyPresentation from '../games/sky/plugins/sky-presentation/manifest.json' with { type: 'json' };
+import skyPack from '../games/sky/plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
+import skyContent from '../games/sky/plugins/portfolio-sky-resource/content.json' with { type: 'json' };
+import skyPreset from '../games/sky/presets/portfolio-sky-resource.json' with { type: 'json' };
+import verdantRules from '../games/verdant/plugins/verdant-game/manifest.json' with { type: 'json' };
+import verdantPresentation from '../games/verdant/plugins/verdant-presentation/manifest.json' with { type: 'json' };
+import verdantPack from '../games/verdant/plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
+import verdantContent from '../games/verdant/plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
+import verdantPreset from '../games/verdant/presets/portfolio-verdant-resource.json' with { type: 'json' };
 import theme from '../src/plugins/theme-board/manifest.json' with { type: 'json' };
 import { createHeadlessGame } from './helpers/game.ts';
 
@@ -27,11 +29,11 @@ function game() {
     { manifest: actions, load: () => import('../src/plugins/mechanics-actions/index.ts') },
     { manifest: objectives, load: () => import('../src/plugins/mechanics-objectives/index.ts') },
     { manifest: kits, load: () => import('../src/plugins/mechanics-kits/index.ts') },
-    { manifest: skyRules, load: () => import('../src/plugins/sky-game/index.ts') },
-    { manifest: skyPresentation, load: () => import('../src/plugins/sky-presentation/index.ts') },
+    { manifest: skyRules, load: () => import('../games/sky/plugins/sky-game/index.ts') },
+    { manifest: skyPresentation, load: () => import('../games/sky/plugins/sky-presentation/index.ts') },
     { manifest: skyPack, content: skyContent },
-    { manifest: verdantRules, load: () => import('../src/plugins/verdant-game/index.ts') },
-    { manifest: verdantPresentation, load: () => import('../src/plugins/verdant-presentation/index.ts') },
+    { manifest: verdantRules, load: () => import('../games/verdant/plugins/verdant-game/index.ts') },
+    { manifest: verdantPresentation, load: () => import('../games/verdant/plugins/verdant-presentation/index.ts') },
     { manifest: verdantPack, content: verdantContent },
     { manifest: theme, load: () => import('../src/plugins/theme-board/index.ts') },
   ]);

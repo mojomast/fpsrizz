@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { Combat, Enemy, Flow, Health, Player, Transform } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import manifest from '../src/plugins/example-roguelite/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-roguelite/manifest.json' with { type: 'json' };
 
 async function setup(seed: number) {
-  const game = createHeadlessGame([{ manifest: manifest as never, load: () => import('../src/plugins/example-roguelite/index.ts') }]);
+  const game = createHeadlessGame([{ manifest: manifest as never, load: () => import('../games/shooter/plugins/example-roguelite/index.ts') }]);
   await game.host.apply(headlessPreset({
     seed,
     plugins: ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/content', 'example/roguelite'],

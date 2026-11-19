@@ -4,7 +4,7 @@
 
 ## Compose
 
-Merge this fragment into a complete preset, such as [NEON RUN](../../content/presets/overhead-racing.json):
+Merge this fragment into a complete preset, such as [NEON RUN](../../../games/racing/presets/overhead-racing.json):
 
 ```json
 { "plugins": ["theme/arcade"], "roles": { "sdk/theme": "theme/arcade" } }
@@ -14,4 +14,4 @@ The generated textures include `track-surface`, `race-backdrop`, `race-marker` a
 
 Registration provides a role value, not a factory registry or owned simulation state. Generated painters reproduce pinned pixels deterministically without runtime network access; sounds are synthesis definitions. The theme can be selected headlessly without a renderer or audio device, while painting and playback require adapters. Staging validates role selection; track data validation remains the racing content loader's responsibility.
 
-See the [asset provenance](../../../assets/experiences/README.md), [overhead racing guide](../../../docs/overhead-racing.md), [theme contract](../../sdk/contracts/experience.ts), [presentation consumer](../vehicle-presentation/index.ts) and [theme tests](../../../tests/experience-themes.test.ts). Run `npm run check` from the repository root.
+See the [asset provenance](../../../assets/experiences/README.md), [overhead racing guide](../../../games/racing/README.md), [theme contract](../../sdk/contracts/experience.ts), [presentation consumer](../../../games/racing/plugins/vehicle-presentation/index.ts) and [theme tests](../../../tests/experience-themes.test.ts). Run `npm run check` from the repository root.

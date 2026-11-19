@@ -4,7 +4,7 @@
 
 ## Compose
 
-Merge into a complete preset, such as [Verdant Relay](../../content/presets/verdant-relay.json):
+Merge into a complete preset, such as [Verdant Relay](../../../games/verdant/presets/verdant-relay.json):
 
 ```json
 { "plugins": ["mechanics/objectives"], "roles": { "sdk/mechanic-objectives": "mechanics/objectives" } }
@@ -16,4 +16,4 @@ Consumers creating tracks during activation declare the role in `requiresRoles` 
 
 Track IDs are unique per consumer among live instances. Disposal is idempotent; either owning scope ending invalidates the handle, and paused mutation rejects. These deterministic session-only counters work headlessly without rendering. They do not persist a quest journal or implement rewards, victory rules or a repeating ordered cursor; use [sequence](../mechanics-sequence/README.md) for the latter.
 
-See [mechanics semantics](../../../docs/reusable-mechanics.md), [Verdant consumer](../verdant-game/index.ts) and [provider tests](../../../tests/mechanics-providers.test.ts). Run `npm run check` from the repository root.
+See [mechanics semantics](../../../docs/reference/reusable-mechanics.md), [Verdant consumer](../../../games/verdant/plugins/verdant-game/index.ts) and [provider tests](../../../tests/mechanics-providers.test.ts). Run `npm run check` from the repository root.

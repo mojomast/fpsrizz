@@ -20,6 +20,7 @@ import { Render } from '../sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
 import { createCreatorPanel } from './creator.ts';
+import { installLiveReload, seedOverride, takeResumeRequest, withSeed } from './dev-loop.ts';
 import { createShell } from './shell.ts';
 import type { ShellSettings } from './shell.ts';
 
@@ -409,12 +410,18 @@ function boot(): void {
     const requestedId = new URLSearchParams(location.search).get('preset');
     const requested = presets.find(p => p !== null && typeof p === 'object' && 'id' in p && p.id === requestedId);
     const stored = loadSelectedPreset();
-    let result = await applyPreset(requested ?? stored ?? presets[0]);
+    // `?seed=N` overrides the preset seed so a run can be reproduced from a URL.
+    let result = await applyPreset(withSeed(requested ?? stored ?? presets[0], seedOverride(location.search)));
     if (!result.ok && stored !== undefined && requested === undefined) {
       console.warn('Stored preset is no longer valid; falling back to the default preset.');
       result = await applyPreset(presets[0]);
     }
     if (!result.ok && (state as AppState) !== 'error') showHostError('The default preset is invalid', (result as { error: unknown }).error);
+    if (__DEV__) {
+      // Edit loop: reload on every rebuild and drop straight back into the game that was running.
+      if (result.ok && takeResumeRequest() && (await ensureFreshSession())) begin();
+      installLiveReload({ shouldResume: () => state === 'playing' || state === 'paused' || state === 'ending' });
+    }
   })();
 }
 

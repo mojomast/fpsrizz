@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "family",
+  "summary": "Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss.",
+  "keywords": ["metroidvania", "platformer", "side scroller", "combat", "ability gate", "double jump", "dash", "wall jump", "world map", "checkpoint", "boss", "inventory", "save", "exploration", "assetrizz"],
+  "entryPoints": ["Metroidvania", "MetroidvaniaWorlds", "ExperienceRole", "PlatformerRole", "CapabilityRole", "RoomMapRole"],
+  "useWhen": "Compose Hollowmere's side-scrolling exploration and combat around replaceable platform, capability, room-map and inventory providers.",
+  "limitations": ["Hollowmere family authority with a hand-authored room graph; not a general level editor or physics engine.", "Physical reachability, room art, dialogue policy and boss balance remain authored content/playtest concerns.", "Save is checkpoint-based and schema-versioned; no mid-room restore or cloud sync."],
+  "docs": ["games/hollowmere/README.md", "docs/archive/research/game-composer-2026-11-16.md"],
+  "examples": ["games/hollowmere/presets/hollowmere-ascent.json", "games/hollowmere/plugins/hollowmere-content/content.json"],
+  "tests": ["games/hollowmere/tests/hollowmere.test.ts", "tests/hollowmere-demo/run.mjs"]
+}

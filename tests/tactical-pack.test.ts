@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { Flow, Inventory, Player, Transform, WeaponRuntime, World } from '../src/sdk/index.ts';
-import manifest from '../src/plugins/example-tactical-pack/manifest.json' with { type: 'json' };
-import content from '../src/plugins/example-tactical-pack/content.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-tactical-pack/manifest.json' with { type: 'json' };
+import content from '../games/shooter/plugins/example-tactical-pack/content.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { hostFailure } from './helpers/host.ts';
 import { place } from './helpers/gameplay.ts';

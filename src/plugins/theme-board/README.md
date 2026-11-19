@@ -4,7 +4,7 @@
 
 ## Compose
 
-Merge this fragment into a complete game preset; [Signal Break](../../content/presets/turn-tactics.json) and [Stonewake](../../content/presets/stonewake.json) are working examples:
+Merge this fragment into a complete game preset; [Signal Break](../../../games/tactics/presets/turn-tactics.json) and [Stonewake](../../../games/puzzles/presets/stonewake.json) are working examples:
 
 ```json
 { "plugins": ["theme/board"], "roles": { "sdk/theme": "theme/board" } }
@@ -14,4 +14,4 @@ The role contains `tactics-ground`, `tactics-unit`, `tactics-enemy` and `tactics
 
 Registration supplies a role value, not a factory registry or owned gameplay instances. The generated painters reproduce pinned pixels deterministically and do not fetch assets at runtime; sounds are synthesis definitions. The theme can be selected in headless sessions without a renderer or audio device, although actual painting and playback need their respective adapters. Preset staging validates the role selection; inspect the consumer's expected keys when substituting themes. Gameplay state, timing and validation remain with the game.
 
-See the [asset provenance](../../../assets/experiences/README.md), [turn-tactics guide](../../../docs/turn-tactics.md), [Stonewake guide](../../../docs/stonewake.md), [theme contract](../../sdk/contracts/experience.ts), and [theme tests](../../../tests/experience-themes.test.ts). Run `npm run check` from the repository root.
+See the [asset provenance](../../../assets/experiences/README.md), [turn-tactics guide](../../../games/tactics/README.md), [Stonewake guide](../../../games/puzzles/docs/stonewake.md), [theme contract](../../sdk/contracts/experience.ts), and [theme tests](../../../tests/experience-themes.test.ts). Run `npm run check` from the repository root.

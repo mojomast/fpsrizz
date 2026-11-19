@@ -1,7 +1,0 @@
-{
-  "schema": 1, "scope": "family", "summary": "Tower-defense orchestration with independent shared tower actions, construction and authored enemy waves.",
-  "keywords": ["tower", "defense", "building", "wave", "target", "turret", "cooldown", "repair"],
-  "entryPoints": ["Ember", "EmberConfigs", "createMechanicKit", "actionMechanic"], "useWhen": "Author a defense lane or copy the composition pattern for independent per-actor action handles.",
-  "limitations": ["Lane movement, target choice and wave orchestration remain tower-defense rules. The firing cooldown implementation is mechanics/actions."],
-  "docs": ["docs/ember-bastion.md", "docs/reusable-mechanics.md"], "examples": ["src/plugins/ember-content/content.json", "src/content/presets/ember-bastion.json"], "tests": ["tests/ember-bastion.test.ts", "tests/reusable-games.test.ts"]
-}

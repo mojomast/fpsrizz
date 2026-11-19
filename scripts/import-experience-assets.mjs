@@ -138,6 +138,12 @@ for theme in ['arcade', 'board', 'story']:
 if check:
     for theme, data in modules.items():
         path = root / ('src/plugins/theme-' + theme + '/generated.ts')
+        if b'loadStaticAsset(' in path.read_bytes():
+            # Packed by scripts/pack-painters.mjs: pixel data lives in public/packs/, so only the provenance digest of
+            # the regenerated (inline) module is compared here.
+            if digest(data) != provenance['modules'][theme]:
+                raise ValueError('Generated painter mismatch: ' + str(path))
+            continue
         if path.read_bytes() != data or digest(data) != provenance['modules'][theme]:
             raise ValueError('Generated painter mismatch: ' + str(path))
     print('Verified twelve image hashes, pixel hashes and three generated painter modules (offline)')
@@ -161,3 +167,8 @@ else:
 const result = spawnSync('python3', ['-c', python, fileURLToPath(new URL('../', import.meta.url)), ...args], { stdio: 'inherit' });
 if (result.error) throw result.error;
 process.exitCode = result.status ?? 1;
+if (result.status === 0 && !args.includes('--check')) {
+  // The story theme's art is large; move its pixel data into a content-hashed pack (public/packs/theme-story/).
+  const { packModule } = await import('./pack-painters.mjs');
+  packModule('src/plugins/theme-story/generated.ts');
+}

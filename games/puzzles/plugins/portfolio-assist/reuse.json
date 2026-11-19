@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "presentation",
+  "summary": "Optional on-demand contextual assistance for public card and puzzle services.",
+  "keywords": ["assist", "hints", "cards", "puzzle", "accessibility"],
+  "entryPoints": ["PortfolioCards", "PushPuzzle", "hintMechanic"],
+  "useWhen": "Add requested-only hints to supported portfolio card or push-puzzle compositions.",
+  "limitations": ["Presentation-specific heuristics are limited to existing card summaries and puzzle campaign/state; no solver or gameplay mutation."],
+  "docs": ["games/puzzles/docs/portfolio-assist.md", "games/puzzles/plugins/portfolio-assist/README.md"],
+  "examples": ["games/puzzles/plugins/portfolio-assist/index.ts"],
+  "tests": ["games/puzzles/tests/portfolio-assist.test.ts"]
+}

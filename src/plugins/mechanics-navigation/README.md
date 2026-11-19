@@ -4,7 +4,7 @@
 
 ## Compose
 
-Merge this fragment into a complete preset, such as [Stonewake](../../content/presets/stonewake.json):
+Merge this fragment into a complete preset, such as [Stonewake](../../../games/puzzles/presets/stonewake.json):
 
 ```json
 { "plugins": ["mechanics/navigation"], "roles": { "sdk/mechanic-navigation": "mechanics/navigation" } }
@@ -16,4 +16,4 @@ Call `search(nodes, origin, maxSteps?)` with unique nonblank node IDs and ordere
 
 There are no handles, clocks, pause gates, systems, cache or DOM dependencies; queries work headlessly and retain no session state. Edges all cost one: weighted routing, collision, path smoothing and movement are outside its scope.
 
-See the [navigation guide](../../../docs/navigation.md), [consumer](../board-tactics/index.ts), [provider tests](../../../tests/mechanics-navigation.test.ts) and [consumer tests](../../../tests/navigation-consumers.test.ts). Run `npm run check` from the repository root.
+See the [navigation guide](../../../docs/reference/navigation.md), [consumer](../../../games/tactics/plugins/board-tactics/index.ts), [provider tests](../../../tests/mechanics-navigation.test.ts) and [consumer tests](../../../tests/navigation-consumers.test.ts). Run `npm run check` from the repository root.

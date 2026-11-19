@@ -4,4 +4,4 @@
 
 Topics have unique nonblank IDs of up to 128 characters, with 1–128 levels; there must be 1–128 topics. Reveals advance one level, reject unknown or exhausted topics, and never advance automatically. A successful change increments `revision`; rejected calls and no-op resets do not. Mutation is rejected while `SessionControl.playing` is false or after disposal. Consumer-local live IDs are unique; owner and provider scopes both dispose the instance. Early disposal releases its ID. State is session-only.
 
-See [composition and rationale](../../../docs/portfolio-assist.md) and `tests/portfolio-assist.test.ts`.
+See [composition and rationale](../../../games/puzzles/docs/portfolio-assist.md) and `games/puzzles/tests/portfolio-assist.test.ts`.

@@ -2,21 +2,24 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost } from '../src/kernel/host.ts';
 import type { CatalogEntry } from '../src/kernel/host.ts';
-import { MechanicResourcesChanged, PHASES, SDK_VERSION, SessionControl, Sky, Verdant } from '../src/sdk/index.ts';
-import type { SkyCommand, VerdantCommand } from '../src/sdk/index.ts';
+import { MechanicResourcesChanged, PHASES, SDK_VERSION, SessionControl } from '../src/sdk/index.ts';
+import { Verdant } from '../games/verdant/contracts/verdant.ts';
+import { Sky } from '../games/sky/contracts/sky.ts';
+import type { VerdantCommand } from '../games/verdant/contracts/verdant.ts';
+import type { SkyCommand } from '../games/sky/contracts/sky.ts';
 import resources from '../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
 import clock from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
 import actions from '../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
 import objectives from '../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
 import kits from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
-import skyGame from '../src/plugins/sky-game/manifest.json' with { type: 'json' };
-import skyPack from '../src/plugins/sky-content/manifest.json' with { type: 'json' };
-import skyContent from '../src/plugins/sky-content/content.json' with { type: 'json' };
-import skyPreset from '../src/content/presets/sky-salvage.json' with { type: 'json' };
-import verdantGame from '../src/plugins/verdant-game/manifest.json' with { type: 'json' };
-import verdantPack from '../src/plugins/verdant-content/manifest.json' with { type: 'json' };
-import verdantContent from '../src/plugins/verdant-content/content.json' with { type: 'json' };
-import verdantPreset from '../src/content/presets/verdant-relay.json' with { type: 'json' };
+import skyGame from '../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
+import skyPack from '../games/sky/plugins/sky-content/manifest.json' with { type: 'json' };
+import skyContent from '../games/sky/plugins/sky-content/content.json' with { type: 'json' };
+import skyPreset from '../games/sky/presets/sky-salvage.json' with { type: 'json' };
+import verdantGame from '../games/verdant/plugins/verdant-game/manifest.json' with { type: 'json' };
+import verdantPack from '../games/verdant/plugins/verdant-content/manifest.json' with { type: 'json' };
+import verdantContent from '../games/verdant/plugins/verdant-content/content.json' with { type: 'json' };
+import verdantPreset from '../games/verdant/presets/verdant-relay.json' with { type: 'json' };
 
 async function fixture(family: 'sky' | 'verdant', content: unknown = family === 'sky' ? skyContent : verdantContent, playing = true) {
   const gate = { playing };
@@ -30,9 +33,9 @@ async function fixture(family: 'sky' | 'verdant', content: unknown = family === 
     { manifest: objectives, load: () => import('../src/plugins/mechanics-objectives/index.ts') },
     { manifest: kits, load: () => import('../src/plugins/mechanics-kits/index.ts') },
     ...(family === 'sky' ? [
-      { manifest: skyGame, load: () => import('../src/plugins/sky-game/index.ts') }, { manifest: skyPack, content },
+      { manifest: skyGame, load: () => import('../games/sky/plugins/sky-game/index.ts') }, { manifest: skyPack, content },
     ] : [
-      { manifest: verdantGame, load: () => import('../src/plugins/verdant-game/index.ts') }, { manifest: verdantPack, content },
+      { manifest: verdantGame, load: () => import('../games/verdant/plugins/verdant-game/index.ts') }, { manifest: verdantPack, content },
     ]),
   ];
   assert.deepEqual(host.setCatalog(catalog), []);

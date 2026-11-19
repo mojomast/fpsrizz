@@ -43,13 +43,13 @@ Open **Creator tools → Load**, select a preset, then **Apply & restart → Pla
 
 | Experience | Defining loop | Controls and guide |
 |---|---|---|
-| **NEON RUN — Circuit Trial** | Accelerate, brake and drift a visible car through two ordered laps | W/S or ↑/↓, A/D or ←/→, Space to drift; [racing guide](docs/overhead-racing.md) |
-| **Signal Break — Turn Tactics** | Select a squad member, preview moves/attacks, spend AP, then end the turn | Cursor or keyboard, M/A for action mode, E to end turn; [tactics guide](docs/turn-tactics.md) |
-| **The Last Light** | Explore three rooms, talk to the keeper, combine items and restore a beacon | Click or Tab/Enter; explicit chapter Save/Load; [adventure guide](docs/narrative-adventure.md) |
-| **Stonewake — 3D puzzle** | Push boulders onto seals, block pursuing golems and escape three volumetric chambers | WASD/arrows to step, Space to wait, Z undo, R retry, Q/E orbit; [Stonewake guide](docs/stonewake.md) |
-| **Sky Salvage — 3D courier** | Fly between floating islands, recover cargo and supply matching beacons while avoiding a storm drone | WASD/arrows or held direction buttons, E collect/deliver, Space boost, F repair; [flight guide](docs/sky-salvage.md) |
-| **Ember Bastion — 3D tower defense** | Spend scrap on towers, defend three waves, repair the core or trigger a pulse | Click 3D pads or numbered buttons, then Launch wave; [defense guide](docs/ember-bastion.md) |
-| **Verdant Relay — 3D colony restoration** | Balance water, biomass and charge to restore three relays before drought or the season ends | Select a station in 3D or its button, then collect, convert, restore or wait; [colony guide](docs/verdant-relay.md) |
+| **NEON RUN — Circuit Trial** | Accelerate, brake and drift a visible car through two ordered laps | W/S or ↑/↓, A/D or ←/→, Space to drift; [racing guide](games/racing/README.md) |
+| **Signal Break — Turn Tactics** | Select a squad member, preview moves/attacks, spend AP, then end the turn | Cursor or keyboard, M/A for action mode, E to end turn; [tactics guide](games/tactics/README.md) |
+| **The Last Light** | Explore three rooms, talk to the keeper, combine items and restore a beacon | Click or Tab/Enter; explicit chapter Save/Load; [adventure guide](games/adventure/README.md) |
+| **Stonewake — 3D puzzle** | Push boulders onto seals, block pursuing golems and escape three volumetric chambers | WASD/arrows to step, Space to wait, Z undo, R retry, Q/E orbit; [Stonewake guide](games/puzzles/docs/stonewake.md) |
+| **Sky Salvage — 3D courier** | Fly between floating islands, recover cargo and supply matching beacons while avoiding a storm drone | WASD/arrows or held direction buttons, E collect/deliver, Space boost, F repair; [flight guide](games/sky/README.md) |
+| **Ember Bastion — 3D tower defense** | Spend scrap on towers, defend three waves, repair the core or trigger a pulse | Click 3D pads or numbered buttons, then Launch wave; [defense guide](games/ember/README.md) |
+| **Verdant Relay — 3D colony restoration** | Balance water, biomass and charge to restore three relays before drought or the season ends | Select a station in 3D or its button, then collect, convert, restore or wait; [colony guide](games/verdant/README.md) |
 
 Each consists of independent simulation, presentation, authored content and theme plugins. None enables the shooter
 player, world, combat, enemies, content pack, HUD or presentation. Racing and tactics use their own camera/board
@@ -59,24 +59,24 @@ pointer lock. The original first-person presets retain captured mouse aiming.
 
 ### Mechanics shared across genres
 
-**[HOLLOWMERE — The Lantern Below](docs/hollowmere.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=hollowmere/ascent) — is a hand-painted side-scrolling metroidvania across twelve authored rooms. Reusable platform physics, capability-gated traversal, room-map exploration and stack inventory provide the foundation: double jump, dash, wall grip, a three-hit saber combo, down-strike pogo, focus bolts, seven enemy archetypes and a two-phase Hollow King. Beacons save progress; the game-owned field journal contains a world map, inventory, capabilities, stats and persisted options, with NPCs and a crown door in the way. Assets come from the pinned Assetrizz library: five region backdrops, terrain, seven enemy strips, character/NPC art, portraits and ornate icons. Open `?preset=hollowmere/ascent` and press Play; Esc/P opens the journal, M the map, J attacks, Space jumps, K dashes and E interacts.
+**[HOLLOWMERE — The Lantern Below](games/hollowmere/README.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=hollowmere/ascent) — is a hand-painted side-scrolling metroidvania across twelve authored rooms. Reusable platform physics, capability-gated traversal, room-map exploration and stack inventory provide the foundation: double jump, dash, wall grip, a three-hit saber combo, down-strike pogo, focus bolts, seven enemy archetypes and a two-phase Hollow King. Beacons save progress; the game-owned field journal contains a world map, inventory, capabilities, stats and persisted options, with NPCs and a crown door in the way. Assets come from the pinned Assetrizz library: five region backdrops, terrain, seven enemy strips, character/NPC art, portraits and ornate icons. Open `?preset=hollowmere/ascent` and press Play; Esc/P opens the journal, M the map, J attacks, Space jumps, K dashes and E interacts.
 
-**[Game composition canvas](docs/game-composer.md)** is the creator-tools foundation for wiring games together. It edits versioned, layout-independent `GameGraph` JSON with plugin nodes, dependency projections and authored exclusive-role selections, compiles deterministically to the normal preset format, stages through the real host before Apply, and has an agent-friendly CLI (`npm run graph`).
+**[Game composition canvas](docs/reference/game-composer.md)** is the creator-tools foundation for wiring games together. It edits versioned, layout-independent `GameGraph` JSON with plugin nodes, dependency projections and authored exclusive-role selections, compiles deterministically to the normal preset format, stages through the real host before Apply, and has an agent-friendly CLI (`npm run graph`).
 
-**[Ten-game portfolio](docs/ten-game-portfolio.md)** adds ten individually selectable, authored experiences: two puzzle
+**[Ten-game portfolio](docs/games/ten-game-portfolio.md)** adds ten individually selectable, authored experiences: two puzzle
 campaigns, two racing trials, two tactical missions, two narrative adventures, a drone-courier route and a colony
 restoration scenario. They reuse existing family rules and presentations, shared mechanics and the new optional
 `mechanics/outcome-rating` provider; the guide identifies their actual differences, controls and completion routes.
-Two additional small card games, [Ash & Ink and Cloud Cartographer](docs/portfolio-cards.md), share the new ordered-card
+Two additional small card games, [Ash & Ink and Cloud Cartographer](games/puzzles/docs/portfolio-cards.md), share the new ordered-card
 piles provider while keeping their card effects, decisions and win rules independent. The puzzle and card presets also
-select [optional progressive assistance](docs/portfolio-assist.md), and each bundled plugin has a local README for authors.
+select [optional progressive assistance](games/puzzles/docs/portfolio-assist.md), and each bundled plugin has a local README for authors.
 
-Three further games are available as independent compositions: **[The Silt Archive](docs/silt-archive.md)** is a
-turn-based flooded dungeon expedition; **[The Salt Ledger](docs/salt-ledger.md)** is a party RPG with tactical encounters,
-quests and consequential endings; and **[Common Ground](docs/common-ground.md)** is a turn-based household simulation
+Three further games are available as independent compositions: **[The Silt Archive](games/expeditions/docs/silt-archive.md)** is a
+turn-based flooded dungeon expedition; **[The Salt Ledger](games/expeditions/docs/salt-ledger.md)** is a party RPG with tactical encounters,
+quests and consequential endings; and **[Common Ground](games/expeditions/docs/common-ground.md)** is a turn-based household simulation
 with residents, needs, work, relationships, an editable house lot and neighborhood projects. Each guide records its implemented scope and limits.
 
-**[CINDER VAULT — Ashbound Roguelite](docs/cinder-vault.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=cinder/vault) — adds a turn-based first-person fantasy run across three
+**[CINDER VAULT — Ashbound Roguelite](games/cinder/README.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=cinder/vault) — adds a turn-based first-person fantasy run across three
 large generated dungeon depths. Choose a vault threat with **7/8/9** (Pilgrim, Delver or Ashbound), then one of three
 classes. Step one tile per action, read telegraphed intents and manage a filtered 12-stack pack with armor/charm gear,
 consumables, Ember Shards, nine recipes and six weapons. The deeper wings add Ash Hounds, support Acolytes, Cinder Brutes
@@ -94,20 +94,20 @@ Only the games' spatial rules, targets and outcomes differ. Costs/gains and cool
 clocks explicitly use seconds or turns. Each tower has its own shared fire-action instance. Per-consumer state is scoped,
 and providers can be replaced by preset role selection without editing a game. Headless integration tests complete all
 three games with both the default resource provider and an independent test implementation, comparing committed events
-and final states. See [mechanics and composition](docs/reusable-mechanics.md) and the
-[2026-11-16 best-practice research](docs/research/reusable-mechanics-2026-11-16.md).
+and final states. See [mechanics and composition](docs/reference/reusable-mechanics.md) and the
+[2026-11-16 best-practice research](docs/archive/research/reusable-mechanics-2026-11-16.md).
 
-Shared [bounded command queues](docs/command-queues.md) serve Stonewake's single-command ticks and The Last Light's
-batch processing. Shared [explicit-clock deadlines](docs/deadlines.md) serve Sky's temporary effects and Verdant's turn
-boundaries. [Resource conformance tests](docs/mechanic-conformance.md) exercise both resource implementations through the
-public contract. The [capability design/evidence template](docs/reusable-capability-template.md) records the promises and
+Shared [bounded command queues](docs/reference/command-queues.md) serve Stonewake's single-command ticks and The Last Light's
+batch processing. Shared [explicit-clock deadlines](docs/reference/deadlines.md) serve Sky's temporary effects and Verdant's turn
+boundaries. [Resource conformance tests](docs/reference/mechanic-conformance.md) exercise both resource implementations through the
+public contract. The [capability design/evidence template](docs/cookbook/reusable-capability-template.md) records the promises and
 verification behind future extractions.
 
 Two selectable building-block plugins also serve existing games:
 
-- **[`mechanics/navigation`](docs/navigation.md):** deterministic unit-edge graph reachability and canonical first
+- **[`mechanics/navigation`](docs/reference/navigation.md):** deterministic unit-edge graph reachability and canonical first
   steps, shared by Stonewake pursuit and Signal Break movement.
-- **[`mechanics/sequence`](docs/sequences.md):** ordered steps with finite repeated rounds, shared by NEON RUN and
+- **[`mechanics/sequence`](docs/reference/sequences.md):** ordered steps with finite repeated rounds, shared by NEON RUN and
   Foundry Circuit. Crossing geometry, timing and race outcomes remain in each game.
 
 Their presets select implementations through public roles. Custom presets using the migrated game authorities need
@@ -130,8 +130,8 @@ npm run find-reuse -- "ordered steps rounds"
 Results show scope, SDK entry points, dependencies/roles, real registrations and working examples. The generated
 inventory covers every source plugin and public SDK runtime value; curated recipes cover shared mechanics, input,
 rendering, storage and audio. The scaffolder suggests existing candidates and creates capability metadata for new
-plugins. `npm run check` rejects stale references and broken metadata. Start with [REUSE.md](REUSE.md) or browse
-[REUSE_INDEX.md](REUSE_INDEX.md).
+plugins. `npm run check` rejects stale references and broken metadata. Start with [docs/guide/reuse.md](docs/guide/reuse.md) or browse
+[docs/reference/reuse-index.md](docs/reference/reuse-index.md).
 
 ## Screenshots
 
@@ -160,7 +160,7 @@ Each is a preset you can switch to live from the creator panel (press `` ` ``):
 - `npm run vendor-three` reproduces the checked-in renderer and declaration files from locked npm packages, retaining
   MIT licenses and hashes. Plugins never import npm packages directly; boundary rules remain enforced.
 - **SDK 2.0:** the Three.js namespace has real `Color` objects and upstream rendering semantics. Existing rendering
-  plugins need migration before declaring compatibility; see [PLUGINS.md](PLUGINS.md).
+  plugins need migration before declaring compatibility; see [docs/guide/plugins.md](docs/guide/plugins.md).
 
 ## Quick start
 
@@ -169,11 +169,11 @@ Play online: **https://mojomast.github.io/fpsrizz/** (served from the `gh-pages`
 - [Cinder Vault — direct preset link](https://mojomast.github.io/fpsrizz/?preset=cinder/vault)
 - [Bulkhead Station — default preset](https://mojomast.github.io/fpsrizz/?preset=core/default)
 
-Or run it locally (Node >= 22.18):
+Or run it locally (Node >= 22.18; `nvm use` reads `.nvmrc`):
 
 ```bash
 npm ci             # install locked devDependencies
-npm run dev        # dev server at http://127.0.0.1:5173/ (refresh after rebuild)
+npm run dev        # dev server at http://127.0.0.1:5173/ (live reload; resumes the running game)
 ```
 
 Changes to files in `public/` require restarting the dev server.
@@ -211,7 +211,7 @@ the active preset, the objective, the controls registered by the enabled plugins
 
 ## Presets and extensions
 
-The presets in `src/content/presets/` include the reference game, extensions and genre slices. The first is the default.
+The presets in `games/*/presets/` (the shooter's in `games/shooter/presets/`) include the reference game, extensions and genre slices. The first is the default.
 
 | Preset | Adds | Where it lives |
 |---|---|---|
@@ -244,7 +244,7 @@ The presets in `src/content/presets/` include the reference game, extensions and
 To switch: press `` ` `` (or use **Creator tools** on the start or pause screen), open **Plugins & preset**, pick a preset
 in the **Load** dropdown, then press **Apply & restart**. The selection is saved in `localStorage` and restored on the
 next page load. Plugins can also be toggled individually, and content packs imported, from the same panel. See
-[PLUGINS.md](PLUGINS.md) and [CONTENT_FORMAT.md](CONTENT_FORMAT.md).
+[docs/guide/plugins.md](docs/guide/plugins.md) and [docs/reference/content-format.md](docs/reference/content-format.md).
 
 ## Project layout
 
@@ -255,10 +255,11 @@ src/
   sdk/         Public plugin API: core.ts, contracts/ (experience and game-family vocabulary), render.ts.
   platform/    Browser adapters: contextual input, audio, storage, UI, flow and the Three.js render host.
   app/         Composition root: main.ts (frame loop), catalog.ts, shell.ts (menus), creator.ts (creator panel).
-  plugins/     Shooter, vehicle, board and story families, presentation, themes and data-only content packs.
-  content/     Presets (presets/*.json).
+  plugins/     Shared plugins: mechanics providers, presentation, themes, dungeon generator.
+games/         Every game, one folder per family: plugins/, contracts/, presets/, tests/, README.md (see games/README.md).
+docs/          guide/, reference/, cookbook/, games/, archive/ (see docs/README.md).
 scripts/       build, dev, preview, smoke test, boundary checker, plugin scaffolder, tool resolution.
-tests/         node:test suites and helpers; subfolders with browser demo scripts (run manually, not by npm test).
+tests/         node:test suites and helpers; subfolders with browser demo scripts (`npm run test:browser` runs them; CI does too).
 templates/     plugin-starter, used by npm run new-plugin.
 public/        Static files copied into the build, including curated Assetrizz source images and provenance.
 index.html     Page shell.
@@ -270,14 +271,17 @@ index.html     Page shell.
 |---|---|
 | `npm ci` | Installs locked devDependencies (esbuild, Playwright, TypeScript). |
 | `npm run dev` | esbuild watch build and server at `127.0.0.1:5173`; `-- --port N` changes the port. |
-| `npm run build` | Bundles `src/app/main.ts` into `dist/` (minified ES2022 plus source map). |
+| `npm run build` | Bundles `src/app/main.ts` into `dist/`: minified ES2022 split into content-hashed chunks (one per plugin `load()`), art packs from `public/`, and a bundle-size budget check. Source maps go to `.sourcemaps/` and are not deployed (`KEEP_SOURCEMAPS=1` keeps them in `dist/`). |
+| `npm run budget` | Builds in memory and checks the bundle-size budget in `scripts/bundle-budget.mjs` (part of `npm run check`). |
 | `npm run preview` | Serves `dist/` at `127.0.0.1:4173`; `-- --port N` changes the port. |
 | `npm run typecheck` | `tsc -p tsconfig.json --noEmit`. |
 | `npm run lint` | Import-boundary checker (`scripts/boundaries.ts`). |
 | `npm test` | Node unit and integration tests, including tooling tests. |
+| `npm run test:browser` | Builds nothing (run `npm run build` first). Runs the smoke test and one browser demo per game family, one at a time, as CI does; `-- --all` adds the known-failing suites listed in `scripts/browser-suite.mjs`. |
 | `npm run smoke` | Browser acceptance run against `dist/` (headless Chrome, software WebGL2). Run `npm run build` first. Uses `/usr/bin/google-chrome` if present, otherwise Playwright's Chromium (`npx playwright install chromium`); set `CHROME_PATH` to override. Writes screenshots and `smoke-report.json` to `.smoke/`. |
 | `npm run check` | Typecheck, boundaries, reuse-index freshness and tests in sequence. |
 | `npm run vendor-three` | Reproduces the pinned upstream renderer and declarations, licenses and hash manifest. |
+| `node tests/dev-reload-demo/run.mjs` | Starts the dev server, edits a source file and checks the page live-reloads back into the running game; checks `?seed=`. |
 | `node tests/experience-demo/run.mjs` | Plays the independent racer, tactics and adventure against `dist/`, without the pointer-lock bypass. |
 | `node tests/reusable-games-demo/run.mjs` | Plays Sky Salvage, Ember Bastion and Verdant Relay against `dist/`; checks 3D scenes, viewports, pause and scoped switching. |
 | `npm run new-plugin -- <ns/name> ["Name"]` | Scaffolds `src/plugins/<ns>-<name>/` from the starter template. |
@@ -314,32 +318,24 @@ relabelled MIT. Synthesized sounds and explicitly labelled procedural fallback a
 
 - A browser with **WebGL2**; the first-person experiences also need **pointer lock**. Web Audio is used for sound; without it the game runs silently.
   The repository's browser checks drive Chrome only.
-- **Node >= 22.18** for tooling (`engines` in `package.json`).
+- **Node >= 22.18** for tooling (`engines` in `package.json`, `.nvmrc`; `.npmrc` sets `engine-strict` and `npm run check` preflights the version).
 - Opening the page with `?test` removes the pointer-lock requirement so automated browsers can drive the game (see
-  [ARCHITECTURE.md](ARCHITECTURE.md)). `window.__bulkhead` is a debugging and automation handle used by the smoke script;
+  [docs/reference/architecture.md](docs/reference/architecture.md)). `window.__bulkhead` is a debugging and automation handle used by the smoke script;
   it is tooling, not part of the plugin API.
 
 ## Documentation
 
-| File | Contents |
-|---|---|
-| [SPEC.md](SPEC.md) | Implemented scope, limitations, extension boundaries, asset provenance. |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | Layers, ownership model, lifecycle, simulation and rendering design, key decisions. |
-| [PLUGINS.md](PLUGINS.md) | Public SDK and plugin authoring guide with API reference. |
-| [CREATE_GAME.md](CREATE_GAME.md) | End-to-end game, content and plugin authoring workflow. |
-| [GAME_PLUGIN_ROADMAP.md](GAME_PLUGIN_ROADMAP.md) | Proposed reusable mechanics, game recipes and engine prerequisites. |
-| [GAME_PLATFORM_STRATEGY.md](GAME_PLATFORM_STRATEGY.md) | Research-backed plan for genuinely different genres, complete presentation stacks and broader platform capabilities. |
-| [PARALLEL_BUILD_PLAN.md](PARALLEL_BUILD_PLAN.md) | Parallel workstreams, model allocation, shared contracts and acceptance gates for the independent game families. |
-| [BUILD_ORDER.md](BUILD_ORDER.md) | Cross-genre implementation dependencies and acceptance gates. |
-| [assets/weapons/README.md](assets/weapons/README.md) | Low-poly weapon sets, source models, previews and integration notes. |
-| [CONTENT_FORMAT.md](CONTENT_FORMAT.md) | JSON formats: manifests, content packs, maps, presets. |
-| [Cinder Vault](docs/cinder-vault.md) / [classes](docs/cinder-classes.md) / [inventory](docs/inventory.md) / [crafting](docs/crafting.md) / [camera modes](docs/camera-modes.md) / [weapon rig](docs/weapon-rig.md) | Turn-based dungeon rules, threat tiers/elites, class mastery, pack/gear, Ember Shard recipes, NPC/Oracle services, the reusable isometric camera/avatars and bottom-center weapon rig. |
-| [Hollowmere](docs/hollowmere.md) / [game composer](docs/game-composer.md) | Side-scrolling metroidvania rules, platforming/capability/room-map contracts, Assetrizz world presentation, tabbed journal and the JSON-first human/agent composition canvas. |
-| [Ten-game portfolio](docs/ten-game-portfolio.md) / [build plan](docs/ten-game-build-plan.md) / [shared ratings](docs/portfolio-shared-mechanics.md) / [research](docs/research/ten-game-portfolio-2026-11-16.md) | New authored scenarios, shared provider composition, completion routes and design evidence. |
-| [Turn-based research](docs/research/turn-based-roguelite-2026-11-16.md) / [UX/world research](docs/research/ux-world-features-2026-11-16.md) / [difficulty/QoL research](docs/research/difficulty-replayability-qol-2026-11-16.md) / [composer research](docs/research/game-composer-2026-11-16.md) / [UI polish audit](docs/research/ui-polish-2026-11-16.md) | Design sources and decisions behind turns, maps, transitions, inventory, NPCs, crafting, threat tiers, field guide/QoL, the composition canvas and combat/HUD polish. |
-| [devplan.md](devplan.md) | Milestone status and next steps. |
-| [AGENTS.md](AGENTS.md) | Guidance for coding agents working in this repository. |
-| [HANDOFF.md](HANDOFF.md) | Verification results and open items. |
+Start at [docs/README.md](docs/README.md), which maps everything:
+
+- **Guide:** [create a game](docs/guide/create-a-game.md), [plugins and the SDK](docs/guide/plugins.md), [reuse](docs/guide/reuse.md).
+- **Reference:** [architecture](docs/reference/architecture.md), [spec](docs/reference/spec.md),
+  [content format](docs/reference/content-format.md), the mechanics references, and the SDK API generated by
+  `npm run docs:api` (into `docs/reference/api/`).
+- **Cookbook:** [edit loop](docs/cookbook/edit-loop.md), [new game family](docs/cookbook/new-game-family.md),
+  [large art](docs/cookbook/large-art.md), [building blocks](docs/cookbook/building-block-plugins.md).
+- **Games:** [games/README.md](games/README.md) and [docs/games/](docs/README.md#games).
+- **Roadmap and history:** [docs/roadmap.md](docs/roadmap.md); plans and hand-offs in [docs/archive/](docs/archive/README.md).
+- **Agents:** [AGENTS.md](AGENTS.md) and [llms.txt](llms.txt).
 
 ## Testing and verification
 
@@ -356,7 +352,7 @@ golem capture/undo, responsive framing, pause and switching ownership.
 
 ## Known limitations
 
-Stated plainly; the full list is in [SPEC.md](SPEC.md) and [HANDOFF.md](HANDOFF.md).
+Stated plainly; the full list is in [docs/reference/spec.md](docs/reference/spec.md) and [docs/archive/handoff.md](docs/archive/handoff.md).
 
 - Three.js core is integrated; general asynchronous model loading, scene bundles and glTF addon integration remain planned.
 - GPU performance has not been measured; the only numbers are from software rendering in headless Chrome.
@@ -369,7 +365,7 @@ Stated plainly; the full list is in [SPEC.md](SPEC.md) and [HANDOFF.md](HANDOFF.
 
 ## Contributing
 
-Read [AGENTS.md](AGENTS.md) for conventions and [PLUGINS.md](PLUGINS.md) to write a plugin
+Read [AGENTS.md](AGENTS.md) for conventions and [docs/guide/plugins.md](docs/guide/plugins.md) to write a plugin
 (`npm run new-plugin -- my/plugin "My Plugin"`). Keep `npm run check` green. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License

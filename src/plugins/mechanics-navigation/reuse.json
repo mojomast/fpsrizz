@@ -6,7 +6,7 @@
   "entryPoints": ["NavigationRole"],
   "useWhen": "Select a stateless search implementation for a finite legal graph; games supply ordered adjacency and retain occupancy, movement and resource-cost policy.",
   "limitations": ["Every edge costs one step; no weighted paths, A*, continuous movement, world collision or smoothing.", "Results are pure advisory queries, not movement commits. Consumers rebuild legality at commit.", "Static content validation is separate from this runtime selection seam; the plugin has no graph content kind, owned handles or cache."],
-  "docs": ["docs/navigation.md"],
-  "examples": ["src/plugins/puzzle-rules/rules.ts", "src/plugins/board-tactics/index.ts", "src/content/presets/stonewake.json", "src/content/presets/turn-tactics.json"],
+  "docs": ["docs/reference/navigation.md"],
+  "examples": ["games/puzzles/plugins/puzzle-rules/rules.ts", "games/tactics/plugins/board-tactics/index.ts", "games/puzzles/presets/stonewake.json", "games/tactics/presets/turn-tactics.json"],
   "tests": ["tests/mechanics-navigation.test.ts", "tests/navigation-consumers.test.ts"]
 }

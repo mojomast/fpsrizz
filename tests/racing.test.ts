@@ -6,7 +6,7 @@ import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { codePlugin, hostFailure } from './helpers/host.ts';
 import { sequenceProviders } from './helpers/alternate-sequence.ts';
 import type { SequenceProviderCase } from './helpers/alternate-sequence.ts';
-import manifest from '../src/plugins/example-racing/manifest.json' with { type: 'json' };
+import manifest from '../games/shooter/plugins/example-racing/manifest.json' with { type: 'json' };
 
 const gate = (id: string, cell: number, tag: string) => ({ id, kind: 'zone', cell: [cell, 2], radius: 0.3, tags: [tag] });
 function maps(triggers: ReturnType<typeof gate>[]): CatalogEntry {
@@ -26,7 +26,7 @@ async function setup(triggers = gates, limit = 90, selected: SequenceProviderCas
       if (t && move) { t.x = move.x; t.z = move.z; move = undefined; }
     } });
   } }) }) } as CatalogEntry;
-  const game = createHeadlessGame([selected.entry, maps(triggers), probe, { manifest: manifest as never, load: () => import('../src/plugins/example-racing/index.ts') }]);
+  const game = createHeadlessGame([selected.entry, maps(triggers), probe, { manifest: manifest as never, load: () => import('../games/shooter/plugins/example-racing/index.ts') }]);
   const preset = headlessPreset({ plugins: ['core/world', 'core/combat', 'core/player', 'example/racing', 'test/race-map', 'test/race-probe', selected.id], roles: { 'sdk/controller': 'example/racing-controller', 'sdk/camera': 'core/fp-camera', 'sdk/mode': 'example/race', 'sdk/mechanic-sequence': selected.id }, options: { map: 'test/race' }, config: { 'example/racing': { timeLimit: limit } } });
   try { await game.host.apply(preset as never); } catch (error) { game.host.stop(); throw error; }
   const session = game.session();
@@ -118,7 +118,7 @@ test('racing controller alone needs no sequence role, while the selected race mo
   const metadataOnly = codePlugin('test/sequence-metadata', { register(ctx) {
     ctx.provideRole(SequenceMechanicRole, 'test/sequence-metadata', { name: 'Missing factory', description: 'Role metadata only' });
   } });
-  const game = createHeadlessGame([metadataOnly, maps(gates), { manifest, load: () => import('../src/plugins/example-racing/index.ts') }]);
+  const game = createHeadlessGame([metadataOnly, maps(gates), { manifest, load: () => import('../games/shooter/plugins/example-racing/index.ts') }]);
   try {
     await game.host.apply(headlessPreset({
       plugins: ['core/world', 'core/combat', 'core/player', 'core/enemies', 'core/modes', 'core/content', 'example/racing'],

@@ -64,6 +64,15 @@ const cases: Case[] = [
   { name: 'block comment import ignored', file: P, src: `/*\nimport a from '../../kernel/host.ts';\n*/\nimport b from '../../sdk/index.ts';`, rules: [] },
   { name: 'import text inside string ignored', file: P, src: `const s = "import a from '../../kernel/host.ts'";`, rules: [] },
   { name: 'import.meta ignored', file: P, src: `const u = import.meta.url;`, rules: [] },
+  // game families (games/<family>/plugins/<name>, games/<family>/contracts)
+  { name: 'game plugin -> sdk index ok', file: 'games/sky/plugins/sky-game/index.ts', src: `import { x } from '../../../../src/sdk/index.ts';`, rules: [] },
+  { name: 'game plugin -> own family contracts ok', file: 'games/sky/plugins/sky-game/index.ts', src: `import { Sky } from '../../contracts/sky.ts';`, rules: [] },
+  { name: 'game plugin -> another family contracts denied', file: 'games/sky/plugins/sky-game/index.ts', src: `import { Ember } from '../../../ember/contracts/ember.ts';`, rules: ['plugin-isolation'] },
+  { name: 'game plugin -> sibling plugin denied', file: 'games/sky/plugins/sky-game/index.ts', src: `import { x } from '../sky-presentation/index.ts';`, rules: ['plugin-isolation'] },
+  { name: 'game plugin -> render with capability ok', file: 'games/sky/plugins/sky-game/index.ts', src: `import { r } from '../../../../src/sdk/render.ts';`, caps: ['render'], rules: [] },
+  { name: 'game contracts -> sdk index ok', file: 'games/sky/contracts/sky.ts', src: `import { defineService } from '../../../src/sdk/index.ts';`, rules: [] },
+  { name: 'game contracts -> sdk core denied', file: 'games/sky/contracts/sky.ts', src: `import { defineService } from '../../../src/sdk/core.ts';`, rules: ['family-contracts'] },
+  { name: 'game contracts -> plugin denied', file: 'games/sky/contracts/sky.ts', src: `import { x } from '../plugins/sky-game/index.ts';`, rules: ['family-contracts'] },
 ];
 
 describe('boundaries: checkSource', () => {

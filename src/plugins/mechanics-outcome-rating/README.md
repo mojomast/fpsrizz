@@ -1,6 +1,6 @@
 # Outcome ratings
 
-`mechanics/outcome-rating` provides `sdk/mechanic-outcome-rating`, a deterministic classifier for explicitly supplied numeric outcome metrics. It has no manifest dependencies or content/config. Real optional consumers are `vehicle/racing` and `board/tactics`; they collect their own metrics and select the provider in the [portfolio racing](../../content/presets/portfolio-salt-racing.json) and [tactics](../../content/presets/portfolio-breach-tactics.json) presets.
+`mechanics/outcome-rating` provides `sdk/mechanic-outcome-rating`, a deterministic classifier for explicitly supplied numeric outcome metrics. It has no manifest dependencies or content/config. Real optional consumers are `vehicle/racing` and `board/tactics`; they collect their own metrics and select the provider in the [portfolio racing](../../../games/racing/presets/portfolio-salt-racing.json) and [tactics](../../../games/tactics/presets/portfolio-breach-tactics.json) presets.
 
 ## SDK contract
 
@@ -24,4 +24,4 @@ Definitions have 1–32 uniquely identified tiers, each with 1–32 conditions; 
 
 ## Lifetime, tests and limits
 
-Definitions are copied and frozen; instances are owned by consumer and provider, have consumer-local live IDs and release them on disposal. Evaluating a disposed handle throws. The provider does not collect metrics, decide victory, persist records, award rewards or calculate weighted scores. Run `node --test tests/outcome-rating.test.ts`; see the [shared outcome guide](../../../docs/portfolio-shared-mechanics.md) and [owned instances](../../../docs/owned-instances.md).
+Definitions are copied and frozen; instances are owned by consumer and provider, have consumer-local live IDs and release them on disposal. Evaluating a disposed handle throws. The provider does not collect metrics, decide victory, persist records, award rewards or calculate weighted scores. Run `node --test tests/outcome-rating.test.ts`; see the [shared outcome guide](../../../docs/reference/portfolio-shared-mechanics.md) and [owned instances](../../../docs/reference/owned-instances.md).

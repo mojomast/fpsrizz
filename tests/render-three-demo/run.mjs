@@ -7,7 +7,7 @@ import { launchBrowser, startStaticServer } from '../../scripts/smoke-lib.mjs';
 const out = resolve(root, '.smoke/render-three-demo');
 await mkdir(out, { recursive: true });
 await resolveTool('esbuild').build({ entryPoints: [resolve(root, 'tests/render-three-demo/demo.ts')], bundle: true, outfile: resolve(out, 'demo.js'), format: 'iife', target: 'es2022' });
-await writeFile(resolve(out, 'index.html'), '<!doctype html><body style="margin:0"><script src="demo.js"></script>');
+await writeFile(resolve(out, 'index.html'), '<!doctype html><link rel="icon" href="data:,"><body style="margin:0"><script src="demo.js"></script>');
 const server = await startStaticServer(out);
 const browser = await launchBrowser();
 try {

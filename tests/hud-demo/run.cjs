@@ -1,7 +1,8 @@
 // Bundles demo.ts, drives the HUD in headless Chrome, asserts behaviour, saves screenshots to .smoke/hud-*.png
+const tool = (n) => { try { return require('node:module').createRequire(require('node:path').resolve(__dirname, '../../package.json'))(n); } catch { return require(`/opt/npm-tools/node_modules/${n}`); } };
 const path = require('path'), fs = require('fs');
-const esbuild = require('/opt/npm-tools/node_modules/esbuild');
-const { chromium } = require('/opt/npm-tools/node_modules/playwright');
+const esbuild = tool('esbuild');
+const { chromium } = tool('playwright');
 (async () => {
   const root = path.resolve(__dirname, '../..');
   const out = path.join(root, '.smoke/hud-demo-build');
@@ -13,7 +14,7 @@ body[data-bg=grey]{background:linear-gradient(135deg,#2a2d31,#6b6f75 50%,#3a3d42
 body[data-bg=bright]{background:linear-gradient(180deg,#fff6d8,#e8e0c8 60%,#ffffff)}
 #hud,#overlay{position:fixed;inset:0;pointer-events:none}
 </style><body data-bg=grey><div id=hud></div><div id=overlay></div><script src="demo.js"></script>`);
-  const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome' });
+  const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || (require('fs').existsSync('/usr/bin/google-chrome') ? '/usr/bin/google-chrome' : undefined) });
   const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
   let bad = 0;
   const check = (n, ok, extra = '') => { console.log(ok ? 'PASS' : 'FAIL', n, extra); if (!ok) bad++; };

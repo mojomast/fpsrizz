@@ -3,9 +3,9 @@ import { test } from 'node:test';
 import { Enemy, Flow, Player, Transform, Visual, World } from '../src/sdk/index.ts';
 import type { HeadlessGame } from './helpers/game.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import stealthManifest from '../src/plugins/example-stealth/manifest.json' with { type: 'json' };
-import mapManifest from '../src/plugins/example-stealth-map/manifest.json' with { type: 'json' };
-import mapContent from '../src/plugins/example-stealth-map/content.json' with { type: 'json' };
+import stealthManifest from '../games/shooter/plugins/example-stealth/manifest.json' with { type: 'json' };
+import mapManifest from '../games/shooter/plugins/example-stealth-map/manifest.json' with { type: 'json' };
+import mapContent from '../games/shooter/plugins/example-stealth-map/content.json' with { type: 'json' };
 
 const preset = headlessPreset({
   plugins: ['core/world', 'core/player', 'core/modes', 'example/stealth', 'example/stealth-map'],
@@ -13,7 +13,7 @@ const preset = headlessPreset({
   options: { map: 'example/silent-relay' },
 });
 const game = () => createHeadlessGame([
-  { manifest: stealthManifest, load: () => import('../src/plugins/example-stealth/index.ts') },
+  { manifest: stealthManifest, load: () => import('../games/shooter/plugins/example-stealth/index.ts') },
   { manifest: mapManifest, content: mapContent },
 ]);
 const flow = (g: HeadlessGame) => g.session().services.get(Flow);
