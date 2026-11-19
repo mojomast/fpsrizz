@@ -83,7 +83,7 @@ jobs:
     # committed linux goldens; Firefox/WebKit write any missing goldens ("missing") and upload them so they can be
     # reviewed and committed. Download the "visual-*" artifact to inspect diffs (report + actual/expected/diff PNGs).
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     continue-on-error: true
     strategy:
       fail-fast: false
@@ -102,6 +102,8 @@ jobs:
             if [ ! -x /usr/bin/google-chrome ]; then npx playwright install --with-deps chromium; fi
           else
             npx playwright install --with-deps ${{ matrix.project }}
+            # Headless Firefox/WebKit on hosted runners have no WebGL2 without a display: use Xvfb + Mesa llvmpipe.
+            sudo apt-get install -y --no-install-recommends xvfb libgl1-mesa-dri libegl1
           fi
       - name: Visual regression (${{ matrix.project }})
         run: |
@@ -110,8 +112,8 @@ jobs:
           else
             # Bootstrap any missing goldens (Playwright marks a freshly written golden as failed), then compare for
             # real: a second render must match the first, which also catches non-deterministic frames.
-            npm run test:visual -- --project=${{ matrix.project }} --update-snapshots=missing || true
-            npm run test:visual -- --project=${{ matrix.project }}
+            VISUAL_HEADED=1 xvfb-run -a npm run test:visual -- --project=${{ matrix.project }} --update-snapshots=missing || true
+            VISUAL_HEADED=1 xvfb-run -a npm run test:visual -- --project=${{ matrix.project }}
           fi
       - name: Upload report, diffs and goldens
         if: always()

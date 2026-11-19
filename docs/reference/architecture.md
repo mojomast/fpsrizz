@@ -90,7 +90,7 @@ checked like any other import.
 
 | Rule id | Applies to | Rule |
 |---|---|---|
-| `plugin-isolation` | `packages/std/plugins/<p>/**` | May import only its own folder and `packages/sdk/src/index.ts`. The kernel, platform, app, SDK internals (`core.ts`, `contracts/*`), other plugins and bare packages are denied. |
+| `plugin-isolation` | `packages/std/plugins/<p>/**` | May import only its own folder and `@bulkhead/sdk` (`packages/sdk/src/index.ts`). The kernel, platform, app, SDK internals (`core.ts`, `contracts/*`), other plugins and bare packages are denied. |
 | `render-capability` | `packages/std/plugins/<p>/**` | May import `packages/sdk/src/render.ts` only if the plugin's `manifest.json` lists `"render"` in `capabilities`. |
 | `kernel-purity` | `packages/kernel/src/**` | May import only other `packages/kernel/src` files; no bare packages, not even `node:` modules. |
 | `no-dom-in-kernel` | `packages/kernel/src/**` | The identifiers `document` and `window` used as `document.` or `window.` are denied. |

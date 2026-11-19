@@ -1,12 +1,25 @@
 # Guidance for coding agents
 
-Bulkhead is a plugin-driven TypeScript game foundation with a 2.5D shooter reference game and independent racing,
-turn-tactics, narrative-adventure, 3D push-puzzle, drone-courier, tower-defense and colony-restoration families. The last
-three share role-selected resource/action/clock/objective plugins; see `docs/reference/reusable-mechanics.md`. The public SDK is version 3 (SDK 2 manifests still load through `SDK_COMPAT`); production rendering uses official Three.js
+Bulkhead is a plugin-driven TypeScript engine for rapidly prototyping browser games. It is split into npm workspaces
+(`@bulkhead/kernel`, `sdk`, `platform-web`, `std`, `tools`) and ships around 40 bundled presets across game families in
+`games/` (shooter reference game, racing, tactics, adventure, 3D puzzle, drone courier, tower defense, colony
+restoration, metroidvania, roguelite, expeditions, sandboxes). Many share role-selected mechanic providers; see
+`docs/reference/reusable-mechanics.md`. The public SDK is version 3 (SDK 2 manifests still load through `SDK_COMPAT`); production rendering uses official Three.js
 0.187.0. Read [docs/reference/architecture.md](docs/reference/architecture.md) before changing
 structure, [docs/guide/plugins.md](docs/guide/plugins.md) before writing plugins, and [docs/guide/create-a-game.md](docs/guide/create-a-game.md) for the complete game-creation workflow.
 
 Start from [`llms.txt`](llms.txt) (the minimal file set) and [`docs/README.md`](docs/README.md) (the docs map).
+
+## Agent tooling
+
+- **Scaffold**: `npm run bulkhead -- create <name> --template fps|platformer|topdown|puzzle|cards|blank` adds
+  `games/<name>/` with a plugin, preset, tests and its own `AGENTS.md`; `npm run bulkhead -- new plugin <ns/name>`.
+- **Drive a running game**: `npm run dev` starts the JSON-RPC dev bridge on :5174 (`world.query`, `entity.get/set`,
+  `sim.step/pause/speed`, `input.press`, `preset/config`, `replay.run`, `screenshot`, `log.tail`, `perf.systems`);
+  `npm run mcp` exposes the same methods as a stdio MCP server ([dev protocol](docs/reference/dev-protocol.md)).
+- **Deterministic frames in browser tests**: `const dev = await __bulkhead.dev(); dev['sim.pause']({ paused: true });
+  dev['sim.step']({ n })` (see `tests/visual/scenes.spec.mjs`).
+- **Inspect**: `?debugdraw`, `?perf` (F3), the creator panel's Inspect tab; replays with `?record` + F8.
 
 ## Reuse first — before implementing a mechanic
 
@@ -37,21 +50,27 @@ loading the complete `docs/reuse-index.json`. The CLI observes trusted registrat
 | Path | Purpose |
 |---|---|
 | `packages/kernel/src` | Runtime kernel: host, registries, entity store, buses, scheduler, scopes, validation. No game concepts, no DOM. |
-| `packages/sdk/src` | SDK 3 public API (`contracts/spatial.ts`: Transform3D, Renderable): `index.ts` (entry), `core.ts` (generic), `contracts/` (shooter, experience, vehicle, tactics, adventure and audio vocabulary), `render.ts` |
+| `packages/sdk/src` | `@bulkhead/sdk`, SDK 3 public API: `index.ts` (entry), `core.ts` (generic, `SDK_VERSION`), `contracts/` (shared vocabulary: `game.ts`, spatial, physics, navmesh, input, audio, assets, scenes, experience, mechanics...), `render.ts` |
 | `packages/platform-web/src` | Browser adapters (input, audio, storage, ui, flow, render host); official Three.js behind the historical `render/mini3/index.ts` facade, vendored in `render/mini3/vendor/`; `legacy.ts` retains the old renderer for fixtures |
+| `packages/tools`, `packages/create-bulkhead` | `bulkhead` CLI bin (forwards to `scripts/bulkhead.mjs`); the `npm create bulkhead` wrapper (publish-ready, unpublished) |
 | `src/app` | Composition root: `main.ts` (frame loop), `catalog.ts` (presets; re-exports the generated `catalog.generated.ts`), `shell.ts`, `creator.ts` |
 | `packages/std/plugins/<ns>-<name>` | Shared plugins only: mechanics providers, presentation, themes, `dungeon-generator`. New plugins are scaffolded here, then moved to a family with `npm run move-to-game` |
-| `games/<family>/` | One game family: `plugins/<name>/`, `contracts/` (family-only SDK vocabulary), `presets/`, `tests/`, `README.md` and `docs/` |
-| `tests` | `*.test.ts` run by `npm test` (as are `games/**/*.test.ts`); `helpers/` harness; subfolders with browser demos run by `npm run test:browser` |
+| `games/<family>/` | One game family: `plugins/<name>/`, `contracts/` (family-only SDK vocabulary; shooter-only contracts are in `games/shooter/contracts/shooter.ts`), `presets/`, `tests/` (unit tests and `<name>-demo` browser demos), `family.json` (`uses`), `README.md` and `docs/` |
+| `tests` | Engine `*.test.ts` run by `npm test` (as are `games/**/*.test.ts`); `helpers/` harness; engine browser suites run by `npm run test:browser`; `tests/visual/` Playwright goldens (`npm run test:visual`) |
+| `templates` | `templates/games/<template>` genre templates for `bulkhead create`; `plugin-starter` for `new plugin` |
+| `schemas` | JSON Schemas for every data file (`npm run schemas` checks them) |
 | `scripts` | build, dev, preview, smoke, boundary checker, reuse discovery/indexing, plugin scaffolder, tool resolution |
 | `assets/weapons` | Blender weapon sources, GLB exports, first-person renders and an agent authoring workflow |
 | `assets/experiences` | Curated racing, board and story theme images with pinned source/hash provenance |
-| `docs/` | `guide/`, `reference/` (plus generated `reference/api/` from `npm run docs:api`), `cookbook/`, `games/` (guides for games in `packages/std/plugins`), `archive/` (historical plans; may be stale) |
+| `docs/` | `guide/`, `reference/` (plus generated `reference/api/` from `npm run docs:api`), `cookbook/`, `design/` (proposals), `migrations/` (SDK majors), `games/` (cross-family guides), `archive/` (historical plans; may be stale) |
 
 ## Import boundaries (enforced by `npm run lint`)
 
 - A plugin imports only its own folder and the SDK entry point `@bulkhead/sdk` (`packages/sdk/src/index.ts`). It may also
-  import `@bulkhead/sdk/render.ts` if and only if its manifest lists `"render"` in `capabilities`. Never the kernel, platform, app, another plugin or an npm package.
+  import `@bulkhead/sdk/render.ts` if and only if its manifest lists `"render"` in `capabilities`. Never the kernel, platform, app or another plugin.
+  npm packages only from the short `VENDOR_PACKAGES` list in `scripts/boundaries.ts`, each gated by a capability
+  (`@dimforge/rapier3d-compat` → `physics`, `recast-navigation` → `navmesh`, `three/examples/jsm` → `render`); wrap such
+  a package in one std plugin and expose it through an SDK service.
 - `packages/kernel/src` imports only `packages/kernel/src` and never uses `document.` or `window.`.
 - `packages/sdk/src` imports only `packages/sdk/src` and `packages/kernel/src`; only `packages/sdk/src/render.ts` may import `packages/platform-web/src/render/mini3`.
 - `packages/platform-web/src` imports only `packages/platform-web/src`, `packages/kernel/src` and `packages/sdk/src`.
@@ -101,11 +120,13 @@ npm run index-reuse                # refresh discovery after source/catalog/meta
 npm run check                      # node version, catalog freshness, typecheck, boundaries, docs links, reuse index, bundle budget, tests
 npm run validate-game -- --bundled  # stage bundled presets; no activation
 npm run build && npm run test:browser  # smoke + one browser demo per family against dist/ (Chrome; CHROME_PATH overrides)
+npm run test:visual                # Playwright golden screenshots (chromium locally; firefox/webkit in CI)
+npm run changeset                  # when a packages/* change should appear in the next release
 ```
 
 Run `npm run check` after every change. Run the smoke test when touching the app, platform, presentation, HUD, host
 lifecycle or anything the browser exercises. For creator-panel changes also run `node tests/creator-demo/run.mjs`.
-Browser scripts need Playwright and Chrome; CI runs check, build and `npm run test:browser`. Record actual results and
+Browser scripts need Playwright and Chrome; CI runs check, build, `npm run test:browser` and a non-blocking visual matrix. Record actual results and
 any environmental failures. Changes to audio or pointer lock also need manual verification in a real browser.
 
 | Task | Start here | Verification / documentation |
@@ -121,7 +142,7 @@ context, and selected roles activate after all plugins; see the lifecycle notes 
 
 ## Adding a plugin
 
-1. Complete reuse discovery above. `npm run new-plugin -- <namespace/name> "Display Name"` shows related existing
+1. Complete reuse discovery above. `npm run new-plugin -- <namespace/name> "Display Name"` (or `npm run bulkhead -- new plugin`) shows related existing
    candidates and creates `packages/std/plugins/<namespace>-<name>/` with a manifest, starter `index.ts` and unreviewed `reuse.json`.
    The catalog discovers it automatically. Fill in the capability, scope, public entry points, limits and examples.
 2. The plugin catalog is generated from manifests (`npm run gen-catalog`; dev/build/check run or verify it). Add the plugin id to a preset's `plugins` (or tick it
@@ -154,6 +175,7 @@ context, and selected roles activate after all plugins; see the lifecycle notes 
 | `docs/reference/spec.md` | Implemented scope, limitations, extension boundaries, reference-game content |
 | `README.md` | Commands, controls, presets, layout |
 | `docs/roadmap.md` | Engine roadmap and status (the P0–P3 checklist) |
+| `docs/guide/releasing.md`, `.changeset/`, `packages/sdk/CHANGELOG.md`, `docs/migrations/` | Package versions, SDK majors (`SDK_VERSION` must equal the `@bulkhead/sdk` version) |
 | `games/racing/README.md`, `games/tactics/README.md`, `games/adventure/README.md` | Independent family content formats, controls, progression and family-specific persistence |
 | `games/puzzles/docs/stonewake.md` | 3D push-puzzle rules, chamber format, controls, asset use and completion routes |
 | `docs/guide/reuse.md`, plugin `reuse.json`, `docs/reuse-recipes.json` | Capability scope, search vocabulary, composition recipes, SDK entry points and examples |

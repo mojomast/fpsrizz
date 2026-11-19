@@ -2,12 +2,16 @@
 
 # BULKHEAD
 
-**A modular TypeScript game platform with a shooter, racing, tactics, adventure, and 3D games that share reusable mechanics across genres.**
+**A browser game engine for rapid prototyping, written in strict TypeScript.** A small plugin kernel, a public SDK,
+genre templates, live and state-preserving hot reload, an in-game inspector and agent tooling. It ships with
+around 40 playable presets (shooter, metroidvania, roguelite, racing, tactics, adventure, 3D puzzle, tower defense,
+cards, RPG and more) that are built only from that SDK.
 
 [![CI](https://github.com/mojomast/fpsrizz/actions/workflows/ci.yml/badge.svg)](https://github.com/mojomast/fpsrizz/actions/workflows/ci.yml)
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178c6)
-![Three.js](https://img.shields.io/badge/renderer-Three.js%20r187-brightgreen)
+![Three.js](https://img.shields.io/badge/renderer-Three.js%20r187%20(WebGL2%20%2B%20opt--in%20WebGPU)-brightgreen)
+![SDK](https://img.shields.io/badge/SDK-3.0.0-orange)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 ### [▶ Play it in your browser](https://mojomast.github.io/fpsrizz/)
@@ -18,26 +22,127 @@
 
 </div>
 
+> The public demo is whatever was last deployed to GitHub Pages. Newer presets (for example `sandbox/navmesh`) appear
+> there after the manual **Deploy to GitHub Pages** workflow runs. Locally, `npm run dev` always runs the current code.
+
 ---
 
-## Why this exists
+## What it is
 
-Most hobby shooters are a single tangled game loop. Bulkhead is the opposite: a **small runtime kernel** that knows nothing
-about shooters, plus **plugins** for everything else. The reference game ("Bulkhead Station") is made only of plugins that
-use the same public SDK a third party would use, so adding a weapon, an enemy, a HUD or a whole game mode never means
-editing the engine.
+Bulkhead is a **small runtime kernel that knows no game concepts**, plus **plugins for everything else**. A game is a
+JSON *preset*: a list of plugins, role selections (camera, controller, HUD, mode and so on) and config. Every bundled
+game, including the reference FPS "Bulkhead Station", uses the same public SDK a third party would use, so adding a
+weapon, an enemy, a HUD, a mechanic or a whole game never means editing the engine.
 
-- **Three layers.** Runtime kernel (scopes, ECS, fixed-step scheduler, typed registries, command and event buses, plugin
-  host) → platform adapters (rendering, input, audio, storage, UI) → gameplay plugins and content packs.
-- **Safe by construction.** Manifests are validated before any plugin code is imported. Registration and content run in
-  staged registries and are committed only if everything validates, so a bad preset leaves the running game untouched.
-- **Clean restarts.** Every resource is owned by a scope and disposed in reverse order. The browser test applies 12
-  preset switches and 12 restarts and asserts that owned-resource counts never grow.
-- **Two kinds of extension.** Trusted code plugins, and data-only JSON content packs with semantic validation.
-- **Contained rendering backend.** Official Three.js is pinned and reproducibly vendored behind the rendering SDK;
-  plugins use the SDK and keep their import boundaries.
+- **Kernel** (`@bulkhead/kernel`): plugin host, scopes, ECS with cached queries, a fixed-step 60 Hz scheduler, typed
+  registries, command and event buses, snapshots. No DOM.
+- **SDK** (`@bulkhead/sdk`, version 3.0.0): the only thing plugins import. It covers core APIs, contracts (game
+  vocabulary, physics, navmesh, input, audio, assets, scenes, mechanics) and the rendering surface.
+- **Platform** (`@bulkhead/platform-web`): browser adapters for input (keyboard, mouse, gamepad, touch), Web Audio,
+  storage, UI and the Three.js render host.
+- **Standard plugins** (`@bulkhead/std`): transform/render sync, Rapier physics, Recast navmesh, glTF assets,
+  prefabs and scenes, reusable mechanics (resources, actions, clocks, inventory, crafting, progression, platforming,
+  navigation and more), presentation and themes.
+- **Games** (`games/<family>/`): each family keeps its own plugins, family-only contracts, presets, tests and docs.
 
-## Independent game experiences
+Safety by construction: manifests are validated before any plugin code is imported. Registration and content are
+staged and committed only if everything validates, so a bad preset leaves the running game untouched. Every resource
+is owned by a scope and disposed in reverse order, so restarts and preset switches do not leak.
+
+## Quick start
+
+Requires **Node ≥ 22.18** (`nvm use` reads `.nvmrc`) and a WebGL2 browser.
+
+```bash
+git clone https://github.com/mojomast/fpsrizz && cd fpsrizz
+npm ci
+npm run dev                                   # http://127.0.0.1:5173/  (agent bridge on :5174)
+```
+
+### Make a game from a template
+
+```bash
+npm run bulkhead -- create my-game --template fps    # or platformer | topdown | puzzle | cards | blank
+npm run dev                                          # open http://127.0.0.1:5173/?preset=my-game/default
+```
+
+This adds `games/my-game/`, which contains a plugin, a preset, headless tests and an `AGENTS.md` for coding agents.
+Outside a checkout, the `create-bulkhead` wrapper clones the engine and scaffolds into it.
+`npm create bulkhead@latest my-game -- --template fps` will work once the package is published; it is publish-ready
+but not yet on npm, so for now run `node packages/create-bulkhead/index.mjs my-game --template fps`. More commands:
+`npm run bulkhead -- templates | new plugin | add | validate | graph` ([CLI guide](docs/guide/bulkhead-cli.md),
+[create a game](docs/guide/create-a-game.md)).
+
+## The dev loop
+
+| Tool | How | Docs |
+|---|---|---|
+| **Live and hot reload** | `npm run dev` rebuilds on save and reloads. For all-SDK-3 presets the run's snapshot survives the reload, so you keep your place. Config tweaks restart with state kept. `?seed=N` pins randomness. | [inspector](docs/reference/inspector.md) |
+| **Inspector** | Press `` ` `` and open **Inspect**: entity list, live component editor, config tweaks with **Export preset**, and hold/step/speed time controls. | [inspector](docs/reference/inspector.md) |
+| **Debug draw** | `debugDraw(ctx).line/box/sphere/text` from any plugin. Turn it on with `?debugdraw` or the Inspect tab. It also outlines colliders and navmeshes. | [inspector](docs/reference/inspector.md) |
+| **Perf HUD** | **F3** or `?perf`: FPS, CPU and GPU ms, draws, entities, renderer backend and the slowest systems. Also per-system timings JSON, `npm run perf` budgets and an optional CI job. | [performance](docs/guide/performance.md) |
+| **Agents** | The JSON-RPC dev protocol (`world.query`, `entity.get/set`, `sim.step`, `input.press`, `preset/config`, `replay.run`, `screenshot` and more) starts with `npm run dev`. `npm run mcp` exposes it as a stdio MCP server. `npm run find-reuse` searches existing capabilities. See [AGENTS.md](AGENTS.md) and [llms.txt](llms.txt). | [dev protocol](docs/reference/dev-protocol.md) |
+| **Gallery** | `/gallery/` (linked from the start screen) lists every plugin, recipe and SDK contract, with **Play** links to presets that use them. It is generated from the reuse index. | [reuse](docs/guide/reuse.md) |
+| **Schemas** | JSON Schemas for manifests, presets, content packs, scenes, replays and snapshots give editor completion and are checked in `npm run check`. | [schemas](docs/reference/schemas.md) |
+
+## Engine features
+
+| Area | What you get | Docs |
+|---|---|---|
+| ECS and queries | `world.query({ with, without })` with added, removed and changed tracking; `markChanged` | [queries](docs/reference/queries.md) |
+| 3D transforms | `Transform3D`, hierarchy, interpolated render sync, `Renderable` shapes, models and instancing | [spatial](docs/reference/spatial.md) |
+| Physics | `std/physics-rapier`: bodies, colliders, sensors, raycasts and a character controller. Lazy WASM chunk | [physics](docs/reference/physics.md) |
+| Navmesh | `std/navigation-recast`: Recast/Detour navmesh built from colliders or triangles, `NavAgent` steering. Grids and graphs use `mechanics/navigation` | [navmesh](docs/reference/navmesh.md), [navigation](docs/reference/navigation.md) |
+| Assets | `Assets` service, manifest `preload`, glTF with Meshopt and KTX2 decode, glTF extras mapped to components, `npm run assets` | [assets](docs/reference/assets.md) |
+| Scenes | Data prefabs (`extends`/overrides), `*.scene.json`, Tiled and LDtk import, `spawnScene` | [scenes](docs/reference/scenes.md) |
+| Input | Actions and axes, keyboard, mouse, gamepad and touch (visible virtual stick), rebinding saved to the profile | [input](docs/reference/input.md) |
+| Audio | Sample registry, buses tied to settings, 3D panned voices, synth fallback | [audio](docs/reference/audio.md) |
+| Saves and replays | `ctx.persist`, run snapshots with migrations, F6/F9 quicksave, `?record` + F8 `.replay.json`, replays as tests | [snapshots](docs/reference/snapshots.md) |
+| Rendering | Vendored Three.js r187 WebGL2. Opt-in `?renderer=webgpu` (WebGPURenderer with WebGL2 fallback) behind a per-preset parity gate | [webgpu](docs/reference/webgpu.md) |
+| Reusable mechanics | Resources, actions, clocks, objectives, inventory, crafting, progression, capabilities, platforming, room maps, sequences, command queues, deadlines | [reusable mechanics](docs/reference/reusable-mechanics.md) |
+
+## Repository layout
+
+```
+packages/                     npm workspaces (private until the @bulkhead scope is claimed)
+  kernel/src/                 @bulkhead/kernel: plugin host, ECS, scheduler, registries, buses, snapshots (no DOM)
+  sdk/src/                    @bulkhead/sdk: core.ts, contracts/, render.ts (the only plugin import surface)
+  platform-web/src/           @bulkhead/platform-web: input, audio, storage, UI, Three.js render host, perf HUD, touch
+  std/plugins/                @bulkhead/std: shared plugins (std-*, mechanics-*, presentation-*, theme-*)
+  tools/                      @bulkhead/tools: the `bulkhead` CLI bin (forwards to scripts/bulkhead.mjs)
+  create-bulkhead/            `npm create bulkhead` wrapper (publish-ready, unpublished)
+games/<family>/               plugins/, contracts/, presets/, tests/ (unit + browser demos), docs, family.json
+src/app/                      composition root: main.ts (frame loop), catalog, shell (menus), creator and inspector
+templates/                    genre templates (templates/games/*) and the plugin starter
+schemas/                      JSON Schemas for every data file
+docs/                         guide/, reference/, cookbook/, design/, migrations/, games/, archive/
+scripts/                      build, dev, CLI, boundary lint, reuse index, export, visual and perf tooling
+tests/                        engine node:test suites, browser suites, tests/visual (Playwright goldens)
+public/                       static files, art packs, models and the generated gallery
+```
+
+Import rules: plugins import only `@bulkhead/sdk` (and `@bulkhead/sdk/render.ts` with the `render` capability), plus
+their own family's contracts and the contracts of families listed in `family.json` `"uses"`. `npm run lint` enforces
+this ([packages](docs/reference/packages.md)).
+
+## Testing, deploy and releases
+
+| | Command | Notes |
+|---|---|---|
+| Everything fast | `npm run check` | Node preflight, catalog, assets, schemas, typecheck, boundaries, docs links, reuse index, SDK version sync, bundle budget, ~970 tests |
+| Browser suites | `npm run build && npm run test:browser` | Smoke plus one demo per family, the WebGPU parity suite and more, in headless Chrome (SwiftShader) |
+| Visual regression | `npm run test:visual` | Playwright goldens per template and preset. Chromium goldens are committed; Firefox/WebKit run in a non-blocking CI matrix ([visual tests](docs/guide/visual-tests.md)) |
+| Perf budgets | `npm run perf -- --enforce` | Optional CI job (manual dispatch or the `perf` label) |
+| itch.io zip | `npm run export:itch` | Writes `.export/bulkhead-itch.zip` and checks itch's HTML5 limits ([deploy](docs/guide/deploy.md)) |
+| Deploy | Actions → *Deploy to GitHub Pages* / *Deploy to itch.io* | Manual dispatch only ([deploy](docs/guide/deploy.md)) |
+| Releases | `npm run changeset`, `npm run version-packages` | Changesets. The `@bulkhead/*` group version equals `SDK_VERSION`. No release has been cut yet ([releasing](docs/guide/releasing.md), [migrations](docs/migrations/)) |
+
+## Bundled games
+
+The games below double as engine samples: every one is a preset you can open with `?preset=<id>` or switch to live
+from **Creator tools** (`` ` ``). Family guides live in [games/README.md](games/README.md).
+
+### Independent game experiences
 
 Open **Creator tools → Load**, select a preset, then **Apply & restart → Play**.
 
@@ -57,7 +162,7 @@ presentation; adventure uses illustrated DOM scenes, while Stonewake has lit 3D 
 and ray-picked floor controls. These games run with a free cursor or keyboard policy, without
 pointer lock. The original first-person presets retain captured mouse aiming.
 
-### Mechanics shared across genres
+#### Mechanics shared across genres
 
 **[HOLLOWMERE — The Lantern Below](games/hollowmere/README.md)** — [play the current GitHub Pages build](https://mojomast.github.io/fpsrizz/?preset=hollowmere/ascent) — is a hand-painted side-scrolling metroidvania across twelve authored rooms. Reusable platform physics, capability-gated traversal, room-map exploration and stack inventory provide the foundation: double jump, dash, wall grip, a three-hit saber combo, down-strike pogo, focus bolts, seven enemy archetypes and a two-phase Hollow King. Beacons save progress; the game-owned field journal contains a world map, inventory, capabilities, stats and persisted options, with NPCs and a crown door in the way. Assets come from the pinned Assetrizz library: five region backdrops, terrain, seven enemy strips, character/NPC art, portraits and ornate icons. Open `?preset=hollowmere/ascent` and press Play; Esc/P opens the journal, M the map, J attacks, Space jumps, K dashes and E interacts.
 
@@ -113,7 +218,7 @@ Two selectable building-block plugins also serve existing games:
 Their presets select implementations through public roles. Custom presets using the migrated game authorities need
 the corresponding provider/role selections; the bundled presets already include them.
 
-### Find existing capabilities before adding plugins
+#### Find existing capabilities before adding plugins
 
 Agents and authors can search by intent rather than remembering plugin names:
 
@@ -133,7 +238,7 @@ rendering, storage and audio. The scaffolder suggests existing candidates and cr
 plugins. `npm run check` rejects stale references and broken metadata. Start with [docs/guide/reuse.md](docs/guide/reuse.md) or browse
 [docs/reference/reuse-index.md](docs/reference/reuse-index.md).
 
-## Screenshots
+### Screenshots
 
 | | |
 |---|---|
@@ -141,7 +246,7 @@ plugins. `npm run check` rejects stale references and broken metadata. Start wit
 | ![Ricochet rifle](docs/img/ricochet.png) **Extension: ricochet rifle** (new attack behaviour plugin) | ![Annex map](docs/img/annex.png) **Extension: data-only pack** (new map, brute enemy, scattergun) |
 | ![Survival and visor HUD](docs/img/survival-visor.png) **Extensions: survival mode + replacement HUD** | ![Creator panel](docs/img/creator.png) **Creator panel**: plugins, presets, import/export, debug |
 
-## The four extension proofs
+### The four extension proofs
 
 Each is a preset you can switch to live from the creator panel (press `` ` ``):
 
@@ -152,40 +257,8 @@ Each is a preset you can switch to live from the creator panel (press `` ` ``):
 | `example/hud` | Code plugin | A complete replacement HUD that fully removes the original |
 | `example/survival` | Code plugin | A different game mode (waves, score, win and lose) using only public services |
 
-### Stack
 
-- **Rendering:** official Three.js **0.187.0**, exposed as `THREE` by `packages/sdk/src/render.ts`. The historical `mini3/index.ts`
-  path is now a compatibility entry to the vendored upstream runtime. The old engine remains an isolated test fixture.
-- **Bundling/dev server:** esbuild. **Tests:** `node:test` with Node >= 22.18 type stripping. **Types:** strict TypeScript.
-- `npm run vendor-three` reproduces the checked-in renderer and declaration files from locked npm packages, retaining
-  MIT licenses and hashes. Plugins never import npm packages directly; boundary rules remain enforced.
-- **SDK 2.0:** the Three.js namespace has real `Color` objects and upstream rendering semantics. Existing rendering
-  plugins need migration before declaring compatibility; see [docs/guide/plugins.md](docs/guide/plugins.md).
-
-## Quick start
-
-Play online: **https://mojomast.github.io/fpsrizz/** (served from the `gh-pages` branch).
-
-- [Cinder Vault — direct preset link](https://mojomast.github.io/fpsrizz/?preset=cinder/vault)
-- [Bulkhead Station — default preset](https://mojomast.github.io/fpsrizz/?preset=core/default)
-
-Or run it locally (Node >= 22.18; `nvm use` reads `.nvmrc`):
-
-```bash
-npm ci             # install locked devDependencies
-npm run dev        # dev server at http://127.0.0.1:5173/ (live reload; resumes the running game)
-```
-
-Changes to files in `public/` require restarting the dev server.
-
-Production build and local preview:
-
-```bash
-npm run build      # writes dist/
-npm run preview    # serves dist/ at http://127.0.0.1:4173/
-```
-
-## How to play
+### How to play Bulkhead Station
 
 For **Bulkhead Station**, click **Play** on the start screen; the browser captures the mouse (pointer lock).
 
@@ -209,13 +282,13 @@ lose if your health reaches zero. Doors open and close with the Use key; the exi
 Mouse sensitivity, volume and render quality (pixel-ratio cap) are on the start and pause screens. The start screen lists
 the active preset, the objective, the controls registered by the enabled plugins, and any enabled extensions.
 
-## Presets and extensions
+### Presets and extensions
 
 The presets in `games/*/presets/` (the shooter's in `games/shooter/presets/`) include the reference game, extensions and genre slices. The first is the default.
 
 | Preset | Adds | Where it lives |
 |---|---|---|
-| Bulkhead Station — Objective (`core/default`) | The reference game | `packages/std/plugins/core-*`, `theme-industrial` |
+| Bulkhead Station — Objective (`core/default`) | The reference game | `games/shooter/plugins/core-*`, `theme/industrial` |
 | Bulkhead Station — Extended arsenal (`example/extended`) | Scattergun (slot 4, data pack) and Ricochet Rifle (slot 3, new attack behaviour) | `example/pack`, `example/ricochet` |
 | Bulkhead Annex — content-pack map (`example/annex`) | The Annex map, Brute enemy and scattergun from the data pack | `example/pack` |
 | Survival — waves, Visor HUD (`example/survival`) | Wave-survival mode and visor HUD, plus the weapons above | `example/survival`, `example/hud` |
@@ -246,48 +319,6 @@ in the **Load** dropdown, then press **Apply & restart**. The selection is saved
 next page load. Plugins can also be toggled individually, and content packs imported, from the same panel. See
 [docs/guide/plugins.md](docs/guide/plugins.md) and [docs/reference/content-format.md](docs/reference/content-format.md).
 
-## Project layout
-
-```
-src/
-  kernel/      Runtime kernel: plugin host, registries, entity store, event/command buses, scheduler, scopes, validation.
-               Knows no game concepts and touches no DOM.
-  sdk/         Public plugin API: core.ts, contracts/ (experience and game-family vocabulary), render.ts.
-  platform/    Browser adapters: contextual input, audio, storage, UI, flow and the Three.js render host.
-  app/         Composition root: main.ts (frame loop), catalog.ts, shell.ts (menus), creator.ts (creator panel).
-  plugins/     Shared plugins: mechanics providers, presentation, themes, dungeon generator.
-games/         Every game, one folder per family: plugins/, contracts/, presets/, tests/, README.md (see games/README.md).
-docs/          guide/, reference/, cookbook/, games/, archive/ (see docs/README.md).
-scripts/       build, dev, preview, smoke test, boundary checker, plugin scaffolder, tool resolution.
-tests/         node:test suites and helpers; subfolders with browser demo scripts (`npm run test:browser` runs them; CI does too).
-templates/     plugin-starter, used by npm run new-plugin.
-public/        Static files copied into the build, including curated Assetrizz source images and provenance.
-index.html     Page shell.
-```
-
-## Commands
-
-| Command | What it does |
-|---|---|
-| `npm ci` | Installs locked devDependencies (esbuild, Playwright, TypeScript). |
-| `npm run dev` | esbuild watch build and server at `127.0.0.1:5173`; `-- --port N` changes the port. |
-| `npm run build` | Bundles `src/app/main.ts` into `dist/`: minified ES2022 split into content-hashed chunks (one per plugin `load()`), art packs from `public/`, and a bundle-size budget check. Source maps go to `.sourcemaps/` and are not deployed (`KEEP_SOURCEMAPS=1` keeps them in `dist/`). |
-| `npm run budget` | Builds in memory and checks the bundle-size budget in `scripts/bundle-budget.mjs` (part of `npm run check`). |
-| `npm run preview` | Serves `dist/` at `127.0.0.1:4173`; `-- --port N` changes the port. |
-| `npm run typecheck` | `tsc -p tsconfig.json --noEmit`. |
-| `npm run lint` | Import-boundary checker (`scripts/boundaries.ts`). |
-| `npm test` | Node unit and integration tests, including tooling tests. |
-| `npm run test:browser` | Builds nothing (run `npm run build` first). Runs the smoke test and one browser demo per game family, one at a time, as CI does; `-- --all` adds the known-failing suites listed in `scripts/browser-suite.mjs`. |
-| `npm run smoke` | Browser acceptance run against `dist/` (headless Chrome, software WebGL2). Run `npm run build` first. Uses `/usr/bin/google-chrome` if present, otherwise Playwright's Chromium (`npx playwright install chromium`); set `CHROME_PATH` to override. Writes screenshots and `smoke-report.json` to `.smoke/`. |
-| `npm run check` | Typecheck, boundaries, reuse-index freshness and tests in sequence. |
-| `npm run vendor-three` | Reproduces the pinned upstream renderer and declarations, licenses and hash manifest. |
-| `node tests/dev-reload-demo/run.mjs` | Starts the dev server, edits a source file and checks the page live-reloads back into the running game; checks `?seed=`. |
-| `node tests/experience-demo/run.mjs` | Plays the independent racer, tactics and adventure against `dist/`, without the pointer-lock bypass. |
-| `node tests/reusable-games-demo/run.mjs` | Plays Sky Salvage, Ember Bastion and Verdant Relay against `dist/`; checks 3D scenes, viewports, pause and scoped switching. |
-| `npm run new-plugin -- <ns/name> ["Name"]` | Scaffolds `packages/std/plugins/<ns>-<name>/` from the starter template. |
-| `npm run find-reuse -- "capability words"` | Searches existing mechanics, contracts and recipes; `--show <id>` gives composition details, `--json` supports agents. |
-| `npm run index-reuse` | Regenerates the checked-in reuse inventory; `-- --check` verifies freshness and metadata references. |
-| `npm run validate-game -- <preset.json> [--pack <pack.json> ...]` | Stages a preset against the app catalog and optional wrapped JSON packs; use `--bundled` to validate shipped presets. Does not activate or play the game. |
 
 ### Assetrizz art
 
@@ -316,57 +347,48 @@ relabelled MIT. Synthesized sounds and explicitly labelled procedural fallback a
 
 ## Supported environment
 
-- A browser with **WebGL2**; the first-person experiences also need **pointer lock**. Web Audio is used for sound; without it the game runs silently.
-  The repository's browser checks drive Chrome only.
-- **Node >= 22.18** for tooling (`engines` in `package.json`, `.nvmrc`; `.npmrc` sets `engine-strict` and `npm run check` preflights the version).
-- Opening the page with `?test` removes the pointer-lock requirement so automated browsers can drive the game (see
-  [docs/reference/architecture.md](docs/reference/architecture.md)). `window.__bulkhead` is a debugging and automation handle used by the smoke script;
-  it is tooling, not part of the plugin API.
+- A browser with **WebGL2**. The first-person presets also need **pointer lock**. Web Audio is used for sound; without
+  it the game runs silently. `?renderer=webgpu` uses WebGPU where available and falls back to WebGL2. CI drives
+  Chrome for the acceptance suites and runs Firefox/WebKit visual tests as non-blocking.
+- **Node ≥ 22.18** for tooling (`engines`, `.nvmrc`, `engine-strict`; `npm run check` preflights the version).
+- `?test` removes the pointer-lock requirement so automated browsers can drive the game. `window.__bulkhead` is a
+  debugging and automation handle, not part of the plugin API.
 
 ## Documentation
 
 Start at [docs/README.md](docs/README.md), which maps everything:
 
-- **Guide:** [create a game](docs/guide/create-a-game.md), [plugins and the SDK](docs/guide/plugins.md), [reuse](docs/guide/reuse.md).
-- **Reference:** [architecture](docs/reference/architecture.md), [spec](docs/reference/spec.md),
-  [content format](docs/reference/content-format.md), the mechanics references, and the SDK API generated by
-  `npm run docs:api` (into `docs/reference/api/`).
+- **Guide:** [create a game](docs/guide/create-a-game.md), [CLI and templates](docs/guide/bulkhead-cli.md),
+  [plugins and the SDK](docs/guide/plugins.md), [reuse](docs/guide/reuse.md), [performance](docs/guide/performance.md),
+  [visual tests](docs/guide/visual-tests.md), [deploy](docs/guide/deploy.md), [releasing](docs/guide/releasing.md).
+- **Reference:** [architecture](docs/reference/architecture.md), [packages](docs/reference/packages.md),
+  [spec](docs/reference/spec.md), the engine feature pages linked above, the mechanics references, and the SDK API
+  generated by `npm run docs:api` (into `docs/reference/api/`).
 - **Cookbook:** [edit loop](docs/cookbook/edit-loop.md), [new game family](docs/cookbook/new-game-family.md),
   [large art](docs/cookbook/large-art.md), [building blocks](docs/cookbook/building-block-plugins.md).
-- **Games:** [games/README.md](games/README.md) and [docs/games/](docs/README.md#games).
+- **Design:** [networking](docs/design/networking.md) (a proposal; no netcode exists yet).
 - **Roadmap and history:** [docs/roadmap.md](docs/roadmap.md); plans and hand-offs in [docs/archive/](docs/archive/README.md).
 - **Agents:** [AGENTS.md](AGENTS.md) and [llms.txt](llms.txt).
 
-## Testing and verification
-
-`npm run check` runs the strict type check, import-boundary lint, reuse-index freshness check and Node tests. Regenerate
-the inventory with `npm run index-reuse` after source/catalog/metadata changes. After `npm run build`, `npm run smoke`
-plays the real game in headless Chrome, including gameplay, restart, extensions and resource counts. The creator panel
-has its own browser test (`node tests/creator-demo/run.mjs`), which builds its own bundle. Both write to `.smoke/`.
-CI runs check and build; it does not run either browser suite. Browser performance depends on the available renderer.
-Run `node games/shooter/tests/genre-demo/run.mjs` after a build for browser startup, HUD and control checks on the earlier shooter-mode
-slices. `node tests/experience-demo/run.mjs` covers the independent games' completion routes and switching;
-`node tests/render-three-demo/run.mjs` checks native Three.js pixel/color/layer/disposal behavior.
-`node games/puzzles/tests/stonewake-demo/run.mjs` completes all three 3D chambers through the UI and checks ray picking, camera orbit,
-golem capture/undo, responsive framing, pause and switching ownership.
-
 ## Known limitations
 
-Stated plainly; the full list is in [docs/reference/spec.md](docs/reference/spec.md) and [docs/archive/handoff.md](docs/archive/handoff.md).
+Stated plainly. The full list is in [docs/reference/spec.md](docs/reference/spec.md).
 
-- Three.js core is integrated; general asynchronous model loading, scene bundles and glTF addon integration remain planned.
-- GPU performance has not been measured; the only numbers are from software rendering in headless Chrome.
-- Real-device pointer capture and subjective audio quality still need hands-on verification; headless checks cover
-  input policy and synthesized audio lifecycle.
-- Imported content packs live in memory only. Adventure has chapter saves; there are no general run snapshots.
-- Code plugins are discovered at build time and are trusted; there is no sandbox.
-- The default theme uses procedural placeholder art and sound. Each Assetrizz theme replaces five tiles, two enemy
-  sprites and the pistol and launcher views with bundled images; other Blender weapons are not yet wired into gameplay.
+- No multiplayer: networking is a [design doc](docs/design/networking.md) only.
+- GPU performance has only been measured with headless software rendering; real-device numbers still need checking.
+  Native WebGPU is not covered by CI (headless runs use the WebGPURenderer's WebGL2 backend).
+- Code plugins are discovered at build time and are trusted; there is no sandbox. Imported content packs live in
+  memory only.
+- KTX2 *encoding* in `npm run assets` is deferred (decoding works). PWA and desktop (Tauri) wrappers are deferred.
+- The npm packages are unpublished: the `@bulkhead/*` packages are `private` until the scope is claimed.
+- The default theme uses procedural placeholder art and sound. Assetrizz themes replace a subset with bundled images.
 
 ## Contributing
 
 Read [AGENTS.md](AGENTS.md) for conventions and [docs/guide/plugins.md](docs/guide/plugins.md) to write a plugin
-(`npm run new-plugin -- my/plugin "My Plugin"`). Keep `npm run check` green. See [CONTRIBUTING.md](CONTRIBUTING.md).
+(`npm run bulkhead -- new plugin my/plugin`, or `npm run new-plugin -- my/plugin "My Plugin"`). Search before you build
+(`npm run find-reuse -- "words"`), add a changeset for package changes, and keep `npm run check` green. See
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 

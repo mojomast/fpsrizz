@@ -20,7 +20,10 @@ for (const c of cases) {
     const errors = [];
     page.on('pageerror', (e) => errors.push(e.message));
     await page.goto(`./?test=&touch=0${c.id ? `&preset=${c.id}` : ''}`);
-    await page.waitForFunction(() => window.__bulkhead?.state === 'menu', null, { timeout: 90_000 });
+    // Fail fast (instead of a 90 s timeout) when the browser has no WebGL2 and the app shows its "Unsupported" alert.
+    await page.waitForFunction(() => window.__bulkhead?.state === 'menu' || /needs WebGL2/.test(document.querySelector('[role=alert]')?.textContent ?? ''), null, { timeout: 90_000 });
+    const unsupported = await page.evaluate(() => window.__bulkhead?.state !== 'menu');
+    expect(unsupported, 'this browser has no WebGL2 here (CI needs xvfb + Mesa for Firefox/WebKit)').toBe(false);
     if (c.preset) {
       const r = await page.evaluate((p) => window.__bulkhead.applyPreset(p), c.preset);
       expect(r.ok, JSON.stringify(r)).toBe(true);

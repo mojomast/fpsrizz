@@ -42,7 +42,7 @@ specific weapons, generation command and export details.
    preset. For example, to regenerate the two Assetrizz-theme weapon painters:
 
    ```sh
-   python3 scripts/weapon-painters.py --force --output src/plugins/theme-assetrizz/weapons.ts \
+   python3 scripts/weapon-painters.py --force --output packages/std/plugins/theme-assetrizz/weapons.ts \
      --sprite weapon-pistol=assets/weapons/generic/pistol.png \
      --sprite weapon-launcher=assets/weapons/generic/rocket_launcher.png
    python3 tests/weapon-painters.test.py
@@ -51,7 +51,7 @@ specific weapons, generation command and export details.
    The Cinder Vault theme uses all six fantasy renders:
 
    ```sh
-   python3 scripts/weapon-painters.py --force --output src/plugins/theme-assetrizz/cinder-weapons.ts \
+   python3 scripts/weapon-painters.py --force --output packages/std/plugins/theme-assetrizz/cinder-weapons.ts \
      --sprite cinder-thornwake=assets/weapons/fantasy/01_thornwake.png \
      --sprite cinder-cinderkey=assets/weapons/fantasy/02_cinderkey.png \
      --sprite cinder-mothspindle=assets/weapons/fantasy/03_mothspindle.png \

@@ -1,9 +1,11 @@
 # fpsrizz / Bulkhead: roadmap to a rapid-prototyping game engine
 
-> **Status (branch `engine/p3-polish`, stacked on `engine/p2-tooling`, `engine/p1-core` and `engine/p0-foundations`, 2026-11-18).**
+> **Status (`main`, after merging PRs #1–#4: `engine/p0-foundations`, `engine/p1-core`, `engine/p2-tooling`, `engine/p3-polish`, 2026-11-18).**
 > P0, P1.1–P1.8, P2.1–P2.7 and P3.1–P3.6 are done; P3.7 networking is a design doc only. Deferred: KTX2 *encoding*,
 > PWA/Tauri wrappers, npm publishing (the `@bulkhead/*` scope is unclaimed; `create-bulkhead` is publish-ready), and no
-> release has been cut. This file is the audit as written, with
+> release has been cut. Open follow-ups: commit Firefox/WebKit visual goldens from CI and make the visual job blocking,
+> run the manual deploy workflows, claim the npm scope, cut SDK 4.0.0, and pick the networking direction. This file is
+> the audit as written, with
 > paths as they were at `14a2f15`. Many root documents have since moved (see [docs/README.md](README.md)).
 >
 > | Item | State |

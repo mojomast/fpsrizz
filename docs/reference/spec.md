@@ -313,21 +313,24 @@ These are deliberate scope limits or known gaps, not bugs.
 - **AABB collision.** Walls and doors are axis-aligned boxes, actors are circles, and hit normals are axis-aligned.
   Queries are brute force over all boxes (sized for maps of a few hundred boxes). Swept-circle queries inflate each box
   by the circle's radius and round the corners (see docs/reference/architecture.md, World); hit normals on faces stay axis-aligned.
-- **No general run snapshots.** Adventure has explicit versioned chapter save/load; the shooter and other families do
-  not have full run saves. The general save format remains a design note in docs/reference/content-format.md.
-- **No networking or rollback.** Simulation is deterministic given the same per-tick input (fixed step, seeded RNG), but
-  there is no input recording or replay, and bit-identical results across browsers or JavaScript engines are not claimed.
+- **Run snapshots need SDK 3 plugins.** `host.snapshot()/restore()`, F6/F9 quicksave and state-preserving hot reload
+  ([snapshots](snapshots.md)) are offered only when every active plugin targets SDK 3 and keeps outside state in
+  `ctx.persist`; SDK 2 shooter presets keep closure state a snapshot cannot see. Adventure also has explicit chapter saves.
+- **No networking or rollback.** Simulation is deterministic given the same per-tick input (fixed step, seeded RNG) and
+  input replays re-simulate bit-exactly on the same build and browser, but bit-identical results across browsers or
+  JavaScript engines are not claimed. Networking is a [design proposal](../design/networking.md) only.
 - **Code plugins are build-time and trusted.** A deployed build cannot install new JavaScript. Manifest `capabilities`
   document intent and gate only the rendering-SDK import in the lint rule; there is no sandbox.
 - **Content packs cannot carry assets.** Content refers to art and sound by theme key. An unknown texture key renders as
   a magenta checker and an unknown visual key is not drawn (both log a warning); an unknown sound key is ignored with a
   warning. Imported packs live in memory only and are not persisted across page loads.
-- **Renderer integration scope.** Three.js core/WebGL is available; a scoped asynchronous model/asset loader and glTF
-  addon integration remain future work. Browser startup still requires WebGL2, including for the DOM adventure.
+- **Renderer integration scope.** Three.js r187 WebGL2 is the default; glTF loading (Meshopt, KTX2 decode) goes through
+  the `Assets` service and `std/assets` ([assets](assets.md)). The WebGPU renderer is opt-in and gated per preset
+  ([webgpu](webgpu.md)). Browser startup still requires WebGL2, including for the DOM adventure.
 - **Procedural placeholder art and audio** (section 7).
 - **GPU performance is unmeasured.** The build environment had only software WebGL2. The smoke test asserts CPU work
   per frame, not GPU frame time.
-- **Single player, keyboard and mouse only.** No gamepad or touch input, no key rebinding, no multiplayer.
+- **Single player.** Keyboard, mouse, gamepad and touch input with rebinding exist ([input](input.md)); multiplayer does not.
 - **Browser coverage.** The repository's browser checks drive Chrome only.
 - **Fixed sizes.** Shooter grid maps are at most 96 x 96 cells with at most 64 doors, 128 triggers, 64 lights and 512 spawns;
   32 shooter one-shot effects are pooled;
@@ -351,9 +354,10 @@ systems, components, events, commands and services, game modes, HUDs, themes (ar
 map formats, content kinds, input actions, validators. A new family can own its own state/world model rather than use
 the planar shooter `Transform`. Cooperating plugins need shared typed contracts and explicit ownership.
 
-**Needs an SDK version bump.** Vertical movement and stacked floors (a height in `Transform` and `WorldDescription`,
-pitch and jumping in the controller and camera contracts, 3D collision queries); non-grid collision; networking and
-rollback; general run saves with versioned migration; shared model/animation asset services; new host-level phases.
+**Needs an SDK version bump.** Vertical movement and stacked floors *in the planar shooter* (a height in `Transform`
+and `WorldDescription`, pitch and jumping in its controller and camera contracts); networking and rollback; new
+host-level phases. SDK 3 already added general 3D transforms, Rapier physics, navmeshes, run snapshots and asset
+services for new games; the planar shooter has not been migrated onto them.
 These change shared contracts, so they require a new SDK version and manifests that declare it (`SDK_VERSION` is `3.0.0`, with `SDK_COMPAT` still accepting `2.0.0` manifests, and plugins declare a
 compatible range in `sdk`).
 

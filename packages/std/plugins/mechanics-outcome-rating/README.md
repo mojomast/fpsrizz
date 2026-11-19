@@ -4,7 +4,7 @@
 
 ## SDK contract
 
-Enable the plugin and select `"sdk/mechanic-outcome-rating": "mechanics/outcome-rating"`. Import `outcomeRatingMechanic` from `../../sdk/index.ts` in a plugin; the types and registry are defined in [`outcome-rating.ts`](../../../sdk/src/contracts/outcome-rating.ts).
+Enable the plugin and select `"sdk/mechanic-outcome-rating": "mechanics/outcome-rating"`. Import `outcomeRatingMechanic` from `@bulkhead/sdk` in a plugin; the types and registry are defined in [`outcome-rating.ts`](../../../sdk/src/contracts/outcome-rating.ts).
 
 ```ts
 const rating = outcomeRatingMechanic(ctx).create(ctx, 'mission-result', {

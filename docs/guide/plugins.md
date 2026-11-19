@@ -6,7 +6,7 @@ built on the API described here. Third-party authors get exactly the same API.
 - **SDK version:** `3.0.0` (`SDK_VERSION`). Manifests declare a compatible range in `sdk`. SDK 3 only added APIs,
   so the host also accepts `^2.0.0` manifests (`SDK_COMPAT`); new plugins should declare `^3.0.0`. See
   [Migrating to SDK 3](#migrating-to-sdk-3).
-- **One entry point:** `packages/sdk/src/index.ts`. Rendering plugins may additionally import `packages/sdk/src/render.ts`.
+- **One entry point:** `@bulkhead/sdk` (source: `packages/sdk/src/index.ts`). Rendering plugins may additionally import `@bulkhead/sdk/render.ts`.
 - **Enforced:** `npm run lint` (`scripts/boundaries.ts`) fails if a plugin imports anything else — the kernel,
   platform adapters, the app, another plugin's files, or an npm package.
 
@@ -332,7 +332,8 @@ input axes, audio buses, snapshots), so older hosts reject it cleanly. New famil
 ### Migrating rendering plugins to SDK 2
 
 The host's registration, services, entities and shooter tokens retain their identity. The rendering namespace changed
-incompatibly from mini3 to official Three.js, so bundled manifests now declare `"sdk": "^2.0.0"`. SDK-1-only plugins are
+incompatibly from mini3 to official Three.js, so bundled manifests declared `"sdk": "^2.0.0"` (SDK 3 is additive and still
+accepts them; new plugins declare `"^3.0.0"`, see [migrations](../migrations/sdk-3.md)). SDK-1-only plugins are
 rejected by staging rather than silently run with incompatible rendering semantics.
 
 - Set colors through `material.color.setHex(value)`, `material.emissive.setHex(value)` and `light.color.setHex(value)`;
