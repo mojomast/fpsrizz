@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "2b794943795975a1546d2c2f4686b8f955d4f5017d87ca609c393dc804b8c8db",
+  "sourceDigest": "bdb64febf96aa132caffe1ca3157c56a7ab5c8f2a13b2f1a18f3944aaa30b8de",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -10905,6 +10905,64 @@
           "roles": {
             "sdk/experience": "sandbox/physics"
           }
+        },
+        {
+          "id": "sandbox/navmesh",
+          "name": "Navmesh Sandbox (P3.5)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "sandbox/navmesh",
+      "type": "plugin",
+      "name": "Sandbox navmesh follower",
+      "scope": "unreviewed",
+      "summary": "A follower that chases the sandbox hero across the walls, crates and glTF ramp on a navmesh built by std/navigation-recast, with its path shown as breadcrumbs.",
+      "source": "games/sandbox/plugins/sandbox-navmesh",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": false,
+      "keywords": [],
+      "entryPoints": [],
+      "useWhen": "Inspect the implementation and an existing preset before composing it.",
+      "limitations": [
+        "Reuse scope is unreviewed; registration alone does not prove cross-genre compatibility."
+      ],
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "dependencies": {
+        "sandbox/game": "^1.0.0",
+        "std/navigation-recast": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "sandbox/game",
+        "sandbox/navmesh",
+        "std/navigation-recast",
+        "std/physics-rapier",
+        "std/transform"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/navmesh",
+          "name": "Navmesh Sandbox (P3.5)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
         }
       ],
       "recipes": []
@@ -10986,6 +11044,13 @@
         {
           "id": "sandbox/physics",
           "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        },
+        {
+          "id": "sandbox/navmesh",
+          "name": "Navmesh Sandbox (P3.5)",
           "roles": {
             "sdk/experience": "sandbox/physics"
           }
@@ -11643,6 +11708,134 @@
           "roles": {
             "sdk/experience": "sandbox/physics"
           }
+        },
+        {
+          "id": "sandbox/navmesh",
+          "name": "Navmesh Sandbox (P3.5)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "std/navigation-recast",
+      "type": "plugin",
+      "name": "Navmesh navigation (Recast/Detour)",
+      "scope": "cross-genre",
+      "summary": "Navmesh pathfinding for non-grid 3D worlds (Recast/Detour): built from static colliders or triangles, path and nearest-point queries, NavAgent steering.",
+      "source": "packages/std/plugins/std-navigation-recast",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "navmesh",
+        "navigation mesh",
+        "recast",
+        "detour",
+        "pathfinding",
+        "path",
+        "ai movement",
+        "follow",
+        "chase",
+        "ramp",
+        "agent"
+      ],
+      "entryPoints": [
+        "NavMesh",
+        "NavAgent",
+        "NavAgentState",
+        "NavMeshBuilt",
+        "navGeometryFromColliders",
+        "appendBox"
+      ],
+      "useWhen": "Agents must find their way around free-form 3D geometry (walls at any angle, ramps, decks) rather than a tile grid or authored graph.",
+      "limitations": [
+        "Single solo navmesh, rebuilt whole by build(); no tiled or streamed meshes yet.",
+        "Colliders feed it as boxes (balls, capsules, cylinders as bounding boxes); dynamic bodies are ignored.",
+        "No crowd avoidance between agents.",
+        "Grids and graphs should keep mechanics/navigation.",
+        "Adds a ~1 MB lazy WASM chunk."
+      ],
+      "docs": [
+        "docs/reference/navmesh.md"
+      ],
+      "examples": [
+        "games/sandbox/plugins/sandbox-navmesh/index.ts"
+      ],
+      "tests": [
+        "tests/navigation-recast.test.ts",
+        "games/sandbox/tests/navmesh.test.ts"
+      ],
+      "dependencies": {
+        "std/transform": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {
+        "autoBuild": {
+          "type": "boolean",
+          "label": "Build from static colliders on the first tick",
+          "default": true
+        },
+        "cellSize": {
+          "type": "number",
+          "label": "Voxel size (m)",
+          "default": 0.2,
+          "min": 0.05,
+          "max": 2
+        },
+        "agentRadius": {
+          "type": "number",
+          "label": "Agent radius (m)",
+          "default": 0.4,
+          "min": 0,
+          "max": 5
+        },
+        "agentHeight": {
+          "type": "number",
+          "label": "Agent height (m)",
+          "default": 1.8,
+          "min": 0.2,
+          "max": 10
+        },
+        "maxClimb": {
+          "type": "number",
+          "label": "Max step height (m)",
+          "default": 0.4,
+          "min": 0,
+          "max": 5
+        },
+        "maxSlope": {
+          "type": "number",
+          "label": "Max slope (degrees)",
+          "default": 45,
+          "min": 0,
+          "max": 89
+        },
+        "debugDraw": {
+          "type": "boolean",
+          "label": "Draw the navmesh and agent paths when debug drawing is on",
+          "default": true
+        }
+      },
+      "enable": [
+        "std/navigation-recast",
+        "std/transform"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/navmesh",
+          "name": "Navmesh Sandbox (P3.5)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
         }
       ],
       "recipes": []
@@ -11726,6 +11919,13 @@
           "roles": {
             "sdk/experience": "sandbox/physics"
           }
+        },
+        {
+          "id": "sandbox/navmesh",
+          "name": "Navmesh Sandbox (P3.5)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
         }
       ],
       "recipes": []
@@ -11792,6 +11992,13 @@
         {
           "id": "sandbox/physics",
           "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        },
+        {
+          "id": "sandbox/navmesh",
+          "name": "Navmesh Sandbox (P3.5)",
           "roles": {
             "sdk/experience": "sandbox/physics"
           }
@@ -11943,6 +12150,13 @@
         {
           "id": "sandbox/physics",
           "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        },
+        {
+          "id": "sandbox/navmesh",
+          "name": "Navmesh Sandbox (P3.5)",
           "roles": {
             "sdk/experience": "sandbox/physics"
           }
@@ -13448,6 +13662,32 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/appendBox",
+      "type": "contract",
+      "name": "appendBox",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/navmesh.ts:90",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "appendBox"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/navigation-recast"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -16115,6 +16355,88 @@
       "implementations": []
     },
     {
+      "id": "sdk/NavAgent",
+      "type": "contract",
+      "name": "NavAgent",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/nav-agent",
+      "importFrom": "packages/sdk/src/index.ts",
+      "token": "sdk/nav-agent",
+      "source": "packages/sdk/src/contracts/navmesh.ts:70",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "NavAgent",
+        "sdk/nav-agent"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/navigation-recast"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/NavAgentState",
+      "type": "contract",
+      "name": "NavAgentState",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/nav-agent-state",
+      "importFrom": "packages/sdk/src/index.ts",
+      "token": "sdk/nav-agent-state",
+      "source": "packages/sdk/src/contracts/navmesh.ts:80",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "NavAgentState",
+        "sdk/nav-agent-state"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/navigation-recast"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/navGeometryFromColliders",
+      "type": "contract",
+      "name": "navGeometryFromColliders",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/navmesh.ts:106",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "navGeometryFromColliders"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/navigation-recast"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/NavigationRole",
       "type": "contract",
       "name": "NavigationRole",
@@ -16148,6 +16470,62 @@
       "implementations": [
         "mechanics/navigation"
       ]
+    },
+    {
+      "id": "sdk/NavMesh",
+      "type": "contract",
+      "name": "NavMesh",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/navmesh",
+      "importFrom": "packages/sdk/src/index.ts",
+      "token": "sdk/navmesh",
+      "source": "packages/sdk/src/contracts/navmesh.ts:58",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "NavMesh",
+        "sdk/navmesh"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/navigation-recast"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/NavMeshBuilt",
+      "type": "contract",
+      "name": "NavMeshBuilt",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/navmesh-built",
+      "importFrom": "packages/sdk/src/index.ts",
+      "token": "sdk/navmesh-built",
+      "source": "packages/sdk/src/contracts/navmesh.ts:83",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "NavMeshBuilt",
+        "sdk/navmesh-built"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/navigation-recast"
+      ],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "sdk/objectiveMechanic",
@@ -19549,7 +19927,7 @@
       "scope": "contract",
       "summary": "Game-family contract value",
       "importFrom": "games/sandbox/contracts/sandbox.ts",
-      "source": "games/sandbox/contracts/sandbox.ts:29",
+      "source": "games/sandbox/contracts/sandbox.ts:33",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -19574,7 +19952,7 @@
       "scope": "contract",
       "summary": "Game-family contract value",
       "importFrom": "games/sandbox/contracts/sandbox.ts",
-      "source": "games/sandbox/contracts/sandbox.ts:28",
+      "source": "games/sandbox/contracts/sandbox.ts:32",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -19627,7 +20005,7 @@
       "summary": "Game-family contract value: sandbox/glow",
       "importFrom": "games/sandbox/contracts/sandbox.ts",
       "token": "sandbox/glow",
-      "source": "games/sandbox/contracts/sandbox.ts:23",
+      "source": "games/sandbox/contracts/sandbox.ts:27",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -19654,7 +20032,7 @@
       "summary": "Game-family contract value: sandbox/goal",
       "importFrom": "games/sandbox/contracts/sandbox.ts",
       "token": "sandbox/goal",
-      "source": "games/sandbox/contracts/sandbox.ts:25",
+      "source": "games/sandbox/contracts/sandbox.ts:29",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -19664,6 +20042,33 @@
         "SandboxGoal",
         "sandbox",
         "sandbox/goal"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/sandbox/SandboxNav",
+      "type": "contract",
+      "name": "SandboxNav",
+      "scope": "contract",
+      "summary": "Game-family contract value: sandbox/nav",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "token": "sandbox/nav",
+      "source": "games/sandbox/contracts/sandbox.ts:22",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SandboxNav",
+        "sandbox",
+        "sandbox/nav"
       ],
       "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -21563,6 +21968,23 @@
         "std/physics-rapier",
         "sandbox/game",
         "sandbox/presentation"
+      ],
+      "roles": {
+        "sdk/experience": "sandbox/physics"
+      }
+    },
+    {
+      "id": "sandbox/navmesh",
+      "name": "Navmesh Sandbox (P3.5)",
+      "plugins": [
+        "std/transform",
+        "std/assets",
+        "std/render-sync",
+        "std/physics-rapier",
+        "std/navigation-recast",
+        "sandbox/game",
+        "sandbox/presentation",
+        "sandbox/navmesh"
       ],
       "roles": {
         "sdk/experience": "sandbox/physics"

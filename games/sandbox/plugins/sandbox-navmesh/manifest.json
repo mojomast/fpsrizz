@@ -1,0 +1,15 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "sandbox/navmesh",
+  "name": "Sandbox navmesh follower",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "A follower that chases the sandbox hero across the walls, crates and glTF ramp on a navmesh built by std/navigation-recast, with its path shown as breadcrumbs.",
+  "dependencies": {
+    "sandbox/game": "^1.0.0",
+    "std/navigation-recast": "^1.0.0"
+  },
+  "capabilities": ["simulation"]
+}

@@ -10,6 +10,7 @@ const TICK = 60;
 const cases = [
   ...Object.keys(presets).sort().map((t) => ({ name: `template-${t}`, preset: presets[t] })),
   { name: 'preset-sandbox-physics', id: 'sandbox/physics' },
+  { name: 'preset-sandbox-navmesh', id: 'sandbox/navmesh' },
   { name: 'preset-core-default', id: 'core/default' },
   { name: 'preset-ember-bastion', id: 'ember/bastion' },
 ];

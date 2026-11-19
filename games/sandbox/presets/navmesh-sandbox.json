@@ -1,0 +1,1 @@
+{"$schema": "../../../schemas/preset.schema.json", "schema": 1, "id": "sandbox/navmesh", "name": "Navmesh Sandbox (P3.5)", "plugins": ["std/transform", "std/assets", "std/render-sync", "std/physics-rapier", "std/navigation-recast", "sandbox/game", "sandbox/presentation", "sandbox/navmesh"], "roles": {"sdk/experience": "sandbox/physics"}, "seed": 3}

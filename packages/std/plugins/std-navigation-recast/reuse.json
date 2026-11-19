@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Navmesh pathfinding for non-grid 3D worlds (Recast/Detour): built from static colliders or triangles, path and nearest-point queries, NavAgent steering.",
+  "keywords": ["navmesh", "navigation mesh", "recast", "detour", "pathfinding", "path", "ai movement", "follow", "chase", "ramp", "agent"],
+  "entryPoints": ["NavMesh", "NavAgent", "NavAgentState", "NavMeshBuilt", "navGeometryFromColliders", "appendBox"],
+  "useWhen": "Agents must find their way around free-form 3D geometry (walls at any angle, ramps, decks) rather than a tile grid or authored graph.",
+  "limitations": ["Single solo navmesh, rebuilt whole by build(); no tiled or streamed meshes yet.", "Colliders feed it as boxes (balls, capsules, cylinders as bounding boxes); dynamic bodies are ignored.", "No crowd avoidance between agents.", "Grids and graphs should keep mechanics/navigation.", "Adds a ~1 MB lazy WASM chunk."],
+  "docs": ["docs/reference/navmesh.md"],
+  "examples": ["games/sandbox/plugins/sandbox-navmesh/index.ts"],
+  "tests": ["tests/navigation-recast.test.ts", "games/sandbox/tests/navmesh.test.ts"]
+}

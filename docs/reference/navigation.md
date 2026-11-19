@@ -3,6 +3,7 @@
 `mechanics/navigation` implements pure, deterministic shortest-step queries over a finite, caller-authored graph.
 Stonewake uses canonical first hops for golem pursuit; Signal Break uses shortest distances for movement reachability.
 Games define legal neighbors and decide what a successful query means for movement or resource costs.
+For free-form 3D levels (ramps, walls at any angle) use the navmesh plugin instead: [navmesh.md](navmesh.md).
 
 ## Compose it
 

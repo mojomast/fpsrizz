@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `2b794943795975a1546d2c2f4686b8f955d4f5017d87ca609c393dc804b8c8db`
+Source digest: `bdb64febf96aa132caffe1ca3157c56a7ab5c8f2a13b2f1a18f3944aaa30b8de`
 
 ## Composition recipes
 
@@ -122,6 +122,7 @@ Source digest: `2b794943795975a1546d2c2f4686b8f955d4f5017d87ca609c393dc804b8c8db
 | `salt/game` | family | Salt Ledger party campaign, tracked side quests, equipment, party bonds and tactical battles with cover, hazards and obstacles. | [source](../../games/expeditions/plugins/salt-rpg-game) |
 | `salt/presentation` | presentation | Responsive Salt Ledger party and tactical board interface. | [source](../../games/expeditions/plugins/salt-rpg-presentation) |
 | `sandbox/game` | family | Physics sandbox game: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors). | [source](../../games/sandbox/plugins/sandbox-game) |
+| `sandbox/navmesh` | unreviewed | A follower that chases the sandbox hero across the walls, crates and glTF ramp on a navmesh built by std/navigation-recast, with its path shown as breadcrumbs. | [source](../../games/sandbox/plugins/sandbox-navmesh) |
 | `sandbox/presentation` | family | Physics sandbox presentation: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors). | [source](../../games/sandbox/plugins/sandbox-presentation) |
 | `shooter/transform3d` | family | Mirrors the shooter's planar Transform into SDK 3 Transform3D/PrevTransform. | [source](../../games/shooter/plugins/shooter-transform3d) |
 | `silt/content` | content | Three districts of four-socket chambers for The Silt Archive. | [source](../../games/expeditions/plugins/silt-content) |
@@ -131,6 +132,7 @@ Source digest: `2b794943795975a1546d2c2f4686b8f955d4f5017d87ca609c393dc804b8c8db
 | `sky/game` | family | Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines. | [source](../../games/sky/plugins/sky-game) |
 | `sky/presentation` | unreviewed | Volumetric floating islands and drone cockpit HUD. | [source](../../games/sky/plugins/sky-presentation) |
 | `std/assets` | cross-genre | glTF/GLB model loading (Meshopt, KTX2) for Renderable.model, with shared GPU resources and per-node instances. | [source](../../packages/std/plugins/std-assets) |
+| `std/navigation-recast` | cross-genre | Navmesh pathfinding for non-grid 3D worlds (Recast/Detour): built from static colliders or triangles, path and nearest-point queries, NavAgent steering. | [source](../../packages/std/plugins/std-navigation-recast) |
 | `std/physics-rapier` | cross-genre | Rapier 3D physics: rigid bodies, colliders, sensors/triggers, raycasts and a kinematic character controller. | [source](../../packages/std/plugins/std-physics-rapier) |
 | `std/render-sync` | presentation | Generic render sync: Renderable shapes, prefabs and glTF models posed from interpolated Transform3D. | [source](../../packages/std/plugins/std-render-sync) |
 | `std/scene` | cross-genre | Data prefabs (component bags with extends/overrides), a Godot-style scene tree format, and Tiled / LDtk level importers. | [source](../../packages/std/plugins/std-scene) |
@@ -158,6 +160,7 @@ Source digest: `2b794943795975a1546d2c2f4686b8f955d4f5017d87ca609c393dc804b8c8db
 | `sdk/ActionMechanicRole` | contract | Public SDK value: sdk/mechanic-actions | [source](../../packages/sdk/src/contracts/mechanics.ts#L102) |
 | `sdk/ActorRenderers` | contract | Public SDK value: actor-renderer | [source](../../packages/sdk/src/render.ts#L99) |
 | `sdk/angleDelta` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/game.ts#L416) |
+| `sdk/appendBox` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/navmesh.ts#L90) |
 | `sdk/applyDeadzone` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/input.ts#L52) |
 | `sdk/applyPrefabComponents` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L220) |
 | `sdk/Assets` | contract | Public SDK value: sdk/assets | [source](../../packages/sdk/src/contracts/assets.ts#L37) |
@@ -253,7 +256,12 @@ Source digest: `2b794943795975a1546d2c2f4686b8f955d4f5017d87ca609c393dc804b8c8db
 | `sdk/Models` | contract | Public SDK value: sdk/models | [source](../../packages/sdk/src/render.ts#L122) |
 | `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](../../packages/sdk/src/contracts/game.ts#L353) |
 | `sdk/morphChildren` | contract | Public helper/class | [source](../../packages/sdk/src/dom-morph.ts#L10) |
+| `sdk/NavAgent` | contract | Public SDK value: sdk/nav-agent | [source](../../packages/sdk/src/contracts/navmesh.ts#L70) |
+| `sdk/NavAgentState` | contract | Public SDK value: sdk/nav-agent-state | [source](../../packages/sdk/src/contracts/navmesh.ts#L80) |
+| `sdk/navGeometryFromColliders` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/navmesh.ts#L106) |
 | `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](../../packages/sdk/src/contracts/navigation.ts#L34) |
+| `sdk/NavMesh` | contract | Public SDK value: sdk/navmesh | [source](../../packages/sdk/src/contracts/navmesh.ts#L58) |
+| `sdk/NavMeshBuilt` | contract | Public SDK value: sdk/navmesh-built | [source](../../packages/sdk/src/contracts/navmesh.ts#L83) |
 | `sdk/objectiveMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/mechanics.ts#L142) |
 | `sdk/ObjectiveMechanicRole` | contract | Public SDK value: sdk/mechanic-objectives | [source](../../packages/sdk/src/contracts/mechanics.ts#L103) |
 | `sdk/ObjectiveProviders` | contract | Public SDK value: mechanic-objective-provider | [source](../../packages/sdk/src/contracts/mechanics.ts#L99) |
@@ -376,11 +384,12 @@ Source digest: `2b794943795975a1546d2c2f4686b8f955d4f5017d87ca609c393dc804b8c8db
 | `games/puzzles/PuzzleResolved` | contract | Game-family contract value: puzzle/resolved | [source](../../games/puzzles/contracts/puzzle.ts#L46) |
 | `games/racing/Race` | contract | Game-family contract value: vehicle/race | [source](../../games/racing/contracts/racing.ts#L41) |
 | `games/racing/RaceTracks` | contract | Game-family contract value: vehicle/track | [source](../../games/racing/contracts/racing.ts#L21) |
-| `games/sandbox/DISPLAY_MODEL` | contract | Game-family contract value | [source](../../games/sandbox/contracts/sandbox.ts#L29) |
-| `games/sandbox/LEVEL_MODEL` | contract | Game-family contract value | [source](../../games/sandbox/contracts/sandbox.ts#L28) |
+| `games/sandbox/DISPLAY_MODEL` | contract | Game-family contract value | [source](../../games/sandbox/contracts/sandbox.ts#L33) |
+| `games/sandbox/LEVEL_MODEL` | contract | Game-family contract value | [source](../../games/sandbox/contracts/sandbox.ts#L32) |
 | `games/sandbox/Sandbox` | contract | Game-family contract value: sandbox/state | [source](../../games/sandbox/contracts/sandbox.ts#L18) |
-| `games/sandbox/SandboxGlow` | contract | Game-family contract value: sandbox/glow | [source](../../games/sandbox/contracts/sandbox.ts#L23) |
-| `games/sandbox/SandboxGoal` | contract | Game-family contract value: sandbox/goal | [source](../../games/sandbox/contracts/sandbox.ts#L25) |
+| `games/sandbox/SandboxGlow` | contract | Game-family contract value: sandbox/glow | [source](../../games/sandbox/contracts/sandbox.ts#L27) |
+| `games/sandbox/SandboxGoal` | contract | Game-family contract value: sandbox/goal | [source](../../games/sandbox/contracts/sandbox.ts#L29) |
+| `games/sandbox/SandboxNav` | contract | Game-family contract value: sandbox/nav | [source](../../games/sandbox/contracts/sandbox.ts#L22) |
 | `games/shooter/AiBehaviors` | contract | Game-family contract value: ai-behavior | [source](../../games/shooter/contracts/shooter.ts#L304) |
 | `games/shooter/AmmoTypes` | contract | Game-family contract value: ammo | [source](../../games/shooter/contracts/shooter.ts#L201) |
 | `games/shooter/AttackBehaviors` | contract | Game-family contract value: attack-behavior | [source](../../games/shooter/contracts/shooter.ts#L160) |
