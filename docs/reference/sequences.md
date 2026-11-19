@@ -152,8 +152,8 @@ replacement, with the default registry entry absent.
 |---|---|
 | `tests/mechanics-sequence.test.ts` | Hand-derived A,B × 2 trace, one-step repeated rounds, malformed definitions/keys, safe totals, detached frozen input, owner isolation, absent/present pause service, failed-construction cleanup, early release, duplicate-ID rejection, stale same-ID handles, both scopes, restart |
 | `games/racing/tests/overhead-racing.test.ts` | Existing input-only circuit victory, direction/order checks, drift and timeout, deterministic restart; terminal cursor; one gate per tick and final-crossing-before-timeout boundary; missing selection/factory staging failures |
-| `tests/racing.test.ts` | Existing multigate sweep, timeout, wall-respecting controller and content rejection; physical-order non-retroactivity, fractional deadlines, controller-only composition, missing selection/factory staging failures preserving the live session |
-| `tests/race-track.test.ts` | Existing sealed Foundry map and real-controller collision-clearance route to victory |
+| `games/shooter/tests/racing.test.ts` | Existing multigate sweep, timeout, wall-respecting controller and content rejection; physical-order non-retroactivity, fractional deadlines, controller-only composition, missing selection/factory staging failures preserving the live session |
+| `games/shooter/tests/race-track.test.ts` | Existing sealed Foundry map and real-controller collision-clearance route to victory |
 
 All original gameplay assertions in these three consumer test files are retained and exercised under both providers.
 This establishes contract, composition and independent substitution evidence, not equivalence for every possible
@@ -162,7 +162,7 @@ custom provider. Browser acceptance remains part of the repository-wide build/sm
 Focused command:
 
 ```sh
-node --test tests/mechanics-sequence.test.ts games/racing/tests/overhead-racing.test.ts tests/racing.test.ts tests/race-track.test.ts
+node --test tests/mechanics-sequence.test.ts games/racing/tests/overhead-racing.test.ts games/shooter/tests/racing.test.ts games/shooter/tests/race-track.test.ts
 ```
 
 See also [reuse discovery](../guide/reuse.md), [mechanic composition](reusable-mechanics.md) and the

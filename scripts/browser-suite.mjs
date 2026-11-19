@@ -16,18 +16,18 @@ export const SUITES = [
   ['mini3', 'tests/mini3-demo/run.cjs'],
   ['platform', 'tests/platform-demo/run.cjs'],
   ['shell', 'tests/shell-demo/run.cjs'],
-  ['hud', 'tests/hud-demo/run.cjs'],
-  ['presentation', 'tests/presentation-demo/run.cjs'],
+  ['hud', 'games/shooter/tests/hud-demo/run.cjs'],
+  ['presentation', 'games/shooter/tests/presentation-demo/run.cjs'],
   ['composer', 'tests/composer-demo/run.mjs'],
   ['creator', 'tests/creator-demo/run.mjs'],
-  ['genre', 'tests/genre-demo/run.mjs'],
-  ['hollowmere', 'tests/hollowmere-demo/run.mjs'],
-  ['cinder', 'tests/cinder-demo/run.mjs'],
-  ['stonewake', 'tests/stonewake-demo/run.mjs'],
-  ['salt-ledger', 'tests/salt-ledger-demo/run.mjs'],
-  ['silt-archive', 'tests/silt-archive-demo/run.mjs'],
-  ['common-ground', 'tests/common-ground-demo/run.mjs'],
-  ['sandbox', 'tests/sandbox-demo/run.mjs'],
+  ['genre', 'games/shooter/tests/genre-demo/run.mjs'],
+  ['hollowmere', 'games/hollowmere/tests/hollowmere-demo/run.mjs'],
+  ['cinder', 'games/cinder/tests/cinder-demo/run.mjs'],
+  ['stonewake', 'games/puzzles/tests/stonewake-demo/run.mjs'],
+  ['salt-ledger', 'games/expeditions/tests/salt-ledger-demo/run.mjs'],
+  ['silt-archive', 'games/expeditions/tests/silt-archive-demo/run.mjs'],
+  ['common-ground', 'games/expeditions/tests/common-ground-demo/run.mjs'],
+  ['sandbox', 'games/sandbox/tests/sandbox-demo/run.mjs'],
   ['inspector', 'tests/inspector-demo/run.mjs'],
   ['reusable-games', 'tests/reusable-games-demo/run.mjs'],
   ['portfolio-qol', 'tests/portfolio-qol-demo/run.mjs'],
@@ -36,7 +36,7 @@ export const SUITES = [
 /** Suites that fail on main today; run with --all or by name. Fix them, then move them into SUITES. */
 export const KNOWN_FAILING = [
   // Asserts zero DOM mutations in an idle 1.5 s window; the visor HUD currently writes ~18 times.
-  ['ext-hud', 'tests/ext-hud/run.mjs'],
+  ['ext-hud', 'games/shooter/tests/ext-hud/run.mjs'],
   // Tactics step intermittently times out clicking a cell that re-renders under the pointer.
   ['experience', 'tests/experience-demo/run.mjs'],
 ];

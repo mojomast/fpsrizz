@@ -57,9 +57,9 @@
     "games/shooter/plugins/core-presentation/index.ts"
   ],
   "tests": [
-    "tests/cinder-demo/run.mjs",
+    "games/cinder/tests/cinder-demo/run.mjs",
     "games/cinder/tests/cinder-vault.test.ts",
-    "tests/hollowmere-demo/run.mjs",
+    "games/hollowmere/tests/hollowmere-demo/run.mjs",
     "games/hollowmere/tests/hollowmere.test.ts"
   ]
 }

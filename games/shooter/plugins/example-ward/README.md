@@ -10,4 +10,4 @@ Effect and modifier factories register at staging. Activation installs a session
 
 ## Verify
 
-Run `node --test tests/ward-effect.test.ts tests/adventure-pack.test.ts` from the repository root.
+Run `node --test games/shooter/tests/ward-effect.test.ts games/shooter/tests/adventure-pack.test.ts` from the repository root.

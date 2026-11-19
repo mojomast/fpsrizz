@@ -10,4 +10,4 @@ The mode and its power damage modifier register at staging. Selecting the mode s
 
 ## Verify
 
-Run `node --test tests/roguelite.test.ts` from the repository root.
+Run `node --test games/shooter/tests/roguelite.test.ts` from the repository root.

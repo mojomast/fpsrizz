@@ -10,4 +10,4 @@ Registration supplies the role and validates the player prefab and map. On selec
 
 ## Verify
 
-Run `node --test tests/escape-mode.test.ts` from the repository root.
+Run `node --test games/shooter/tests/escape-mode.test.ts` from the repository root.

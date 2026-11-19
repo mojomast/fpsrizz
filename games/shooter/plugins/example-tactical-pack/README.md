@@ -10,4 +10,4 @@ Content registers at staging; this pack has no activation system, role or config
 
 ## Verify
 
-Run `node --test tests/tactical-pack.test.ts tests/tactical-magazine.test.ts` from the repository root. See [content formats](../../../../docs/reference/content-format.md).
+Run `node --test games/shooter/tests/tactical-pack.test.ts games/shooter/tests/tactical-magazine.test.ts` from the repository root. See [content formats](../../../../docs/reference/content-format.md).

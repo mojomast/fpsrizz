@@ -47,7 +47,7 @@ All commands ran against the integrated workspace using installed Node **22.19.0
 | `npm run smoke` | **37/37 checks passed** | `.smoke/smoke-report.json` |
 | `node tests/experience-demo/run.mjs` | **5 acceptance groups passed**, no reported browser errors; includes Story completion/save/load and family switching | `.smoke/experience-report.json` |
 | `node tests/reusable-games-demo/run.mjs` | **10 acceptance groups passed**, no reported browser errors | `.smoke/reusable-games-report.json` |
-| `node tests/stonewake-demo/run.mjs` | **5 acceptance groups passed**, no reported browser errors | `.smoke/stonewake-report.json` |
+| `node games/puzzles/tests/stonewake-demo/run.mjs` | **5 acceptance groups passed**, no reported browser errors | `.smoke/stonewake-report.json` |
 
 Browser command logs use `/tmp/opencode/general-capabilities-{smoke,experience-browser,games-browser,stonewake-browser}.log`.
 These results establish automated production-browser coverage; they do not add hands-on pointer-lock or subjective audio

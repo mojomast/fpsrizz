@@ -290,7 +290,7 @@ ownership and restart. `tests/dungeon-generator.test.ts` verifies layouts, conne
 enrage, the new enemy/`cinder/manual` registrations, the Oracle blood pact, field-guide blocking, one-tile action-point
 turns, suspended autonomous AI, enemy intent and damage, inventory consumption/equipment, in-level level-up, weapon caches,
 all three depths, the Keeper, validation, pause/death/profile/restart and pulse legality under default and independent
-progression. `tests/cinder-demo/run.mjs` runs the production bundle: threat/class select, field guide, live
+progression. `games/cinder/tests/cinder-demo/run.mjs` runs the production bundle: threat/class select, field guide, live
 movement/fire/end-turn, isometric hover preview, inventory, non-modal boon selection at desktop and phone sizes, all depth
 transitions, victory and restart. Journey combat encounters are accelerated via the public combat service; controller, turn,
 inventory and HUD behavior is exercised before/during that route.
@@ -303,7 +303,7 @@ inventory and HUD behavior is exercised before/during that route.
   turn, inventory, map/grid, camera/avatar, NPC/forge, all-depth and independent-progression suites.
 - `npm run validate-game -- --bundled`: **24 presets staged**, including `cinder/vault`.
 - `npm run build`: passed; production `dist/` built.
-- `node tests/cinder-demo/run.mjs`: **6/6**, covering class and threat selection, class/depth transitions, field guide,
+- `node games/cinder/tests/cinder-demo/run.mjs`: **6/6**, covering class and threat selection, class/depth transitions, field guide,
   first-person/isometric view with avatar, isometric AP hover preview, camera rotation/picking, bottom-center weapon
   presentation, automap/tactical grid, NPC dialogue, forge overlay, filtered pack and drop, movement, firing, end turn,
   non-modal boons, all depths, victory and restart.

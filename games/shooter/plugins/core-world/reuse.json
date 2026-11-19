@@ -6,5 +6,5 @@
   "useWhen": "Extend a grid-authored planar shooter-family world or implement another compatible map format through MapFormats.",
   "limitations": ["Not a general 3D physics engine or a genre-neutral navigation provider; requires the shooter mode/world vocabulary."],
   "docs": ["docs/reference/architecture.md", "docs/reference/content-format.md"], "examples": ["games/shooter/plugins/example-keys/index.ts", "games/shooter/plugins/example-stealth/index.ts"],
-  "tests": ["tests/game-collision.test.ts", "tests/game-interactions.test.ts"]
+  "tests": ["games/shooter/tests/game-collision.test.ts", "games/shooter/tests/game-interactions.test.ts"]
 }

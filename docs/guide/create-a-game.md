@@ -54,7 +54,7 @@ ports; agents can edit the same graph JSON without coordinates. See [game-compos
    Add `--pack path/to/wrapped-pack.json` for each external import-format pack; the preset still must enable the pack
    and its dependencies. `npm run validate-game -- --bundled` checks all shipped presets. This stages registration and
    validation only: it cannot detect activation or gameplay failures.
-5. Add focused headless tests using `tests/helpers/game.ts`. `tests/ext-pack.test.ts` and `tests/ext-ricochet.test.ts`
+5. Add focused headless tests using `tests/helpers/game.ts`. `games/shooter/tests/ext-pack.test.ts` and `games/shooter/tests/ext-ricochet.test.ts`
    show catalog entries, preset composition and assertions. The helper's preset overrides are shallow: specifying
    `plugins` replaces the default list. Test activation, gameplay and restart/disposal as appropriate. UI and rendering
    are optional in headless sessions and need browser verification.

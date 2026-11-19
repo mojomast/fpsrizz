@@ -81,9 +81,9 @@ and the public `PushPuzzle`, `Tactics` and `Race` service shapes remain unchange
   resource/action/clock/objective games complete and retain stable replay/switching ownership after the clock migration.
 - `node tests/experience-demo/run.mjs`: **5 groups passed**, zero reported errors; includes NEON RUN's input-only
   two-lap victory and Signal Break's command-driven victory.
-- `node tests/stonewake-demo/run.mjs`: **5 groups passed**, zero reported errors; includes the three-chamber route,
+- `node games/puzzles/tests/stonewake-demo/run.mjs`: **5 groups passed**, zero reported errors; includes the three-chamber route,
   undo/retry, viewport/camera checks and ownership stability.
-- `node tests/genre-demo/run.mjs`: **11 presets passed**, including Foundry Circuit; no reported browser errors.
+- `node games/shooter/tests/genre-demo/run.mjs`: **11 presets passed**, including Foundry Circuit; no reported browser errors.
 - Independent read-only sequence/ownership integration review found no blockers; its focused run passed 106 tests.
 
 Initial concurrent browser runs were cut off by the tool's 120-second command limit before completion. Main acceptance

@@ -57,6 +57,6 @@
   ],
   "tests": [
     "games/cinder/tests/cinder-vault.test.ts",
-    "tests/cinder-demo/run.mjs"
+    "games/cinder/tests/cinder-demo/run.mjs"
   ]
 }

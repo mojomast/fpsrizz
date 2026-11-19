@@ -9,5 +9,5 @@
   "limitations": ["Needs a consumer to add PlayerAvatar and a ViewModes provider; the selected theme must define the visual key. It only manages a Visual component, not animation graphs, equipment visuals or collision."],
   "docs": ["docs/reference/camera-modes.md"],
   "examples": ["games/cinder/plugins/cinder-game/index.ts", "games/cinder/presets/cinder-vault.json"],
-  "tests": ["games/cinder/tests/cinder-vault.test.ts", "tests/cinder-demo/run.mjs"]
+  "tests": ["games/cinder/tests/cinder-vault.test.ts", "games/cinder/tests/cinder-demo/run.mjs"]
 }

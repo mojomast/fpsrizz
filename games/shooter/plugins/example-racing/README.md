@@ -12,4 +12,4 @@ Actions and roles register at staging; selection installs the session-owned driv
 
 ## Verify
 
-Run `node --test tests/racing.test.ts tests/race-track.test.ts` from the repository root.
+Run `node --test games/shooter/tests/racing.test.ts games/shooter/tests/race-track.test.ts` from the repository root.

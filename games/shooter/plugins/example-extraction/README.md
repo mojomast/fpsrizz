@@ -12,4 +12,4 @@ The effect and mode register during staging. Selecting the mode creates the play
 
 ## Verify
 
-Run `node --test tests/extraction.test.ts tests/extraction-map.test.ts` from the repository root.
+Run `node --test games/shooter/tests/extraction.test.ts games/shooter/tests/extraction-map.test.ts` from the repository root.

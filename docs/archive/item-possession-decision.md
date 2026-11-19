@@ -57,7 +57,7 @@ Primary inspected implementation evidence:
   [`contracts/shooter.ts`](../../games/shooter/contracts/shooter.ts): public state, transaction and inventory shapes.
 - [`mechanics-resources/index.ts`](../../src/plugins/mechanics-resources/index.ts),
   [`verdant-game/index.ts`](../../games/verdant/plugins/verdant-game/index.ts): actual provider and working resource consumer.
-- [`keys-gates.test.ts`](../../tests/keys-gates.test.ts), [`key-dungeon.test.ts`](../../tests/key-dungeon.test.ts),
+- [`keys-gates.test.ts`](../../games/shooter/tests/keys-gates.test.ts), [`key-dungeon.test.ts`](../../games/shooter/tests/key-dungeon.test.ts),
   [`narrative-adventure.test.ts`](../../games/adventure/tests/narrative-adventure.test.ts),
   [`mechanics-providers.test.ts`](../../tests/mechanics-providers.test.ts): existing behavioral assertions.
 

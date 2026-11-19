@@ -381,7 +381,7 @@ Concrete gates:
 - **Performance:** profile representative hardware and asset budgets; software-rendered smoke timing is not a GPU benchmark.
 - **Accessibility:** keyboard/gamepad focus as applicable, readable text, non-color-only signals, remapping and adjustable motion/audio.
 
-The current `tests/genre-demo/run.mjs` proves startup/HUD/movement/firing for several presets. It does not establish
+The current `games/shooter/tests/genre-demo/run.mjs` proves startup/HUD/movement/firing for several presets. It does not establish
 genre identity or a complete loop. New browser scenarios should exercise each genre's defining action and transitions.
 
 Use human playtests alongside automation: without seeing the title, can players identify the game's verbs, priorities

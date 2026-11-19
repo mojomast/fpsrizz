@@ -12,4 +12,4 @@ The mode registers during staging; selecting it spawns the player and installs s
 
 ## Verify
 
-Run `node --test tests/arena-mode.test.ts` from the repository root.
+Run `node --test games/shooter/tests/arena-mode.test.ts` from the repository root.

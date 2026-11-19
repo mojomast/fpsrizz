@@ -161,8 +161,8 @@
       "tests": [
         "tests/mechanics-sequence.test.ts",
         "games/racing/tests/overhead-racing.test.ts",
-        "tests/racing.test.ts",
-        "tests/race-track.test.ts"
+        "games/shooter/tests/racing.test.ts",
+        "games/shooter/tests/race-track.test.ts"
       ],
       "plugins": [
         "mechanics/sequence"
@@ -528,7 +528,7 @@
       ],
       "tests": [
         "tests/render-three.test.ts",
-        "tests/stonewake-demo/run.mjs"
+        "games/puzzles/tests/stonewake-demo/run.mjs"
       ],
       "plugins": [],
       "roles": {},
@@ -572,7 +572,7 @@
       ],
       "tests": [
         "tests/profile-store.test.ts",
-        "tests/arena-mode.test.ts"
+        "games/shooter/tests/arena-mode.test.ts"
       ],
       "plugins": [],
       "roles": {},
@@ -818,7 +818,7 @@
       "tests": [
         "tests/render-three.test.ts",
         "games/cinder/tests/cinder-vault.test.ts",
-        "tests/cinder-demo/run.mjs"
+        "games/cinder/tests/cinder-demo/run.mjs"
       ],
       "plugins": [
         "presentation/camera-modes",

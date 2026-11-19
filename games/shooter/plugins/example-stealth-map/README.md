@@ -10,4 +10,4 @@ Content registers at staging; this pack has no role, configuration or activation
 
 ## Verify
 
-Run `node --test tests/stealth-map.test.ts tests/stealth.test.ts` from the repository root. See [content formats](../../../../docs/reference/content-format.md).
+Run `node --test games/shooter/tests/stealth-map.test.ts games/shooter/tests/stealth.test.ts` from the repository root. See [content formats](../../../../docs/reference/content-format.md).

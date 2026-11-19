@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "8ceece9ab0705c8d799d8037f2c467ce5113797088ae58575e2fea7fcb41789b",
+  "sourceDigest": "5659019fdb35185f4a26e4428b4b75d939d2d9d78fd5598fef882ef6b09014e5",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -291,8 +291,8 @@
       "tests": [
         "tests/mechanics-sequence.test.ts",
         "games/racing/tests/overhead-racing.test.ts",
-        "tests/racing.test.ts",
-        "tests/race-track.test.ts"
+        "games/shooter/tests/racing.test.ts",
+        "games/shooter/tests/race-track.test.ts"
       ],
       "id": "recipe/ordered-rounds",
       "name": "Ordered steps repeated over finite rounds",
@@ -672,7 +672,7 @@
       ],
       "tests": [
         "tests/render-three.test.ts",
-        "tests/stonewake-demo/run.mjs"
+        "games/puzzles/tests/stonewake-demo/run.mjs"
       ],
       "id": "recipe/owned-3d-presentation",
       "name": "Owned 3D scenes, cameras and HUD",
@@ -718,7 +718,7 @@
       ],
       "tests": [
         "tests/profile-store.test.ts",
-        "tests/arena-mode.test.ts"
+        "games/shooter/tests/arena-mode.test.ts"
       ],
       "id": "recipe/profile-storage",
       "name": "Namespaced profile and best-score storage",
@@ -974,7 +974,7 @@
       "tests": [
         "tests/render-three.test.ts",
         "games/cinder/tests/cinder-vault.test.ts",
-        "tests/cinder-demo/run.mjs"
+        "games/cinder/tests/cinder-demo/run.mjs"
       ],
       "id": "recipe/isometric-camera-toggle",
       "name": "Toggleable first-person / isometric camera",
@@ -1734,7 +1734,7 @@
       ],
       "tests": [
         "games/cinder/tests/cinder-vault.test.ts",
-        "tests/cinder-demo/run.mjs"
+        "games/cinder/tests/cinder-demo/run.mjs"
       ],
       "dependencies": {
         "core/world": "^1.0.0",
@@ -1996,7 +1996,7 @@
       ],
       "tests": [
         "games/cinder/tests/cinder-vault.test.ts",
-        "tests/cinder-demo/run.mjs"
+        "games/cinder/tests/cinder-demo/run.mjs"
       ],
       "dependencies": {
         "cinder/game": "^1.0.0"
@@ -2324,9 +2324,9 @@
         "games/shooter/plugins/example-tactical-pack/content.json"
       ],
       "tests": [
-        "tests/game-combat.test.ts",
-        "tests/tactical-magazine.test.ts",
-        "tests/ext-ricochet.test.ts"
+        "games/shooter/tests/game-combat.test.ts",
+        "games/shooter/tests/tactical-magazine.test.ts",
+        "games/shooter/tests/ext-ricochet.test.ts"
       ],
       "dependencies": {
         "core/world": "^1.0.0"
@@ -4187,8 +4187,8 @@
         "games/shooter/plugins/example-stealth/index.ts"
       ],
       "tests": [
-        "tests/game-collision.test.ts",
-        "tests/game-interactions.test.ts"
+        "games/shooter/tests/game-collision.test.ts",
+        "games/shooter/tests/game-interactions.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -4955,7 +4955,7 @@
         "games/shooter/presets/arena-score.json"
       ],
       "tests": [
-        "tests/dash-controller.test.ts"
+        "games/shooter/tests/dash-controller.test.ts"
       ],
       "dependencies": {
         "core/player": "^1.0.0",
@@ -5546,8 +5546,8 @@
         "games/shooter/presets/key-dungeon.json"
       ],
       "tests": [
-        "tests/keys-gates.test.ts",
-        "tests/key-dungeon.test.ts"
+        "games/shooter/tests/keys-gates.test.ts",
+        "games/shooter/tests/key-dungeon.test.ts"
       ],
       "dependencies": {
         "core/world": "^1.0.0",
@@ -5798,8 +5798,8 @@
         "games/shooter/presets/racing.json"
       ],
       "tests": [
-        "tests/racing.test.ts",
-        "tests/race-track.test.ts"
+        "games/shooter/tests/racing.test.ts",
+        "games/shooter/tests/race-track.test.ts"
       ],
       "dependencies": {
         "core/world": "^1.0.0",
@@ -6448,7 +6448,7 @@
         "games/shooter/plugins/example-ward/index.ts"
       ],
       "tests": [
-        "tests/ward-effect.test.ts"
+        "games/shooter/tests/ward-effect.test.ts"
       ],
       "dependencies": {
         "core/combat": "^1.0.0"
@@ -6761,7 +6761,7 @@
       ],
       "tests": [
         "games/hollowmere/tests/hollowmere.test.ts",
-        "tests/hollowmere-demo/run.mjs"
+        "games/hollowmere/tests/hollowmere-demo/run.mjs"
       ],
       "dependencies": {
         "mechanics/platforming": "^1.0.0",
@@ -6921,7 +6921,7 @@
       ],
       "tests": [
         "games/hollowmere/tests/hollowmere.test.ts",
-        "tests/hollowmere-demo/run.mjs"
+        "games/hollowmere/tests/hollowmere-demo/run.mjs"
       ],
       "dependencies": {
         "hollowmere/game": "^1.0.0"
@@ -9061,8 +9061,8 @@
       "tests": [
         "tests/mechanics-sequence.test.ts",
         "games/racing/tests/overhead-racing.test.ts",
-        "tests/racing.test.ts",
-        "tests/race-track.test.ts"
+        "games/shooter/tests/racing.test.ts",
+        "games/shooter/tests/race-track.test.ts"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -10057,7 +10057,7 @@
       "tests": [
         "games/cinder/tests/cinder-vault.test.ts",
         "tests/render-three.test.ts",
-        "tests/cinder-demo/run.mjs"
+        "games/cinder/tests/cinder-demo/run.mjs"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -10212,7 +10212,7 @@
       ],
       "tests": [
         "games/cinder/tests/cinder-vault.test.ts",
-        "tests/cinder-demo/run.mjs"
+        "games/cinder/tests/cinder-demo/run.mjs"
       ],
       "dependencies": {},
       "optionalDependencies": {},
@@ -12309,9 +12309,9 @@
         "games/shooter/plugins/core-presentation/index.ts"
       ],
       "tests": [
-        "tests/cinder-demo/run.mjs",
+        "games/cinder/tests/cinder-demo/run.mjs",
         "games/cinder/tests/cinder-vault.test.ts",
-        "tests/hollowmere-demo/run.mjs",
+        "games/hollowmere/tests/hollowmere-demo/run.mjs",
         "games/hollowmere/tests/hollowmere.test.ts"
       ],
       "dependencies": {},

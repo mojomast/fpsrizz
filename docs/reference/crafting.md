@@ -67,4 +67,4 @@ a consumer-installed inventory provider violates its own atomic add/remove contr
 
 `tests/mechanics-crafting.test.ts` covers success, missing ingredients, unknown recipes, pause rejection and restoring
 inputs when the output cannot fit. `games/cinder/tests/cinder-vault.test.ts` covers the Cinder forge panel, known recipe list and NPC
-route. `tests/cinder-demo/run.mjs` captures the forge overlay in the production build.
+route. `games/cinder/tests/cinder-demo/run.mjs` captures the forge overlay in the production build.

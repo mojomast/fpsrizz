@@ -615,7 +615,7 @@ export default definePlugin({
 
 `tests/helpers/game.ts` builds the real host with the gameplay plugins and fake platform services:
 
-See `tests/ext-ricochet.test.ts` for a working example with imports, catalog, preset, assertions and teardown. The
+See `games/shooter/tests/ext-ricochet.test.ts` for a working example with imports, catalog, preset, assertions and teardown. The
 `headlessPreset` override is shallow: passing `plugins` replaces the whole default list. Include the required core
 plugins as well as your extension. The harness supplies input and flow, but no UI or renderer; test presentation in a
 browser as well. Call `game.host.stop()` during teardown.

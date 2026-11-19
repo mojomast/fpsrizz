@@ -344,10 +344,10 @@ the inventory with `npm run index-reuse` after source/catalog/metadata changes. 
 plays the real game in headless Chrome, including gameplay, restart, extensions and resource counts. The creator panel
 has its own browser test (`node tests/creator-demo/run.mjs`), which builds its own bundle. Both write to `.smoke/`.
 CI runs check and build; it does not run either browser suite. Browser performance depends on the available renderer.
-Run `node tests/genre-demo/run.mjs` after a build for browser startup, HUD and control checks on the earlier shooter-mode
+Run `node games/shooter/tests/genre-demo/run.mjs` after a build for browser startup, HUD and control checks on the earlier shooter-mode
 slices. `node tests/experience-demo/run.mjs` covers the independent games' completion routes and switching;
 `node tests/render-three-demo/run.mjs` checks native Three.js pixel/color/layer/disposal behavior.
-`node tests/stonewake-demo/run.mjs` completes all three 3D chambers through the UI and checks ray picking, camera orbit,
+`node games/puzzles/tests/stonewake-demo/run.mjs` completes all three 3D chambers through the UI and checks ray picking, camera orbit,
 golem capture/undo, responsive framing, pause and switching ownership.
 
 ## Known limitations
