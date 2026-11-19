@@ -34,7 +34,10 @@ npm run dev   # then open /?preset=moon-hop/default
 
 ## `npm create bulkhead`
 
-`packages/create-bulkhead` is the `create-bulkhead` wrapper. It is **not published** (and marked private) until the engine ships as npm packages (roadmap P0.2); for now it finds an engine checkout (cwd upwards or `--engine <dir>`) and runs `bulkhead create`:
+`packages/create-bulkhead` is the unscoped `create-bulkhead` package on npm, so `npm create bulkhead@latest <name> -- --template <t>`
+works anywhere. Inside an engine checkout (cwd upwards, or `--engine <dir>`) it runs that checkout's `bulkhead create`.
+Elsewhere it runs `git clone --depth 1 --branch v0.1.0` of the engine into `./<name>` (`--ref <tag|branch>` overrides
+the pinned release), `npm ci`, then `bulkhead create`. From a checkout you can also run it directly:
 
 ```sh
 node packages/create-bulkhead/index.mjs moon-hop --template platformer

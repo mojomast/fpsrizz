@@ -53,6 +53,9 @@ test('create-bulkhead CLI: parses options and plans checkout vs clone mode', () 
   assert.equal(elsewhere.mode, 'clone');
   assert.deepEqual(elsewhere.steps.map((s: { cmd: string }) => s.cmd), ['git', 'node']);
   assert.ok(elsewhere.steps[0].args.includes('--branch') && elsewhere.steps[0].args.includes('v0.1.0'));
+  const pinned = plan(parseArgs(['my-game']), '/');
+  assert.deepEqual(pinned.steps[0].args.slice(0, 5), ['clone', '--depth', '1', '--branch', 'v0.1.0'], 'clones the pinned release tag by default');
+  assert.ok(plan(parseArgs(['my-game', '--ref', 'main']), '/').steps[0].args.includes('main'));
 });
 
 test('create-bulkhead is publish-ready: npm pack contents and package metadata', () => {

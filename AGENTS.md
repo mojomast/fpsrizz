@@ -52,7 +52,7 @@ loading the complete `docs/reuse-index.json`. The CLI observes trusted registrat
 | `packages/kernel/src` | Runtime kernel: host, registries, entity store, buses, scheduler, scopes, validation. No game concepts, no DOM. |
 | `packages/sdk/src` | `@bulkhead/sdk`, SDK 3 public API: `index.ts` (entry), `core.ts` (generic, `SDK_VERSION`), `contracts/` (shared vocabulary: `game.ts`, spatial, physics, navmesh, input, audio, assets, scenes, experience, mechanics...), `render.ts` |
 | `packages/platform-web/src` | Browser adapters (input, audio, storage, ui, flow, render host); official Three.js behind the historical `render/mini3/index.ts` facade, vendored in `render/mini3/vendor/`; `legacy.ts` retains the old renderer for fixtures |
-| `packages/tools`, `packages/create-bulkhead` | `bulkhead` CLI bin (forwards to `scripts/bulkhead.mjs`); the `npm create bulkhead` wrapper (publish-ready, unpublished) |
+| `packages/tools`, `packages/create-bulkhead` | `bulkhead` CLI bin (forwards to `scripts/bulkhead.mjs`); the `npm create bulkhead` wrapper (`create-bulkhead` on npm; clones the `v0.1.0` tag by default) |
 | `src/app` | Composition root: `main.ts` (frame loop), `catalog.ts` (presets; re-exports the generated `catalog.generated.ts`), `shell.ts`, `creator.ts` |
 | `packages/std/plugins/<ns>-<name>` | Shared plugins only: mechanics providers, presentation, themes, `dungeon-generator`. New plugins are scaffolded here, then moved to a family with `npm run move-to-game` |
 | `games/<family>/` | One game family: `plugins/<name>/`, `contracts/` (family-only SDK vocabulary; shooter-only contracts are in `games/shooter/contracts/shooter.ts`), `presets/`, `tests/` (unit tests and `<name>-demo` browser demos), `family.json` (`uses`), `README.md` and `docs/` |

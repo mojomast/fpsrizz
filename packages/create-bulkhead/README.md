@@ -12,7 +12,8 @@ tests and an `AGENTS.md` for coding agents.
 
 - **Inside an engine checkout** (the current folder or a parent has `scripts/scaffold-lib.mjs`), or with
   `--engine <dir>`, the game is added as `games/<name>/` using that checkout's scaffolder.
-- **Anywhere else** the engine is cloned into `./<name>` (`git clone --depth 1`, `--ref <tag|branch>` to pin), installed
+- **Anywhere else** the engine release `v0.1.0` is cloned into `./<name>` (`git clone --depth 1 --branch v0.1.0`;
+  `--ref <tag|branch>` picks another, e.g. `--ref main` for the latest), installed
   with `npm ci` (skip with `--no-install`), and the game is added inside it.
 - `--dry-run` prints the steps without running them.
 
