@@ -49,7 +49,7 @@ export function createPerfHud(parent: HTMLElement): { readonly visible: boolean;
         el = parent.ownerDocument.createElement('div');
         el.className = 'perf-hud';
         el.setAttribute('aria-hidden', 'true');
-        el.style.cssText = 'position:absolute;top:6px;left:6px;z-index:40;pointer-events:none;font:11px/1.35 ui-monospace,monospace;color:#dfe;background:#000b;padding:6px 8px;border:1px solid #fff2;white-space:pre;min-width:190px';
+        el.style.cssText = 'position:absolute;top:6px;left:6px;z-index:40;pointer-events:none;font:11px/1.35 ui-monospace,monospace;color:#dfe;background:#000b;padding:6px 8px;border:1px solid #fff2;display:grid;grid-template-columns:minmax(0,max-content) max-content;column-gap:12px;white-space:nowrap;min-width:190px;max-width:min(360px,60vw)';
         parent.append(el);
       }
       if (el) el.hidden = !on;
@@ -57,7 +57,10 @@ export function createPerfHud(parent: HTMLElement): { readonly visible: boolean;
     update(s) {
       if (!visible || !el) return;
       const top = [...s.systems].sort((a, b) => b.ms - a.ms).slice(0, 4);
-      const line = (label: string, value: string, color = '#dfe'): string => `<span style="color:#8a9">${label.padEnd(9)}</span><span style="color:${color}">${value}</span>`;
+      // Two-column grid: labels truncate with an ellipsis, values stay right-aligned and never overlap.
+      const esc = (t: string): string => t.replace(/[&<>"]/g, (c) => `&#${c.charCodeAt(0)};`);
+      const line = (label: string, value: string, color = '#dfe'): string =>
+        `<span style="color:#8a9;overflow:hidden;text-overflow:ellipsis" title="${esc(label)}">${esc(label)}</span><span style="color:${color};text-align:right">${esc(value)}</span>`;
       el.innerHTML = [
         line('FPS', s.fps.toFixed(0), s.fps >= 55 ? '#6f6' : s.fps >= 30 ? '#fd4' : '#f66'),
         line('CPU', `${s.frameMs.toFixed(2)} ms`, tone(s.frameMs)),
@@ -66,8 +69,8 @@ export function createPerfHud(parent: HTMLElement): { readonly visible: boolean;
         line('ticks', String(s.ticksLastFrame)),
         line('draws', `${s.calls} · ${(s.triangles / 1000).toFixed(1)}k tris`),
         line('entities', String(s.entities)),
-        ...top.map((t) => line(t.id.length > 24 ? `…${t.id.slice(-23)}` : t.id, `${t.ms.toFixed(3)} ms`, tone(t.ms * 10))),
-      ].join('\n');
+        ...top.map((t) => line(t.id, `${t.ms.toFixed(3)} ms`, tone(t.ms * 10))),
+      ].join('');
     },
   };
 }

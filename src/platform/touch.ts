@@ -31,7 +31,8 @@ const CSS = `
 .bh-touch[hidden]{display:none}
 .bh-touch-zone{position:absolute;bottom:0;top:35%;pointer-events:auto;touch-action:none}
 .bh-touch-zone.left{left:0;width:40%}.bh-touch-zone.right{right:0;width:60%}
-.bh-touch-stick{position:absolute;width:112px;height:112px;margin:-56px 0 0 -56px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);display:none}
+.bh-touch-stick{position:absolute;width:112px;height:112px;margin:-56px 0 0 -56px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.35);left:max(72px,12%);top:calc(100% - 88px);opacity:.5;transition:opacity .12s}
+.bh-touch-stick.active{opacity:1;transition:none}
 .bh-touch-knob{position:absolute;left:50%;top:50%;width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:50%;background:rgba(255,255,255,.45)}
 .bh-touch-btns{position:absolute;right:16px;bottom:16px;display:flex;flex-wrap:wrap-reverse;gap:10px;max-width:180px;justify-content:flex-end;pointer-events:none}
 .bh-touch-btn{pointer-events:auto;width:64px;height:64px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:rgba(20,24,32,.45);color:#fff;font:600 12px system-ui;touch-action:none}
@@ -71,7 +72,7 @@ export function bindTouchControls(core: InputCore, opts: TouchOptions): { refres
     capture(left, e.pointerId);
     const r = left.getBoundingClientRect();
     ox = e.clientX; oy = e.clientY;
-    stick.style.left = `${e.clientX - r.left}px`; stick.style.top = `${e.clientY - r.top}px`; stick.style.display = 'block';
+    stick.style.left = `${e.clientX - r.left}px`; stick.style.top = `${e.clientY - r.top}px`; stick.classList.add('active');
     knob.style.transform = '';
     core.noteDevice('touch');
     e.preventDefault();
@@ -87,7 +88,8 @@ export function bindTouchControls(core: InputCore, opts: TouchOptions): { refres
   const onLeftUp = (e: PointerEvent): void => {
     if (e.pointerId !== leftId) return;
     leftId = undefined;
-    stick.style.display = 'none';
+    // Back to the resting spot so players can always see where the movement stick lives.
+    stick.style.left = ''; stick.style.top = ''; stick.classList.remove('active'); knob.style.transform = '';
     core.setAnalog('touch:left', 0, 0);
   };
   let rightId: number | undefined, lx = 0, ly = 0;

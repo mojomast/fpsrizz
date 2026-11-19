@@ -101,6 +101,9 @@ try {
     });
     const x1 = await x();
     const buttons = await touch.locator('.bh-touch-btn').count();
+    // The movement stick is visible at rest (bottom-left), not only while a finger is down.
+    const stickRest = await touch.evaluate(() => { const st = document.querySelector('.bh-touch-stick'); const b = st.getBoundingClientRect(); return { shown: getComputedStyle(st).display !== 'none' && b.width > 0, x: b.left, y: b.bottom, h: innerHeight, active: st.classList.contains('active') }; });
+    if (!stickRest.shown || stickRest.active || stickRest.x > 300 || stickRest.y < stickRest.h - 200) throw new Error(`touch stick should rest visibly at bottom-left: ${JSON.stringify(stickRest)}`);
     if (!(x1 > x0 + 1.5)) throw new Error(`touch stick did not walk right: ${x0} -> ${x1}`);
     if (buttons < 2) throw new Error(`expected touch buttons for jump and interact, got ${buttons}`);
     await touch.screenshot({ path: resolve(out, 'sandbox-touch.png') });
