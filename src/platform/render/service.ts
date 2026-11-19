@@ -1,7 +1,7 @@
 import * as THREE from './mini3/index.ts';
 import type { RenderService } from '../../sdk/render.ts';
 import type { SessionContext } from '../../kernel/host.ts';
-import type { Painter } from '../../sdk/contracts/shooter.ts';
+import type { Painter } from '../../sdk/contracts/game.ts';
 import { AssetStore } from '../../kernel/assets.ts';
 import { createWorldCameraSelection, resizeCamera } from './cameras.ts';
 

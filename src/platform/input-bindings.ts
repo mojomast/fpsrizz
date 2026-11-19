@@ -3,7 +3,7 @@
  * registry, persisted in a profile store (one value per action, key "bind/<action id>", JSON string list).
  */
 import type { BindingRow, InputBindingsService } from '../sdk/contracts/input.ts';
-import type { InputActionDef } from '../sdk/contracts/shooter.ts';
+import type { InputActionDef } from '../sdk/contracts/game.ts';
 import type { ProfileService } from '../sdk/contracts/profile.ts';
 import type { InputCore } from './input.ts';
 

@@ -1,4 +1,4 @@
-import type { UiService } from '../sdk/contracts/shooter.ts';
+import type { UiService } from '../sdk/contracts/game.ts';
 import type { SessionContext } from '../kernel/host.ts';
 
 export function createUiService(layers: { hud: HTMLElement; overlay: HTMLElement }): UiService & { readonly mounted: number } {

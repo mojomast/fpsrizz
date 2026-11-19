@@ -1,4 +1,4 @@
-import type { InputContextsService, InputService, TickInput } from '../sdk/contracts/shooter.ts';
+import type { InputContextsService, InputService, TickInput } from '../sdk/contracts/game.ts';
 import { applyDeadzone } from '../sdk/contracts/input.ts';
 import type { AnalogSource, AxisValue, InputAxisDef, InputDevice } from '../sdk/contracts/input.ts';
 

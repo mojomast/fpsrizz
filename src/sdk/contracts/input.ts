@@ -1,5 +1,5 @@
 /**
- * SDK 3 input v2 (P1.5): analog axes, gamepads, touch and rebinding on top of the action model in shooter.ts
+ * SDK 3 input v2 (P1.5): analog axes, gamepads, touch and rebinding on top of the action model in game.ts
  * (`InputActions`, `Input`, `InputContexts`).
  *
  * - Gamepad buttons and touch buttons are virtual key codes ("GamepadA", "TouchA"...) that go into
@@ -11,8 +11,8 @@
  */
 import { defineRegistry, defineService } from '../core.ts';
 import type { RegistryToken } from '../core.ts';
-import { InputActions as InputActionsToken } from './shooter.ts';
-import type { TickInput } from './shooter.ts';
+import { InputActions as InputActionsToken } from './game.ts';
+import type { TickInput } from './game.ts';
 
 export type InputDevice = 'keyboard' | 'mouse' | 'gamepad' | 'touch';
 

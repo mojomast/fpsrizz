@@ -1,4 +1,4 @@
-import type { FlowResult, FlowService } from '../sdk/contracts/shooter.ts';
+import type { FlowResult, FlowService } from '../sdk/contracts/game.ts';
 
 export function createFlow(emitEnded: (r: FlowResult) => void, now: () => number): FlowService {
   let ended = false;
