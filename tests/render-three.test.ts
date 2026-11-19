@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { THREE } from '../src/sdk/render.ts';
-import { createWorldCameraSelection, resizeCamera } from '../src/platform/render/cameras.ts';
-import type { SessionContext } from '../src/kernel/host.ts';
+import { THREE } from '@bulkhead/sdk/render.ts';
+import { createWorldCameraSelection, resizeCamera } from '@bulkhead/platform-web/render/cameras.ts';
+import type { SessionContext } from '@bulkhead/kernel/host.ts';
 import { codePlugin, newHost, presetOf } from './helpers/host.ts';
 
 test('official Three namespace supports orthographic picking and linear color values', () => {

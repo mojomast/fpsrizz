@@ -1,6 +1,6 @@
 /**
  * Build-time plugin catalog. Adding a local plugin = add its folder (manifest.json plus index.ts or content.json)
- * under src/plugins (or games/<family>/plugins) and list it in a preset. `scripts/gen-catalog.mjs` discovers every
+ * under packages/std/plugins (or games/<family>/plugins) and list it in a preset. `scripts/gen-catalog.mjs` discovers every
  * folder and writes catalog.generated.ts; dev, build and check keep it fresh. Manifests are plain JSON so the host
  * can validate the whole graph BEFORE any plugin code is imported; `load` is only called for plugins in a validated
  * selection.

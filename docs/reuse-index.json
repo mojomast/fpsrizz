@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "5659019fdb35185f4a26e4428b4b75d939d2d9d78fd5598fef882ef6b09014e5",
+  "sourceDigest": "1bc02e04cc39b76b01128cb330694dd229bf0e093d002f32add4be598ab8b5d8",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -25,7 +25,7 @@
         "Changes clamp to the bounds and reject while paused."
       ],
       "docs": [
-        "src/plugins/mechanics-relationships/README.md"
+        "packages/std/plugins/mechanics-relationships/README.md"
       ],
       "examples": [
         "games/expeditions/plugins/common-ground-game/index.ts",
@@ -75,7 +75,7 @@
         "There are no automatic callbacks or periodic damage; application and removal reject while paused."
       ],
       "docs": [
-        "src/plugins/mechanics-conditions/README.md",
+        "packages/std/plugins/mechanics-conditions/README.md",
         "docs/reference/deadlines.md"
       ],
       "examples": [
@@ -681,7 +681,7 @@
       "plugins": [],
       "roles": {},
       "steps": [
-        "Declare render in capabilities and import Render/THREE from src/sdk/render.ts; return early when Render or Ui is absent.",
+        "Declare render in capabilities and import Render/THREE from packages/sdk/src/render.ts; return early when Render or Ui is absent.",
         "Own scene roots with createRoot(ctx,...), geometry/materials with own/shared, and select the world camera through setWorldCamera(ctx,camera).",
         "Mount HUD/styles through Ui with ctx; read detached game state and enqueue commands. Never advance gameplay clocks from frame updates."
       ]
@@ -757,7 +757,7 @@
       ],
       "examples": [
         "games/racing/plugins/vehicle-presentation/index.ts",
-        "src/plugins/theme-board/index.ts"
+        "packages/std/plugins/theme-board/index.ts"
       ],
       "tests": [
         "tests/experience-themes.test.ts",
@@ -4420,7 +4420,7 @@
       "name": "Seeded dungeon rooms",
       "scope": "family",
       "summary": "Seeded room-and-corridor dungeon map format. It emits multiple isolated wings in one bounded grid, with room markers, descent pads and lights for a game mode to populate.",
-      "source": "src/plugins/dungeon-generator",
+      "source": "packages/std/plugins/dungeon-generator",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -6973,7 +6973,7 @@
       "name": "Resource actions",
       "scope": "cross-genre",
       "summary": "Data-defined action costs, gains and cooldowns for abilities, crafting, repairs, attacks and production.",
-      "source": "src/plugins/mechanics-actions",
+      "source": "packages/std/plugins/mechanics-actions",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -7145,7 +7145,7 @@
       "name": "Capability ledger",
       "scope": "cross-genre",
       "summary": "Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects.",
-      "source": "src/plugins/mechanics-capabilities",
+      "source": "packages/std/plugins/mechanics-capabilities",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -7222,7 +7222,7 @@
       "name": "Explicit mechanic clocks",
       "scope": "cross-genre",
       "summary": "Explicit, consumer-advanced seconds or turn clocks; the SDK createDeadline helper borrows compatible clocks for pollable duration windows.",
-      "source": "src/plugins/mechanics-clock",
+      "source": "packages/std/plugins/mechanics-clock",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -7414,7 +7414,7 @@
       "name": "Timed conditions",
       "scope": "cross-genre",
       "summary": "Owner-scoped named target conditions with refreshable explicit-clock expiration.",
-      "source": "src/plugins/mechanics-conditions",
+      "source": "packages/std/plugins/mechanics-conditions",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -7440,7 +7440,7 @@
         "Game code owns effect policy, periodic effects, target legality and clock advancement. Reapplication replaces duration rather than stacking; no persistence or callbacks."
       ],
       "docs": [
-        "src/plugins/mechanics-conditions/README.md"
+        "packages/std/plugins/mechanics-conditions/README.md"
       ],
       "examples": [
         "games/expeditions/plugins/silt-game/index.ts"
@@ -7497,7 +7497,7 @@
       "name": "Known item recipes",
       "scope": "cross-genre",
       "summary": "Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback.",
-      "source": "src/plugins/mechanics-crafting",
+      "source": "packages/std/plugins/mechanics-crafting",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -7607,7 +7607,7 @@
       "name": "Hint reveal ledger",
       "scope": "cross-genre",
       "summary": "Owned independent ordered reveal levels with explicit per-topic reset.",
-      "source": "src/plugins/mechanics-hints",
+      "source": "packages/std/plugins/mechanics-hints",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -7631,7 +7631,7 @@
       ],
       "docs": [
         "games/puzzles/docs/portfolio-assist.md",
-        "src/plugins/mechanics-hints/README.md"
+        "packages/std/plugins/mechanics-hints/README.md"
       ],
       "examples": [
         "games/puzzles/plugins/portfolio-assist/index.ts"
@@ -7750,7 +7750,7 @@
       "name": "Stack inventory",
       "scope": "cross-genre",
       "summary": "Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations.",
-      "source": "src/plugins/mechanics-inventory",
+      "source": "packages/std/plugins/mechanics-inventory",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -7890,7 +7890,7 @@
       "name": "Mechanic kit content",
       "scope": "cross-genre",
       "summary": "Validated JSON mechanic kits combine resources, actions, clock domains and objectives without new gameplay code.",
-      "source": "src/plugins/mechanics-kits",
+      "source": "packages/std/plugins/mechanics-kits",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -8035,7 +8035,7 @@
       "name": "Deterministic graph navigation",
       "scope": "cross-genre",
       "summary": "Pure deterministic unit-edge graph queries returning ordered shortest distances and canonical first steps.",
-      "source": "src/plugins/mechanics-navigation",
+      "source": "packages/std/plugins/mechanics-navigation",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -8177,7 +8177,7 @@
       "name": "Objective tracks",
       "scope": "cross-genre",
       "summary": "Objective counters, prerequisite unlocks and idempotent progress receipts for quests, deliveries, waves and restoration.",
-      "source": "src/plugins/mechanics-objectives",
+      "source": "packages/std/plugins/mechanics-objectives",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -8358,7 +8358,7 @@
       "name": "Outcome ratings",
       "scope": "cross-genre",
       "summary": "Deterministic outcome tiers from explicit finite metrics and immutable threshold conditions.",
-      "source": "src/plugins/mechanics-outcome-rating",
+      "source": "packages/std/plugins/mechanics-outcome-rating",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -8464,7 +8464,7 @@
       "name": "Side-scrolling platform physics",
       "scope": "cross-genre",
       "summary": "AABB side-scrolling movement with coyote/buffered jumps, variable height, double jump, dash, wall slide and wall jump.",
-      "source": "src/plugins/mechanics-platforming",
+      "source": "packages/std/plugins/mechanics-platforming",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -8545,7 +8545,7 @@
       "name": "Experience and levels",
       "scope": "cross-genre",
       "summary": "Owned XP and level ledgers with deterministic linear curves, multi-level grants, capped levels and pending game-defined level rewards.",
-      "source": "src/plugins/mechanics-progression",
+      "source": "packages/std/plugins/mechanics-progression",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -8664,7 +8664,7 @@
       "name": "Relationships",
       "scope": "cross-genre",
       "summary": "Owned bounded symmetric scores for explicit actor pairs.",
-      "source": "src/plugins/mechanics-relationships",
+      "source": "packages/std/plugins/mechanics-relationships",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -8687,7 +8687,7 @@
         "No directed relationships, implicit pairs, interaction policy, milestones, time or persistence."
       ],
       "docs": [
-        "src/plugins/mechanics-relationships/README.md"
+        "packages/std/plugins/mechanics-relationships/README.md"
       ],
       "examples": [
         "games/expeditions/plugins/common-ground-game/index.ts"
@@ -8757,7 +8757,7 @@
       "name": "Resource pools",
       "scope": "cross-genre",
       "summary": "Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation.",
-      "source": "src/plugins/mechanics-resources",
+      "source": "packages/std/plugins/mechanics-resources",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -8932,7 +8932,7 @@
       "name": "Explorable room map",
       "scope": "cross-genre",
       "summary": "Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations.",
-      "source": "src/plugins/mechanics-room-map",
+      "source": "packages/std/plugins/mechanics-room-map",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -9022,7 +9022,7 @@
       "name": "Ordered steps and rounds",
       "scope": "cross-genre",
       "summary": "Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion.",
-      "source": "src/plugins/mechanics-sequence",
+      "source": "packages/std/plugins/mechanics-sequence",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10021,7 +10021,7 @@
       "name": "First-person and isometric camera modes",
       "scope": "cross-genre",
       "summary": "Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service.",
-      "source": "src/plugins/presentation-camera-modes",
+      "source": "packages/std/plugins/presentation-camera-modes",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -10180,7 +10180,7 @@
       "name": "Overhead player avatar",
       "scope": "cross-genre",
       "summary": "Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes.",
-      "source": "src/plugins/presentation-player-avatar",
+      "source": "packages/std/plugins/presentation-player-avatar",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -11589,7 +11589,7 @@
       "name": "glTF models",
       "scope": "cross-genre",
       "summary": "glTF/GLB model loading (Meshopt, KTX2) for Renderable.model, with shared GPU resources and per-node instances.",
-      "source": "src/plugins/std-assets",
+      "source": "packages/std/plugins/std-assets",
       "version": "1.0.0",
       "sdk": "^3.0.0",
       "builtIn": true,
@@ -11653,7 +11653,7 @@
       "name": "Physics (Rapier 3D)",
       "scope": "cross-genre",
       "summary": "Rapier 3D physics: rigid bodies, colliders, sensors/triggers, raycasts and a kinematic character controller.",
-      "source": "src/plugins/std-physics-rapier",
+      "source": "packages/std/plugins/std-physics-rapier",
       "version": "1.0.0",
       "sdk": "^3.0.0",
       "builtIn": true,
@@ -11736,7 +11736,7 @@
       "name": "Render sync",
       "scope": "presentation",
       "summary": "Generic render sync: Renderable shapes, prefabs and glTF models posed from interpolated Transform3D.",
-      "source": "src/plugins/std-render-sync",
+      "source": "packages/std/plugins/std-render-sync",
       "version": "1.0.0",
       "sdk": "^3.0.0",
       "builtIn": true,
@@ -11805,7 +11805,7 @@
       "name": "Prefabs and scenes",
       "scope": "cross-genre",
       "summary": "Data prefabs (component bags with extends/overrides), a Godot-style scene tree format, and Tiled / LDtk level importers.",
-      "source": "src/plugins/std-scene",
+      "source": "packages/std/plugins/std-scene",
       "version": "1.0.0",
       "sdk": "^3.0.0",
       "builtIn": true,
@@ -11889,7 +11889,7 @@
       "name": "Transform3D bookkeeping",
       "scope": "cross-genre",
       "summary": "Previous-tick pose capture for Transform3D, enabling interpolated rendering.",
-      "source": "src/plugins/std-transform",
+      "source": "packages/std/plugins/std-transform",
       "version": "1.0.0",
       "sdk": "^3.0.0",
       "builtIn": true,
@@ -11923,7 +11923,7 @@
         "docs/reference/spatial.md"
       ],
       "examples": [
-        "src/plugins/std-render-sync/index.ts"
+        "packages/std/plugins/std-render-sync/index.ts"
       ],
       "tests": [
         "tests/spatial.test.ts"
@@ -12178,7 +12178,7 @@
       "name": "Neon Courier Arcade Theme",
       "scope": "unreviewed",
       "summary": "Pinned Assetrizz synth tiles, pennant, city and scooter badge; original top-down vehicle and synthesized arcade cues.",
-      "source": "src/plugins/theme-arcade",
+      "source": "packages/std/plugins/theme-arcade",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12250,7 +12250,7 @@
       "name": "Assetrizz Dark Sci-Fi Theme",
       "scope": "presentation",
       "summary": "Pinned Assetrizz sci-fi and hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops, ornate icons, six original Gloamforge weapon views and Cinder/Hollowmere theme variants.",
-      "source": "src/plugins/theme-assetrizz",
+      "source": "packages/std/plugins/theme-assetrizz",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12521,7 +12521,7 @@
       "name": "Chalk & Timber Board Theme",
       "scope": "unreviewed",
       "summary": "Pinned Assetrizz voxel explorer, chalk golem, rock cover and timber tiles with synthesized tactile board-game cues.",
-      "source": "src/plugins/theme-board",
+      "source": "packages/std/plugins/theme-board",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12670,7 +12670,7 @@
       "name": "Industrial Theme",
       "scope": "unreviewed",
       "summary": "Procedural industrial-sci-fi art, sprites and synthesized sound effects.",
-      "source": "src/plugins/theme-industrial",
+      "source": "packages/std/plugins/theme-industrial",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -12769,7 +12769,7 @@
       "name": "The Indigo Observatory Story Theme",
       "scope": "unreviewed",
       "summary": "Pinned Assetrizz ink-watercolor observatory, keeper and loupe, a hand-painted brass key, and synthesized glass-like story cues.",
-      "source": "src/plugins/theme-story",
+      "source": "packages/std/plugins/theme-story",
       "version": "1.0.0",
       "sdk": "^2.0.0",
       "builtIn": true,
@@ -13346,8 +13346,8 @@
       "name": "actionMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/mechanics.ts:137",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/mechanics.ts:137",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13375,9 +13375,9 @@
       "name": "ActionMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-actions",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-actions",
-      "source": "src/sdk/contracts/mechanics.ts:102",
+      "source": "packages/sdk/src/contracts/mechanics.ts:102",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13405,9 +13405,9 @@
       "name": "ActorRenderers",
       "scope": "contract",
       "summary": "Public SDK value: actor-renderer",
-      "importFrom": "src/sdk/render.ts",
+      "importFrom": "packages/sdk/src/render.ts",
       "token": "actor-renderer",
-      "source": "src/sdk/render.ts:91",
+      "source": "packages/sdk/src/render.ts:91",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13433,8 +13433,8 @@
       "name": "angleDelta",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/game.ts:416",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/game.ts:416",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13457,8 +13457,8 @@
       "name": "applyDeadzone",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/input.ts:52",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/input.ts:52",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13481,8 +13481,8 @@
       "name": "applyPrefabComponents",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:220",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:220",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13507,9 +13507,9 @@
       "name": "Assets",
       "scope": "contract",
       "summary": "Public SDK value: sdk/assets",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/assets",
-      "source": "src/sdk/contracts/assets.ts:37",
+      "source": "packages/sdk/src/contracts/assets.ts:37",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13535,9 +13535,9 @@
       "name": "Audio",
       "scope": "contract",
       "summary": "Public SDK value: sdk/audio",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/audio",
-      "source": "src/sdk/contracts/game.ts:329",
+      "source": "packages/sdk/src/contracts/game.ts:329",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13563,8 +13563,8 @@
       "name": "AUDIO_BUSES",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/audio.ts:34",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/audio.ts:34",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13587,9 +13587,9 @@
       "name": "AudioSamples",
       "scope": "contract",
       "summary": "Public SDK value: audio-sample",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "audio-sample",
-      "source": "src/sdk/contracts/audio.ts:54",
+      "source": "packages/sdk/src/contracts/audio.ts:54",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13615,8 +13615,8 @@
       "name": "base64ToBytes",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/snapshot.ts:85",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/snapshot.ts:85",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13639,8 +13639,8 @@
       "name": "bytesToBase64",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/snapshot.ts:80",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/snapshot.ts:80",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13663,9 +13663,9 @@
       "name": "CameraRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/camera",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/camera",
-      "source": "src/sdk/contracts/game.ts:351",
+      "source": "packages/sdk/src/contracts/game.ts:351",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13696,8 +13696,8 @@
       "name": "capabilityMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/capabilities.ts:53",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/capabilities.ts:53",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13722,9 +13722,9 @@
       "name": "CapabilityRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/capabilities",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/capabilities",
-      "source": "src/sdk/contracts/capabilities.ts:50",
+      "source": "packages/sdk/src/contracts/capabilities.ts:50",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13753,9 +13753,9 @@
       "name": "CapabilityUnlocked",
       "scope": "contract",
       "summary": "Public SDK value: sdk/capability-unlocked",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/capability-unlocked",
-      "source": "src/sdk/contracts/capabilities.ts:51",
+      "source": "packages/sdk/src/contracts/capabilities.ts:51",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13781,9 +13781,9 @@
       "name": "CharacterController",
       "scope": "contract",
       "summary": "Public SDK value: sdk/character-controller",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/character-controller",
-      "source": "src/sdk/contracts/physics.ts:57",
+      "source": "packages/sdk/src/contracts/physics.ts:57",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13811,9 +13811,9 @@
       "name": "CharacterMove",
       "scope": "contract",
       "summary": "Public SDK value: sdk/character-move",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/character-move",
-      "source": "src/sdk/contracts/physics.ts:61",
+      "source": "packages/sdk/src/contracts/physics.ts:61",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13839,9 +13839,9 @@
       "name": "CharacterState",
       "scope": "contract",
       "summary": "Public SDK value: sdk/character-state",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/character-state",
-      "source": "src/sdk/contracts/physics.ts:65",
+      "source": "packages/sdk/src/contracts/physics.ts:65",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13867,8 +13867,8 @@
       "name": "checkSceneReferences",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:163",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:163",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13891,8 +13891,8 @@
       "name": "clockMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/mechanics.ts:132",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/mechanics.ts:132",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13921,9 +13921,9 @@
       "name": "ClockMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-clock",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-clock",
-      "source": "src/sdk/contracts/mechanics.ts:101",
+      "source": "packages/sdk/src/contracts/mechanics.ts:101",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13953,8 +13953,8 @@
       "name": "clonePose",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:116",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:116",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13977,9 +13977,9 @@
       "name": "Collider",
       "scope": "contract",
       "summary": "Public SDK value: sdk/collider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/collider",
-      "source": "src/sdk/contracts/game.ts:36",
+      "source": "packages/sdk/src/contracts/game.ts:36",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14003,8 +14003,8 @@
       "name": "colliderFromBounds",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:254",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/gltf.ts:254",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14027,8 +14027,8 @@
       "name": "COMPONENT_ALIASES",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:51",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:51",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14051,8 +14051,8 @@
       "name": "componentId",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:55",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:55",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14075,8 +14075,8 @@
       "name": "composePose",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:106",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:106",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14099,8 +14099,8 @@
       "name": "conditionMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/conditions.ts:23",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/conditions.ts:23",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14127,9 +14127,9 @@
       "name": "ConditionMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-conditions",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-conditions",
-      "source": "src/sdk/contracts/conditions.ts:22",
+      "source": "packages/sdk/src/contracts/conditions.ts:22",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14159,9 +14159,9 @@
       "name": "ConditionProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-condition-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-condition-provider",
-      "source": "src/sdk/contracts/conditions.ts:21",
+      "source": "packages/sdk/src/contracts/conditions.ts:21",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14191,9 +14191,9 @@
       "name": "ControllerRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/controller",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/controller",
-      "source": "src/sdk/contracts/game.ts:349",
+      "source": "packages/sdk/src/contracts/game.ts:349",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14225,8 +14225,8 @@
       "name": "craftingMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/crafting.ts:33",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/crafting.ts:33",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14253,9 +14253,9 @@
       "name": "CraftingMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-crafting",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-crafting",
-      "source": "src/sdk/contracts/crafting.ts:31",
+      "source": "packages/sdk/src/contracts/crafting.ts:31",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14285,9 +14285,9 @@
       "name": "CraftingProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-crafting-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-crafting-provider",
-      "source": "src/sdk/contracts/crafting.ts:30",
+      "source": "packages/sdk/src/contracts/crafting.ts:30",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14317,9 +14317,9 @@
       "name": "CraftingRecipes",
       "scope": "contract",
       "summary": "Public SDK value: crafting-recipe",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "crafting-recipe",
-      "source": "src/sdk/contracts/crafting.ts:17",
+      "source": "packages/sdk/src/contracts/crafting.ts:17",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14351,8 +14351,8 @@
       "name": "createCommandQueue",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/command-queue.ts:33",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/command-queue.ts:33",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14382,8 +14382,8 @@
       "name": "createDeadline",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/deadlines.ts:32",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/deadlines.ts:32",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14412,8 +14412,8 @@
       "name": "createMechanicKit",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/mechanics.ts:148",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/mechanics.ts:148",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14444,8 +14444,8 @@
       "name": "createOwnedInstances",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/owned-instances.ts:15",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/owned-instances.ts:15",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14470,8 +14470,8 @@
       "name": "createPlatformerBody",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/platforming.ts:123",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/platforming.ts:123",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14496,8 +14496,8 @@
       "name": "debugDraw",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/debug-draw.ts:40",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/debug-draw.ts:40",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14520,9 +14520,9 @@
       "name": "DebugDraw",
       "scope": "contract",
       "summary": "Public SDK value: sdk/debug-draw",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/debug-draw",
-      "source": "src/sdk/contracts/debug-draw.ts:36",
+      "source": "packages/sdk/src/contracts/debug-draw.ts:36",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14546,8 +14546,8 @@
       "name": "decomposeMatrix",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:92",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/gltf.ts:92",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14570,8 +14570,8 @@
       "name": "defineCommand",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:35",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:35",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14594,8 +14594,8 @@
       "name": "defineComponent",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:33",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:33",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14618,8 +14618,8 @@
       "name": "defineEvent",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:34",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:34",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14642,8 +14642,8 @@
       "name": "definePlugin",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:40",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:40",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14666,8 +14666,8 @@
       "name": "defineRegistry",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:37",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:37",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14690,8 +14690,8 @@
       "name": "defineRole",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:38",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:38",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14714,8 +14714,8 @@
       "name": "defineService",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:36",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:36",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14738,9 +14738,9 @@
       "name": "ExperienceRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/experience",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/experience",
-      "source": "src/sdk/contracts/experience.ts:10",
+      "source": "packages/sdk/src/contracts/experience.ts:10",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14785,9 +14785,9 @@
       "name": "Flow",
       "scope": "contract",
       "summary": "Public SDK value: sdk/flow",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/flow",
-      "source": "src/sdk/contracts/game.ts:320",
+      "source": "packages/sdk/src/contracts/game.ts:320",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14811,9 +14811,9 @@
       "name": "FlowEnded",
       "scope": "contract",
       "summary": "Public SDK value: sdk/flow-ended",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/flow-ended",
-      "source": "src/sdk/contracts/game.ts:321",
+      "source": "packages/sdk/src/contracts/game.ts:321",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14837,8 +14837,8 @@
       "name": "fnv1a",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/snapshot.ts:65",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/snapshot.ts:65",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14861,8 +14861,8 @@
       "name": "GAMEPAD_BUTTONS",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/input.ts:20",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/input.ts:20",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14885,9 +14885,9 @@
       "name": "GltfExtras",
       "scope": "contract",
       "summary": "Public SDK value: gltf-extras",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "gltf-extras",
-      "source": "src/sdk/contracts/gltf.ts:216",
+      "source": "packages/sdk/src/contracts/gltf.ts:216",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14913,8 +14913,8 @@
       "name": "gltfNodes",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:173",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/gltf.ts:173",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14937,8 +14937,8 @@
       "name": "hashSnapshot",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/snapshot.ts:75",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/snapshot.ts:75",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14961,9 +14961,9 @@
       "name": "Health",
       "scope": "contract",
       "summary": "Public SDK value: sdk/health",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/health",
-      "source": "src/sdk/contracts/game.ts:43",
+      "source": "packages/sdk/src/contracts/game.ts:43",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14987,8 +14987,8 @@
       "name": "hintMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/hints.ts:22",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/hints.ts:22",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15015,9 +15015,9 @@
       "name": "HintMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-hints",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-hints",
-      "source": "src/sdk/contracts/hints.ts:21",
+      "source": "packages/sdk/src/contracts/hints.ts:21",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15045,9 +15045,9 @@
       "name": "HintProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-hint-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-hint-provider",
-      "source": "src/sdk/contracts/hints.ts:20",
+      "source": "packages/sdk/src/contracts/hints.ts:20",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15075,9 +15075,9 @@
       "name": "HudRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/hud",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/hud",
-      "source": "src/sdk/contracts/game.ts:355",
+      "source": "packages/sdk/src/contracts/game.ts:355",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15109,8 +15109,8 @@
       "name": "importLdtk",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/level-import.ts:170",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/level-import.ts:170",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15135,8 +15135,8 @@
       "name": "importTiled",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/level-import.ts:79",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/level-import.ts:79",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15161,9 +15161,9 @@
       "name": "Input",
       "scope": "contract",
       "summary": "Public SDK value: sdk/input",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/input",
-      "source": "src/sdk/contracts/game.ts:269",
+      "source": "packages/sdk/src/contracts/game.ts:269",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15191,9 +15191,9 @@
       "name": "InputActions",
       "scope": "contract",
       "summary": "Public SDK value: input-action",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "input-action",
-      "source": "src/sdk/contracts/game.ts:251",
+      "source": "packages/sdk/src/contracts/game.ts:251",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15228,9 +15228,9 @@
       "name": "InputAxes",
       "scope": "contract",
       "summary": "Public SDK value: input-axis",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "input-axis",
-      "source": "src/sdk/contracts/input.ts:41",
+      "source": "packages/sdk/src/contracts/input.ts:41",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15256,9 +15256,9 @@
       "name": "InputBindings",
       "scope": "contract",
       "summary": "Public SDK value: sdk/input-bindings",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/input-bindings",
-      "source": "src/sdk/contracts/input.ts:82",
+      "source": "packages/sdk/src/contracts/input.ts:82",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15282,9 +15282,9 @@
       "name": "InputContexts",
       "scope": "contract",
       "summary": "Public SDK value: sdk/input-contexts",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/input-contexts",
-      "source": "src/sdk/contracts/game.ts:295",
+      "source": "packages/sdk/src/contracts/game.ts:295",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15312,9 +15312,9 @@
       "name": "Intent",
       "scope": "contract",
       "summary": "Public SDK value: sdk/intent",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/intent",
-      "source": "src/sdk/contracts/game.ts:60",
+      "source": "packages/sdk/src/contracts/game.ts:60",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15338,8 +15338,8 @@
       "name": "interpolatePose",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:99",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:99",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15364,9 +15364,9 @@
       "name": "Inventory",
       "scope": "contract",
       "summary": "Public SDK value: sdk/inventory",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/inventory",
-      "source": "src/sdk/contracts/game.ts:84",
+      "source": "packages/sdk/src/contracts/game.ts:84",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15390,8 +15390,8 @@
       "name": "inventoryMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/inventory.ts:58",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/inventory.ts:58",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15420,9 +15420,9 @@
       "name": "InventoryMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-inventory",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-inventory",
-      "source": "src/sdk/contracts/inventory.ts:48",
+      "source": "packages/sdk/src/contracts/inventory.ts:48",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15452,9 +15452,9 @@
       "name": "InventoryProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-inventory-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-inventory-provider",
-      "source": "src/sdk/contracts/inventory.ts:47",
+      "source": "packages/sdk/src/contracts/inventory.ts:47",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15484,8 +15484,8 @@
       "name": "isMeshCarrier",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:163",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/gltf.ts:163",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15508,8 +15508,8 @@
       "name": "isObject",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:36",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:36",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15532,9 +15532,9 @@
       "name": "Items",
       "scope": "contract",
       "summary": "Public SDK value: item",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "item",
-      "source": "src/sdk/contracts/inventory.ts:16",
+      "source": "packages/sdk/src/contracts/inventory.ts:16",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15569,8 +15569,8 @@
       "name": "lerp",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:86",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:86",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15593,8 +15593,8 @@
       "name": "lerpVec3",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:87",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:87",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15617,8 +15617,8 @@
       "name": "loadStaticAsset",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:1",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:1",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15641,8 +15641,8 @@
       "name": "makeTransform",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/game.ts:422",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/game.ts:422",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15665,9 +15665,9 @@
       "name": "MapFormats",
       "scope": "contract",
       "summary": "Public SDK value: map-format",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "map-format",
-      "source": "src/sdk/contracts/game.ts:215",
+      "source": "packages/sdk/src/contracts/game.ts:215",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15697,9 +15697,9 @@
       "name": "Maps",
       "scope": "contract",
       "summary": "Public SDK value: map",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "map",
-      "source": "src/sdk/contracts/game.ts:208",
+      "source": "packages/sdk/src/contracts/game.ts:208",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15735,9 +15735,9 @@
       "name": "MechanicActionCommitted",
       "scope": "contract",
       "summary": "Public SDK value: mechanics/action-committed",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanics/action-committed",
-      "source": "src/sdk/contracts/mechanics.ts:106",
+      "source": "packages/sdk/src/contracts/mechanics.ts:106",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15765,9 +15765,9 @@
       "name": "MechanicActionProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-action-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-action-provider",
-      "source": "src/sdk/contracts/mechanics.ts:98",
+      "source": "packages/sdk/src/contracts/mechanics.ts:98",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15795,9 +15795,9 @@
       "name": "MechanicClockProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-clock-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-clock-provider",
-      "source": "src/sdk/contracts/mechanics.ts:97",
+      "source": "packages/sdk/src/contracts/mechanics.ts:97",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15825,9 +15825,9 @@
       "name": "MechanicInventoryChanged",
       "scope": "contract",
       "summary": "Public SDK value: mechanics/inventory-changed",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanics/inventory-changed",
-      "source": "src/sdk/contracts/inventory.ts:49",
+      "source": "packages/sdk/src/contracts/inventory.ts:49",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15855,9 +15855,9 @@
       "name": "MechanicKits",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-kit",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-kit",
-      "source": "src/sdk/contracts/mechanics.ts:116",
+      "source": "packages/sdk/src/contracts/mechanics.ts:116",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15892,9 +15892,9 @@
       "name": "MechanicObjectiveChanged",
       "scope": "contract",
       "summary": "Public SDK value: mechanics/objective-changed",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanics/objective-changed",
-      "source": "src/sdk/contracts/mechanics.ts:107",
+      "source": "packages/sdk/src/contracts/mechanics.ts:107",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15922,9 +15922,9 @@
       "name": "MechanicProgressionChanged",
       "scope": "contract",
       "summary": "Public SDK value: mechanics/progression-changed",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanics/progression-changed",
-      "source": "src/sdk/contracts/progression.ts:47",
+      "source": "packages/sdk/src/contracts/progression.ts:47",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15952,9 +15952,9 @@
       "name": "MechanicResourcesChanged",
       "scope": "contract",
       "summary": "Public SDK value: mechanics/resources-changed",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanics/resources-changed",
-      "source": "src/sdk/contracts/mechanics.ts:105",
+      "source": "packages/sdk/src/contracts/mechanics.ts:105",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15980,8 +15980,8 @@
       "name": "mergeJson",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:59",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:59",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16004,8 +16004,8 @@
       "name": "migrateSnapshot",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/snapshot.ts:41",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/snapshot.ts:41",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16028,9 +16028,9 @@
       "name": "Models",
       "scope": "contract",
       "summary": "Public SDK value: sdk/models",
-      "importFrom": "src/sdk/render.ts",
+      "importFrom": "packages/sdk/src/render.ts",
       "token": "sdk/models",
-      "source": "src/sdk/render.ts:114",
+      "source": "packages/sdk/src/render.ts:114",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16057,9 +16057,9 @@
       "name": "ModeRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mode",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mode",
-      "source": "src/sdk/contracts/game.ts:353",
+      "source": "packages/sdk/src/contracts/game.ts:353",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16096,8 +16096,8 @@
       "name": "morphChildren",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/dom-morph.ts:10",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/dom-morph.ts:10",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16120,9 +16120,9 @@
       "name": "NavigationRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-navigation",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-navigation",
-      "source": "src/sdk/contracts/navigation.ts:34",
+      "source": "packages/sdk/src/contracts/navigation.ts:34",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16155,8 +16155,8 @@
       "name": "objectiveMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/mechanics.ts:142",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/mechanics.ts:142",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16184,9 +16184,9 @@
       "name": "ObjectiveMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-objectives",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-objectives",
-      "source": "src/sdk/contracts/mechanics.ts:103",
+      "source": "packages/sdk/src/contracts/mechanics.ts:103",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16216,9 +16216,9 @@
       "name": "ObjectiveProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-objective-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-objective-provider",
-      "source": "src/sdk/contracts/mechanics.ts:99",
+      "source": "packages/sdk/src/contracts/mechanics.ts:99",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16246,8 +16246,8 @@
       "name": "opt",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:81",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:81",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16270,8 +16270,8 @@
       "name": "outcomeRatingMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/outcome-rating.ts:24",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/outcome-rating.ts:24",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16298,9 +16298,9 @@
       "name": "OutcomeRatingProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-outcome-rating-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-outcome-rating-provider",
-      "source": "src/sdk/contracts/outcome-rating.ts:22",
+      "source": "packages/sdk/src/contracts/outcome-rating.ts:22",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16330,9 +16330,9 @@
       "name": "OutcomeRatingRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-outcome-rating",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-outcome-rating",
-      "source": "src/sdk/contracts/outcome-rating.ts:23",
+      "source": "packages/sdk/src/contracts/outcome-rating.ts:23",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16362,8 +16362,8 @@
       "name": "parseGltf",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/gltf.ts:53",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/gltf.ts:53",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16386,8 +16386,8 @@
       "name": "PHASES",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:30",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:30",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16410,9 +16410,9 @@
       "name": "Physics",
       "scope": "contract",
       "summary": "Public SDK value: sdk/physics",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/physics",
-      "source": "src/sdk/contracts/physics.ts:85",
+      "source": "packages/sdk/src/contracts/physics.ts:85",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16438,9 +16438,9 @@
       "name": "PhysicsCollider",
       "scope": "contract",
       "summary": "Public SDK value: sdk/physics-collider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/physics-collider",
-      "source": "src/sdk/contracts/physics.ts:38",
+      "source": "packages/sdk/src/contracts/physics.ts:38",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16468,9 +16468,9 @@
       "name": "PhysicsCollision",
       "scope": "contract",
       "summary": "Public SDK value: sdk/physics-collision",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/physics-collision",
-      "source": "src/sdk/contracts/physics.ts:69",
+      "source": "packages/sdk/src/contracts/physics.ts:69",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16496,8 +16496,8 @@
       "name": "planarToTransform3D",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:155",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:155",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16522,8 +16522,8 @@
       "name": "PLATFORMER_DEFAULTS",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/platforming.ts:29",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/platforming.ts:29",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16548,8 +16548,8 @@
       "name": "platformerMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/platforming.ts:139",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/platforming.ts:139",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16572,9 +16572,9 @@
       "name": "PlatformerRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/platformer",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/platformer",
-      "source": "src/sdk/contracts/platforming.ts:121",
+      "source": "packages/sdk/src/contracts/platforming.ts:121",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16603,9 +16603,9 @@
       "name": "Player",
       "scope": "contract",
       "summary": "Public SDK value: sdk/player",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/player",
-      "source": "src/sdk/contracts/game.ts:70",
+      "source": "packages/sdk/src/contracts/game.ts:70",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16629,9 +16629,9 @@
       "name": "PlayerAvatar",
       "scope": "contract",
       "summary": "Public SDK value: sdk/player-avatar",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/player-avatar",
-      "source": "src/sdk/contracts/game.ts:114",
+      "source": "packages/sdk/src/contracts/game.ts:114",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16658,9 +16658,9 @@
       "name": "Prefabs",
       "scope": "contract",
       "summary": "Public SDK value: prefab",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "prefab",
-      "source": "src/sdk/contracts/game.ts:232",
+      "source": "packages/sdk/src/contracts/game.ts:232",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16701,8 +16701,8 @@
       "name": "prettyKey",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/input.ts:90",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/input.ts:90",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16725,9 +16725,9 @@
       "name": "PrevTransform",
       "scope": "contract",
       "summary": "Public SDK value: sdk/prev-transform",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/prev-transform",
-      "source": "src/sdk/contracts/spatial.ts:23",
+      "source": "packages/sdk/src/contracts/spatial.ts:23",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16754,9 +16754,9 @@
       "name": "Profile",
       "scope": "contract",
       "summary": "Public SDK value: sdk/profile",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/profile",
-      "source": "src/sdk/contracts/profile.ts:15",
+      "source": "packages/sdk/src/contracts/profile.ts:15",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16784,8 +16784,8 @@
       "name": "progressionMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/progression.ts:60",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/progression.ts:60",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16813,9 +16813,9 @@
       "name": "ProgressionMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-progression",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-progression",
-      "source": "src/sdk/contracts/progression.ts:45",
+      "source": "packages/sdk/src/contracts/progression.ts:45",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16845,9 +16845,9 @@
       "name": "ProgressionProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-progression-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-progression-provider",
-      "source": "src/sdk/contracts/progression.ts:44",
+      "source": "packages/sdk/src/contracts/progression.ts:44",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16877,8 +16877,8 @@
       "name": "quatFromEuler",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:55",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:55",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16901,8 +16901,8 @@
       "name": "quatIdentity",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:52",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:52",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16925,8 +16925,8 @@
       "name": "quatMultiply",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:66",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:66",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16949,8 +16949,8 @@
       "name": "quatNormalize",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:75",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:75",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16973,8 +16973,8 @@
       "name": "readAxis",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/input.ts:47",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/input.ts:47",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16997,8 +16997,8 @@
       "name": "registerStandardControls",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/input.ts:115",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/input.ts:115",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17021,8 +17021,8 @@
       "name": "relationshipMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/relationships.ts:30",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/relationships.ts:30",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17050,9 +17050,9 @@
       "name": "RelationshipMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-relationships",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-relationships",
-      "source": "src/sdk/contracts/relationships.ts:29",
+      "source": "packages/sdk/src/contracts/relationships.ts:29",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17082,9 +17082,9 @@
       "name": "RelationshipProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-relationship-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-relationship-provider",
-      "source": "src/sdk/contracts/relationships.ts:28",
+      "source": "packages/sdk/src/contracts/relationships.ts:28",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17114,9 +17114,9 @@
       "name": "Render",
       "scope": "contract",
       "summary": "Public SDK value: sdk/render",
-      "importFrom": "src/sdk/render.ts",
+      "importFrom": "packages/sdk/src/render.ts",
       "token": "sdk/render",
-      "source": "src/sdk/render.ts:56",
+      "source": "packages/sdk/src/render.ts:56",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17142,9 +17142,9 @@
       "name": "Renderable",
       "scope": "contract",
       "summary": "Public SDK value: sdk/renderable",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/renderable",
-      "source": "src/sdk/contracts/spatial.ts:44",
+      "source": "packages/sdk/src/contracts/spatial.ts:44",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17172,9 +17172,9 @@
       "name": "RenderablePrefabs",
       "scope": "contract",
       "summary": "Public SDK value: renderable-prefab",
-      "importFrom": "src/sdk/render.ts",
+      "importFrom": "packages/sdk/src/render.ts",
       "token": "renderable-prefab",
-      "source": "src/sdk/render.ts:104",
+      "source": "packages/sdk/src/render.ts:104",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17200,8 +17200,8 @@
       "name": "Reporter",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:52",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:52",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17224,8 +17224,8 @@
       "name": "resolvePrefab",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:84",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:84",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17250,8 +17250,8 @@
       "name": "resourceMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/mechanics.ts:127",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/mechanics.ts:127",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17278,9 +17278,9 @@
       "name": "ResourceMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-resources",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-resources",
-      "source": "src/sdk/contracts/mechanics.ts:100",
+      "source": "packages/sdk/src/contracts/mechanics.ts:100",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17308,9 +17308,9 @@
       "name": "ResourcePoolProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-resource-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-resource-provider",
-      "source": "src/sdk/contracts/mechanics.ts:96",
+      "source": "packages/sdk/src/contracts/mechanics.ts:96",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17338,9 +17338,9 @@
       "name": "RigidBody",
       "scope": "contract",
       "summary": "Public SDK value: sdk/rigid-body",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/rigid-body",
-      "source": "src/sdk/contracts/physics.ts:23",
+      "source": "packages/sdk/src/contracts/physics.ts:23",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17368,9 +17368,9 @@
       "name": "RoomMapChanged",
       "scope": "contract",
       "summary": "Public SDK value: sdk/room-map-changed",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/room-map-changed",
-      "source": "src/sdk/contracts/room-map.ts:44",
+      "source": "packages/sdk/src/contracts/room-map.ts:44",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17396,8 +17396,8 @@
       "name": "roomMapMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/room-map.ts:46",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/room-map.ts:46",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17422,9 +17422,9 @@
       "name": "RoomMapRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/room-map",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/room-map",
-      "source": "src/sdk/contracts/room-map.ts:43",
+      "source": "packages/sdk/src/contracts/room-map.ts:43",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17453,8 +17453,8 @@
       "name": "rotateVec3",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:81",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:81",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17477,8 +17477,8 @@
       "name": "SceneError",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:81",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:81",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17501,9 +17501,9 @@
       "name": "SceneNodeInfo",
       "scope": "contract",
       "summary": "Public SDK value: sdk/scene-node",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/scene-node",
-      "source": "src/sdk/contracts/scene.ts:48",
+      "source": "packages/sdk/src/contracts/scene.ts:48",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17529,8 +17529,8 @@
       "name": "scenePose",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:184",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:184",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17553,9 +17553,9 @@
       "name": "ScenePrefabs",
       "scope": "contract",
       "summary": "Public SDK value: scene-prefab",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "scene-prefab",
-      "source": "src/sdk/contracts/scene.ts:44",
+      "source": "packages/sdk/src/contracts/scene.ts:44",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17581,9 +17581,9 @@
       "name": "Scenes",
       "scope": "contract",
       "summary": "Public SDK value: scene",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "scene",
-      "source": "src/sdk/contracts/scene.ts:45",
+      "source": "packages/sdk/src/contracts/scene.ts:45",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17609,8 +17609,8 @@
       "name": "Scope",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:50",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:50",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17633,8 +17633,8 @@
       "name": "ScopeDisposedError",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/scope.ts:4",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/scope.ts:4",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17657,8 +17657,8 @@
       "name": "SDK_COMPAT",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:15",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:15",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17681,8 +17681,8 @@
       "name": "SDK_VERSION",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:10",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:10",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17705,8 +17705,8 @@
       "name": "sequenceMechanic",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/sequence.ts:41",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/sequence.ts:41",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17735,9 +17735,9 @@
       "name": "SequenceMechanicRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/mechanic-sequence",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/mechanic-sequence",
-      "source": "src/sdk/contracts/sequence.ts:38",
+      "source": "packages/sdk/src/contracts/sequence.ts:38",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17767,9 +17767,9 @@
       "name": "SequenceProviders",
       "scope": "contract",
       "summary": "Public SDK value: mechanic-sequence-provider",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "mechanic-sequence-provider",
-      "source": "src/sdk/contracts/sequence.ts:37",
+      "source": "packages/sdk/src/contracts/sequence.ts:37",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17799,9 +17799,9 @@
       "name": "SessionControl",
       "scope": "contract",
       "summary": "Public SDK value: sdk/session-control",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/session-control",
-      "source": "src/sdk/contracts/experience.ts:16",
+      "source": "packages/sdk/src/contracts/experience.ts:16",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17831,9 +17831,9 @@
       "name": "Settings",
       "scope": "contract",
       "summary": "Public SDK value: sdk/settings",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/settings",
-      "source": "src/sdk/contracts/game.ts:327",
+      "source": "packages/sdk/src/contracts/game.ts:327",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17859,8 +17859,8 @@
       "name": "slerp",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:90",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:90",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17883,8 +17883,8 @@
       "name": "SNAPSHOT_FORMAT",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/snapshot.ts:9",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/snapshot.ts:9",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17907,8 +17907,8 @@
       "name": "SNAPSHOT_SCHEMA",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/snapshot.ts:10",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/snapshot.ts:10",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17931,8 +17931,8 @@
       "name": "snapTransform",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:149",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:149",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17957,8 +17957,8 @@
       "name": "SpatialHash",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial-index.ts:19",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial-index.ts:19",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17981,8 +17981,8 @@
       "name": "spawnGltfScene",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:1",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:1",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18007,8 +18007,8 @@
       "name": "spawnPrefab",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/game.ts:235",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/game.ts:235",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18031,8 +18031,8 @@
       "name": "spawnScene",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:226",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:226",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18057,8 +18057,8 @@
       "name": "spawnSceneFile",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:1",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/core.ts:1",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18083,8 +18083,8 @@
       "name": "stableStringify",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/snapshot.ts:55",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/snapshot.ts:55",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18107,9 +18107,9 @@
       "name": "ThemeRole",
       "scope": "contract",
       "summary": "Public SDK value: sdk/theme",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/theme",
-      "source": "src/sdk/contracts/game.ts:404",
+      "source": "packages/sdk/src/contracts/game.ts:404",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18145,8 +18145,8 @@
       "name": "THREE",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/render.ts",
-      "source": "src/sdk/render.ts:12",
+      "importFrom": "packages/sdk/src/render.ts",
+      "source": "packages/sdk/src/render.ts:12",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18169,8 +18169,8 @@
       "name": "TOUCH_BUTTONS",
       "scope": "contract",
       "summary": "Public SDK value",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/input.ts:25",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/input.ts:25",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18193,9 +18193,9 @@
       "name": "Transform",
       "scope": "contract",
       "summary": "Public SDK value: sdk/transform",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/transform",
-      "source": "src/sdk/contracts/game.ts:26",
+      "source": "packages/sdk/src/contracts/game.ts:26",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18219,8 +18219,8 @@
       "name": "transform3d",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:119",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:119",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18245,9 +18245,9 @@
       "name": "Transform3D",
       "scope": "contract",
       "summary": "Public SDK value: sdk/transform3d",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/transform3d",
-      "source": "src/sdk/contracts/spatial.ts:20",
+      "source": "packages/sdk/src/contracts/spatial.ts:20",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18276,9 +18276,9 @@
       "name": "TurnControl",
       "scope": "contract",
       "summary": "Public SDK value: sdk/turn-control",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/turn-control",
-      "source": "src/sdk/contracts/turns.ts:15",
+      "source": "packages/sdk/src/contracts/turns.ts:15",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18304,9 +18304,9 @@
       "name": "Ui",
       "scope": "contract",
       "summary": "Public SDK value: sdk/ui",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/ui",
-      "source": "src/sdk/contracts/game.ts:338",
+      "source": "packages/sdk/src/contracts/game.ts:338",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18338,8 +18338,8 @@
       "name": "validatePrefab",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:143",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:143",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18362,8 +18362,8 @@
       "name": "validateScene",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:155",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:155",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18386,8 +18386,8 @@
       "name": "validateSceneNode",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/scene.ts:127",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/scene.ts:127",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18410,8 +18410,8 @@
       "name": "vArray",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:69",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:69",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18434,8 +18434,8 @@
       "name": "vBool",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:65",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:65",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18458,8 +18458,8 @@
       "name": "vec3",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:51",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:51",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18482,8 +18482,8 @@
       "name": "vId",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:51",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:51",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18506,9 +18506,9 @@
       "name": "View",
       "scope": "contract",
       "summary": "Public SDK value: sdk/view",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/view",
-      "source": "src/sdk/contracts/game.ts:369",
+      "source": "packages/sdk/src/contracts/game.ts:369",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18532,9 +18532,9 @@
       "name": "ViewModeChanged",
       "scope": "contract",
       "summary": "Public SDK value: sdk/view-mode-changed",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/view-mode-changed",
-      "source": "src/sdk/contracts/viewmodes.ts:24",
+      "source": "packages/sdk/src/contracts/viewmodes.ts:24",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18563,9 +18563,9 @@
       "name": "ViewModes",
       "scope": "contract",
       "summary": "Public SDK value: sdk/view-modes",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/view-modes",
-      "source": "src/sdk/contracts/viewmodes.ts:23",
+      "source": "packages/sdk/src/contracts/viewmodes.ts:23",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18596,9 +18596,9 @@
       "name": "Visual",
       "scope": "contract",
       "summary": "Public SDK value: sdk/visual",
-      "importFrom": "src/sdk/index.ts",
+      "importFrom": "packages/sdk/src/index.ts",
       "token": "sdk/visual",
-      "source": "src/sdk/contracts/game.ts:104",
+      "source": "packages/sdk/src/contracts/game.ts:104",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18622,8 +18622,8 @@
       "name": "vJson",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:86",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:86",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18646,8 +18646,8 @@
       "name": "vNumber",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:57",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:57",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18670,8 +18670,8 @@
       "name": "vObject",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:40",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:40",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18694,8 +18694,8 @@
       "name": "vOneOf",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:76",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:76",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18718,8 +18718,8 @@
       "name": "vString",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/kernel/validate.ts:44",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/kernel/src/validate.ts:44",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18742,8 +18742,8 @@
       "name": "worldPose",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/spatial.ts:130",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/spatial.ts:130",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18768,8 +18768,8 @@
       "name": "yawDirX",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/game.ts:411",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/game.ts:411",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18792,8 +18792,8 @@
       "name": "yawDirZ",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/game.ts:412",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/game.ts:412",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18816,8 +18816,8 @@
       "name": "yawOf",
       "scope": "contract",
       "summary": "Public helper/class",
-      "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/game.ts:414",
+      "importFrom": "packages/sdk/src/index.ts",
+      "source": "packages/sdk/src/contracts/game.ts:414",
       "docs": [
         "docs/guide/plugins.md"
       ],

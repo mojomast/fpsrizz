@@ -1,7 +1,7 @@
 # Physics: `std/physics-rapier` (SDK 3)
 
 Rapier 3D (`@dimforge/rapier3d-compat` 0.19, WASM embedded in a lazy chunk that only physics presets download),
-stepped inside the 60 Hz fixed tick. Contract: `src/sdk/contracts/physics.ts`. The shooter's grid AABB collision in
+stepped inside the 60 Hz fixed tick. Contract: `packages/sdk/src/contracts/physics.ts`. The shooter's grid AABB collision in
 `core/world` stays as the lightweight option; this plugin is for prototypes that want real bodies.
 
 | Component / API | Meaning |

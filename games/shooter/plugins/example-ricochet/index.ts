@@ -1,6 +1,6 @@
-import { Transform, Visual, defineComponent, definePlugin, yawOf } from '../../../../src/sdk/index.ts';
+import { Transform, Visual, defineComponent, definePlugin, yawOf } from '@bulkhead/sdk';
 import { AttackBehaviors, Combat, Impact, World } from '../../contracts/shooter.ts';
-import type { EntityId, Json, Params, Reporter } from '../../../../src/sdk/index.ts';
+import type { EntityId, Json, Params, Reporter } from '@bulkhead/sdk';
 import type { AttackShot } from '../../contracts/shooter.ts';
 
 /** Private per-projectile state. */

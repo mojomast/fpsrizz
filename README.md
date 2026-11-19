@@ -154,7 +154,7 @@ Each is a preset you can switch to live from the creator panel (press `` ` ``):
 
 ### Stack
 
-- **Rendering:** official Three.js **0.187.0**, exposed as `THREE` by `src/sdk/render.ts`. The historical `mini3/index.ts`
+- **Rendering:** official Three.js **0.187.0**, exposed as `THREE` by `packages/sdk/src/render.ts`. The historical `mini3/index.ts`
   path is now a compatibility entry to the vendored upstream runtime. The old engine remains an isolated test fixture.
 - **Bundling/dev server:** esbuild. **Tests:** `node:test` with Node >= 22.18 type stripping. **Types:** strict TypeScript.
 - `npm run vendor-three` reproduces the checked-in renderer and declaration files from locked npm packages, retaining
@@ -215,7 +215,7 @@ The presets in `games/*/presets/` (the shooter's in `games/shooter/presets/`) in
 
 | Preset | Adds | Where it lives |
 |---|---|---|
-| Bulkhead Station — Objective (`core/default`) | The reference game | `src/plugins/core-*`, `theme-industrial` |
+| Bulkhead Station — Objective (`core/default`) | The reference game | `packages/std/plugins/core-*`, `theme-industrial` |
 | Bulkhead Station — Extended arsenal (`example/extended`) | Scattergun (slot 4, data pack) and Ricochet Rifle (slot 3, new attack behaviour) | `example/pack`, `example/ricochet` |
 | Bulkhead Annex — content-pack map (`example/annex`) | The Annex map, Brute enemy and scattergun from the data pack | `example/pack` |
 | Survival — waves, Visor HUD (`example/survival`) | Wave-survival mode and visor HUD, plus the weapons above | `example/survival`, `example/hud` |
@@ -284,7 +284,7 @@ index.html     Page shell.
 | `node tests/dev-reload-demo/run.mjs` | Starts the dev server, edits a source file and checks the page live-reloads back into the running game; checks `?seed=`. |
 | `node tests/experience-demo/run.mjs` | Plays the independent racer, tactics and adventure against `dist/`, without the pointer-lock bypass. |
 | `node tests/reusable-games-demo/run.mjs` | Plays Sky Salvage, Ember Bastion and Verdant Relay against `dist/`; checks 3D scenes, viewports, pause and scoped switching. |
-| `npm run new-plugin -- <ns/name> ["Name"]` | Scaffolds `src/plugins/<ns>-<name>/` from the starter template. |
+| `npm run new-plugin -- <ns/name> ["Name"]` | Scaffolds `packages/std/plugins/<ns>-<name>/` from the starter template. |
 | `npm run find-reuse -- "capability words"` | Searches existing mechanics, contracts and recipes; `--show <id>` gives composition details, `--json` supports agents. |
 | `npm run index-reuse` | Regenerates the checked-in reuse inventory; `-- --check` verifies freshness and metadata references. |
 | `npm run validate-game -- <preset.json> [--pack <pack.json> ...]` | Stages a preset against the app catalog and optional wrapped JSON packs; use `--bundled` to validate shipped presets. Does not activate or play the game. |

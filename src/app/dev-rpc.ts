@@ -3,7 +3,7 @@
  * requests with the dev-tools core. Dev builds only (main.ts imports it lazily behind __DEV__). Reconnects quietly
  * with backoff, so the page works the same with or without the bridge.
  */
-import type { DevTools } from '../platform/devtools.ts';
+import type { DevTools } from '@bulkhead/platform-web/devtools.ts';
 import protocol from '../../schemas/dev-protocol.methods.json' with { type: 'json' };
 
 type Req = { jsonrpc?: string; id?: string | number | null; method?: unknown; params?: unknown };

@@ -1,4 +1,4 @@
-import { Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { Ui, definePlugin } from '@bulkhead/sdk';
 import { PortfolioCards } from '../../contracts/portfolio-cards.ts';
 
 const styles = `

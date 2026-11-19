@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { RegistrySet, RegistryError } from '../src/kernel/registry.ts';
-import type { RegistryToken } from '../src/kernel/registry.ts';
+import { RegistrySet, RegistryError } from '@bulkhead/kernel/registry.ts';
+import type { RegistryToken } from '@bulkhead/kernel/registry.ts';
 
 const weapon: RegistryToken<{ kind: string }> = { kind: 'weapon' };
 const armor: RegistryToken<{ kind: string }> = { kind: 'armor' };

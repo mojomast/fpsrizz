@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { readFile } from 'node:fs/promises';
 import { catalog, presets } from '../src/app/catalog.ts';
-import { HostError, PluginHost } from '../src/kernel/host.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION } from '../src/sdk/index.ts';
+import { HostError, PluginHost } from '@bulkhead/kernel/host.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 
 const usage = 'Usage: npm run validate-game -- <preset.json | --bundled> [--pack <pack.json> ...]';
 const record = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);

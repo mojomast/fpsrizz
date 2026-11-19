@@ -276,7 +276,7 @@ blacksmith/scholar NPC strips and knight/mage/rogue player avatar strips. The Or
 strip with a lavender tint, so this pass adds no new image provenance. The Assetrizz hall plate is reused as the class/depth
 transition backdrop. Existing fantasy tiles, goblin/imp animation strips and Gloamforge renders supply the dungeon and
 combat presentation. Cinder's tile painters crop transparent margins, fill residual transparency and use dark cave stone
-for ceilings. `src/plugins/theme-assetrizz/cinder-weapons.ts` encodes all six 512px weapon renders.
+for ceilings. `packages/std/plugins/theme-assetrizz/cinder-weapons.ts` encodes all six 512px weapon renders.
 `scripts/weapon-previews.json` pins the preview sources; `python3 scripts/import-weapon-previews.py` writes 192px card
 thumbnails and `public/weapons/provenance.json` (`--check` verifies them). Weapon art is original under
 `assets/weapons/fantasy/README.md`. Audio is synthesized. No Assetrizz audio or unrelated provenance is implied.

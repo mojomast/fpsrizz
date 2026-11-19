@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseVersion, compareVersions, satisfies, isValidRange } from '../src/kernel/semver.ts';
+import { parseVersion, compareVersions, satisfies, isValidRange } from '@bulkhead/kernel/semver.ts';
 
 test('parseVersion accepts x.y.z and rejects everything else', () => {
   assert.deepEqual(parseVersion('1.2.3'), [1, 2, 3]);

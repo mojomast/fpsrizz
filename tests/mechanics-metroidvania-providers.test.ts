@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import platformingManifest from '../src/plugins/mechanics-platforming/manifest.json' with { type: 'json' };
-import capabilitiesManifest from '../src/plugins/mechanics-capabilities/manifest.json' with { type: 'json' };
-import roomMapManifest from '../src/plugins/mechanics-room-map/manifest.json' with { type: 'json' };
+import platformingManifest from '@bulkhead/std/mechanics-platforming/manifest.json' with { type: 'json' };
+import capabilitiesManifest from '@bulkhead/std/mechanics-capabilities/manifest.json' with { type: 'json' };
+import roomMapManifest from '@bulkhead/std/mechanics-room-map/manifest.json' with { type: 'json' };
 import {
   CapabilityRole,
   PlatformerRole,
@@ -10,8 +10,8 @@ import {
   createPlatformerBody,
   definePlugin,
   defineService,
-} from '../src/sdk/index.ts';
-import type { CapabilitySet, PlatformerProvider, RoomMapHandle } from '../src/sdk/index.ts';
+} from '@bulkhead/sdk';
+import type { CapabilitySet, PlatformerProvider, RoomMapHandle } from '@bulkhead/sdk';
 import { createHeadlessGame } from './helpers/game.ts';
 
 interface Probe {
@@ -46,9 +46,9 @@ const probeManifest = { schema: 1, id: 'test/probe', name: 'Provider probe', ver
 async function setup() {
   const game = createHeadlessGame([
     { manifest: probeManifest, load: async () => ({ default: probe }) },
-    { manifest: platformingManifest, load: () => import('../src/plugins/mechanics-platforming/index.ts') },
-    { manifest: capabilitiesManifest, load: () => import('../src/plugins/mechanics-capabilities/index.ts') },
-    { manifest: roomMapManifest, load: () => import('../src/plugins/mechanics-room-map/index.ts') },
+    { manifest: platformingManifest, load: () => import('@bulkhead/std/mechanics-platforming/index.ts') },
+    { manifest: capabilitiesManifest, load: () => import('@bulkhead/std/mechanics-capabilities/index.ts') },
+    { manifest: roomMapManifest, load: () => import('@bulkhead/std/mechanics-room-map/index.ts') },
   ]);
   await game.host.apply({
     schema: 1, id: 'test/providers', name: 'Provider test', seed: 3,

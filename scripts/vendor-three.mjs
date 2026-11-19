@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const out = resolve(root, 'src/platform/render/mini3/vendor');
+const out = resolve(root, 'packages/platform-web/src/render/mini3/vendor');
 const version = '0.187.0';
 const files = new Map();
 const sources = {};

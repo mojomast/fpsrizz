@@ -1,6 +1,6 @@
-import { SessionControl, ThemeRole, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { SessionControl, ThemeRole, Ui, definePlugin } from '@bulkhead/sdk';
 import { Sky } from '../../contracts/sky.ts';
-import { Render, THREE } from '../../../../src/sdk/render.ts';
+import { Render, THREE } from '@bulkhead/sdk/render.ts';
 
 export default definePlugin({
   activate(ctx) {

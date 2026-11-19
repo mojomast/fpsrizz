@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Flow, Maps, Player, Transform } from '../../../src/sdk/index.ts';
+import { Flow, Maps, Player, Transform } from '@bulkhead/sdk';
 import { Enemy, World } from '../contracts/shooter.ts';
 import manifest from '../plugins/example-adventure-pack/manifest.json' with { type: 'json' };
 import content from '../plugins/example-adventure-pack/content.json' with { type: 'json' };

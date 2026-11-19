@@ -1,15 +1,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost, HostError } from '../../src/kernel/host.ts';
-import type { CatalogEntry } from '../../src/kernel/host.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, resourceMechanic } from '../../src/sdk/index.ts';
-import type { ResourceAmounts, ResourceDefinition, ResourcePool, ResourceTransaction } from '../../src/sdk/index.ts';
-import resourcesManifest from '../../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
+import { PluginHost, HostError } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry } from '@bulkhead/kernel/host.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, resourceMechanic } from '@bulkhead/sdk';
+import type { ResourceAmounts, ResourceDefinition, ResourcePool, ResourceTransaction } from '@bulkhead/sdk';
+import resourcesManifest from '@bulkhead/std/mechanics-resources/manifest.json' with { type: 'json' };
 import { ALTERNATE, alternateEntry } from './alternate-resources.ts';
 
 export interface ResourceProviderCase { readonly id: string; readonly entry: CatalogEntry }
 export const resourceProviders: readonly [ResourceProviderCase, ResourceProviderCase] = [
-  { id: resourcesManifest.id, entry: { manifest: resourcesManifest, load: () => import('../../src/plugins/mechanics-resources/index.ts') } },
+  { id: resourcesManifest.id, entry: { manifest: resourcesManifest, load: () => import('@bulkhead/std/mechanics-resources/index.ts') } },
   { id: ALTERNATE, entry: alternateEntry },
 ];
 

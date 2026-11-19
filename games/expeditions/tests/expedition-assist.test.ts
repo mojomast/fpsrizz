@@ -1,15 +1,15 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { catalog } from '../../../src/app/catalog.ts';
-import { SessionControl, Ui } from '../../../src/sdk/index.ts';
+import { SessionControl, Ui } from '@bulkhead/sdk';
 import { Hearth } from '../contracts/hearth-sim.ts';
 import { SaltLedger } from '../contracts/salt-ledger.ts';
 import { Silt } from '../contracts/silt-archive.ts';
-import type { SessionContext, UiService } from '../../../src/sdk/index.ts';
+import type { SessionContext, UiService } from '@bulkhead/sdk';
 import type { HearthService } from '../contracts/hearth-sim.ts';
 import type { SaltLedgerService } from '../contracts/salt-ledger.ts';
 import type { SiltService } from '../contracts/silt-archive.ts';
-import hintsManifest from '../../../src/plugins/mechanics-hints/manifest.json' with { type: 'json' };
+import hintsManifest from '@bulkhead/std/mechanics-hints/manifest.json' with { type: 'json' };
 import assistManifest from '../plugins/expedition-assist/manifest.json' with { type: 'json' };
 import siltPreset from '../presets/silt-archive.json' with { type: 'json' };
 import saltPreset from '../presets/salt-ledger.json' with { type: 'json' };
@@ -17,7 +17,7 @@ import hearthPreset from '../presets/common-ground.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import { codePlugin } from '../../../tests/helpers/host.ts';
 
-const hints = { manifest: hintsManifest, load: () => import('../../../src/plugins/mechanics-hints/index.ts') };
+const hints = { manifest: hintsManifest, load: () => import('@bulkhead/std/mechanics-hints/index.ts') };
 const assist = { manifest: assistManifest, load: () => import('../plugins/expedition-assist/index.ts') };
 class FakeElement {
   hidden = false; innerHTML = '';

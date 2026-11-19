@@ -1,6 +1,6 @@
 # Explicit-clock deadlines
 
-`createDeadline` is an additive SDK 2 helper exported from `src/sdk/index.ts`. It owns one pollable deadline over a
+`createDeadline` is an additive SDK 2 helper exported from `packages/sdk/src/index.ts`. It owns one pollable deadline over a
 **borrowed** `MechanicClock`. Sky uses it for boost and collision immunity; Verdant uses it for dry-wind and the season.
 It adds no provider, role, required clock method, scheduler system or event. Clock selection continues through the
 existing `ClockMechanicRole` / `clockMechanic` / `createMechanicKit` composition.
@@ -9,7 +9,7 @@ existing `ClockMechanicRole` / `clockMechanic` / `createMechanicKit` composition
 
 Following the [capability design note](../cookbook/reusable-capability-template.md), discovery searched `deadline duration immunity`
 and `clock turns cooldown`, inspected `mechanics/clock` and `mechanics/actions` with `find-reuse -- --show`, and checked
-`docs/reference/reuse-index.md`. The inspected declarations/implementations were `src/sdk/contracts/mechanics.ts`, the clock/action
+`docs/reference/reuse-index.md`. The inspected declarations/implementations were `packages/sdk/src/contracts/mechanics.ts`, the clock/action
 providers, Sky/Verdant consumers, `tests/mechanics-providers.test.ts` and `tests/reusable-games.test.ts`.
 
 | Need | Candidate | Decision |
@@ -25,7 +25,7 @@ than hiding when either game advances time or checks victory. It is a shared con
 
 ## Public API and semantics
 
-Defined in `src/sdk/contracts/deadlines.ts`:
+Defined in `packages/sdk/src/contracts/deadlines.ts`:
 
 ```ts
 createDeadline(owner: SessionContext, clock: MechanicClock, initialDuration?: number): Deadline

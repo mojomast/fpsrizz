@@ -1,0 +1,22 @@
+{
+  "name": "@bulkhead/tools",
+  "version": "0.1.0",
+  "description": "Bulkhead CLI entry point (bulkhead create/new/add/validate/graph); forwards to the engine checkout's scripts/.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojomast/fpsrizz.git",
+    "directory": "packages/tools"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "bin": {
+    "bulkhead": "./bin/bulkhead.mjs"
+  },
+  "files": [
+    "bin"
+  ]
+}

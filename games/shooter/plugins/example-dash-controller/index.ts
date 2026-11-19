@@ -1,5 +1,5 @@
-import type { SessionContext } from '../../../../src/sdk/index.ts';
-import { Collider, ControllerRole, Health, Input, InputActions, Intent, Player, Settings, Transform, defineComponent, definePlugin, yawDirX, yawDirZ } from '../../../../src/sdk/index.ts';
+import type { SessionContext } from '@bulkhead/sdk';
+import { Collider, ControllerRole, Health, Input, InputActions, Intent, Player, Settings, Transform, defineComponent, definePlugin, yawDirX, yawDirZ } from '@bulkhead/sdk';
 import { World } from '../../contracts/shooter.ts';
 
 const Motion = defineComponent<{ vx: number; vz: number; dashX: number; dashZ: number; dashUntil: number; nextDash: number }>('example/dash-controller.motion');

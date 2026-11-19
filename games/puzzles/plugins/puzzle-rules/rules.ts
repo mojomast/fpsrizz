@@ -1,4 +1,4 @@
-import type { NavigationNode, NavigationProvider } from '../../../../src/sdk/index.ts';
+import type { NavigationNode, NavigationProvider } from '@bulkhead/sdk';
 import type { PuzzleBoard, PuzzleCell, PuzzleChamber, PuzzleDirection } from '../../contracts/puzzle.ts';
 
 export function same(a: PuzzleCell, b: PuzzleCell): boolean { return a.x === b.x && a.y === b.y; }

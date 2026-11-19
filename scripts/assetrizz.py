@@ -119,12 +119,12 @@ def main(args):
         lines += [f"  '{key}': painter({pixels.width}, '{base64.b64encode(pixels.tobytes()).decode('ascii')}'),"
                   for key, _, pixels in items]
         lines += ['};', '']
-        (ROOT / 'src/plugins/theme-assetrizz' / filename).write_text('\n'.join(lines))
+        (ROOT / 'packages/std/plugins/theme-assetrizz' / filename).write_text('\n'.join(lines))
     write_painters('generated.ts', 'assetrizzTextures', outputs)
     write_painters('fantasy-generated.ts', 'fantasyTextures', fantasy)
     # Keep pixel data out of JavaScript: move it into content-hashed packs under public/packs/.
-    subprocess.run(['node', str(ROOT / 'scripts' / 'pack-painters.mjs'), 'src/plugins/theme-assetrizz/generated.ts',
-                    'src/plugins/theme-assetrizz/fantasy-generated.ts'], check=True, cwd=ROOT)
+    subprocess.run(['node', str(ROOT / 'scripts' / 'pack-painters.mjs'), 'packages/std/plugins/theme-assetrizz/generated.ts',
+                    'packages/std/plugins/theme-assetrizz/fantasy-generated.ts'], check=True, cwd=ROOT)
     print('Imported', len(outputs) + len(fantasy), 'verified Assetrizz textures and', len(ui), 'original-size UI images')
 
 

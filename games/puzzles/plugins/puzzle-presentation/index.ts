@@ -1,7 +1,7 @@
-import { Audio, SessionControl, ThemeRole, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { Audio, SessionControl, ThemeRole, Ui, definePlugin } from '@bulkhead/sdk';
 import { PushPuzzle, PuzzleResolved } from '../../contracts/puzzle.ts';
 import type { PuzzleCommand, PuzzleDirection } from '../../contracts/puzzle.ts';
-import { Render } from '../../../../src/sdk/render.ts';
+import { Render } from '@bulkhead/sdk/render.ts';
 import { createScene } from './scene.ts';
 import { styles } from './styles.ts';
 

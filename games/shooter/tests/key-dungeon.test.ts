@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Player, Transform } from '../../../src/sdk/index.ts';
+import { Flow, Player, Transform } from '@bulkhead/sdk';
 import { Pickup, World } from '../contracts/shooter.ts';
-import type { CatalogEntry } from '../../../src/sdk/index.ts';
+import type { CatalogEntry } from '@bulkhead/sdk';
 import keysManifest from '../plugins/example-keys/manifest.json' with { type: 'json' };
 import manifest from '../plugins/example-key-dungeon/manifest.json' with { type: 'json' };
 import content from '../plugins/example-key-dungeon/content.json' with { type: 'json' };

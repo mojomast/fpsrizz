@@ -1,0 +1,42 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "AABB side-scrolling movement with coyote/buffered jumps, variable height, double jump, dash, wall slide and wall jump.",
+  "keywords": [
+    "platformer",
+    "side scroller",
+    "movement",
+    "jump",
+    "double jump",
+    "dash",
+    "wall jump",
+    "wall slide",
+    "coyote time",
+    "jump buffer",
+    "gravity",
+    "collision",
+    "AABB",
+    "physics"
+  ],
+  "entryPoints": [
+    "PlatformerRole",
+    "createPlatformerBody",
+    "PLATFORMER_DEFAULTS"
+  ],
+  "useWhen": "A game needs deterministic side-view platform movement but keeps its own collision map, abilities, animation and combat policy.",
+  "limitations": [
+    "Axis-separated AABB collision only; no slopes, moving platforms, ladders or continuous sweep guarantees.",
+    "The consumer supplies collision queries and decides which abilities are unlocked. It owns entities, camera and presentation.",
+    "One-way platforms and drop-through are supported through the collision query, but authored map semantics stay with the game."
+  ],
+  "docs": [
+    "games/hollowmere/README.md"
+  ],
+  "examples": [
+    "games/hollowmere/plugins/hollowmere-game/index.ts"
+  ],
+  "tests": [
+    "tests/mechanics-metroidvania-providers.test.ts"
+  ]
+}

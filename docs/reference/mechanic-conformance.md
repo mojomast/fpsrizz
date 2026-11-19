@@ -9,7 +9,7 @@ implementations of the other mechanic contracts. The broader mechanic API and co
 ## Public contract
 
 The declarations are `ResourcePoolProvider`, `ResourcePool`, `ResourceDefinition` and `ResourceTransaction` in
-[`src/sdk/contracts/mechanics.ts`](../../src/sdk/contracts/mechanics.ts), exported through `src/sdk/index.ts`.
+[`packages/sdk/src/contracts/mechanics.ts`](../../packages/sdk/src/contracts/mechanics.ts), exported through `packages/sdk/src/index.ts`.
 
 ### Selection, identity and ownership
 

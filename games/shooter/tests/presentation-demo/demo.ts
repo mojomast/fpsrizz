@@ -1,17 +1,17 @@
 // Composes a real PluginHost with the real world/theme/presentation plugins plus a demo-only content plugin and exposes a
 // small driver API on window.__demo for run.cjs (screenshots, assertions).
-import { PluginHost } from '../../../../src/kernel/host.ts';
-import type { Session } from '../../../../src/kernel/host.ts';
-import { createRenderHost } from '../../../../src/platform/render/service.ts';
-import type { RenderHost } from '../../../../src/platform/render/service.ts';
-import { createAudioService } from '../../../../src/platform/audio.ts';
-import { Audio, Inventory, PHASES, SDK_COMPAT, SDK_VERSION } from '../../../../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { Session } from '@bulkhead/kernel/host.ts';
+import { createRenderHost } from '@bulkhead/platform-web/render/service.ts';
+import type { RenderHost } from '@bulkhead/platform-web/render/service.ts';
+import { createAudioService } from '@bulkhead/platform-web/audio.ts';
+import { Audio, Inventory, PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 import { AttackFired, Damaged, DoorChanged, Died, EnemyAlerted, Impact, PickupCollected, TriggerFired, UseFailed, World } from '../../contracts/shooter.ts';
-import type { AudioService, PlayOptions, ViewState } from '../../../../src/sdk/index.ts';
-import { Render } from '../../../../src/sdk/render.ts';
-import { sounds } from '../../../../src/plugins/theme-industrial/sounds.ts';
+import type { AudioService, PlayOptions, ViewState } from '@bulkhead/sdk';
+import { Render } from '@bulkhead/sdk/render.ts';
+import { sounds } from '@bulkhead/std/theme-industrial/sounds.ts';
 import worldManifest from '../../plugins/core-world/manifest.json';
-import themeManifest from '../../../../src/plugins/theme-industrial/manifest.json';
+import themeManifest from '@bulkhead/std/theme-industrial/manifest.json';
 import presentationManifest from '../../plugins/core-presentation/manifest.json';
 import { createDemoControl, createDemoPlugin, demoManifest } from './demo-plugin.ts';
 
@@ -46,7 +46,7 @@ const host = new PluginHost({
 });
 host.setCatalog([
   { manifest: worldManifest, load: () => import('../../plugins/core-world/index.ts') },
-  { manifest: themeManifest, load: () => import('../../../../src/plugins/theme-industrial/index.ts') },
+  { manifest: themeManifest, load: () => import('@bulkhead/std/theme-industrial/index.ts') },
   { manifest: presentationManifest, load: () => import('../../plugins/core-presentation/index.ts') },
   { manifest: demoManifest, load: async () => ({ default: createDemoPlugin(ctl) }) },
 ]);

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Reporter, vNumber, vId, vArray, vJson, vString, formatIssues } from '../src/kernel/validate.ts';
-import type { Issue } from '../src/kernel/validate.ts';
+import { Reporter, vNumber, vId, vArray, vJson, vString, formatIssues } from '@bulkhead/kernel/validate.ts';
+import type { Issue } from '@bulkhead/kernel/validate.ts';
 
 test('Reporter builds dotted and indexed paths', () => {
   const issues: Issue[] = [];

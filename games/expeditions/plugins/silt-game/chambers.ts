@@ -1,5 +1,5 @@
-import { isObject, vArray, vString } from '../../../../src/sdk/index.ts';
-import type { Reporter } from '../../../../src/sdk/index.ts';
+import { isObject, vArray, vString } from '@bulkhead/sdk';
+import type { Reporter } from '@bulkhead/sdk';
 import type { SiltChamberTemplate } from '../../contracts/silt-archive.ts';
 
 /** Validate socket geometry and ensure doors remain connected on dry ground at every tide. */

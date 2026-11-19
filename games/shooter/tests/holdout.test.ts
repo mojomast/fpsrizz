@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Flow, Health, Player, Transform } from '../../../src/sdk/index.ts';
+import { Flow, Health, Player, Transform } from '@bulkhead/sdk';
 import { Combat, Enemies, Enemy, World } from '../contracts/shooter.ts';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import manifest from '../plugins/example-holdout/manifest.json' with { type: 'json' };

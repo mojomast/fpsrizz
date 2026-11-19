@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Health, Inventory, Player, Transform, Visual, definePlugin, spawnPrefab, yawDirX, yawDirZ } from '../../../src/sdk/index.ts';
+import { Health, Inventory, Player, Transform, Visual, definePlugin, spawnPrefab, yawDirX, yawDirZ } from '@bulkhead/sdk';
 import { AttackBehaviors, Combat, Damaged, Enemy, Impact, World } from '../contracts/shooter.ts';
-import type { CatalogEntry, EntityId, Params, SessionContext } from '../../../src/sdk/index.ts';
+import type { CatalogEntry, EntityId, Params, SessionContext } from '@bulkhead/sdk';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import manifest from '../plugins/example-ricochet/manifest.json' with { type: 'json' };
 

@@ -1,4 +1,4 @@
-import { SessionControl, Ui, definePlugin, hintMechanic } from '../../../../src/sdk/index.ts';
+import { SessionControl, Ui, definePlugin, hintMechanic } from '@bulkhead/sdk';
 import { PortfolioCards } from '../../contracts/portfolio-cards.ts';
 import { PushPuzzle } from '../../contracts/puzzle.ts';
 

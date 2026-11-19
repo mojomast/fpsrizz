@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate a synchronous TypeScript painter map from PNG renders.
 
-Example: python3 scripts/weapon-painters.py --output src/plugins/my-theme/weapons.ts \
+Example: python3 scripts/weapon-painters.py --output packages/std/plugins/my-theme/weapons.ts \
     --sprite weapon-pistol=assets/weapons/generic/pistol.png
 
 Requires Pillow. Each --sprite maps a theme texture key to a PNG. Output is
@@ -44,7 +44,7 @@ def encode(pixels):
 
 
 def generate(sprites, output):
-    sdk = os.path.relpath(ROOT / 'src/sdk/index.ts', output.parent.resolve()).replace(os.sep, '/')
+    sdk = os.path.relpath(ROOT / 'packages/sdk/src/index.ts', output.parent.resolve()).replace(os.sep, '/')
     if not sdk.startswith('.'):
         sdk = './' + sdk
     lines = [
@@ -115,7 +115,7 @@ def main(argv=None):
         target.write(result)
     print(f'Generated {len(sprites)} painter(s) in {output}')
     # Plugin modules keep pixel data out of JavaScript: move it into a content-hashed pack under public/packs/.
-    if (ROOT / 'src' / 'plugins') in output.resolve().parents:
+    if (ROOT / 'packages' / 'std' / 'plugins') in output.resolve().parents:
         subprocess.run(['node', str(ROOT / 'scripts' / 'pack-painters.mjs'), str(output)], check=True)
 
 

@@ -4,9 +4,9 @@ Three related tools, all built on the deterministic fixed-step simulation:
 
 | Tool | What it is | Where |
 | --- | --- | --- |
-| **Run snapshot** | Plain-JSON image of a running session: tick, entities + components, per-plugin RNG positions and each plugin's `ctx.persist()` state. | `host.snapshot()` / `host.restore(s)`, `src/kernel/snapshot.ts` |
+| **Run snapshot** | Plain-JSON image of a running session: tick, entities + components, per-plugin RNG positions and each plugin's `ctx.persist()` state. | `host.snapshot()` / `host.restore(s)`, `packages/kernel/src/snapshot.ts` |
 | **Quicksave** | A snapshot in `localStorage` (`fpsrizz/quicksave/<preset>`). **F6** saves, **F9** loads. | `src/app/main.ts` |
-| **Replay** (`*.replay.json`) | Preset + seed + every input call, tick-stamped, plus a final-state hash. Replaying re-simulates the run. | `src/platform/replay.ts`, `tests/helpers/replay.ts` |
+| **Replay** (`*.replay.json`) | Preset + seed + every input call, tick-stamped, plus a final-state hash. Replaying re-simulates the run. | `packages/platform-web/src/replay.ts`, `tests/helpers/replay.ts` |
 
 ## The SDK 3 rule: state outside components goes through `ctx.persist`
 
@@ -59,7 +59,7 @@ press/release), `k`/`ku` (physical key with its resolved actions), `l` (look del
 
 ```ts
 import { assertReplay, recordRun } from '../../../tests/helpers/replay.ts';
-const spec = { preset, plugins: ['src/plugins/std-transform', 'src/plugins/std-physics-rapier', 'games/x/plugins/game'] };
+const spec = { preset, plugins: ['packages/std/plugins/std-transform', 'packages/std/plugins/std-physics-rapier', 'games/x/plugins/game'] };
 await assertReplay(spec, 'games/x/tests/boss-fight.replay.json'); // re-simulates and compares the hash
 ```
 

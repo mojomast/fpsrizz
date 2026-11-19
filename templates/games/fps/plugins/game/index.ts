@@ -2,9 +2,9 @@
 import {
   CharacterController, CharacterMove, CharacterState, ExperienceRole, Flow, Input, InputActions, Physics, PhysicsCollider, Renderable, RigidBody,
   Settings, Transform3D, Ui, defineComponent, definePlugin, defineService, quatFromEuler, readAxis, registerStandardControls, transform3d, worldPose,
-} from '../../../../../src/sdk/index.ts';
-import type { EntityId, Vec3 } from '../../../../../src/sdk/index.ts';
-import { Render, THREE } from '../../../../../src/sdk/render.ts';
+} from '@bulkhead/sdk';
+import type { EntityId, Vec3 } from '@bulkhead/sdk';
+import { Render, THREE } from '@bulkhead/sdk/render.ts';
 
 const NS = '__NS__';
 const SPEED = 5, JUMP = 5, GRAVITY = -18, EYE = 0.7, RANGE = 60;

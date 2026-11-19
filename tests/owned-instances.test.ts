@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createOwnedInstances, defineRegistry, SessionControl } from '../src/sdk/index.ts';
-import type { SessionContext } from '../src/sdk/index.ts';
+import { createOwnedInstances, defineRegistry, SessionControl } from '@bulkhead/sdk';
+import type { SessionContext } from '@bulkhead/sdk';
 import { codePlugin, newHost, presetOf } from './helpers/host.ts';
 
 type Instances = ReturnType<typeof createOwnedInstances>;

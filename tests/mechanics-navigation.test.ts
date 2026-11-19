@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { NavigationRole } from '../src/sdk/index.ts';
-import type { CatalogEntry, NavigationNode } from '../src/sdk/index.ts';
-import manifest from '../src/plugins/mechanics-navigation/manifest.json' with { type: 'json' };
+import { NavigationRole } from '@bulkhead/sdk';
+import type { CatalogEntry, NavigationNode } from '@bulkhead/sdk';
+import manifest from '@bulkhead/std/mechanics-navigation/manifest.json' with { type: 'json' };
 import { alternateNavigation, alternateNavigationId } from './helpers/alternate-navigation.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const implementations: { id: string; entry: CatalogEntry }[] = [
-  { id: manifest.id, entry: { manifest, load: () => import('../src/plugins/mechanics-navigation/index.ts') } },
+  { id: manifest.id, entry: { manifest, load: () => import('@bulkhead/std/mechanics-navigation/index.ts') } },
   { id: alternateNavigationId, entry: alternateNavigation },
 ];
 

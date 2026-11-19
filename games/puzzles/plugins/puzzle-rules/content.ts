@@ -1,5 +1,5 @@
-import { isObject, vArray, vNumber, vString } from '../../../../src/sdk/index.ts';
-import type { Reporter } from '../../../../src/sdk/index.ts';
+import { isObject, vArray, vNumber, vString } from '@bulkhead/sdk';
+import type { Reporter } from '@bulkhead/sdk';
 import type { PuzzleCampaign, PuzzleCell, PuzzleChamber } from '../../contracts/puzzle.ts';
 
 function keys(data: Record<string, unknown>, allowed: readonly string[], r: Reporter): void {

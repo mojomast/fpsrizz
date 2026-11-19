@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "std/scene",
+  "name": "Prefabs and scenes",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "Content kinds for data prefabs (component bags with extends/overrides), scenes, and Tiled / LDtk levels imported as scenes; spawn them with spawnScene.",
+  "dependencies": {},
+  "capabilities": ["simulation"]
+}

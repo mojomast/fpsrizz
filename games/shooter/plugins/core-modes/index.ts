@@ -1,5 +1,5 @@
-import type { RoleInfo, SessionContext } from '../../../../src/sdk/index.ts';
-import { Flow, Maps, ModeRole, Player, Prefabs, definePlugin, spawnPrefab } from '../../../../src/sdk/index.ts';
+import type { RoleInfo, SessionContext } from '@bulkhead/sdk';
+import { Flow, Maps, ModeRole, Player, Prefabs, definePlugin, spawnPrefab } from '@bulkhead/sdk';
 import { Died, Enemy, TriggerFired, UseFailed, World } from '../../contracts/shooter.ts';
 
 const MODE_ID = 'core/objective';

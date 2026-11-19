@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Intent, Player, Transform, definePlugin, makeTransform } from '../../../src/sdk/index.ts';
+import { Flow, Intent, Player, Transform, definePlugin, makeTransform } from '@bulkhead/sdk';
 import { Pickup, PickupEffects, World } from '../contracts/shooter.ts';
-import type { CatalogEntry, SessionContext } from '../../../src/sdk/index.ts';
+import type { CatalogEntry, SessionContext } from '@bulkhead/sdk';
 import manifest from '../plugins/example-keys/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 

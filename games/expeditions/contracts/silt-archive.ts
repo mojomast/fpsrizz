@@ -5,8 +5,8 @@ export interface SiltChamberTemplate {
   readonly rows: readonly string[];
 }
 
-import { defineRegistry, defineService } from '../../../src/sdk/index.ts';
-import type { ConditionSnapshot } from '../../../src/sdk/index.ts';
+import { defineRegistry, defineService } from '@bulkhead/sdk';
+import type { ConditionSnapshot } from '@bulkhead/sdk';
 
 export interface SiltDistrictDefinition { readonly name: string; readonly chambers: readonly SiltChamberTemplate[] }
 export interface SiltArchiveDefinition { readonly name: string; readonly districts: readonly SiltDistrictDefinition[] }

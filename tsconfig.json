@@ -17,5 +17,5 @@
     "skipLibCheck": true,
     "types": []
   },
-  "include": ["src", "games", "templates/games", "tests", "scripts/*.d.ts", "scripts/boundaries.ts"]
+  "include": ["src", "packages/kernel", "packages/sdk", "packages/platform-web", "packages/std", "games", "templates/games", "tests", "scripts/*.d.ts", "scripts/boundaries.ts"]
 }

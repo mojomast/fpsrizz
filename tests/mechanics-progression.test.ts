@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { ProgressionProviders, SessionControl, progressionMechanic } from '../src/sdk/index.ts';
-import type { MechanicProgression, ProgressionDefinition, SessionContext } from '../src/sdk/index.ts';
+import { ProgressionProviders, SessionControl, progressionMechanic } from '@bulkhead/sdk';
+import type { MechanicProgression, ProgressionDefinition, SessionContext } from '@bulkhead/sdk';
 import { progressionProviders } from './helpers/alternate-progression.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { codePlugin } from './helpers/host.ts';

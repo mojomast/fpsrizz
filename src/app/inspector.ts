@@ -3,9 +3,9 @@
  * a plugin-config tweak panel that restarts with state kept and exports the tweaked preset. Loaded lazily (its own
  * chunk) and driven entirely through the dev-tools core, so it does exactly what the JSON-RPC protocol can do.
  */
-import type { DevTools } from '../platform/devtools.ts';
-import type { ConfigField } from '../kernel/manifest.ts';
-import type { Json } from '../kernel/validate.ts';
+import type { DevTools } from '@bulkhead/platform-web/devtools.ts';
+import type { ConfigField } from '@bulkhead/kernel/manifest.ts';
+import type { Json } from '@bulkhead/kernel/validate.ts';
 
 export interface Inspector { el: HTMLElement; update(): void; dispose(): void }
 type Summary = { id: number; owner: string; name?: string; components: string[] };

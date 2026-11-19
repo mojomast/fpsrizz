@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Bulkhead plugin manifest (manifest.json)",
-  "description": "Declares a plugin or content pack: identity, SDK range, dependencies, capabilities and typed config. Semantic checks (resolvable dependencies, semver ranges, config defaults) run in src/kernel/manifest.ts.",
+  "description": "Declares a plugin or content pack: identity, SDK range, dependencies, capabilities and typed config. Semantic checks (resolvable dependencies, semver ranges, config defaults) run in packages/kernel/src/manifest.ts.",
   "type": "object",
   "required": [
     "schema",

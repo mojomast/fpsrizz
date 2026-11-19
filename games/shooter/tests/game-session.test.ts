@@ -4,10 +4,10 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Health, Intent, Inventory, Player } from '../../../src/sdk/index.ts';
+import { Health, Intent, Inventory, Player } from '@bulkhead/sdk';
 import { AttackFired, Damaged, Died, DoorChanged, Enemy, EnemyAlerted, Impact, WeaponDry, WeaponSwitched } from '../contracts/shooter.ts';
-import type { EventToken } from '../../../src/sdk/index.ts';
-import type { Session } from '../../../src/kernel/host.ts';
+import type { EventToken } from '@bulkhead/sdk';
+import type { Session } from '@bulkhead/kernel/host.ts';
 import {
   AUTO, HALL, OPEN_ROOM, RAIL, createHeadlessGame, gridMapData, handles, headlessPreset, place, presetFor, record, startArena, startOnMap, tap, testPack, transformOf, assertHealthy, equip, FACE_EAST, spawnEnemy, DUMMY,
 } from '../../../tests/helpers/gameplay.ts';

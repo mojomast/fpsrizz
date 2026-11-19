@@ -1,14 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { MechanicActionCommitted, MechanicObjectiveChanged } from '../src/sdk/index.ts';
+import { MechanicActionCommitted, MechanicObjectiveChanged } from '@bulkhead/sdk';
 import { Verdant } from '../games/verdant/contracts/verdant.ts';
 import { Sky } from '../games/sky/contracts/sky.ts';
 import type { VerdantCommand } from '../games/verdant/contracts/verdant.ts';
-import resources from '../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
-import clock from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
-import actions from '../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
-import objectives from '../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
-import kits from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
+import resources from '@bulkhead/std/mechanics-resources/manifest.json' with { type: 'json' };
+import clock from '@bulkhead/std/mechanics-clock/manifest.json' with { type: 'json' };
+import actions from '@bulkhead/std/mechanics-actions/manifest.json' with { type: 'json' };
+import objectives from '@bulkhead/std/mechanics-objectives/manifest.json' with { type: 'json' };
+import kits from '@bulkhead/std/mechanics-kits/manifest.json' with { type: 'json' };
 import skyRules from '../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
 import skyPresentation from '../games/sky/plugins/sky-presentation/manifest.json' with { type: 'json' };
 import skyPack from '../games/sky/plugins/portfolio-sky-resource/manifest.json' with { type: 'json' };
@@ -19,23 +19,23 @@ import verdantPresentation from '../games/verdant/plugins/verdant-presentation/m
 import verdantPack from '../games/verdant/plugins/portfolio-verdant-resource/manifest.json' with { type: 'json' };
 import verdantContent from '../games/verdant/plugins/portfolio-verdant-resource/content.json' with { type: 'json' };
 import verdantPreset from '../games/verdant/presets/portfolio-verdant-resource.json' with { type: 'json' };
-import theme from '../src/plugins/theme-board/manifest.json' with { type: 'json' };
+import theme from '@bulkhead/std/theme-board/manifest.json' with { type: 'json' };
 import { createHeadlessGame } from './helpers/game.ts';
 
 function game() {
   return createHeadlessGame([
-    { manifest: resources, load: () => import('../src/plugins/mechanics-resources/index.ts') },
-    { manifest: clock, load: () => import('../src/plugins/mechanics-clock/index.ts') },
-    { manifest: actions, load: () => import('../src/plugins/mechanics-actions/index.ts') },
-    { manifest: objectives, load: () => import('../src/plugins/mechanics-objectives/index.ts') },
-    { manifest: kits, load: () => import('../src/plugins/mechanics-kits/index.ts') },
+    { manifest: resources, load: () => import('@bulkhead/std/mechanics-resources/index.ts') },
+    { manifest: clock, load: () => import('@bulkhead/std/mechanics-clock/index.ts') },
+    { manifest: actions, load: () => import('@bulkhead/std/mechanics-actions/index.ts') },
+    { manifest: objectives, load: () => import('@bulkhead/std/mechanics-objectives/index.ts') },
+    { manifest: kits, load: () => import('@bulkhead/std/mechanics-kits/index.ts') },
     { manifest: skyRules, load: () => import('../games/sky/plugins/sky-game/index.ts') },
     { manifest: skyPresentation, load: () => import('../games/sky/plugins/sky-presentation/index.ts') },
     { manifest: skyPack, content: skyContent },
     { manifest: verdantRules, load: () => import('../games/verdant/plugins/verdant-game/index.ts') },
     { manifest: verdantPresentation, load: () => import('../games/verdant/plugins/verdant-presentation/index.ts') },
     { manifest: verdantPack, content: verdantContent },
-    { manifest: theme, load: () => import('../src/plugins/theme-board/index.ts') },
+    { manifest: theme, load: () => import('@bulkhead/std/theme-board/index.ts') },
   ]);
 }
 

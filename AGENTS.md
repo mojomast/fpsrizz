@@ -36,25 +36,25 @@ loading the complete `docs/reuse-index.json`. The CLI observes trusted registrat
 
 | Path | Purpose |
 |---|---|
-| `src/kernel` | Runtime kernel: host, registries, entity store, buses, scheduler, scopes, validation. No game concepts, no DOM. |
-| `src/sdk` | SDK 3 public API (`contracts/spatial.ts`: Transform3D, Renderable): `index.ts` (entry), `core.ts` (generic), `contracts/` (shooter, experience, vehicle, tactics, adventure and audio vocabulary), `render.ts` |
-| `src/platform` | Browser adapters (input, audio, storage, ui, flow, render host); official Three.js behind the historical `render/mini3/index.ts` facade, vendored in `render/mini3/vendor/`; `legacy.ts` retains the old renderer for fixtures |
+| `packages/kernel/src` | Runtime kernel: host, registries, entity store, buses, scheduler, scopes, validation. No game concepts, no DOM. |
+| `packages/sdk/src` | SDK 3 public API (`contracts/spatial.ts`: Transform3D, Renderable): `index.ts` (entry), `core.ts` (generic), `contracts/` (shooter, experience, vehicle, tactics, adventure and audio vocabulary), `render.ts` |
+| `packages/platform-web/src` | Browser adapters (input, audio, storage, ui, flow, render host); official Three.js behind the historical `render/mini3/index.ts` facade, vendored in `render/mini3/vendor/`; `legacy.ts` retains the old renderer for fixtures |
 | `src/app` | Composition root: `main.ts` (frame loop), `catalog.ts` (presets; re-exports the generated `catalog.generated.ts`), `shell.ts`, `creator.ts` |
-| `src/plugins/<ns>-<name>` | Shared plugins only: mechanics providers, presentation, themes, `dungeon-generator`. New plugins are scaffolded here, then moved to a family with `npm run move-to-game` |
+| `packages/std/plugins/<ns>-<name>` | Shared plugins only: mechanics providers, presentation, themes, `dungeon-generator`. New plugins are scaffolded here, then moved to a family with `npm run move-to-game` |
 | `games/<family>/` | One game family: `plugins/<name>/`, `contracts/` (family-only SDK vocabulary), `presets/`, `tests/`, `README.md` and `docs/` |
 | `tests` | `*.test.ts` run by `npm test` (as are `games/**/*.test.ts`); `helpers/` harness; subfolders with browser demos run by `npm run test:browser` |
 | `scripts` | build, dev, preview, smoke, boundary checker, reuse discovery/indexing, plugin scaffolder, tool resolution |
 | `assets/weapons` | Blender weapon sources, GLB exports, first-person renders and an agent authoring workflow |
 | `assets/experiences` | Curated racing, board and story theme images with pinned source/hash provenance |
-| `docs/` | `guide/`, `reference/` (plus generated `reference/api/` from `npm run docs:api`), `cookbook/`, `games/` (guides for games in `src/plugins`), `archive/` (historical plans; may be stale) |
+| `docs/` | `guide/`, `reference/` (plus generated `reference/api/` from `npm run docs:api`), `cookbook/`, `games/` (guides for games in `packages/std/plugins`), `archive/` (historical plans; may be stale) |
 
 ## Import boundaries (enforced by `npm run lint`)
 
-- A plugin imports only its own folder and `src/sdk/index.ts`. It may also import `src/sdk/render.ts` if and only if its
-  manifest lists `"render"` in `capabilities`. Never the kernel, platform, app, another plugin or an npm package.
-- `src/kernel` imports only `src/kernel` and never uses `document.` or `window.`.
-- `src/sdk` imports only `src/sdk` and `src/kernel`; only `src/sdk/render.ts` may import `src/platform/render/mini3`.
-- `src/platform` imports only `src/platform`, `src/kernel` and `src/sdk`.
+- A plugin imports only its own folder and the SDK entry point `@bulkhead/sdk` (`packages/sdk/src/index.ts`). It may also
+  import `@bulkhead/sdk/render.ts` if and only if its manifest lists `"render"` in `capabilities`. Never the kernel, platform, app, another plugin or an npm package.
+- `packages/kernel/src` imports only `packages/kernel/src` and never uses `document.` or `window.`.
+- `packages/sdk/src` imports only `packages/sdk/src` and `packages/kernel/src`; only `packages/sdk/src/render.ts` may import `packages/platform-web/src/render/mini3`.
+- `packages/platform-web/src` imports only `packages/platform-web/src`, `packages/kernel/src` and `packages/sdk/src`.
 - `src/app` is unrestricted.
 
 If a plugin needs something it cannot import, add it to the SDK contract (see below); do not widen the lint rules.
@@ -110,10 +110,10 @@ any environmental failures. Changes to audio or pointer lock also need manual ve
 
 | Task | Start here | Verification / documentation |
 |---|---|---|
-| Host, lifecycle, scheduling | `src/kernel/host.ts`, `scope.ts`, `scheduler.ts` | `tests/host-lifecycle.test.ts`, kernel tests, `docs/reference/architecture.md` |
-| Gameplay or SDK contracts | `src/sdk/contracts/` (shared), `games/<family>/contracts/` (one family), provider and consumer plugins | `tests/helpers/game.ts`, extension tests, `docs/guide/plugins.md` |
+| Host, lifecycle, scheduling | `packages/kernel/src/host.ts`, `scope.ts`, `scheduler.ts` | `tests/host-lifecycle.test.ts`, kernel tests, `docs/reference/architecture.md` |
+| Gameplay or SDK contracts | `packages/sdk/src/contracts/` (shared), `games/<family>/contracts/` (one family), provider and consumer plugins | `tests/helpers/game.ts`, extension tests, `docs/guide/plugins.md` |
 | Content or preset | content-kind plugin, `src/app/catalog.ts` (preset list), `games/<family>/presets/` | content tests, `docs/reference/content-format.md`, game guide |
-| Browser UI or rendering | `src/app/`, `src/platform/`, relevant presentation plugin | build and smoke; creator test for panel changes |
+| Browser UI or rendering | `src/app/`, `packages/platform-web/src/`, relevant presentation plugin | build and smoke; creator test for panel changes |
 
 Registration survives restart; activation runs again per session. A failed staging operation preserves the old session,
 but failure during activation after commit does not restore it. Factories run lazily in their registering owner's
@@ -122,7 +122,7 @@ context, and selected roles activate after all plugins; see the lifecycle notes 
 ## Adding a plugin
 
 1. Complete reuse discovery above. `npm run new-plugin -- <namespace/name> "Display Name"` shows related existing
-   candidates and creates `src/plugins/<namespace>-<name>/` with a manifest, starter `index.ts` and unreviewed `reuse.json`.
+   candidates and creates `packages/std/plugins/<namespace>-<name>/` with a manifest, starter `index.ts` and unreviewed `reuse.json`.
    The catalog discovers it automatically. Fill in the capability, scope, public entry points, limits and examples.
 2. The plugin catalog is generated from manifests (`npm run gen-catalog`; dev/build/check run or verify it). Add the plugin id to a preset's `plugins` (or tick it
    in the creator panel). Dependencies are never auto-enabled: list every required plugin in the preset and in the
@@ -136,11 +136,11 @@ context, and selected roles activate after all plugins; see the lifecycle notes 
 - **Never weaken, skip or delete a test to make a change pass**, and never loosen a lint rule. If a test or rule blocks
   you, the design is wrong or the test is revealing a bug: fix the cause.
 - **Never move gameplay into the kernel.** The kernel stays generic. If plugins cannot cooperate, extend the shared
-  contract in `src/sdk/contracts` (shared) or `games/<family>/contracts` (one family) (and bump `SDK_VERSION` when a contract changes incompatibly) rather than adding
+  contract in `packages/sdk/src/contracts` (shared) or `games/<family>/contracts` (one family) (and bump `SDK_VERSION` when a contract changes incompatibly) rather than adding
   shortcuts, global state or cross-plugin imports.
 - Do not edit a plugin's behaviour from another plugin's folder; extend through registries, roles, events and services.
-- Game plugins import only their own folder, the SDK entry point, `src/sdk/render.ts` (with the `render` capability) and
-  their own family's `contracts/`; engine code never imports `games/` (only the `src/app` composition root does).
+- Game plugins import only their own folder, the SDK entry point, `@bulkhead/sdk/render.ts` (with the `render` capability),
+  their own family's `contracts/` and the contracts of families listed in `games/<family>/family.json` `uses`; engine code never imports `games/` (only the `src/app` composition root does).
 - Never inline large binary art into TypeScript; generated painters keep pixel data in `public/packs/` (`npm run pack-painters`).
 - Keep `README.md`, `docs/reference/spec.md` and the other docs truthful: describe planned work as planned.
 

@@ -2,9 +2,9 @@
 
 1. Do reuse discovery first ([guide](../guide/reuse.md)): `npm run find-reuse -- "your mechanic"`.
 2. Scaffold each plugin: `npm run new-plugin -- <namespace/name> "Display Name"`. It creates
-   `src/plugins/<namespace>-<name>/`; the catalog picks it up automatically.
+   `packages/std/plugins/<namespace>-<name>/`; the catalog picks it up automatically.
 3. If the game needs its own vocabulary (a service, registry or events only it uses), write it as an SDK contract in
-   `src/sdk/contracts/<name>.ts` while prototyping, then move it with the game.
+   `packages/sdk/src/contracts/<name>.ts` while prototyping, then move it with the game.
 4. Add a preset under `games/<family>/presets/` (create the folder) and list it in `src/app/catalog.ts`; play it with
    `npm run dev`. `move-to-game --presets` also accepts presets still at `src/content/presets/`.
 5. Move everything into its own family when it settles:
@@ -20,4 +20,4 @@
 6. Add `games/<family>/README.md` and a row to [games/README.md](../../games/README.md).
 
 Boundaries (`npm run lint`) then hold the family to its own folder, the SDK entry point, the render SDK and its own
-contracts. A contract used by more than one family belongs in `src/sdk/contracts/` instead.
+contracts. A contract used by more than one family belongs in `packages/sdk/src/contracts/` instead.

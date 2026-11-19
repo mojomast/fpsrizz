@@ -1,6 +1,6 @@
-import { SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged } from '../../src/sdk/index.ts';
-import type { ResourcePoolProvider, ResourceTransaction, SessionContext } from '../../src/sdk/index.ts';
-import type { CatalogEntry } from '../../src/kernel/host.ts';
+import { SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged } from '@bulkhead/sdk';
+import type { ResourcePoolProvider, ResourceTransaction, SessionContext } from '@bulkhead/sdk';
+import type { CatalogEntry } from '@bulkhead/kernel/host.ts';
 
 export const ALTERNATE = 'z-test/resources';
 

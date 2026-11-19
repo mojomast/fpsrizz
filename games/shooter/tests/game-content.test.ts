@@ -4,10 +4,10 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Maps } from '../../../src/sdk/index.ts';
+import { Maps } from '@bulkhead/sdk';
 import { Enemies, Weapons } from '../contracts/shooter.ts';
-import type { CatalogEntry } from '../../../src/sdk/index.ts';
-import type { HostError } from '../../../src/kernel/host.ts';
+import type { CatalogEntry } from '@bulkhead/sdk';
+import type { HostError } from '@bulkhead/kernel/host.ts';
 import { codePlugin, hostFailure } from '../../../tests/helpers/host.ts';
 import { CORE_PLUGINS, HALL, OBJECTIVE_ROOMS, assertHealthy, createHeadlessGame, gridMapData, handles, headlessPreset, testPackManifest } from '../../../tests/helpers/gameplay.ts';
 import type { Obj } from '../../../tests/helpers/gameplay.ts';

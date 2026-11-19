@@ -1,17 +1,17 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { PluginHost } from '../src/kernel/host.ts';
-import type { CatalogEntry, SessionContext } from '../src/kernel/host.ts';
-import { CharacterController, CharacterMove, CharacterState, PHASES, Physics, PhysicsCollider, PhysicsCollision, RigidBody, SDK_COMPAT, SDK_VERSION, Transform3D, transform3d } from '../src/sdk/index.ts';
-import type { PhysicsCollisionEvent } from '../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry, SessionContext } from '@bulkhead/kernel/host.ts';
+import { CharacterController, CharacterMove, CharacterState, PHASES, Physics, PhysicsCollider, PhysicsCollision, RigidBody, SDK_COMPAT, SDK_VERSION, Transform3D, transform3d } from '@bulkhead/sdk';
+import type { PhysicsCollisionEvent } from '@bulkhead/sdk';
 import { codePlugin, presetOf } from './helpers/host.ts';
 
 const real = (dir: string): CatalogEntry => ({ manifest: JSON.parse(readFileSync(`${dir}/manifest.json`, 'utf8') as string), load: () => import(`../${dir}/index.ts`) });
 
 async function scene(setup: (ctx: SessionContext) => void) {
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
-  host.setCatalog([real('src/plugins/std-transform'), real('src/plugins/std-physics-rapier'), codePlugin('test/scene', { activate: setup }, { sdk: '^3.0.0' })]);
+  host.setCatalog([real('packages/std/plugins/std-transform'), real('packages/std/plugins/std-physics-rapier'), codePlugin('test/scene', { activate: setup }, { sdk: '^3.0.0' })]);
   const session = await host.apply(presetOf('test/p', ['std/transform', 'std/physics-rapier', 'test/scene']));
   return { host, session, ticks: (n: number) => { for (let i = 0; i < n; i++) session.scheduler.runTick(); } };
 }
@@ -128,7 +128,7 @@ test('bodies created by plugins that activated before physics are simulated', as
   let box = 0;
   const early = codePlugin('a-test/early', { activate(ctx) { box = ctx.world.create(); ctx.world.add(box, Transform3D, transform3d({ position: { y: 3 } })); ctx.world.add(box, RigidBody, { type: 'dynamic' }); ctx.world.add(box, PhysicsCollider, { shape: 'ball' }); } }, { sdk: '^3.0.0' });
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
-  host.setCatalog([early, real('src/plugins/std-transform'), real('src/plugins/std-physics-rapier')]);
+  host.setCatalog([early, real('packages/std/plugins/std-transform'), real('packages/std/plugins/std-physics-rapier')]);
   const session = await host.apply(presetOf('test/p', ['a-test/early', 'std/transform', 'std/physics-rapier']));
   for (let i = 0; i < 30; i++) session.scheduler.runTick();
   assert.ok(session.entities.get(box, Transform3D)!.position.y < 2.5);

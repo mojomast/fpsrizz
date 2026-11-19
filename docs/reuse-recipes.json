@@ -12,7 +12,7 @@
       "entryPoints": ["RelationshipProviders", "RelationshipMechanicRole", "relationshipMechanic"],
       "useWhen": "A game needs symmetric relationship scores while retaining its own social rules and consequences.",
       "limitations": ["Pairs and bounds are explicit; no automatic actor creation, dialogue, social simulation, or persistence.", "Changes clamp to the bounds and reject while paused."],
-      "docs": ["src/plugins/mechanics-relationships/README.md"],
+      "docs": ["packages/std/plugins/mechanics-relationships/README.md"],
       "examples": ["games/expeditions/plugins/common-ground-game/index.ts", "games/expeditions/plugins/salt-rpg-game/index.ts"],
       "tests": ["tests/mechanics-relationships.test.ts", "games/expeditions/tests/common-ground-simulation.test.ts", "games/expeditions/tests/salt-ledger.test.ts"],
       "plugins": ["mechanics/relationships"],
@@ -29,7 +29,7 @@
       "entryPoints": ["ConditionProviders", "ConditionMechanicRole", "conditionMechanic", "clockMechanic"],
       "useWhen": "A consumer needs multiple independently named effect windows and retains policy for their consequences.",
       "limitations": ["The consumer advances the borrowed clock and owns targeting, effect consequences and persistence.", "There are no automatic callbacks or periodic damage; application and removal reject while paused."],
-      "docs": ["src/plugins/mechanics-conditions/README.md", "docs/reference/deadlines.md"],
+      "docs": ["packages/std/plugins/mechanics-conditions/README.md", "docs/reference/deadlines.md"],
       "examples": ["games/expeditions/plugins/silt-game/index.ts"],
       "tests": ["tests/mechanics-conditions.test.ts", "games/expeditions/tests/silt-archive-combat.test.ts"],
       "plugins": ["mechanics/clock", "mechanics/conditions"],
@@ -533,7 +533,7 @@
       "plugins": [],
       "roles": {},
       "steps": [
-        "Declare render in capabilities and import Render/THREE from src/sdk/render.ts; return early when Render or Ui is absent.",
+        "Declare render in capabilities and import Render/THREE from packages/sdk/src/render.ts; return early when Render or Ui is absent.",
         "Own scene roots with createRoot(ctx,...), geometry/materials with own/shared, and select the world camera through setWorldCamera(ctx,camera).",
         "Mount HUD/styles through Ui with ctx; read detached game state and enqueue commands. Never advance gameplay clocks from frame updates."
       ]
@@ -609,7 +609,7 @@
       ],
       "examples": [
         "games/racing/plugins/vehicle-presentation/index.ts",
-        "src/plugins/theme-board/index.ts"
+        "packages/std/plugins/theme-board/index.ts"
       ],
       "tests": [
         "tests/experience-themes.test.ts",

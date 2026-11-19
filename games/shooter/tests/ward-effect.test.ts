@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Health, Player, Transform, definePlugin, spawnPrefab } from '../../../src/sdk/index.ts';
+import { Health, Player, Transform, definePlugin, spawnPrefab } from '@bulkhead/sdk';
 import { Combat, PickupCollected } from '../contracts/shooter.ts';
-import type { CatalogEntry, SessionContext } from '../../../src/sdk/index.ts';
+import type { CatalogEntry, SessionContext } from '@bulkhead/sdk';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import manifest from '../plugins/example-ward/manifest.json' with { type: 'json' };
 

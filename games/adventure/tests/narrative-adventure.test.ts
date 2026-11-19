@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost } from '../../../src/kernel/host.ts';
-import { ExperienceRole, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, definePlugin } from '../../../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import { ExperienceRole, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, definePlugin } from '@bulkhead/sdk';
 import { Adventure, AdventureActionResolved } from '../contracts/adventure.ts';
-import type { ProfileData } from '../../../src/sdk/index.ts';
+import type { ProfileData } from '@bulkhead/sdk';
 import rules from '../plugins/story-adventure/manifest.json' with { type: 'json' };
 import chapter from '../plugins/story-chapter/manifest.json' with { type: 'json' };
 import content from '../plugins/story-chapter/content.json' with { type: 'json' };

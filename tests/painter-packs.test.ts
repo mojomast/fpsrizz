@@ -57,6 +57,6 @@ function longestBase64Run(text: string): number {
 }
 
 test('no plugin source inlines a large base64 blob (keep art in public/packs)', () => {
-  const offenders = walk('src/plugins').filter((p) => p.endsWith('.ts')).filter((p) => longestBase64Run(readFileSync(p, 'utf8') as string) > 100_000);
+  const offenders = walk('packages/std/plugins').filter((p) => p.endsWith('.ts')).filter((p) => longestBase64Run(readFileSync(p, 'utf8') as string) > 100_000);
   assert.deepEqual(offenders, []);
 });

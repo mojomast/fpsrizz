@@ -29,11 +29,11 @@
  *
  * The module is pure: it does not import plugin modules, activate a host, read JSON or touch the DOM.
  */
-import { checkConfigValue } from '../kernel/manifest.ts';
-import type { ConfigField, GamePreset, PluginManifest } from '../kernel/manifest.ts';
-import { satisfies } from '../kernel/semver.ts';
-import { ID_PATTERN, isObject } from '../kernel/validate.ts';
-import type { Json } from '../kernel/validate.ts';
+import { checkConfigValue } from '@bulkhead/kernel/manifest.ts';
+import type { ConfigField, GamePreset, PluginManifest } from '@bulkhead/kernel/manifest.ts';
+import { satisfies } from '@bulkhead/kernel/semver.ts';
+import { ID_PATTERN, isObject } from '@bulkhead/kernel/validate.ts';
+import type { Json } from '@bulkhead/kernel/validate.ts';
 
 export const GAME_GRAPH_SCHEMA = 1;
 

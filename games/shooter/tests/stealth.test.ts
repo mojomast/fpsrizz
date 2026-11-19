@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Player, Transform, definePlugin, spawnPrefab } from '../../../src/sdk/index.ts';
+import { Flow, Player, Transform, definePlugin, spawnPrefab } from '@bulkhead/sdk';
 import { Enemy } from '../contracts/shooter.ts';
-import type { CatalogEntry, SessionContext } from '../../../src/sdk/index.ts';
+import type { CatalogEntry, SessionContext } from '@bulkhead/sdk';
 import manifest from '../plugins/example-stealth/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 

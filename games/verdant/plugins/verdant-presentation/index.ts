@@ -1,8 +1,8 @@
-import { SessionControl, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { SessionControl, Ui, definePlugin } from '@bulkhead/sdk';
 import { Verdant } from '../../contracts/verdant.ts';
-import type { MechanicActionDefinition } from '../../../../src/sdk/index.ts';
+import type { MechanicActionDefinition } from '@bulkhead/sdk';
 import type { VerdantCommand } from '../../contracts/verdant.ts';
-import { Render } from '../../../../src/sdk/render.ts';
+import { Render } from '@bulkhead/sdk/render.ts';
 import { createScene } from './scene.ts';
 
 const styles = `

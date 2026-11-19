@@ -1,6 +1,6 @@
-import { ExperienceRole, NavigationRole, Items, SessionControl, createCommandQueue, definePlugin, inventoryMechanic, objectiveMechanic, isObject, progressionMechanic, relationshipMechanic } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, NavigationRole, Items, SessionControl, createCommandQueue, definePlugin, inventoryMechanic, objectiveMechanic, isObject, progressionMechanic, relationshipMechanic } from '@bulkhead/sdk';
 import { SaltCampaigns, SaltLedger } from '../../contracts/salt-ledger.ts';
-import type { ContentLoadContext } from '../../../../src/sdk/index.ts';
+import type { ContentLoadContext } from '@bulkhead/sdk';
 import type { SaltActor, SaltCampaign, SaltCommand, SaltEnemy, SaltState } from '../../contracts/salt-ledger.ts';
 import { items, quests } from './quests.ts';
 

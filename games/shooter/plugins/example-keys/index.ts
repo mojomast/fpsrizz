@@ -1,6 +1,6 @@
-import type { Params, Reporter } from '../../../../src/sdk/index.ts';
+import type { Params, Reporter } from '@bulkhead/sdk';
 import type { InteractionCandidate } from '../../contracts/shooter.ts';
-import { Flow, Maps, Prefabs, defineComponent, definePlugin, vString, yawDirX, yawDirZ } from '../../../../src/sdk/index.ts';
+import { Flow, Maps, Prefabs, defineComponent, definePlugin, vString, yawDirX, yawDirZ } from '@bulkhead/sdk';
 import { Interactions, PickupEffects, World } from '../../contracts/shooter.ts';
 
 const Keyring = defineComponent<{ keys: string[] }>('example/keys.keyring');

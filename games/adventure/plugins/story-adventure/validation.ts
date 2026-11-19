@@ -1,6 +1,6 @@
-import type { ContentLoadContext } from '../../../../src/sdk/index.ts';
+import type { ContentLoadContext } from '@bulkhead/sdk';
 import type { AdventureChapter } from '../../contracts/adventure.ts';
-import { isObject } from '../../../../src/sdk/index.ts';
+import { isObject } from '@bulkhead/sdk';
 import { AdventureChapters } from '../../contracts/adventure.ts';
 
 const IDENTIFIER = /^[a-z][a-z0-9-]{0,63}$/;

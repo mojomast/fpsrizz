@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Data prefabs (component bags with extends/overrides), a Godot-style scene tree format, and Tiled / LDtk level importers.",
+  "keywords": ["prefab", "scene", "level", "tiled", "tmj", "ldtk", "tilemap", "entity", "template", "spawn", "overrides", "extends", "editor", "import"],
+  "entryPoints": ["spawnScene", "spawnSceneFile", "applyPrefabComponents", "resolvePrefab", "ScenePrefabs", "Scenes", "SceneNodeInfo", "importTiled", "importLdtk"],
+  "useWhen": "Levels or entity families described as data: hand-written scenes, prefabs shared across levels, or maps drawn in Tiled or LDtk.",
+  "limitations": ["Tiled: orthogonal maps, CSV/array tile data and embedded tilesets only; tile flip flags are ignored.", "LDtk: levels embedded in the project file; tiles map by tile id only.", "One entity per tile (no greedy merging of tile runs into larger colliders yet)."],
+  "docs": ["docs/reference/scenes.md"],
+  "examples": ["tests/scene.test.ts"],
+  "tests": ["tests/scene.test.ts"]
+}

@@ -17,7 +17,7 @@ const flag = (name) => { const i = rest.indexOf(`--${name}`); return i >= 0 ? re
 const run = (script, args) => { const r = spawnSync(process.execPath, [resolve(root, 'scripts', script), ...args], { stdio: 'inherit', cwd: root }); process.exit(r.status ?? 1); };
 const help = `Usage: npm run bulkhead -- <command>
   create <name> [--template ${Object.keys(TEMPLATES).join('|')}] [--title "Title"]   new game in games/<name>
-  new plugin <namespace/name> ["Display Name"]                         new shared plugin in src/plugins
+  new plugin <namespace/name> ["Display Name"]                         new shared plugin in packages/std/plugins
   add <plugin-id> --preset <preset.json>                               enable a plugin (e.g. a mechanic) in a preset
   validate <preset.json | --bundled> [--pack <pack.json> ...]          resolve and activate presets headlessly
   graph ...                                                            GameGraph CLI (see npm run graph -- --help)

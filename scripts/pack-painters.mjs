@@ -14,12 +14,12 @@ import { basename, dirname, relative, resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
 export const DEFAULT_MODULES = [
-  'src/plugins/theme-assetrizz/weapons.ts',
-  'src/plugins/theme-assetrizz/cinder-weapons.ts',
-  'src/plugins/theme-assetrizz/fantasy-weapons.ts',
-  'src/plugins/theme-assetrizz/generated.ts',
-  'src/plugins/theme-assetrizz/fantasy-generated.ts',
-  'src/plugins/theme-story/generated.ts',
+  'packages/std/plugins/theme-assetrizz/weapons.ts',
+  'packages/std/plugins/theme-assetrizz/cinder-weapons.ts',
+  'packages/std/plugins/theme-assetrizz/fantasy-weapons.ts',
+  'packages/std/plugins/theme-assetrizz/generated.ts',
+  'packages/std/plugins/theme-assetrizz/fantasy-generated.ts',
+  'packages/std/plugins/theme-story/generated.ts',
 ];
 
 const B64 = String.raw`["']([A-Za-z0-9+/=]*)["']`;

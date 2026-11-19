@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "glTF/GLB model loading (Meshopt, KTX2) for Renderable.model, with shared GPU resources and per-node instances.",
+  "keywords": ["gltf", "glb", "model", "mesh", "blender", "ktx2", "meshopt", "asset", "loader"],
+  "entryPoints": ["Models", "Assets", "spawnGltfScene", "GltfExtras"],
+  "useWhen": "A 3D prototype draws authored models or builds levels from a Blender/glTF scene.",
+  "limitations": ["Animations are not played yet (clips are loaded but no mixer runs).", "KTX2 textures need the WebGL renderer (absent in headless sessions)."],
+  "docs": ["docs/reference/assets.md"],
+  "examples": ["games/sandbox/plugins/sandbox-game/index.ts"],
+  "tests": ["tests/assets.test.ts"]
+}

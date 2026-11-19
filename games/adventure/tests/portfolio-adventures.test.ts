@@ -1,11 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost } from '../../../src/kernel/host.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION } from '../../../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 import { Adventure } from '../contracts/adventure.ts';
 import rules from '../plugins/story-adventure/manifest.json' with { type: 'json' };
 import presentation from '../plugins/story-presentation/manifest.json' with { type: 'json' };
-import theme from '../../../src/plugins/theme-story/manifest.json' with { type: 'json' };
+import theme from '@bulkhead/std/theme-story/manifest.json' with { type: 'json' };
 import archive from '../plugins/portfolio-archive-adventure/manifest.json' with { type: 'json' };
 import archiveContent from '../plugins/portfolio-archive-adventure/content.json' with { type: 'json' };
 import orchard from '../plugins/portfolio-orchard-adventure/manifest.json' with { type: 'json' };
@@ -18,7 +18,7 @@ function fixture() {
   host.setCatalog([
     { manifest: rules, load: () => import('../plugins/story-adventure/index.ts') },
     { manifest: presentation, load: () => import('../plugins/story-presentation/index.ts') },
-    { manifest: theme, load: () => import('../../../src/plugins/theme-story/index.ts') },
+    { manifest: theme, load: () => import('@bulkhead/std/theme-story/index.ts') },
     { manifest: archive, content: archiveContent },
     { manifest: orchard, content: orchardContent },
   ]);

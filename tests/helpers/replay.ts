@@ -10,16 +10,16 @@
 import assert from 'node:assert/strict';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
-import { PluginHost } from '../../src/kernel/host.ts';
-import type { CatalogEntry, Session } from '../../src/kernel/host.ts';
-import { hashSnapshot } from '../../src/kernel/snapshot.ts';
-import type { RunSnapshot } from '../../src/kernel/snapshot.ts';
-import { createAssetService, preloadManifestAssets } from '../../src/platform/assets.ts';
-import { createInputCore } from '../../src/platform/input.ts';
-import type { InputCore } from '../../src/platform/input.ts';
-import { parseReplay, recordInput, replayFeeder } from '../../src/platform/replay.ts';
-import type { ReplayFile } from '../../src/platform/replay.ts';
-import { Assets, Input, InputAxes, InputContexts, PHASES, SDK_COMPAT, SDK_VERSION } from '../../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry, Session } from '@bulkhead/kernel/host.ts';
+import { hashSnapshot } from '@bulkhead/kernel/snapshot.ts';
+import type { RunSnapshot } from '@bulkhead/kernel/snapshot.ts';
+import { createAssetService, preloadManifestAssets } from '@bulkhead/platform-web/assets.ts';
+import { createInputCore } from '@bulkhead/platform-web/input.ts';
+import type { InputCore } from '@bulkhead/platform-web/input.ts';
+import { parseReplay, recordInput, replayFeeder } from '@bulkhead/platform-web/replay.ts';
+import type { ReplayFile } from '@bulkhead/platform-web/replay.ts';
+import { Assets, Input, InputAxes, InputContexts, PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 
 export interface RunSpec { preset: { id: string; seed?: number } & Record<string, unknown>; plugins: readonly string[] }
 export interface Run {

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { SequenceProviders, SessionControl, sequenceMechanic } from '../src/sdk/index.ts';
-import type { MechanicSequence, SequenceDefinition, SessionContext } from '../src/sdk/index.ts';
+import { SequenceProviders, SessionControl, sequenceMechanic } from '@bulkhead/sdk';
+import type { MechanicSequence, SequenceDefinition, SessionContext } from '@bulkhead/sdk';
 import { sequenceProviders } from './helpers/alternate-sequence.ts';
 import type { SequenceProviderCase } from './helpers/alternate-sequence.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';

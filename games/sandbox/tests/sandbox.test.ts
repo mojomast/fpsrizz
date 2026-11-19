@@ -1,11 +1,11 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { PluginHost } from '../../../src/kernel/host.ts';
-import type { CatalogEntry } from '../../../src/kernel/host.ts';
-import { createAssetService, preloadManifestAssets } from '../../../src/platform/assets.ts';
-import { createInputCore } from '../../../src/platform/input.ts';
-import { Assets, Input, InputAxes, PHASES, RigidBody, SDK_COMPAT, SDK_VERSION, Transform3D } from '../../../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry } from '@bulkhead/kernel/host.ts';
+import { createAssetService, preloadManifestAssets } from '@bulkhead/platform-web/assets.ts';
+import { createInputCore } from '@bulkhead/platform-web/input.ts';
+import { Assets, Input, InputAxes, PHASES, RigidBody, SDK_COMPAT, SDK_VERSION, Transform3D } from '@bulkhead/sdk';
 import { Sandbox } from '../contracts/sandbox.ts';
 import preset from '../presets/physics-sandbox.json' with { type: 'json' };
 
@@ -20,7 +20,7 @@ test('physics sandbox: the hero walks onto the sensor pad and the crate stack st
     session.addBeforeTick(() => input.beginTick(), scope);
   } });
   input.setAxes(() => host.active?.registries.entries(InputAxes).map((e) => [e.id, e.value] as const) ?? []);
-  host.setCatalog(['src/plugins/std-transform', 'src/plugins/std-assets', 'src/plugins/std-render-sync', 'src/plugins/std-physics-rapier', 'games/sandbox/plugins/sandbox-game', 'games/sandbox/plugins/sandbox-presentation'].map(real));
+  host.setCatalog(['packages/std/plugins/std-transform', 'packages/std/plugins/std-assets', 'packages/std/plugins/std-render-sync', 'packages/std/plugins/std-physics-rapier', 'games/sandbox/plugins/sandbox-game', 'games/sandbox/plugins/sandbox-presentation'].map(real));
   const session = await host.apply(preset);
   const ticks = (n: number): void => { for (let i = 0; i < n; i++) session.scheduler.runTick(); };
   const state = session.services.get(Sandbox);

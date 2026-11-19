@@ -6,13 +6,13 @@ Each folder is one game family, kept apart from the engine so a new prototype do
 games/<family>/
   README.md        player and author guide
   docs/            extra guides (optional)
-  contracts/       family-only SDK vocabulary (services, registries, events); not exported by src/sdk/index.ts
+  contracts/       family-only SDK vocabulary (services, registries, events); not exported by packages/sdk/src/index.ts
   plugins/<name>/  manifest.json + index.ts (code) or content.json (data pack), README.md, reuse.json
   presets/         preset JSON files (listed in src/app/catalog.ts)
   tests/           node:test suites, run by npm test
 ```
 
-Rules (enforced by `npm run lint`): a game plugin imports only its own folder, `src/sdk/index.ts`, `src/sdk/render.ts`
+Rules (enforced by `npm run lint`): a game plugin imports only its own folder, `packages/sdk/src/index.ts`, `packages/sdk/src/render.ts`
 (with the `render` capability) and its own family's `contracts/`. Contracts import only the SDK entry point and their
 own family. Engine code never imports `games/`; only the `src/app` composition root (catalog and preset list) does.
 Plugins are discovered automatically (`npm run gen-catalog`).

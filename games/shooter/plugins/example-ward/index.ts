@@ -1,4 +1,4 @@
-import { Health, defineComponent, definePlugin } from '../../../../src/sdk/index.ts';
+import { Health, defineComponent, definePlugin } from '@bulkhead/sdk';
 import { DamageModifiers, PickupEffects } from '../../contracts/shooter.ts';
 
 interface Ward {

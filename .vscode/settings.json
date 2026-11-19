@@ -26,9 +26,27 @@
     },
     {
       "fileMatch": [
+        "*.scene.json"
+      ],
+      "url": "./schemas/scene.schema.json"
+    },
+    {
+      "fileMatch": [
+        "*.prefab.json"
+      ],
+      "url": "./schemas/prefab.schema.json"
+    },
+    {
+      "fileMatch": [
         "*.replay.json"
       ],
       "url": "./schemas/replay.schema.json"
+    },
+    {
+      "fileMatch": [
+        "/games/*/family.json"
+      ],
+      "url": "./schemas/family.schema.json"
     },
     {
       "fileMatch": [

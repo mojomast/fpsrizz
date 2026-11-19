@@ -1,7 +1,7 @@
 # Reusable gameplay mechanics
 
 The four mechanic providers implement gameplay state independently of camera, input, renderer and genre. Their public
-interfaces are in `src/sdk/contracts/mechanics.ts`, exported from `src/sdk/index.ts`. They register no tick or frame
+interfaces are in `packages/sdk/src/contracts/mechanics.ts`, exported from `packages/sdk/src/index.ts`. They register no tick or frame
 systems. A composing game queues UI ingress, validates its own spatial/target rules in simulation, executes a shared
 action, and commits its local outcome only when the result is successful.
 
@@ -23,7 +23,7 @@ mechanic role has a factory registered under that exact selected ID; metadata al
 Content packs depend on `mechanics/kits`. In a game's activation:
 
 ```ts
-import { createMechanicKit } from '../../sdk/index.ts';
+import { createMechanicKit } from '@bulkhead/sdk';
 const kit = createMechanicKit(ctx, 'my-game/kit', 'run');
 // Later, inside the game's simulation:
 kit.clock.advance(dt); // seconds; a turn game explicitly advances whole turns instead

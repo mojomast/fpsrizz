@@ -1,10 +1,10 @@
-import { Flow, FlowEnded, Health, Inventory, PHASES, SDK_COMPAT, SDK_VERSION, Ui } from '../../../../src/sdk/index.ts';
+import { Flow, FlowEnded, Health, Inventory, PHASES, SDK_COMPAT, SDK_VERSION, Ui } from '@bulkhead/sdk';
 import { Damaged, PickupCollected, UseFailed, WeaponDry } from '../../contracts/shooter.ts';
-import type { FlowService } from '../../../../src/sdk/index.ts';
-import { PluginHost } from '../../../../src/kernel/host.ts';
-import type { Session } from '../../../../src/kernel/host.ts';
-import { createUiService } from '../../../../src/platform/ui.ts';
-import { createFlow } from '../../../../src/platform/flow.ts';
+import type { FlowService } from '@bulkhead/sdk';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { Session } from '@bulkhead/kernel/host.ts';
+import { createUiService } from '@bulkhead/platform-web/ui.ts';
+import { createFlow } from '@bulkhead/platform-web/flow.ts';
 import hudManifest from '../../plugins/core-hud/manifest.json';
 import hudModule from '../../plugins/core-hud/index.ts';
 import demoModule, { demoManifest } from './demo-plugin.ts';

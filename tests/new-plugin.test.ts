@@ -30,7 +30,7 @@ test('scaffolder safely serializes display names and suggests valid identifiers'
     const name = `A "quote", 'apostrophe', \\ slash\n__ID__ \u2028 finish`;
     const result = scaffold(root, '9space/2...--foo_', name);
     assert.equal(result.status, 0, result.stderr);
-    const dir = join(root, 'src/plugins/9space-2...--foo_');
+    const dir = join(root, 'packages/std/plugins/9space-2...--foo_');
     const manifest = JSON.parse(readFileSync(join(dir, 'manifest.json'), 'utf8'));
     assert.equal(manifest.id, '9space/2...--foo_');
     assert.equal(manifest.name, name);
@@ -53,7 +53,7 @@ test('scaffolder safely serializes display names and suggests valid identifiers'
 
 test('scaffolder refuses collisions without changing existing files', () => {
   withFixture((root) => {
-    const dir = join(root, 'src/plugins/example-test');
+    const dir = join(root, 'packages/std/plugins/example-test');
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'manifest.json'), 'original manifest');
     writeFileSync(join(dir, 'index.ts'), 'original source');

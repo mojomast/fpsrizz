@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { EntityStore } from '../src/kernel/ecs.ts';
-import type { ComponentToken } from '../src/kernel/ecs.ts';
+import { EntityStore } from '@bulkhead/kernel/ecs.ts';
+import type { ComponentToken } from '@bulkhead/kernel/ecs.ts';
 
 const position: ComponentToken<{ x: number; y: number }> = { id: 'test/position' };
 const health: ComponentToken<{ hp: number }> = { id: 'test/health' };

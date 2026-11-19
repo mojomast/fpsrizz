@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { ServiceMap } from '../src/kernel/bus.ts';
-import { Scope, SessionControl, createCommandQueue, isObject } from '../src/sdk/index.ts';
-import type { CommandQueue, SessionContext } from '../src/sdk/index.ts';
+import { ServiceMap } from '@bulkhead/kernel/bus.ts';
+import { Scope, SessionControl, createCommandQueue, isObject } from '@bulkhead/sdk';
+import type { CommandQueue, SessionContext } from '@bulkhead/sdk';
 
 function owner() {
   const scope = new Scope('test', 'command-queue');

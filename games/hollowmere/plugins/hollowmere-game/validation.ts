@@ -1,6 +1,6 @@
-import type { ContentLoadContext } from '../../../../src/sdk/index.ts';
+import type { ContentLoadContext } from '@bulkhead/sdk';
 import type { MetroAbility, MetroDoor, MetroEnemySpawn, MetroEnemyType, MetroNpcSpawn, MetroPickupSpawn, MetroProp, MetroRegion, MetroRoom, MetroCheckpoint, MetroWorld } from '../../contracts/metroidvania.ts';
-import { isObject } from '../../../../src/sdk/index.ts';
+import { isObject } from '@bulkhead/sdk';
 import { MetroidvaniaWorlds } from '../../contracts/metroidvania.ts';
 
 const ID = /^[a-z0-9][a-z0-9./_-]*$/i;

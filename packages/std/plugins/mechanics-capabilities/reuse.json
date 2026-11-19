@@ -1,0 +1,38 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects.",
+  "keywords": [
+    "ability",
+    "capability",
+    "unlock",
+    "gate",
+    "permission",
+    "license",
+    "metroidvania",
+    "upgrade",
+    "rank",
+    "progression",
+    "inventory-free"
+  ],
+  "entryPoints": [
+    "CapabilityRole",
+    "CapabilityUnlocked",
+    "capabilityMechanic"
+  ],
+  "useWhen": "A game needs durable named unlocks that gate traversal, combat, crafting or narrative options without embedding the effects in the ledger.",
+  "limitations": [
+    "Unlocks are session state unless the consumer persists them. Definitions and effect policy remain consumer-owned.",
+    "No dependency graph, prerequisites, costs or automatic rewards; the consumer decides when to call unlock."
+  ],
+  "docs": [
+    "games/hollowmere/README.md"
+  ],
+  "examples": [
+    "games/hollowmere/plugins/hollowmere-game/index.ts"
+  ],
+  "tests": [
+    "tests/mechanics-metroidvania-providers.test.ts"
+  ]
+}

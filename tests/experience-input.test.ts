@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost } from '../src/kernel/host.ts';
-import { bindDomInput, createInputCore } from '../src/platform/input.ts';
-import { ExperienceRole, PHASES, SDK_COMPAT, SDK_VERSION, Scope, SessionControl } from '../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import { bindDomInput, createInputCore } from '@bulkhead/platform-web/input.ts';
+import { ExperienceRole, PHASES, SDK_COMPAT, SDK_VERSION, Scope, SessionControl } from '@bulkhead/sdk';
 
 test('experience is an optional metadata-only role; session ingress service follows its host', async () => {
   let playing = false;

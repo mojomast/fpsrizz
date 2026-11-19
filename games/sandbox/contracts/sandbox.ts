@@ -1,6 +1,6 @@
 /** Sandbox vocabulary: read-only state the presentation, HUD and tests observe. */
-import { defineComponent, defineService } from '../../../src/sdk/index.ts';
-import type { EntityId } from '../../../src/sdk/index.ts';
+import { defineComponent, defineService } from '@bulkhead/sdk';
+import type { EntityId } from '@bulkhead/sdk';
 
 export interface SandboxState {
   readonly hero: EntityId;

@@ -1,0 +1,6 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1, "id": "mechanics/hints", "name": "Hint reveal ledger", "version": "1.0.0",
+  "kind": "code", "sdk": "^2.0.0", "description": "Owned ordered per-topic reveal levels with explicit reset.",
+  "dependencies": {}, "capabilities": ["simulation"]
+}

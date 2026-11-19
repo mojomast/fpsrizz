@@ -1,5 +1,5 @@
-import type { SessionContext, VisualAnim } from '../../../../src/sdk/index.ts';
-import { THREE } from '../../../../src/sdk/render.ts';
+import type { SessionContext, VisualAnim } from '@bulkhead/sdk';
+import { THREE } from '@bulkhead/sdk/render.ts';
 import type { ThemeAssets } from './assets.ts';
 import { animDuration, animFrame, createQuadGeometry, frameGrid, setFrameUv } from './quads.ts';
 import type { FrameGrid } from './quads.ts';

@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Maps, ModeRole, Prefabs } from '../src/sdk/index.ts';
+import { Maps, ModeRole, Prefabs } from '@bulkhead/sdk';
 import { World } from '../games/shooter/contracts/shooter.ts';
-import type { WorldDescription } from '../src/sdk/index.ts';
-import generatorManifest from '../src/plugins/dungeon-generator/manifest.json' with { type: 'json' };
+import type { WorldDescription } from '@bulkhead/sdk';
+import generatorManifest from '@bulkhead/std/dungeon-generator/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { codePlugin, contentPack, hostFailure } from './helpers/host.ts';
 
-const generator = { manifest: generatorManifest as never, load: () => import('../src/plugins/dungeon-generator/index.ts') };
+const generator = { manifest: generatorManifest as never, load: () => import('@bulkhead/std/dungeon-generator/index.ts') };
 const mode = codePlugin('test/map-mode', { register(ctx) {
   ctx.provideRole(ModeRole, 'test/map-mode', { name: 'Map test', description: 'No-op mode for map format tests', activate() {} });
 } }, { dependencies: { 'core/world': '^1.0.0' } });

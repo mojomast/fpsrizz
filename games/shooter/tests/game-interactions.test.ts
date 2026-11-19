@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Intent, ModeRole, Transform, definePlugin, makeTransform } from '../../../src/sdk/index.ts';
+import { Intent, ModeRole, Transform, definePlugin, makeTransform } from '@bulkhead/sdk';
 import { DoorChanged, Interactions, TriggerFired, UseFailed, World } from '../contracts/shooter.ts';
-import type { CatalogEntry, SessionContext } from '../../../src/sdk/index.ts';
+import type { CatalogEntry, SessionContext } from '@bulkhead/sdk';
 import type { DoorState, InteractionCandidate, TriggerState } from '../contracts/shooter.ts';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 

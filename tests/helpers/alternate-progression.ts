@@ -1,6 +1,6 @@
 /** Independent progression implementation derived from one accepted-XP total and a claimed-level counter. */
-import { ProgressionMechanicRole, ProgressionProviders, SessionControl, createOwnedInstances } from '../../src/sdk/index.ts';
-import type { CatalogEntry, ProgressionDefinition, SessionContext } from '../../src/sdk/index.ts';
+import { ProgressionMechanicRole, ProgressionProviders, SessionControl, createOwnedInstances } from '@bulkhead/sdk';
+import type { CatalogEntry, ProgressionDefinition, SessionContext } from '@bulkhead/sdk';
 import { codePlugin } from './host.ts';
 
 const ID = 'test/counted-progression';
@@ -54,6 +54,6 @@ const alternate = codePlugin(ID, { register(ctx) {
 } });
 
 export const progressionProviders: readonly { id: string; entry: CatalogEntry }[] = [
-  { id: 'mechanics/progression', entry: { manifest: { schema: 1, id: 'mechanics/progression', name: 'Experience and levels', version: '1.0.0', kind: 'code', sdk: '^2.0.0', description: 'Production' }, load: () => import('../../src/plugins/mechanics-progression/index.ts') } },
+  { id: 'mechanics/progression', entry: { manifest: { schema: 1, id: 'mechanics/progression', name: 'Experience and levels', version: '1.0.0', kind: 'code', sdk: '^2.0.0', description: 'Production' }, load: () => import('@bulkhead/std/mechanics-progression/index.ts') } },
   { id: ID, entry: alternate },
 ];

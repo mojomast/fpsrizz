@@ -1,7 +1,7 @@
 /** Hollowmere family contract: side-scrolling exploration, combat, abilities, inventory and world-map observation. */
-import { defineRegistry, defineService } from '../../../src/sdk/index.ts';
-import type { CapabilityState } from '../../../src/sdk/index.ts';
-import type { RoomMapLink, RoomMapRect, RoomMapState } from '../../../src/sdk/index.ts';
+import { defineRegistry, defineService } from '@bulkhead/sdk';
+import type { CapabilityState } from '@bulkhead/sdk';
+import type { RoomMapLink, RoomMapRect, RoomMapState } from '@bulkhead/sdk';
 
 export interface MetroPoint { readonly x: number; readonly y: number }
 export interface MetroRect { readonly x: number; readonly y: number; readonly w: number; readonly h: number }

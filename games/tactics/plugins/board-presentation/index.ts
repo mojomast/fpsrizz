@@ -1,6 +1,6 @@
-import { Audio, SessionControl, ThemeRole, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { Audio, SessionControl, ThemeRole, Ui, definePlugin } from '@bulkhead/sdk';
 import { Tactics, TacticsResolved } from '../../contracts/tactics.ts';
-import { Render, THREE } from '../../../../src/sdk/render.ts';
+import { Render, THREE } from '@bulkhead/sdk/render.ts';
 
 const escapeHtml = (s: string): string =>
   s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);

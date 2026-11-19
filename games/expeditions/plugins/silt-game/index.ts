@@ -1,6 +1,6 @@
-import { CraftingRecipes, ExperienceRole, Items, SessionControl, clockMechanic, conditionMechanic, craftingMechanic, createCommandQueue, definePlugin, inventoryMechanic, isObject, progressionMechanic, roomMapMechanic, vArray, vString } from '../../../../src/sdk/index.ts';
+import { CraftingRecipes, ExperienceRole, Items, SessionControl, clockMechanic, conditionMechanic, craftingMechanic, createCommandQueue, definePlugin, inventoryMechanic, isObject, progressionMechanic, roomMapMechanic, vArray, vString } from '@bulkhead/sdk';
 import { Silt, SiltArchives } from '../../contracts/silt-archive.ts';
-import type { RoomMapHandle } from '../../../../src/sdk/index.ts';
+import type { RoomMapHandle } from '@bulkhead/sdk';
 import type { SiltArchiveDefinition, SiltCommand, SiltEnemy } from '../../contracts/silt-archive.ts';
 import { loadChamber } from './chambers.ts';
 import { assembleDistrict } from './district.ts';

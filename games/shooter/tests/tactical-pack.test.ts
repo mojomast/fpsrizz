@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Flow, Inventory, Player, Transform } from '../../../src/sdk/index.ts';
+import { Flow, Inventory, Player, Transform } from '@bulkhead/sdk';
 import { WeaponRuntime, World } from '../contracts/shooter.ts';
 import manifest from '../plugins/example-tactical-pack/manifest.json' with { type: 'json' };
 import content from '../plugins/example-tactical-pack/content.json' with { type: 'json' };

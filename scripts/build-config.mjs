@@ -3,8 +3,8 @@ import { cpSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { root } from './tools.mjs';
 
-/** The vendored official Three.js runtime the app renders with (src/platform/render/mini3/vendor). */
-export const VENDORED_THREE = resolve(root, 'src/platform/render/mini3/vendor/three.module.js');
+/** The vendored official Three.js runtime the app renders with (packages/platform-web/src/render/mini3/vendor). */
+export const VENDORED_THREE = resolve(root, 'packages/platform-web/src/render/mini3/vendor/three.module.js');
 
 /**
  * Three.js addons (three/examples/jsm: GLTFLoader, KTX2Loader...) import the bare "three" package. Resolve it to the

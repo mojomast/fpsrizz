@@ -1,7 +1,7 @@
-import { PluginHost, HostError } from '../../src/kernel/host.ts';
-import type { CatalogEntry, PluginModule } from '../../src/kernel/host.ts';
-import type { PluginManifest } from '../../src/kernel/manifest.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION } from '../../src/sdk/core.ts';
+import { PluginHost, HostError } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry, PluginModule } from '@bulkhead/kernel/host.ts';
+import type { PluginManifest } from '@bulkhead/kernel/manifest.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk/core.ts';
 
 export { PluginHost, HostError, PHASES, SDK_COMPAT, SDK_VERSION };
 

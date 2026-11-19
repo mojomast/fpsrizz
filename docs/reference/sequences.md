@@ -43,7 +43,7 @@ declares `roleDependencies: ["sdk/mechanic-sequence"]` so the factory owner is a
 handle in the selected mode callback, after all plugins activate. Its validator requires the provider only when
 `example/race` is selected. Using only `example/racing-controller` with another mode still needs no sequence role.
 
-For a new consumer, use only `src/sdk/index.ts` and own the instance with its session context:
+For a new consumer, use only `packages/sdk/src/index.ts` and own the instance with its session context:
 
 ```ts
 const sequence = sequenceMechanic(ctx).create(ctx, 'my-game/course', {
@@ -61,7 +61,7 @@ lives in the plugin. No content kind, clock, system or event is installed by the
 
 ## API and behavioral contract
 
-Authoritative types: [`src/sdk/contracts/sequence.ts`](../../src/sdk/contracts/sequence.ts).
+Authoritative types: [`packages/sdk/src/contracts/sequence.ts`](../../packages/sdk/src/contracts/sequence.ts).
 
 | Export | Purpose |
 |---|---|

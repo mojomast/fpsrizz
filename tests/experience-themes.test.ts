@@ -1,14 +1,14 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { definePlugin, ThemeRole } from '../src/sdk/index.ts';
-import type { CatalogEntry, Painter, SessionContext } from '../src/sdk/index.ts';
+import { definePlugin, ThemeRole } from '@bulkhead/sdk';
+import type { CatalogEntry, Painter, SessionContext } from '@bulkhead/sdk';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import arcade from '../src/plugins/theme-arcade/manifest.json' with { type: 'json' };
-import board from '../src/plugins/theme-board/manifest.json' with { type: 'json' };
-import story from '../src/plugins/theme-story/manifest.json' with { type: 'json' };
-import { textures as arcadeTextures } from '../src/plugins/theme-arcade/generated.ts';
-import { textures as boardTextures } from '../src/plugins/theme-board/generated.ts';
-import { textures as storyTextures } from '../src/plugins/theme-story/generated.ts';
+import arcade from '@bulkhead/std/theme-arcade/manifest.json' with { type: 'json' };
+import board from '@bulkhead/std/theme-board/manifest.json' with { type: 'json' };
+import story from '@bulkhead/std/theme-story/manifest.json' with { type: 'json' };
+import { textures as arcadeTextures } from '@bulkhead/std/theme-arcade/generated.ts';
+import { textures as boardTextures } from '@bulkhead/std/theme-board/generated.ts';
+import { textures as storyTextures } from '@bulkhead/std/theme-story/generated.ts';
 
 // Independent golden checksums of the checked-in PNGs' decoded RGBA bytes.
 const checksums: Record<string, number> = {
@@ -59,9 +59,9 @@ test('three themes select and restart independently with all required game sound
   };
   const game = createHeadlessGame([
     probe,
-    { manifest: arcade, load: () => import('../src/plugins/theme-arcade/index.ts') },
-    { manifest: board, load: () => import('../src/plugins/theme-board/index.ts') },
-    { manifest: story, load: () => import('../src/plugins/theme-story/index.ts') },
+    { manifest: arcade, load: () => import('@bulkhead/std/theme-arcade/index.ts') },
+    { manifest: board, load: () => import('@bulkhead/std/theme-board/index.ts') },
+    { manifest: story, load: () => import('@bulkhead/std/theme-story/index.ts') },
   ]);
   const packs = [
     ['arcade', ['track-surface', 'race-marker', 'race-vehicle'], ['race-checkpoint', 'race-finish', 'race-skid', 'race-engine']],

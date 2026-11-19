@@ -4,9 +4,9 @@ Three layers, from simulation-safe to GPU:
 
 | Layer | Where | What |
 |---|---|---|
-| `Assets` service (`sdk/assets`) | host, `src/platform/assets.ts`; contract `src/sdk/contracts/assets.ts` | `bytes` / `text` / `json(ctx, path)`, `peek(path)`, `preload(ctx, paths, onProgress?)`, `progress`, `report()`. Cached per path, reference-counted per plugin scope (kernel `AssetStore`), released when the last owner's session scope ends. A failed load is retried on the next request. |
-| glTF reader + `spawnGltfScene` | `src/sdk/contracts/gltf.ts` | Pure TS: `parseGltf(bytes)`, `gltfNodes(doc)`, `decomposeMatrix`, and `spawnGltfScene(ctx, path, opts?)` which turns every node into entities (below). No Three.js, so simulation plugins and Node tests use it. |
-| `std/assets` (`sdk/models`) | `src/plugins/std-assets` | `Models.instance(ctx, url)` for `Renderable.model`: official Three.js `GLTFLoader` + `MeshoptDecoder` + `KTX2Loader` (Basis transcoder served from `vendor/basis/`). Geometry, materials and textures are shared between instances and disposed with the last owner. `url#<node index>` instances one node without its child nodes. |
+| `Assets` service (`sdk/assets`) | host, `packages/platform-web/src/assets.ts`; contract `packages/sdk/src/contracts/assets.ts` | `bytes` / `text` / `json(ctx, path)`, `peek(path)`, `preload(ctx, paths, onProgress?)`, `progress`, `report()`. Cached per path, reference-counted per plugin scope (kernel `AssetStore`), released when the last owner's session scope ends. A failed load is retried on the next request. |
+| glTF reader + `spawnGltfScene` | `packages/sdk/src/contracts/gltf.ts` | Pure TS: `parseGltf(bytes)`, `gltfNodes(doc)`, `decomposeMatrix`, and `spawnGltfScene(ctx, path, opts?)` which turns every node into entities (below). No Three.js, so simulation plugins and Node tests use it. |
+| `std/assets` (`sdk/models`) | `packages/std/plugins/std-assets` | `Models.instance(ctx, url)` for `Renderable.model`: official Three.js `GLTFLoader` + `MeshoptDecoder` + `KTX2Loader` (Basis transcoder served from `vendor/basis/`). Geometry, materials and textures are shared between instances and disposed with the last owner. `url#<node index>` instances one node without its child nodes. |
 
 Paths are relative to the site root (files under `public/`, copied by dev and build). Absolute paths, `..` and URL
 schemes are rejected. In Node (tests) the same paths read from the repository's `public/` folder.

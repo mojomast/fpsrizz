@@ -1,6 +1,6 @@
-import { Flow, Health, Maps, ModeRole, Prefabs, Transform, definePlugin, spawnPrefab, yawOf } from '../../../../src/sdk/index.ts';
+import { Flow, Health, Maps, ModeRole, Prefabs, Transform, definePlugin, spawnPrefab, yawOf } from '@bulkhead/sdk';
 import { Died, Enemies, Enemy, World } from '../../contracts/shooter.ts';
-import type { EntityId, Json, SessionContext, SpawnDesc } from '../../../../src/sdk/index.ts';
+import type { EntityId, Json, SessionContext, SpawnDesc } from '@bulkhead/sdk';
 
 const ID = 'example/survival';
 const DEFAULT_PLAYER_PREFAB = 'core/player';

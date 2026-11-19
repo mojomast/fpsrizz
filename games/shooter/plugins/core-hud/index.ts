@@ -1,5 +1,5 @@
-import type { EntityId, SessionContext } from '../../../../src/sdk/index.ts';
-import { Flow, Ui, Health, HudRole, Inventory, Player, View, definePlugin } from '../../../../src/sdk/index.ts';
+import type { EntityId, SessionContext } from '@bulkhead/sdk';
+import { Flow, Ui, Health, HudRole, Inventory, Player, View, definePlugin } from '@bulkhead/sdk';
 import { Damaged, PickupCollected, UseFailed, WeaponDry, WeaponRuntime, Weapons, AmmoTypes } from '../../contracts/shooter.ts';
 import { HUD_CSS } from './styles.ts';
 

@@ -4,7 +4,7 @@ import { HearthHouseholds } from '../contracts/hearth-sim.ts';
 import rules from '../plugins/common-ground-game/manifest.json' with { type: 'json' };
 import pack from '../plugins/common-ground-content/manifest.json' with { type: 'json' };
 import content from '../plugins/common-ground-content/content.json' with { type: 'json' };
-import relationships from '../../../src/plugins/mechanics-relationships/manifest.json' with { type: 'json' };
+import relationships from '@bulkhead/std/mechanics-relationships/manifest.json' with { type: 'json' };
 import { catalog } from '../../../src/app/catalog.ts';
 import { createHeadlessGame } from '../../../tests/helpers/game.ts';
 
@@ -16,7 +16,7 @@ const preset = { schema: 1, id: 'test/common-content', name: 'Household content'
 function game(data: unknown = content) {
   return createHeadlessGame([
     ...catalog.filter(entry => mechanics.includes((entry.manifest as { id: string }).id) && (entry.manifest as { id: string }).id !== 'mechanics/relationships'),
-    { manifest: relationships, load: () => import('../../../src/plugins/mechanics-relationships/index.ts') },
+    { manifest: relationships, load: () => import('@bulkhead/std/mechanics-relationships/index.ts') },
     { manifest: rules, load: () => import('../plugins/common-ground-game/index.ts') },
     { manifest: pack, content: data as typeof content },
   ]);

@@ -11,7 +11,7 @@ The generic kernel and the esbuild/Node test toolchain are retained:
 
 | Concern | Brief | Delivered |
 |---|---|---|
-| Rendering | Three.js | **Three.js 0.187.0**, reproducibly vendored behind `src/platform/render/service.ts` and `src/sdk/render.ts` (`THREE`) |
+| Rendering | Three.js | **Three.js 0.187.0**, reproducibly vendored behind `packages/platform-web/src/render/service.ts` and `packages/sdk/src/render.ts` (`THREE`) |
 | Bundler / dev server | Vite | **esbuild** (`scripts/build.mjs`, `scripts/dev.mjs`, `scripts/preview.mjs`) |
 | Tests | Vitest | **`node --test`** running TypeScript directly (Node >= 22.18 type stripping) |
 | Type checking | (implied) | Separate `tsc --noEmit`, TypeScript 7 |
@@ -24,7 +24,7 @@ license/hash records. SDK 2 records the incompatible native rendering namespace;
 
 ## 2. Implemented scope
 
-### 2.1 Runtime and plugin host (`src/kernel`)
+### 2.1 Runtime and plugin host (`packages/kernel/src`)
 
 - Manifest-first discovery: manifests are JSON, validated (schema 1) before any plugin code is imported. Code plugins
   must be compiled in (catalog entry with a loader); content packs must not carry a loader.
@@ -367,13 +367,13 @@ The independent arcade, board and story themes add twelve pinned source images a
 elements. `scripts/experience-assets.json` and `assets/experiences/provenance.json` record source/output/pixel hashes,
 dimensions, transformations and the upstream note “original, generated for Kyle Durepos.” No MIT grant for that art is
 asserted. Theme sound cues are original synthesis. The vendored Three.js runtime/declarations retain their own MIT
-licenses and provenance under `src/platform/render/mini3/vendor/`.
+licenses and provenance under `packages/platform-web/src/render/mini3/vendor/`.
 
 - Textures and sprites (walls, floors, ceilings, doors, switches, exit pad, enemies, corpses, pickups, projectile and
   impact effects, muzzle flash, first-person weapon sprites) are drawn procedurally with the Canvas 2D API by
-  `src/plugins/theme-industrial/art.ts`, using a seeded pseudo-random generator for surface noise.
-- Sound effects are described as oscillator and filtered-noise layers in `src/plugins/theme-industrial/sounds.ts` and
-  synthesised at play time with Web Audio by `src/platform/audio.ts`.
+  `packages/std/plugins/theme-industrial/art.ts`, using a seeded pseudo-random generator for surface noise.
+- Sound effects are described as oscillator and filtered-noise layers in `packages/std/plugins/theme-industrial/sounds.ts` and
+  synthesised at play time with Web Audio by `packages/platform-web/src/audio.ts`.
 - The user interface uses CSS and system font stacks.
 - `assets/weapons/` contains original Blender sources, GLBs and rendered PNGs. The Assetrizz themes use generic and
   fantasy pistol and launcher renders respectively; the remaining weapon renders and GLBs are not connected to gameplay.

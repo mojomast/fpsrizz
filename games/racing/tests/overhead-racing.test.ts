@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import { codePlugin, hostFailure } from '../../../tests/helpers/host.ts';
-import { ExperienceRole, SequenceMechanicRole, SequenceProviders } from '../../../src/sdk/index.ts';
+import { ExperienceRole, SequenceMechanicRole, SequenceProviders } from '@bulkhead/sdk';
 import { sequenceProviders } from '../../../tests/helpers/alternate-sequence.ts';
 import { Race } from '../contracts/racing.ts';
 import racing from '../plugins/vehicle-racing/manifest.json' with { type: 'json' };

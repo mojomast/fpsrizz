@@ -11,14 +11,14 @@ import preset from '../presets/cinder-vault.json' with { type: 'json' };
 import { cinderArsenal } from '../plugins/cinder-game/arsenal.ts';
 import { CinderClasses } from '../plugins/cinder-game/classes.ts';
 import type { CinderClassId } from '../plugins/cinder-game/classes.ts';
-import { weaponTextures as cinderWeapons } from '../../../src/plugins/theme-assetrizz/cinder-weapons.ts';
-import { Flow, Health, Inventory, MechanicProgressionChanged, MechanicResourcesChanged, Player, PlayerAvatar, Profile, SessionControl, Transform, ViewModeChanged, ViewModes, Visual, definePlugin, yawOf } from '../../../src/sdk/index.ts';
+import { weaponTextures as cinderWeapons } from '@bulkhead/std/theme-assetrizz/cinder-weapons.ts';
+import { Flow, Health, Inventory, MechanicProgressionChanged, MechanicResourcesChanged, Player, PlayerAvatar, Profile, SessionControl, Transform, ViewModeChanged, ViewModes, Visual, definePlugin, yawOf } from '@bulkhead/sdk';
 import { AiBehaviors, Combat, Enemies, Enemy, Pickup, WeaponRuntime, Weapons, World } from '../../shooter/contracts/shooter.ts';
 import { Cinder } from '../contracts/cinder.ts';
-import type { ProfileService } from '../../../src/sdk/index.ts';
+import type { ProfileService } from '@bulkhead/sdk';
 import type { CinderCommand } from '../contracts/cinder.ts';
 import { coreCatalog, createHeadlessGame } from '../../../tests/helpers/game.ts';
-import { createProfileStore } from '../../../src/platform/profile-store.ts';
+import { createProfileStore } from '@bulkhead/platform-web/profile-store.ts';
 import { ALTERNATE, alternateEntry } from '../../../tests/helpers/alternate-resources.ts';
 import { progressionProviders } from '../../../tests/helpers/alternate-progression.ts';
 

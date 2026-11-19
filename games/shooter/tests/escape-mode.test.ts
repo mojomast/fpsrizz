@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Player, Transform } from '../../../src/sdk/index.ts';
+import { Flow, Player, Transform } from '@bulkhead/sdk';
 import { Combat, Pickup, TriggerFired, World } from '../contracts/shooter.ts';
 import escape from '../plugins/example-escape/manifest.json' with { type: 'json' };
 import keys from '../plugins/example-keys/manifest.json' with { type: 'json' };

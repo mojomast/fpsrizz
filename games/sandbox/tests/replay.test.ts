@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { hashSnapshot } from '../../../src/kernel/snapshot.ts';
+import { hashSnapshot } from '@bulkhead/kernel/snapshot.ts';
 import { assertReplay, playReplay, recordRun } from '../../../tests/helpers/replay.ts';
 import type { RunSpec } from '../../../tests/helpers/replay.ts';
 import { Sandbox } from '../contracts/sandbox.ts';
 import preset from '../presets/physics-sandbox.json' with { type: 'json' };
 
 // Headless: no render-sync / presentation (they only draw). The simulation is the same.
-const spec: RunSpec = { preset: { ...preset, plugins: ['std/transform', 'std/assets', 'std/physics-rapier', 'sandbox/game'] }, plugins: ['src/plugins/std-transform', 'src/plugins/std-assets', 'src/plugins/std-physics-rapier', 'games/sandbox/plugins/sandbox-game'] };
+const spec: RunSpec = { preset: { ...preset, plugins: ['std/transform', 'std/assets', 'std/physics-rapier', 'sandbox/game'] }, plugins: ['packages/std/plugins/std-transform', 'packages/std/plugins/std-assets', 'packages/std/plugins/std-physics-rapier', 'games/sandbox/plugins/sandbox-game'] };
 
 /** Walk onto the pad, jump, then barge into the crate stack. */
 const script = (run: Parameters<Parameters<typeof recordRun>[1]>[0]): void => {

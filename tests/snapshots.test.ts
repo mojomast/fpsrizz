@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { PluginHost, HostError } from '../src/kernel/host.ts';
-import type { CatalogEntry, SessionContext } from '../src/kernel/host.ts';
-import { base64ToBytes, bytesToBase64, hashSnapshot, migrateSnapshot, stableStringify } from '../src/kernel/snapshot.ts';
-import { createRng } from '../src/kernel/rng.ts';
-import { createInputCore } from '../src/platform/input.ts';
-import { parseReplay, recordInput, replayFeeder } from '../src/platform/replay.ts';
-import { PHASES, PhysicsCollider, RigidBody, SDK_COMPAT, SDK_VERSION, Transform3D, defineComponent, transform3d } from '../src/sdk/index.ts';
+import { PluginHost, HostError } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry, SessionContext } from '@bulkhead/kernel/host.ts';
+import { base64ToBytes, bytesToBase64, hashSnapshot, migrateSnapshot, stableStringify } from '@bulkhead/kernel/snapshot.ts';
+import { createRng } from '@bulkhead/kernel/rng.ts';
+import { createInputCore } from '@bulkhead/platform-web/input.ts';
+import { parseReplay, recordInput, replayFeeder } from '@bulkhead/platform-web/replay.ts';
+import { PHASES, PhysicsCollider, RigidBody, SDK_COMPAT, SDK_VERSION, Transform3D, defineComponent, transform3d } from '@bulkhead/sdk';
 import { codePlugin, presetOf } from './helpers/host.ts';
 
 const Counter = defineComponent<{ n: number }>('test/counter');
@@ -85,7 +85,7 @@ test('restore refuses a snapshot from another preset or plugin set without touch
 
 test('rapier world restores bit-exactly from a snapshot', async () => {
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
-  host.setCatalog([real('src/plugins/std-transform'), real('src/plugins/std-physics-rapier'), codePlugin('test/scene', { activate(ctx: SessionContext) {
+  host.setCatalog([real('packages/std/plugins/std-transform'), real('packages/std/plugins/std-physics-rapier'), codePlugin('test/scene', { activate(ctx: SessionContext) {
     const g = ctx.world.create();
     ctx.world.add(g, Transform3D, transform3d({ position: { y: -0.5 } }));
     ctx.world.add(g, RigidBody, { type: 'fixed' });

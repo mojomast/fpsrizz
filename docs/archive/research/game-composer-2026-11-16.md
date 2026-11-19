@@ -38,10 +38,10 @@ graph JSON ──compileGraph──▶ preset JSON ──host.stage──▶ val
 
 | Facility | Consequence for the canvas | Source |
 |---|---|---|
-| Preset schema 1: `plugins`, `roles`, `options`, `config`, `seed` | Compile to this; do not invent a runtime format. | `src/kernel/manifest.ts`; presets |
-| Manifests: dependencies, optional deps, conflicts, `requiresRoles`, `roleDependencies`, typed config | Most graph facts are declared, not editor guesses. | `src/kernel/manifest.ts`; `docs/guide/plugins.md` |
-| Staged host validation | A bad composition cannot damage the running session. Errors already carry source/path/message. | `src/kernel/host.ts`; `docs/reference/architecture.md` §4 |
-| `host.survey()` | Discovers registered role providers without activating. Manifests declare requirements, not every offered role. | `src/kernel/host.ts` |
+| Preset schema 1: `plugins`, `roles`, `options`, `config`, `seed` | Compile to this; do not invent a runtime format. | `packages/kernel/src/manifest.ts`; presets |
+| Manifests: dependencies, optional deps, conflicts, `requiresRoles`, `roleDependencies`, typed config | Most graph facts are declared, not editor guesses. | `packages/kernel/src/manifest.ts`; `docs/guide/plugins.md` |
+| Staged host validation | A bad composition cannot damage the running session. Errors already carry source/path/message. | `packages/kernel/src/host.ts`; `docs/reference/architecture.md` §4 |
+| `host.survey()` | Discovers registered role providers without activating. Manifests declare requirements, not every offered role. | `packages/kernel/src/host.ts` |
 | Creator validate/apply/import/export | Reuse the same apply path and error presentation. | `src/app/creator.ts` |
 | `host.apply` / `CreatorApi.apply` | Staging failure preserves the session; activation failure after commit does not roll back. Say so. | `src/app/main.ts` |
 | Uncommitted `GameGraph v1` | Pure model/compiler, preset round-trip, role selection, deterministic auto-layout. Natural base if retained. | `src/app/game-graph.ts`; tests |
@@ -49,7 +49,7 @@ graph JSON ──compileGraph──▶ preset JSON ──host.stage──▶ val
 Two rules follow:
 
 1. **Do not duplicate the host resolver in the UI.** Version/SDK ranges, cycles, conflicts and role ambiguity are
-   resolved by `src/kernel/resolver.ts` and `host.stage()`. A pure compiler may preflight them for speed, but
+   resolved by `packages/kernel/src/resolver.ts` and `host.stage()`. A pure compiler may preflight them for speed, but
    `host.stage()` remains the contract. Add conformance tests if `GameGraph v1` keeps its own resolver logic.
 2. **Role discovery requires staging or registration metadata.** `GameGraph v1` takes an explicit
    `PluginDescriptor.providers` map; populate it from `host.survey()` or registration metadata. Missing metadata is
@@ -443,7 +443,7 @@ unoffered roles; conflicts; dependency and role-dependency cycles; unknown impor
 
 **Integration:** stage every compiled bundled preset and discard; apply a small graph via `tests/helpers/game.ts` and
 assert session/restart/disposal/no leaks; failed stage leaves `host.session`/`host.active` unchanged; `compile --check`
-fails without writing; conformance matrix comparing `GameGraph v1` resolver behavior to `src/kernel/resolver.ts` and
+fails without writing; conformance matrix comparing `GameGraph v1` resolver behavior to `packages/kernel/src/resolver.ts` and
 `host.stage()`.
 
 **Browser (`tests/composer-demo/run.mjs`, modeled on creator demo):** import `core/default`; add `example/ricochet`; bind
@@ -556,7 +556,7 @@ Accessed **2026-11-16**. Version labels identify the documentation consulted, no
 
 ### Repository evidence
 
-- `src/kernel/manifest.ts`, `src/kernel/resolver.ts`, `src/kernel/host.ts` — preset/manifest schemas, dependency
+- `packages/kernel/src/manifest.ts`, `packages/kernel/src/resolver.ts`, `packages/kernel/src/host.ts` — preset/manifest schemas, dependency
   resolution, staged validation, `survey()` and apply semantics.
 - `src/app/creator.ts`, `src/app/catalog.ts`, `src/app/shell.ts`, `src/app/main.ts` — creator
   draft/validate/apply/import/export, catalog, shell host areas/overlays, apply and keyboard behavior.

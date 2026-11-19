@@ -6,7 +6,7 @@
 > esbuild, node:test, Playwright.
 
 Rules agents must follow: reuse existing mechanics before writing new ones (`npm run find-reuse -- "<need>"`); never
-move gameplay into `src/kernel`; game plugins import only their own folder, `src/sdk/index.ts`, `src/sdk/render.ts`
+move gameplay into `packages/kernel/src`; game plugins import only their own folder, `packages/sdk/src/index.ts`, `packages/sdk/src/render.ts`
 and their family's contracts; run `npm run check` after every change and never weaken a test or lint rule.
 
 ## Start here
@@ -20,10 +20,11 @@ and their family's contracts; run `npm run check` after every change and never w
 ## Reference
 
 - [Architecture](docs/reference/architecture.md): layers, ownership, tick order, rendering decisions
+- [Packages](docs/reference/packages.md): npm workspaces (@bulkhead/kernel, sdk, platform-web, std, tools), import rules, family.json
 - [Content format](docs/reference/content-format.md): manifests, content packs, presets, persistence keys
 - [Reuse index](docs/reference/reuse-index.md): generated catalog of plugins, recipes and contracts
 - [Reusable mechanics](docs/reference/reusable-mechanics.md): shared resource/action/clock/objective providers
-- [SDK entry point](src/sdk/index.ts): the public plugin API (TypeDoc: `npm run docs:api`)
+- [SDK entry point](packages/sdk/src/index.ts): the public plugin API (TypeDoc: `npm run docs:api`)
 
 ## Cookbook
 

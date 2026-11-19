@@ -1,4 +1,4 @@
-import { defineEvent, defineRegistry, defineService } from '../../../src/sdk/index.ts';
+import { defineEvent, defineRegistry, defineService } from '@bulkhead/sdk';
 
 export interface PuzzleCell { readonly x: number; readonly y: number }
 export type PuzzleDirection = 'north' | 'east' | 'south' | 'west';

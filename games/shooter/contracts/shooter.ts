@@ -1,10 +1,10 @@
 /**
  * Shooter contracts: combat, weapons, ammo, enemies and AI, pickups, interactions, doors/triggers and the world
- * service. Shared actor/input/flow/theme vocabulary lives in the SDK (src/sdk/contracts/game.ts).
+ * service. Shared actor/input/flow/theme vocabulary lives in the SDK (packages/sdk/src/contracts/game.ts).
  */
-import type { EntityId, RegistryReader, Reporter, SessionContext } from '../../../src/sdk/index.ts';
-import { defineCommand, defineComponent, defineEvent, defineRegistry, defineService } from '../../../src/sdk/index.ts';
-import type { DoorDesc, Params, SpawnAt, Transform, TriggerDesc, WorldDescription } from '../../../src/sdk/index.ts';
+import type { EntityId, RegistryReader, Reporter, SessionContext } from '@bulkhead/sdk';
+import { defineCommand, defineComponent, defineEvent, defineRegistry, defineService } from '@bulkhead/sdk';
+import type { DoorDesc, Params, SpawnAt, Transform, TriggerDesc, WorldDescription } from '@bulkhead/sdk';
 
 /** Per-actor magazine state. Inventory.ammo remains the shared reserve. */
 export interface WeaponRuntime {

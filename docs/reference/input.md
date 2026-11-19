@@ -1,7 +1,7 @@
 # Input v2: axes, gamepads, touch and rebinding (SDK 3)
 
 Builds on the action model (`InputActions`, `Input.tick`, `InputContexts` in `games/shooter/contracts/shooter.ts`).
-Contract: `src/sdk/contracts/input.ts`; host adapters: `src/platform/{input,gamepad,touch,input-bindings}.ts`.
+Contract: `packages/sdk/src/contracts/input.ts`; host adapters: `packages/platform-web/src/{input,gamepad,touch,input-bindings}.ts`.
 
 ## Every device is a key
 

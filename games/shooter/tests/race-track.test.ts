@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Collider, Flow, Player, SequenceProviders, Transform, angleDelta, yawOf } from '../../../src/sdk/index.ts';
+import { Collider, Flow, Player, SequenceProviders, Transform, angleDelta, yawOf } from '@bulkhead/sdk';
 import { World } from '../contracts/shooter.ts';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import { sequenceProviders } from '../../../tests/helpers/alternate-sequence.ts';

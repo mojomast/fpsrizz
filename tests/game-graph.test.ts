@@ -13,9 +13,9 @@ import coreWorldManifest from '../games/shooter/plugins/core-world/manifest.json
 import exampleDashManifest from '../games/shooter/plugins/example-dash-controller/manifest.json' with { type: 'json' };
 import exampleHudManifest from '../games/shooter/plugins/example-hud/manifest.json' with { type: 'json' };
 import exampleSurvivalManifest from '../games/shooter/plugins/example-survival/manifest.json' with { type: 'json' };
-import mechanicsSequenceManifest from '../src/plugins/mechanics-sequence/manifest.json' with { type: 'json' };
-import themeArcadeManifest from '../src/plugins/theme-arcade/manifest.json' with { type: 'json' };
-import themeIndustrialManifest from '../src/plugins/theme-industrial/manifest.json' with { type: 'json' };
+import mechanicsSequenceManifest from '@bulkhead/std/mechanics-sequence/manifest.json' with { type: 'json' };
+import themeArcadeManifest from '@bulkhead/std/theme-arcade/manifest.json' with { type: 'json' };
+import themeIndustrialManifest from '@bulkhead/std/theme-industrial/manifest.json' with { type: 'json' };
 import vehiclePresentationManifest from '../games/racing/plugins/vehicle-presentation/manifest.json' with { type: 'json' };
 import vehicleRacingManifest from '../games/racing/plugins/vehicle-racing/manifest.json' with { type: 'json' };
 import vehicleTrackManifest from '../games/racing/plugins/vehicle-track/manifest.json' with { type: 'json' };
@@ -41,7 +41,7 @@ import type {
   GameGraphIssue,
   PluginDescriptor,
 } from '../src/app/game-graph.ts';
-import type { GamePreset, PluginManifest } from '../src/sdk/index.ts';
+import type { GamePreset, PluginManifest } from '@bulkhead/sdk';
 
 const descriptor = (
   manifest: unknown,

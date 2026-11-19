@@ -1,5 +1,5 @@
-import type { SessionContext, TriggerDesc } from '../../../../src/sdk/index.ts';
-import { Collider, ControllerRole, Flow, Health, Input, InputActions, Maps, ModeRole, Player, Prefabs, SequenceMechanicRole, SequenceProviders, Transform, definePlugin, sequenceMechanic, spawnPrefab, yawDirX, yawDirZ } from '../../../../src/sdk/index.ts';
+import type { SessionContext, TriggerDesc } from '@bulkhead/sdk';
+import { Collider, ControllerRole, Flow, Health, Input, InputActions, Maps, ModeRole, Player, Prefabs, SequenceMechanicRole, SequenceProviders, Transform, definePlugin, sequenceMechanic, spawnPrefab, yawDirX, yawDirZ } from '@bulkhead/sdk';
 import { Died, World } from '../../contracts/shooter.ts';
 
 const CONTROLLER = 'example/racing-controller';

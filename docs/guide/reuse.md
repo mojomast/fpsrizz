@@ -135,7 +135,7 @@ Then exercise actual activation, gameplay and lifecycle through the normal check
 
 ### Plugin-local metadata
 
-Optional `src/plugins/<folder>/reuse.json` describes semantics that names/manifests cannot infer:
+Optional `packages/std/plugins/<folder>/reuse.json` describes semantics that names/manifests cannot infer:
 
 ```json
 {

@@ -3,8 +3,8 @@
 How Bulkhead is put together and why. For what is and is not implemented see [docs/reference/spec.md](spec.md); for writing plugins see
 [docs/guide/plugins.md](../guide/plugins.md); for the JSON formats see [docs/reference/content-format.md](content-format.md).
 
-> **Production stack.** SDK **2.0.0** exposes official **Three.js 0.187.0** through `src/sdk/render.ts` as `THREE`.
-> The historical boundary-approved `src/platform/render/mini3/index.ts` path is now a facade over the pinned official
+> **Production stack.** SDK **2.0.0** exposes official **Three.js 0.187.0** through `packages/sdk/src/render.ts` as `THREE`.
+> The historical boundary-approved `packages/platform-web/src/render/mini3/index.ts` path is now a facade over the pinned official
 > runtime in its `vendor/` directory. The former mini3 renderer remains behind `legacy.ts` for old fixtures only.
 > Bundling and the dev server use esbuild, tests use `node --test` running TypeScript directly (Node >= 22.18), and type
 > checking is a separate `tsc --noEmit` (TypeScript 7). Locked npm packages reproduce the vendored renderer; section 9
@@ -21,7 +21,7 @@ How Bulkhead is put together and why. For what is and is not implemented see [do
               imports anything |                  | imports presets (JSON)
                                v                  v
   +--------------------+   +---------------------+   +--------------------+
-  |  src/plugins/*     |   |  src/platform       |   |  games/*/presets   |
+  |  packages/std/plugins/*     |   |  packages/platform-web/src       |   |  games/*/presets   |
   |  games/*/plugins/* |   |  browser adapters:  |   |  *.json            |
   |  (SDK only)        |   |  input, audio,      |   +--------------------+
   |  + family contracts|   |  storage, ui, flow, |
@@ -32,31 +32,31 @@ How Bulkhead is put together and why. For what is and is not implemented see [do
             |  with "render")         |
             v                         v
         +---------------------------------+
-        |  src/sdk   public plugin API    |
+        |  packages/sdk/src   public plugin API    |
         |  core.ts  contracts/*          |-- render.ts imports the historical mini3 facade
         |  contracts/audio.ts  render.ts  |
         +----------------+----------------+
                          | kernel only
                          v
         +---------------------------------+
-        |  src/kernel   runtime kernel    |
+        |  packages/kernel/src   runtime kernel    |
         |  no game concepts, no DOM       |
         +---------------------------------+
 ```
 
-- **Kernel** (`src/kernel`): plugin host, registries, entity store, event/command/service buses, scheduler, scopes, asset
+- **Kernel** (`packages/kernel/src`): plugin host, registries, entity store, event/command/service buses, scheduler, scopes, asset
   store, RNG, semver, resolver, manifest and validation helpers. It has no shooter concepts: phases and roles are data
   passed in by the application.
-- **SDK** (`src/sdk`): `core.ts` is the generic host surface (tokens, `definePlugin`, `SDK_VERSION`, the phase list,
+- **SDK** (`packages/sdk/src`): `core.ts` is the generic host surface (tokens, `definePlugin`, `SDK_VERSION`, the phase list,
   validation helpers); `contracts/shooter.ts` is the shared shooter vocabulary (components, events, services, registries
    and roles that shooter plugins use to cooperate without importing each other). Separate contracts define experience
    policy, vehicle racing, turn tactics, narrative adventure, push puzzles and audio. `render.ts` is the rendering SDK; `index.ts` is
   the general entry point. `SDK_VERSION` is `3.0.0`; SDK 3 is additive, so `SDK_COMPAT` keeps accepting the bundled `"sdk": "^2.0.0"` manifests, and new SDK 3 plugins (`std/*`) declare `^3.0.0`.
-- **Platform** (`src/platform`): adapters for the browser: DOM input, Web Audio, `localStorage`, UI mounting, the flow
+- **Platform** (`packages/platform-web/src`): adapters for the browser: DOM input, Web Audio, `localStorage`, UI mounting, the flow
   service, the render host and vendored official Three.js behind the historical mini3 facade.
 - **App** (`src/app`): wires adapters into sessions as host services, owns the catalog of compiled-in plugins, the frame
   loop, the menus and the creator panel. No gameplay rules live here.
-- **Plugins** (`src/plugins` for shared engine-level plugins, `games/<family>/plugins` for games) and **content** (`games/<family>/presets`): everything the game actually does.
+- **Plugins** (`packages/std/plugins` for shared engine-level plugins, `games/<family>/plugins` for games) and **content** (`games/<family>/presets`): everything the game actually does.
 
 ### Game composition canvas
 
@@ -90,12 +90,12 @@ checked like any other import.
 
 | Rule id | Applies to | Rule |
 |---|---|---|
-| `plugin-isolation` | `src/plugins/<p>/**` | May import only its own folder and `src/sdk/index.ts`. The kernel, platform, app, SDK internals (`core.ts`, `contracts/*`), other plugins and bare packages are denied. |
-| `render-capability` | `src/plugins/<p>/**` | May import `src/sdk/render.ts` only if the plugin's `manifest.json` lists `"render"` in `capabilities`. |
-| `kernel-purity` | `src/kernel/**` | May import only other `src/kernel` files; no bare packages, not even `node:` modules. |
-| `no-dom-in-kernel` | `src/kernel/**` | The identifiers `document` and `window` used as `document.` or `window.` are denied. |
-| `sdk-surface` | `src/sdk/**` | May import only `src/sdk` and `src/kernel`. Exception: `src/sdk/render.ts` may also import `src/platform/render/mini3`. |
-| `platform-layer` | `src/platform/**` | May import only `src/platform`, `src/kernel` and `src/sdk`; never plugins or the app. |
+| `plugin-isolation` | `packages/std/plugins/<p>/**` | May import only its own folder and `packages/sdk/src/index.ts`. The kernel, platform, app, SDK internals (`core.ts`, `contracts/*`), other plugins and bare packages are denied. |
+| `render-capability` | `packages/std/plugins/<p>/**` | May import `packages/sdk/src/render.ts` only if the plugin's `manifest.json` lists `"render"` in `capabilities`. |
+| `kernel-purity` | `packages/kernel/src/**` | May import only other `packages/kernel/src` files; no bare packages, not even `node:` modules. |
+| `no-dom-in-kernel` | `packages/kernel/src/**` | The identifiers `document` and `window` used as `document.` or `window.` are denied. |
+| `sdk-surface` | `packages/sdk/src/**` | May import only `packages/sdk/src` and `packages/kernel/src`. Exception: `packages/sdk/src/render.ts` may also import `packages/platform-web/src/render/mini3`. |
+| `platform-layer` | `packages/platform-web/src/**` | May import only `packages/platform-web/src`, `packages/kernel/src` and `packages/sdk/src`; never plugins or the app. |
 
 `src/app` has no rule: the composition root may import anything. `tests/` and `scripts/` are not scanned. Capabilities
 in manifests are declarations of intent; apart from the rendering import above they are not enforced.
@@ -190,7 +190,7 @@ Three lifetimes, each with a defined owner and disposal point.
 | **Registration** (a "staged graph") | `host.stage()` | Registries (`RegistrySet`), role providers, content kinds, validators, and a registration `Scope` (owner `host`) with one child scope per plugin (`register:<id>`) | `host.stop()`, a successful `apply` of another graph, or `host.discard()` of an unused stage |
 | **Session** | `host.apply()` / `host.restart()` | Entities, systems and frame systems, event subscriptions, command handlers, services, UI roots, scene roots, GPU resources, shared-asset references, and a session `Scope` with one child scope per plugin (`plugin:<id>`) | `Session.dispose()` (stop, restart, apply, failed activation) |
 
-**Scope** (`src/kernel/scope.ts`) is the unit of ownership: a list of disposers tagged by kind, an `AbortSignal`, child
+**Scope** (`packages/kernel/src/scope.ts`) is the unit of ownership: a list of disposers tagged by kind, an `AbortSignal`, child
 scopes, and a `guard()` for async work. `dispose()` is idempotent, disposes children first and then its own items in
 reverse order of acquisition, and one failing disposer never blocks the others (it is logged with its owner). Adding to a
 disposed scope runs the disposer immediately, so late async completions cannot attach live resources to a dead session.
@@ -203,7 +203,7 @@ timers, audio nodes) goes through `ctx.scope.add(fn, kind)`. Entities are tagged
 (`ctx.world.ownerOf`, the debug panel's per-owner counts); they are not destroyed when a plugin scope is disposed but are
 cleared with the session.
 
-**Shared assets.** `AssetStore` (`src/kernel/assets.ts`) is a reference-counted map. `acquire(scope, key, create, dispose)`
+**Shared assets.** `AssetStore` (`packages/kernel/src/assets.ts`) is a reference-counted map. `acquire(scope, key, create, dispose)`
 creates the asset on first use, counts one reference per acquiring scope, and disposes it when the last reference is
 released, so removing one consumer never destroys something another still uses. The render host exposes it as
 `render.shared()` and `render.texture()`; the creator's debug tab lists keys, reference counts and owners.
@@ -256,7 +256,7 @@ and the graph; the application shows an error screen.
 
 ### 5.1 Scheduler
 
-`Scheduler` (`src/kernel/scheduler.ts`) advances in whole ticks of 1/60 s. `advance(frameDt)` accumulates real time, runs
+`Scheduler` (`packages/kernel/src/scheduler.ts`) advances in whole ticks of 1/60 s. `advance(frameDt)` accumulates real time, runs
 at most **5** ticks, and if time is still owed it discards the backlog in whole steps (counted in `droppedTime`) while
 keeping the sub-step remainder, so a stall slows the game instead of spiralling. Frame systems then run once with
 `alpha = remainder / step` in [0, 1]. Simulation time is `tick / 60`, derived from the tick count rather than accumulated
@@ -498,7 +498,7 @@ If WebGL2 or the renderer is unavailable, the app shows an "Unsupported" screen 
   detect). `scripts/smoke.mjs` loads the page this way. Independently of `?test`, the app always exposes
   `window.__bulkhead` (host, input core, render host, shell, creator, state, `play`, `applyPreset`, ...). It exists for
   `scripts/smoke.mjs` and manual debugging; it is tooling, not part of the plugin API.
-- **Persistence** (`src/platform/storage.ts`): `localStorage` keys `shooter-foundation/settings`
+- **Persistence** (`packages/platform-web/src/storage.ts`): `localStorage` keys `shooter-foundation/settings`
   (`{ schema: 1, sensitivity, volume, pixelRatioCap }`, values clamped on load, unknown schema falls back to defaults) and
   `shooter-foundation/preset` (`{ schema: 1, preset }`, the whole preset object). On start the stored preset is staged and
   applied; if it no longer validates (for example it names an imported pack that is gone) the default preset is used.
@@ -541,7 +541,7 @@ within 3 m, falling off quadratically to silence at 30 m) and stereo pan are app
 
 ### 8.3 Rendering architecture
 
-The render host (`src/platform/render/service.ts`) owns the official Three.js WebGL renderer, two scenes and fallback
+The render host (`packages/platform-web/src/render/service.ts`) owns the official Three.js WebGL renderer, two scenes and fallback
 world/view cameras, and exposes the `Render` service from the SDK:
 
 - **World layer**: the world scene has a fallback perspective camera (near 0.05, far 200; the shooter field of view comes
@@ -585,7 +585,7 @@ Handles are disposed when the entity disappears. One-shot impact effects use a p
 
 The former offline mini3 renderer mirrored Three.js class and property names for a small reference-game subset. The
 following table and semantic differences describe **that historical implementation only**, reachable through
-`src/platform/render/mini3/legacy.ts` for old fixtures. Production `src/sdk/render.ts` exports official Three.js through
+`packages/platform-web/src/render/mini3/legacy.ts` for old fixtures. Production `packages/sdk/src/render.ts` exports official Three.js through
 the `mini3/index.ts` facade, including the full core/WebGL namespace and its matching declaration graph; the limitations
 below do not describe the current SDK.
 
@@ -622,7 +622,7 @@ lights, shadows, `Raycaster`, loaders, render targets and post-processing, insta
 ## 9. Completed Three.js migration and reproduction
 
 The production migration is contained behind the existing renderer adapter and SDK import seam. Import-boundary rules
-were not widened: `src/sdk/render.ts` still imports the checker-approved `src/platform/render/mini3/index.ts` path, whose
+were not widened: `packages/sdk/src/render.ts` still imports the checker-approved `packages/platform-web/src/render/mini3/index.ts` path, whose
 exports now come from official Three.js. Plugins continue to import only the SDK. The old renderer is isolated behind
 `legacy.ts` for old fixtures, rather than used as a production fallback.
 

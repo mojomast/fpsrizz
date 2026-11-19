@@ -10,9 +10,9 @@ const entry = path.join(__dirname, 'entry.gen.ts');
 
 (async () => {
   fs.writeFileSync(entry, `
-import { textures } from '../../src/plugins/theme-industrial/art.ts';
-import { sounds } from '../../src/plugins/theme-industrial/sounds.ts';
-import { createAudioService } from '../../src/platform/audio.ts';
+import { textures } from '@bulkhead/std/theme-industrial/art.ts';
+import { sounds } from '@bulkhead/std/theme-industrial/sounds.ts';
+import { createAudioService } from '@bulkhead/platform-web/audio.ts';
 (window as any).__art = { textures, sounds, createAudioService };
 `);
   const out = await esbuild.build({ entryPoints: [entry], bundle: true, write: false, format: 'iife', target: 'es2022' });

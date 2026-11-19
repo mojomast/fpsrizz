@@ -1,15 +1,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { clockMechanic, conditionMechanic, SessionControl } from '../src/sdk/index.ts';
+import { clockMechanic, conditionMechanic, SessionControl } from '@bulkhead/sdk';
 import { codePlugin, newHost, presetOf } from './helpers/host.ts';
-import clockManifest from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
-import conditionManifest from '../src/plugins/mechanics-conditions/manifest.json' with { type: 'json' };
+import clockManifest from '@bulkhead/std/mechanics-clock/manifest.json' with { type: 'json' };
+import conditionManifest from '@bulkhead/std/mechanics-conditions/manifest.json' with { type: 'json' };
 
 async function fixture() {
   const gate = { playing: true };
   const host = newHost([
-    { manifest: clockManifest, load: () => import('../src/plugins/mechanics-clock/index.ts') },
-    { manifest: conditionManifest, load: () => import('../src/plugins/mechanics-conditions/index.ts') },
+    { manifest: clockManifest, load: () => import('@bulkhead/std/mechanics-clock/index.ts') },
+    { manifest: conditionManifest, load: () => import('@bulkhead/std/mechanics-conditions/index.ts') },
     codePlugin('test/condition-user', { activate(ctx) { ctx.services.provide(SessionControl, gate); } }),
   ]);
   await host.apply(presetOf('test/conditions', ['mechanics/clock', 'mechanics/conditions', 'test/condition-user'], { roles: { 'sdk/mechanic-clock': 'mechanics/clock', 'sdk/mechanic-conditions': 'mechanics/conditions' } }));

@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Collider, Health, Intent, Player, Transform } from '../../../src/sdk/index.ts';
+import { Collider, Health, Intent, Player, Transform } from '@bulkhead/sdk';
 import { World } from '../contracts/shooter.ts';
-import type { CatalogEntry } from '../../../src/sdk/index.ts';
+import type { CatalogEntry } from '@bulkhead/sdk';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import manifest from '../plugins/example-dash-controller/manifest.json' with { type: 'json' };
 

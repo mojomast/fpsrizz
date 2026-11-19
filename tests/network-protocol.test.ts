@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { decodeMessage, encodeMessage, MAX_COUNTER, MAX_MESSAGE_BYTES, PROTOCOL_VERSION } from '../src/platform/network-protocol.ts';
+import { decodeMessage, encodeMessage, MAX_COUNTER, MAX_MESSAGE_BYTES, PROTOCOL_VERSION } from '@bulkhead/platform-web/network-protocol.ts';
 
 const input = { version: PROTOCOL_VERSION, type: 'input', tick: 42, sequence: 9, moveX: -1, moveY: 0.5, yaw: Math.PI, fire: true, use: false };
 const player = { id: 'player_1', x: -100, y: 0, z: 12, yaw: -Math.PI, health: 100 };

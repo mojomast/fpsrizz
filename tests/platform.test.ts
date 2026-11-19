@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createInputCore } from '../src/platform/input.ts';
-import { createFlow } from '../src/platform/flow.ts';
-import { sanitizeSettings, DEFAULT_SETTINGS } from '../src/platform/storage.ts';
-import type { FlowResult } from '../src/sdk/contracts/game.ts';
+import { createInputCore } from '@bulkhead/platform-web/input.ts';
+import { createFlow } from '@bulkhead/platform-web/flow.ts';
+import { sanitizeSettings, DEFAULT_SETTINGS } from '@bulkhead/platform-web/storage.ts';
+import type { FlowResult } from '@bulkhead/sdk/contracts/game.ts';
 
 test('input: edge appears in exactly one of three back-to-back ticks; held persists', () => {
   const c = createInputCore();

@@ -1,6 +1,6 @@
-import { defineRegistry, defineRole, defineService } from '../../../src/sdk/index.ts';
-import type { SessionContext } from '../../../src/sdk/index.ts';
-import type { MechanicFactory, MechanicProviderInfo, MechanicResult } from '../../../src/sdk/index.ts';
+import { defineRegistry, defineRole, defineService } from '@bulkhead/sdk';
+import type { SessionContext } from '@bulkhead/sdk';
+import type { MechanicFactory, MechanicProviderInfo, MechanicResult } from '@bulkhead/sdk';
 
 /** Ordered IDs form a partition. Index zero is the top of the draw pile. */
 export interface CardPilesSnapshot { readonly draw: readonly string[]; readonly hand: readonly string[]; readonly discard: readonly string[] }

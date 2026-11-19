@@ -1,6 +1,6 @@
-import type { EntityId, SessionContext } from '../../../../src/sdk/index.ts';
+import type { EntityId, SessionContext } from '@bulkhead/sdk';
 import type { ActorHit, AttackFn, CombatService, DamageRequest, PickupEffectFn, ScanHit } from '../../contracts/shooter.ts';
-import { Collider, Health, Intent, Inventory, Player, Transform, definePlugin, yawDirX, yawDirZ } from '../../../../src/sdk/index.ts';
+import { Collider, Health, Intent, Inventory, Player, Transform, definePlugin, yawDirX, yawDirZ } from '@bulkhead/sdk';
 import { AmmoTypes, AttackBehaviors, AttackFired, Combat, Damaged, DamageModifiers, DealDamage, Died, Pickup, PickupCollected, PickupEffects, Pickups, WeaponDry, WeaponRuntime, WeaponSwitched, Weapons, World } from '../../contracts/shooter.ts';
 import { giveAmmo, giveWeapon, heal, hitscan, melee, projectile } from './behaviors.ts';
 import { ammoKind, pickupKind, validateDefinitions, weaponKind } from './definitions.ts';

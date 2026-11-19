@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { InventoryProviders, SessionControl, inventoryMechanic } from '../src/sdk/index.ts';
-import type { InventoryHandle, SessionContext } from '../src/sdk/index.ts';
+import { InventoryProviders, SessionControl, inventoryMechanic } from '@bulkhead/sdk';
+import type { InventoryHandle, SessionContext } from '@bulkhead/sdk';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { codePlugin, contentPack } from './helpers/host.ts';
 
@@ -19,7 +19,7 @@ function fixture() {
     owners.push(ctx);
     handles.push(inventoryMechanic(ctx).create(ctx, 'bag', { capacity: 2, equipmentSlots: ['armor', 'charm'] }));
   } }, { roleDependencies: ['sdk/mechanic-inventory'] });
-  const game = createHeadlessGame([consumer, items, { manifest: { schema: 1, id: 'mechanics/inventory', name: 'Stack inventory', version: '1.0.0', kind: 'code', sdk: '^2.0.0', description: 'Production' }, load: () => import('../src/plugins/mechanics-inventory/index.ts') }]);
+  const game = createHeadlessGame([consumer, items, { manifest: { schema: 1, id: 'mechanics/inventory', name: 'Stack inventory', version: '1.0.0', kind: 'code', sdk: '^2.0.0', description: 'Production' }, load: () => import('@bulkhead/std/mechanics-inventory/index.ts') }]);
   return { game, owners, handles, pause: (value: boolean) => { playing = !value; } };
 }
 

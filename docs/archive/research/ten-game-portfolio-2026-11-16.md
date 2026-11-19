@@ -181,7 +181,7 @@ render roots/camera leases. Game-specific outcomes are not automatically transac
 ## Research record and limits
 
 Repository evidence: [docs/reference/reuse-index.md](../../reference/reuse-index.md) identifies cross-genre and family candidates;
-[mechanics contract](../../../src/sdk/contracts/mechanics.ts), [navigation](../../reference/navigation.md), [sequences](../../reference/sequences.md),
+[mechanics contract](../../../packages/sdk/src/contracts/mechanics.ts), [navigation](../../reference/navigation.md), [sequences](../../reference/sequences.md),
 [inventory](../../reference/inventory.md), [crafting](../../reference/crafting.md) and [reusable mechanics](../../reference/reusable-mechanics.md) establish
 the stated boundaries. Sky, Ember and Verdant demonstrate shared resource/action/clock/objective composition;
 Stonewake and Signal Break exercise navigation; two racing compositions exercise sequence. Existing substitution evidence

@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Health, Player, Profile, Transform, definePlugin } from '../../../src/sdk/index.ts';
+import { Flow, Health, Player, Profile, Transform, definePlugin } from '@bulkhead/sdk';
 import { Combat, Enemies, Enemy, Pickup } from '../contracts/shooter.ts';
-import type { ProfileService } from '../../../src/sdk/index.ts';
-import { createProfileStore } from '../../../src/platform/profile-store.ts';
+import type { ProfileService } from '@bulkhead/sdk';
+import { createProfileStore } from '@bulkhead/platform-web/profile-store.ts';
 import manifest from '../plugins/example-arena/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 

@@ -1,6 +1,6 @@
-import { Health, Inventory, Player, Transform, definePlugin, makeTransform } from '../../../../src/sdk/index.ts';
+import { Health, Inventory, Player, Transform, definePlugin, makeTransform } from '@bulkhead/sdk';
 import { AmmoTypes, Weapons } from '../../contracts/shooter.ts';
-import type { EntityId } from '../../../../src/sdk/index.ts';
+import type { EntityId } from '@bulkhead/sdk';
 import type { WeaponDef } from '../../contracts/shooter.ts';
 
 export const demoManifest = { schema: 1, id: 'demo/game', name: 'Demo Game', version: '1.0.0', kind: 'code', sdk: '^2.0.0' };

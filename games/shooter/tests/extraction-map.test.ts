@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Player, Transform } from '../../../src/sdk/index.ts';
+import { Flow, Player, Transform } from '@bulkhead/sdk';
 import { Pickup } from '../contracts/shooter.ts';
 import extraction from '../plugins/example-extraction/manifest.json' with { type: 'json' };
 import manifest from '../plugins/example-extraction-map/manifest.json' with { type: 'json' };

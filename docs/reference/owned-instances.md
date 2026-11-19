@@ -1,8 +1,8 @@
 # Owned factory instances
 
 `createOwnedInstances` shares per-consumer live-ID and dual-scope lifetime bookkeeping for plugin factories. It is
-exported through `src/sdk/index.ts`; implementation: `src/sdk/contracts/owned-instances.ts`. The clock provider in
-`src/plugins/mechanics-clock/index.ts` is a working consumer.
+exported through `packages/sdk/src/index.ts`; implementation: `packages/sdk/src/contracts/owned-instances.ts`. The clock provider in
+`packages/std/plugins/mechanics-clock/index.ts` is a working consumer.
 
 ## Reuse decision
 

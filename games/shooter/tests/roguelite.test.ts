@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Health, Player, Transform } from '../../../src/sdk/index.ts';
+import { Flow, Health, Player, Transform } from '@bulkhead/sdk';
 import { Combat, Enemy } from '../contracts/shooter.ts';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import manifest from '../plugins/example-roguelite/manifest.json' with { type: 'json' };

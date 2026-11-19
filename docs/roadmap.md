@@ -12,7 +12,7 @@
 > | P2.1 Live / hot reload | Done: esbuild live reload, resume, `?seed=`; step 2: the RunSnapshot survives the reload for all-SDK-3 presets (code, presets and JSON content), config tweaks restart with state kept ([inspector](reference/inspector.md)). |
 > | P0.3 Catalog from manifests | Done: `scripts/gen-catalog.mjs` -> `src/app/catalog.generated.ts`. |
 > | P0.4 Splitting, art packs, maps, budget | Done: per-plugin chunks, `public/packs/*.pack`, maps in `.sourcemaps/`, `npm run budget`. |
-> | P0.2 Engine/games split | Mostly done: all games (11 families) in `games/` with their family-only contracts; `src/plugins` holds only shared plugins. Not done: npm workspaces/`packages/`, moving the shooter contract out of the SDK, browser demos into `games/`. |
+> | P0.2 Engine/games split | Mostly done: all games (11 families) in `games/` with their family-only contracts; `packages/std/plugins` holds only shared plugins. Not done: npm workspaces/`packages/`, moving the shooter contract out of the SDK, browser demos into `games/`. |
 > | P0.5 Docs | Done: Guide/Reference/Cookbook/archive, TypeDoc (`npm run docs:api`), `llms.txt`, link checker. |
 > | P1.1 Queries | Done: `world.query({ with, without })` with added/removed/changed per handle, `markChanged` ([queries](reference/queries.md)). |
 > | P1.2 Transform3D + render sync (SDK 3) | Done: `Transform3D`/`PrevTransform`/`Renderable`, `std/transform`, `std/render-sync` with alpha interpolation, SDK 3.0.0 with `SDK_COMPAT ['2.0.0']`, shooter bridge ([spatial](reference/spatial.md)). |
@@ -39,11 +39,11 @@ Scope: a read-only audit of the repo plus a review of current best practices. No
 ### What it is
 Bulkhead (`package.json` name `fpsrizz`) is a **browser-only, strict-TypeScript, plugin-driven game platform**.
 
-- **Kernel.** `src/kernel/` is about 2.5k LOC and has no game or DOM concepts.
-- **SDK.** `src/sdk/` is the public API, currently SDK `2.0.0`.
-- **Platform adapters.** `src/platform/` holds the input, Web Audio, storage, UI and render host adapters.
-- **Renderer.** Official **Three.js 0.187** is vendored under `src/platform/render/mini3/vendor/`.
-- **Plugins.** About 130 plugins live in `src/plugins/`.
+- **Kernel.** `packages/kernel/src/` is about 2.5k LOC and has no game or DOM concepts.
+- **SDK.** `packages/sdk/src/` is the public API, currently SDK `2.0.0`.
+- **Platform adapters.** `packages/platform-web/src/` holds the input, Web Audio, storage, UI and render host adapters.
+- **Renderer.** Official **Three.js 0.187** is vendored under `packages/platform-web/src/render/mini3/vendor/`.
+- **Plugins.** About 130 plugins live in `packages/std/plugins/`.
 - **Presets.** About 50 JSON presets live in `src/content/presets/`.
 - **Games.** It ships roughly 25 playable experiences across genres:
   - an FPS
@@ -66,15 +66,15 @@ Bulkhead (`package.json` name `fpsrizz`) is a **browser-only, strict-TypeScript,
 
 ### Strengths (keep these)
 - **A real kernel architecture.** It has:
-  - scoped ownership with reverse-order disposal (`src/kernel/scope.ts`)
-  - a manifest-validated plugin graph checked *before import* (`src/kernel/manifest.ts`, `resolver.ts`)
-  - staged registries that commit atomically (`src/kernel/host.ts`)
+  - scoped ownership with reverse-order disposal (`packages/kernel/src/scope.ts`)
+  - a manifest-validated plugin graph checked *before import* (`packages/kernel/src/manifest.ts`, `resolver.ts`)
+  - staged registries that commit atomically (`packages/kernel/src/host.ts`)
   - roles for exclusive systems
-  - typed event, command and service buses (`src/kernel/bus.ts`)
+  - typed event, command and service buses (`packages/kernel/src/bus.ts`)
 - **Deterministic sim foundations.**
-  - A fixed 1/60 s step with spiral-of-death protection and an interpolation alpha (`src/kernel/scheduler.ts`).
-  - Per-plugin seeded mulberry32 RNG (`src/kernel/rng.ts`).
-  - Per-tick input snapshots (`src/platform/input.ts`).
+  - A fixed 1/60 s step with spiral-of-death protection and an interpolation alpha (`packages/kernel/src/scheduler.ts`).
+  - Per-plugin seeded mulberry32 RNG (`packages/kernel/src/rng.ts`).
+  - Per-tick input snapshots (`packages/platform-web/src/input.ts`).
 - **Strong test culture.** There are 853 node tests, plus browser demos that assert owned-resource counts don't grow across restarts.
 - **Enforced import boundaries.** `scripts/boundaries.ts` runs as `npm run lint`.
 - **Agent-friendly from day one.**
@@ -94,16 +94,16 @@ Bulkhead (`package.json` name `fpsrizz`) is a **browser-only, strict-TypeScript,
 
 | # | Problem | Evidence |
 |---|---|---|
-| W1 | **Engine and ~25 games live in one tree.** The SDK carries game-specific contracts, so a new game means forking the whole repo. | `src/sdk/contracts/` has 35 files, including `cinder.ts`, `ember.ts`, `verdant.ts`, `sky.ts`, `silt-archive.ts`, `salt-ledger.ts`, `hearth-sim.ts`, `metroidvania.ts`, and `shooter.ts` at 735 LOC. |
+| W1 | **Engine and ~25 games live in one tree.** The SDK carries game-specific contracts, so a new game means forking the whole repo. | `packages/sdk/src/contracts/` has 35 files, including `cinder.ts`, `ember.ts`, `verdant.ts`, `sky.ts`, `silt-archive.ts`, `salt-ledger.ts`, `hearth-sim.ts`, `metroidvania.ts`, and `shooter.ts` at 735 LOC. |
 | W2 | **The plugin catalog is hand-maintained.** Adding a plugin means editing a 295-line import list. | `src/app/catalog.ts` |
-| W3 | **The bundle is monolithic.** `load: () => import()` exists, but esbuild runs without `splitting`, so every game ships in one file. About 4 MB of images are inlined as base64 *TypeScript*. | `scripts/build.mjs`; `src/plugins/theme-assetrizz/{cinder-weapons,fantasy-generated,fantasy-weapons,weapons,generated}.ts`; `theme-story/generated.ts` |
+| W3 | **The bundle is monolithic.** `load: () => import()` exists, but esbuild runs without `splitting`, so every game ships in one file. About 4 MB of images are inlined as base64 *TypeScript*. | `scripts/build.mjs`; `packages/std/plugins/theme-assetrizz/{cinder-weapons,fantasy-generated,fantasy-weapons,weapons,generated}.ts`; `theme-story/generated.ts` |
 | W4 | **There's no hot reload, not even live reload.** esbuild rebuilds on save, but you refresh by hand and lose game state. | `scripts/dev.mjs` (no `/esbuild` EventSource; no `import.meta.hot`) |
-| W5 | **The ECS is minimal.** It has one Map per component and `each(token)` over a single component, with no multi-component queries, no change detection, no prefab inheritance and no serialization beyond `snapshot()`. | `src/kernel/ecs.ts` |
+| W5 | **The ECS is minimal.** It has one Map per component and `each(token)` over a single component, with no multi-component queries, no change detection, no prefab inheritance and no serialization beyond `snapshot()`. | `packages/kernel/src/ecs.ts` |
 | W6 | **The world model is planar and shooter-specific.** `Transform` is `x, z, yaw`. Collision is brute-force circle-vs-AABB. There's no 3D physics and no vertical movement. | `docs/reference/spec.md` §5, `games/shooter/plugins/core-world/collision.ts` |
 | W7 | **There's no asset pipeline.** There's no async loader, no glTF loading, and no texture compression. GLBs in `assets/weapons/` aren't wired up, and content refers to art only by theme key. | `docs/reference/spec.md` §5, `docs/reference/architecture.md` §9 |
 | W8 | **Input is keyboard and mouse only.** There's no gamepad, no touch and no rebinding. | `docs/reference/spec.md` §5 |
-| W9 | **Audio is synthesis only.** There's no sample playback, no buses and no PannerNode spatialization. | `src/platform/audio.ts` |
-| W10 | **Content formats have no JSON Schema.** Validation is hand-written TS (`Reporter`), so editors and agents get no autocomplete or schema validation. | `src/kernel/validate.ts` ("No schemas-as-code") |
+| W9 | **Audio is synthesis only.** There's no sample playback, no buses and no PannerNode spatialization. | `packages/platform-web/src/audio.ts` |
+| W10 | **Content formats have no JSON Schema.** Validation is hand-written TS (`Reporter`), so editors and agents get no autocomplete or schema validation. | `packages/kernel/src/validate.ts` ("No schemas-as-code") |
 | W11 | **There are no general saves and no input record/replay**, even though the sim is deterministic. | `docs/reference/spec.md` §5, `docs/archive/devplan.md` |
 | W12 | **Docs sprawl.** There's about 1.1 MB of Markdown across 20 top-level files. Some of it is stale: `docs/archive/handoff.md` says "Not Three.js", which contradicts `docs/reference/architecture.md`. That burns agent context. | repo root |
 | W13 | **CI gaps.** There's no Node pin and no browser tests in CI. Coverage is Chrome only. There's no deploy workflow, although a `gh-pages` branch exists. | `.github/workflows/ci.yml` |
@@ -136,7 +136,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - `packages/std` for shared `mechanics-*` providers, `presentation-camera-modes`, etc.
     - `packages/tools` for build/dev/graph/reuse CLIs
     - `games/<family>/` for each game family *and its contracts*
-  - Move `cinder.ts`, `ember.ts`, `verdant.ts`, `sky.ts`, `silt-archive.ts`, `salt-ledger.ts`, `hearth-sim.ts`, `metroidvania.ts` and `shooter.ts` out of `src/sdk/contracts/` into their families. Contracts that several families truly share stay in `std`.
+  - Move `cinder.ts`, `ember.ts`, `verdant.ts`, `sky.ts`, `silt-archive.ts`, `salt-ledger.ts`, `hearth-sim.ts`, `metroidvania.ts` and `shooter.ts` out of `packages/sdk/src/contracts/` into their families. Contracts that several families truly share stay in `std`.
   - Extend `scripts/boundaries.ts` to package boundaries.
   - Source: npm workspaces https://docs.npmjs.com/cli/using-npm/workspaces
 - [ ] **P0.3 Auto-discover plugins.** M
@@ -331,7 +331,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
 - [ ] **P3.2 WebGPURenderer path.** M
   - *Why:* three.js's new features land there, and it falls back to WebGL2 automatically. WebGLRenderer is maintained but gets no big new features.
   - *Change:*
-    - Make it an opt-in renderer behind `src/sdk/render.ts` with `await renderer.init()`.
+    - Make it an opt-in renderer behind `packages/sdk/src/render.ts` with `await renderer.init()`.
     - Port any custom GLSL to TSL.
     - Gate it per preset until parity tests pass.
   - Source: https://threejs.org/manual/pages/webgpurenderer.html

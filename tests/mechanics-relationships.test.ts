@@ -1,8 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { RelationshipProviders, SessionControl, relationshipMechanic } from '../src/sdk/index.ts';
-import type { MechanicRelationships, RelationshipDefinition, SessionContext } from '../src/sdk/index.ts';
-import manifest from '../src/plugins/mechanics-relationships/manifest.json' with { type: 'json' };
+import { RelationshipProviders, SessionControl, relationshipMechanic } from '@bulkhead/sdk';
+import type { MechanicRelationships, RelationshipDefinition, SessionContext } from '@bulkhead/sdk';
+import manifest from '@bulkhead/std/mechanics-relationships/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { codePlugin } from './helpers/host.ts';
 
@@ -15,7 +15,7 @@ async function fixture() {
     owners.push(ctx);
     handles.push(relationshipMechanic(ctx).create(ctx, 'same', { min: -100, max: 100, pairs: [{ a: 'z', b: 'a', score: 5 }, { a: 'a|z', b: 'x', score: 10 }] }));
   } }, { roleDependencies: ['sdk/mechanic-relationships'] }));
-  const game = createHeadlessGame([{ manifest, load: () => import('../src/plugins/mechanics-relationships/index.ts') }, ...consumers]);
+  const game = createHeadlessGame([{ manifest, load: () => import('@bulkhead/std/mechanics-relationships/index.ts') }, ...consumers]);
   await game.host.apply(headlessPreset({ plugins: ['mechanics/relationships', 'aaa/social', 'bbb/social'], roles: { 'sdk/mechanic-relationships': 'mechanics/relationships' }, options: {} }));
   return { game, owners, handles, provider: () => providerOwner!, pause: (value: boolean) => { playing = !value; } };
 }

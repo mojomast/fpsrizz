@@ -1,6 +1,6 @@
 # Audio: samples, buses and 3D sound (SDK 3)
 
-The host `Audio` service (`src/platform/audio.ts`, contract `src/sdk/contracts/audio.ts`) plays two kinds of sound:
+The host `Audio` service (`packages/platform-web/src/audio.ts`, contract `packages/sdk/src/contracts/audio.ts`) plays two kinds of sound:
 
 - **Synth `SoundDef`s** from the active theme (oscillator / noise layers) - the zero-asset placeholder and fallback.
 - **Samples** (SDK 3): `AudioSamples` registry entries `{ url, gain?, bus?, loop?, rateJitter?, refDistance?,

@@ -2,8 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { CollisionWorld } from '../games/shooter/plugins/core-world/collision.ts';
 import type { Box } from '../games/shooter/plugins/core-world/collision.ts';
-import { createRng } from '../src/kernel/rng.ts';
-import { SpatialHash } from '../src/sdk/index.ts';
+import { createRng } from '@bulkhead/kernel/rng.ts';
+import { SpatialHash } from '@bulkhead/sdk';
 
 test('spatial hash: set/move/delete, insertion-ordered results, Y filtering', () => {
   const g = new SpatialHash<string>(2);

@@ -1,6 +1,6 @@
-import type { EntityId, MapDef, SessionContext, WorldDescription } from '../../../../src/sdk/index.ts';
+import type { EntityId, MapDef, SessionContext, WorldDescription } from '@bulkhead/sdk';
 import type { DoorState, InteractionCandidate, InteractionProvider, TriggerState, WorldService } from '../../contracts/shooter.ts';
-import { Collider, Intent, MapFormats, Maps, Player, Prefabs, Transform, definePlugin, isObject, vId, vString, yawDirX, yawDirZ } from '../../../../src/sdk/index.ts';
+import { Collider, Intent, MapFormats, Maps, Player, Prefabs, Transform, definePlugin, isObject, vId, vString, yawDirX, yawDirZ } from '@bulkhead/sdk';
 import { DoorChanged, Interactions, TriggerFired, UseFailed, World } from '../../contracts/shooter.ts';
 import type { Box } from './collision.ts';
 import { CollisionWorld } from './collision.ts';

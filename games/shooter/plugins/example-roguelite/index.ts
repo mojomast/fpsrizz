@@ -1,6 +1,6 @@
-import { Flow, Health, Maps, ModeRole, Player, Prefabs, defineComponent, definePlugin, spawnPrefab } from '../../../../src/sdk/index.ts';
+import { Flow, Health, Maps, ModeRole, Player, Prefabs, defineComponent, definePlugin, spawnPrefab } from '@bulkhead/sdk';
 import { Combat, DamageModifiers, Died, Enemies, World } from '../../contracts/shooter.ts';
-import type { EntityId, SessionContext, SpawnDesc } from '../../../../src/sdk/index.ts';
+import type { EntityId, SessionContext, SpawnDesc } from '@bulkhead/sdk';
 
 const MODE = 'example/roguelite';
 const Power = defineComponent<{ multiplier: number }>('example/roguelite-power');

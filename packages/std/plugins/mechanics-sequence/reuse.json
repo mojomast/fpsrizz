@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion.",
+  "keywords": ["sequence", "ordered", "checkpoint", "stage", "progression", "round", "lap", "cursor", "circuit", "gate"],
+  "entryPoints": ["SequenceProviders", "SequenceMechanicRole", "sequenceMechanic"],
+  "useWhen": "Accept a finite ordered list of steps repeatedly without copying cursor or lap-rollover logic.",
+  "limitations": ["No spatial detection, timers, branching, rewards, persistence or receipt deduplication. Keys intentionally repeat across rounds.", "Consumers decide when an advance is legal; tested consumers use directional gate crossings in two racing compositions."],
+  "docs": ["docs/reference/sequences.md"],
+  "examples": ["games/racing/plugins/vehicle-racing/index.ts", "games/shooter/plugins/example-racing/index.ts", "games/racing/presets/overhead-racing.json", "games/shooter/presets/racing.json"],
+  "tests": ["tests/mechanics-sequence.test.ts", "games/racing/tests/overhead-racing.test.ts", "games/shooter/tests/racing.test.ts", "games/shooter/tests/race-track.test.ts"]
+}

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Flow, Health, Player, Transform } from '../../../src/sdk/index.ts';
+import { Flow, Health, Player, Transform } from '@bulkhead/sdk';
 import { Combat, Enemy, World } from '../contracts/shooter.ts';
 import type { HeadlessGame } from '../../../tests/helpers/game.ts';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';

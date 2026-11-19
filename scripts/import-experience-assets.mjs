@@ -137,7 +137,7 @@ for theme in ['arcade', 'board', 'story']:
 
 if check:
     for theme, data in modules.items():
-        path = root / ('src/plugins/theme-' + theme + '/generated.ts')
+        path = root / ('packages/std/plugins/theme-' + theme + '/generated.ts')
         if b'loadStaticAsset(' in path.read_bytes():
             # Packed by scripts/pack-painters.mjs: pixel data lives in public/packs/, so only the provenance digest of
             # the regenerated (inline) module is compared here.
@@ -153,7 +153,7 @@ else:
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(data)
     for theme, data in modules.items():
-        folder = root / ('src/plugins/theme-' + theme)
+        folder = root / ('packages/std/plugins/theme-' + theme)
         folder.mkdir(parents=True, exist_ok=True)
         (folder / 'generated.ts').write_bytes(data)
     provenance = dict(repository=config['repository'], revision=config['revision'], license=config['license'],
@@ -170,5 +170,5 @@ process.exitCode = result.status ?? 1;
 if (result.status === 0 && !args.includes('--check')) {
   // The story theme's art is large; move its pixel data into a content-hashed pack (public/packs/theme-story/).
   const { packModule } = await import('./pack-painters.mjs');
-  packModule('src/plugins/theme-story/generated.ts');
+  packModule('packages/std/plugins/theme-story/generated.ts');
 }

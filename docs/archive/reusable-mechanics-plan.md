@@ -11,7 +11,7 @@ providers, staged content errors and repeatable disposal/restart. Shared themes 
 
 ## Agreed seam
 
-The authoritative TypeScript interfaces are in `src/sdk/contracts/mechanics.ts`, exported from `src/sdk/index.ts`.
+The authoritative TypeScript interfaces are in `packages/sdk/src/contracts/mechanics.ts`, exported from `packages/sdk/src/index.ts`.
 
 - `mechanics/resources`: atomic bounded multi-resource debit/credit pools, no inventory/spatial/genre assumptions.
 - `mechanics/clock`: explicitly advanced seconds or turns; no implicit scheduler system advances a turn clock.
@@ -55,10 +55,10 @@ the implemented resource/cooldown/objective algorithms and do not enable the ori
 ## Parallel file ownership
 
 - Coordinator: SDK contracts/exports, catalog wiring, top-level docs, integration and browser acceptance.
-- Foundation agent: `src/plugins/mechanics-{resources,clock,actions,objectives,kits}/`, `tests/mechanics*.test.ts`,
+- Foundation agent: `packages/std/plugins/mechanics-{resources,clock,actions,objectives,kits}/`, `tests/mechanics*.test.ts`,
   `docs/reference/reusable-mechanics.md`. Report contract changes before making them.
 - Host agent: generic selected-role activation ordering in the kernel and focused host lifecycle tests.
-- Sky agent: `src/plugins/sky-{game,presentation,content}/`, `games/sky/contracts/sky.ts`,
+- Sky agent: `packages/std/plugins/sky-{game,presentation,content}/`, `games/sky/contracts/sky.ts`,
   `games/sky/presets/sky-salvage.json`, `games/sky/tests/sky-salvage.test.ts`, `games/sky/README.md`.
 - Ember agent: corresponding `ember-{game,presentation,content}`, `contracts/ember.ts`, `ember-bastion.json`,
   `games/ember/tests/ember-bastion.test.ts`, `games/ember/README.md`.

@@ -1,4 +1,4 @@
-import { SessionControl, Ui, definePlugin, hintMechanic } from '../../../../src/sdk/index.ts';
+import { SessionControl, Ui, definePlugin, hintMechanic } from '@bulkhead/sdk';
 import { Hearth } from '../../contracts/hearth-sim.ts';
 import { SaltLedger } from '../../contracts/salt-ledger.ts';
 import { Silt } from '../../contracts/silt-archive.ts';

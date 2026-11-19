@@ -9,8 +9,8 @@ A separate read-only integration review found no correctness/ownership blockers;
 | Capability | Implementation / real consumers | Reuse decision |
 |---|---|---|
 | Resource behavioral conformance | `tests/helpers/resource-conformance.ts`, `tests/helpers/alternate-resources.ts`; default and independent resource implementations; all three existing game substitution routes retained | Reuse `mechanics/resources` and its role contract; parameterize public behavior assertions instead of adding another production algorithm |
-| Owned bounded command queues | `createCommandQueue` in `src/sdk/contracts/command-queue.ts`; Stonewake and The Last Light | Extend the SDK with a small owned helper, reusing `SessionControl` and scopes; keep command schemas, legality and drain cadence local |
-| Explicit-clock deadlines | `createDeadline` in `src/sdk/contracts/deadlines.ts`; Sky and Verdant | Reuse `mechanics/clock`; extract pollable windows without changing provider interfaces or replacing action cooldowns |
+| Owned bounded command queues | `createCommandQueue` in `packages/sdk/src/contracts/command-queue.ts`; Stonewake and The Last Light | Extend the SDK with a small owned helper, reusing `SessionControl` and scopes; keep command schemas, legality and drain cadence local |
+| Explicit-clock deadlines | `createDeadline` in `packages/sdk/src/contracts/deadlines.ts`; Sky and Verdant | Reuse `mechanics/clock`; extract pollable windows without changing provider interfaces or replacing action cooldowns |
 | Agent discovery and authoring | Two new recipes, updated plugin-local metadata, generated inventory and a [design/evidence template](../cookbook/reusable-capability-template.md) | Extend the existing discovery workflow and metadata schema |
 | Item possession | [Decision record](item-possession-decision.md) for keys and Story inventory | Retain local collections: only Story implements the proposed multi-item transaction; binary resources do not preserve its order, overlap rules or silent detached replay |
 

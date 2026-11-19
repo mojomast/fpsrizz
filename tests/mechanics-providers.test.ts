@@ -1,15 +1,15 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import { definePlugin, createMechanicKit, resourceMechanic, clockMechanic, actionMechanic, objectiveMechanic, SessionControl, MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, ResourcePoolProviders, ResourceMechanicRole } from '../src/sdk/index.ts';
-import type { SessionContext, MechanicKit, MechanicKitDefinition, ResourcePool, ResourceTransaction } from '../src/sdk/index.ts';
-import type { CatalogEntry } from '../src/kernel/host.ts';
+import { definePlugin, createMechanicKit, resourceMechanic, clockMechanic, actionMechanic, objectiveMechanic, SessionControl, MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, ResourcePoolProviders, ResourceMechanicRole } from '@bulkhead/sdk';
+import type { SessionContext, MechanicKit, MechanicKitDefinition, ResourcePool, ResourceTransaction } from '@bulkhead/sdk';
+import type { CatalogEntry } from '@bulkhead/kernel/host.ts';
 import { resourceProviders, registerResourceConformance } from './helpers/resource-conformance.ts';
 import type { ResourceProviderCase } from './helpers/resource-conformance.ts';
-import clockManifest from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
-import actionsManifest from '../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
-import objectivesManifest from '../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
-import kitsManifest from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
+import clockManifest from '@bulkhead/std/mechanics-clock/manifest.json' with { type: 'json' };
+import actionsManifest from '@bulkhead/std/mechanics-actions/manifest.json' with { type: 'json' };
+import objectivesManifest from '@bulkhead/std/mechanics-objectives/manifest.json' with { type: 'json' };
+import kitsManifest from '@bulkhead/std/mechanics-kits/manifest.json' with { type: 'json' };
 
 const roles = { 'sdk/mechanic-resources': 'mechanics/resources', 'sdk/mechanic-clock': 'mechanics/clock', 'sdk/mechanic-actions': 'mechanics/actions', 'sdk/mechanic-objectives': 'mechanics/objectives' };
 function definition(domain: 'seconds' | 'turns' = 'seconds'): MechanicKitDefinition {
@@ -20,10 +20,10 @@ function definition(domain: 'seconds' | 'turns' = 'seconds'): MechanicKitDefinit
 function catalog(resources: ResourceProviderCase = resourceProviders[0]): CatalogEntry[] {
   return [
     resources.entry,
-    { manifest: clockManifest, load: () => import('../src/plugins/mechanics-clock/index.ts') },
-    { manifest: actionsManifest, load: () => import('../src/plugins/mechanics-actions/index.ts') },
-    { manifest: objectivesManifest, load: () => import('../src/plugins/mechanics-objectives/index.ts') },
-    { manifest: kitsManifest, load: () => import('../src/plugins/mechanics-kits/index.ts') },
+    { manifest: clockManifest, load: () => import('@bulkhead/std/mechanics-clock/index.ts') },
+    { manifest: actionsManifest, load: () => import('@bulkhead/std/mechanics-actions/index.ts') },
+    { manifest: objectivesManifest, load: () => import('@bulkhead/std/mechanics-objectives/index.ts') },
+    { manifest: kitsManifest, load: () => import('@bulkhead/std/mechanics-kits/index.ts') },
   ];
 }
 async function fixture(data: unknown = definition(), resources: ResourceProviderCase = resourceProviders[0]) {

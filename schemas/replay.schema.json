@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Input replay (*.replay.json)",
-  "description": "Seed + preset + tick-stamped input calls + final-state hash (src/platform/replay.ts).",
+  "description": "Seed + preset + tick-stamped input calls + final-state hash (packages/platform-web/src/replay.ts).",
   "type": "object",
   "required": [
     "format",

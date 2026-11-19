@@ -1,6 +1,6 @@
-import type { NavigationNode } from '../../../../src/sdk/index.ts';
+import type { NavigationNode } from '@bulkhead/sdk';
 import type { TacticsCommand, TacticsForecast, TacticsMission, TacticsUnit } from '../../contracts/tactics.ts';
-import { ExperienceRole, Flow, NavigationRole, OutcomeRatingRole, OutcomeRatingProviders, SessionControl, definePlugin, isObject, outcomeRatingMechanic, vArray, vNumber, vOneOf, vString } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, Flow, NavigationRole, OutcomeRatingRole, OutcomeRatingProviders, SessionControl, definePlugin, isObject, outcomeRatingMechanic, vArray, vNumber, vOneOf, vString } from '@bulkhead/sdk';
 import { Tactics, TacticsMissions, TacticsResolved } from '../../contracts/tactics.ts';
 
 export default definePlugin({

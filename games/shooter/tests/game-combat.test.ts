@@ -4,9 +4,9 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Collider, FlowEnded, Health, Inventory, Player, definePlugin } from '../../../src/sdk/index.ts';
+import { Collider, FlowEnded, Health, Inventory, Player, definePlugin } from '@bulkhead/sdk';
 import { AttackFired, Damaged, DamageModifiers, Died, Enemy, Impact, PickupCollected, TriggerFired, UseFailed } from '../contracts/shooter.ts';
-import type { CatalogEntry } from '../../../src/sdk/index.ts';
+import type { CatalogEntry } from '@bulkhead/sdk';
 import {
   DUMMY, FACE_EAST, FACE_NORTH, FACE_SOUTH, FACE_WEST, HALL, OBJECTIVE_ROOMS, OBJECTIVE_TRIGGERS, OPEN_ROOM,
   assertHealthy, cellCenter, countProjectiles, hpOf, place, record, runUntil, spawnAt, spawnEnemy, startOnMap, tap, transformOf,

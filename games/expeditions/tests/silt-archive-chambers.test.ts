@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Reporter } from '../../../src/kernel/validate.ts';
-import type { Issue } from '../../../src/kernel/validate.ts';
+import { Reporter } from '@bulkhead/kernel/validate.ts';
+import type { Issue } from '@bulkhead/kernel/validate.ts';
 import { loadChamber } from '../plugins/silt-game/chambers.ts';
 
 const rows = [

@@ -48,7 +48,7 @@ data below is not a valid weapon. For a working pack, see `games/shooter/plugins
 A pack must depend on the plugins that define the content kinds it uses (`weapon`/`ammo`/`pickup` → `core/combat`,
 `enemy` → `core/enemies`, `map` → `core/world`) and on any plugin whose behaviours or prefabs it references.
 
-Built-in packs live in `src/plugins/<dir>/manifest.json` + `content.json` (the `content` array) and are discovered into
+Built-in packs live in `packages/std/plugins/<dir>/manifest.json` + `content.json` (the `content` array) and are discovered into
 `src/app/catalog.generated.ts` by `npm run gen-catalog`.
 
 Code manifests may declare `roleDependencies: ["sdk/some-role"]` to require a selected role and activate its

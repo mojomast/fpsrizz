@@ -1,4 +1,4 @@
-import { Flow, Health, HudRole, Inventory, Player, Transform, Ui, View, definePlugin } from '../../../../src/sdk/index.ts';
+import { Flow, Health, HudRole, Inventory, Player, Transform, Ui, View, definePlugin } from '@bulkhead/sdk';
 import { AmmoTypes, Damaged, PickupCollected, UseFailed, WeaponDry, Weapons } from '../../contracts/shooter.ts';
 
 const ACCENTS: Readonly<Record<string, string>> = { cyan: '#5ef2ff', amber: '#ffc24d', green: '#6dff9a' };
