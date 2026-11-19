@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "$comment": "Source models optimised by `npm run assets` (scripts/assets.mjs) into public/models/. Paths are repo-relative.",
+  "models": [
+    { "src": "assets/levels/sandbox-props.glb", "out": "public/models/levels/sandbox-props.glb" },
+    { "src": "assets/weapons/generic/assault_rifle.glb", "out": "public/models/weapons/assault_rifle.glb" },
+    { "src": "assets/weapons/generic/knife.glb", "out": "public/models/weapons/knife.glb" }
+  ]
+}

@@ -5,7 +5,7 @@ import type { Session } from '../../src/kernel/host.ts';
 import { createRenderHost } from '../../src/platform/render/service.ts';
 import type { RenderHost } from '../../src/platform/render/service.ts';
 import { createAudioService } from '../../src/platform/audio.ts';
-import { Audio, AttackFired, Damaged, DoorChanged, Died, EnemyAlerted, Impact, Inventory, PHASES, PickupCollected, SDK_VERSION, TriggerFired, UseFailed, World } from '../../src/sdk/index.ts';
+import { Audio, AttackFired, Damaged, DoorChanged, Died, EnemyAlerted, Impact, Inventory, PHASES, PickupCollected, SDK_COMPAT, SDK_VERSION, TriggerFired, UseFailed, World } from '../../src/sdk/index.ts';
 import type { AudioService, PlayOptions, ViewState } from '../../src/sdk/index.ts';
 import { Render } from '../../src/sdk/render.ts';
 import { sounds } from '../../src/plugins/theme-industrial/sounds.ts';
@@ -36,7 +36,7 @@ const recorder: AudioService = {
 
 let provideRender = true;
 const host = new PluginHost({
-  sdkVersion: SDK_VERSION,
+  sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
   phases: PHASES,
   installHostServices(session, scope) {
     if (provideRender) session.services.provide(Render, renderHost.service, 'host', scope);

@@ -30,6 +30,7 @@ declare module 'node:fs' {
   export function readdirSync(path: string, opts?: unknown): string[];
   export function existsSync(path: string): boolean;
   export function statSync(path: string): { isDirectory(): boolean };
+  export function writeFileSync(path: string, data: string): void;
 }
 declare module 'node:path' {
   export function join(...p: string[]): string;

@@ -7,7 +7,12 @@ import type { ComponentToken } from '../kernel/ecs.ts';
 import type { PluginModule, RoleToken } from '../kernel/host.ts';
 import type { RegistryToken } from '../kernel/registry.ts';
 
-export const SDK_VERSION = '2.0.0';
+export const SDK_VERSION = '3.0.0';
+/**
+ * Older SDK majors this build still implements. SDK 3 only added APIs (queries, Transform3D, render sync, physics,
+ * assets, input axes, audio buses, snapshots), so manifests declaring `^2.0.0` load unchanged.
+ */
+export const SDK_COMPAT: readonly string[] = ['2.0.0'];
 
 /**
  * Simulation phases, in execution order, every 60 Hz tick:
@@ -35,7 +40,7 @@ export const defineRole = <T>(id: string): RoleToken<T> => ({ id });
 export const definePlugin = (m: PluginModule): PluginModule => m;
 
 export type { CommandToken, EventToken, ServiceToken } from '../kernel/bus.ts';
-export type { ComponentToken, EntityId } from '../kernel/ecs.ts';
+export type { ComponentToken, EntityId, Query, QueryChanges, QuerySpec } from '../kernel/ecs.ts';
 export type { ActivatableProvider, CatalogEntry, ContentKind, ContentLoadContext, EntityApi, PluginModule, RegisterContext, RegistryReader, RoleToken, SessionContext, ValidationContext } from '../kernel/host.ts';
 export type { ConfigField, ContentEntry, GamePreset, PluginManifest } from '../kernel/manifest.ts';
 export type { RegistryEntry, RegistryToken } from '../kernel/registry.ts';

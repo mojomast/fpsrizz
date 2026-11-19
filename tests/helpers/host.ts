@@ -1,9 +1,9 @@
 import { PluginHost, HostError } from '../../src/kernel/host.ts';
 import type { CatalogEntry, PluginModule } from '../../src/kernel/host.ts';
 import type { PluginManifest } from '../../src/kernel/manifest.ts';
-import { PHASES, SDK_VERSION } from '../../src/sdk/core.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '../../src/sdk/core.ts';
 
-export { PluginHost, HostError, PHASES, SDK_VERSION };
+export { PluginHost, HostError, PHASES, SDK_COMPAT, SDK_VERSION };
 
 /** Fully-populated, already-parsed manifest (for pure resolver tests). */
 export function fullManifest(id: string, over: Partial<PluginManifest> = {}): PluginManifest {
@@ -36,7 +36,7 @@ export function presetOf(id: string, plugins: string[], extra: Record<string, un
 }
 
 export function newHost(entries: readonly CatalogEntry[]): PluginHost {
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
   const issues = host.setCatalog(entries);
   if (issues.length > 0) throw new Error(`test catalog is invalid: ${issues.map((i) => i.message).join('; ')}`);
   return host;

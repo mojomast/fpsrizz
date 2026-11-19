@@ -1,4 +1,4 @@
-import { Damaged, Flow, FlowEnded, Health, Inventory, PHASES, PickupCollected, SDK_VERSION, Ui, UseFailed, WeaponDry } from '../../src/sdk/index.ts';
+import { Damaged, Flow, FlowEnded, Health, Inventory, PHASES, PickupCollected, SDK_COMPAT, SDK_VERSION, Ui, UseFailed, WeaponDry } from '../../src/sdk/index.ts';
 import type { FlowService } from '../../src/sdk/index.ts';
 import { PluginHost } from '../../src/kernel/host.ts';
 import type { Session } from '../../src/kernel/host.ts';
@@ -11,7 +11,7 @@ import demoModule, { demoManifest } from './demo-plugin.ts';
 const hud = document.getElementById('hud') as HTMLElement;
 const overlay = document.getElementById('overlay') as HTMLElement;
 const host = new PluginHost({
-  sdkVersion: SDK_VERSION,
+  sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
   phases: PHASES,
   installHostServices(session, scope) {
     session.services.provide(Ui, createUiService({ hud, overlay }), 'host', scope);

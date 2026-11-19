@@ -11,7 +11,11 @@ export interface RenderHost {
   setPixelRatioCap(n: number): void;
   resize(): void;
   render(): void;
+  /** The world camera drawn last frame (audio listener follows it). */
+  activeCamera(): THREE.Camera;
   liveRoots(): number;
+  /** The world scene (debugging and browser tests only; plugins draw through createRoot). */
+  readonly worldScene: THREE.Scene;
   dispose(): void;
 }
 
@@ -38,6 +42,7 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
   const stats = { calls: 0, triangles: 0, geometries: 0, textures: 0 };
   const cameras = createWorldCameraSelection(camera, () => service.width / service.height);
   const service: RenderService & { width: number; height: number; pixelRatio: number } = {
+    renderer,
     camera,
     viewCamera,
     setWorldCamera: (ctx, selected) => cameras.set(ctx, selected),
@@ -137,7 +142,9 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
       stats.geometries = renderer.info.memory.geometries;
       stats.textures = renderer.info.memory.textures;
     },
+    activeCamera: () => cameras.current(),
     liveRoots: () => roots,
+    worldScene,
     dispose() {
       if (disposed) return;
       disposed = true;

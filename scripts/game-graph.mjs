@@ -28,7 +28,7 @@ function manifestOf(entry) {
   return {
     manifest: {
       schema: 1, id: entry.id, name: entry.name ?? entry.id, version: entry.version ?? '1.0.0',
-      kind: 'code', sdk: entry.sdk ?? '^2.0.0', description: entry.summary ?? entry.useWhen ?? '',
+      kind: 'code', sdk: entry.sdk ?? '^3.0.0', description: entry.summary ?? entry.useWhen ?? '',
       dependencies: entry.dependencies ?? {}, optionalDependencies: entry.optionalDependencies ?? {},
       conflicts: entry.conflicts ?? [], capabilities: [], requiresRoles: entry.requiresRoles ?? [],
       roleDependencies: entry.roleDependencies ?? [], config: entry.config ?? {},

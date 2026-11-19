@@ -3,6 +3,7 @@ import { rmSync, mkdirSync, cpSync, existsSync, watch } from 'node:fs';
 import { resolve, relative } from 'node:path';
 import { resolveTool, root } from './tools.mjs';
 import { generate as generateCatalog, pluginRoots } from './gen-catalog.mjs';
+import { copyVendorStatic, threeDedupe } from './build-config.mjs';
 
 const esbuild = resolveTool('esbuild');
 const entry = resolve(root, process.env.ENTRY ?? 'src/app/main.ts');
@@ -20,6 +21,7 @@ function copyStatic() {
   mkdirSync(out, { recursive: true });
   cpSync(resolve(root, 'index.html'), resolve(out, 'index.html'));
   if (existsSync(resolve(root, 'public'))) cpSync(resolve(root, 'public'), out, { recursive: true });
+  copyVendorStatic(out);
 }
 
 generateCatalog();
@@ -35,6 +37,7 @@ const ctx = await esbuild.context({
   sourcemap: 'inline',
   target: 'es2022',
   define: { __DEV__: 'true' },
+  plugins: [threeDedupe],
   logLevel: 'info',
 });
 await ctx.watch();

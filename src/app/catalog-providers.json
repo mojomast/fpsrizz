@@ -223,6 +223,11 @@
         "salt/ledger"
       ]
     },
+    "sandbox/game": {
+      "sdk/experience": [
+        "sandbox/physics"
+      ]
+    },
     "silt/game": {
       "sdk/experience": [
         "silt/archive"

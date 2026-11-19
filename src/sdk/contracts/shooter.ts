@@ -558,7 +558,10 @@ export const EnemyAi = defineService<EnemyService>('sdk/enemies');
 
 export interface InputActionDef {
   label: string;
-  /** KeyboardEvent.code values, or "Mouse0".."Mouse2", "WheelUp", "WheelDown". */
+  /**
+   * KeyboardEvent.code values, "Mouse0".."Mouse2", "WheelUp", "WheelDown", and (SDK 3) gamepad / touch virtual keys
+   * such as "GamepadA" or "TouchA" (see GAMEPAD_BUTTONS / TOUCH_BUTTONS in contracts/input.ts).
+   */
   keys: string[];
 }
 export const InputActions = defineRegistry<InputActionDef>('input-action');
@@ -573,6 +576,8 @@ export interface TickInput {
   readonly lookY: number;
   /** Absolute CSS-pixel position relative to the input surface; absent on older/headless adapters. */
   readonly pointer?: Readonly<{ x: number; y: number; inside: boolean }>;
+  /** SDK 3: value of an `InputAxes` entry this tick (use `readAxis`, which handles adapters without it). */
+  axis?(id: string): Readonly<{ x: number; y: number }>;
 }
 export interface InputService {
   readonly tick: TickInput;

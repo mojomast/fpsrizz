@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost } from '../src/kernel/host.ts';
 import type { CatalogEntry } from '../src/kernel/host.ts';
-import { ClockMechanicRole, PHASES, SDK_VERSION, SessionControl, clockMechanic, createDeadline } from '../src/sdk/index.ts';
+import { ClockMechanicRole, PHASES, SDK_COMPAT, SDK_VERSION, SessionControl, clockMechanic, createDeadline } from '../src/sdk/index.ts';
 import type { MechanicClock, MechanicTimeDomain, SessionContext } from '../src/sdk/index.ts';
 import clockManifest from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
 
@@ -12,7 +12,7 @@ async function fixture() {
     manifest: { schema: 1, id, name: id, version: '1.0.0', sdk: '^2.0.0', kind: 'code', roleDependencies: [ClockMechanicRole.id] },
     load: async () => ({ default: { activate(owner) { owners.push(owner); } } }),
   }));
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES, installHostServices(session, scope) {
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) {
     session.services.provide(SessionControl, gate, 'test', scope);
   } });
   assert.deepEqual(host.setCatalog([{ manifest: clockManifest, load: () => import('../src/plugins/mechanics-clock/index.ts') }, ...consumers]), []);

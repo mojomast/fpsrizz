@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Rapier 3D physics: rigid bodies, colliders, sensors/triggers, raycasts and a kinematic character controller.",
+  "keywords": ["physics", "rapier", "rigid body", "collider", "collision", "trigger", "sensor", "raycast", "character controller", "gravity", "impulse"],
+  "entryPoints": ["RigidBody", "PhysicsCollider", "CharacterController", "CharacterMove", "CharacterState", "PhysicsCollision", "Physics"],
+  "useWhen": "A 3D prototype needs bodies that fall, stack, collide or trigger, or a character that walks on arbitrary geometry.",
+  "limitations": ["One collider per body; no joints or trimesh colliders yet.", "Bodies must be root entities.", "Locally deterministic only.", "Adds a ~2.2 MB lazy WASM chunk."],
+  "docs": ["docs/reference/physics.md"],
+  "examples": ["games/sandbox/plugins/sandbox-game/index.ts"],
+  "tests": ["tests/physics-rapier.test.ts", "games/sandbox/tests/sandbox.test.ts"]
+}

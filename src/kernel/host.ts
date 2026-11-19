@@ -1,6 +1,6 @@
 import type { CommandToken, EventToken, ServiceToken } from './bus.ts';
 import { CommandBus, EventBus, ServiceMap } from './bus.ts';
-import type { ComponentToken, EntityId } from './ecs.ts';
+import type { ComponentToken, EntityId, Query, QuerySpec } from './ecs.ts';
 import { EntityStore } from './ecs.ts';
 import type { ConfigField, ContentEntry, GamePreset, PluginManifest } from './manifest.ts';
 import { checkConfigValue, parseContentEntries, parseManifest, parsePreset } from './manifest.ts';
@@ -9,6 +9,8 @@ import { RegistrySet } from './registry.ts';
 import { resolveGraph } from './resolver.ts';
 import type { Rng } from './rng.ts';
 import { createRng, hashString } from './rng.ts';
+import { SNAPSHOT_FORMAT, SNAPSHOT_SCHEMA, migrateSnapshot } from './snapshot.ts';
+import type { PersistHook, RunSnapshot } from './snapshot.ts';
 import type { FrameSystemDef, SystemDef, SystemFault } from './scheduler.ts';
 import { Scheduler } from './scheduler.ts';
 import { Scope } from './scope.ts';
@@ -91,6 +93,13 @@ export interface EntityApi {
   first(token: ComponentToken<unknown>): EntityId | undefined;
   count(token?: ComponentToken<unknown>): number;
   ownerOf(id: EntityId): string | undefined;
+  /**
+   * Cached multi-component query with added/removed/changed tracking (SDK 3). The handle is disposed with the
+   * calling plugin's session scope. Create queries in activate(), not every tick.
+   */
+  query(spec: QuerySpec): Query;
+  /** Flags an in-place mutation so queries that require the component report the entity in `changed` (SDK 3). */
+  markChanged(id: EntityId, token: ComponentToken<unknown>): void;
 }
 
 export interface SessionContext {
@@ -123,6 +132,11 @@ export interface SessionContext {
    * (and later cleaned up) by that plugin, no matter who asked for it.
    */
   instantiate<V, I>(token: RegistryToken<V>, id: string, start: (def: V, ownerCtx: SessionContext) => I): I;
+  /**
+   * SDK 3: registers this plugin's save/restore hook for run snapshots (state that lives outside components:
+   * closures, engine worlds, counters). One hook per plugin; a later call replaces it. Removed with the session.
+   */
+  persist(hook: PersistHook): void;
 }
 
 export interface PluginModule {
@@ -155,7 +169,7 @@ export interface LogEntry {
   tick: number;
 }
 
-export type HostStage = 'catalog' | 'preset' | 'graph' | 'load' | 'register' | 'validate' | 'activate' | 'superseded';
+export type HostStage = 'catalog' | 'preset' | 'graph' | 'load' | 'register' | 'validate' | 'activate' | 'superseded' | 'restore';
 
 export class HostError extends Error {
   readonly stage: HostStage;
@@ -190,6 +204,10 @@ export class Session {
   readonly pluginScopes = new Map<string, Scope>();
   readonly contexts = new Map<string, SessionContext>();
   readonly instances = new Map<string, unknown>();
+  /** ctx.persist() hooks by plugin id (run snapshots). */
+  readonly persistHooks = new Map<string, PersistHook>();
+  /** Gameplay RNG per plugin (snapshots capture and restore their positions). */
+  readonly rngs = new Map<string, Rng>();
   state: SessionState = 'starting';
   fault: SystemFault | undefined;
   onFault: ((fault: SystemFault) => void) | undefined;
@@ -285,13 +303,26 @@ export interface CatalogStatus {
 
 export interface HostOptions {
   sdkVersion: string;
+  /** Older SDK versions this build still implements; manifests targeting them load unchanged (compat). */
+  sdkCompat?: readonly string[];
   phases: readonly string[];
   /** Called for every new session before plugins activate. Provide platform services with owner "host". */
   installHostServices?(session: Session, scope: Scope): void;
+  /**
+   * Awaited right before each plugin's activate() (SDK 3). The app uses it to preload `manifest.preload` through the
+   * asset service, so plugins can read their assets synchronously. A rejection fails activation like a throw would.
+   */
+  beforeActivate?(ctx: SessionContext): void | Promise<void>;
   onLog?(entry: LogEntry): void;
 }
 
 const roleKind = (roleId: string): RegistryToken<unknown> => ({ kind: `role:${roleId}` });
+
+function rngFor(session: Session, id: string, seed: number): Rng {
+  const rng = createRng((seed ^ hashString(id)) >>> 0);
+  session.rngs.set(id, rng);
+  return rng;
+}
 
 /** Roles are resolved only after registration; they affect session startup, never registration. */
 function sessionActivationOrder(order: readonly string[], manifests: ReadonlyMap<string, PluginManifest>, preset: GamePreset, registries: RegistrySet, issues: Issue[]): string[] {
@@ -418,7 +449,7 @@ export class PluginHost {
     if (cat.issues.length > 0) throw new HostError('catalog', cat.issues);
     const manifests = new Map([...cat.map].map(([id, e]) => [id, e.manifest]));
 
-    const graph = resolveGraph(manifests, preset.plugins, this.options.sdkVersion);
+    const graph = resolveGraph(manifests, preset.plugins, this.options.sdkVersion, this.options.sdkCompat);
     if (graph.issues.length > 0) throw new HostError('graph', graph.issues);
 
     // Plugin configuration: manifest defaults overlaid with preset values.
@@ -637,6 +668,56 @@ export class PluginHost {
     }
   }
 
+  /**
+   * SDK 3: plain-JSON image of the running session (see kernel/snapshot.ts). Take it between ticks, never from
+   * inside a system.
+   */
+  snapshot(): RunSnapshot {
+    const s = this.session, a = this.active;
+    if (!s || !a || s.disposed) throw new Error('Nothing to snapshot: no session is running.');
+    const plugins: Record<string, string> = {};
+    for (const id of s.order) plugins[id] = a.manifests.get(id)?.version ?? '0.0.0';
+    const rng: Record<string, number> = {};
+    for (const [id, r] of s.rngs) rng[id] = r.getState();
+    const state: Record<string, Json> = {};
+    for (const id of s.order) {
+      const hook = s.persistHooks.get(id);
+      if (hook) state[id] = structuredClone(hook.save());
+    }
+    return {
+      format: SNAPSHOT_FORMAT, schema: SNAPSHOT_SCHEMA, sdk: this.options.sdkVersion,
+      preset: { id: s.preset.id, seed: s.preset.seed }, plugins, tick: s.scheduler.tick,
+      nextEntityId: s.entities.nextEntityId, rng, entities: structuredClone(s.entities.snapshot()), state,
+    };
+  }
+
+  /**
+   * SDK 3: applies a snapshot to the running session in place (same preset id and plugin set required): entities,
+   * tick, RNG positions, then every plugin's persist hook in activation order. Throws HostError before touching
+   * anything when the snapshot does not fit.
+   */
+  restore(raw: unknown): void {
+    const s = this.session;
+    if (!s || s.disposed) throw new Error('Nothing to restore into: no session is running.');
+    let snap: RunSnapshot;
+    try { snap = migrateSnapshot(raw); } catch (e) {
+      throw new HostError('restore', [{ source: 'snapshot', path: '', message: e instanceof Error ? e.message : String(e) }]);
+    }
+    const issues: Issue[] = [];
+    if (snap.preset.id !== s.preset.id) issues.push({ source: 'snapshot', path: 'preset.id', message: `snapshot is for preset "${snap.preset.id}", the running preset is "${s.preset.id}"` });
+    const want = Object.keys(snap.plugins).sort().join(','), have = [...s.order].sort().join(',');
+    if (want !== have) issues.push({ source: 'snapshot', path: 'plugins', message: `snapshot plugins [${want}] differ from the running session [${have}]` });
+    if (issues.length) throw new HostError('restore', issues);
+    s.entities.restore(snap.entities, snap.nextEntityId);
+    s.scheduler.tick = snap.tick;
+    s.scheduler.resetAccumulator();
+    for (const [id, st] of Object.entries(snap.rng)) s.rngs.get(id)?.setState(st);
+    for (const id of s.order) {
+      const hook = s.persistHooks.get(id);
+      if (hook && id in snap.state) hook.load(structuredClone(snap.state[id]!), snap.plugins[id]!);
+    }
+  }
+
   /** Stops the session and disposes the active registrations. Idempotent. */
   stop(): void {
     this.epoch++;
@@ -663,6 +744,8 @@ export class PluginHost {
         current = id;
         const ctx = this.makeContext(session, staged, id, reader);
         contexts.set(id, ctx);
+        await this.options.beforeActivate?.(ctx);
+        if (!alive()) throw new Error('session was disposed while activating');
         await staged.modules.get(id)?.activate?.(ctx);
         if (!alive()) throw new Error('session was disposed while activating');
       }
@@ -708,6 +791,12 @@ export class PluginHost {
       first: (t) => ents.first(t),
       count: (t) => ents.count(t),
       ownerOf: (e) => ents.ownerOf(e),
+      query: (spec) => {
+        const q = ents.query(spec);
+        scope.add(() => q.dispose(), 'query');
+        return q;
+      },
+      markChanged: (e, t) => ents.markChanged(e, t),
     };
     const log = (level: LogEntry['level']) => (msg: string) => this.push(level, id, msg, sched.tick);
     return {
@@ -735,7 +824,7 @@ export class PluginHost {
         },
         step: sched.step,
       },
-      rng: createRng((staged.preset.seed ^ hashString(id)) >>> 0),
+      rng: rngFor(session, id, staged.preset.seed),
       cosmeticRng: createRng((Date.now() ^ hashString(id)) >>> 0),
       log: { info: log('info'), warn: log('warn'), error: log('error') },
       role: (role) => {
@@ -745,6 +834,10 @@ export class PluginHost {
         return provider === undefined ? undefined : { id: pid, provider: provider as never };
       },
       guard: (p) => scope.guard(p),
+      persist: (hook) => {
+        session.persistHooks.set(id, hook);
+        scope.add(() => { if (session.persistHooks.get(id) === hook) session.persistHooks.delete(id); }, 'persist');
+      },
       instantiate: (token, iid, start) => {
         const key = `${token.kind}\n${iid}`;
         if (session.instances.has(key)) return session.instances.get(key) as never;

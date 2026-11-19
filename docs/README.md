@@ -14,6 +14,14 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Architecture](reference/architecture.md): layers, boundaries, ownership, tick order, rendering.
 - [Spec](reference/spec.md): implemented scope, limits and the reference shooter.
 - [Content format](reference/content-format.md): every JSON format and content kind.
+- [Entity queries](reference/queries.md): multi-component queries with added/removed/changed tracking.
+- [Spatial](reference/spatial.md): SDK 3 `Transform3D`, interpolation and `std/render-sync`.
+- [Physics](reference/physics.md): `std/physics-rapier` bodies, sensors, raycasts and the character controller.
+- [Input v2](reference/input.md): axes, gamepads, touch controls, the default map and rebinding.
+- [Audio](reference/audio.md): sample sounds, mixer buses, 3D positioning and the synth fallback.
+- [Snapshots, saves and replays](reference/snapshots.md): `ctx.persist`, quicksave (F6/F9), `.replay.json` record/replay and replay regression tests.
+- [Assets](reference/assets.md): the asset service, manifest preloads, `std/assets` glTF models, Blender custom
+  properties as components and the `npm run assets` build step.
 - SDK API: generated from TSDoc by `npm run docs:api` into `docs/reference/api/` (not committed).
 - [Reuse index](reference/reuse-index.md): generated list of plugins, recipes and contracts (`npm run index-reuse`).
 - Mechanics: [reusable mechanics](reference/reusable-mechanics.md), [conformance](reference/mechanic-conformance.md),

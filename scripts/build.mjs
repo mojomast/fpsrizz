@@ -5,7 +5,7 @@ import { rmSync, mkdirSync, cpSync, existsSync, statSync, readdirSync, readFileS
 import { resolve, join, relative, basename } from 'node:path';
 import { resolveTool, root } from './tools.mjs';
 import { generate as generateCatalog } from './gen-catalog.mjs';
-import { productionOptions, entryOutput } from './build-config.mjs';
+import { productionOptions, entryOutput, copyVendorStatic } from './build-config.mjs';
 import { checkBudget, formatReport } from './bundle-budget.mjs';
 
 const esbuild = resolveTool('esbuild');
@@ -35,6 +35,7 @@ try {
   // The entry and every chunk have content-hashed names, so GitHub Pages caches can never serve a stale bundle.
   writeFileSync(resolve(dist, 'index.html'), html.replace(`src="${entryUrl}"`, `src="./assets/${basename(main)}"`));
   if (existsSync(resolve(root, 'public'))) cpSync(resolve(root, 'public'), dist, { recursive: true });
+  copyVendorStatic(dist);
   if (!process.env.KEEP_SOURCEMAPS) {
     mkdirSync(maps, { recursive: true });
     for (const f of walk(resolve(dist, 'assets')).filter((f) => f.endsWith('.map'))) renameSync(f, resolve(maps, basename(f)));

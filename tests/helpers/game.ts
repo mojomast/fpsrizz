@@ -4,7 +4,7 @@ import type { CatalogEntry, Session } from '../../src/kernel/host.ts';
 import { createFlow } from '../../src/platform/flow.ts';
 import { createInputCore } from '../../src/platform/input.ts';
 import type { InputCore } from '../../src/platform/input.ts';
-import { Flow, FlowEnded, Input, PHASES, SDK_VERSION } from '../../src/sdk/index.ts';
+import { Flow, FlowEnded, Input, PHASES, SDK_COMPAT, SDK_VERSION } from '../../src/sdk/index.ts';
 import combat from '../../games/shooter/plugins/core-combat/manifest.json' with { type: 'json' };
 import contentManifest from '../../games/shooter/plugins/core-content/manifest.json' with { type: 'json' };
 import content from '../../games/shooter/plugins/core-content/content.json' with { type: 'json' };
@@ -44,7 +44,7 @@ export interface HeadlessGame {
 export function createHeadlessGame(extraCatalog: CatalogEntry[] = []): HeadlessGame {
   const input = createInputCore();
   const host = new PluginHost({
-    sdkVersion: SDK_VERSION,
+    sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
     phases: PHASES,
     installHostServices(session, scope) {
       session.services.provide(Input, input.service, 'host', scope);

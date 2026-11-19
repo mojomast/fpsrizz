@@ -8,6 +8,9 @@ export interface Rng {
   /** Independent stream derived from this seed and a name; does not advance this stream. */
   fork(name: string): Rng;
   readonly seed: number;
+  /** Internal stream position (snapshots, SDK 3). Restoring it continues the exact same sequence. */
+  getState(): number;
+  setState(state: number): void;
 }
 
 export function hashString(s: string): number {
@@ -34,6 +37,8 @@ export function createRng(seed: number): Rng {
     int: (min, max) => Math.floor(min + rng.next() * (max - min)),
     pick: (items) => items[Math.floor(rng.next() * items.length)]!,
     fork: (name) => createRng((seed ^ hashString(name)) >>> 0),
+    getState: () => a,
+    setState: (state) => { a = state >>> 0; },
   };
   return rng;
 }

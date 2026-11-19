@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost } from '../../../src/kernel/host.ts';
 import { Scope } from '../../../src/kernel/scope.ts';
-import { MechanicActionCommitted, MechanicObjectiveChanged, PHASES, SDK_VERSION, SessionControl } from '../../../src/sdk/index.ts';
+import { MechanicActionCommitted, MechanicObjectiveChanged, PHASES, SDK_COMPAT, SDK_VERSION, SessionControl } from '../../../src/sdk/index.ts';
 import { Sky } from '../contracts/sky.ts';
 import resources from '../../../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
 import clock from '../../../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
@@ -15,7 +15,7 @@ import content from '../plugins/sky-content/content.json' with { type: 'json' };
 import preset from '../presets/sky-salvage.json' with { type: 'json' };
 
 async function setup(gate = { playing: true }, packContent: unknown = content) {
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES, installHostServices(session, scope) { session.services.provide(SessionControl, gate, 'host', scope); } });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) { session.services.provide(SessionControl, gate, 'host', scope); } });
   assert.deepEqual(host.setCatalog([
     { manifest: resources, load: () => import('../../../src/plugins/mechanics-resources/index.ts') },
     { manifest: clock, load: () => import('../../../src/plugins/mechanics-clock/index.ts') },

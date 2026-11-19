@@ -124,7 +124,7 @@ export async function buildReuseIndex() {
   for (const file of files('src/sdk', path => path.endsWith('.ts')).concat(files('src/kernel', path => path.endsWith('.ts')), familyContractFiles(), gamePresetFiles())) inputs.add(file);
   const installed = new Set(catalog.map(entry => entry.manifest.id));
   for (const id of installed) if (!manifests.has(id)) fail('catalog', `no source manifest found for ${id}`);
-  const host = new PluginHost({ sdkVersion: sdk.SDK_VERSION, phases: sdk.PHASES });
+  const host = new PluginHost({ sdkVersion: sdk.SDK_VERSION, sdkCompat: sdk.SDK_COMPAT, phases: sdk.PHASES });
   const issues = host.setCatalog(catalog);
   if (issues.length) fail('catalog', JSON.stringify(issues));
   const plugins = [];

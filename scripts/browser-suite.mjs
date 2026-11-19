@@ -27,6 +27,7 @@ export const SUITES = [
   ['salt-ledger', 'tests/salt-ledger-demo/run.mjs'],
   ['silt-archive', 'tests/silt-archive-demo/run.mjs'],
   ['common-ground', 'tests/common-ground-demo/run.mjs'],
+  ['sandbox', 'tests/sandbox-demo/run.mjs'],
   ['reusable-games', 'tests/reusable-games-demo/run.mjs'],
   ['portfolio-qol', 'tests/portfolio-qol-demo/run.mjs'],
 ];

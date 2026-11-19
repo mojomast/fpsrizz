@@ -2,7 +2,7 @@
 
 Bulkhead is a plugin-driven TypeScript game foundation with a 2.5D shooter reference game and independent racing,
 turn-tactics, narrative-adventure, 3D push-puzzle, drone-courier, tower-defense and colony-restoration families. The last
-three share role-selected resource/action/clock/objective plugins; see `docs/reference/reusable-mechanics.md`. The public SDK is version 2; production rendering uses official Three.js
+three share role-selected resource/action/clock/objective plugins; see `docs/reference/reusable-mechanics.md`. The public SDK is version 3 (SDK 2 manifests still load through `SDK_COMPAT`); production rendering uses official Three.js
 0.187.0. Read [docs/reference/architecture.md](docs/reference/architecture.md) before changing
 structure, [docs/guide/plugins.md](docs/guide/plugins.md) before writing plugins, and [docs/guide/create-a-game.md](docs/guide/create-a-game.md) for the complete game-creation workflow.
 
@@ -37,7 +37,7 @@ loading the complete `docs/reuse-index.json`. The CLI observes trusted registrat
 | Path | Purpose |
 |---|---|
 | `src/kernel` | Runtime kernel: host, registries, entity store, buses, scheduler, scopes, validation. No game concepts, no DOM. |
-| `src/sdk` | SDK 2 public API: `index.ts` (entry), `core.ts` (generic), `contracts/` (shooter, experience, vehicle, tactics, adventure and audio vocabulary), `render.ts` |
+| `src/sdk` | SDK 3 public API (`contracts/spatial.ts`: Transform3D, Renderable): `index.ts` (entry), `core.ts` (generic), `contracts/` (shooter, experience, vehicle, tactics, adventure and audio vocabulary), `render.ts` |
 | `src/platform` | Browser adapters (input, audio, storage, ui, flow, render host); official Three.js behind the historical `render/mini3/index.ts` facade, vendored in `render/mini3/vendor/`; `legacy.ts` retains the old renderer for fixtures |
 | `src/app` | Composition root: `main.ts` (frame loop), `catalog.ts` (presets; re-exports the generated `catalog.generated.ts`), `shell.ts`, `creator.ts` |
 | `src/plugins/<ns>-<name>` | Shared plugins only: mechanics providers, presentation, themes, `dungeon-generator`. New plugins are scaffolded here, then moved to a family with `npm run move-to-game` |

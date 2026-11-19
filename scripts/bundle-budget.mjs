@@ -17,6 +17,26 @@ export const BUDGET = {
   totalJs: 2200 * KiB,
 };
 
+/**
+ * Lazy third-party chunks that are budgeted on their own instead of counting toward largestChunk/totalJs. A chunk is
+ * attributed to a package when most of its bytes come from that package. Each must stay out of the initial JS.
+ */
+export const VENDOR_BUDGET = {
+  /** Rapier 3D compat build: ~1.5 MB of WASM embedded as base64, loaded only by presets that use std/physics-rapier. */
+  '@dimforge/rapier3d-compat': 2300 * KiB,
+};
+
+/** Package a JS output mostly consists of, if it is listed in VENDOR_BUDGET. */
+export function vendorOf(output) {
+  const byPkg = {};
+  for (const [input, { bytesInOutput }] of Object.entries(output.inputs ?? {})) {
+    const m = /node_modules\/((?:@[^/]+\/)?[^/]+)\//.exec(input);
+    if (m) byPkg[m[1]] = (byPkg[m[1]] ?? 0) + bytesInOutput;
+  }
+  const [pkg, bytes] = Object.entries(byPkg).sort((a, b) => b[1] - a[1])[0] ?? [];
+  return pkg && pkg in VENDOR_BUDGET && bytes > output.bytes / 2 ? pkg : undefined;
+}
+
 /** Static-import closure of the entry output. */
 function initialFiles(metafile) {
   const seen = new Set();
@@ -30,7 +50,9 @@ function initialFiles(metafile) {
 }
 
 export function checkBudget(metafile, contents) {
-  const js = Object.entries(metafile.outputs).filter(([p]) => p.endsWith('.js'));
+  const all = Object.entries(metafile.outputs).filter(([p]) => p.endsWith('.js'));
+  const vendors = all.map(([p, o]) => [p, o, vendorOf(o)]).filter(([, , v]) => v);
+  const js = all.filter(([p]) => !vendors.some(([vp]) => vp === p));
   const size = (p) => metafile.outputs[p].bytes;
   const initial = initialFiles(metafile);
   const initialJs = initial.reduce((n, p) => n + size(p), 0);
@@ -40,7 +62,8 @@ export function checkBudget(metafile, contents) {
   const rows = [
     ['initial JS (entry + static imports)', initialJs, BUDGET.initialJs],
     [`largest chunk (${largestPath.split('/').pop()})`, largest, BUDGET.largestChunk],
-    [`total JS (${js.length} files)`, totalJs, BUDGET.totalJs],
+    [`total JS (${js.length} files, excluding vendor chunks)`, totalJs, BUDGET.totalJs],
+    ...vendors.map(([p, o, v]) => [`vendor ${v} (${p.split('/').pop()})`, initial.includes(p) ? Infinity : o.bytes, VENDOR_BUDGET[v]]),
   ];
   return { ok: rows.every(([, v, max]) => v <= max), rows, initialGzip, initialFiles: initial.length };
 }

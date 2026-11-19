@@ -3,7 +3,9 @@
 Everything in the reference game — weapons, enemies, maps, rules, HUD, rendering — is a plugin or a content pack
 built on the API described here. Third-party authors get exactly the same API.
 
-- **SDK version:** `2.0.0` (`SDK_VERSION`). Manifests declare a compatible range in `sdk`.
+- **SDK version:** `3.0.0` (`SDK_VERSION`). Manifests declare a compatible range in `sdk`. SDK 3 only added APIs,
+  so the host also accepts `^2.0.0` manifests (`SDK_COMPAT`); new plugins should declare `^3.0.0`. See
+  [Migrating to SDK 3](#migrating-to-sdk-3).
 - **One entry point:** `src/sdk/index.ts`. Rendering plugins may additionally import `src/sdk/render.ts`.
 - **Enforced:** `npm run lint` (`scripts/boundaries.ts`) fails if a plugin imports anything else — the kernel,
   platform adapters, the app, another plugin's files, or an npm package.
@@ -74,7 +76,7 @@ src/plugins/my-plugin/
   "name": "Ricochet Rifle",
   "version": "1.0.0",
   "kind": "code",
-  "sdk": "^2.0.0",
+  "sdk": "^3.0.0",
   "description": "…",
   "dependencies": { "core/combat": "^1.0.0" },
   "optionalDependencies": {},
@@ -99,6 +101,9 @@ src/plugins/my-plugin/
   plugin. Also requires a valid selection. Use this when resolving an owner-bound factory in `activate`; the consumer
   depends on the role contract rather than a concrete implementation ID. Self-owner edges are ignored, and cycles
   are rejected during staging before the previous session is replaced.
+- `preload` (optional, SDK 3): static asset paths relative to the site root (`"models/level.glb"`), loaded through the
+  host asset service before `activate()` runs, so `Assets.peek()` works synchronously there. A missing file fails
+  activation. See the [assets reference](../reference/assets.md).
 - `config`: typed settings (`number` | `boolean` | `string` | `select` with `options`). A preset overrides them under
   `config["<plugin id>"]`; plugins read `ctx.config`.
 
@@ -176,6 +181,7 @@ export default definePlugin({
 | `registries` | Read-only: `get`, `require`, `has`, `entries`, `ids`, `ownerOf`. |
 | `role(Role)` | `{ id, provider }` selected by the preset, or `undefined`. |
 | `instantiate(Registry, id, (def, ownerCtx) => instance)` | Session-bound instance of a registered factory, created once per session **in the context of the plugin that registered it**. |
+| `persist({ save, load })` | SDK 3: saves and restores state that lives outside components (closures, engine worlds) for snapshots, quicksave and replays. See [snapshots](../reference/snapshots.md). |
 | `time` (`tick`, `now`, `step`), `rng`, `cosmeticRng`, `config`, `preset`, `log`, `scope`, `signal`, `guard` | |
 
 ## 4. Simulation model
@@ -314,6 +320,14 @@ Removing a mesh from the scene does **not** free GPU memory — always route res
 
 Gameplay refers to **theme keys** (`"enemy-grunt"`, `"pistol-fire"`), never to files or textures. The selected
 `ThemeRole` provider maps keys to painters, visuals and sounds, so a different art pack needs no gameplay change.
+
+### Migrating to SDK 3
+
+Nothing breaks: SDK 3 is additive and the host keeps loading `^2.0.0` manifests. Change a manifest to `^3.0.0` when
+the plugin starts using an SDK 3 API (entity queries, `Transform3D` / `Renderable`, render sync, physics, assets,
+input axes, audio buses, snapshots), so older hosts reject it cleanly. New families should use `Transform3D` with
+`std/transform` and `std/render-sync` ([spatial reference](../reference/spatial.md)) instead of the shooter's planar
+`Transform`; shooter presets can opt into both through the `shooter/transform3d` bridge.
 
 ### Migrating rendering plugins to SDK 2
 
@@ -630,6 +644,18 @@ interface EntityApi {                       // ctx.world
   first(c: ComponentToken<unknown>): EntityId | undefined;
   count(c?: ComponentToken<unknown>): number;
   ownerOf(id: EntityId): string | undefined;
+  query(spec: { with: ComponentToken<unknown>[]; without?: ComponentToken<unknown>[] }): Query;  // SDK 3; see docs/reference/queries.md
+  markChanged(id: EntityId, c: ComponentToken<unknown>): void;  // SDK 3: report an in-place mutation to queries
+}
+
+interface Query {                           // cached, disposed with the plugin's session scope
+  readonly size: number;
+  each(fn: (id: EntityId) => void): void;   // snapshot-safe, match order
+  ids(): EntityId[];
+  has(id: EntityId): boolean;
+  peek(): QueryChanges;                     // { added, removed, changed } since the last drain
+  drain(): QueryChanges;                    // same, then clears this handle's tracking
+  dispose(): void;
 }
 
 interface RegistryReader {                  // ctx.registries, v.registries

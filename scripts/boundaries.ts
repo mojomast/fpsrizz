@@ -11,6 +11,15 @@ type Tok = { kind: 'id' | 'str' | 'punct'; text: string; line: number };
 
 const SDK_INDEX = 'src/sdk/index.ts';
 const SDK_RENDER = 'src/sdk/render.ts';
+/**
+ * npm packages an engine or game plugin may import directly, each gated by a manifest capability. Keep this list
+ * short: wrap a package in one std plugin and expose it through an SDK service instead of importing it everywhere.
+ */
+export const VENDOR_PACKAGES: readonly { pkg: string; capability: string }[] = [
+  { pkg: '@dimforge/rapier3d-compat', capability: 'physics' },
+  // Official Three.js addons (loaders, decoders). The build resolves their bare "three" import to the vendored runtime.
+  { pkg: 'three/examples/jsm', capability: 'render' },
+];
 
 // ---------------------------------------------------------------- tokenizer
 
@@ -220,6 +229,16 @@ export function checkSource(relPath: string, source: string, opts: { capabilitie
       const own = pluginDir;
       if (!bare && under(path, own)) continue;
       if (!bare && path === SDK_INDEX) continue;
+      if (bare) {
+        const vendor = VENDOR_PACKAGES.find((v) => specifier === v.pkg || specifier.startsWith(`${v.pkg}/`));
+        if (vendor) {
+          if (!(opts.capabilities ?? []).includes(vendor.capability)) {
+            add(line, specifier, 'vendor-package',
+              `Plugin "${pluginMatch[1]}" imports "${specifier}" but its manifest.json does not list "${vendor.capability}" in "capabilities".`);
+          }
+          continue;
+        }
+      }
       if (!bare && familyContracts && under(path, familyContracts)) continue;
       if (!bare && path === SDK_RENDER) {
         if (!(opts.capabilities ?? []).includes('render')) {

@@ -48,11 +48,11 @@ fs.mkdirSync(out, { recursive: true });
   await page.selectOption('select', '2');
   l = await log(); assert.strictEqual(JSON.parse(l[0].slice(9)).pixelRatioCap, 2); await clear();
   // setSettings silent
-  await ev(() => window.__shell.setSettings({ sensitivity: 0.5, volume: 0.2, pixelRatioCap: 1 }));
+  await ev(() => window.__shell.setSettings({ sensitivity: 0.5, volume: 0.2, musicVolume: 0.7, effectsVolume: 1, pixelRatioCap: 1 }));
   assert.deepStrictEqual(await log(), []);
   assert.strictEqual(await page.locator('input[type=range]').first().inputValue(), '0.5');
   assert.strictEqual(await page.locator('select').inputValue(), '1');
-  await ev(() => window.__shell.setSettings({ sensitivity: 1, volume: 0.6, pixelRatioCap: 1.5 }));
+  await ev(() => window.__shell.setSettings({ sensitivity: 1, volume: 0.6, musicVolume: 0.7, effectsVolume: 1, pixelRatioCap: 1.5 }));
   await shot('start');
 
   await page.setViewportSize({ width: 640, height: 480 });

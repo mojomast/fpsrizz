@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "id": "sandbox/presentation",
+  "name": "Physics sandbox view",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "Lights, sky and a follow camera for the physics sandbox; every object itself is drawn by std/render-sync.",
+  "dependencies": { "sandbox/game": "^1.0.0", "std/render-sync": "^1.0.0" },
+  "capabilities": ["render"]
+}

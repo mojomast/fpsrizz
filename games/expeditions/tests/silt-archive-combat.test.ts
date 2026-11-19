@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost } from '../../../src/kernel/host.ts';
-import { PHASES, SDK_VERSION } from '../../../src/sdk/index.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '../../../src/sdk/index.ts';
 import { Silt } from '../contracts/silt-archive.ts';
 import game from '../plugins/silt-game/manifest.json' with { type: 'json' };
 import roomMap from '../../../src/plugins/mechanics-room-map/manifest.json' with { type: 'json' };
@@ -16,7 +16,7 @@ const pack = { schema: 1, id: 'test/combat-content', name: 'Combat', version: '1
 const content = [{ kind: 'silt-archive', id: 'test/combat', data: { name: 'Archive', districts: ['One', 'Two', 'Three'].map(name => ({ name, chambers: [chamber] })) } }];
 
 async function setup() {
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
   assert.deepEqual(host.setCatalog([{ manifest: game, load: () => import('../plugins/silt-game/index.ts') }, { manifest: roomMap, load: () => import('../../../src/plugins/mechanics-room-map/index.ts') }, { manifest: inventory, load: () => import('../../../src/plugins/mechanics-inventory/index.ts') }, { manifest: crafting, load: () => import('../../../src/plugins/mechanics-crafting/index.ts') }, { manifest: progression, load: () => import('../../../src/plugins/mechanics-progression/index.ts') }, { manifest: clock, load: () => import('../../../src/plugins/mechanics-clock/index.ts') }, { manifest: conditions, load: () => import('../../../src/plugins/mechanics-conditions/index.ts') }, { manifest: pack, content }]), []);
   await host.apply({ schema: 1, id: 'test/combat', name: 'Combat', plugins: ['silt/game', 'mechanics/room-map', 'mechanics/inventory', 'mechanics/crafting', 'mechanics/progression', 'mechanics/clock', 'mechanics/conditions', 'test/combat-content'], roles: { 'sdk/experience': 'silt/archive', 'sdk/room-map': 'mechanics/room-map', 'sdk/mechanic-inventory': 'mechanics/inventory', 'sdk/mechanic-crafting': 'mechanics/crafting', 'sdk/mechanic-progression': 'mechanics/progression', 'sdk/mechanic-clock': 'mechanics/clock', 'sdk/mechanic-conditions': 'mechanics/conditions' }, options: { archive: 'test/combat' }, seed: 7 });
   const session = host.session!, service = session.services.get(Silt);

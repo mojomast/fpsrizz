@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost } from '../src/kernel/host.ts';
 import type { CatalogEntry } from '../src/kernel/host.ts';
-import { MechanicResourcesChanged, PHASES, SDK_VERSION, SessionControl } from '../src/sdk/index.ts';
+import { MechanicResourcesChanged, PHASES, SDK_COMPAT, SDK_VERSION, SessionControl } from '../src/sdk/index.ts';
 import { Verdant } from '../games/verdant/contracts/verdant.ts';
 import { Sky } from '../games/sky/contracts/sky.ts';
 import type { VerdantCommand } from '../games/verdant/contracts/verdant.ts';
@@ -23,7 +23,7 @@ import verdantPreset from '../games/verdant/presets/verdant-relay.json' with { t
 
 async function fixture(family: 'sky' | 'verdant', content: unknown = family === 'sky' ? skyContent : verdantContent, playing = true) {
   const gate = { playing };
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES, installHostServices(session, scope) {
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) {
     session.services.provide(SessionControl, gate, 'test', scope);
   } });
   const catalog: CatalogEntry[] = [

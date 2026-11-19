@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "7864a49ebabdb3da8c291e6499367304174a55cdba4981289604e19c4083a7b5",
+  "sourceDigest": "450ebb830a6f702ea5d118fc996de25effcf5aa9bf9c0b855e14ff0752ae43ef",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -10796,6 +10796,254 @@
       "recipes": []
     },
     {
+      "id": "sandbox/game",
+      "type": "plugin",
+      "name": "Physics sandbox rules",
+      "scope": "family",
+      "summary": "Physics sandbox game: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors).",
+      "source": "games/sandbox/plugins/sandbox-game",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "sandbox",
+        "physics",
+        "sdk 3",
+        "example",
+        "character",
+        "crates"
+      ],
+      "entryPoints": [
+        "Transform3D",
+        "Renderable",
+        "RigidBody",
+        "PhysicsCollider",
+        "CharacterController"
+      ],
+      "useWhen": "Copy this family to start a 3D physics prototype.",
+      "limitations": [
+        "Example content only; no objectives or end state."
+      ],
+      "docs": [
+        "games/sandbox/README.md"
+      ],
+      "examples": [
+        "games/sandbox/presets/physics-sandbox.json"
+      ],
+      "tests": [
+        "games/sandbox/tests/sandbox.test.ts"
+      ],
+      "dependencies": {
+        "std/transform": "^1.0.0",
+        "std/physics-rapier": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [
+        "sdk/experience"
+      ],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "sandbox/game",
+        "std/physics-rapier",
+        "std/transform"
+      ],
+      "registrations": [
+        {
+          "kind": "input-action",
+          "id": "sandbox/back",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "sandbox/forward",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "sandbox/interact",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "sandbox/jump",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "sandbox/left",
+          "description": ""
+        },
+        {
+          "kind": "input-action",
+          "id": "sandbox/right",
+          "description": ""
+        },
+        {
+          "kind": "input-axis",
+          "id": "sandbox/look",
+          "description": ""
+        },
+        {
+          "kind": "input-axis",
+          "id": "sandbox/move",
+          "description": ""
+        },
+        {
+          "kind": "role:sdk/experience",
+          "id": "sandbox/physics",
+          "description": "Walk around, shove a stack of crates and step on the glowing pad. Built only from SDK 3 components."
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "sandbox/presentation",
+      "type": "plugin",
+      "name": "Physics sandbox view",
+      "scope": "family",
+      "summary": "Physics sandbox presentation: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors).",
+      "source": "games/sandbox/plugins/sandbox-presentation",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "sandbox",
+        "physics",
+        "sdk 3",
+        "example",
+        "character",
+        "crates"
+      ],
+      "entryPoints": [
+        "Transform3D",
+        "Renderable",
+        "RigidBody",
+        "PhysicsCollider",
+        "CharacterController"
+      ],
+      "useWhen": "Copy this family to start a 3D physics prototype.",
+      "limitations": [
+        "Example content only; no objectives or end state."
+      ],
+      "docs": [
+        "games/sandbox/README.md"
+      ],
+      "examples": [
+        "games/sandbox/presets/physics-sandbox.json"
+      ],
+      "tests": [
+        "games/sandbox/tests/sandbox.test.ts"
+      ],
+      "dependencies": {
+        "sandbox/game": "^1.0.0",
+        "std/render-sync": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/physics-rapier",
+        "std/render-sync",
+        "std/transform"
+      ],
+      "registrations": [
+        {
+          "kind": "audio-sample",
+          "id": "sandbox/chime",
+          "description": ""
+        },
+        {
+          "kind": "audio-sample",
+          "id": "sandbox/thud",
+          "description": ""
+        },
+        {
+          "kind": "audio-sample",
+          "id": "sandbox/wind",
+          "description": ""
+        }
+      ],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "shooter/transform3d",
+      "type": "plugin",
+      "name": "Shooter Transform3D bridge",
+      "scope": "family",
+      "summary": "Mirrors the shooter's planar Transform into SDK 3 Transform3D/PrevTransform.",
+      "source": "games/shooter/plugins/shooter-transform3d",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "transform3d",
+        "bridge",
+        "adapter",
+        "planar",
+        "compat",
+        "sdk 3"
+      ],
+      "entryPoints": [
+        "Transform3D",
+        "PrevTransform",
+        "planarToTransform3D"
+      ],
+      "useWhen": "A shooter preset needs SDK 3 systems (render sync, physics sensors, inspectors) to see its planar entities.",
+      "limitations": [
+        "One-way: planar Transform is authoritative.",
+        "y is 0 unless the consumer sets it."
+      ],
+      "docs": [
+        "docs/reference/spatial.md"
+      ],
+      "examples": [],
+      "tests": [
+        "tests/spatial.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "shooter/transform3d"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [],
+      "recipes": []
+    },
+    {
       "id": "silt/content",
       "type": "plugin",
       "name": "The Silt Archive Chambers",
@@ -11330,6 +11578,289 @@
             "sdk/mechanic-objectives": "mechanics/objectives",
             "sdk/experience": "sky/salvage",
             "sdk/theme": "theme/board"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "std/assets",
+      "type": "plugin",
+      "name": "glTF models",
+      "scope": "cross-genre",
+      "summary": "glTF/GLB model loading (Meshopt, KTX2) for Renderable.model, with shared GPU resources and per-node instances.",
+      "source": "src/plugins/std-assets",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "gltf",
+        "glb",
+        "model",
+        "mesh",
+        "blender",
+        "ktx2",
+        "meshopt",
+        "asset",
+        "loader"
+      ],
+      "entryPoints": [
+        "Models",
+        "Assets",
+        "spawnGltfScene",
+        "GltfExtras"
+      ],
+      "useWhen": "A 3D prototype draws authored models or builds levels from a Blender/glTF scene.",
+      "limitations": [
+        "Animations are not played yet (clips are loaded but no mixer runs).",
+        "KTX2 textures need the WebGL renderer (absent in headless sessions)."
+      ],
+      "docs": [
+        "docs/reference/assets.md"
+      ],
+      "examples": [
+        "games/sandbox/plugins/sandbox-game/index.ts"
+      ],
+      "tests": [
+        "tests/assets.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "std/assets"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "std/physics-rapier",
+      "type": "plugin",
+      "name": "Physics (Rapier 3D)",
+      "scope": "cross-genre",
+      "summary": "Rapier 3D physics: rigid bodies, colliders, sensors/triggers, raycasts and a kinematic character controller.",
+      "source": "src/plugins/std-physics-rapier",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "physics",
+        "rapier",
+        "rigid body",
+        "collider",
+        "collision",
+        "trigger",
+        "sensor",
+        "raycast",
+        "character controller",
+        "gravity",
+        "impulse"
+      ],
+      "entryPoints": [
+        "RigidBody",
+        "PhysicsCollider",
+        "CharacterController",
+        "CharacterMove",
+        "CharacterState",
+        "PhysicsCollision",
+        "Physics"
+      ],
+      "useWhen": "A 3D prototype needs bodies that fall, stack, collide or trigger, or a character that walks on arbitrary geometry.",
+      "limitations": [
+        "One collider per body; no joints or trimesh colliders yet.",
+        "Bodies must be root entities.",
+        "Locally deterministic only.",
+        "Adds a ~2.2 MB lazy WASM chunk."
+      ],
+      "docs": [
+        "docs/reference/physics.md"
+      ],
+      "examples": [
+        "games/sandbox/plugins/sandbox-game/index.ts"
+      ],
+      "tests": [
+        "tests/physics-rapier.test.ts",
+        "games/sandbox/tests/sandbox.test.ts"
+      ],
+      "dependencies": {
+        "std/transform": "^1.0.0"
+      },
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {
+        "gravityY": {
+          "type": "number",
+          "label": "Vertical gravity (m/s²)",
+          "default": -9.81,
+          "min": -100,
+          "max": 100
+        }
+      },
+      "enable": [
+        "std/physics-rapier",
+        "std/transform"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "std/render-sync",
+      "type": "plugin",
+      "name": "Render sync",
+      "scope": "presentation",
+      "summary": "Generic render sync: Renderable shapes, prefabs and glTF models posed from interpolated Transform3D.",
+      "source": "src/plugins/std-render-sync",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "render",
+        "sync",
+        "mesh",
+        "interpolation",
+        "renderable",
+        "prefab",
+        "model",
+        "gltf",
+        "scene",
+        "3d"
+      ],
+      "entryPoints": [
+        "Renderable",
+        "RenderablePrefabs",
+        "Models"
+      ],
+      "useWhen": "Draw SDK 3 entities without writing a presentation plugin per family.",
+      "limitations": [
+        "MeshStandardMaterial only; the scene needs lights.",
+        "Rebuilds a visual when its Renderable fields change."
+      ],
+      "docs": [
+        "docs/reference/spatial.md"
+      ],
+      "examples": [
+        "games/sandbox/presets/physics-sandbox.json"
+      ],
+      "tests": [
+        "tests/spatial.test.ts"
+      ],
+      "dependencies": {
+        "std/transform": "^1.0.0"
+      },
+      "optionalDependencies": {
+        "std/assets": "^1.0.0"
+      },
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "std/render-sync",
+        "std/transform"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
+          }
+        }
+      ],
+      "recipes": []
+    },
+    {
+      "id": "std/transform",
+      "type": "plugin",
+      "name": "Transform3D bookkeeping",
+      "scope": "cross-genre",
+      "summary": "Previous-tick pose capture for Transform3D, enabling interpolated rendering.",
+      "source": "src/plugins/std-transform",
+      "version": "1.0.0",
+      "sdk": "^3.0.0",
+      "builtIn": true,
+      "reviewed": true,
+      "keywords": [
+        "transform",
+        "3d",
+        "position",
+        "rotation",
+        "quaternion",
+        "interpolation",
+        "prev",
+        "pose",
+        "parent",
+        "hierarchy"
+      ],
+      "entryPoints": [
+        "Transform3D",
+        "PrevTransform",
+        "transform3d",
+        "worldPose",
+        "snapTransform",
+        "interpolatePose"
+      ],
+      "useWhen": "Any game whose entities move in 3D (or 2D on a plane) and are drawn by std/render-sync or simulated by std/physics-rapier.",
+      "limitations": [
+        "Pose only; velocity lives in physics or your own component.",
+        "Parent links are resolved on read (worldPose); deep hierarchies cost O(depth) per lookup."
+      ],
+      "docs": [
+        "docs/reference/spatial.md"
+      ],
+      "examples": [
+        "src/plugins/std-render-sync/index.ts"
+      ],
+      "tests": [
+        "tests/spatial.test.ts"
+      ],
+      "dependencies": {},
+      "optionalDependencies": {},
+      "conflicts": [],
+      "requiresRoles": [],
+      "roleDependencies": [],
+      "config": {},
+      "enable": [
+        "std/transform"
+      ],
+      "registrations": [],
+      "contentKinds": [],
+      "presets": [
+        {
+          "id": "sandbox/physics",
+          "name": "Physics Sandbox (SDK 3)",
+          "roles": {
+            "sdk/experience": "sandbox/physics"
           }
         }
       ],
@@ -12792,7 +13323,7 @@
       "summary": "Public SDK value: actor-renderer",
       "importFrom": "src/sdk/render.ts",
       "token": "actor-renderer",
-      "source": "src/sdk/render.ts:89",
+      "source": "src/sdk/render.ts:91",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -12880,7 +13411,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:727",
+      "source": "src/sdk/contracts/shooter.ts:732",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -12894,6 +13425,58 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/applyDeadzone",
+      "type": "contract",
+      "name": "applyDeadzone",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:52",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "applyDeadzone"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/Assets",
+      "type": "contract",
+      "name": "Assets",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/assets",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/assets",
+      "source": "src/sdk/contracts/assets.ts:37",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Assets",
+        "sdk/assets"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/assets"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -12962,7 +13545,7 @@
       "summary": "Public SDK value: sdk/audio",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/audio",
-      "source": "src/sdk/contracts/shooter.ts:640",
+      "source": "src/sdk/contracts/shooter.ts:645",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -12983,6 +13566,106 @@
       "implementations": []
     },
     {
+      "id": "sdk/AUDIO_BUSES",
+      "type": "contract",
+      "name": "AUDIO_BUSES",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/audio.ts:34",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AUDIO_BUSES"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/AudioSamples",
+      "type": "contract",
+      "name": "AudioSamples",
+      "scope": "contract",
+      "summary": "Public SDK value: audio-sample",
+      "importFrom": "src/sdk/index.ts",
+      "token": "audio-sample",
+      "source": "src/sdk/contracts/audio.ts:54",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AudioSamples",
+        "audio-sample"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": [
+        "sandbox/presentation"
+      ]
+    },
+    {
+      "id": "sdk/base64ToBytes",
+      "type": "contract",
+      "name": "base64ToBytes",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:85",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "base64ToBytes"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/bytesToBase64",
+      "type": "contract",
+      "name": "bytesToBase64",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:80",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "bytesToBase64"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/CameraRole",
       "type": "contract",
       "name": "CameraRole",
@@ -12990,7 +13673,7 @@
       "summary": "Public SDK value: sdk/camera",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/camera",
-      "source": "src/sdk/contracts/shooter.ts:662",
+      "source": "src/sdk/contracts/shooter.ts:667",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13101,6 +13784,92 @@
       "implementations": []
     },
     {
+      "id": "sdk/CharacterController",
+      "type": "contract",
+      "name": "CharacterController",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/character-controller",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/character-controller",
+      "source": "src/sdk/contracts/physics.ts:57",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CharacterController",
+        "sdk/character-controller"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/CharacterMove",
+      "type": "contract",
+      "name": "CharacterMove",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/character-move",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/character-move",
+      "source": "src/sdk/contracts/physics.ts:61",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CharacterMove",
+        "sdk/character-move"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/CharacterState",
+      "type": "contract",
+      "name": "CharacterState",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/character-state",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/character-state",
+      "source": "src/sdk/contracts/physics.ts:65",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "CharacterState",
+        "sdk/character-state"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/clockMechanic",
       "type": "contract",
       "name": "clockMechanic",
@@ -13163,6 +13932,30 @@
       ]
     },
     {
+      "id": "sdk/clonePose",
+      "type": "contract",
+      "name": "clonePose",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:116",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "clonePose"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Collider",
       "type": "contract",
       "name": "Collider",
@@ -13179,6 +13972,30 @@
       "keywords": [
         "Collider",
         "sdk/collider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/colliderFromBounds",
+      "type": "contract",
+      "name": "colliderFromBounds",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:252",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "colliderFromBounds"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -13213,6 +14030,30 @@
       "documentedBy": [
         "core/combat"
       ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/composePose",
+      "type": "contract",
+      "name": "composePose",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:106",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "composePose"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
       "recipes": [],
       "implementations": []
     },
@@ -13316,7 +14157,7 @@
       "summary": "Public SDK value: sdk/controller",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/controller",
-      "source": "src/sdk/contracts/shooter.ts:660",
+      "source": "src/sdk/contracts/shooter.ts:665",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13705,13 +14546,37 @@
       "implementations": []
     },
     {
+      "id": "sdk/decomposeMatrix",
+      "type": "contract",
+      "name": "decomposeMatrix",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:90",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "decomposeMatrix"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/defineCommand",
       "type": "contract",
       "name": "defineCommand",
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:30",
+      "source": "src/sdk/core.ts:35",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13735,7 +14600,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:28",
+      "source": "src/sdk/core.ts:33",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13759,7 +14624,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:29",
+      "source": "src/sdk/core.ts:34",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13783,7 +14648,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:35",
+      "source": "src/sdk/core.ts:40",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13807,7 +14672,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:32",
+      "source": "src/sdk/core.ts:37",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13831,7 +14696,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:33",
+      "source": "src/sdk/core.ts:38",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13855,7 +14720,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:31",
+      "source": "src/sdk/core.ts:36",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14075,6 +14940,7 @@
         "portfolio-cards/cloud",
         "puzzle/rules",
         "salt/game",
+        "sandbox/game",
         "silt/game",
         "sky/game",
         "story/adventure",
@@ -14090,7 +14956,7 @@
       "summary": "Public SDK value: sdk/flow",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/flow",
-      "source": "src/sdk/contracts/shooter.ts:631",
+      "source": "src/sdk/contracts/shooter.ts:636",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14116,7 +14982,7 @@
       "summary": "Public SDK value: sdk/flow-ended",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/flow-ended",
-      "source": "src/sdk/contracts/shooter.ts:632",
+      "source": "src/sdk/contracts/shooter.ts:637",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14125,6 +14991,130 @@
       "keywords": [
         "FlowEnded",
         "sdk/flow-ended"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/fnv1a",
+      "type": "contract",
+      "name": "fnv1a",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:65",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "fnv1a"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/GAMEPAD_BUTTONS",
+      "type": "contract",
+      "name": "GAMEPAD_BUTTONS",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:20",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "GAMEPAD_BUTTONS"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/GltfExtras",
+      "type": "contract",
+      "name": "GltfExtras",
+      "scope": "contract",
+      "summary": "Public SDK value: gltf-extras",
+      "importFrom": "src/sdk/index.ts",
+      "token": "gltf-extras",
+      "source": "src/sdk/contracts/gltf.ts:214",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "GltfExtras",
+        "gltf-extras"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/assets"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/gltfNodes",
+      "type": "contract",
+      "name": "gltfNodes",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:171",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "gltfNodes"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/hashSnapshot",
+      "type": "contract",
+      "name": "hashSnapshot",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:75",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "hashSnapshot"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -14256,7 +15246,7 @@
       "summary": "Public SDK value: sdk/hud",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/hud",
-      "source": "src/sdk/contracts/shooter.ts:666",
+      "source": "src/sdk/contracts/shooter.ts:671",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14316,7 +15306,7 @@
       "summary": "Public SDK value: sdk/input",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/input",
-      "source": "src/sdk/contracts/shooter.ts:580",
+      "source": "src/sdk/contracts/shooter.ts:585",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14346,7 +15336,7 @@
       "summary": "Public SDK value: input-action",
       "importFrom": "src/sdk/index.ts",
       "token": "input-action",
-      "source": "src/sdk/contracts/shooter.ts:564",
+      "source": "src/sdk/contracts/shooter.ts:567",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14371,8 +15361,63 @@
         "example/racing",
         "hollowmere/game",
         "presentation/camera-modes",
+        "sandbox/game",
         "vehicle/racing"
       ]
+    },
+    {
+      "id": "sdk/InputAxes",
+      "type": "contract",
+      "name": "InputAxes",
+      "scope": "contract",
+      "summary": "Public SDK value: input-axis",
+      "importFrom": "src/sdk/index.ts",
+      "token": "input-axis",
+      "source": "src/sdk/contracts/input.ts:41",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "InputAxes",
+        "input-axis"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": [
+        "sandbox/game"
+      ]
+    },
+    {
+      "id": "sdk/InputBindings",
+      "type": "contract",
+      "name": "InputBindings",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/input-bindings",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/input-bindings",
+      "source": "src/sdk/contracts/input.ts:82",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "InputBindings",
+        "sdk/input-bindings"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "sdk/InputContexts",
@@ -14382,7 +15427,7 @@
       "summary": "Public SDK value: sdk/input-contexts",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/input-contexts",
-      "source": "src/sdk/contracts/shooter.ts:606",
+      "source": "src/sdk/contracts/shooter.ts:611",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14455,6 +15500,32 @@
       "documentedBy": [
         "core/world",
         "example/keys"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/interpolatePose",
+      "type": "contract",
+      "name": "interpolatePose",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:99",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "interpolatePose"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/transform"
       ],
       "recipes": [],
       "implementations": []
@@ -14580,6 +15651,30 @@
       ]
     },
     {
+      "id": "sdk/isMeshCarrier",
+      "type": "contract",
+      "name": "isMeshCarrier",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:161",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "isMeshCarrier"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/isObject",
       "type": "contract",
       "name": "isObject",
@@ -14641,6 +15736,54 @@
       ]
     },
     {
+      "id": "sdk/lerp",
+      "type": "contract",
+      "name": "lerp",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:86",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "lerp"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/lerpVec3",
+      "type": "contract",
+      "name": "lerpVec3",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:87",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "lerpVec3"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/loadStaticAsset",
       "type": "contract",
       "name": "loadStaticAsset",
@@ -14671,7 +15814,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:733",
+      "source": "src/sdk/contracts/shooter.ts:738",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15004,6 +16147,59 @@
       "implementations": []
     },
     {
+      "id": "sdk/migrateSnapshot",
+      "type": "contract",
+      "name": "migrateSnapshot",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:41",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "migrateSnapshot"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/Models",
+      "type": "contract",
+      "name": "Models",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/models",
+      "importFrom": "src/sdk/render.ts",
+      "token": "sdk/models",
+      "source": "src/sdk/render.ts:114",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Models",
+        "sdk/models"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/assets",
+        "std/render-sync"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/ModeRole",
       "type": "contract",
       "name": "ModeRole",
@@ -15011,7 +16207,7 @@
       "summary": "Public SDK value: sdk/mode",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/mode",
-      "source": "src/sdk/contracts/shooter.ts:664",
+      "source": "src/sdk/contracts/shooter.ts:669",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15285,13 +16481,37 @@
       ]
     },
     {
+      "id": "sdk/parseGltf",
+      "type": "contract",
+      "name": "parseGltf",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/gltf.ts:51",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "parseGltf"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/PHASES",
       "type": "contract",
       "name": "PHASES",
       "scope": "contract",
       "summary": "Public SDK value",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:25",
+      "source": "src/sdk/core.ts:30",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15305,6 +16525,92 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/Physics",
+      "type": "contract",
+      "name": "Physics",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/physics",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/physics",
+      "source": "src/sdk/contracts/physics.ts:85",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Physics",
+        "sdk/physics"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/PhysicsCollider",
+      "type": "contract",
+      "name": "PhysicsCollider",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/physics-collider",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/physics-collider",
+      "source": "src/sdk/contracts/physics.ts:38",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PhysicsCollider",
+        "sdk/physics-collider"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/PhysicsCollision",
+      "type": "contract",
+      "name": "PhysicsCollision",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/physics-collision",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/physics-collision",
+      "source": "src/sdk/contracts/physics.ts:69",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PhysicsCollision",
+        "sdk/physics-collision"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/physics-rapier"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -15428,6 +16734,32 @@
         "example/pack",
         "example/tactical-pack"
       ]
+    },
+    {
+      "id": "sdk/planarToTransform3D",
+      "type": "contract",
+      "name": "planarToTransform3D",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:155",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "planarToTransform3D"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "shooter/transform3d"
+      ],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "sdk/PLATFORMER_DEFAULTS",
@@ -15609,6 +16941,59 @@
       ]
     },
     {
+      "id": "sdk/prettyKey",
+      "type": "contract",
+      "name": "prettyKey",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:90",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "prettyKey"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/PrevTransform",
+      "type": "contract",
+      "name": "PrevTransform",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/prev-transform",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/prev-transform",
+      "source": "src/sdk/contracts/spatial.ts:23",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PrevTransform",
+        "sdk/prev-transform"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "shooter/transform3d",
+        "std/transform"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Profile",
       "type": "contract",
       "name": "Profile",
@@ -15732,6 +17117,150 @@
       ]
     },
     {
+      "id": "sdk/quatFromEuler",
+      "type": "contract",
+      "name": "quatFromEuler",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:55",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "quatFromEuler"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/quatIdentity",
+      "type": "contract",
+      "name": "quatIdentity",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:52",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "quatIdentity"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/quatMultiply",
+      "type": "contract",
+      "name": "quatMultiply",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:66",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "quatMultiply"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/quatNormalize",
+      "type": "contract",
+      "name": "quatNormalize",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:75",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "quatNormalize"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/readAxis",
+      "type": "contract",
+      "name": "readAxis",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:47",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "readAxis"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/registerStandardControls",
+      "type": "contract",
+      "name": "registerStandardControls",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:115",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "registerStandardControls"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/relationshipMechanic",
       "type": "contract",
       "name": "relationshipMechanic",
@@ -15832,7 +17361,7 @@
       "summary": "Public SDK value: sdk/render",
       "importFrom": "src/sdk/render.ts",
       "token": "sdk/render",
-      "source": "src/sdk/render.ts:54",
+      "source": "src/sdk/render.ts:56",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15853,13 +17382,71 @@
       "implementations": []
     },
     {
+      "id": "sdk/Renderable",
+      "type": "contract",
+      "name": "Renderable",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/renderable",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/renderable",
+      "source": "src/sdk/contracts/spatial.ts:44",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Renderable",
+        "sdk/renderable"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/render-sync"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/RenderablePrefabs",
+      "type": "contract",
+      "name": "RenderablePrefabs",
+      "scope": "contract",
+      "summary": "Public SDK value: renderable-prefab",
+      "importFrom": "src/sdk/render.ts",
+      "token": "renderable-prefab",
+      "source": "src/sdk/render.ts:104",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "RenderablePrefabs",
+        "renderable-prefab"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/render-sync"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Reporter",
       "type": "contract",
       "name": "Reporter",
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:47",
+      "source": "src/sdk/core.ts:52",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15965,6 +17552,36 @@
       ]
     },
     {
+      "id": "sdk/RigidBody",
+      "type": "contract",
+      "name": "RigidBody",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/rigid-body",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/rigid-body",
+      "source": "src/sdk/contracts/physics.ts:23",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "RigidBody",
+        "sdk/rigid-body"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "std/physics-rapier"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/RoomMapChanged",
       "type": "contract",
       "name": "RoomMapChanged",
@@ -16050,13 +17667,37 @@
       ]
     },
     {
+      "id": "sdk/rotateVec3",
+      "type": "contract",
+      "name": "rotateVec3",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:81",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "rotateVec3"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Scope",
       "type": "contract",
       "name": "Scope",
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/core.ts:45",
+      "source": "src/sdk/core.ts:50",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16088,6 +17729,30 @@
       "tests": [],
       "keywords": [
         "ScopeDisposedError"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SDK_COMPAT",
+      "type": "contract",
+      "name": "SDK_COMPAT",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/core.ts:15",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SDK_COMPAT"
       ],
       "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
       "limitations": [
@@ -16255,7 +17920,7 @@
       "summary": "Public SDK value: sdk/settings",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/settings",
-      "source": "src/sdk/contracts/shooter.ts:638",
+      "source": "src/sdk/contracts/shooter.ts:643",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16273,6 +17938,154 @@
       "recipes": [
         "recipe/profile-storage"
       ],
+      "implementations": []
+    },
+    {
+      "id": "sdk/slerp",
+      "type": "contract",
+      "name": "slerp",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:90",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "slerp"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SNAPSHOT_FORMAT",
+      "type": "contract",
+      "name": "SNAPSHOT_FORMAT",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:9",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SNAPSHOT_FORMAT"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SNAPSHOT_SCHEMA",
+      "type": "contract",
+      "name": "SNAPSHOT_SCHEMA",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:10",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SNAPSHOT_SCHEMA"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/snapTransform",
+      "type": "contract",
+      "name": "snapTransform",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:149",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "snapTransform"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/transform"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/SpatialHash",
+      "type": "contract",
+      "name": "SpatialHash",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial-index.ts:19",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SpatialHash"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/spawnGltfScene",
+      "type": "contract",
+      "name": "spawnGltfScene",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/core.ts:1",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "spawnGltfScene"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/assets"
+      ],
+      "recipes": [],
       "implementations": []
     },
     {
@@ -16300,6 +18113,30 @@
       "implementations": []
     },
     {
+      "id": "sdk/stableStringify",
+      "type": "contract",
+      "name": "stableStringify",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/kernel/snapshot.ts:55",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "stableStringify"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/ThemeRole",
       "type": "contract",
       "name": "ThemeRole",
@@ -16307,7 +18144,7 @@
       "summary": "Public SDK value: sdk/theme",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/theme",
-      "source": "src/sdk/contracts/shooter.ts:715",
+      "source": "src/sdk/contracts/shooter.ts:720",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16362,6 +18199,30 @@
       "implementations": []
     },
     {
+      "id": "sdk/TOUCH_BUTTONS",
+      "type": "contract",
+      "name": "TOUCH_BUTTONS",
+      "scope": "contract",
+      "summary": "Public SDK value",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/input.ts:25",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "TOUCH_BUTTONS"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/Transform",
       "type": "contract",
       "name": "Transform",
@@ -16384,6 +18245,63 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/transform3d",
+      "type": "contract",
+      "name": "transform3d",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:119",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "transform3d"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/transform"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/Transform3D",
+      "type": "contract",
+      "name": "Transform3D",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/transform3d",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/transform3d",
+      "source": "src/sdk/contracts/spatial.ts:20",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Transform3D",
+        "sdk/transform3d"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "sandbox/game",
+        "sandbox/presentation",
+        "shooter/transform3d",
+        "std/transform"
+      ],
       "recipes": [],
       "implementations": []
     },
@@ -16451,7 +18369,7 @@
       "summary": "Public SDK value: sdk/ui",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/ui",
-      "source": "src/sdk/contracts/shooter.ts:649",
+      "source": "src/sdk/contracts/shooter.ts:654",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16552,6 +18470,30 @@
       "implementations": []
     },
     {
+      "id": "sdk/vec3",
+      "type": "contract",
+      "name": "vec3",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:51",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "vec3"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/vId",
       "type": "contract",
       "name": "vId",
@@ -16583,7 +18525,7 @@
       "summary": "Public SDK value: sdk/view",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/view",
-      "source": "src/sdk/contracts/shooter.ts:680",
+      "source": "src/sdk/contracts/shooter.ts:685",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16954,13 +18896,39 @@
       "implementations": []
     },
     {
+      "id": "sdk/worldPose",
+      "type": "contract",
+      "name": "worldPose",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/spatial.ts:130",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "worldPose"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [
+        "std/transform"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
       "id": "sdk/yawDirX",
       "type": "contract",
       "name": "yawDirX",
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:722",
+      "source": "src/sdk/contracts/shooter.ts:727",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16984,7 +18952,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:723",
+      "source": "src/sdk/contracts/shooter.ts:728",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17008,7 +18976,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:725",
+      "source": "src/sdk/contracts/shooter.ts:730",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17732,6 +19700,137 @@
         "portfolio/racing",
         "vehicle/track"
       ]
+    },
+    {
+      "id": "games/sandbox/DISPLAY_MODEL",
+      "type": "contract",
+      "name": "DISPLAY_MODEL",
+      "scope": "contract",
+      "summary": "Game-family contract value",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "source": "games/sandbox/contracts/sandbox.ts:29",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "DISPLAY_MODEL",
+        "sandbox"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/sandbox/LEVEL_MODEL",
+      "type": "contract",
+      "name": "LEVEL_MODEL",
+      "scope": "contract",
+      "summary": "Game-family contract value",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "source": "games/sandbox/contracts/sandbox.ts:28",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "LEVEL_MODEL",
+        "sandbox"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/sandbox/Sandbox",
+      "type": "contract",
+      "name": "Sandbox",
+      "scope": "contract",
+      "summary": "Game-family contract value: sandbox/state",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "token": "sandbox/state",
+      "source": "games/sandbox/contracts/sandbox.ts:18",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Sandbox",
+        "sandbox",
+        "sandbox/state"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/sandbox/SandboxGlow",
+      "type": "contract",
+      "name": "SandboxGlow",
+      "scope": "contract",
+      "summary": "Game-family contract value: sandbox/glow",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "token": "sandbox/glow",
+      "source": "games/sandbox/contracts/sandbox.ts:23",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SandboxGlow",
+        "sandbox",
+        "sandbox/glow"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/sandbox/SandboxGoal",
+      "type": "contract",
+      "name": "SandboxGoal",
+      "scope": "contract",
+      "summary": "Game-family contract value: sandbox/goal",
+      "importFrom": "games/sandbox/contracts/sandbox.ts",
+      "token": "sandbox/goal",
+      "source": "games/sandbox/contracts/sandbox.ts:25",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "SandboxGoal",
+        "sandbox",
+        "sandbox/goal"
+      ],
+      "useWhen": "Game-specific contract of the sandbox family; plugins in games/sandbox/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
     },
     {
       "id": "games/sky/Sky",
@@ -18811,6 +20910,21 @@
         "sdk/mechanic-hints": "mechanics/hints",
         "sdk/mechanic-clock": "mechanics/clock",
         "sdk/mechanic-conditions": "mechanics/conditions"
+      }
+    },
+    {
+      "id": "sandbox/physics",
+      "name": "Physics Sandbox (SDK 3)",
+      "plugins": [
+        "std/transform",
+        "std/assets",
+        "std/render-sync",
+        "std/physics-rapier",
+        "sandbox/game",
+        "sandbox/presentation"
+      ],
+      "roles": {
+        "sdk/experience": "sandbox/physics"
       }
     }
   ]

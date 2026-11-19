@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost } from '../../../src/kernel/host.ts';
-import { PHASES, SDK_VERSION, SessionControl } from '../../../src/sdk/index.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION, SessionControl } from '../../../src/sdk/index.ts';
 import { SaltLedger } from '../contracts/salt-ledger.ts';
 import type { SaltCommand } from '../contracts/salt-ledger.ts';
 import rules from '../plugins/salt-rpg-game/manifest.json' with { type:'json' };
@@ -15,7 +15,7 @@ import relationships from '../../../src/plugins/mechanics-relationships/manifest
 
 function fixture(initialPlaying = true) {
   let playing=initialPlaying;
-  const host=new PluginHost({sdkVersion:SDK_VERSION,phases:PHASES,installHostServices(session,scope) { session.services.provide(SessionControl,{get playing(){return playing;}},'host',scope); }});
+  const host=new PluginHost({sdkVersion:SDK_VERSION, sdkCompat: SDK_COMPAT,phases:PHASES,installHostServices(session,scope) { session.services.provide(SessionControl,{get playing(){return playing;}},'host',scope); }});
   host.setCatalog([{manifest:rules,load:()=>import('../plugins/salt-rpg-game/index.ts')},{manifest:pack,content},{manifest:navigation,load:()=>import('../../../src/plugins/mechanics-navigation/index.ts')},{manifest:progression,load:()=>import('../../../src/plugins/mechanics-progression/index.ts')},{manifest:objectives,load:()=>import('../../../src/plugins/mechanics-objectives/index.ts')},{manifest:inventory,load:()=>import('../../../src/plugins/mechanics-inventory/index.ts')},{manifest:relationships,load:()=>import('../../../src/plugins/mechanics-relationships/index.ts')}]);
   const preset={schema:1,id:'salt/test',name:'Salt test',plugins:['salt/game','salt/content','mechanics/navigation','mechanics/progression','mechanics/objectives','mechanics/inventory','mechanics/relationships'],roles:{'sdk/experience':'salt/ledger','sdk/mechanic-navigation':'mechanics/navigation','sdk/mechanic-progression':'mechanics/progression','sdk/mechanic-objectives':'mechanics/objectives','sdk/mechanic-inventory':'mechanics/inventory','sdk/mechanic-relationships':'mechanics/relationships'},options:{campaign:'salt/tern'},seed:7};
   const service=()=>host.session!.services.get(SaltLedger);

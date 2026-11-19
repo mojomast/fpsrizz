@@ -3,10 +3,15 @@
  * sessions as host services, and runs the frame loop. No gameplay rules live here.
  */
 import { HostError, PluginHost, errText } from '../kernel/host.ts';
+import { hashSnapshot } from '../kernel/snapshot.ts';
 import type { Session } from '../kernel/host.ts';
+import { createAssetService, preloadManifestAssets } from '../platform/assets.ts';
 import { createAudioService } from '../platform/audio.ts';
 import { createFlow } from '../platform/flow.ts';
 import { bindDomInput, createInputCore, isInputEditableTarget } from '../platform/input.ts';
+import { bindGamepads } from '../platform/gamepad.ts';
+import { createInputBindings } from '../platform/input-bindings.ts';
+import { bindTouchControls } from '../platform/touch.ts';
 import { createProfileStore } from '../platform/profile-store.ts';
 import type { ProfileStorage } from '../platform/profile-store.ts';
 import { isWebGL2Available } from '../platform/render/mini3/index.ts';
@@ -14,8 +19,10 @@ import { createRenderHost } from '../platform/render/service.ts';
 import type { RenderHost } from '../platform/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
 import { createUiService } from '../platform/ui.ts';
+import { recordInput } from '../platform/replay.ts';
+import type { ReplayRecorder } from '../platform/replay.ts';
 import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
-import { Audio, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputContexts, PHASES, Profile, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
+import { Assets, Audio, AudioSamples, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputAxes, InputBindings, InputContexts, prettyKey, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
 import { Render } from '../sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
@@ -48,6 +55,11 @@ function boot(): void {
       onQuitToMenu: () => toMenu(),
       onSettingsChange: (s) => applySettings(s),
       onOpenCreator: () => creator.toggle(),
+      bindings: {
+        list: () => inputBindings.list().map((r) => ({ action: r.action, label: r.label, keys: r.keys.map(prettyKey).join(' / ') || '(unbound)', overridden: r.overridden })),
+        rebind: (action) => captureBinding(action),
+        reset: () => inputBindings.reset(),
+      },
     },
     settings,
   );
@@ -69,6 +81,15 @@ function boot(): void {
   let profileStorage: ProfileStorage | null = null;
   try { profileStorage = globalThis.localStorage ?? null; } catch { /* access denied */ }
   const profile = createProfileStore(profileStorage);
+  // Input v2: rebinding overrides (own profile store so game profiles never clobber them), gamepads, touch, axes.
+  const refreshInput = (): void => { domInput.refresh(); gamepads.refresh(); touch.refresh(); };
+  const inputBindings = createInputBindings({
+    core: inputCore,
+    store: createProfileStore(profileStorage, 'fpsrizz/input-bindings'),
+    actions: () => host.active?.registries.entries(InputActions) ?? [],
+    onChange: () => refreshInput(),
+  });
+  inputCore.setAxes(() => host.active?.registries.entries(InputAxes).map((e) => [e.id, e.value] as const) ?? []);
   const ui = createUiService({ hud: shell.hudLayer, overlay: shell.overlayLayer });
   const settingsService: SettingsService = {
     get lookSensitivity() {
@@ -81,12 +102,29 @@ function boot(): void {
     return a && id ? (a.registries.get({ kind: 'role:sdk/theme' }, id) as ThemeProvider | undefined) : undefined;
   };
   const audio = createAudioService((id) => themeOf()?.sounds[id]);
-  audio.setMasterVolume(settings.volume);
+  const applyVolumes = (): void => {
+    audio.setMasterVolume(settings.volume);
+    audio.setBusVolume('music', settings.musicVolume);
+    for (const b of ['sfx', 'ui', 'ambience'] as const) audio.setBusVolume(b, settings.effectsVolume);
+  };
+  applyVolumes();
 
+  const assets = createAssetService();
+  // `?record` records every session's input for a `.replay.json` (F8 or __bulkhead.replay.download()).
+  const recording = new URLSearchParams(location.search).has('record');
+  let recorder: ReplayRecorder | undefined;
   const host = new PluginHost({
-    sdkVersion: SDK_VERSION,
+    sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
     phases: PHASES,
+    async beforeActivate(ctx) {
+      await preloadManifestAssets(assets)(ctx);
+      // Samples decode in the background; the synth fallback plays until they are ready.
+      const mine = ctx.registries.entries(AudioSamples).filter((e) => e.owner === ctx.pluginId);
+      if (mine.length) void audio.loadSamples(mine.map((e) => ({ id: e.id, def: e.value, load: () => assets.bytes(ctx, e.value.url) })));
+    },
     installHostServices(session, scope) {
+      session.services.provide(Assets, assets, 'host', scope);
+      audio.retainSamples(session.registries.entries(AudioSamples).map((e) => e.id));
       session.services.provide(Input, inputCore.service, 'host', scope);
       session.services.provide(InputContexts, inputCore.contexts, 'host', scope);
       session.services.provide(SessionControl, {
@@ -98,7 +136,14 @@ function boot(): void {
       session.services.provide(Settings, settingsService, 'host', scope);
       session.services.provide(Profile, profile, 'host', scope);
       session.services.provide(Flow, createFlow((r) => session.events.emit(FlowEnded, r), () => session.scheduler.time), 'host', scope);
-      session.addBeforeTick(() => inputCore.beginTick(), scope);
+      session.services.provide(InputBindings, inputBindings, 'host', scope);
+      session.addBeforeTick(() => { gamepads.poll(); inputCore.beginTick(); }, scope);
+      if (recording) {
+        recorder?.stop();
+        const rec = recordInput(inputCore, { sdk: SDK_VERSION, preset: session.preset.id, seed: session.preset.seed });
+        recorder = rec;
+        scope.add(() => { rec.stop(); if (recorder === rec) recorder = undefined; }, 'replay-recorder');
+      }
       session.events.on(FlowEnded, (r) => onFlowEnded(session, r), 'host', scope);
       session.onFault = (f) => {
         state = 'error';
@@ -125,11 +170,27 @@ function boot(): void {
   };
   const needsPointerLock = (): boolean => (experience()?.pointer ?? 'locked') === 'locked';
   const captured = (): boolean => !needsPointerLock() || testMode || document.pointerLockElement === canvas;
-  const domInput = bindDomInput(inputCore, {
-    target: canvas,
-    actions: () => host.active?.registries.entries(InputActions).map((e) => ({ id: e.id, keys: e.value.keys })) ?? [],
-    isCaptured: () => state === 'playing' && captured(),
+  const inputActive = (): boolean => state === 'playing' && captured();
+  const domInput = bindDomInput(inputCore, { target: canvas, actions: () => inputBindings.effective(), isCaptured: inputActive });
+  const gamepads = bindGamepads(inputCore, { actions: () => inputBindings.effective(), isCaptured: inputActive });
+  const touchParam = new URLSearchParams(location.search).get('touch');
+  const touch = bindTouchControls(inputCore, {
+    mount: (layer) => shell.hudLayer.after(layer),
+    actions: () => inputBindings.effective(),
+    isCaptured: inputActive,
+    ...(touchParam !== null ? { enabled: touchParam !== '0' } : {}),
   });
+  /** Pause-menu rebinding: waits for the next key / button (gamepads are polled while the session is paused). */
+  async function captureBinding(action: string): Promise<string | undefined> {
+    let polling = true;
+    const pollPads = (): void => { if (!polling) return; gamepads.poll(); requestAnimationFrame(pollPads); };
+    const pending = inputBindings.capture();
+    requestAnimationFrame(pollPads);
+    const key = await pending;
+    polling = false;
+    if (key) inputBindings.rebind(action, [key]);
+    return key;
+  }
 
   // ---- state transitions ---------------------------------------------------------------------------------------------
   const requestPointer = (): void => {
@@ -168,11 +229,13 @@ function boot(): void {
   function describeControls(): [string, string][] {
     const selected = experience();
     const out: [string, string][] = selected?.controls?.map(([key, label]) => [key, label]) ?? (needsPointerLock() ? [['Mouse', 'Aim (yaw)']] : []);
-    const pretty = (k: string): string => k.replace(/^Key/, '').replace(/^Digit/, '').replace('Mouse0', 'Left click').replace('Mouse1', 'Middle click').replace('Mouse2', 'Right click').replace('ArrowUp', '↑').replace('ArrowDown', '↓').replace('ArrowLeft', '←').replace('ArrowRight', '→').replace('WheelUp', 'Wheel up').replace('WheelDown', 'Wheel down');
+    const pretty = prettyKey;
     const slots: string[] = [];
-    for (const e of selected?.controls ? [] : host.active?.registries.entries(InputActions) ?? []) {
-      if (/weapon-\d+$/.test(e.id)) slots.push(...e.value.keys.map(pretty));
-      else out.push([e.value.keys.map(pretty).join(' / '), e.value.label]);
+    for (const e of selected?.controls ? [] : inputBindings.effective()) {
+      // Gamepad / touch virtual keys are listed in the pause menu's key bindings, not the keyboard summary.
+      const keys = e.keys.filter((k) => !/^(Gamepad|Touch)/.test(k));
+      if (/weapon-\d+$/.test(e.id)) slots.push(...keys.map(pretty));
+      else if (keys.length) out.push([keys.map(pretty).join(' / '), e.label]);
     }
     if (slots.length) out.push([`${slots[0]}–${slots[slots.length - 1]}`, 'Select weapon']);
     out.push(['Esc', needsPointerLock() ? 'Release mouse / pause' : 'Pause'], ['` (backquote)', 'Creator tools']);
@@ -230,7 +293,7 @@ function boot(): void {
     sessionUsed = true;
     shell.hide();
     shell.setHint(captured() ? null : 'Click the game view to capture the mouse — Esc releases it');
-    domInput.refresh();
+    refreshInput();
     setPaused(false);
   }
 
@@ -259,9 +322,9 @@ function boot(): void {
   }
 
   function applySettings(s: ShellSettings): void {
-    settings = { schema: 1, sensitivity: s.sensitivity, volume: s.volume, pixelRatioCap: s.pixelRatioCap };
+    settings = { schema: 1, sensitivity: s.sensitivity, volume: s.volume, musicVolume: s.musicVolume, effectsVolume: s.effectsVolume, pixelRatioCap: s.pixelRatioCap };
     saveSettings(settings);
-    audio.setMasterVolume(settings.volume);
+    applyVolumes();
     renderHost.setPixelRatioCap(settings.pixelRatioCap);
     renderHost.resize();
   }
@@ -276,7 +339,7 @@ function boot(): void {
     }
     saveSelectedPreset(host.active!.preset);
     sessionUsed = false;
-    domInput.refresh();
+    refreshInput();
     toMenu();
     return { ok: true };
   }
@@ -292,6 +355,35 @@ function boot(): void {
     counts: () => ({ uiRoots: ui.mounted, sceneRoots: renderHost.liveRoots(), audioVoices: audio.activeVoices }),
   });
 
+  // ---- quicksave / replays (SDK 3) ----------------------------------------------------------------------------------
+  // Snapshots are only complete when every active plugin follows the SDK 3 rule "state outside components goes
+  // through ctx.persist()", so quicksave is offered for all-SDK-3 presets only (older games keep closure state).
+  const snapshotReady = (): boolean => {
+    const a = host.active, s = host.session;
+    return !!a && !!s && s.state === 'running' && s.order.every((id) => /^\^?3\./.test(a.manifests.get(id)?.sdk ?? ''));
+  };
+  const saveKey = (): string => `fpsrizz/quicksave/${host.session?.preset.id ?? ''}`;
+  const flash = (text: string): void => { shell.setHint(text); setTimeout(() => shell.setHint(null), 1500); };
+  const quicksave = (): boolean => {
+    if (!snapshotReady()) return false;
+    try { localStorage.setItem(saveKey(), JSON.stringify(host.snapshot())); flash('Quicksaved (F9 to load)'); return true; } catch (e) { console.warn('quicksave failed', e); return false; }
+  };
+  const quickload = (): boolean => {
+    const raw = snapshotReady() ? localStorage.getItem(saveKey()) : null;
+    if (!raw) return false;
+    try { inputCore.clear(); host.restore(JSON.parse(raw)); flash('Quickloaded'); return true; } catch (e) { console.warn('quickload failed', e); flash('Quicksave does not fit this game version'); return false; }
+  };
+  const downloadReplay = (): boolean => {
+    if (!recorder) return false;
+    const file = recorder.toFile({ hash: hashSnapshot(host.snapshot()), meta: { recorded: new Date().toISOString() } });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(file)], { type: 'application/json' }));
+    a.download = `${file.preset.replace(/\W+/g, '-')}-${file.seed}.replay.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    return true;
+  };
+
   // ---- browser events ------------------------------------------------------------------------------------------------
   const onLockChange = (): void => {
     if (document.pointerLockElement === canvas) shell.setHint(null);
@@ -305,6 +397,11 @@ function boot(): void {
       return;
     }
     if (isInputEditableTarget(e.target)) return;
+    if ((e.code === 'F6' || e.code === 'F9' || e.code === 'F8') && (state === 'playing' || state === 'paused')) {
+      const done = e.code === 'F6' ? quicksave() : e.code === 'F9' ? quickload() : downloadReplay();
+      if (done) e.preventDefault();
+      return;
+    }
     if (e.code === 'Backquote') {
       e.preventDefault();
       if (state === 'playing') pause();
@@ -356,6 +453,9 @@ function boot(): void {
       shell.showEnd(pendingEnd);
     }
     renderHost.render();
+    // 3D audio: the listener is the world camera.
+    const cam = renderHost.activeCamera().matrixWorld.elements;
+    audio.setListener({ position: { x: cam[12]!, y: cam[13]!, z: cam[14]! }, forward: { x: -cam[8]!, y: -cam[9]!, z: -cam[10]! }, up: { x: cam[4]!, y: cam[5]!, z: cam[6]! } });
     const work = performance.now() - t0;
     workMs += work;
     worst = Math.max(worst, dt * 1000);
@@ -384,6 +484,8 @@ function boot(): void {
   (window as unknown as Record<string, unknown>)['__bulkhead'] = {
     host,
     inputCore,
+    inputBindings,
+    gamepads,
     renderHost,
     audio,
     ui,
@@ -399,6 +501,8 @@ function boot(): void {
     restart,
     toMenu,
     applyPreset,
+    snapshots: { ready: snapshotReady, quicksave, quickload, take: () => host.snapshot(), restore: (s: unknown) => host.restore(s) },
+    replay: { get recorder() { return recorder; }, download: downloadReplay },
     stop() {
       cancelAnimationFrame(raf);
     },

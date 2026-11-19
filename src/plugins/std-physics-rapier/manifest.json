@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "id": "std/physics-rapier",
+  "name": "Physics (Rapier 3D)",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "Rigid bodies, colliders, sensors (triggers), raycasts and a kinematic character controller on Rapier 3D, stepped inside the fixed tick; writes solved poses back to Transform3D.",
+  "dependencies": { "std/transform": "^1.0.0" },
+  "capabilities": ["simulation", "physics"],
+  "config": {
+    "gravityY": { "type": "number", "label": "Vertical gravity (m/s²)", "default": -9.81, "min": -100, "max": 100 }
+  }
+}

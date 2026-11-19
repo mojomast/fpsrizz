@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "family",
+  "summary": "Physics sandbox game: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors).",
+  "keywords": ["sandbox", "physics", "sdk 3", "example", "character", "crates"],
+  "entryPoints": ["Transform3D", "Renderable", "RigidBody", "PhysicsCollider", "CharacterController"],
+  "useWhen": "Copy this family to start a 3D physics prototype.",
+  "limitations": ["Example content only; no objectives or end state."],
+  "docs": ["games/sandbox/README.md"],
+  "examples": ["games/sandbox/presets/physics-sandbox.json"],
+  "tests": ["games/sandbox/tests/sandbox.test.ts"]
+}

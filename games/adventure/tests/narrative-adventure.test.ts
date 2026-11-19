@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost } from '../../../src/kernel/host.ts';
-import { ExperienceRole, PHASES, Profile, SDK_VERSION, SessionControl, definePlugin } from '../../../src/sdk/index.ts';
+import { ExperienceRole, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, definePlugin } from '../../../src/sdk/index.ts';
 import { Adventure, AdventureActionResolved } from '../contracts/adventure.ts';
 import type { ProfileData } from '../../../src/sdk/index.ts';
 import rules from '../plugins/story-adventure/manifest.json' with { type: 'json' };
@@ -13,7 +13,7 @@ function fixture() {
   let playing = true;
   let broken = false;
   const host = new PluginHost({
-    sdkVersion: SDK_VERSION,
+    sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT,
     phases: PHASES,
     installHostServices(session, scope) {
       session.services.provide(SessionControl, { get playing() { return playing; } }, 'host', scope);

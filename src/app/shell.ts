@@ -3,6 +3,8 @@ import { SHELL_CSS } from './shell-styles.ts';
 export interface ShellSettings {
   sensitivity: number;
   volume: number;
+  musicVolume: number;
+  effectsVolume: number;
   pixelRatioCap: number;
 }
 export interface ShellCallbacks {
@@ -12,6 +14,13 @@ export interface ShellCallbacks {
   onQuitToMenu(): void;
   onSettingsChange(s: ShellSettings): void;
   onOpenCreator(): void;
+  /** Rebindable controls (pause menu). */
+  bindings?: {
+    list(): { action: string; label: string; keys: string; overridden: boolean }[];
+    /** Captures the next input for `action`; resolves with it, or undefined when cancelled. */
+    rebind(action: string): Promise<string | undefined>;
+    reset(): void;
+  };
 }
 export type ShellScreen = 'none' | 'start' | 'pause' | 'end' | 'error' | 'loading' | 'unsupported';
 export interface EndInfo {
@@ -120,6 +129,36 @@ export function createShell(root: HTMLElement, cb: ShellCallbacks, initial: Shel
     return box;
   }
 
+  function bindingsBlock(b: NonNullable<ShellCallbacks['bindings']>): HTMLElement {
+    const box = el('div', 'bh-bindings');
+    const render = (): void => {
+      box.replaceChildren();
+      const table = el('table', 'bh-table');
+      for (const row of b.list()) {
+        const tr = el('tr');
+        const keys = el('td', undefined, row.keys);
+        if (row.overridden) keys.dataset['overridden'] = '';
+        const change = btn('Change', () => {
+          change.disabled = true;
+          keys.textContent = 'Press a key or button… (Esc cancels)';
+          void b.rebind(row.action).then(render);
+        }, 'bh-small');
+        change.dataset['action'] = row.action;
+        const act = el('td', undefined, row.label);
+        const cell = el('td');
+        cell.appendChild(change);
+        tr.append(keys, act, cell);
+        table.appendChild(tr);
+      }
+      box.appendChild(table);
+      const row = el('div', 'bh-btns');
+      row.appendChild(btn('Reset bindings', () => { b.reset(); render(); }, 'bh-small'));
+      box.appendChild(row);
+    };
+    render();
+    return box;
+  }
+
   function settingsBlock(): HTMLElement {
     const g = el('div', 'bh-settings');
     const mkSlider = (
@@ -154,6 +193,8 @@ export function createShell(root: HTMLElement, cb: ShellCallbacks, initial: Shel
     };
     mkSlider('Mouse sensitivity', 0.2, 3, 0.05, () => settings.sensitivity, (v) => { settings.sensitivity = v; }, (v) => v.toFixed(2));
     mkSlider('Volume', 0, 1, 0.05, () => settings.volume, (v) => { settings.volume = v; }, (v) => Math.round(v * 100) + '%');
+    mkSlider('Music', 0, 1, 0.05, () => settings.musicVolume, (v) => { settings.musicVolume = v; }, (v) => Math.round(v * 100) + '%');
+    mkSlider('Effects', 0, 1, 0.05, () => settings.effectsVolume, (v) => { settings.effectsVolume = v; }, (v) => Math.round(v * 100) + '%');
 
     const ql = el('label', undefined, 'Quality');
     const sel = el('select');
@@ -259,6 +300,7 @@ export function createShell(root: HTMLElement, cb: ShellCallbacks, initial: Shel
       p.appendChild(row);
       p.append(label('Settings'), settingsBlock());
       if (lastControls.length > 0) p.append(label('Controls'), controlsTable(lastControls));
+      if (cb.bindings && cb.bindings.list().length > 0) p.append(label('Key bindings'), bindingsBlock(cb.bindings));
       const row2 = el('div', 'bh-btns');
       row2.append(btn('Creator tools', () => cb.onOpenCreator(), 'bh-small'));
       p.appendChild(row2);

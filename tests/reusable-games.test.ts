@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { PluginHost, HostError } from '../src/kernel/host.ts';
 import type { CatalogEntry, Session } from '../src/kernel/host.ts';
-import { PHASES, SDK_VERSION, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, resourceMechanic } from '../src/sdk/index.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, resourceMechanic } from '../src/sdk/index.ts';
 import { Ember } from '../games/ember/contracts/ember.ts';
 import { Verdant } from '../games/verdant/contracts/verdant.ts';
 import { Sky } from '../games/sky/contracts/sky.ts';
@@ -119,7 +119,7 @@ for (const game of games) test(`${game.name}: complete the same route with defau
   const results: { state: unknown; receipts: Receipts }[] = [];
   for (const replacement of [false, true]) {
     const receipts: Receipts = { resources: [], actions: [], objectives: [] };
-    const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES, installHostServices(session, scope) {
+    const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) {
       session.events.on(MechanicResourcesChanged, event => receipts.resources.push(event), 'test', scope);
       session.events.on(MechanicActionCommitted, event => receipts.actions.push(event), 'test', scope);
       session.events.on(MechanicObjectiveChanged, event => receipts.objectives.push(event), 'test', scope);
@@ -188,7 +188,7 @@ for (const replacement of [false, true]) test(`${replacement ? 'independent' : '
     manifest: { schema: 1, id, name: id, kind: 'code', version: '1.0.0', sdk: '^2.0.0', roleDependencies: [ResourceMechanicRole.id] },
     load: async () => ({ default: { activate(ctx) { consumers.push(ctx); } } }),
   }));
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
   assert.deepEqual(host.setCatalog([...sharedCatalog(replacement).slice(0, 1), ...ownerEntries]), []);
   const selected = replacement ? ALTERNATE : resources.id;
   try {

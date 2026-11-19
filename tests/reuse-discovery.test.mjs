@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { catalog } from '../src/app/catalog.ts';
 import { PluginHost } from '../src/kernel/host.ts';
-import { PHASES, SDK_VERSION } from '../src/sdk/index.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '../src/sdk/index.ts';
 import { buildReuseIndex, dependencyClosure, indexFiles, renderIndex, searchReuse, validateMetadata } from '../scripts/reuse-lib.mjs';
 
 const index = await buildReuseIndex();
@@ -68,7 +68,7 @@ test('concrete enable closure does not silently choose role implementations', ()
 });
 
 test('recipe role/provider fragments stage with the real host', async () => {
-  const host = new PluginHost({ sdkVersion: SDK_VERSION, phases: PHASES });
+  const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
   assert.deepEqual(host.setCatalog(catalog), []);
   for (const recipe of index.entries.filter(entry => entry.type === 'recipe')) {
     const staged = await host.stage({ schema: 1, id: recipe.id, name: recipe.name, plugins: recipe.plugins, roles: recipe.roles, options: {}, seed: 1 });

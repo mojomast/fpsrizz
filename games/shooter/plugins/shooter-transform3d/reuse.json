@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "scope": "family",
+  "summary": "Mirrors the shooter's planar Transform into SDK 3 Transform3D/PrevTransform.",
+  "keywords": ["transform3d", "bridge", "adapter", "planar", "compat", "sdk 3"],
+  "entryPoints": ["Transform3D", "PrevTransform", "planarToTransform3D"],
+  "useWhen": "A shooter preset needs SDK 3 systems (render sync, physics sensors, inspectors) to see its planar entities.",
+  "limitations": ["One-way: planar Transform is authoritative.", "y is 0 unless the consumer sets it."],
+  "docs": ["docs/reference/spatial.md"],
+  "examples": [],
+  "tests": ["tests/spatial.test.ts"]
+}
