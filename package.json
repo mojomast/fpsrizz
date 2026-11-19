@@ -36,7 +36,8 @@
     "bench:ecs": "node scripts/bench-ecs.ts",
     "assets": "node scripts/assets.mjs",
     "mcp": "node scripts/mcp-bulkhead.mjs",
-    "dev:rpc": "node scripts/dev-rpc-bridge.mjs"
+    "dev:rpc": "node scripts/dev-rpc-bridge.mjs",
+    "perf": "node scripts/perf-report.mjs"
   },
   "devDependencies": {
     "@gltf-transform/core": "4.5.1",

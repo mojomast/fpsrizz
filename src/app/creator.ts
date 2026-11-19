@@ -27,6 +27,8 @@ export interface FrameStats {
   width: number;
   height: number;
   pixelRatio: number;
+  /** GPU ms per frame (EXT_disjoint_timer_query_webgl2), measured while the perf HUD is open; undefined otherwise. */
+  gpuMs?: number;
 }
 
 export type ApplyResult = { ok: true } | { ok: false; error: unknown };

@@ -29,6 +29,9 @@ try {
   await page.waitForFunction(() => window.__bulkhead?.host?.session?.services.tryGet({ id: 'sandbox/state' }), null, { timeout: 90000 });
   await page.waitForFunction(() => window.__bulkhead.host.session.scheduler.tick > 30, null, { timeout: 30000 });
 
+  await page.keyboard.press('F3');
+  await page.waitForFunction(() => /FPS/.test(document.querySelector('.perf-hud')?.textContent ?? ''), null, { timeout: 5000 });
+  ok(await ev(() => /CPU/.test(document.querySelector('.perf-hud').textContent) && /GPU/.test(document.querySelector('.perf-hud').textContent)), 'F3 shows the perf HUD (FPS / CPU / GPU)');
   await page.keyboard.press('Backquote');
   await page.click(`${panel} .creator-tab[data-tab="inspect"]`);
   await page.waitForSelector(`${panel} [data-inspector]`, { timeout: 20000 });

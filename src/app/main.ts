@@ -21,6 +21,7 @@ import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } fr
 import { createUiService } from '../platform/ui.ts';
 import { recordInput } from '../platform/replay.ts';
 import { createDebugDraw } from '../platform/debug-draw.ts';
+import { createGpuTimer, createPerfHud } from '../platform/perf-hud.ts';
 import type { DevEnv, DevSim, DevTools } from '../platform/devtools.ts';
 import { invertMatrix, mat4, multiplyMatrices } from '../platform/render/mini3/math.ts';
 import type { ReplayRecorder } from '../platform/replay.ts';
@@ -118,6 +119,9 @@ function boot(): void {
   const debugDraw = createDebugDraw(params.has('debugdraw'));
   const overlays = { colliders: false };
   const devSim: DevSim = { mode: 'auto', speed: 1 };
+  // P2.7: perf HUD (F3 or ?perf) with GPU time when EXT_disjoint_timer_query_webgl2 exists.
+  const perfHud = createPerfHud(root);
+  if (params.has('perf')) perfHud.toggle(true);
   // `?record` records every session's input for a `.replay.json` (F8 or __bulkhead.replay.download()).
   const recording = new URLSearchParams(location.search).has('record');
   let recorder: ReplayRecorder | undefined;
@@ -408,6 +412,11 @@ function boot(): void {
       return;
     }
     if (isInputEditableTarget(e.target)) return;
+    if (e.code === 'F3') {
+      e.preventDefault();
+      perfHud.toggle();
+      return;
+    }
     if ((e.code === 'F6' || e.code === 'F9' || e.code === 'F8') && (state === 'playing' || state === 'paused')) {
       const done = e.code === 'F6' ? quicksave() : e.code === 'F9' ? quickload() : downloadReplay();
       if (done) e.preventDefault();
@@ -508,6 +517,7 @@ function boot(): void {
   let windowStart = last;
   let workMs = 0;
   let worst = 0;
+  let gpu: ReturnType<typeof createGpuTimer> | undefined;
   const frame = (t: number): void => {
     raf = requestAnimationFrame(frame);
     const dt = Math.min(0.25, Math.max(0, (t - last) / 1000));
@@ -529,7 +539,10 @@ function boot(): void {
       releasePointer();
       shell.showEnd(pendingEnd);
     }
+    if (perfHud.visible) gpu ??= createGpuTimer(canvas.getContext('webgl2'));
+    if (perfHud.visible) gpu?.begin();
     renderHost.render();
+    if (perfHud.visible) gpu?.end();
     drawDebugOverlay();
     takeShot();
     // 3D audio: the listener is the world camera.
@@ -551,6 +564,8 @@ function boot(): void {
       stats.width = renderHost.service.width;
       stats.height = renderHost.service.height;
       stats.pixelRatio = renderHost.service.pixelRatio;
+      stats.gpuMs = gpu?.ms;
+      if (perfHud.visible) perfHud.update({ ...stats, entities: host.session?.entities.count() ?? 0, systems: host.session?.scheduler.describe() ?? [] });
       frames = 0;
       workMs = 0;
       worst = 0;
@@ -566,6 +581,7 @@ function boot(): void {
     inputBindings,
     gamepads,
     renderHost,
+    perfHud,
     audio,
     ui,
     stats,
