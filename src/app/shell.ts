@@ -286,7 +286,14 @@ export function createShell(root: HTMLElement, cb: ShellCallbacks, initial: Shel
       play.autofocus = true;
       const row = el('div', 'bh-btns');
       row.append(play, btn('Creator tools', () => cb.onOpenCreator(), 'bh-small'));
-      p.append(row, el('p', 'bh-foot', 'Esc pauses. Open Creator tools to switch experiences.'));
+      const foot = el('p', 'bh-foot', 'Esc pauses. Open Creator tools to switch experiences. ');
+      // P3.6: the generated plugin & mechanic gallery ships next to the app (public/gallery/).
+      const gallery = document.createElement('a');
+      gallery.href = './gallery/';
+      gallery.textContent = 'Browse the plugin gallery';
+      gallery.style.color = 'inherit';
+      foot.append(gallery);
+      p.append(row, foot);
       mount('start', p, play);
     },
     showPause() {

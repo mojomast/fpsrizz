@@ -23,6 +23,7 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Spec](reference/spec.md): implemented scope, limits and the reference shooter.
 - [Content format](reference/content-format.md): every JSON format and content kind.
 - [Entity queries](reference/queries.md): multi-component queries with added/removed/changed tracking.
+- [Plugin gallery](../public/gallery/index.html): generated from the reuse index, served at `/gallery/` with live preset links.
 - [Navmesh](reference/navmesh.md): `std/navigation-recast`, Recast/Detour paths and `NavAgent` for non-grid 3D levels.
 - [Spatial](reference/spatial.md): SDK 3 `Transform3D`, interpolation and `std/render-sync`.
 - [Physics](reference/physics.md): `std/physics-rapier` bodies, sensors, raycasts and the character controller.
