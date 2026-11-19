@@ -1,8 +1,9 @@
 # fpsrizz / Bulkhead: roadmap to a rapid-prototyping game engine
 
-> **Status (branch `engine/p2-tooling`, stacked on `engine/p1-core` and `engine/p0-foundations`, 2026-11-18).** P0 is done
-> except the P0.2 leftovers below; P1.1–P1.8 are done (KTX2 *encoding* in `npm run assets` deferred); P2.1–P2.7 are done
-> (npm publishing of `create-bulkhead` waits on P0.2 packages). This file is the audit as written, with
+> **Status (branch `engine/p3-polish`, stacked on `engine/p2-tooling`, `engine/p1-core` and `engine/p0-foundations`, 2026-11-18).**
+> P0, P1.1–P1.8, P2.1–P2.7 and P3.1–P3.6 are done; P3.7 networking is a design doc only. Deferred: KTX2 *encoding*,
+> PWA/Tauri wrappers, npm publishing (the `@bulkhead/*` scope is unclaimed; `create-bulkhead` is publish-ready), and no
+> release has been cut. This file is the audit as written, with
 > paths as they were at `14a2f15`. Many root documents have since moved (see [docs/README.md](README.md)).
 >
 > | Item | State |
@@ -12,7 +13,7 @@
 > | P2.1 Live / hot reload | Done: esbuild live reload, resume, `?seed=`; step 2: the RunSnapshot survives the reload for all-SDK-3 presets (code, presets and JSON content), config tweaks restart with state kept ([inspector](reference/inspector.md)). |
 > | P0.3 Catalog from manifests | Done: `scripts/gen-catalog.mjs` -> `src/app/catalog.generated.ts`. |
 > | P0.4 Splitting, art packs, maps, budget | Done: per-plugin chunks, `public/packs/*.pack`, maps in `.sourcemaps/`, `npm run budget`. |
-> | P0.2 Engine/games split | Mostly done: all games (11 families) in `games/` with their family-only contracts; `packages/std/plugins` holds only shared plugins. Not done: npm workspaces/`packages/`, moving the shooter contract out of the SDK, browser demos into `games/`. |
+> | P0.2 Engine/games split | Done: npm workspaces `@bulkhead/kernel`, `sdk`, `platform-web`, `std`, `tools` (private) with `@bulkhead/*` imports; shooter-only contracts moved to `games/shooter/contracts/shooter.ts` (shared vocabulary in `sdk/contracts/game.ts`, cross-family use via `family.json` `uses`); browser demos and family tests in `games/<family>/tests/`; `create-bulkhead` publish-ready ([packages](reference/packages.md)). |
 > | P0.5 Docs | Done: Guide/Reference/Cookbook/archive, TypeDoc (`npm run docs:api`), `llms.txt`, link checker. |
 > | P1.1 Queries | Done: `world.query({ with, without })` with added/removed/changed per handle, `markChanged` ([queries](reference/queries.md)). |
 > | P1.2 Transform3D + render sync (SDK 3) | Done: `Transform3D`/`PrevTransform`/`Renderable`, `std/transform`, `std/render-sync` with alpha interpolation, SDK 3.0.0 with `SDK_COMPAT ['2.0.0']`, shooter bridge ([spatial](reference/spatial.md)). |
@@ -28,6 +29,13 @@
 > | P2.5 Inspector, tweaks, debug draw | Done: creator Inspect tab (entity list, live component editor, config tweak + export preset, time controls hold/run/step/0.25–4×), `debugDraw(ctx)` SDK, collider overlay ([inspector](reference/inspector.md)). Tweakpane not added. |
 > | P2.6 Agent protocol + MCP | Done: JSON-RPC 2.0 bridge started by `npm run dev` (world.query, entity.get/set, sim.step/pause/speed, input.press, preset/config, replay.run, screenshot, log.tail, perf.systems), method schemas, stdio MCP server `npm run mcp` ([dev protocol](reference/dev-protocol.md)). |
 > | P2.7 Perf HUD and budgets | Done: F3 / `?perf` HUD with GPU timer queries, per-system timings JSON, `npm run perf` + budgets, optional CI perf job (dispatch / `perf` label), Spector.js guide ([performance](guide/performance.md)). stats-gl not added. |
+> | P3.1 Deploy and export | Done: manual-dispatch `deploy-pages.yml` and `deploy-itch.yml` (butler only with the `BUTLER_API_KEY` secret), `npm run export:itch` zip with checks ([deploy](guide/deploy.md)). PWA/Tauri deferred. |
+> | P3.2 WebGPURenderer | Done: opt-in `?renderer=webgpu` (lazy chunk, `await init()`, WebGL2 fallback), per-preset parity gate + pixel-diff suite ([webgpu](reference/webgpu.md)). No custom GLSL needed porting. |
+> | P3.3 Visual + cross-browser | Done: `npm run test:visual` (Playwright `toHaveScreenshot` per template + 4 presets), chromium goldens, non-blocking CI matrix for chromium/firefox/webkit ([visual tests](guide/visual-tests.md)). |
+> | P3.4 Releases | Done (no release cut): Changesets, fixed `@bulkhead/*` group = SDK version, `version-packages`, SDK changelog, migration notes ([releasing](guide/releasing.md)). |
+> | P3.5 Navmesh | Done: `std/navigation-recast` (recast-navigation 0.44, lazy WASM), `NavMesh` service, `NavAgent`, `sandbox/navmesh` preset ([navmesh](reference/navmesh.md)). |
+> | P3.6 Gallery | Done: generated `public/gallery/` from the reuse index with live preset links, linked from the start screen. |
+> | P3.7 Networking | Design only: [networking design](design/networking.md). |
 
 Audit date: 2026-11-18. Audited commit: `14a2f15` on `main` ("Bust stale production bundle caches").
 Scope: a read-only audit of the repo plus a review of current best practices. Nothing was pushed.
@@ -127,7 +135,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - Add a version guard in `scripts/tools.mjs` that prints "Node ≥22.18 required".
     - Set `engine-strict=true` in `.npmrc`.
     - Pin `node-version: 22.x` in CI. CI currently says `22` and already works.
-- [ ] **P0.2 Separate the engine from the games (workspaces).** L
+- [x] **P0.2 Separate the engine from the games (workspaces).** L
   - *Why:* You can't prototype a new game without dragging along 25 games and their contracts (W1).
   - *Change:* Convert to npm workspaces:
     - `packages/kernel`
@@ -319,7 +327,7 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
 
 ### P3: Polish and ecosystem
 
-- [ ] **P3.1 One-command deploy and export.** S–M
+- [x] **P3.1 One-command deploy and export.** S–M
   - *Change:*
     - Add a GitHub Pages deploy workflow, since there's currently no workflow despite a `gh-pages` branch.
     - Add `npm run export:itch`, which zips `dist/` with relative paths.
@@ -328,23 +336,23 @@ Effort: **S** ≈ ≤1 day, **M** ≈ 2–5 days, **L** ≈ 1–3 weeks (agent-a
     - https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages
     - https://itch.io/docs/creators/html5
     - https://v2.tauri.app/
-- [ ] **P3.2 WebGPURenderer path.** M
+- [x] **P3.2 WebGPURenderer path.** M
   - *Why:* three.js's new features land there, and it falls back to WebGL2 automatically. WebGLRenderer is maintained but gets no big new features.
   - *Change:*
     - Make it an opt-in renderer behind `packages/sdk/src/render.ts` with `await renderer.init()`.
     - Port any custom GLSL to TSL.
     - Gate it per preset until parity tests pass.
   - Source: https://threejs.org/manual/pages/webgpurenderer.html
-- [ ] **P3.3 Visual regression and cross-browser tests.** M
+- [x] **P3.3 Visual regression and cross-browser tests.** M
   - *Change:* Use Playwright `toHaveScreenshot` per template, with Firefox and WebKit projects (W13).
   - Source: https://playwright.dev/docs/test-snapshots
-- [ ] **P3.4 Versioned releases of the engine packages.** S
+- [x] **P3.4 Versioned releases of the engine packages.** S
   - *Change:* Use Changesets for semver, an SDK changelog and migration notes per major version.
   - Source: https://github.com/changesets/changesets
-- [ ] **P3.5 Navmesh for non-grid worlds.** M
+- [x] **P3.5 Navmesh for non-grid worlds.** M
   - *Change:* Add a `std/navigation-recast` plugin (recast-navigation-js) for scenes from P2.4. Keep A* for grids.
   - Source: https://github.com/isaac-mason/recast-navigation-js
-- [ ] **P3.6 A plugin and mechanic gallery.** M
+- [x] **P3.6 A plugin and mechanic gallery.** M
   - *Change:* Generate a browsable page from `docs/reuse-index.json` plus live preset links, so people and agents can see what exists.
 - [ ] **P3.7 Networking (later).** L
   - *Change:* Build only after P1.7. Snapshot/replay plus deterministic physics is the prerequisite. See the multiplayer row in `docs/archive/game-plugin-roadmap.md`.

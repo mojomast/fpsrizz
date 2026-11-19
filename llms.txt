@@ -17,6 +17,7 @@ and their family's contracts; run `npm run check` after every change and never w
 - [Plugins and SDK](docs/guide/plugins.md): manifests, lifecycle, roles, registries, events, services
 - [Reuse](docs/guide/reuse.md): capability search and composition before new code
 - [Releasing](docs/guide/releasing.md): Changesets, the fixed `@bulkhead/*` group = SDK version, migration notes in docs/migrations/
+- [Networking design](docs/design/networking.md): proposal only, no netcode exists yet
 - [Gallery](public/gallery/index.html): generated plugin/mechanic gallery (app path /gallery/), live preset links
 - [Navmesh](docs/reference/navmesh.md): `std/navigation-recast` (Recast/Detour) for non-grid 3D worlds; grids keep mechanics/navigation
 - [Visual tests](docs/guide/visual-tests.md): `npm run test:visual`, Playwright goldens per template, Chromium/Firefox/WebKit
