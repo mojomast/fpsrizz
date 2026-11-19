@@ -1,6 +1,8 @@
 // Demo-only plugin: a small two-room map, trivial mode/camera roles and a handful of entities. SDK imports only.
-import type { EntityId, Json, PluginManifest, SessionContext, ViewState, WeaponDef } from '../../src/sdk/index.ts';
-import { CameraRole, Collider, Enemies, Enemy, Health, Inventory, ModeRole, Pickup, Player, Transform, View, Visual, Weapons, definePlugin, makeTransform } from '../../src/sdk/index.ts';
+import type { EntityId, Json, PluginManifest, SessionContext, ViewState } from '../../src/sdk/index.ts';
+import type { WeaponDef } from '../../games/shooter/contracts/shooter.ts';
+import { CameraRole, Collider, Health, Inventory, ModeRole, Player, Transform, View, Visual, definePlugin, makeTransform } from '../../src/sdk/index.ts';
+import { Enemies, Enemy, Pickup, Weapons } from '../../games/shooter/contracts/shooter.ts';
 
 export const demoManifest = {
   schema: 1, id: 'demo/content', name: 'Presentation demo', version: '1.0.0', kind: 'code', sdk: '^2.0.0',

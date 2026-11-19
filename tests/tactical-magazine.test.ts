@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Combat, Inventory, Player, WeaponRuntime } from '../src/sdk/index.ts';
+import { Inventory, Player } from '../src/sdk/index.ts';
+import { Combat, WeaponRuntime } from '../games/shooter/contracts/shooter.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { contentPack, hostFailure } from './helpers/host.ts';
 

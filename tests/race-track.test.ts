@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Collider, Flow, Player, SequenceProviders, Transform, World, angleDelta, yawOf } from '../src/sdk/index.ts';
+import { Collider, Flow, Player, SequenceProviders, Transform, angleDelta, yawOf } from '../src/sdk/index.ts';
+import { World } from '../games/shooter/contracts/shooter.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { sequenceProviders } from './helpers/alternate-sequence.ts';
 import racing from '../games/shooter/plugins/example-racing/manifest.json' with { type: 'json' };

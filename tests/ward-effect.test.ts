@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Combat, Health, PickupCollected, Player, Transform, definePlugin, spawnPrefab } from '../src/sdk/index.ts';
+import { Health, Player, Transform, definePlugin, spawnPrefab } from '../src/sdk/index.ts';
+import { Combat, PickupCollected } from '../games/shooter/contracts/shooter.ts';
 import type { CatalogEntry, SessionContext } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import manifest from '../games/shooter/plugins/example-ward/manifest.json' with { type: 'json' };

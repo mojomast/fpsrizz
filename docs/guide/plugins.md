@@ -211,7 +211,7 @@ amount → amounts ≤ 0 are dropped → hp is reduced → `Damaged` is emitted 
 ## 5. Extension points
 
 All tokens are exported from `src/sdk/index.ts`; their TypeScript types are the authoritative reference
-(`src/sdk/contracts/shooter.ts`).
+(`games/shooter/contracts/shooter.ts`).
 
 ### Registries
 

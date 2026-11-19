@@ -1,22 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import {
-  AttackBehaviors,
-  Combat,
-  Damaged,
-  Enemy,
-  Health,
-  Impact,
-  Inventory,
-  Player,
-  Transform,
-  Visual,
-  World,
-  definePlugin,
-  spawnPrefab,
-  yawDirX,
-  yawDirZ,
-} from '../src/sdk/index.ts';
+import { Health, Inventory, Player, Transform, Visual, definePlugin, spawnPrefab, yawDirX, yawDirZ } from '../src/sdk/index.ts';
+import { AttackBehaviors, Combat, Damaged, Enemy, Impact, World } from '../games/shooter/contracts/shooter.ts';
 import type { CatalogEntry, EntityId, Params, SessionContext } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import manifest from '../games/shooter/plugins/example-ricochet/manifest.json' with { type: 'json' };

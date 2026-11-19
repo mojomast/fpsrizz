@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Enemy, Flow, Maps, Player, Transform, World } from '../src/sdk/index.ts';
+import { Flow, Maps, Player, Transform } from '../src/sdk/index.ts';
+import { Enemy, World } from '../games/shooter/contracts/shooter.ts';
 import manifest from '../games/shooter/plugins/example-adventure-pack/manifest.json' with { type: 'json' };
 import content from '../games/shooter/plugins/example-adventure-pack/content.json' with { type: 'json' };
 import wardManifest from '../games/shooter/plugins/example-ward/manifest.json' with { type: 'json' };

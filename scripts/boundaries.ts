@@ -195,7 +195,7 @@ const under = (path: string, dir: string) => path === dir || path.startsWith(`${
 
 // ---------------------------------------------------------------- rules
 
-export function checkSource(relPath: string, source: string, opts: { capabilities?: string[] } = {}): Violation[] {
+export function checkSource(relPath: string, source: string, opts: { capabilities?: string[]; uses?: string[] } = {}): Violation[] {
   const file = relPath.replace(/\\/g, '/');
   const out: Violation[] = [];
   const toks = tokenize(source);
@@ -208,6 +208,9 @@ export function checkSource(relPath: string, source: string, opts: { capabilitie
   const familyMatch = /^games\/([^/]+)\//.exec(file);
   const familyContracts = familyMatch ? `games/${familyMatch[1]}/contracts` : '';
   const inFamilyContracts = familyContracts !== '' && under(file, familyContracts);
+  // Contracts of other families this family declares in games/<family>/family.json "uses".
+  const usedContracts = familyMatch ? (opts.uses ?? []).map((u) => `games/${u}/contracts`) : [];
+  const inUsedContracts = (path: string) => usedContracts.some((d) => under(path, d));
   const inKernel = under(file, 'src/kernel');
   const inSdk = under(file, 'src/sdk');
   const inPlatform = under(file, 'src/platform');
@@ -239,7 +242,7 @@ export function checkSource(relPath: string, source: string, opts: { capabilitie
           continue;
         }
       }
-      if (!bare && familyContracts && under(path, familyContracts)) continue;
+      if (!bare && familyContracts && (under(path, familyContracts) || inUsedContracts(path))) continue;
       if (!bare && path === SDK_RENDER) {
         if (!(opts.capabilities ?? []).includes('render')) {
           add(line, specifier, 'render-capability',
@@ -249,10 +252,10 @@ export function checkSource(relPath: string, source: string, opts: { capabilitie
       }
       add(line, specifier, 'plugin-isolation',
         `Plugins may only import their own folder, the SDK entry point (${relFrom(file, SDK_INDEX)})` +
-        `${familyContracts ? `, their family's contracts (${familyContracts}/)` : ''} or, with the "render" capability, ${relFrom(file, SDK_RENDER)}. ` +
+        `${familyContracts ? `, their family's contracts (${familyContracts}/), contracts of families listed in games/${familyMatch![1]}/family.json "uses"` : ''} or, with the "render" capability, ${relFrom(file, SDK_RENDER)}. ` +
         `Import "${specifier}" from the SDK entry point instead.`);
     } else if (inFamilyContracts) {
-      if (bare || !(path === SDK_INDEX || under(path, familyContracts))) {
+      if (bare || !(path === SDK_INDEX || under(path, familyContracts) || inUsedContracts(path))) {
         add(line, specifier, 'family-contracts',
           `Game contracts may only import the SDK entry point (${relFrom(file, SDK_INDEX)}) and other contracts of the same family; "${specifier}" is not allowed.`);
       }
@@ -311,12 +314,25 @@ function readCapabilities(root: string, pluginDir: string): string[] {
   }
 }
 
+function readUses(root: string, family: string): string[] {
+  const p = join(root, 'games', family, 'family.json');
+  if (!existsSync(p)) return [];
+  try {
+    const f = JSON.parse(readFileSync(p, 'utf8')) as { uses?: unknown };
+    return Array.isArray(f.uses) ? f.uses.filter((u): u is string => typeof u === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
 export function checkRepo(root: string): Violation[] {
   const out: Violation[] = [];
   for (const rel of listSourceFiles(root)) {
     const m = /^(?:src\/plugins|games\/[^/]+\/plugins)\/[^/]+\//.exec(rel);
     const capabilities = m ? readCapabilities(root, m[0].slice(0, -1)) : [];
-    out.push(...checkSource(rel, readFileSync(join(root, rel), 'utf8'), { capabilities }));
+    const fam = /^games\/([^/]+)\//.exec(rel);
+    const uses = fam ? readUses(root, fam[1]!) : [];
+    out.push(...checkSource(rel, readFileSync(join(root, rel), 'utf8'), { capabilities, uses }));
   }
   return out;
 }

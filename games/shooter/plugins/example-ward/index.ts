@@ -1,4 +1,5 @@
-import { DamageModifiers, Health, PickupEffects, defineComponent, definePlugin } from '../../../../src/sdk/index.ts';
+import { Health, defineComponent, definePlugin } from '../../../../src/sdk/index.ts';
+import { DamageModifiers, PickupEffects } from '../../contracts/shooter.ts';
 
 interface Ward {
   expires: number;

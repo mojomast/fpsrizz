@@ -1,5 +1,6 @@
 import type { EntityId, Params } from '../../../../src/sdk/index.ts';
-import { Flow, Health, Maps, Player, Prefabs, Transform, Visual, World, defineComponent, definePlugin, makeTransform, vNumber, yawDirX, yawDirZ } from '../../../../src/sdk/index.ts';
+import { Flow, Health, Maps, Player, Prefabs, Transform, Visual, defineComponent, definePlugin, makeTransform, vNumber, yawDirX, yawDirZ } from '../../../../src/sdk/index.ts';
+import { World } from '../../contracts/shooter.ts';
 
 interface Guard {
   range: number;

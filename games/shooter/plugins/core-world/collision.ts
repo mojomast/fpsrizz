@@ -1,5 +1,5 @@
 import { SpatialHash } from '../../../../src/sdk/index.ts';
-import type { RayHit } from '../../../../src/sdk/index.ts';
+import type { RayHit } from '../../contracts/shooter.ts';
 
 export interface Box {
   id: string;

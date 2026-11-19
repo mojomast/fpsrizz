@@ -1,5 +1,7 @@
-import type { AmmoDef, ContentKind, Json, Params, PickupDef, Prefab, Reporter, ValidationContext, WeaponDef } from '../../../../src/sdk/index.ts';
-import { AmmoTypes, AttackBehaviors, PickupEffects, Pickups, Prefabs, Transform, Visual, Pickup, Weapons, isObject, makeTransform, vBool, vId, vJson, vNumber, vObject, vString } from '../../../../src/sdk/index.ts';
+import type { ContentKind, Json, Params, Prefab, Reporter, ValidationContext } from '../../../../src/sdk/index.ts';
+import type { AmmoDef, PickupDef, WeaponDef } from '../../contracts/shooter.ts';
+import { Prefabs, Transform, Visual, isObject, makeTransform, vBool, vId, vJson, vNumber, vObject, vString } from '../../../../src/sdk/index.ts';
+import { AmmoTypes, AttackBehaviors, PickupEffects, Pickups, Pickup, Weapons } from '../../contracts/shooter.ts';
 
 const key = (v: unknown, r: Reporter, fallback?: string): string | undefined => (v === undefined && fallback !== undefined ? fallback : vString(v, r, { max: 60, nonEmpty: fallback === undefined }));
 

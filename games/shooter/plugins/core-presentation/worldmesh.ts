@@ -1,4 +1,5 @@
-import type { DoorState, SessionContext, TriggerState, WorldDescription, WorldService } from '../../../../src/sdk/index.ts';
+import type { SessionContext, WorldDescription } from '../../../../src/sdk/index.ts';
+import type { DoorState, TriggerState, WorldService } from '../../contracts/shooter.ts';
 import { THREE } from '../../../../src/sdk/render.ts';
 import type { ThemeAssets } from './assets.ts';
 import { createQuadGeometry } from './quads.ts';

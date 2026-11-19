@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Enemy, Flow, Player, Transform, Visual, World } from '../src/sdk/index.ts';
+import { Flow, Player, Transform, Visual } from '../src/sdk/index.ts';
+import { Enemy, World } from '../games/shooter/contracts/shooter.ts';
 import type { HeadlessGame } from './helpers/game.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import stealthManifest from '../games/shooter/plugins/example-stealth/manifest.json' with { type: 'json' };

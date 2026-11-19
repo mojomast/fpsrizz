@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { DoorChanged, Intent, Interactions, ModeRole, Transform, TriggerFired, UseFailed, World, definePlugin, makeTransform } from '../src/sdk/index.ts';
-import type { CatalogEntry, DoorState, InteractionCandidate, SessionContext, TriggerState } from '../src/sdk/index.ts';
+import { Intent, ModeRole, Transform, definePlugin, makeTransform } from '../src/sdk/index.ts';
+import { DoorChanged, Interactions, TriggerFired, UseFailed, World } from '../games/shooter/contracts/shooter.ts';
+import type { CatalogEntry, SessionContext } from '../src/sdk/index.ts';
+import type { DoorState, InteractionCandidate, TriggerState } from '../games/shooter/contracts/shooter.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const map: CatalogEntry = {

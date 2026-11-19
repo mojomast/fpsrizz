@@ -1,4 +1,5 @@
-import { Collider, Died, Enemies, Flow, Health, Maps, ModeRole, Prefabs, Profile, Transform, World, definePlugin, spawnPrefab, yawOf } from '../../../../src/sdk/index.ts';
+import { Collider, Flow, Health, Maps, ModeRole, Prefabs, Profile, Transform, definePlugin, spawnPrefab, yawOf } from '../../../../src/sdk/index.ts';
+import { Died, Enemies, World } from '../../contracts/shooter.ts';
 import type { EntityId, SessionContext, SpawnDesc } from '../../../../src/sdk/index.ts';
 
 const ID = 'example/arena';

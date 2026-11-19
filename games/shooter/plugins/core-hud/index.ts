@@ -1,5 +1,6 @@
 import type { EntityId, SessionContext } from '../../../../src/sdk/index.ts';
-import { Damaged, Flow, Ui, Health, HudRole, Inventory, PickupCollected, Player, UseFailed, View, WeaponDry, WeaponRuntime, Weapons, AmmoTypes, definePlugin } from '../../../../src/sdk/index.ts';
+import { Flow, Ui, Health, HudRole, Inventory, Player, View, definePlugin } from '../../../../src/sdk/index.ts';
+import { Damaged, PickupCollected, UseFailed, WeaponDry, WeaponRuntime, Weapons, AmmoTypes } from '../../contracts/shooter.ts';
 import { HUD_CSS } from './styles.ts';
 
 const NOTICE_SECONDS = 2.5;

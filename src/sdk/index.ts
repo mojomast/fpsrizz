@@ -6,7 +6,6 @@ export * from './core.ts';
 export * from './static-asset.ts';
 export * from './dom-morph.ts';
 export * from './contracts/game.ts';
-export * from './contracts/shooter.ts';
 export * from './contracts/experience.ts';
 export * from './contracts/mechanics.ts';
 export * from './contracts/profile.ts';

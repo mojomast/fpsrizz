@@ -1,4 +1,5 @@
-import { Damaged, Flow, FlowEnded, Health, Inventory, PHASES, PickupCollected, SDK_COMPAT, SDK_VERSION, Ui, UseFailed, WeaponDry } from '../../src/sdk/index.ts';
+import { Flow, FlowEnded, Health, Inventory, PHASES, SDK_COMPAT, SDK_VERSION, Ui } from '../../src/sdk/index.ts';
+import { Damaged, PickupCollected, UseFailed, WeaponDry } from '../../games/shooter/contracts/shooter.ts';
 import type { FlowService } from '../../src/sdk/index.ts';
 import { PluginHost } from '../../src/kernel/host.ts';
 import type { Session } from '../../src/kernel/host.ts';

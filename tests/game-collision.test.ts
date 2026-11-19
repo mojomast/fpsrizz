@@ -6,7 +6,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { CollisionWorld } from '../games/shooter/plugins/core-world/collision.ts';
 import type { Box } from '../games/shooter/plugins/core-world/collision.ts';
-import { Collider, Damaged, DoorChanged, Health, Impact } from '../src/sdk/index.ts';
+import { Collider, Health } from '../src/sdk/index.ts';
+import { Damaged, DoorChanged, Impact } from '../games/shooter/contracts/shooter.ts';
 import type { Session } from '../src/kernel/host.ts';
 import {
   BOLT, DUMMY, FACE_EAST, HALL, HALL_WITH_GAP, OBJECTIVE_ROOMS, OBJECTIVE_TRIGGERS, OPEN_ROOM, PLAYER_RADIUS, RAIL,

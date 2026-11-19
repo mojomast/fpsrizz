@@ -4,7 +4,8 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Enemies, Maps, Weapons } from '../src/sdk/index.ts';
+import { Maps } from '../src/sdk/index.ts';
+import { Enemies, Weapons } from '../games/shooter/contracts/shooter.ts';
 import type { CatalogEntry } from '../src/sdk/index.ts';
 import type { HostError } from '../src/kernel/host.ts';
 import { codePlugin, hostFailure } from './helpers/host.ts';

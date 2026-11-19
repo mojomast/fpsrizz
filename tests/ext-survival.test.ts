@@ -2,7 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import type { HeadlessGame } from './helpers/game.ts';
-import { Combat, Enemies, Enemy, Flow, FlowEnded, Health, Maps, Pickup, Player, Transform, World } from '../src/sdk/index.ts';
+import { Flow, FlowEnded, Health, Maps, Player, Transform } from '../src/sdk/index.ts';
+import { Combat, Enemies, Enemy, Pickup, World } from '../games/shooter/contracts/shooter.ts';
 import type { EntityId, FlowResult } from '../src/sdk/index.ts';
 import manifest from '../games/shooter/plugins/example-survival/manifest.json' with { type: 'json' };
 

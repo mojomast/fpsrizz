@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Pickup, Player, Transform, World } from '../src/sdk/index.ts';
+import { Flow, Player, Transform } from '../src/sdk/index.ts';
+import { Pickup, World } from '../games/shooter/contracts/shooter.ts';
 import type { CatalogEntry } from '../src/sdk/index.ts';
 import keysManifest from '../games/shooter/plugins/example-keys/manifest.json' with { type: 'json' };
 import manifest from '../games/shooter/plugins/example-key-dungeon/manifest.json' with { type: 'json' };

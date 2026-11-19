@@ -4,7 +4,8 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { AttackFired, Collider, Damaged, DamageModifiers, Died, Enemy, FlowEnded, Health, Impact, Inventory, PickupCollected, Player, TriggerFired, UseFailed, definePlugin } from '../src/sdk/index.ts';
+import { Collider, FlowEnded, Health, Inventory, Player, definePlugin } from '../src/sdk/index.ts';
+import { AttackFired, Damaged, DamageModifiers, Died, Enemy, Impact, PickupCollected, TriggerFired, UseFailed } from '../games/shooter/contracts/shooter.ts';
 import type { CatalogEntry } from '../src/sdk/index.ts';
 import {
   DUMMY, FACE_EAST, FACE_NORTH, FACE_SOUTH, FACE_WEST, HALL, OBJECTIVE_ROOMS, OBJECTIVE_TRIGGERS, OPEN_ROOM,

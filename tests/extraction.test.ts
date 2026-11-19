@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Combat, Flow, Pickup, Player, Transform } from '../src/sdk/index.ts';
+import { Flow, Player, Transform } from '../src/sdk/index.ts';
+import { Combat, Pickup } from '../games/shooter/contracts/shooter.ts';
 import type { CatalogEntry } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import manifest from '../games/shooter/plugins/example-extraction/manifest.json' with { type: 'json' };

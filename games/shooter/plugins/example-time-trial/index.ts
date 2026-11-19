@@ -1,4 +1,5 @@
-import { Died, Enemy, Flow, Maps, ModeRole, Player, Prefabs, TriggerFired, UseFailed, World, definePlugin, spawnPrefab } from '../../../../src/sdk/index.ts';
+import { Flow, Maps, ModeRole, Player, Prefabs, definePlugin, spawnPrefab } from '../../../../src/sdk/index.ts';
+import { Died, Enemy, TriggerFired, UseFailed, World } from '../../contracts/shooter.ts';
 import type { SessionContext } from '../../../../src/sdk/index.ts';
 
 const ID = 'example/time-trial';

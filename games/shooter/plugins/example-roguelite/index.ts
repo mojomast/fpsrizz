@@ -1,4 +1,5 @@
-import { Combat, DamageModifiers, Died, Enemies, Flow, Health, Maps, ModeRole, Player, Prefabs, World, defineComponent, definePlugin, spawnPrefab } from '../../../../src/sdk/index.ts';
+import { Flow, Health, Maps, ModeRole, Player, Prefabs, defineComponent, definePlugin, spawnPrefab } from '../../../../src/sdk/index.ts';
+import { Combat, DamageModifiers, Died, Enemies, World } from '../../contracts/shooter.ts';
 import type { EntityId, SessionContext, SpawnDesc } from '../../../../src/sdk/index.ts';
 
 const MODE = 'example/roguelite';

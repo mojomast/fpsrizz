@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
-import { Enemies, Weapons, Maps, Pickups, Inventory, Player, Enemy } from '../src/sdk/index.ts';
+import { Maps, Inventory, Player } from '../src/sdk/index.ts';
+import { Enemies, Weapons, Pickups, Enemy } from '../games/shooter/contracts/shooter.ts';
 import manifest from '../games/shooter/plugins/example-pack/manifest.json' with { type: 'json' };
 import content from '../games/shooter/plugins/example-pack/content.json' with { type: 'json' };
 

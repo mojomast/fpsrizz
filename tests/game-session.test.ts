@@ -4,7 +4,8 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { AttackFired, Damaged, Died, DoorChanged, Enemy, EnemyAlerted, Health, Impact, Intent, Inventory, Player, WeaponDry, WeaponSwitched } from '../src/sdk/index.ts';
+import { Health, Intent, Inventory, Player } from '../src/sdk/index.ts';
+import { AttackFired, Damaged, Died, DoorChanged, Enemy, EnemyAlerted, Impact, WeaponDry, WeaponSwitched } from '../games/shooter/contracts/shooter.ts';
 import type { EventToken } from '../src/sdk/index.ts';
 import type { Session } from '../src/kernel/host.ts';
 import {

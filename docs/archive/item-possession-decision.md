@@ -54,7 +54,7 @@ Primary inspected implementation evidence:
 - [`story-adventure/validation.ts`](../../games/adventure/plugins/story-adventure/validation.ts): unique lists, item references, consumed-items requirement.
 - [`story-presentation/index.ts`](../../games/adventure/plugins/story-presentation/index.ts): inventory display order and action readiness.
 - [`contracts/adventure.ts`](../../games/adventure/contracts/adventure.ts), [`contracts/mechanics.ts`](../../src/sdk/contracts/mechanics.ts),
-  [`contracts/shooter.ts`](../../src/sdk/contracts/shooter.ts): public state, transaction and inventory shapes.
+  [`contracts/shooter.ts`](../../games/shooter/contracts/shooter.ts): public state, transaction and inventory shapes.
 - [`mechanics-resources/index.ts`](../../src/plugins/mechanics-resources/index.ts),
   [`verdant-game/index.ts`](../../games/verdant/plugins/verdant-game/index.ts): actual provider and working resource consumer.
 - [`keys-gates.test.ts`](../../tests/keys-gates.test.ts), [`key-dungeon.test.ts`](../../tests/key-dungeon.test.ts),

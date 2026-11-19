@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Maps, ModeRole, Prefabs, World } from '../src/sdk/index.ts';
+import { Maps, ModeRole, Prefabs } from '../src/sdk/index.ts';
+import { World } from '../games/shooter/contracts/shooter.ts';
 import type { WorldDescription } from '../src/sdk/index.ts';
 import generatorManifest from '../src/plugins/dungeon-generator/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';

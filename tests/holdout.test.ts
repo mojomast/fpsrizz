@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Combat, Enemies, Enemy, Flow, Health, Player, Transform, World } from '../src/sdk/index.ts';
+import { Flow, Health, Player, Transform } from '../src/sdk/index.ts';
+import { Combat, Enemies, Enemy, World } from '../games/shooter/contracts/shooter.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import manifest from '../games/shooter/plugins/example-holdout/manifest.json' with { type: 'json' };
 

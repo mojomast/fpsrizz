@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkSource, checkRepo } from '../scripts/boundaries.ts';
 
-type Case = { name: string; file: string; src: string; caps?: string[]; rules: string[] };
+type Case = { name: string; file: string; src: string; caps?: string[]; uses?: string[]; rules: string[] };
 
 const P = 'src/plugins/alpha/index.ts';
 const cases: Case[] = [
@@ -68,6 +68,9 @@ const cases: Case[] = [
   { name: 'game plugin -> sdk index ok', file: 'games/sky/plugins/sky-game/index.ts', src: `import { x } from '../../../../src/sdk/index.ts';`, rules: [] },
   { name: 'game plugin -> own family contracts ok', file: 'games/sky/plugins/sky-game/index.ts', src: `import { Sky } from '../../contracts/sky.ts';`, rules: [] },
   { name: 'game plugin -> another family contracts denied', file: 'games/sky/plugins/sky-game/index.ts', src: `import { Ember } from '../../../ember/contracts/ember.ts';`, rules: ['plugin-isolation'] },
+  { name: 'game plugin -> family listed in family.json "uses" ok', file: 'games/sky/plugins/sky-game/index.ts', src: `import { Ember } from '../../../ember/contracts/ember.ts';`, uses: ['ember'], rules: [] },
+  { name: 'game contracts -> used family contracts ok', file: 'games/sky/contracts/sky.ts', src: `import type { Ember } from '../../ember/contracts/ember.ts';`, uses: ['ember'], rules: [] },
+  { name: 'game plugin -> unlisted family still denied with uses', file: 'games/sky/plugins/sky-game/index.ts', src: `import { V } from '../../../verdant/contracts/verdant.ts';`, uses: ['ember'], rules: ['plugin-isolation'] },
   { name: 'game plugin -> sibling plugin denied', file: 'games/sky/plugins/sky-game/index.ts', src: `import { x } from '../sky-presentation/index.ts';`, rules: ['plugin-isolation'] },
   { name: 'game plugin -> render with capability ok', file: 'games/sky/plugins/sky-game/index.ts', src: `import { r } from '../../../../src/sdk/render.ts';`, caps: ['render'], rules: [] },
   { name: 'game contracts -> sdk index ok', file: 'games/sky/contracts/sky.ts', src: `import { defineService } from '../../../src/sdk/index.ts';`, rules: [] },
@@ -82,7 +85,7 @@ const cases: Case[] = [
 describe('boundaries: checkSource', () => {
   for (const c of cases) {
     it(c.name, () => {
-      const v = checkSource(c.file, c.src, { capabilities: c.caps ?? [] });
+      const v = checkSource(c.file, c.src, { capabilities: c.caps ?? [], uses: c.uses ?? [] });
       assert.deepEqual(v.map((x) => x.rule), c.rules, JSON.stringify(v));
     });
   }

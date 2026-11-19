@@ -1,4 +1,5 @@
-import { Audio, ThemeRole, View, ViewModes, World, definePlugin, Impact } from '../../../../src/sdk/index.ts';
+import { Audio, ThemeRole, View, ViewModes, definePlugin } from '../../../../src/sdk/index.ts';
+import { World, Impact } from '../../contracts/shooter.ts';
 import { ActorRenderers, Render, THREE } from '../../../../src/sdk/render.ts';
 import { createActors, billboardRenderer, DEFAULT_RENDERER_ID } from './actors.ts';
 import { installAudioHooks } from './audiohooks.ts';

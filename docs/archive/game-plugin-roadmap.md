@@ -38,7 +38,7 @@ below retain the broader recommendations and acceptance criteria, not a claim th
 
 - The fixed-step host, controller/camera/mode roles, input actions, prefab and behavior registries, content kinds,
   validation, deterministic RNG, events and owned lifetimes already provide a useful composition foundation. See
-  `src/sdk/contracts/shooter.ts`, `src/app/catalog.ts` and `docs/guide/plugins.md`.
+  `games/shooter/contracts/shooter.ts`, `src/app/catalog.ts` and `docs/guide/plugins.md`.
 - Existing maps, `Transform`, collision, world queries, AI and combat largely operate on the XZ plane. A pitched
   perspective camera is possible, but stock attacks still aim on that plane. A different map format alone cannot
   add stacked floors, jumping or height-aware collisions. See `games/shooter/plugins/core-world/` and `docs/reference/architecture.md`.
@@ -196,7 +196,7 @@ To extend this to additional assets and games:
    Search Assetrizz's catalog at authoring time; pin the source revision and retain each file's path, hash, license and
    provenance. Include only the assets that game uses, not the entire library.
 2. Adapt the selected PNGs to Bulkhead's **synchronous painter** theme interface. Today
-   `src/sdk/contracts/shooter.ts` defines theme textures as painters, and `src/platform/render/service.ts` creates
+   `games/shooter/contracts/shooter.ts` defines theme textures as painters, and `src/platform/render/service.ts` creates
    scoped textures from them: putting PNGs in `public/` alone does not wire them into a theme. A reproducible
    build-time conversion to painters is one possible first approach; an asynchronous image API is a larger alternative.
 3. Make a selectable Assetrizz-backed theme variant and preset, keeping gameplay references as semantic theme keys.

@@ -1,5 +1,7 @@
-import type { AiBehavior, AiFn, ContentKind, EnemyDef, EnemyService, EntityId, Json, Params, Prefab, Reporter, SessionContext } from '../../../../src/sdk/index.ts';
-import { AiBehaviors, AttackBehaviors, Collider, Combat, Damaged, DamageModifiers, Died, Enemies, Enemy, EnemyAi, EnemyAlerted, Health, Player, Prefabs, Transform, TurnControl, Visual, World, definePlugin, isObject, makeTransform, vId, vJson, vNumber, vObject, vString, yawOf } from '../../../../src/sdk/index.ts';
+import type { ContentKind, EntityId, Json, Params, Prefab, Reporter, SessionContext } from '../../../../src/sdk/index.ts';
+import type { AiBehavior, AiFn, EnemyDef, EnemyService } from '../../contracts/shooter.ts';
+import { Collider, Health, Player, Prefabs, Transform, TurnControl, Visual, definePlugin, isObject, makeTransform, vId, vJson, vNumber, vObject, vString, yawOf } from '../../../../src/sdk/index.ts';
+import { AiBehaviors, AttackBehaviors, Combat, Damaged, DamageModifiers, Died, Enemies, Enemy, EnemyAi, EnemyAlerted, World } from '../../contracts/shooter.ts';
 
 const PATH_INTERVAL = 0.4;
 const PAIN_SECONDS = 0.28;

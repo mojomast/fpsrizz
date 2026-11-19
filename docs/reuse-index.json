@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3",
+  "sourceDigest": "8ceece9ab0705c8d799d8037f2c467ce5113797088ae58575e2fea7fcb41789b",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -13428,74 +13428,13 @@
       ]
     },
     {
-      "id": "sdk/AiBehaviors",
-      "type": "contract",
-      "name": "AiBehaviors",
-      "scope": "contract",
-      "summary": "Public SDK value: ai-behavior",
-      "importFrom": "src/sdk/index.ts",
-      "token": "ai-behavior",
-      "source": "src/sdk/contracts/shooter.ts:534",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "AiBehaviors",
-        "ai-behavior"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": [
-        "cinder/game",
-        "core/enemies"
-      ]
-    },
-    {
-      "id": "sdk/AmmoTypes",
-      "type": "contract",
-      "name": "AmmoTypes",
-      "scope": "contract",
-      "summary": "Public SDK value: ammo",
-      "importFrom": "src/sdk/index.ts",
-      "token": "ammo",
-      "source": "src/sdk/contracts/shooter.ts:431",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "AmmoTypes",
-        "ammo"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/combat"
-      ],
-      "recipes": [],
-      "implementations": [
-        "cinder/content",
-        "core/content",
-        "example/tactical-pack"
-      ]
-    },
-    {
       "id": "sdk/angleDelta",
       "type": "contract",
       "name": "angleDelta",
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:732",
+      "source": "src/sdk/contracts/game.ts:416",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13591,63 +13530,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/AttackBehaviors",
-      "type": "contract",
-      "name": "AttackBehaviors",
-      "scope": "contract",
-      "summary": "Public SDK value: attack-behavior",
-      "importFrom": "src/sdk/index.ts",
-      "token": "attack-behavior",
-      "source": "src/sdk/contracts/shooter.ts:390",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "AttackBehaviors",
-        "attack-behavior"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/combat"
-      ],
-      "recipes": [],
-      "implementations": [
-        "core/combat",
-        "example/ricochet"
-      ]
-    },
-    {
-      "id": "sdk/AttackFired",
-      "type": "contract",
-      "name": "AttackFired",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/attack-fired",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/attack-fired",
-      "source": "src/sdk/contracts/shooter.ts:359",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "AttackFired",
-        "sdk/attack-fired"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
       "id": "sdk/Audio",
       "type": "contract",
       "name": "Audio",
@@ -13655,7 +13537,7 @@
       "summary": "Public SDK value: sdk/audio",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/audio",
-      "source": "src/sdk/contracts/shooter.ts:645",
+      "source": "src/sdk/contracts/game.ts:329",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -13783,7 +13665,7 @@
       "summary": "Public SDK value: sdk/camera",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/camera",
-      "source": "src/sdk/contracts/shooter.ts:667",
+      "source": "src/sdk/contracts/game.ts:351",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14097,7 +13979,7 @@
       "summary": "Public SDK value: sdk/collider",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/collider",
-      "source": "src/sdk/contracts/shooter.ts:36",
+      "source": "src/sdk/contracts/game.ts:36",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14136,34 +14018,6 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/Combat",
-      "type": "contract",
-      "name": "Combat",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/combat",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/combat",
-      "source": "src/sdk/contracts/shooter.ts:479",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Combat",
-        "sdk/combat"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/combat"
-      ],
       "recipes": [],
       "implementations": []
     },
@@ -14339,7 +14193,7 @@
       "summary": "Public SDK value: sdk/controller",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/controller",
-      "source": "src/sdk/contracts/shooter.ts:665",
+      "source": "src/sdk/contracts/game.ts:349",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -14637,97 +14491,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/Damaged",
-      "type": "contract",
-      "name": "Damaged",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/damaged",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/damaged",
-      "source": "src/sdk/contracts/shooter.ts:357",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Damaged",
-        "sdk/damaged"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/combat"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/DamageModifiers",
-      "type": "contract",
-      "name": "DamageModifiers",
-      "scope": "contract",
-      "summary": "Public SDK value: damage-modifier",
-      "importFrom": "src/sdk/index.ts",
-      "token": "damage-modifier",
-      "source": "src/sdk/contracts/shooter.ts:439",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "DamageModifiers",
-        "damage-modifier"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "cinder/game",
-        "core/combat",
-        "example/ward"
-      ],
-      "recipes": [],
-      "implementations": [
-        "cinder/game",
-        "core/enemies",
-        "example/roguelite",
-        "example/ward"
-      ]
-    },
-    {
-      "id": "sdk/DealDamage",
-      "type": "contract",
-      "name": "DealDamage",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/deal-damage",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/deal-damage",
-      "source": "src/sdk/contracts/shooter.ts:355",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "DealDamage",
-        "sdk/deal-damage"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/combat"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
       "id": "sdk/debugDraw",
       "type": "contract",
       "name": "debugDraw",
@@ -14970,170 +14733,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/Died",
-      "type": "contract",
-      "name": "Died",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/died",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/died",
-      "source": "src/sdk/contracts/shooter.ts:358",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Died",
-        "sdk/died"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/combat"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/DoorChanged",
-      "type": "contract",
-      "name": "DoorChanged",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/door-changed",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/door-changed",
-      "source": "src/sdk/contracts/shooter.ts:312",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "DoorChanged",
-        "sdk/door-changed"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/world"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/Enemies",
-      "type": "contract",
-      "name": "Enemies",
-      "scope": "contract",
-      "summary": "Public SDK value: enemy",
-      "importFrom": "src/sdk/index.ts",
-      "token": "enemy",
-      "source": "src/sdk/contracts/shooter.ts:525",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Enemies",
-        "enemy"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": [
-        "cinder/content",
-        "core/content",
-        "example/pack"
-      ]
-    },
-    {
-      "id": "sdk/Enemy",
-      "type": "contract",
-      "name": "Enemy",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/enemy",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/enemy",
-      "source": "src/sdk/contracts/shooter.ts:105",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Enemy",
-        "sdk/enemy"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/EnemyAi",
-      "type": "contract",
-      "name": "EnemyAi",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/enemies",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/enemies",
-      "source": "src/sdk/contracts/shooter.ts:553",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "EnemyAi",
-        "sdk/enemies"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/EnemyAlerted",
-      "type": "contract",
-      "name": "EnemyAlerted",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/enemy-alerted",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/enemy-alerted",
-      "source": "src/sdk/contracts/shooter.ts:365",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "EnemyAlerted",
-        "sdk/enemy-alerted"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
       "id": "sdk/ExperienceRole",
       "type": "contract",
       "name": "ExperienceRole",
@@ -15188,7 +14787,7 @@
       "summary": "Public SDK value: sdk/flow",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/flow",
-      "source": "src/sdk/contracts/shooter.ts:636",
+      "source": "src/sdk/contracts/game.ts:320",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15214,7 +14813,7 @@
       "summary": "Public SDK value: sdk/flow-ended",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/flow-ended",
-      "source": "src/sdk/contracts/shooter.ts:637",
+      "source": "src/sdk/contracts/game.ts:321",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15364,7 +14963,7 @@
       "summary": "Public SDK value: sdk/health",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/health",
-      "source": "src/sdk/contracts/shooter.ts:43",
+      "source": "src/sdk/contracts/game.ts:43",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15478,7 +15077,7 @@
       "summary": "Public SDK value: sdk/hud",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/hud",
-      "source": "src/sdk/contracts/shooter.ts:671",
+      "source": "src/sdk/contracts/game.ts:355",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15503,32 +15102,6 @@
         "example/hud",
         "hollowmere/presentation"
       ]
-    },
-    {
-      "id": "sdk/Impact",
-      "type": "contract",
-      "name": "Impact",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/impact",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/impact",
-      "source": "src/sdk/contracts/shooter.ts:361",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Impact",
-        "sdk/impact"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
     },
     {
       "id": "sdk/importLdtk",
@@ -15590,7 +15163,7 @@
       "summary": "Public SDK value: sdk/input",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/input",
-      "source": "src/sdk/contracts/shooter.ts:585",
+      "source": "src/sdk/contracts/game.ts:269",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15620,7 +15193,7 @@
       "summary": "Public SDK value: input-action",
       "importFrom": "src/sdk/index.ts",
       "token": "input-action",
-      "source": "src/sdk/contracts/shooter.ts:567",
+      "source": "src/sdk/contracts/game.ts:251",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15711,7 +15284,7 @@
       "summary": "Public SDK value: sdk/input-contexts",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/input-contexts",
-      "source": "src/sdk/contracts/shooter.ts:611",
+      "source": "src/sdk/contracts/game.ts:295",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15741,7 +15314,7 @@
       "summary": "Public SDK value: sdk/intent",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/intent",
-      "source": "src/sdk/contracts/shooter.ts:60",
+      "source": "src/sdk/contracts/game.ts:60",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -15756,35 +15329,6 @@
         "Rendering SDK imports require the render manifest capability."
       ],
       "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/Interactions",
-      "type": "contract",
-      "name": "Interactions",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/interactions",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/interactions",
-      "source": "src/sdk/contracts/shooter.ts:293",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Interactions",
-        "sdk/interactions"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/world",
-        "example/keys"
-      ],
       "recipes": [],
       "implementations": []
     },
@@ -15822,7 +15366,7 @@
       "summary": "Public SDK value: sdk/inventory",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/inventory",
-      "source": "src/sdk/contracts/shooter.ts:84",
+      "source": "src/sdk/contracts/game.ts:84",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16098,7 +15642,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:738",
+      "source": "src/sdk/contracts/game.ts:422",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16123,7 +15667,7 @@
       "summary": "Public SDK value: map-format",
       "importFrom": "src/sdk/index.ts",
       "token": "map-format",
-      "source": "src/sdk/contracts/shooter.ts:310",
+      "source": "src/sdk/contracts/game.ts:215",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16155,7 +15699,7 @@
       "summary": "Public SDK value: map",
       "importFrom": "src/sdk/index.ts",
       "token": "map",
-      "source": "src/sdk/contracts/shooter.ts:303",
+      "source": "src/sdk/contracts/game.ts:208",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16515,7 +16059,7 @@
       "summary": "Public SDK value: sdk/mode",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/mode",
-      "source": "src/sdk/contracts/shooter.ts:669",
+      "source": "src/sdk/contracts/game.ts:353",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16947,127 +16491,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/Pickup",
-      "type": "contract",
-      "name": "Pickup",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/pickup",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/pickup",
-      "source": "src/sdk/contracts/shooter.ts:110",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Pickup",
-        "sdk/pickup"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/PickupCollected",
-      "type": "contract",
-      "name": "PickupCollected",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/pickup-collected",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/pickup-collected",
-      "source": "src/sdk/contracts/shooter.ts:364",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "PickupCollected",
-        "sdk/pickup-collected"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/PickupEffects",
-      "type": "contract",
-      "name": "PickupEffects",
-      "scope": "contract",
-      "summary": "Public SDK value: pickup-effect",
-      "importFrom": "src/sdk/index.ts",
-      "token": "pickup-effect",
-      "source": "src/sdk/contracts/shooter.ts:492",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "PickupEffects",
-        "pickup-effect"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/combat",
-        "example/keys",
-        "example/ward"
-      ],
-      "recipes": [],
-      "implementations": [
-        "core/combat",
-        "example/extraction",
-        "example/keys",
-        "example/ward"
-      ]
-    },
-    {
-      "id": "sdk/Pickups",
-      "type": "contract",
-      "name": "Pickups",
-      "scope": "contract",
-      "summary": "Public SDK value: pickup",
-      "importFrom": "src/sdk/index.ts",
-      "token": "pickup",
-      "source": "src/sdk/contracts/shooter.ts:502",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Pickups",
-        "pickup"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": [
-        "cinder/content",
-        "core/content",
-        "example/adventure-pack",
-        "example/extraction-map",
-        "example/key-dungeon",
-        "example/pack",
-        "example/tactical-pack"
-      ]
-    },
-    {
       "id": "sdk/planarToTransform3D",
       "type": "contract",
       "name": "planarToTransform3D",
@@ -17182,7 +16605,7 @@
       "summary": "Public SDK value: sdk/player",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/player",
-      "source": "src/sdk/contracts/shooter.ts:70",
+      "source": "src/sdk/contracts/game.ts:70",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17208,7 +16631,7 @@
       "summary": "Public SDK value: sdk/player-avatar",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/player-avatar",
-      "source": "src/sdk/contracts/shooter.ts:140",
+      "source": "src/sdk/contracts/game.ts:114",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17237,7 +16660,7 @@
       "summary": "Public SDK value: prefab",
       "importFrom": "src/sdk/index.ts",
       "token": "prefab",
-      "source": "src/sdk/contracts/shooter.ts:332",
+      "source": "src/sdk/contracts/game.ts:232",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18410,7 +17833,7 @@
       "summary": "Public SDK value: sdk/settings",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/settings",
-      "source": "src/sdk/contracts/shooter.ts:643",
+      "source": "src/sdk/contracts/game.ts:327",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18585,7 +18008,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:335",
+      "source": "src/sdk/contracts/game.ts:235",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18686,7 +18109,7 @@
       "summary": "Public SDK value: sdk/theme",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/theme",
-      "source": "src/sdk/contracts/shooter.ts:720",
+      "source": "src/sdk/contracts/game.ts:404",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18772,7 +18195,7 @@
       "summary": "Public SDK value: sdk/transform",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/transform",
-      "source": "src/sdk/contracts/shooter.ts:26",
+      "source": "src/sdk/contracts/game.ts:26",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18848,34 +18271,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/TriggerFired",
-      "type": "contract",
-      "name": "TriggerFired",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/trigger-fired",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/trigger-fired",
-      "source": "src/sdk/contracts/shooter.ts:313",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "TriggerFired",
-        "sdk/trigger-fired"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/world"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
       "id": "sdk/TurnControl",
       "type": "contract",
       "name": "TurnControl",
@@ -18911,7 +18306,7 @@
       "summary": "Public SDK value: sdk/ui",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/ui",
-      "source": "src/sdk/contracts/shooter.ts:654",
+      "source": "src/sdk/contracts/game.ts:338",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -18935,32 +18330,6 @@
       "recipes": [
         "recipe/owned-3d-presentation"
       ],
-      "implementations": []
-    },
-    {
-      "id": "sdk/UseFailed",
-      "type": "contract",
-      "name": "UseFailed",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/use-failed",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/use-failed",
-      "source": "src/sdk/contracts/shooter.ts:315",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "UseFailed",
-        "sdk/use-failed"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
       "implementations": []
     },
     {
@@ -19139,7 +18508,7 @@
       "summary": "Public SDK value: sdk/view",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/view",
-      "source": "src/sdk/contracts/shooter.ts:685",
+      "source": "src/sdk/contracts/game.ts:369",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -19229,7 +18598,7 @@
       "summary": "Public SDK value: sdk/visual",
       "importFrom": "src/sdk/index.ts",
       "token": "sdk/visual",
-      "source": "src/sdk/contracts/shooter.ts:130",
+      "source": "src/sdk/contracts/game.ts:104",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -19368,148 +18737,6 @@
       "implementations": []
     },
     {
-      "id": "sdk/WeaponDry",
-      "type": "contract",
-      "name": "WeaponDry",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/weapon-dry",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/weapon-dry",
-      "source": "src/sdk/contracts/shooter.ts:363",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "WeaponDry",
-        "sdk/weapon-dry"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/WeaponRuntime",
-      "type": "contract",
-      "name": "WeaponRuntime",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/weapon-runtime",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/weapon-runtime",
-      "source": "src/sdk/contracts/shooter.ts:91",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "WeaponRuntime",
-        "sdk/weapon-runtime"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/Weapons",
-      "type": "contract",
-      "name": "Weapons",
-      "scope": "contract",
-      "summary": "Public SDK value: weapon",
-      "importFrom": "src/sdk/index.ts",
-      "token": "weapon",
-      "source": "src/sdk/contracts/shooter.ts:423",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "Weapons",
-        "weapon"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/combat"
-      ],
-      "recipes": [],
-      "implementations": [
-        "cinder/content",
-        "core/content",
-        "example/pack",
-        "example/ricochet",
-        "example/tactical-pack"
-      ]
-    },
-    {
-      "id": "sdk/WeaponSwitched",
-      "type": "contract",
-      "name": "WeaponSwitched",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/weapon-switched",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/weapon-switched",
-      "source": "src/sdk/contracts/shooter.ts:362",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "WeaponSwitched",
-        "sdk/weapon-switched"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [],
-      "recipes": [],
-      "implementations": []
-    },
-    {
-      "id": "sdk/World",
-      "type": "contract",
-      "name": "World",
-      "scope": "contract",
-      "summary": "Public SDK value: sdk/world",
-      "importFrom": "src/sdk/index.ts",
-      "token": "sdk/world",
-      "source": "src/sdk/contracts/shooter.ts:271",
-      "docs": [
-        "docs/guide/plugins.md"
-      ],
-      "examples": [],
-      "tests": [],
-      "keywords": [
-        "World",
-        "sdk/world"
-      ],
-      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
-      "limitations": [
-        "Rendering SDK imports require the render manifest capability."
-      ],
-      "documentedBy": [
-        "core/world",
-        "example/dash-controller",
-        "example/keys"
-      ],
-      "recipes": [],
-      "implementations": []
-    },
-    {
       "id": "sdk/worldPose",
       "type": "contract",
       "name": "worldPose",
@@ -19542,7 +18769,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:727",
+      "source": "src/sdk/contracts/game.ts:411",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -19566,7 +18793,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:728",
+      "source": "src/sdk/contracts/game.ts:412",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -19590,7 +18817,7 @@
       "scope": "contract",
       "summary": "Public helper/class",
       "importFrom": "src/sdk/index.ts",
-      "source": "src/sdk/contracts/shooter.ts:730",
+      "source": "src/sdk/contracts/game.ts:414",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -20443,6 +19670,806 @@
         "Only plugins of the sandbox family may import it (scripts/boundaries.ts)."
       ],
       "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/AiBehaviors",
+      "type": "contract",
+      "name": "AiBehaviors",
+      "scope": "contract",
+      "summary": "Game-family contract value: ai-behavior",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "ai-behavior",
+      "source": "games/shooter/contracts/shooter.ts:304",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AiBehaviors",
+        "shooter",
+        "ai-behavior"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": [
+        "cinder/game",
+        "core/enemies"
+      ]
+    },
+    {
+      "id": "games/shooter/AmmoTypes",
+      "type": "contract",
+      "name": "AmmoTypes",
+      "scope": "contract",
+      "summary": "Game-family contract value: ammo",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "ammo",
+      "source": "games/shooter/contracts/shooter.ts:201",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AmmoTypes",
+        "shooter",
+        "ammo"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/combat"
+      ],
+      "recipes": [],
+      "implementations": [
+        "cinder/content",
+        "core/content",
+        "example/tactical-pack"
+      ]
+    },
+    {
+      "id": "games/shooter/AttackBehaviors",
+      "type": "contract",
+      "name": "AttackBehaviors",
+      "scope": "contract",
+      "summary": "Game-family contract value: attack-behavior",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "attack-behavior",
+      "source": "games/shooter/contracts/shooter.ts:160",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AttackBehaviors",
+        "shooter",
+        "attack-behavior"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/combat"
+      ],
+      "recipes": [],
+      "implementations": [
+        "core/combat",
+        "example/ricochet"
+      ]
+    },
+    {
+      "id": "games/shooter/AttackFired",
+      "type": "contract",
+      "name": "AttackFired",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/attack-fired",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/attack-fired",
+      "source": "games/shooter/contracts/shooter.ts:129",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "AttackFired",
+        "shooter",
+        "sdk/attack-fired"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/Combat",
+      "type": "contract",
+      "name": "Combat",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/combat",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/combat",
+      "source": "games/shooter/contracts/shooter.ts:249",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Combat",
+        "shooter",
+        "sdk/combat"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/combat"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/Damaged",
+      "type": "contract",
+      "name": "Damaged",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/damaged",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/damaged",
+      "source": "games/shooter/contracts/shooter.ts:127",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Damaged",
+        "shooter",
+        "sdk/damaged"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/combat"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/DamageModifiers",
+      "type": "contract",
+      "name": "DamageModifiers",
+      "scope": "contract",
+      "summary": "Game-family contract value: damage-modifier",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "damage-modifier",
+      "source": "games/shooter/contracts/shooter.ts:209",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "DamageModifiers",
+        "shooter",
+        "damage-modifier"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "cinder/game",
+        "core/combat",
+        "example/ward"
+      ],
+      "recipes": [],
+      "implementations": [
+        "cinder/game",
+        "core/enemies",
+        "example/roguelite",
+        "example/ward"
+      ]
+    },
+    {
+      "id": "games/shooter/DealDamage",
+      "type": "contract",
+      "name": "DealDamage",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/deal-damage",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/deal-damage",
+      "source": "games/shooter/contracts/shooter.ts:125",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "DealDamage",
+        "shooter",
+        "sdk/deal-damage"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/combat"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/Died",
+      "type": "contract",
+      "name": "Died",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/died",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/died",
+      "source": "games/shooter/contracts/shooter.ts:128",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Died",
+        "shooter",
+        "sdk/died"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/combat"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/DoorChanged",
+      "type": "contract",
+      "name": "DoorChanged",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/door-changed",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/door-changed",
+      "source": "games/shooter/contracts/shooter.ts:104",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "DoorChanged",
+        "shooter",
+        "sdk/door-changed"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/world"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/Enemies",
+      "type": "contract",
+      "name": "Enemies",
+      "scope": "contract",
+      "summary": "Game-family contract value: enemy",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "enemy",
+      "source": "games/shooter/contracts/shooter.ts:295",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Enemies",
+        "shooter",
+        "enemy"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": [
+        "cinder/content",
+        "core/content",
+        "example/pack"
+      ]
+    },
+    {
+      "id": "games/shooter/Enemy",
+      "type": "contract",
+      "name": "Enemy",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/enemy",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/enemy",
+      "source": "games/shooter/contracts/shooter.ts:28",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Enemy",
+        "shooter",
+        "sdk/enemy"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/EnemyAi",
+      "type": "contract",
+      "name": "EnemyAi",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/enemies",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/enemies",
+      "source": "games/shooter/contracts/shooter.ts:323",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "EnemyAi",
+        "shooter",
+        "sdk/enemies"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/EnemyAlerted",
+      "type": "contract",
+      "name": "EnemyAlerted",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/enemy-alerted",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/enemy-alerted",
+      "source": "games/shooter/contracts/shooter.ts:135",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "EnemyAlerted",
+        "shooter",
+        "sdk/enemy-alerted"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/Impact",
+      "type": "contract",
+      "name": "Impact",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/impact",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/impact",
+      "source": "games/shooter/contracts/shooter.ts:131",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Impact",
+        "shooter",
+        "sdk/impact"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/Interactions",
+      "type": "contract",
+      "name": "Interactions",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/interactions",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/interactions",
+      "source": "games/shooter/contracts/shooter.ts:102",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Interactions",
+        "shooter",
+        "sdk/interactions"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/world",
+        "example/keys"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/Pickup",
+      "type": "contract",
+      "name": "Pickup",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/pickup",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/pickup",
+      "source": "games/shooter/contracts/shooter.ts:33",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Pickup",
+        "shooter",
+        "sdk/pickup"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/PickupCollected",
+      "type": "contract",
+      "name": "PickupCollected",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/pickup-collected",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/pickup-collected",
+      "source": "games/shooter/contracts/shooter.ts:134",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PickupCollected",
+        "shooter",
+        "sdk/pickup-collected"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/PickupEffects",
+      "type": "contract",
+      "name": "PickupEffects",
+      "scope": "contract",
+      "summary": "Game-family contract value: pickup-effect",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "pickup-effect",
+      "source": "games/shooter/contracts/shooter.ts:262",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "PickupEffects",
+        "shooter",
+        "pickup-effect"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/combat",
+        "example/keys",
+        "example/ward"
+      ],
+      "recipes": [],
+      "implementations": [
+        "core/combat",
+        "example/extraction",
+        "example/keys",
+        "example/ward"
+      ]
+    },
+    {
+      "id": "games/shooter/Pickups",
+      "type": "contract",
+      "name": "Pickups",
+      "scope": "contract",
+      "summary": "Game-family contract value: pickup",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "pickup",
+      "source": "games/shooter/contracts/shooter.ts:272",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Pickups",
+        "shooter",
+        "pickup"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": [
+        "cinder/content",
+        "core/content",
+        "example/adventure-pack",
+        "example/extraction-map",
+        "example/key-dungeon",
+        "example/pack",
+        "example/tactical-pack"
+      ]
+    },
+    {
+      "id": "games/shooter/TriggerFired",
+      "type": "contract",
+      "name": "TriggerFired",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/trigger-fired",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/trigger-fired",
+      "source": "games/shooter/contracts/shooter.ts:105",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "TriggerFired",
+        "shooter",
+        "sdk/trigger-fired"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/world"
+      ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/UseFailed",
+      "type": "contract",
+      "name": "UseFailed",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/use-failed",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/use-failed",
+      "source": "games/shooter/contracts/shooter.ts:107",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "UseFailed",
+        "shooter",
+        "sdk/use-failed"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/WeaponDry",
+      "type": "contract",
+      "name": "WeaponDry",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/weapon-dry",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/weapon-dry",
+      "source": "games/shooter/contracts/shooter.ts:133",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "WeaponDry",
+        "shooter",
+        "sdk/weapon-dry"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/WeaponRuntime",
+      "type": "contract",
+      "name": "WeaponRuntime",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/weapon-runtime",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/weapon-runtime",
+      "source": "games/shooter/contracts/shooter.ts:14",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "WeaponRuntime",
+        "shooter",
+        "sdk/weapon-runtime"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/Weapons",
+      "type": "contract",
+      "name": "Weapons",
+      "scope": "contract",
+      "summary": "Game-family contract value: weapon",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "weapon",
+      "source": "games/shooter/contracts/shooter.ts:193",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "Weapons",
+        "shooter",
+        "weapon"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/combat"
+      ],
+      "recipes": [],
+      "implementations": [
+        "cinder/content",
+        "core/content",
+        "example/pack",
+        "example/ricochet",
+        "example/tactical-pack"
+      ]
+    },
+    {
+      "id": "games/shooter/WeaponSwitched",
+      "type": "contract",
+      "name": "WeaponSwitched",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/weapon-switched",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/weapon-switched",
+      "source": "games/shooter/contracts/shooter.ts:132",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "WeaponSwitched",
+        "shooter",
+        "sdk/weapon-switched"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "games/shooter/World",
+      "type": "contract",
+      "name": "World",
+      "scope": "contract",
+      "summary": "Game-family contract value: sdk/world",
+      "importFrom": "games/shooter/contracts/shooter.ts",
+      "token": "sdk/world",
+      "source": "games/shooter/contracts/shooter.ts:80",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "World",
+        "shooter",
+        "sdk/world"
+      ],
+      "useWhen": "Game-specific contract of the shooter family; plugins in games/shooter/ import it directly. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Only plugins of the shooter family may import it (scripts/boundaries.ts)."
+      ],
+      "documentedBy": [
+        "core/world",
+        "example/dash-controller",
+        "example/keys"
+      ],
       "recipes": [],
       "implementations": []
     },

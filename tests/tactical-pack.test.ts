@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Flow, Inventory, Player, Transform, WeaponRuntime, World } from '../src/sdk/index.ts';
+import { Flow, Inventory, Player, Transform } from '../src/sdk/index.ts';
+import { WeaponRuntime, World } from '../games/shooter/contracts/shooter.ts';
 import manifest from '../games/shooter/plugins/example-tactical-pack/manifest.json' with { type: 'json' };
 import content from '../games/shooter/plugins/example-tactical-pack/content.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';

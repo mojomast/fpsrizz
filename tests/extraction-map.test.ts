@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Pickup, Player, Transform } from '../src/sdk/index.ts';
+import { Flow, Player, Transform } from '../src/sdk/index.ts';
+import { Pickup } from '../games/shooter/contracts/shooter.ts';
 import extraction from '../games/shooter/plugins/example-extraction/manifest.json' with { type: 'json' };
 import manifest from '../games/shooter/plugins/example-extraction-map/manifest.json' with { type: 'json' };
 import content from '../games/shooter/plugins/example-extraction-map/content.json' with { type: 'json' };

@@ -36,7 +36,7 @@ Cross-family guides: [ten-game portfolio](../docs/games/ten-game-portfolio.md) a
 [portfolio resource games](../docs/games/portfolio-resource-games.md).
 
 What stays in `src/`: shared mechanics (`mechanics-*`), presentation (`presentation-*`), themes (`theme-*`, used by
-several families) and `dungeon-generator`. The shooter's contract stays in `src/sdk/contracts/shooter.ts` (see
+several families) and `dungeon-generator`. The shooter's contract stays in `games/shooter/contracts/shooter.ts` (see
 [shooter](shooter/README.md)); every other remaining contract there is shared vocabulary (experience, audio,
 mechanics, navigation, platforming, room map and so on). See
 [docs/cookbook/new-game-family.md](../docs/cookbook/new-game-family.md) to start a family.

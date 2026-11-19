@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Combat, Enemies, Enemy, Flow, Health, Pickup, Player, Profile, Transform, definePlugin } from '../src/sdk/index.ts';
+import { Flow, Health, Player, Profile, Transform, definePlugin } from '../src/sdk/index.ts';
+import { Combat, Enemies, Enemy, Pickup } from '../games/shooter/contracts/shooter.ts';
 import type { ProfileService } from '../src/sdk/index.ts';
 import { createProfileStore } from '../src/platform/profile-store.ts';
 import manifest from '../games/shooter/plugins/example-arena/manifest.json' with { type: 'json' };

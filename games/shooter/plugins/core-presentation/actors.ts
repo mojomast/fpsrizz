@@ -1,5 +1,6 @@
 import type { EntityId, SessionContext, VisualDef } from '../../../../src/sdk/index.ts';
-import { Pickup, ThemeRole, Transform, Visual, angleDelta } from '../../../../src/sdk/index.ts';
+import { ThemeRole, Transform, Visual, angleDelta } from '../../../../src/sdk/index.ts';
+import { Pickup } from '../../contracts/shooter.ts';
 import { ActorRenderers, Render, THREE } from '../../../../src/sdk/render.ts';
 import type { ActorFrame, ActorHandle, ActorRenderer } from '../../../../src/sdk/render.ts';
 import { ThemeAssets } from './assets.ts';

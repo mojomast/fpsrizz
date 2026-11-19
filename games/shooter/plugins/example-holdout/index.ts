@@ -1,4 +1,5 @@
-import { Died, Enemies, Enemy, Flow, Health, Maps, ModeRole, Prefabs, Transform, World, definePlugin, spawnPrefab, yawOf } from '../../../../src/sdk/index.ts';
+import { Flow, Health, Maps, ModeRole, Prefabs, Transform, definePlugin, spawnPrefab, yawOf } from '../../../../src/sdk/index.ts';
+import { Died, Enemies, Enemy, World } from '../../contracts/shooter.ts';
 import type { EntityId, SessionContext } from '../../../../src/sdk/index.ts';
 
 const ID = 'example/holdout';

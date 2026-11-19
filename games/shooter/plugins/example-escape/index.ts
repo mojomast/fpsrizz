@@ -1,5 +1,6 @@
 import type { SessionContext } from '../../../../src/sdk/index.ts';
-import { Died, Flow, Maps, ModeRole, Prefabs, TriggerFired, World, definePlugin, spawnPrefab } from '../../../../src/sdk/index.ts';
+import { Flow, Maps, ModeRole, Prefabs, definePlugin, spawnPrefab } from '../../../../src/sdk/index.ts';
+import { Died, TriggerFired, World } from '../../contracts/shooter.ts';
 
 const MODE_ID = 'example/escape';
 

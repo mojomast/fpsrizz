@@ -1,4 +1,5 @@
-import { Died, Flow, Health, Maps, ModeRole, PickupEffects, Pickups, Player, Prefabs, Transform, World, defineComponent, definePlugin, spawnPrefab, vNumber } from '../../../../src/sdk/index.ts';
+import { Flow, Health, Maps, ModeRole, Player, Prefabs, Transform, defineComponent, definePlugin, spawnPrefab, vNumber } from '../../../../src/sdk/index.ts';
+import { Died, PickupEffects, Pickups, World } from '../../contracts/shooter.ts';
 import type { SessionContext } from '../../../../src/sdk/index.ts';
 
 const MODE = 'example/extraction';

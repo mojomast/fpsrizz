@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Player, SequenceMechanicRole, Transform, World, definePlugin } from '../src/sdk/index.ts';
+import { Flow, Player, SequenceMechanicRole, Transform, definePlugin } from '../src/sdk/index.ts';
+import { World } from '../games/shooter/contracts/shooter.ts';
 import type { CatalogEntry, SessionContext } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { codePlugin, hostFailure } from './helpers/host.ts';

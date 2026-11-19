@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Combat, Flow, Pickup, Player, Transform, TriggerFired, World } from '../src/sdk/index.ts';
+import { Flow, Player, Transform } from '../src/sdk/index.ts';
+import { Combat, Pickup, TriggerFired, World } from '../games/shooter/contracts/shooter.ts';
 import escape from '../games/shooter/plugins/example-escape/manifest.json' with { type: 'json' };
 import keys from '../games/shooter/plugins/example-keys/manifest.json' with { type: 'json' };
 import dungeon from '../games/shooter/plugins/example-key-dungeon/manifest.json' with { type: 'json' };

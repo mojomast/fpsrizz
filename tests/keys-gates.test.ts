@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Flow, Intent, Pickup, PickupEffects, Player, Transform, World, definePlugin, makeTransform } from '../src/sdk/index.ts';
+import { Flow, Intent, Player, Transform, definePlugin, makeTransform } from '../src/sdk/index.ts';
+import { Pickup, PickupEffects, World } from '../games/shooter/contracts/shooter.ts';
 import type { CatalogEntry, SessionContext } from '../src/sdk/index.ts';
 import manifest from '../games/shooter/plugins/example-keys/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';

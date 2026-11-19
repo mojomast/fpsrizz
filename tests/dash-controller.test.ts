@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { Collider, Health, Intent, Player, Transform, World } from '../src/sdk/index.ts';
+import { Collider, Health, Intent, Player, Transform } from '../src/sdk/index.ts';
+import { World } from '../games/shooter/contracts/shooter.ts';
 import type { CatalogEntry } from '../src/sdk/index.ts';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import manifest from '../games/shooter/plugins/example-dash-controller/manifest.json' with { type: 'json' };
