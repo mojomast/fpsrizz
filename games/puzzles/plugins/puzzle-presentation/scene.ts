@@ -1,7 +1,7 @@
-import type { SessionContext, ThemeProvider } from '../../../../src/sdk/index.ts';
+import type { SessionContext, ThemeProvider } from '@bulkhead/sdk';
 import type { PuzzleCell, PuzzleSnapshot, PushPuzzleService } from '../../contracts/puzzle.ts';
-import { THREE } from '../../../../src/sdk/render.ts';
-import type { RenderService } from '../../../../src/sdk/render.ts';
+import { THREE } from '@bulkhead/sdk/render.ts';
+import type { RenderService } from '@bulkhead/sdk/render.ts';
 
 /** Original volumetric models; palette and silhouettes follow the curated voxel explorer, rocks and chalk golem. */
 export function createScene(ctx: SessionContext, render: RenderService, puzzle: PushPuzzleService, theme: ThemeProvider | undefined) {

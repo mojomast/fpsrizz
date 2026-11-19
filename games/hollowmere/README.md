@@ -163,7 +163,7 @@ regenerates public art and painters. No audio asset is claimed; the current pres
   room-map visited/revealed/dispose state.
 - `games/hollowmere/tests/hollowmere.test.ts` stages the full 12-room production preset, moves between rooms, binds a checkpoint, opens
   dialogue, uses a consumable while paused and checks map/ability/inventory observations.
-- `tests/hollowmere-demo/run.mjs` drives the production bundle through the canvas, movement, journal tabs, map,
+- `games/hollowmere/tests/hollowmere-demo/run.mjs` drives the production bundle through the canvas, movement, journal tabs, map,
   inventory, capabilities, stats, options and pause/resume.
 - The authored graph and all room rectangles are validated; **physical jump reachability is a playtest concern**, not
   proven by the static validator.
@@ -175,10 +175,10 @@ regenerates public art and painters. No audio asset is claimed; the current pres
 - `npm run check`: **773/773 tests**, typecheck, boundaries and reuse-index freshness passed. The provider suite,
   production Hollowmere suite, screen-space FX tests and graph-round-trip suite are included.
 - `npm run validate-game -- --bundled`: **25 presets staged**, including `hollowmere/ascent`.
-- `node tests/hollowmere-demo/run.mjs`: **5/5** production-browser checks for Assetrizz canvas/movement/jump, NPC dialogue,
+- `node games/hollowmere/tests/hollowmere-demo/run.mjs`: **5/5** production-browser checks for Assetrizz canvas/movement/jump, NPC dialogue,
   all five journal tabs, map shortcut and phone layout.
 - `node tests/composer-demo/run.mjs`: **3/3** checks for graph loading, role metadata/inspector, live host staging and close flow.
 - `node tests/creator-demo/run.mjs`: **67** creator-panel checks passed with the Canvas tab and generated map/provider metadata.
-- `node tests/cinder-demo/run.mjs`: **6/6** preserved Cinder acceptance checks.
+- `node games/cinder/tests/cinder-demo/run.mjs`: **6/6** preserved Cinder acceptance checks.
 - `npm run smoke`: **37/37**; milestone production bundle hash
   `3b65fb123f2d8b913d5ddb52e0a7a99171d2991aa31a6a8dd41cb885666a59dd`.

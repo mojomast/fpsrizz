@@ -9,6 +9,9 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Plugins](guide/plugins.md): the SDK, manifests, lifecycle, roles, registries, events and services.
 - [Reuse](guide/reuse.md): find and compose existing capabilities before writing new ones.
 - [Bulkhead CLI and templates](guide/bulkhead-cli.md): `npm run bulkhead -- create <name> --template fps|platformer|topdown|puzzle|cards|blank`.
+- [Deploy and export](guide/deploy.md): GitHub Pages and itch.io workflows (manual dispatch), `npm run export:itch`.
+- [Releasing](guide/releasing.md): Changesets, SDK versioning, changelog and migration notes.
+- [Visual tests](guide/visual-tests.md): Playwright golden screenshots per template, Chromium/Firefox/WebKit.
 - [Performance](guide/performance.md): perf HUD (F3), per-system timings JSON, perf budgets and CI job, Spector.js captures.
 - [Prefabs, scenes and level import](reference/scenes.md): data prefabs, scene trees, Tiled and LDtk importers.
 - [Inspector and debug draw](reference/inspector.md): entity inspector, live component editing, config tweaks, Debug.draw, time controls, state-preserving hot reload.
@@ -17,9 +20,13 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 ## Reference (what exists, exactly)
 
 - [Architecture](reference/architecture.md): layers, boundaries, ownership, tick order, rendering.
+- [Packages](reference/packages.md): the npm workspaces (`@bulkhead/kernel`, `sdk`, `platform-web`, `std`, `tools`), import rules, `family.json` `uses`.
+- [WebGPU renderer](reference/webgpu.md): opt-in `?renderer=webgpu`, the per-preset parity gate and suite.
 - [Spec](reference/spec.md): implemented scope, limits and the reference shooter.
 - [Content format](reference/content-format.md): every JSON format and content kind.
 - [Entity queries](reference/queries.md): multi-component queries with added/removed/changed tracking.
+- [Plugin gallery](../public/gallery/index.html): generated from the reuse index, served at `/gallery/` with live preset links.
+- [Navmesh](reference/navmesh.md): `std/navigation-recast`, Recast/Detour paths and `NavAgent` for non-grid 3D levels.
 - [Spatial](reference/spatial.md): SDK 3 `Transform3D`, interpolation and `std/render-sync`.
 - [Physics](reference/physics.md): `std/physics-rapier` bodies, sensors, raycasts and the character controller.
 - [Input v2](reference/input.md): axes, gamepads, touch controls, the default map and rebinding.
@@ -47,11 +54,16 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Building-block plugins](cookbook/building-block-plugins.md)
 - [Reusable capability design note](cookbook/reusable-capability-template.md)
 
+## Design and migrations
+
+- [Networking design](design/networking.md): proposal only (server-authoritative first, lockstep for turn-based); nothing implemented.
+- SDK migration notes: [SDK 3](migrations/sdk-3.md), [SDK 4 (pending)](migrations/sdk-4.md).
+
 ## Games
 
 Every game lives in [`games/`](../games/README.md): the shooter reference game, Neon Run (racing), Signal Break
 (tactics), The Last Light (adventure), Stonewake and the card games (puzzles), Sky Salvage, Verdant Relay, Ember
-Bastion, Cinder Vault, Hollowmere and the expeditions. Cross-family guides stay here:
+Bastion, Cinder Vault, Hollowmere, the expeditions and the physics/navmesh sandboxes. Cross-family guides stay here:
 [ten-game portfolio](games/ten-game-portfolio.md), [portfolio resource games](games/portfolio-resource-games.md).
 
 ## Roadmap and archive

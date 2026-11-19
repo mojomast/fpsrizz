@@ -12,4 +12,4 @@ The mode registers and validates during staging. Selecting it spawns the player 
 
 ## Verify
 
-Run `node --test tests/ext-survival.test.ts` from the repository root.
+Run `node --test games/shooter/tests/ext-survival.test.ts` from the repository root.

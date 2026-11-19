@@ -4,9 +4,9 @@ import { createHeadlessGame } from '../../../tests/helpers/game.ts';
 import { Race } from '../contracts/racing.ts';
 import racing from '../plugins/vehicle-racing/manifest.json' with { type: 'json' };
 import presentation from '../plugins/vehicle-presentation/manifest.json' with { type: 'json' };
-import theme from '../../../src/plugins/theme-arcade/manifest.json' with { type: 'json' };
-import sequence from '../../../src/plugins/mechanics-sequence/manifest.json' with { type: 'json' };
-import outcomeRating from '../../../src/plugins/mechanics-outcome-rating/manifest.json' with { type: 'json' };
+import theme from '@bulkhead/std/theme-arcade/manifest.json' with { type: 'json' };
+import sequence from '@bulkhead/std/mechanics-sequence/manifest.json' with { type: 'json' };
+import outcomeRating from '@bulkhead/std/mechanics-outcome-rating/manifest.json' with { type: 'json' };
 import pack from '../plugins/portfolio-racing/manifest.json' with { type: 'json' };
 import content from '../plugins/portfolio-racing/content.json' with { type: 'json' };
 import salt from '../presets/portfolio-salt-racing.json' with { type: 'json' };
@@ -15,9 +15,9 @@ import copper from '../presets/portfolio-copper-racing.json' with { type: 'json'
 const catalog = [
   { manifest: racing, load: () => import('../plugins/vehicle-racing/index.ts') },
   { manifest: presentation, load: () => import('../plugins/vehicle-presentation/index.ts') },
-  { manifest: theme, load: () => import('../../../src/plugins/theme-arcade/index.ts') },
-  { manifest: sequence, load: () => import('../../../src/plugins/mechanics-sequence/index.ts') },
-  { manifest: outcomeRating, load: () => import('../../../src/plugins/mechanics-outcome-rating/index.ts') },
+  { manifest: theme, load: () => import('@bulkhead/std/theme-arcade/index.ts') },
+  { manifest: sequence, load: () => import('@bulkhead/std/mechanics-sequence/index.ts') },
+  { manifest: outcomeRating, load: () => import('@bulkhead/std/mechanics-outcome-rating/index.ts') },
   { manifest: pack, content },
 ];
 

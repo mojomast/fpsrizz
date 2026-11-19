@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "theme/industrial",
+  "name": "Industrial Theme",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Procedural industrial-sci-fi art, sprites and synthesized sound effects.",
+  "capabilities": ["assets"]
+}

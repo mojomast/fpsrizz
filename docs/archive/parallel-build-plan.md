@@ -18,7 +18,7 @@ The existing shooter remains a regression reference. New experiences must not en
 | Task | Model | Owned files | Depends on |
 |---|---|---|---|
 | Experience, pointer/focus and input contexts | Astra | `src/app/main.ts`, input adapter, experience contract, additive input contract, SDK version/entry, new input tests | Existing host lifecycle |
-| Three.js adapter and compatibility | Astra | `src/platform/render/`, `src/sdk/render.ts`, necessary shooter rendering adaptations, vendor tooling/dependencies, new render tests | Existing render boundary |
+| Three.js adapter and compatibility | Astra | `packages/platform-web/src/render/`, `packages/sdk/src/render.ts`, necessary shooter rendering adaptations, vendor tooling/dependencies, new render tests | Existing render boundary |
 | Racing simulation/content/presentation | Terra | `vehicle-*` plugins, racing SDK contract, overhead-racing preset and tests | Agreed experience and camera signatures |
 | Tactics simulation/content/presentation | Terra | `board-*` plugins, tactics SDK contract, turn-tactics preset and tests | Agreed experience and camera signatures |
 | Adventure simulation/content/presentation | Terra | `story-*` plugins, adventure SDK contract, narrative-adventure preset and tests | Agreed experience signature and existing profile service |
@@ -36,7 +36,7 @@ file ownership, additive SDK contracts and a single catalog integrator avoid com
 - `SessionControl` exposes read-only `playing` to presentation event handlers. Paused/menu UI cannot submit gameplay.
 - `RenderService.setWorldCamera(ctx, camera)` selects a scoped perspective or orthographic camera. The original
   `render.camera` remains the legacy perspective camera; camera ownership and resize belong to the render adapter.
-- Family-specific contracts live in `src/sdk/contracts/` and are exported by `src/sdk/index.ts`. Gameplay and
+- Family-specific contracts live in `packages/sdk/src/contracts/` and are exported by `packages/sdk/src/index.ts`. Gameplay and
   presentation communicate through these contracts, not cross-plugin imports.
 - Each family owns its state authority and content kind. A board does not pretend to be a shooter collision world.
 - Turn/adventure requests enter a bounded semantic command queue and commit at a documented simulation boundary.

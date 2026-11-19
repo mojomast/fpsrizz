@@ -9,5 +9,5 @@
   "limitations": ["Consumes Hollowmere's observation contract; canvas drawing is not a general scene renderer.", "Keyboard-first pause navigation with optional pointer buttons; no gamepad or remappable bindings yet."],
   "docs": ["games/hollowmere/README.md"],
   "examples": ["games/hollowmere/presets/hollowmere-ascent.json"],
-  "tests": ["games/hollowmere/tests/hollowmere.test.ts", "tests/hollowmere-demo/run.mjs"]
+  "tests": ["games/hollowmere/tests/hollowmere.test.ts", "games/hollowmere/tests/hollowmere-demo/run.mjs"]
 }

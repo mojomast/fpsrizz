@@ -12,4 +12,4 @@ The selected role spawns the player and installs session-scoped rules and death 
 
 ## Verify
 
-Run `node --test tests/holdout.test.ts` from the repository root.
+Run `node --test games/shooter/tests/holdout.test.ts` from the repository root.

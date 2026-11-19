@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1, "scope": "cross-genre",
+  "summary": "Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation.",
+  "keywords": ["resource", "balance", "economy", "currency", "money", "gold", "stamina", "mana", "energy", "health", "inventory", "capacity", "transaction", "spend", "gain", "cost", "crafting"],
+  "entryPoints": ["ResourcePoolProviders", "ResourceMechanicRole", "resourceMechanic", "MechanicResourcesChanged"],
+  "useWhen": "You need named numeric resources with atomic multi-resource debit/credit and independently owned pools.",
+  "limitations": ["Not a slotted or unique-item inventory. Overflow rejects rather than clamping; gains cannot finance a debit in the same transaction."],
+  "docs": ["docs/reference/reusable-mechanics.md", "docs/reference/mechanic-conformance.md"],
+  "examples": ["games/sky/plugins/sky-game/index.ts", "games/ember/plugins/ember-game/index.ts", "games/verdant/plugins/verdant-game/index.ts"],
+  "tests": ["tests/mechanics-providers.test.ts", "tests/helpers/resource-conformance.ts", "tests/reusable-games.test.ts"]
+}

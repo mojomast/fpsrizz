@@ -3,7 +3,7 @@
 // reference: relative imports, Markdown links, repo-relative paths in text (via scripts/move-paths.mjs), and SDK
 // entry-point imports of the moved contract symbols.
 // Usage: node scripts/move-to-game.mjs <family> [--plugins a,b] [--contracts x,y] [--presets p,q] [--tests t,u] [--dry-run]
-//   --contracts  names in src/sdk/contracts/ (without .ts) -> games/<family>/contracts/<name>.ts
+//   --contracts  names in packages/sdk/src/contracts/ (without .ts) -> games/<family>/contracts/<name>.ts
 //   --presets    names in src/content/presets/ (without .json) -> games/<family>/presets/<name>.json
 //   --tests      names in tests/ (without .test.ts) -> games/<family>/tests/<name>.test.ts
 // Run `npm run gen-catalog && npm run index-reuse && npm run check` afterwards.
@@ -32,16 +32,16 @@ function walk(dir) {
 
 // ---- 1. plan ------------------------------------------------------------------------------------------------------
 const moves = {};
-for (const p of list('--plugins')) moves[`src/plugins/${p}/`] = `${game}/plugins/${p}/`;
+for (const p of list('--plugins')) moves[`packages/std/plugins/${p}/`] = `${game}/plugins/${p}/`;
 const contractNames = list('--contracts');
-for (const c of contractNames) moves[`src/sdk/contracts/${c}.ts`] = `${game}/contracts/${c}.ts`;
+for (const c of contractNames) moves[`packages/sdk/src/contracts/${c}.ts`] = `${game}/contracts/${c}.ts`;
 for (const p of list('--presets')) moves[`src/content/presets/${p}.json`] = `${game}/presets/${p}.json`;
 for (const t of list('--tests')) moves[`tests/${t}.test.ts`] = `${game}/tests/${t}.test.ts`;
 
 // Contract symbols that leave the SDK entry point.
 const contractExports = new Map(); // symbol -> new contract path
 for (const c of contractNames) {
-  const src = readFileSync(resolve(root, `src/sdk/contracts/${c}.ts`), 'utf8');
+  const src = readFileSync(resolve(root, `packages/sdk/src/contracts/${c}.ts`), 'utf8');
   for (const m of src.matchAll(/^export (?:declare )?(?:const|let|function|class|interface|type|enum|abstract class) ([A-Za-z0-9_$]+)/gm)) contractExports.set(m[1], `${game}/contracts/${c}.ts`);
   for (const m of src.matchAll(/^export \{([^}]*)\}/gm)) for (const n of m[1].split(',')) { const name = n.trim().split(/\s+as\s+/).pop(); if (name) contractExports.set(name.replace(/^type\s+/, ''), `${game}/contracts/${c}.ts`); }
 }
@@ -76,7 +76,7 @@ function splitSdkImports(file, text) {
 
 // Family contracts see the SDK only through its entry point.
 const sdkInternalsToIndex = (file, text) =>
-  text.replace(/(\bfrom\s*)(['"])([^'"]*?src\/sdk\/(?!index\.ts)[^'"]*)\2/g, (_all, lead, q) => `${lead}${q}${rel(file, 'src/sdk/index.ts')}${q}`);
+  text.replace(/(\bfrom\s*)(['"])([^'"]*?src\/sdk\/(?!index\.ts)[^'"]*)\2/g, (_all, lead, q) => `${lead}${q}${rel(file, 'packages/sdk/src/index.ts')}${q}`);
 
 for (const file of walk('').filter((f) => /\.(ts|mts|mjs|cjs|js)$/.test(f))) {
   const abs = resolve(root, file);
@@ -85,7 +85,7 @@ for (const file of walk('').filter((f) => /\.(ts|mts|mjs|cjs|js)$/.test(f))) {
   if (contractExports.size) text = splitSdkImports(file, text);
   if (file.startsWith(`${game}/contracts/`)) text = sdkInternalsToIndex(file, text);
   // The SDK entry point stops re-exporting moved contracts (its specifier was already rewritten in step 2).
-  if (file === 'src/sdk/index.ts') for (const c of contractNames) text = text.replace(new RegExp(`^export \\* from '[^']*games/${family}/contracts/${c}\\.ts';\\n`, 'm'), '');
+  if (file === 'packages/sdk/src/index.ts') for (const c of contractNames) text = text.replace(new RegExp(`^export \\* from '[^']*games/${family}/contracts/${c}\\.ts';\\n`, 'm'), '');
   if (text !== original) writeFileSync(abs, text);
 }
 console.log('Done. Next: npm run gen-catalog && npm run index-reuse && npm run check');

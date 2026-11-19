@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { assembleDistrict } from '../plugins/silt-game/district.ts';
 import { loadChamber } from '../plugins/silt-game/chambers.ts';
-import { Reporter } from '../../../src/kernel/validate.ts';
+import { Reporter } from '@bulkhead/kernel/validate.ts';
 
 const rows = ['####D####', '#.......#', '#.~~~...#', '#.......#', 'D.......D', '#...^...#', '#.......#', '#.......#', '####D####'];
 const chamber = loadChamber({ name: 'Intake', rows }, new Reporter([], 'test'))!;

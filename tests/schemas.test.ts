@@ -2,9 +2,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import Ajv2020 from 'ajv/dist/2020.js';
-import { parseManifest, parsePreset } from '../src/kernel/manifest.ts';
-import { Reporter } from '../src/kernel/validate.ts';
-import type { Issue } from '../src/kernel/validate.ts';
+import { parseManifest, parsePreset } from '@bulkhead/kernel/manifest.ts';
+import { Reporter } from '@bulkhead/kernel/validate.ts';
+import type { Issue } from '@bulkhead/kernel/validate.ts';
 
 const ajv = new (Ajv2020 as unknown as new (o: object) => { compile(s: unknown): ((d: unknown) => boolean) & { errors?: unknown } })({ allErrors: true, strictTuples: false, allowUnionTypes: true });
 const schema = (name: string) => ajv.compile(JSON.parse(readFileSync(`schemas/${name}.schema.json`, 'utf8') as string));
@@ -29,7 +29,7 @@ test('schemas and the kernel validators agree on committed presets and on broken
 
 test('schemas and the kernel validators agree on plugin manifests', () => {
   const manifest = schema('plugin-manifest');
-  const raw = JSON.parse(readFileSync('src/plugins/std-physics-rapier/manifest.json', 'utf8') as string);
+  const raw = JSON.parse(readFileSync('packages/std/plugins/std-physics-rapier/manifest.json', 'utf8') as string);
   assert.equal(manifest(raw), true);
   assert.equal(kernel(parseManifest, raw), true);
   for (const broken of [{ ...raw, kind: 'plugin' }, { ...raw, version: '1.0' }, { ...raw, preload: ['../secret.glb'] }, { ...raw, config: { x: { type: 'number', label: 'X' } } }]) {

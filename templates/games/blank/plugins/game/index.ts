@@ -1,6 +1,6 @@
 // __TITLE__: the game's rules and presentation in one plugin. Split them (game + presentation plugins) as it grows.
-import { ExperienceRole, Renderable, Transform3D, definePlugin, defineService, quatFromEuler, transform3d, worldPose } from '../../../../../src/sdk/index.ts';
-import { Render, THREE } from '../../../../../src/sdk/render.ts';
+import { ExperienceRole, Renderable, Transform3D, definePlugin, defineService, quatFromEuler, transform3d, worldPose } from '@bulkhead/sdk';
+import { Render, THREE } from '@bulkhead/sdk/render.ts';
 
 const NS = '__NS__';
 /** Read-only state for tests, tools and other plugins. */

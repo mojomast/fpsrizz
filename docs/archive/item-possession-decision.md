@@ -53,11 +53,11 @@ Primary inspected implementation evidence:
 - [`story-adventure/index.ts`](../../games/adventure/plugins/story-adventure/index.ts): `initial`, `apply`, detached `state()`, load replay.
 - [`story-adventure/validation.ts`](../../games/adventure/plugins/story-adventure/validation.ts): unique lists, item references, consumed-items requirement.
 - [`story-presentation/index.ts`](../../games/adventure/plugins/story-presentation/index.ts): inventory display order and action readiness.
-- [`contracts/adventure.ts`](../../games/adventure/contracts/adventure.ts), [`contracts/mechanics.ts`](../../src/sdk/contracts/mechanics.ts),
-  [`contracts/shooter.ts`](../../src/sdk/contracts/shooter.ts): public state, transaction and inventory shapes.
-- [`mechanics-resources/index.ts`](../../src/plugins/mechanics-resources/index.ts),
+- [`contracts/adventure.ts`](../../games/adventure/contracts/adventure.ts), [`contracts/mechanics.ts`](../../packages/sdk/src/contracts/mechanics.ts),
+  [`contracts/shooter.ts`](../../games/shooter/contracts/shooter.ts): public state, transaction and inventory shapes.
+- [`mechanics-resources/index.ts`](../../packages/std/plugins/mechanics-resources/index.ts),
   [`verdant-game/index.ts`](../../games/verdant/plugins/verdant-game/index.ts): actual provider and working resource consumer.
-- [`keys-gates.test.ts`](../../tests/keys-gates.test.ts), [`key-dungeon.test.ts`](../../tests/key-dungeon.test.ts),
+- [`keys-gates.test.ts`](../../games/shooter/tests/keys-gates.test.ts), [`key-dungeon.test.ts`](../../games/shooter/tests/key-dungeon.test.ts),
   [`narrative-adventure.test.ts`](../../games/adventure/tests/narrative-adventure.test.ts),
   [`mechanics-providers.test.ts`](../../tests/mechanics-providers.test.ts): existing behavioral assertions.
 
@@ -159,7 +159,7 @@ not a claim that a pure helper cannot work or that tiny collections should alway
 
 If later evidence approves extraction, use a **pure transformation over caller-owned plain arrays**. Do not create
 a service, registry, selectable plugin, component holding methods, or second mutable collection. A possible additive
-export from `src/sdk/contracts/possession.ts` through `src/sdk/index.ts` is:
+export from `packages/sdk/src/contracts/possession.ts` through `packages/sdk/src/index.ts` is:
 
 ```ts
 export interface ItemPossessionChange {
@@ -199,7 +199,7 @@ not a request to start overlapping work with the queue agent.
 
 1. Wait for the Story queue migration to finish. Re-read `story-adventure/index.ts` and its tests; use symbols and
    action semantics rather than old line offsets. Preserve the resulting ingress, batch-drain and transition policy.
-2. Add the pure helper and focused contract tests, export it through `src/sdk/index.ts`, and document its caller-owned
+2. Add the pure helper and focused contract tests, export it through `packages/sdk/src/index.ts`, and document its caller-owned
    arrays and exact pre-state semantics. Keep it separate from numeric mechanic provider contracts. No kernel changes.
 3. In `example-keys/index.ts`, preserve key validation, live-actor check and lazy `{ keys: [] }` component creation.
    Replace only duplicate-check/append with `next = planItemPossession(ring.keys, { add: [key] })`, reject on

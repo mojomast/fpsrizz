@@ -10,4 +10,4 @@ The pack registers content during staging and has no activation system or config
 
 ## Verify
 
-Run `node --test tests/adventure-pack.test.ts` from the repository root. See the [content format](../../../../docs/reference/content-format.md).
+Run `node --test games/shooter/tests/adventure-pack.test.ts` from the repository root. See the [content format](../../../../docs/reference/content-format.md).

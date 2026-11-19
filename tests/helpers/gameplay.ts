@@ -2,11 +2,13 @@
  * Gameplay-test helpers: tiny ASCII test maps, a test content pack (maps + weapons + enemies), and small
  * utilities to place actors, record events and drive the headless game deterministically.
  */
-import type { CatalogEntry, Session } from '../../src/kernel/host.ts';
-import type { EventToken } from '../../src/kernel/bus.ts';
-import type { ComponentToken, EntityId } from '../../src/kernel/ecs.ts';
-import { Collider, Combat, Enemy, EnemyAi, Flow, Health, Inventory, Player, Transform, World, spawnPrefab, yawOf } from '../../src/sdk/index.ts';
-import type { CombatService, EnemyService, FlowService, WorldService } from '../../src/sdk/index.ts';
+import type { CatalogEntry, Session } from '@bulkhead/kernel/host.ts';
+import type { EventToken } from '@bulkhead/kernel/bus.ts';
+import type { ComponentToken, EntityId } from '@bulkhead/kernel/ecs.ts';
+import { Collider, Flow, Health, Inventory, Player, Transform, spawnPrefab, yawOf } from '@bulkhead/sdk';
+import { Combat, Enemy, EnemyAi, World } from '../../games/shooter/contracts/shooter.ts';
+import type { FlowService } from '@bulkhead/sdk';
+import type { CombatService, EnemyService, WorldService } from '../../games/shooter/contracts/shooter.ts';
 import { createHeadlessGame, headlessPreset } from './game.ts';
 import type { HeadlessGame } from './game.ts';
 

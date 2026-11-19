@@ -1,4 +1,4 @@
-import { ExperienceRole, NavigationRole, createCommandQueue, definePlugin, isObject } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, NavigationRole, createCommandQueue, definePlugin, isObject } from '@bulkhead/sdk';
 import { PushPuzzle, PuzzleCampaigns, PuzzleResolved } from '../../contracts/puzzle.ts';
 import type { PuzzleBoard, PuzzleCommand } from '../../contracts/puzzle.ts';
 import { loadCampaign } from './content.ts';

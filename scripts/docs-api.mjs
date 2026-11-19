@@ -17,7 +17,7 @@ const families = existsSync(resolve(root, 'games')) ? readdirSync(resolve(root, 
   return existsSync(dir) ? readdirSync(dir).filter((n) => n.endsWith('.ts')).sort().map((n) => `games/${f}/contracts/${n}`) : [];
 }) : [];
 const extra = process.argv.slice(2);
-const typedocArgs = ['--options', 'typedoc.json', '--entryPoints', 'src/sdk/index.ts', '--entryPoints', 'src/sdk/render.ts',
+const typedocArgs = ['--options', 'typedoc.json', '--entryPoints', 'packages/sdk/src/index.ts', '--entryPoints', 'packages/sdk/src/render.ts',
   ...families.flatMap((f) => ['--entryPoints', f]), ...extra];
 const dir = process.env.TYPEDOC_DIR;
 const r = dir

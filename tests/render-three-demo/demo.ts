@@ -1,8 +1,8 @@
-import { THREE } from '../../src/sdk/render.ts';
-import { createRenderHost } from '../../src/platform/render/service.ts';
-import { PluginHost } from '../../src/kernel/host.ts';
-import type { SessionContext } from '../../src/kernel/host.ts';
-import { SDK_COMPAT, SDK_VERSION } from '../../src/sdk/index.ts';
+import { THREE } from '@bulkhead/sdk/render.ts';
+import { createRenderHost } from '@bulkhead/platform-web/render/service.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { SessionContext } from '@bulkhead/kernel/host.ts';
+import { SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 
 async function run(): Promise<[string, boolean][]> {
   const checks: [string, boolean][] = [];

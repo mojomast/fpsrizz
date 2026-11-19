@@ -1,0 +1,27 @@
+{
+  "name": "@bulkhead/sdk",
+  "version": "3.0.0",
+  "description": "Bulkhead SDK: the public plugin API (core, contracts, render surface).",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojomast/fpsrizz.git",
+    "directory": "packages/sdk"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@bulkhead/kernel": "3.0.0",
+    "@bulkhead/platform-web": "3.0.0"
+  }
+}

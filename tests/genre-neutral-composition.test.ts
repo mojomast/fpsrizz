@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { catalog } from '../src/app/catalog.ts';
-import { PluginHost } from '../src/kernel/host.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION, defineService } from '../src/sdk/index.ts';
-import type { SessionContext } from '../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION, defineService } from '@bulkhead/sdk';
+import type { SessionContext } from '@bulkhead/sdk';
 import board from '../games/tactics/presets/turn-tactics.json' with { type: 'json' };
 import puzzle from '../games/puzzles/presets/stonewake.json' with { type: 'json' };
 

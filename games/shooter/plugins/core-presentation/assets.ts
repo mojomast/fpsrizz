@@ -1,6 +1,6 @@
-import type { Painter, SessionContext, ThemeProvider, VisualDef } from '../../../../src/sdk/index.ts';
-import { THREE } from '../../../../src/sdk/render.ts';
-import type { RenderService } from '../../../../src/sdk/render.ts';
+import type { Painter, SessionContext, ThemeProvider, VisualDef } from '@bulkhead/sdk';
+import { THREE } from '@bulkhead/sdk/render.ts';
+import type { RenderService } from '@bulkhead/sdk/render.ts';
 import { parseColor } from './quads.ts';
 
 const MISSING: Painter = {

@@ -4,11 +4,11 @@
  * Human authoring and agent authoring share the same JSON document and the same pure compiler. The canvas is a view:
  * semantic edits go through game-graph helpers, and layout is never part of the compiled preset.
  */
-import type { CatalogEntry } from '../sdk/index.ts';
-import type { ConfigField, GamePreset } from '../kernel/manifest.ts';
-import type { Json } from '../kernel/validate.ts';
-import type { PluginHost } from '../kernel/host.ts';
-import { HostError, errText } from '../kernel/host.ts';
+import type { CatalogEntry } from '@bulkhead/sdk';
+import type { ConfigField, GamePreset } from '@bulkhead/kernel/manifest.ts';
+import type { Json } from '@bulkhead/kernel/validate.ts';
+import type { PluginHost } from '@bulkhead/kernel/host.ts';
+import { HostError, errText } from '@bulkhead/kernel/host.ts';
 import {
   autoLayout, addPluginNode, compileGraph, graphToPreset, normalizeGraph, presetToGraph,
   removePluginNode, roleNodeId, selectRoleProvider, setGraphOption, setPluginConfig,

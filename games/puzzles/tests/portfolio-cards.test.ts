@@ -1,15 +1,15 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { SessionControl } from '../../../src/sdk/index.ts';
+import { SessionControl } from '@bulkhead/sdk';
 import { PortfolioCards, cardPilesMechanic } from '../contracts/portfolio-cards.ts';
-import type { SessionContext } from '../../../src/sdk/index.ts';
+import type { SessionContext } from '@bulkhead/sdk';
 import type { CardPiles } from '../contracts/portfolio-cards.ts';
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import { codePlugin } from '../../../tests/helpers/host.ts';
 import pilesManifest from '../plugins/portfolio-cards-piles/manifest.json' with { type: 'json' };
 import ashManifest from '../plugins/portfolio-cards-ash/manifest.json' with { type: 'json' };
 import cloudManifest from '../plugins/portfolio-cards-cloud/manifest.json' with { type: 'json' };
-import hintsManifest from '../../../src/plugins/mechanics-hints/manifest.json' with { type: 'json' };
+import hintsManifest from '@bulkhead/std/mechanics-hints/manifest.json' with { type: 'json' };
 import assistManifest from '../plugins/portfolio-assist/manifest.json' with { type: 'json' };
 import ashPreset from '../presets/portfolio-cards-ash.json' with { type: 'json' };
 import cloudPreset from '../presets/portfolio-cards-cloud.json' with { type: 'json' };
@@ -17,7 +17,7 @@ import cloudPreset from '../presets/portfolio-cards-cloud.json' with { type: 'js
 const pilesEntry = { manifest: pilesManifest, load: () => import('../plugins/portfolio-cards-piles/index.ts') };
 const ashEntry = { manifest: ashManifest, load: () => import('../plugins/portfolio-cards-ash/index.ts') };
 const cloudEntry = { manifest: cloudManifest, load: () => import('../plugins/portfolio-cards-cloud/index.ts') };
-const hintsEntry = { manifest: hintsManifest, load: () => import('../../../src/plugins/mechanics-hints/index.ts') };
+const hintsEntry = { manifest: hintsManifest, load: () => import('@bulkhead/std/mechanics-hints/index.ts') };
 const assistEntry = { manifest: assistManifest, load: () => import('../plugins/portfolio-assist/index.ts') };
 
 test('ordered piles conserve unique IDs, reject invalid moves, isolate owners and restart', async () => {

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { CraftingMechanicRole, CraftingProviders, craftingMechanic, inventoryMechanic, InventoryMechanicRole, InventoryProviders, SessionControl } from '../src/sdk/index.ts';
-import type { CraftingProvider, InventoryHandle, SessionContext } from '../src/sdk/index.ts';
+import { CraftingMechanicRole, CraftingProviders, craftingMechanic, inventoryMechanic, InventoryMechanicRole, InventoryProviders, SessionControl } from '@bulkhead/sdk';
+import type { CraftingProvider, InventoryHandle, SessionContext } from '@bulkhead/sdk';
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 import { codePlugin, contentPack } from './helpers/host.ts';
 
@@ -22,7 +22,7 @@ async function start() {
     { kind: 'crafting-recipe', id: 'test/ab', data: { name: 'Make C', description: 'A into C.', inputs: [{ item: 'test/a', count: 1 }], output: { item: 'test/c', count: 1 } } },
     { kind: 'crafting-recipe', id: 'test/space', data: { name: 'Make C from part A', description: 'Leaves A stack.', inputs: [{ item: 'test/a', count: 1 }], output: { item: 'test/c', count: 1 } } },
   ], { dependencies: { 'mechanics/crafting': '^1.0.0' } });
-  const game = createHeadlessGame([consumer, items, recipes, { manifest: { schema: 1, id: 'mechanics/inventory', name: 'Stack inventory', version: '1.0.0', kind: 'code', sdk: '^2.0.0', description: 'Production' }, load: () => import('../src/plugins/mechanics-inventory/index.ts') }, { manifest: { schema: 1, id: 'mechanics/crafting', name: 'Known item recipes', version: '1.0.0', kind: 'code', sdk: '^2.0.0', description: 'Production' }, load: () => import('../src/plugins/mechanics-crafting/index.ts') }]);
+  const game = createHeadlessGame([consumer, items, recipes, { manifest: { schema: 1, id: 'mechanics/inventory', name: 'Stack inventory', version: '1.0.0', kind: 'code', sdk: '^2.0.0', description: 'Production' }, load: () => import('@bulkhead/std/mechanics-inventory/index.ts') }, { manifest: { schema: 1, id: 'mechanics/crafting', name: 'Known item recipes', version: '1.0.0', kind: 'code', sdk: '^2.0.0', description: 'Production' }, load: () => import('@bulkhead/std/mechanics-crafting/index.ts') }]);
   await game.host.apply(headlessPreset({ plugins: ['mechanics/inventory', 'mechanics/crafting', 'test/items', 'test/recipes', 'test/crafting-consumer'], roles: { 'sdk/mechanic-inventory': 'mechanics/inventory', 'sdk/mechanic-crafting': 'mechanics/crafting' }, options: {} }));
   return { game, bag: () => bag, craft: () => craft, pause: (value: boolean) => { playing = !value; } };
 }

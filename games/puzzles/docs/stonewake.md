@@ -101,7 +101,7 @@ complete legal route for every authored chamber. Golem shortest-path ties resolv
 ## Verification and completion routes
 
 `games/puzzles/tests/stonewake.test.ts` covers authored solutions, reversal, blockers, pursuit/capture, malformed/paused ingress,
-bounded queues, content validation and restart ownership. `node tests/stonewake-demo/run.mjs` exercises the real
+bounded queues, content validation and restart ownership. `node games/puzzles/tests/stonewake-demo/run.mjs` exercises the real
 production UI and 3D picking/orbit, three viewport sizes, capture recovery, all chambers and shooter switching.
 
 Spoilers: these compass routes complete the shipped campaign without waiting. The camera can face any direction.

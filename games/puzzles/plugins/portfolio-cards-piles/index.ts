@@ -1,4 +1,4 @@
-import { SessionControl, createOwnedInstances, definePlugin } from '../../../../src/sdk/index.ts';
+import { SessionControl, createOwnedInstances, definePlugin } from '@bulkhead/sdk';
 import { CardPilesProviders, CardPilesRole } from '../../contracts/portfolio-cards.ts';
 
 export default definePlugin({ register(ctx) {

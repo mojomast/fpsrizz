@@ -1,4 +1,4 @@
-import { SessionControl, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { SessionControl, Ui, definePlugin } from '@bulkhead/sdk';
 import { SaltLedger } from '../../contracts/salt-ledger.ts';
 import type { SaltCommand } from '../../contracts/salt-ledger.ts';
 

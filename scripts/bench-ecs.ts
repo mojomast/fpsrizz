@@ -1,6 +1,6 @@
 // Micro-benchmark for EntityStore: manual two-component join versus a cached query. Usage: npm run bench:ecs
-import { EntityStore } from '../src/kernel/ecs.ts';
-import type { ComponentToken } from '../src/kernel/ecs.ts';
+import { EntityStore } from '@bulkhead/kernel/ecs.ts';
+import type { ComponentToken } from '@bulkhead/kernel/ecs.ts';
 
 const pos: ComponentToken<{ x: number; y: number }> = { id: 'b/pos' };
 const vel: ComponentToken<{ dx: number; dy: number }> = { id: 'b/vel' };

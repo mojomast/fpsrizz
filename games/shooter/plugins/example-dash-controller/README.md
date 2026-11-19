@@ -10,4 +10,4 @@ Actions and the controller role register during staging; the selected controller
 
 ## Verify
 
-Run `node --test tests/dash-controller.test.ts` from the repository root.
+Run `node --test games/shooter/tests/dash-controller.test.ts` from the repository root.

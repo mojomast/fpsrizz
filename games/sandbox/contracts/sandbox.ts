@@ -1,6 +1,6 @@
 /** Sandbox vocabulary: read-only state the presentation, HUD and tests observe. */
-import { defineComponent, defineService } from '../../../src/sdk/index.ts';
-import type { EntityId } from '../../../src/sdk/index.ts';
+import { defineComponent, defineService } from '@bulkhead/sdk';
+import type { EntityId } from '@bulkhead/sdk';
 
 export interface SandboxState {
   readonly hero: EntityId;
@@ -16,6 +16,10 @@ export interface SandboxState {
   readonly props: ReadonlyMap<string, EntityId>;
 }
 export const Sandbox = defineService<SandboxState>('sandbox/state');
+
+/** sandbox/navmesh: the follower that chases the hero on the navmesh (NavAgent + NavAgentState). */
+export interface SandboxNavState { readonly follower: EntityId }
+export const SandboxNav = defineService<SandboxNavState>('sandbox/nav');
 
 /** Level-authored components (Blender custom properties on nodes of models/levels/sandbox-props.glb). */
 export interface SandboxGlow { intensity: number }

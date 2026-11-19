@@ -10,4 +10,4 @@ The role and map validation register at staging. Selecting the mode spawns sessi
 
 ## Verify
 
-Run `node --test tests/time-trial.test.ts` from the repository root.
+Run `node --test games/shooter/tests/time-trial.test.ts` from the repository root.

@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "mechanics/sequence",
+  "name": "Ordered steps and rounds",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Owned expected-step cursors with finite rounds and terminal completion.",
+  "dependencies": {},
+  "capabilities": ["simulation"]
+}

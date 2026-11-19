@@ -6,7 +6,7 @@
 | --- | --- |
 | `create <name> [--template T] [--title "Title"]` | Copies `templates/games/T` to `games/<name>`, fills the namespace/title, fixes relative paths, regenerates the catalog. |
 | `templates` | Lists the templates. |
-| `new plugin <namespace/name> ["Display Name"]` | New shared plugin in `src/plugins` (wraps `new-plugin.mjs`). |
+| `new plugin <namespace/name> ["Display Name"]` | New shared plugin in `packages/std/plugins` (wraps `new-plugin.mjs`). |
 | `add <plugin-id> --preset <preset.json>` | Adds a plugin (e.g. a mechanic) to a preset, then validates the preset. |
 | `validate <preset.json \| --bundled>` | Resolves and activates presets headlessly (`validate-game.mjs`). |
 | `graph ...` | The GameGraph CLI (`game-graph.mjs`). |

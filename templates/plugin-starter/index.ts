@@ -1,5 +1,5 @@
-// Import ONLY from the SDK entry point (and '../../sdk/render.ts' if the manifest lists the "render" capability).
-import { Flow, definePlugin } from '../../sdk/index.ts';
+// Import ONLY from the SDK entry point (and '@bulkhead/sdk/render.ts' if the manifest lists the "render" capability).
+import { Flow, definePlugin } from '@bulkhead/sdk';
 
 export default definePlugin({
   // Definitions and factories: registries, content kinds, role providers, validators. Do not start anything here.

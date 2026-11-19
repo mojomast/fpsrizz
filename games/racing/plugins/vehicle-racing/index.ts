@@ -1,6 +1,6 @@
-import type { Reporter } from '../../../../src/sdk/index.ts';
+import type { Reporter } from '@bulkhead/sdk';
 import type { RaceGate, RacePoint, RaceState, RaceTrack } from '../../contracts/racing.ts';
-import { ExperienceRole, Flow, Input, InputActions, OutcomeRatingRole, OutcomeRatingProviders, SequenceMechanicRole, SequenceProviders, definePlugin, isObject, outcomeRatingMechanic, sequenceMechanic, vArray, vNumber, vString } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, Flow, Input, InputActions, OutcomeRatingRole, OutcomeRatingProviders, SequenceMechanicRole, SequenceProviders, definePlugin, isObject, outcomeRatingMechanic, sequenceMechanic, vArray, vNumber, vString } from '@bulkhead/sdk';
 import { Race, RaceTracks } from '../../contracts/racing.ts';
 
 const actions = {

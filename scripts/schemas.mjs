@@ -18,6 +18,7 @@ export const SCHEMA_MAP = [
   { schema: 'scene', match: /\.scene\.json$/, glob: '**/*.scene.json' },
   { schema: 'prefab', match: /\.prefab\.json$/, glob: '**/*.prefab.json' },
   { schema: 'replay', match: /\.replay\.json$/, glob: '**/*.replay.json' },
+  { schema: 'family', match: /^games\/[^/]+\/family\.json$/, glob: 'games/*/family.json' },
   { schema: 'models', match: /^assets\/models\.json$/, glob: 'assets/models.json' },
   { schema: 'reuse-recipes', match: /^docs\/reuse-recipes\.json$/, glob: 'docs/reuse-recipes.json' },
 ];
@@ -25,7 +26,7 @@ export const SCHEMA_MAP = [
 const NOT_DATA = [
   /(^|\/)package(-lock)?\.json$/, /(^|\/)tsconfig\.json$/, /^typedoc\.json$/, /(^|\/)provenance\.json$/, /^scripts\/[^/]+\.json$/,
   /^assets\/weapons\//, /^docs\/reuse-index\.json$/, /^public\/models\/index\.json$/, /^src\/app\/catalog-providers\.json$/,
-  /^schemas\//, /^\.vscode\//, /^games\/expeditions\/plugins\/salt-rpg-content\/campaign-draft\.json$/,
+  /^schemas\//, /^\.vscode\//, /^\.changeset\/config\.json$/, /^games\/expeditions\/plugins\/salt-rpg-content\/campaign-draft\.json$/,
 ];
 
 const write = process.argv.includes('--write');

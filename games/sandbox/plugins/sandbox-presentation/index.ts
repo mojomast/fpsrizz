@@ -1,6 +1,6 @@
-import { Audio, AudioSamples, PhysicsCollision, definePlugin, worldPose } from '../../../../src/sdk/index.ts';
-import type { VoiceHandle } from '../../../../src/sdk/index.ts';
-import { Render, THREE } from '../../../../src/sdk/render.ts';
+import { Audio, AudioSamples, PhysicsCollision, definePlugin, worldPose } from '@bulkhead/sdk';
+import type { VoiceHandle } from '@bulkhead/sdk';
+import { Render, THREE } from '@bulkhead/sdk/render.ts';
 import { Sandbox, SandboxGlow } from '../../contracts/sandbox.ts';
 
 export const SOUNDS = { chime: 'sandbox/chime', thud: 'sandbox/thud', wind: 'sandbox/wind' } as const;

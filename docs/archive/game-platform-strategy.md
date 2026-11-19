@@ -47,10 +47,10 @@ The new rules are real, but much of the player experience remains inherited from
 | `games/shooter/plugins/core-player/index.ts:27–58,154–174` bundles actor, health, starter weapons, FPS input and camera | Reusing the player also imports shooter assumptions; it has no visible actor by default | Separate possession, actor archetypes, controller and loadout |
 | `games/shooter/plugins/core-content/manifest.json` bundles map, enemies, weapons and pickups | Reusing one reference asset requires the shooter content graph | Small content packs grouped by actual dependency needs |
 | `games/shooter/plugins/core-presentation/index.ts:39–44` always constructs world meshes, actors, effects, weapon view and shooter audio hooks together | A camera replacement still gets first-person presentation machinery | Selectable presentation features and explicit ownership |
-| `src/sdk/render.ts:19–32` exposes two fixed perspective cameras/layers | No native orthographic/multi-viewport contract | Versioned view/projection and viewport support |
-| `src/platform/input.ts:83–100` fans a key out to all registered actions | Enabling providers does not select their active bindings | Context priority, consumption and scoped activation |
+| `packages/sdk/src/render.ts:19–32` exposes two fixed perspective cameras/layers | No native orthographic/multi-viewport contract | Versioned view/projection and viewport support |
+| `packages/platform-web/src/input.ts:83–100` fans a key out to all registered actions | Enabling providers does not select their active bindings | Context priority, consumption and scoped activation |
 | `games/shooter/plugins/core-hud/index.ts:170–250` centers health, inventory and firing | New mode status text sits inside the same shooter interface | Genre HUDs reading genre-specific state |
-| `src/plugins/theme-assetrizz/index.ts:100–104` changes texture maps while sharing sound and visual definitions | A fantasy reskin preserves much of the same audiovisual behavior | Art, motion, UI and audio direction per experience |
+| `packages/std/plugins/theme-assetrizz/index.ts:100–104` changes texture maps while sharing sound and visual definitions | A fantasy reskin preserves much of the same audiovisual behavior | Art, motion, UI and audio direction per experience |
 | `scripts/build.mjs:20–29` builds one bundle without splitting | Catalog loaders defer activation, but do not provide per-game downloads | Experience-aware code and asset packaging |
 
 The generic host already has useful foundations: scopes, registries, explicit dependencies, roles, commands/events,
@@ -316,7 +316,7 @@ fact and presentation cue. The perception system updates suspicion; the audio di
 Failure spends nothing. Muting sound changes neither suspicion nor gameplay.
 
 Organize new shared contracts internally by responsibility (`input`, `experience`, `view`, `items`, `turns`, `perception`)
-while preserving the public `src/sdk/index.ts` import boundary. Do not move game rules into the kernel. Additive APIs
+while preserving the public `packages/sdk/src/index.ts` import boundary. Do not move game rules into the kernel. Additive APIs
 need a released SDK version and accurate minimum manifest ranges; incompatible changes need a major version/migration.
 Preserve token identity and legacy semantics when re-exporting existing shooter contracts.
 
@@ -381,7 +381,7 @@ Concrete gates:
 - **Performance:** profile representative hardware and asset budgets; software-rendered smoke timing is not a GPU benchmark.
 - **Accessibility:** keyboard/gamepad focus as applicable, readable text, non-color-only signals, remapping and adjustable motion/audio.
 
-The current `tests/genre-demo/run.mjs` proves startup/HUD/movement/firing for several presets. It does not establish
+The current `games/shooter/tests/genre-demo/run.mjs` proves startup/HUD/movement/firing for several presets. It does not establish
 genre identity or a complete loop. New browser scenarios should exercise each genre's defining action and transitions.
 
 Use human playtests alongside automation: without seeing the title, can players identify the game's verbs, priorities

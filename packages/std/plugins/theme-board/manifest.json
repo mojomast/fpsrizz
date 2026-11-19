@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "theme/board",
+  "name": "Chalk & Timber Board Theme",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Pinned Assetrizz voxel explorer, chalk golem, rock cover and timber tiles with synthesized tactile board-game cues.",
+  "capabilities": ["assets", "audio"]
+}

@@ -1,18 +1,18 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { catalog } from '../../../src/app/catalog.ts';
-import { SessionControl, Ui, hintMechanic } from '../../../src/sdk/index.ts';
+import { SessionControl, Ui, hintMechanic } from '@bulkhead/sdk';
 import { PortfolioCards } from '../contracts/portfolio-cards.ts';
 import { PushPuzzle } from '../contracts/puzzle.ts';
-import type { HintLedger, SessionContext, UiService } from '../../../src/sdk/index.ts';
-import hintsManifest from '../../../src/plugins/mechanics-hints/manifest.json' with { type: 'json' };
+import type { HintLedger, SessionContext, UiService } from '@bulkhead/sdk';
+import hintsManifest from '@bulkhead/std/mechanics-hints/manifest.json' with { type: 'json' };
 import assistManifest from '../plugins/portfolio-assist/manifest.json' with { type: 'json' };
 import ashPreset from '../presets/portfolio-cards-ash.json' with { type: 'json' };
 import puzzlePreset from '../presets/stonewake.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 import { codePlugin } from '../../../tests/helpers/host.ts';
 
-const hintsEntry = { manifest: hintsManifest, load: () => import('../../../src/plugins/mechanics-hints/index.ts') };
+const hintsEntry = { manifest: hintsManifest, load: () => import('@bulkhead/std/mechanics-hints/index.ts') };
 const assistEntry = { manifest: assistManifest, load: () => import('../plugins/portfolio-assist/index.ts') };
 
 test('hint ledgers isolate owners and topics, reject paused and exhausted requests, reset and release on restart', async () => {

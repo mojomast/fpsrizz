@@ -2,32 +2,33 @@
  * Composition root. The only place that knows which plugins exist (via the catalog), wires platform adapters into
  * sessions as host services, and runs the frame loop. No gameplay rules live here.
  */
-import { HostError, PluginHost, errText } from '../kernel/host.ts';
-import { hashSnapshot } from '../kernel/snapshot.ts';
-import type { Session } from '../kernel/host.ts';
-import { createAssetService, preloadManifestAssets } from '../platform/assets.ts';
-import { createAudioService } from '../platform/audio.ts';
-import { createFlow } from '../platform/flow.ts';
-import { bindDomInput, createActionLookup, createInputCore, isInputEditableTarget } from '../platform/input.ts';
-import { bindGamepads } from '../platform/gamepad.ts';
-import { createInputBindings } from '../platform/input-bindings.ts';
-import { bindTouchControls } from '../platform/touch.ts';
-import { createProfileStore } from '../platform/profile-store.ts';
-import type { ProfileStorage } from '../platform/profile-store.ts';
-import { isWebGL2Available } from '../platform/render/mini3/index.ts';
-import { createRenderHost } from '../platform/render/service.ts';
-import type { RenderHost } from '../platform/render/service.ts';
-import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
-import { createUiService } from '../platform/ui.ts';
-import { recordInput } from '../platform/replay.ts';
-import { createDebugDraw } from '../platform/debug-draw.ts';
-import { createGpuTimer, createPerfHud } from '../platform/perf-hud.ts';
-import type { DevEnv, DevSim, DevTools } from '../platform/devtools.ts';
-import { invertMatrix, mat4, multiplyMatrices } from '../platform/render/mini3/math.ts';
-import type { ReplayRecorder } from '../platform/replay.ts';
-import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
-import { Assets, Audio, DebugDraw, PhysicsCollider, worldPose, AudioSamples, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputAxes, InputBindings, InputContexts, prettyKey, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
-import { Render } from '../sdk/render.ts';
+import { HostError, PluginHost, errText } from '@bulkhead/kernel/host.ts';
+import { hashSnapshot } from '@bulkhead/kernel/snapshot.ts';
+import type { Session } from '@bulkhead/kernel/host.ts';
+import { createAssetService, preloadManifestAssets } from '@bulkhead/platform-web/assets.ts';
+import { createAudioService } from '@bulkhead/platform-web/audio.ts';
+import { createFlow } from '@bulkhead/platform-web/flow.ts';
+import { bindDomInput, createActionLookup, createInputCore, isInputEditableTarget } from '@bulkhead/platform-web/input.ts';
+import { bindGamepads } from '@bulkhead/platform-web/gamepad.ts';
+import { createInputBindings } from '@bulkhead/platform-web/input-bindings.ts';
+import { bindTouchControls } from '@bulkhead/platform-web/touch.ts';
+import { createProfileStore } from '@bulkhead/platform-web/profile-store.ts';
+import type { ProfileStorage } from '@bulkhead/platform-web/profile-store.ts';
+import { isWebGL2Available } from '@bulkhead/platform-web/render/mini3/index.ts';
+import { createRenderHost, createWebGpuRenderHost } from '@bulkhead/platform-web/render/service.ts';
+import { chooseRenderer } from '@bulkhead/platform-web/render/webgpu-gate.ts';
+import type { RenderHost } from '@bulkhead/platform-web/render/service.ts';
+import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '@bulkhead/platform-web/storage.ts';
+import { createUiService } from '@bulkhead/platform-web/ui.ts';
+import { recordInput } from '@bulkhead/platform-web/replay.ts';
+import { createDebugDraw } from '@bulkhead/platform-web/debug-draw.ts';
+import { createGpuTimer, createPerfHud } from '@bulkhead/platform-web/perf-hud.ts';
+import type { DevEnv, DevSim, DevTools } from '@bulkhead/platform-web/devtools.ts';
+import { invertMatrix, mat4, multiplyMatrices } from '@bulkhead/platform-web/render/mini3/math.ts';
+import type { ReplayRecorder } from '@bulkhead/platform-web/replay.ts';
+import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '@bulkhead/sdk';
+import { Assets, Audio, DebugDraw, PhysicsCollider, worldPose, AudioSamples, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputAxes, InputBindings, InputContexts, prettyKey, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '@bulkhead/sdk';
+import { Render } from '@bulkhead/sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
 import { createCreatorPanel } from './creator.ts';
@@ -39,7 +40,7 @@ type AppState = 'boot' | 'menu' | 'playing' | 'paused' | 'ending' | 'ended' | 'e
 const BASE_SENSITIVITY = 0.0024;
 const END_SCREEN_DELAY = 1.1;
 
-function boot(): void {
+async function boot(): Promise<void> {
   const root = document.getElementById('app');
   if (!root) throw new Error('#app element missing');
   // ?test disables the pointer-lock requirement so automated browsers can drive the game.
@@ -75,7 +76,12 @@ function boot(): void {
   }
   let renderHost: RenderHost;
   try {
-    renderHost = createRenderHost(canvas, { pixelRatioCap: settings.pixelRatioCap });
+    // P3.2: ?renderer=webgpu opts into three.js WebGPURenderer for presets that passed the parity suite.
+    const choice = chooseRenderer(location.search);
+    if (choice.refused) console.warn(choice.refused);
+    renderHost = choice.backend === 'webgpu'
+      ? await createWebGpuRenderHost(canvas, { pixelRatioCap: settings.pixelRatioCap, forceWebGL: choice.forceWebGL })
+      : createRenderHost(canvas, { pixelRatioCap: settings.pixelRatioCap });
   } catch (e) {
     shell.showUnsupported(`The renderer could not start: ${errText(e)}`);
     return;
@@ -504,12 +510,12 @@ function boot(): void {
     })(),
     screenshot: () => new Promise<string>((res) => { pendingShots.push(res); }),
     async runReplay(file) {
-      const m = await import('../platform/replay-run.ts');
+      const m = await import('@bulkhead/platform-web/replay-run.ts');
       return m.runReplayHeadless({ catalog, presets, file });
     },
   };
   let devTools: Promise<DevTools> | undefined;
-  const dev = (): Promise<DevTools> => (devTools ??= import('../platform/devtools.ts').then((m) => m.createDevTools(devEnv)));
+  const dev = (): Promise<DevTools> => (devTools ??= import('@bulkhead/platform-web/devtools.ts').then((m) => m.createDevTools(devEnv)));
 
   // ---- frame loop ----------------------------------------------------------------------------------------------------
   let last = performance.now();
@@ -539,7 +545,7 @@ function boot(): void {
       releasePointer();
       shell.showEnd(pendingEnd);
     }
-    if (perfHud.visible) gpu ??= createGpuTimer(canvas.getContext('webgl2'));
+    if (perfHud.visible) gpu ??= createGpuTimer(renderHost.backend === 'webgl' ? canvas.getContext('webgl2') : null);
     if (perfHud.visible) gpu?.begin();
     renderHost.render();
     if (perfHud.visible) gpu?.end();
@@ -565,7 +571,7 @@ function boot(): void {
       stats.height = renderHost.service.height;
       stats.pixelRatio = renderHost.service.pixelRatio;
       stats.gpuMs = gpu?.ms;
-      if (perfHud.visible) perfHud.update({ ...stats, entities: host.session?.entities.count() ?? 0, systems: host.session?.scheduler.describe() ?? [] });
+      if (perfHud.visible) perfHud.update({ ...stats, backend: renderHost.backend, entities: host.session?.entities.count() ?? 0, systems: host.session?.scheduler.describe() ?? [] });
       frames = 0;
       workMs = 0;
       worst = 0;
@@ -634,4 +640,4 @@ function boot(): void {
   })();
 }
 
-boot();
+void boot();

@@ -5,7 +5,7 @@ import { startRun } from '../../../../tests/helpers/replay.ts';
 import { Game } from '../plugins/game/index.ts';
 import preset from '../presets/default.json' with { type: 'json' };
 
-const spec = { preset, plugins: ['src/plugins/std-transform', 'src/plugins/std-render-sync', 'src/plugins/std-physics-rapier', fileURLToPath(new URL('../plugins/game', import.meta.url))] };
+const spec = { preset, plugins: ['packages/std/plugins/std-transform', 'packages/std/plugins/std-render-sync', 'packages/std/plugins/std-physics-rapier', fileURLToPath(new URL('../plugins/game', import.meta.url))] };
 
 test('__TITLE__: walking right collects the first gem; a hazard costs a life', async () => {
   const run = await startRun(spec);

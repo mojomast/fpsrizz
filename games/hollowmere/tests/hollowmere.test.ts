@@ -2,11 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import preset from '../presets/hollowmere-ascent.json' with { type: 'json' };
 import { catalog } from '../../../src/app/catalog.ts';
-import { Player, Profile, SessionControl, definePlugin } from '../../../src/sdk/index.ts';
+import { Player, Profile, SessionControl, definePlugin } from '@bulkhead/sdk';
 import { Metroidvania, MetroidvaniaWorlds } from '../contracts/metroidvania.ts';
-import type { ProfileService } from '../../../src/sdk/index.ts';
+import type { ProfileService } from '@bulkhead/sdk';
 import { createHeadlessGame } from '../../../tests/helpers/game.ts';
-import { createProfileStore } from '../../../src/platform/profile-store.ts';
+import { createProfileStore } from '@bulkhead/platform-web/profile-store.ts';
 
 async function setup(profile?: ProfileService) {
   const game = createHeadlessGame(catalog);

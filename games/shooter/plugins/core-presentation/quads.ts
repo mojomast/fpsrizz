@@ -1,5 +1,5 @@
-import type { Painter, VisualAnim, VisualDef } from '../../../../src/sdk/index.ts';
-import { THREE } from '../../../../src/sdk/render.ts';
+import type { Painter, VisualAnim, VisualDef } from '@bulkhead/sdk';
+import { THREE } from '@bulkhead/sdk/render.ts';
 
 /**
  * Unit quad facing +Z. Vertex order: left-bottom, right-bottom, right-top, left-top.

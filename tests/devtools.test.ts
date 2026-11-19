@@ -2,14 +2,14 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { readFileSync } from 'node:fs';
-import { PluginHost } from '../src/kernel/host.ts';
-import type { CatalogEntry } from '../src/kernel/host.ts';
-import { Scheduler } from '../src/kernel/scheduler.ts';
-import { createDebugDraw } from '../src/platform/debug-draw.ts';
-import { createDevTools, jsonSafe } from '../src/platform/devtools.ts';
-import type { DevEnv } from '../src/platform/devtools.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry } from '@bulkhead/kernel/host.ts';
+import { Scheduler } from '@bulkhead/kernel/scheduler.ts';
+import { createDebugDraw } from '@bulkhead/platform-web/debug-draw.ts';
+import { createDevTools, jsonSafe } from '@bulkhead/platform-web/devtools.ts';
+import type { DevEnv } from '@bulkhead/platform-web/devtools.ts';
 import { connectDevRpc, handleRpc } from '../src/app/dev-rpc.ts';
-import { DebugDraw, PHASES, SDK_COMPAT, SDK_VERSION, Transform3D, debugDraw, defineComponent, transform3d } from '../src/sdk/index.ts';
+import { DebugDraw, PHASES, SDK_COMPAT, SDK_VERSION, Transform3D, debugDraw, defineComponent, transform3d } from '@bulkhead/sdk';
 import { codePlugin, presetOf } from './helpers/host.ts';
 // @ts-ignore -- plain .mjs tooling module without types
 import { startDevRpcBridge } from '../scripts/dev-rpc-bridge.mjs';
@@ -41,7 +41,7 @@ async function devGame() {
       } });
     },
   }, { sdk: '^3.0.0', config: { speed: { type: 'number', label: 'Speed', default: 1, min: 0, max: 10 } } });
-  host.setCatalog([real('src/plugins/std-transform'), game]);
+  host.setCatalog([real('packages/std/plugins/std-transform'), game]);
   const preset = presetOf('test/p', ['std/transform', 'test/game']);
   await host.apply(preset);
   const env: DevEnv = {

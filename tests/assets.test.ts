@@ -1,17 +1,17 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { PluginHost } from '../src/kernel/host.ts';
-import type { CatalogEntry, SessionContext } from '../src/kernel/host.ts';
-import { parseManifest } from '../src/kernel/manifest.ts';
-import { Reporter } from '../src/kernel/validate.ts';
-import { createAssetService, preloadManifestAssets } from '../src/platform/assets.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry, SessionContext } from '@bulkhead/kernel/host.ts';
+import { parseManifest } from '@bulkhead/kernel/manifest.ts';
+import { Reporter } from '@bulkhead/kernel/validate.ts';
+import { createAssetService, preloadManifestAssets } from '@bulkhead/platform-web/assets.ts';
 import {
   Assets, GltfExtras, PHASES, PhysicsCollider, Renderable, RigidBody, SDK_COMPAT, SDK_VERSION, Transform3D,
   decomposeMatrix, gltfNodes, parseGltf, spawnGltfScene, worldPose,
-} from '../src/sdk/index.ts';
-import type { AssetService, SpawnedGltfScene } from '../src/sdk/index.ts';
-import { Models, THREE } from '../src/sdk/render.ts';
+} from '@bulkhead/sdk';
+import type { AssetService, SpawnedGltfScene } from '@bulkhead/sdk';
+import { Models, THREE } from '@bulkhead/sdk/render.ts';
 import { codePlugin, presetOf } from './helpers/host.ts';
 
 const LEVEL = 'models/levels/sandbox-props.glb';
@@ -159,7 +159,7 @@ test('spawnGltfScene maps node custom properties (Blender extras) to transforms,
 test('std/assets Models: whole scenes and single glTF nodes (Meshopt-compressed) instance headlessly', async () => {
   const assets = createAssetService();
   let ctxRef: SessionContext | undefined;
-  const host = hostWith(assets, [real('src/plugins/std-assets'), codePlugin('t/use', { activate(ctx) { ctxRef = ctx; } }, { sdk: '^3.0.0', dependencies: { 'std/assets': '^1.0.0' } })]);
+  const host = hostWith(assets, [real('packages/std/plugins/std-assets'), codePlugin('t/use', { activate(ctx) { ctxRef = ctx; } }, { sdk: '^3.0.0', dependencies: { 'std/assets': '^1.0.0' } })]);
   const session = await host.apply(presetOf('t/p', ['std/assets', 't/use']));
   const models = session.services.get(Models);
   const rifle = await models.instance(ctxRef!, 'models/weapons/assault_rifle.glb');

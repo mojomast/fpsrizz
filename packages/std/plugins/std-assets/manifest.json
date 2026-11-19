@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "std/assets",
+  "name": "glTF models",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "Provides the sdk/models service: async glTF/GLB loading (Meshopt and KTX2 compressed) through the host asset service, shared GPU resources and cheap per-entity instances.",
+  "capabilities": ["render"]
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "mechanics/capabilities",
+  "name": "Capability ledger",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Reusable named capability/rank unlocks for traversal skills, licenses and other consumer-defined permissions.",
+  "dependencies": {},
+  "capabilities": ["simulation"]
+}

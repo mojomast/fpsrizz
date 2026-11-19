@@ -6,14 +6,16 @@ Each folder is one game family, kept apart from the engine so a new prototype do
 games/<family>/
   README.md        player and author guide
   docs/            extra guides (optional)
-  contracts/       family-only SDK vocabulary (services, registries, events); not exported by src/sdk/index.ts
+  family.json      optional: description and "uses" (other families whose contracts it may import)
+  contracts/       family-only SDK vocabulary (services, registries, events); not exported by @bulkhead/sdk
   plugins/<name>/  manifest.json + index.ts (code) or content.json (data pack), README.md, reuse.json
   presets/         preset JSON files (listed in src/app/catalog.ts)
-  tests/           node:test suites, run by npm test
+  tests/           node:test suites (run by npm test) and <name>-demo/run.mjs browser demos (npm run test:browser)
 ```
 
-Rules (enforced by `npm run lint`): a game plugin imports only its own folder, `src/sdk/index.ts`, `src/sdk/render.ts`
-(with the `render` capability) and its own family's `contracts/`. Contracts import only the SDK entry point and their
+Rules (enforced by `npm run lint`): a game plugin imports only its own folder, `@bulkhead/sdk`, `@bulkhead/sdk/render.ts`
+(with the `render` capability), its own family's `contracts/` and the contracts of families listed in its
+`family.json` `"uses"` (Cinder uses `shooter`). Contracts import only the SDK entry point and their
 own family. Engine code never imports `games/`; only the `src/app` composition root (catalog and preset list) does.
 Plugins are discovered automatically (`npm run gen-catalog`).
 
@@ -29,14 +31,14 @@ Plugins are discovered automatically (`npm run gen-catalog`).
 | [`ember`](ember/) | Ember Bastion (tower defense) | [README](ember/README.md) |
 | [`cinder`](cinder/) | Cinder Vault (roguelite shooter) | [README](cinder/README.md), [classes](cinder/docs/classes.md) |
 | [`hollowmere`](hollowmere/) | Hollowmere (metroidvania) | [README](hollowmere/README.md) |
-| [`sandbox`](sandbox/) | Physics sandbox: the SDK 3 reference composition (Transform3D, render sync, Rapier) | [README](sandbox/README.md) |
+| [`sandbox`](sandbox/) | Physics and navmesh sandboxes: the SDK 3 reference compositions (Transform3D, render sync, Rapier, Recast navmesh) | [README](sandbox/README.md) |
 | [`expeditions`](expeditions/) | The Silt Archive, The Salt Ledger, Common Ground, plus the shared expedition assist | [README](expeditions/README.md) |
 
 Cross-family guides: [ten-game portfolio](../docs/games/ten-game-portfolio.md) and
 [portfolio resource games](../docs/games/portfolio-resource-games.md).
 
-What stays in `src/`: shared mechanics (`mechanics-*`), presentation (`presentation-*`), themes (`theme-*`, used by
-several families) and `dungeon-generator`. The shooter's contract stays in `src/sdk/contracts/shooter.ts` (see
-[shooter](shooter/README.md)); every other remaining contract there is shared vocabulary (experience, audio,
-mechanics, navigation, platforming, room map and so on). See
+What stays in the engine packages: shared plugins in `packages/std/plugins/` (`std-*`, `mechanics-*`,
+`presentation-*`, `theme-*` used by several families, `dungeon-generator`) and shared vocabulary in
+`packages/sdk/src/contracts/` (game, experience, audio, physics, navmesh, mechanics, navigation, platforming, room map
+and so on). Shooter-only contracts live in `games/shooter/contracts/shooter.ts` (see [shooter](shooter/README.md)). See
 [docs/cookbook/new-game-family.md](../docs/cookbook/new-game-family.md) to start a family.

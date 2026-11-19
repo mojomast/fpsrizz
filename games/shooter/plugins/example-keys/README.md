@@ -10,4 +10,4 @@ Registration installs the effect, prefab and map validation. Gate interactions a
 
 ## Verify
 
-Run `node --test tests/keys-gates.test.ts tests/key-dungeon.test.ts` from the repository root.
+Run `node --test games/shooter/tests/keys-gates.test.ts games/shooter/tests/key-dungeon.test.ts` from the repository root.

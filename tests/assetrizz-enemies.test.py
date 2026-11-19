@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 class EnemyStripsTest(unittest.TestCase):
     def test_strips_match_painters_and_preserve_hurt_alpha(self):
-        generated = (ROOT / 'src/plugins/theme-assetrizz/generated.ts').read_text()
+        generated = (ROOT / 'packages/std/plugins/theme-assetrizz/generated.ts').read_text()
         for key in ('enemy-grunt', 'enemy-spitter'):
             with self.subTest(key=key):
                 image = Image.open(ROOT / 'public/assetrizz' / (key + '.png')).convert('RGBA')

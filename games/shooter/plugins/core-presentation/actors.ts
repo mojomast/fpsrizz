@@ -1,7 +1,8 @@
-import type { EntityId, SessionContext, VisualDef } from '../../../../src/sdk/index.ts';
-import { Pickup, ThemeRole, Transform, Visual, angleDelta } from '../../../../src/sdk/index.ts';
-import { ActorRenderers, Render, THREE } from '../../../../src/sdk/render.ts';
-import type { ActorFrame, ActorHandle, ActorRenderer } from '../../../../src/sdk/render.ts';
+import type { EntityId, SessionContext, VisualDef } from '@bulkhead/sdk';
+import { ThemeRole, Transform, Visual, angleDelta } from '@bulkhead/sdk';
+import { Pickup } from '../../contracts/shooter.ts';
+import { ActorRenderers, Render, THREE } from '@bulkhead/sdk/render.ts';
+import type { ActorFrame, ActorHandle, ActorRenderer } from '@bulkhead/sdk/render.ts';
 import { ThemeAssets } from './assets.ts';
 import { animFrame, createQuadGeometry, frameGrid, setFrameUv } from './quads.ts';
 import type { FrameGrid } from './quads.ts';

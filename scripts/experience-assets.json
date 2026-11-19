@@ -19,7 +19,7 @@
     { "theme": "story", "key": "story-lens", "path": "assets/ink_watercolor/icons/tool/jeweler_loupe_plain.png", "sha256": "77a18dae12c98296dc6106883cca5ebe354bb759017cd0872ed9dac5bb478c22", "size": [64, 64], "orientation": "single diagonal indigo jeweler loupe icon" }
   ],
   "procedural": [
-    { "theme": "arcade", "key": "race-vehicle", "size": [48, 80], "provenance": "procedural", "source": "src/plugins/theme-arcade/vehicle.ts", "orientation": "top-down, nose points up (-Y in canvas), rotate with game heading" }
+    { "theme": "arcade", "key": "race-vehicle", "size": [48, 80], "provenance": "procedural", "source": "packages/std/plugins/theme-arcade/vehicle.ts", "orientation": "top-down, nose points up (-Y in canvas), rotate with game heading" }
   ],
   "audio": { "provenance": "procedural", "format": "original synthesized SoundDef oscillators and filtered noise; no Assetrizz audio samples" }
 }

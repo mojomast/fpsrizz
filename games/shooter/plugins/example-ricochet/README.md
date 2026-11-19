@@ -10,4 +10,4 @@ The behavior and weapon register during staging; the behavior's session-owned si
 
 ## Verify
 
-Run `node --test tests/ext-ricochet.test.ts` from the repository root.
+Run `node --test games/shooter/tests/ext-ricochet.test.ts` from the repository root.

@@ -21,7 +21,7 @@ compared against the first session, a frame-time sample and a console-error chec
 ## Honest limitations
 
 - **Not Three.js, Vite or Vitest.** The build environment had no npm registry access. Rendering is the in-repo WebGL2
-  renderer `mini3` (Three-style API subset behind `src/sdk/render.ts` and the render adapter); bundling uses esbuild;
+  renderer `mini3` (Three-style API subset behind `packages/sdk/src/render.ts` and the render adapter); bundling uses esbuild;
   tests use `node --test`. A lockfile has since been added. Migration path: `docs/archive/devplan.md`, step 1.
 - **Performance is not measured on a real GPU.** The only numbers come from headless Chrome on SwiftShader (software
   rendering): about 3 to 5 fps at 1280x720, 37 draw calls, about 1.5k triangles, 20 entities, about 0.8 to 2.4 ms of

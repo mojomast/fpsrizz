@@ -24,14 +24,22 @@ export const BUDGET = {
 export const VENDOR_BUDGET = {
   /** Rapier 3D compat build: ~1.5 MB of WASM embedded as base64, loaded only by presets that use std/physics-rapier. */
   '@dimforge/rapier3d-compat': 2300 * KiB,
+  /** Recast/Detour navmesh (WASM embedded), loaded only by presets that use std/navigation-recast (P3.5). */
+  '@recast-navigation/wasm': 1200 * KiB,
+  /** three.js WebGPURenderer + TSL node system (vendored three.webgpu.js), loaded only with ?renderer=webgpu (P3.2). */
+  'three/webgpu (vendored)': 900 * KiB,
 };
+/** Vendored (non-node_modules) inputs attributed to a VENDOR_BUDGET key. */
+const VENDORED_INPUTS = [[/render\/mini3\/vendor\/three\.webgpu\.js$/, 'three/webgpu (vendored)']];
 
 /** Package a JS output mostly consists of, if it is listed in VENDOR_BUDGET. */
 export function vendorOf(output) {
   const byPkg = {};
   for (const [input, { bytesInOutput }] of Object.entries(output.inputs ?? {})) {
     const m = /node_modules\/((?:@[^/]+\/)?[^/]+)\//.exec(input);
-    if (m) byPkg[m[1]] = (byPkg[m[1]] ?? 0) + bytesInOutput;
+    const vendored = VENDORED_INPUTS.find(([re]) => re.test(input))?.[1];
+    const key = m?.[1] ?? vendored;
+    if (key) byPkg[key] = (byPkg[key] ?? 0) + bytesInOutput;
   }
   const [pkg, bytes] = Object.entries(byPkg).sort((a, b) => b[1] - a[1])[0] ?? [];
   return pkg && pkg in VENDOR_BUDGET && bytes > output.bytes / 2 ? pkg : undefined;

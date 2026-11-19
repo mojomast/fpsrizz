@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import * as THREE from '../src/platform/render/mini3/index.ts';
-import { PluginHost } from '../src/kernel/host.ts';
-import type { CatalogEntry, SessionContext } from '../src/kernel/host.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION, PrevTransform, Renderable, Transform3D, composePose, interpolatePose, quatFromEuler, rotateVec3, slerp, snapTransform, transform3d, worldPose } from '../src/sdk/index.ts';
-import type { Pose, Quat, Vec3 } from '../src/sdk/index.ts';
-import { Models, Render, RenderablePrefabs } from '../src/sdk/render.ts';
-import type { RenderService } from '../src/sdk/render.ts';
+import * as THREE from '@bulkhead/platform-web/render/mini3/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry, SessionContext } from '@bulkhead/kernel/host.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION, PrevTransform, Renderable, Transform3D, composePose, interpolatePose, quatFromEuler, rotateVec3, slerp, snapTransform, transform3d, worldPose } from '@bulkhead/sdk';
+import type { Pose, Quat, Vec3 } from '@bulkhead/sdk';
+import { Models, Render, RenderablePrefabs } from '@bulkhead/sdk/render.ts';
+import type { RenderService } from '@bulkhead/sdk/render.ts';
 import { codePlugin, presetOf } from './helpers/host.ts';
 
 const close = (a: number, b: number, eps = 1e-9): void => assert.ok(Math.abs(a - b) < eps, `${a} != ${b}`);
@@ -71,7 +71,7 @@ test('std/transform keeps PrevTransform one tick behind Transform3D; snapTransfo
     },
   }, { sdk: '^3.0.0' });
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
-  host.setCatalog([real('src/plugins/std-transform'), mover]);
+  host.setCatalog([real('packages/std/plugins/std-transform'), mover]);
   const session = await host.apply(presetOf('test/p', ['std/transform', 'test/mover']));
   session.scheduler.runTick();
   session.scheduler.runTick();
@@ -112,7 +112,7 @@ test('std/render-sync draws shapes, prefabs and models, interpolates with alpha 
     },
   }, { sdk: '^3.0.0' });
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) { session.services.provide(Render, service, 'host', scope); } });
-  host.setCatalog([real('src/plugins/std-transform'), real('src/plugins/std-render-sync'), game]);
+  host.setCatalog([real('packages/std/plugins/std-transform'), real('packages/std/plugins/std-render-sync'), game]);
   const session = await host.apply(presetOf('test/p', ['std/transform', 'std/render-sync', 'test/scene']));
   session.scheduler.runTick();            // prev x 0 -> x 4
   session.scheduler.runFrame(0.5, 0);
@@ -148,7 +148,7 @@ test('std/render-sync draws shapes, prefabs and models, interpolates with alpha 
 });
 
 test('shooter/transform3d mirrors the planar Transform into Transform3D and PrevTransform', async () => {
-  const { Transform } = await import('../src/sdk/index.ts');
+  const { Transform } = await import('@bulkhead/sdk');
   let e = 0;
   const planar = codePlugin('test/planar', {
     activate(ctx) {
@@ -171,7 +171,7 @@ test('std/render-sync also draws entities created by plugins that activated befo
   const { service, scene } = fakeRender();
   const early = codePlugin('a-test/early', { activate(ctx) { const e = ctx.world.create(); ctx.world.add(e, Transform3D, transform3d()); ctx.world.add(e, Renderable, { shape: 'box' }); } }, { sdk: '^3.0.0' });
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) { session.services.provide(Render, service, 'host', scope); } });
-  host.setCatalog([early, real('src/plugins/std-transform'), real('src/plugins/std-render-sync')]);
+  host.setCatalog([early, real('packages/std/plugins/std-transform'), real('packages/std/plugins/std-render-sync')]);
   const session = await host.apply(presetOf('test/p', ['a-test/early', 'std/transform', 'std/render-sync']));
   assert.equal(session.order[0], 'a-test/early', 'the entity owner activates first');
   session.scheduler.runFrame(0, 0);
@@ -195,7 +195,7 @@ test('std/render-sync batches Renderable.instanced into one InstancedMesh per sh
     ctx.world.add(solo, Renderable, { shape: 'sphere' });
   } }, { sdk: '^3.0.0' });
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) { session.services.provide(Render, service, 'host', scope); } });
-  host.setCatalog([real('src/plugins/std-transform'), real('src/plugins/std-render-sync'), game]);
+  host.setCatalog([real('packages/std/plugins/std-transform'), real('packages/std/plugins/std-render-sync'), game]);
   const session = await host.apply(presetOf('test/p', ['std/transform', 'std/render-sync', 'test/scene']));
   session.scheduler.runFrame(0, 1);
   const root = scene.children[0]!;

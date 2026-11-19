@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1, "scope": "cross-genre",
+  "summary": "Objective counters, prerequisite unlocks and idempotent progress receipts for quests, deliveries, waves and restoration.",
+  "keywords": ["objective", "quest", "mission", "progress", "counter", "unlock", "prerequisite", "achievement", "receipt", "deduplication", "wave", "delivery"],
+  "entryPoints": ["ObjectiveProviders", "ObjectiveMechanicRole", "objectiveMechanic", "MechanicObjectiveChanged"],
+  "useWhen": "Track bounded progress and prerequisite completion without encoding a particular genre's victory rules.",
+  "limitations": ["Session-only counters, not a persisted quest journal. Successful receipt memory is bounded at 4096; victory and rewards remain game orchestration."],
+  "docs": ["docs/reference/reusable-mechanics.md"],
+  "examples": ["games/ember/plugins/ember-game/index.ts", "games/verdant/plugins/verdant-game/index.ts"],
+  "tests": ["tests/mechanics-providers.test.ts", "tests/reusable-games.test.ts"]
+}

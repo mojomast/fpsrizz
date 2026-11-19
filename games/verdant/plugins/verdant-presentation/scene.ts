@@ -1,8 +1,8 @@
-import { ThemeRole } from '../../../../src/sdk/index.ts';
-import type { SessionContext } from '../../../../src/sdk/index.ts';
+import { ThemeRole } from '@bulkhead/sdk';
+import type { SessionContext } from '@bulkhead/sdk';
 import type { VerdantService } from '../../contracts/verdant.ts';
-import { THREE } from '../../../../src/sdk/render.ts';
-import type { RenderService } from '../../../../src/sdk/render.ts';
+import { THREE } from '@bulkhead/sdk/render.ts';
+import type { RenderService } from '@bulkhead/sdk/render.ts';
 
 export function createScene(ctx: SessionContext, render: RenderService, game: VerdantService) {
   const root = render.createRoot(ctx, 'world');

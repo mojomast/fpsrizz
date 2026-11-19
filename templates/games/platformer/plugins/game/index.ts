@@ -2,9 +2,9 @@
 import {
   CharacterController, CharacterMove, CharacterState, ExperienceRole, Flow, Input, PhysicsCollider, PhysicsCollision, Renderable, RigidBody,
   Physics, Transform3D, Ui, defineComponent, definePlugin, defineService, readAxis, registerStandardControls, transform3d, worldPose,
-} from '../../../../../src/sdk/index.ts';
-import type { EntityId, SessionContext, Vec3 } from '../../../../../src/sdk/index.ts';
-import { Render, THREE } from '../../../../../src/sdk/render.ts';
+} from '@bulkhead/sdk';
+import type { EntityId, SessionContext, Vec3 } from '@bulkhead/sdk';
+import { Render, THREE } from '@bulkhead/sdk/render.ts';
 
 const NS = '__NS__';
 const SPEED = 6, JUMP = 8, GRAVITY = -22, SPAWN: Vec3 = { x: 0, y: 1.2, z: 0 };

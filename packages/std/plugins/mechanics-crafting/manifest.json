@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "mechanics/crafting",
+  "name": "Known item recipes",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Known item-to-item crafting recipes with atomic inventory transforms and recipe content definitions.",
+  "dependencies": {},
+  "capabilities": ["simulation"]
+}

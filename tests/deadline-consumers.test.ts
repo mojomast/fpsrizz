@@ -1,17 +1,17 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost } from '../src/kernel/host.ts';
-import type { CatalogEntry } from '../src/kernel/host.ts';
-import { MechanicResourcesChanged, PHASES, SDK_COMPAT, SDK_VERSION, SessionControl } from '../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry } from '@bulkhead/kernel/host.ts';
+import { MechanicResourcesChanged, PHASES, SDK_COMPAT, SDK_VERSION, SessionControl } from '@bulkhead/sdk';
 import { Verdant } from '../games/verdant/contracts/verdant.ts';
 import { Sky } from '../games/sky/contracts/sky.ts';
 import type { VerdantCommand } from '../games/verdant/contracts/verdant.ts';
 import type { SkyCommand } from '../games/sky/contracts/sky.ts';
-import resources from '../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
-import clock from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
-import actions from '../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
-import objectives from '../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
-import kits from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
+import resources from '@bulkhead/std/mechanics-resources/manifest.json' with { type: 'json' };
+import clock from '@bulkhead/std/mechanics-clock/manifest.json' with { type: 'json' };
+import actions from '@bulkhead/std/mechanics-actions/manifest.json' with { type: 'json' };
+import objectives from '@bulkhead/std/mechanics-objectives/manifest.json' with { type: 'json' };
+import kits from '@bulkhead/std/mechanics-kits/manifest.json' with { type: 'json' };
 import skyGame from '../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
 import skyPack from '../games/sky/plugins/sky-content/manifest.json' with { type: 'json' };
 import skyContent from '../games/sky/plugins/sky-content/content.json' with { type: 'json' };
@@ -27,11 +27,11 @@ async function fixture(family: 'sky' | 'verdant', content: unknown = family === 
     session.services.provide(SessionControl, gate, 'test', scope);
   } });
   const catalog: CatalogEntry[] = [
-    { manifest: resources, load: () => import('../src/plugins/mechanics-resources/index.ts') },
-    { manifest: clock, load: () => import('../src/plugins/mechanics-clock/index.ts') },
-    { manifest: actions, load: () => import('../src/plugins/mechanics-actions/index.ts') },
-    { manifest: objectives, load: () => import('../src/plugins/mechanics-objectives/index.ts') },
-    { manifest: kits, load: () => import('../src/plugins/mechanics-kits/index.ts') },
+    { manifest: resources, load: () => import('@bulkhead/std/mechanics-resources/index.ts') },
+    { manifest: clock, load: () => import('@bulkhead/std/mechanics-clock/index.ts') },
+    { manifest: actions, load: () => import('@bulkhead/std/mechanics-actions/index.ts') },
+    { manifest: objectives, load: () => import('@bulkhead/std/mechanics-objectives/index.ts') },
+    { manifest: kits, load: () => import('@bulkhead/std/mechanics-kits/index.ts') },
     ...(family === 'sky' ? [
       { manifest: skyGame, load: () => import('../games/sky/plugins/sky-game/index.ts') }, { manifest: skyPack, content },
     ] : [

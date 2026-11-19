@@ -1,4 +1,4 @@
-import { ExperienceRole, MechanicKits, SessionControl, createDeadline, createMechanicKit, definePlugin, isObject } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, MechanicKits, SessionControl, createDeadline, createMechanicKit, definePlugin, isObject } from '@bulkhead/sdk';
 import { Sky, SkyRoutes } from '../../contracts/sky.ts';
 import type { SkyCommand } from '../../contracts/sky.ts';
 import { loadRoute } from './content.ts';

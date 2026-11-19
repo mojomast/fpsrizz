@@ -6,3 +6,5 @@ dist
 .sourcemaps
 .build
 docs/reference/api
+.export
+games/zz-visual-*

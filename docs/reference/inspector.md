@@ -14,7 +14,7 @@ dev-tools core as the [dev protocol](dev-protocol.md), so everything here is als
 ## Debug draw (SDK)
 
 ```ts
-import { debugDraw } from '../../src/sdk/index.ts';
+import { debugDraw } from '@bulkhead/sdk';
 const dd = debugDraw(ctx);                       // no-op when headless or switched off
 if (dd.enabled) {
   dd.line(eye, hit.point, { color: 0xff4444 });  // until the next tick (draw it every tick)

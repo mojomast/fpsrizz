@@ -3,6 +3,7 @@
 `mechanics/navigation` implements pure, deterministic shortest-step queries over a finite, caller-authored graph.
 Stonewake uses canonical first hops for golem pursuit; Signal Break uses shortest distances for movement reachability.
 Games define legal neighbors and decide what a successful query means for movement or resource costs.
+For free-form 3D levels (ramps, walls at any angle) use the navmesh plugin instead: [navmesh.md](navmesh.md).
 
 ## Compose it
 
@@ -18,7 +19,7 @@ Add the provider to the preset and select its role:
 This is a fragment. Merge it with a complete game's plugin and role selections. The consumer manifest lists
 `"sdk/mechanic-navigation"` in `requiresRoles`; it has no concrete dependency on `mechanics/navigation`.
 The provider is a registration-time pure object, so it requires neither a `roleDependencies` startup edge nor an
-activation callback. During consumer activation, resolve `ctx.role(NavigationRole)!.provider` from `src/sdk/index.ts`.
+activation callback. During consumer activation, resolve `ctx.role(NavigationRole)!.provider` from `packages/sdk/src/index.ts`.
 Staging rejects a missing or invalid selection before replacing an existing session.
 
 The working presets are [Stonewake](../../games/puzzles/presets/stonewake.json) and
@@ -26,7 +27,7 @@ The working presets are [Stonewake](../../games/puzzles/presets/stonewake.json) 
 
 ## Public contract
 
-The authoritative declarations are [navigation.ts](../../src/sdk/contracts/navigation.ts):
+The authoritative declarations are [navigation.ts](../../packages/sdk/src/contracts/navigation.ts):
 
 ```ts
 interface NavigationNode {

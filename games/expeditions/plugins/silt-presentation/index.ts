@@ -1,4 +1,4 @@
-import { InputContexts, SessionControl, Ui, definePlugin } from '../../../../src/sdk/index.ts';
+import { InputContexts, SessionControl, Ui, definePlugin } from '@bulkhead/sdk';
 import { Silt } from '../../contracts/silt-archive.ts';
 import type { SiltCommand, SiltState } from '../../contracts/silt-archive.ts';
 

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { catalog, presets } from '../../../src/app/catalog.ts';
-import { PluginHost } from '../../../src/kernel/host.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION } from '../../../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 import { Silt } from '../contracts/silt-archive.ts';
 import type { SiltCommand, SiltState } from '../contracts/silt-archive.ts';
 import preset from '../presets/silt-archive.json' with { type: 'json' };

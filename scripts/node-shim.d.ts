@@ -43,7 +43,7 @@ declare module 'node:path' {
 }
 declare module 'node:url' { export function fileURLToPath(u: string | URL): string; export function pathToFileURL(p: string): URL; }
 declare module 'node:child_process' {
-  export function spawnSync(cmd: string, args: string[], opts?: unknown): { status: number | null; stdout: string; stderr: string };
+  export function spawnSync(cmd: string, args: string[], opts?: unknown): { status: number | null; stdout: string; stderr: string; error?: Error };
   export function spawn(cmd: string, args: string[], opts?: unknown): {
     stdin: { write(s: string): void } | null;
     stdout: { on(ev: 'data', fn: (chunk: { toString(): string }) => void): void } | null;

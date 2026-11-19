@@ -1,6 +1,6 @@
-import type { CapabilityState, PlatformerBody, RoomMapDefinition, RoomMapHandle, SessionContext } from '../../../../src/sdk/index.ts';
+import type { CapabilityState, PlatformerBody, RoomMapDefinition, RoomMapHandle, SessionContext } from '@bulkhead/sdk';
 import type { MetroBossView, MetroCheckpoint, MetroCommand, MetroDoor, MetroEffectView, MetroEnemyType, MetroEnemyView, MetroInventoryView, MetroNpcSpawn, MetroPickupSpawn, MetroRoom, MetroState, MetroStatus, MetroWorld } from '../../contracts/metroidvania.ts';
-import { CapabilityRole, ExperienceRole, Flow, Input, InputActions, Items, PlatformerRole, Profile, RoomMapRole, SessionControl, ThemeRole, capabilityMechanic, createCommandQueue, createPlatformerBody, definePlugin, inventoryMechanic, isObject, platformerMechanic, roomMapMechanic } from '../../../../src/sdk/index.ts';
+import { CapabilityRole, ExperienceRole, Flow, Input, InputActions, Items, PlatformerRole, Profile, RoomMapRole, SessionControl, ThemeRole, capabilityMechanic, createCommandQueue, createPlatformerBody, definePlugin, inventoryMechanic, isObject, platformerMechanic, roomMapMechanic } from '@bulkhead/sdk';
 import { Metroidvania, MetroidvaniaWorlds } from '../../contracts/metroidvania.ts';
 import { loadWorld } from './validation.ts';
 

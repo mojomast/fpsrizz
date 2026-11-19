@@ -6,7 +6,7 @@ built on the API described here. Third-party authors get exactly the same API.
 - **SDK version:** `3.0.0` (`SDK_VERSION`). Manifests declare a compatible range in `sdk`. SDK 3 only added APIs,
   so the host also accepts `^2.0.0` manifests (`SDK_COMPAT`); new plugins should declare `^3.0.0`. See
   [Migrating to SDK 3](#migrating-to-sdk-3).
-- **One entry point:** `src/sdk/index.ts`. Rendering plugins may additionally import `src/sdk/render.ts`.
+- **One entry point:** `@bulkhead/sdk` (source: `packages/sdk/src/index.ts`). Rendering plugins may additionally import `@bulkhead/sdk/render.ts`.
 - **Enforced:** `npm run lint` (`scripts/boundaries.ts`) fails if a plugin imports anything else — the kernel,
   platform adapters, the app, another plugin's files, or an npm package.
 
@@ -20,10 +20,10 @@ committed by `common/game` against its owned resource pool. See [Common Ground](
 
 `mechanics/relationships` supplies consumer-owned, bounded symmetric actor-pair scores through
 `RelationshipMechanicRole` and `relationshipMechanic`. The consumer defines pairs and bounds and owns social behavior,
-thresholds, and consequences; see [its plugin guide](../../src/plugins/mechanics-relationships/README.md).
+thresholds, and consequences; see [its plugin guide](../../packages/std/plugins/mechanics-relationships/README.md).
 `mechanics/conditions` manages named, refreshable target conditions over a borrowed explicit clock using
 `ConditionMechanicRole` and `conditionMechanic`. Consumers advance the clock and decide the effects; see
-[the conditions plugin guide](../../src/plugins/mechanics-conditions/README.md).
+[the conditions plugin guide](../../packages/std/plugins/mechanics-conditions/README.md).
 
 ## 1. Two kinds of extension
 
@@ -59,7 +59,7 @@ separate steps; validate the complete composition with `npm run validate-game --
 ## 2. Anatomy
 
 ```
-src/plugins/my-plugin/
+packages/std/plugins/my-plugin/
   manifest.json     # validated before any code is imported
   index.ts          # default export: definePlugin({ register, activate })
   content.json      # optional: declarative content entries shipped with the plugin
@@ -94,7 +94,7 @@ src/plugins/my-plugin/
 - `dependencies` must be **enabled in the preset** (they are never auto-enabled) and satisfy the range.
   `optionalDependencies` may be absent; if enabled, the range must match and the plugin activates after them.
 - `conflicts`: ids that cannot be enabled together with this plugin.
-- `capabilities`: free-form intent labels. `"render"` is required to import `src/sdk/render.ts`.
+- `capabilities`: free-form intent labels. `"render"` is required to import `packages/sdk/src/render.ts`.
 - `requiresRoles`: exclusive roles that must have a selected provider whenever this plugin is active. This is a
   selection requirement; it does not order plugin activation.
 - `roleDependencies` (optional, default `[]`): roles whose selected provider-owning plugins must activate before this
@@ -134,7 +134,7 @@ discover manifests ─▶ validate graph ─▶ import code ─▶ register (dep
 - A system or event handler that throws during play **pauses the session** and reports the responsible plugin.
 
 ```ts
-import { definePlugin } from '../../sdk/index.ts';
+import { definePlugin } from '@bulkhead/sdk';
 
 export default definePlugin({
   register(ctx) { /* definitions, factories, content kinds, role providers, validators. Start nothing. */ },
@@ -210,8 +210,8 @@ amount → amounts ≤ 0 are dropped → hp is reduced → `Damaged` is emitted 
 
 ## 5. Extension points
 
-All tokens are exported from `src/sdk/index.ts`; their TypeScript types are the authoritative reference
-(`src/sdk/contracts/shooter.ts`).
+All tokens are exported from `packages/sdk/src/index.ts`; their TypeScript types are the authoritative reference
+(`games/shooter/contracts/shooter.ts`).
 
 ### Registries
 
@@ -296,10 +296,10 @@ HUDs and modes read these directly: `ctx.world.get(playerId, Health)`.
 `Damaged`, `Died`, `AttackFired`, `Impact`, `WeaponSwitched`, `WeaponDry`, `PickupCollected`, `EnemyAlerted`,
 `DoorChanged`, `TriggerFired`, `UseFailed`, `FlowEnded`. Command: `DealDamage`.
 
-## 6. Rendering SDK (`src/sdk/render.ts`)
+## 6. Rendering SDK (`packages/sdk/src/render.ts`)
 
 ```ts
-import { Render, THREE, ActorRenderers } from '../../sdk/render.ts'; // manifest needs "render" in capabilities
+import { Render, THREE, ActorRenderers } from '@bulkhead/sdk/render.ts'; // manifest needs "render" in capabilities
 ```
 
 `THREE` is official Three.js r187 (scene graph, `Mesh`, `BufferGeometry`, `PlaneGeometry`,
@@ -332,7 +332,8 @@ input axes, audio buses, snapshots), so older hosts reject it cleanly. New famil
 ### Migrating rendering plugins to SDK 2
 
 The host's registration, services, entities and shooter tokens retain their identity. The rendering namespace changed
-incompatibly from mini3 to official Three.js, so bundled manifests now declare `"sdk": "^2.0.0"`. SDK-1-only plugins are
+incompatibly from mini3 to official Three.js, so bundled manifests declared `"sdk": "^2.0.0"` (SDK 3 is additive and still
+accepts them; new plugins declare `"^3.0.0"`, see [migrations](../migrations/sdk-3.md)). SDK-1-only plugins are
 rejected by staging rather than silently run with incompatible rendering semantics.
 
 - Set colors through `material.color.setHex(value)`, `material.emissive.setHex(value)` and `light.color.setHex(value)`;
@@ -390,7 +391,7 @@ older headless input fakes to omit it. These APIs provide contextual bindings, n
 | `Ember`, `EmberConfigs` | `ember/game` composes construction, lanes, waves and per-tower firing | `ember/presentation`, `ember-defense` content; [guide](../../games/ember/README.md) |
 | `Verdant`, `VerdantWorlds` | `verdant/game` composes restoration decisions and environmental drain | `verdant/presentation`, `verdant-world` content; [guide](../../games/verdant/README.md) |
 
-These contracts are exported by `src/sdk/index.ts`; consumers never import another plugin. The families omit shooter
+These contracts are exported by `packages/sdk/src/index.ts`; consumers never import another plugin. The families omit shooter
 systems entirely. Tactics/adventure/puzzles retain the 60 Hz scheduler for ingress, but idle ticks do not advance their
 authoritative turn/story state. This is not a universal turn wrapper for existing shooter systems.
 
@@ -580,18 +581,17 @@ then set `Visual.renderer = 'my/renderer'` on the entities that should use it.
 
 Goal: a plugin that slowly regenerates the player's health and says so on the HUD.
 
-1. Scaffold: `npm run new-plugin -- example/regen "Health Regen"` creates `src/plugins/example-regen/` from
+1. Scaffold: `npm run new-plugin -- example/regen "Health Regen"` creates `packages/std/plugins/example-regen/` from
    `templates/plugin-starter/`; the generated catalog picks it up.
 2. Add `"example/regen"` to `plugins` in
    `games/shooter/presets/default.json`.
-3. Replace `activate` in `src/plugins/example-regen/index.ts`:
+3. Replace `activate` in `packages/std/plugins/example-regen/index.ts`:
 
 ```ts
-import { Combat, Flow, Player, definePlugin } from '../../sdk/index.ts';
+import { Flow, Health, Player, definePlugin } from '@bulkhead/sdk';
 
 export default definePlugin({
   activate(ctx) {
-    const combat = ctx.services.get(Combat);
     ctx.services.get(Flow).notify('Regeneration online');
     let next = 1;
     ctx.systems.add({
@@ -600,14 +600,19 @@ export default definePlugin({
       update() {
         if (ctx.time.now < next) return;
         next = ctx.time.now + 1;
-        ctx.world.each(Player, (e) => void combat.heal(e, 2));
+        ctx.world.each(Player, (e) => {
+          const h = ctx.world.get(e, Health);
+          if (h && !h.dead) h.hp = Math.min(h.max, h.hp + 2);
+        });
       },
     });
   },
 });
 ```
 
-4. Add `"dependencies": { "core/combat": "^1.0.0" }` to its manifest (it uses the `Combat` service).
+4. Nothing else is needed: `Health` and `Player` are shared SDK components. (Shooter-only services such as `Combat`
+   live in `games/shooter/contracts/shooter.ts`; only plugins in `games/shooter/` or in families that list `"shooter"`
+   in their `family.json` `uses` may import them.)
 5. `npm run dev`, take damage, and watch health tick back up. `npm run check` must stay green.
 6. Remove the id from the preset (or untick it in the creator panel, **`** key) and restart: the system is gone.
 
@@ -615,7 +620,7 @@ export default definePlugin({
 
 `tests/helpers/game.ts` builds the real host with the gameplay plugins and fake platform services:
 
-See `tests/ext-ricochet.test.ts` for a working example with imports, catalog, preset, assertions and teardown. The
+See `games/shooter/tests/ext-ricochet.test.ts` for a working example with imports, catalog, preset, assertions and teardown. The
 `headlessPreset` override is shallow: passing `plugins` replaces the whole default list. Include the required core
 plugins as well as your extension. The harness supplies input and flow, but no UI or renderer; test presentation in a
 browser as well. Call `game.host.stop()` during teardown.
@@ -628,8 +633,8 @@ versioned SDK extension, not just JSON. See `docs/reference/spec.md` and `docs/a
 
 ## Appendix A — API reference (signatures)
 
-The types below are defined by the runtime and re-exported from `src/sdk/index.ts`. They are part of the public
-contract; this appendix exists so plugin authors never need to open `src/kernel`.
+The types below are defined by the runtime and re-exported from `packages/sdk/src/index.ts`. They are part of the public
+contract; this appendix exists so plugin authors never need to open `packages/kernel/src`.
 
 ```ts
 interface EntityApi {                       // ctx.world

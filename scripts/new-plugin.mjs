@@ -13,7 +13,7 @@ if (!id || !/^[a-z0-9][a-z0-9-]*\/[a-z0-9][a-z0-9._-]*$/.test(id)) {
 }
 const name = displayName ?? id;
 const dirName = id.replace('/', '-');
-const dir = path.join(root, 'src', 'plugins', dirName);
+const dir = path.join(root, 'packages', 'std', 'plugins', dirName);
 // The standalone template fixture can run without the full repository; the repository scaffold
 // also surfaces live candidates, without requiring a separate approval or blocking creation.
 if (fs.existsSync(path.join(root, 'scripts/reuse-lib.mjs'))) {
@@ -31,7 +31,7 @@ try {
   fs.mkdirSync(dir);
 } catch (error) {
   if (error.code !== 'EEXIST') throw error;
-  console.error(`src/plugins/${dirName} already exists.`);
+  console.error(`packages/std/plugins/${dirName} already exists.`);
   process.exit(1);
 }
 const tpl = path.join(root, 'templates', 'plugin-starter');
@@ -39,10 +39,10 @@ for (const file of fs.readdirSync(tpl)) {
   const text = fs.readFileSync(path.join(tpl, file), 'utf8').replace(
     /"__ID__"|"__NAME__"|'__NAME__ is active'/g,
     (placeholder) => JSON.stringify(placeholder === '"__ID__"' ? id : placeholder === '"__NAME__"' ? name : `${name} is active`),
-  ).replaceAll('"../../schemas/', '"../../../schemas/'); // templates/x -> src/plugins/x
+  ).replaceAll('"../../schemas/', '"../../../../schemas/'); // templates/x -> packages/std/plugins/x
   fs.writeFileSync(path.join(dir, file), text, { flag: 'wx' });
 }
-console.log(`Created src/plugins/${dirName}/ (manifest.json, index.ts, reuse.json)
+console.log(`Created packages/std/plugins/${dirName}/ (manifest.json, index.ts, reuse.json)
 
 1. The catalog picks it up automatically (npm run gen-catalog; dev, build and check do this for you).
 

@@ -1,16 +1,16 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ExperienceRole, SessionControl, definePlugin } from '../../../src/sdk/index.ts';
+import { ExperienceRole, SessionControl, definePlugin } from '@bulkhead/sdk';
 import { Tactics, TacticsResolved } from '../contracts/tactics.ts';
 import manifest from '../plugins/board-tactics/manifest.json' with { type: 'json' };
 import pack from '../plugins/board-mission/manifest.json' with { type: 'json' };
 import content from '../plugins/board-mission/content.json' with { type: 'json' };
-import navigationManifest from '../../../src/plugins/mechanics-navigation/manifest.json' with { type: 'json' };
+import navigationManifest from '@bulkhead/std/mechanics-navigation/manifest.json' with { type: 'json' };
 import { createHeadlessGame, headlessPreset } from '../../../tests/helpers/game.ts';
 
 function gameFor(entries: unknown[] = content) {
   const game = createHeadlessGame([
-    { manifest: navigationManifest, load: () => import('../../../src/plugins/mechanics-navigation/index.ts') },
+    { manifest: navigationManifest, load: () => import('@bulkhead/std/mechanics-navigation/index.ts') },
     { manifest, load: () => import('../plugins/board-tactics/index.ts') },
     { manifest: pack, content: entries as typeof content },
   ]);
@@ -229,7 +229,7 @@ test('staging rejects a missing or incompatible experience and mixed families', 
     },
   });
   const game = createHeadlessGame([
-    { manifest: navigationManifest, load: () => import('../../../src/plugins/mechanics-navigation/index.ts') },
+    { manifest: navigationManifest, load: () => import('@bulkhead/std/mechanics-navigation/index.ts') },
     { manifest, load: () => import('../plugins/board-tactics/index.ts') },
     { manifest: pack, content },
     { manifest: otherManifest, load: async () => ({ default: other }) },

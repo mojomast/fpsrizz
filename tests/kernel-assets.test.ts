@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { AssetStore } from '../src/kernel/assets.ts';
-import { Scope } from '../src/kernel/scope.ts';
+import { AssetStore } from '@bulkhead/kernel/assets.ts';
+import { Scope } from '@bulkhead/kernel/scope.ts';
 
 test('two scopes acquiring the same key share one value and create runs once', () => {
   const store = new AssetStore();

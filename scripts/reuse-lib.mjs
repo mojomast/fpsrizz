@@ -3,10 +3,10 @@ import { createHash } from 'node:crypto';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { posix, resolve } from 'node:path';
 import { catalog, presets } from '../src/app/catalog.ts';
-import { PluginHost } from '../src/kernel/host.ts';
-import { parseManifest } from '../src/kernel/manifest.ts';
-import * as sdk from '../src/sdk/index.ts';
-import * as renderSdk from '../src/sdk/render.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import { parseManifest } from '@bulkhead/kernel/manifest.ts';
+import * as sdk from '@bulkhead/sdk';
+import * as renderSdk from '@bulkhead/sdk/render.ts';
 import { root } from './tools.mjs';
 import { discoverPlugins } from './gen-catalog.mjs';
 
@@ -77,19 +77,19 @@ async function familyInventory() {
 }
 
 function sdkInventory() {
-  const sources = files('src/sdk', path => path.endsWith('.ts')).concat(files('src/kernel', path => path.endsWith('.ts')))
+  const sources = files('packages/sdk/src', path => path.endsWith('.ts')).concat(files('packages/kernel/src', path => path.endsWith('.ts')))
     .map(path => ({ path, text: readFileSync(resolve(root, path), 'utf8') }));
   const values = { ...sdk, ...renderSdk };
   return sorted(Object.keys(values)).map(name => {
     const declaration = new RegExp(`^export (?:(?:const|function|class) ${name}\\b|\\{\\s*${name}[\\s,}])`, 'm');
     const source = sources.find(source => declaration.test(source.text));
     const offset = source?.text.search(declaration) ?? -1;
-    const sourcePath = source?.path ?? 'src/sdk/core.ts';
+    const sourcePath = source?.path ?? 'packages/sdk/src/core.ts';
     const line = offset < 0 ? 1 : source.text.slice(0, offset).split('\n').length;
     const value = values[name];
     const token = value && typeof value === 'object' ? value.id ?? value.kind : undefined;
     return { id: `sdk/${name}`, type: 'contract', name, scope: 'contract', summary: `${typeof value === 'function' ? 'Public helper/class' : 'Public SDK value'}${token ? `: ${token}` : ''}`,
-      importFrom: name in renderSdk ? 'src/sdk/render.ts' : 'src/sdk/index.ts',
+      importFrom: name in renderSdk ? 'packages/sdk/src/render.ts' : 'packages/sdk/src/index.ts',
       token, source: `${sourcePath}:${line}`, docs: ['docs/guide/plugins.md'], examples: [], tests: [], keywords: [name, ...(token ? [token] : [])],
       useWhen: 'Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.', limitations: ['Rendering SDK imports require the render manifest capability.'] };
   });
@@ -121,7 +121,7 @@ export async function buildReuseIndex() {
     manifests.set(manifest.id, manifest); folders.set(manifest.id, directory);
     for (const file of files(directory, path => /\.(ts|json)$/.test(path))) inputs.add(file);
   }
-  for (const file of files('src/sdk', path => path.endsWith('.ts')).concat(files('src/kernel', path => path.endsWith('.ts')), familyContractFiles(), gamePresetFiles())) inputs.add(file);
+  for (const file of files('packages/sdk/src', path => path.endsWith('.ts')).concat(files('packages/kernel/src', path => path.endsWith('.ts')), familyContractFiles(), gamePresetFiles())) inputs.add(file);
   const installed = new Set(catalog.map(entry => entry.manifest.id));
   for (const id of installed) if (!manifests.has(id)) fail('catalog', `no source manifest found for ${id}`);
   const host = new PluginHost({ sdkVersion: sdk.SDK_VERSION, sdkCompat: sdk.SDK_COMPAT, phases: sdk.PHASES });

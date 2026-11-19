@@ -1,5 +1,6 @@
-import type { Prefab, RoleInfo, SessionContext, ViewState } from '../../../../src/sdk/index.ts';
-import { AmmoTypes, CameraRole, Collider, ControllerRole, Damaged, Died, Health, Input, InputActions, Intent, Inventory, Player, Prefabs, Settings, Transform, View, WeaponRuntime, Weapons, World, angleDelta, defineComponent, definePlugin, makeTransform, yawDirX, yawDirZ } from '../../../../src/sdk/index.ts';
+import type { Prefab, RoleInfo, SessionContext, ViewState } from '@bulkhead/sdk';
+import { CameraRole, Collider, ControllerRole, Health, Input, InputActions, Intent, Inventory, Player, Prefabs, Settings, Transform, View, angleDelta, defineComponent, definePlugin, makeTransform, yawDirX, yawDirZ } from '@bulkhead/sdk';
+import { AmmoTypes, Damaged, Died, WeaponRuntime, Weapons, World } from '../../contracts/shooter.ts';
 
 const EYE_HEIGHT = 1.5;
 const RADIUS = 0.35;

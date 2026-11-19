@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { catalog } from '../../../src/app/catalog.ts';
-import { NavigationRole, Reporter, SessionControl } from '../../../src/sdk/index.ts';
+import { NavigationRole, Reporter, SessionControl } from '@bulkhead/sdk';
 import { PushPuzzle, PuzzleResolved } from '../contracts/puzzle.ts';
 import type { PuzzleCommand, PuzzleDirection } from '../contracts/puzzle.ts';
 import preset from '../presets/stonewake.json' with { type: 'json' };

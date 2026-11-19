@@ -1,4 +1,5 @@
-import { HudRole, Inventory, Player, Transform, Ui, ViewModes, WeaponRuntime, Weapons, angleDelta, definePlugin } from '../../../../src/sdk/index.ts';
+import { HudRole, Inventory, Player, Transform, Ui, ViewModes, angleDelta, definePlugin } from '@bulkhead/sdk';
+import { WeaponRuntime, Weapons } from '../../../shooter/contracts/shooter.ts';
 import { Cinder } from '../../contracts/cinder.ts';
 import type { CinderMapView } from '../../contracts/cinder.ts';
 import { css } from './style.ts';

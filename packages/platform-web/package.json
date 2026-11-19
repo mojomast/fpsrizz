@@ -1,0 +1,27 @@
+{
+  "name": "@bulkhead/platform-web",
+  "version": "3.0.0",
+  "description": "Bulkhead web platform: input, audio, storage, UI, render adapters (mini3 + vendored three), dev tools.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojomast/fpsrizz.git",
+    "directory": "packages/platform-web"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "exports": {
+    "./*": "./src/*"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@bulkhead/kernel": "3.0.0",
+    "@bulkhead/sdk": "3.0.0",
+    "@dimforge/rapier3d-compat": "0.19.3"
+  }
+}

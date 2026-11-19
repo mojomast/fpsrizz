@@ -1,10 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { catalog } from '../src/app/catalog.ts';
-import { PluginHost } from '../src/kernel/host.ts';
-import { createFlow } from '../src/platform/flow.ts';
-import { createInputCore } from '../src/platform/input.ts';
-import { Flow, FlowEnded, Input, PHASES, SDK_COMPAT, SDK_VERSION } from '../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import { createFlow } from '@bulkhead/platform-web/flow.ts';
+import { createInputCore } from '@bulkhead/platform-web/input.ts';
+import { Flow, FlowEnded, Input, PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 import shooter from '../games/shooter/presets/default.json' with { type: 'json' };
 import racer from '../games/racing/presets/overhead-racing.json' with { type: 'json' };
 import tactics from '../games/tactics/presets/turn-tactics.json' with { type: 'json' };

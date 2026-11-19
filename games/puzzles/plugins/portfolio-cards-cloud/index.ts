@@ -1,4 +1,4 @@
-import { ExperienceRole, createCommandQueue, definePlugin } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, createCommandQueue, definePlugin } from '@bulkhead/sdk';
 import { PortfolioCards, cardPilesMechanic } from '../../contracts/portfolio-cards.ts';
 
 const deck = ['sun-1','wind-1','rain-1','sun-2','wind-2','rain-2','sun-3','wind-3','rain-3','sun-4','wind-4','rain-4'];

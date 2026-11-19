@@ -1,15 +1,15 @@
-import type { CatalogEntry } from '../sdk/index.ts';
-import { HostError, errText } from '../kernel/host.ts';
-import type { CatalogStatus, PluginHost } from '../kernel/host.ts';
-import { PACK_SCHEMA, PRESET_SCHEMA, parsePreset } from '../kernel/manifest.ts';
-import type { ConfigField, GamePreset, PluginManifest } from '../kernel/manifest.ts';
-import { dependentsOf } from '../kernel/resolver.ts';
-import type { Issue, Json } from '../kernel/validate.ts';
-import { Reporter } from '../kernel/validate.ts';
+import type { CatalogEntry } from '@bulkhead/sdk';
+import { HostError, errText } from '@bulkhead/kernel/host.ts';
+import type { CatalogStatus, PluginHost } from '@bulkhead/kernel/host.ts';
+import { PACK_SCHEMA, PRESET_SCHEMA, parsePreset } from '@bulkhead/kernel/manifest.ts';
+import type { ConfigField, GamePreset, PluginManifest } from '@bulkhead/kernel/manifest.ts';
+import { dependentsOf } from '@bulkhead/kernel/resolver.ts';
+import type { Issue, Json } from '@bulkhead/kernel/validate.ts';
+import { Reporter } from '@bulkhead/kernel/validate.ts';
 import { CREATOR_CSS } from './creator-styles.ts';
 import { createGameComposer } from './game-composer.ts';
 import providerCatalog from './catalog-providers.json' with { type: 'json' };
-import type { DevTools } from '../platform/devtools.ts';
+import type { DevTools } from '@bulkhead/platform-web/devtools.ts';
 import type { Inspector } from './inspector.ts';
 
 export interface FrameStats {

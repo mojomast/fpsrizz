@@ -1,5 +1,6 @@
-import { Died, Enemy, Flow, Maps, ModeRole, Player, Prefabs, TriggerFired, UseFailed, World, definePlugin, spawnPrefab } from '../../../../src/sdk/index.ts';
-import type { SessionContext } from '../../../../src/sdk/index.ts';
+import { Flow, Maps, ModeRole, Player, Prefabs, definePlugin, spawnPrefab } from '@bulkhead/sdk';
+import { Died, Enemy, TriggerFired, UseFailed, World } from '../../contracts/shooter.ts';
+import type { SessionContext } from '@bulkhead/sdk';
 
 const ID = 'example/time-trial';
 const formatTime = (seconds: number): string => `${Math.floor(seconds / 60)}:${String(Math.floor(seconds % 60)).padStart(2, '0')}`;

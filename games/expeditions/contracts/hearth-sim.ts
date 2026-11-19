@@ -1,4 +1,4 @@
-import { defineRegistry, defineService } from '../../../src/sdk/index.ts';
+import { defineRegistry, defineService } from '@bulkhead/sdk';
 
 /** Authored household data. Times are minutes after midnight. */
 export interface HearthResidentDefinition { readonly id: string; readonly name: string; readonly occupation: string; readonly shiftStart: number; readonly description: string }

@@ -1,6 +1,6 @@
-import { ExperienceRole, MechanicKits, SessionControl, actionMechanic, createMechanicKit, definePlugin, isObject } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, MechanicKits, SessionControl, actionMechanic, createMechanicKit, definePlugin, isObject } from '@bulkhead/sdk';
 import { Ember, EmberConfigs } from '../../contracts/ember.ts';
-import type { MechanicActions } from '../../../../src/sdk/index.ts';
+import type { MechanicActions } from '@bulkhead/sdk';
 import type { EmberCommand, EmberEnemy, EmberPoint } from '../../contracts/ember.ts';
 import { loadDefense } from './content.ts';
 

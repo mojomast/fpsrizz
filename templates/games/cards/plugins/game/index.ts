@@ -1,5 +1,5 @@
 // __TITLE__: a memory card game drawn with the DOM UI service (no 3D). Rules and UI live in one plugin.
-import { ExperienceRole, Flow, SessionControl, Ui, definePlugin, defineService, morphChildren } from '../../../../../src/sdk/index.ts';
+import { ExperienceRole, Flow, SessionControl, Ui, definePlugin, defineService, morphChildren } from '@bulkhead/sdk';
 
 const NS = '__NS__';
 const PAIRS = 8, HIDE_AFTER = 0.8;

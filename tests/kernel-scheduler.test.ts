@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { Scheduler } from '../src/kernel/scheduler.ts';
-import type { SchedulerHooks, SystemFault } from '../src/kernel/scheduler.ts';
+import { Scheduler } from '@bulkhead/kernel/scheduler.ts';
+import type { SchedulerHooks, SystemFault } from '@bulkhead/kernel/scheduler.ts';
 
 const PHASES = ['input', 'sim', 'late'];
 

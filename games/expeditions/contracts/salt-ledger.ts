@@ -1,5 +1,5 @@
-import { defineRegistry, defineService } from '../../../src/sdk/index.ts';
-import type { RelationshipPair } from '../../../src/sdk/index.ts';
+import { defineRegistry, defineService } from '@bulkhead/sdk';
+import type { RelationshipPair } from '@bulkhead/sdk';
 
 export interface SaltLocation { id: string; name: string; region: string; description: string; exits: string[] }
 export interface SaltQuest { id: string; title: string; target: string; brief: string }

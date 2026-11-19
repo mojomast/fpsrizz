@@ -1,6 +1,6 @@
-import { SessionControl, actionMechanic, clockMechanic, createCommandQueue, definePlugin, isObject, objectiveMechanic, relationshipMechanic, resourceMechanic, vArray, vNumber, vString } from '../../../../src/sdk/index.ts';
+import { SessionControl, actionMechanic, clockMechanic, createCommandQueue, definePlugin, isObject, objectiveMechanic, relationshipMechanic, resourceMechanic, vArray, vNumber, vString } from '@bulkhead/sdk';
 import { Hearth, HearthHouseholds } from '../../contracts/hearth-sim.ts';
-import type { ResourcePool } from '../../../../src/sdk/index.ts';
+import type { ResourcePool } from '@bulkhead/sdk';
 import type { HearthActivity, HearthCommand, HearthFinish, HearthObjectDefinition, HearthPlacement, HearthResidentDefinition, HearthRoom, HearthTile } from '../../contracts/hearth-sim.ts';
 
 const categories = ['sleep', 'cooking', 'hygiene', 'seating', 'work', 'decor'] as const;

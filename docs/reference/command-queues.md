@@ -6,8 +6,8 @@ legality, scheduling and gameplay outcomes stay in their respective authorities.
 
 ## Public API
 
-Import the runtime helper and companion types from `src/sdk/index.ts`. The declaration is
-[`src/sdk/contracts/command-queue.ts`](../../src/sdk/contracts/command-queue.ts).
+Import the runtime helper and companion types from `packages/sdk/src/index.ts`. The declaration is
+[`packages/sdk/src/contracts/command-queue.ts`](../../packages/sdk/src/contracts/command-queue.ts).
 
 ```ts
 interface CommandQueueOptions<T> {
@@ -96,7 +96,7 @@ Searches: `command queue`, `input focus pause`; then targeted `--show` inspectio
 | Candidate ID | Inspected evidence | Decision |
 |---|---|---|
 | `recipe/scoped-input`, `sdk/SessionControl`, `sdk/InputContexts` | SDK experience/input declarations; puzzle presentation; `tests/experience-input.test.ts`; ownership and ingress sections in `docs/guide/plugins.md` / `docs/reference/architecture.md` | Reuse host pause and scope facilities. Input contexts manage physical bindings/focus, not pending semantic commands. |
-| `sdk/defineCommand` | `src/sdk/core.ts` and the command-bus contract | Immediate single-handler dispatch does not supply bounded deferred ingress. Keep that mechanism unchanged. |
+| `sdk/defineCommand` | `packages/sdk/src/core.ts` and the command-bus contract | Immediate single-handler dispatch does not supply bounded deferred ingress. Keep that mechanism unchanged. |
 | `puzzle/rules`, `sdk/PushPuzzle` | Puzzle command declaration, rules authority and `games/puzzles/tests/stonewake.test.ts` | Extract pending FIFO plumbing; preserve single-command/transition policy in the game. |
 | `story/adventure`, `sdk/Adventure` | Adventure command declaration, authority and `games/adventure/tests/narrative-adventure.test.ts` | Use the same helper with snapshot batch transfer. Inventory and save replay remain local. |
 

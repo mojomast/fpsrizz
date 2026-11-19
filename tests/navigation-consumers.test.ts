@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { NavigationRole } from '../src/sdk/index.ts';
+import { NavigationRole } from '@bulkhead/sdk';
 import { PushPuzzle } from '../games/puzzles/contracts/puzzle.ts';
 import { Tactics, TacticsResolved } from '../games/tactics/contracts/tactics.ts';
-import type { CatalogEntry } from '../src/sdk/index.ts';
+import type { CatalogEntry } from '@bulkhead/sdk';
 import type { PuzzleCommand } from '../games/puzzles/contracts/puzzle.ts';
 import type { TacticsCommand, TacticsUnit } from '../games/tactics/contracts/tactics.ts';
-import navigationManifest from '../src/plugins/mechanics-navigation/manifest.json' with { type: 'json' };
+import navigationManifest from '@bulkhead/std/mechanics-navigation/manifest.json' with { type: 'json' };
 import puzzleManifest from '../games/puzzles/plugins/puzzle-rules/manifest.json' with { type: 'json' };
 import tacticsManifest from '../games/tactics/plugins/board-tactics/manifest.json' with { type: 'json' };
 import tacticsContent from '../games/tactics/plugins/board-mission/content.json' with { type: 'json' };
@@ -16,7 +16,7 @@ import { alternateNavigation, alternateNavigationId } from './helpers/alternate-
 import { createHeadlessGame, headlessPreset } from './helpers/game.ts';
 
 const implementations: { id: string; entry: CatalogEntry }[] = [
-  { id: navigationManifest.id, entry: { manifest: navigationManifest, load: () => import('../src/plugins/mechanics-navigation/index.ts') } },
+  { id: navigationManifest.id, entry: { manifest: navigationManifest, load: () => import('@bulkhead/std/mechanics-navigation/index.ts') } },
   { id: alternateNavigationId, entry: alternateNavigation },
 ];
 

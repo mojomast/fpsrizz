@@ -9,14 +9,15 @@ export type Violation = { file: string; line: number; specifier: string; rule: s
 type Ref = { specifier: string; line: number };
 type Tok = { kind: 'id' | 'str' | 'punct'; text: string; line: number };
 
-const SDK_INDEX = 'src/sdk/index.ts';
-const SDK_RENDER = 'src/sdk/render.ts';
+const SDK_INDEX = 'packages/sdk/src/index.ts';
+const SDK_RENDER = 'packages/sdk/src/render.ts';
 /**
  * npm packages an engine or game plugin may import directly, each gated by a manifest capability. Keep this list
  * short: wrap a package in one std plugin and expose it through an SDK service instead of importing it everywhere.
  */
 export const VENDOR_PACKAGES: readonly { pkg: string; capability: string }[] = [
   { pkg: '@dimforge/rapier3d-compat', capability: 'physics' },
+  { pkg: 'recast-navigation', capability: 'navmesh' },
   // Official Three.js addons (loaders, decoders). The build resolves their bare "three" import to the vendored runtime.
   { pkg: 'three/examples/jsm', capability: 'render' },
 ];
@@ -172,7 +173,21 @@ function normalizePosix(p: string): string {
   return res.join('/');
 }
 
+/** Workspace packages: `@bulkhead/<name>[/<rest>]` resolves to `packages/<name>/<dir>/<rest>` (index.ts for the root). */
+export const WORKSPACE_PACKAGES: Readonly<Record<string, { dir: string; index?: string }>> = {
+  kernel: { dir: 'packages/kernel/src' },
+  sdk: { dir: 'packages/sdk/src', index: 'index.ts' },
+  'platform-web': { dir: 'packages/platform-web/src' },
+  std: { dir: 'packages/std/plugins' },
+};
+
 function resolveSpecifier(fromFile: string, spec: string): { bare: boolean; path: string } {
+  const ws = /^@bulkhead\/([a-z-]+)(?:\/(.*))?$/.exec(spec);
+  if (ws && WORKSPACE_PACKAGES[ws[1]!]) {
+    const pkg = WORKSPACE_PACKAGES[ws[1]!]!;
+    const rest = ws[2] ?? pkg.index;
+    if (rest) return { bare: false, path: normalizePosix(`${pkg.dir}/${rest}`) };
+  }
   if (spec.startsWith('./') || spec.startsWith('../') || spec === '.' || spec === '..') {
     const dir = fromFile.includes('/') ? fromFile.slice(0, fromFile.lastIndexOf('/')) : '';
     return { bare: false, path: normalizePosix(`${dir}/${spec}`) };
@@ -181,42 +196,35 @@ function resolveSpecifier(fromFile: string, spec: string): { bare: boolean; path
   return { bare: true, path: spec };
 }
 
-function relFrom(fromFile: string, target: string): string {
-  const from = fromFile.split('/').slice(0, -1);
-  const to = target.split('/');
-  let c = 0;
-  while (c < from.length && c < to.length - 1 && from[c] === to[c]) c++;
-  const up = from.length - c;
-  const rel = [...Array(up).fill('..'), ...to.slice(c)].join('/');
-  return rel.startsWith('.') ? rel : `./${rel}`;
-}
-
 const under = (path: string, dir: string) => path === dir || path.startsWith(`${dir}/`);
 
 // ---------------------------------------------------------------- rules
 
-export function checkSource(relPath: string, source: string, opts: { capabilities?: string[] } = {}): Violation[] {
+export function checkSource(relPath: string, source: string, opts: { capabilities?: string[]; uses?: string[] } = {}): Violation[] {
   const file = relPath.replace(/\\/g, '/');
   const out: Violation[] = [];
   const toks = tokenize(source);
   const add = (line: number, specifier: string, rule: string, message: string) =>
     out.push({ file, line, specifier, rule, message });
 
-  // Engine plugins live in src/plugins/<name>/; game plugins in games/<family>/plugins/<name>/.
-  const pluginMatch = /^(?:src\/plugins|games\/[^/]+\/plugins)\/([^/]+)\//.exec(file);
+  // Engine plugins live in packages/std/plugins/<name>/; game plugins in games/<family>/plugins/<name>/.
+  const pluginMatch = /^(?:packages\/std\/plugins|games\/[^/]+\/plugins)\/([^/]+)\//.exec(file);
   const pluginDir = pluginMatch ? file.slice(0, pluginMatch[0].length - 1) : '';
   const familyMatch = /^games\/([^/]+)\//.exec(file);
   const familyContracts = familyMatch ? `games/${familyMatch[1]}/contracts` : '';
   const inFamilyContracts = familyContracts !== '' && under(file, familyContracts);
-  const inKernel = under(file, 'src/kernel');
-  const inSdk = under(file, 'src/sdk');
-  const inPlatform = under(file, 'src/platform');
+  // Contracts of other families this family declares in games/<family>/family.json "uses".
+  const usedContracts = familyMatch ? (opts.uses ?? []).map((u) => `games/${u}/contracts`) : [];
+  const inUsedContracts = (path: string) => usedContracts.some((d) => under(path, d));
+  const inKernel = under(file, 'packages/kernel/src');
+  const inSdk = under(file, 'packages/sdk/src');
+  const inPlatform = under(file, 'packages/platform-web/src');
 
   if (inKernel) {
     for (let k = 0; k < toks.length; k++) {
       const t = toks[k]!;
       if (t.kind === 'id' && (t.text === 'document' || t.text === 'window') && toks[k + 1]?.text === '.' && toks[k - 1]?.text !== '.') {
-        add(t.line, t.text, 'no-dom-in-kernel', `The kernel must not touch the DOM (\`${t.text}.\`); keep browser access in src/platform.`);
+        add(t.line, t.text, 'no-dom-in-kernel', `The kernel must not touch the DOM (\`${t.text}.\`); keep browser access in packages/platform-web/src.`);
       }
     }
   }
@@ -239,7 +247,7 @@ export function checkSource(relPath: string, source: string, opts: { capabilitie
           continue;
         }
       }
-      if (!bare && familyContracts && under(path, familyContracts)) continue;
+      if (!bare && familyContracts && (under(path, familyContracts) || inUsedContracts(path))) continue;
       if (!bare && path === SDK_RENDER) {
         if (!(opts.capabilities ?? []).includes('render')) {
           add(line, specifier, 'render-capability',
@@ -248,32 +256,32 @@ export function checkSource(relPath: string, source: string, opts: { capabilitie
         continue;
       }
       add(line, specifier, 'plugin-isolation',
-        `Plugins may only import their own folder, the SDK entry point (${relFrom(file, SDK_INDEX)})` +
-        `${familyContracts ? `, their family's contracts (${familyContracts}/)` : ''} or, with the "render" capability, ${relFrom(file, SDK_RENDER)}. ` +
+        `Plugins may only import their own folder, the SDK entry point ('@bulkhead/sdk')` +
+        `${familyContracts ? `, their family's contracts (${familyContracts}/), contracts of families listed in games/${familyMatch![1]}/family.json "uses"` : ''} or, with the "render" capability, '@bulkhead/sdk/render.ts'. ` +
         `Import "${specifier}" from the SDK entry point instead.`);
     } else if (inFamilyContracts) {
-      if (bare || !(path === SDK_INDEX || under(path, familyContracts))) {
+      if (bare || !(path === SDK_INDEX || under(path, familyContracts) || inUsedContracts(path))) {
         add(line, specifier, 'family-contracts',
-          `Game contracts may only import the SDK entry point (${relFrom(file, SDK_INDEX)}) and other contracts of the same family; "${specifier}" is not allowed.`);
+          `Game contracts may only import the SDK entry point ('@bulkhead/sdk') and other contracts of the same family; "${specifier}" is not allowed.`);
       }
     } else if (inKernel) {
-      if (bare || !under(path, 'src/kernel')) {
-        add(line, specifier, 'kernel-purity', `src/kernel may only import other src/kernel files; "${specifier}" is not allowed.`);
+      if (bare || !under(path, 'packages/kernel/src')) {
+        add(line, specifier, 'kernel-purity', `packages/kernel/src may only import other packages/kernel/src files; "${specifier}" is not allowed.`);
       }
     } else if (inSdk) {
       const ok =
         !bare &&
-        (under(path, 'src/sdk') ||
-          under(path, 'src/kernel') ||
-          (file === SDK_RENDER && under(path, 'src/platform/render/mini3')));
+        (under(path, 'packages/sdk/src') ||
+          under(path, 'packages/kernel/src') ||
+          (file === SDK_RENDER && under(path, 'packages/platform-web/src/render/mini3')));
       if (!ok) {
-        const hint = !bare && under(path, 'src/platform/render/mini3') ? ' Only src/sdk/render.ts may import the mini3 renderer.' : '';
-        add(line, specifier, 'sdk-surface', `src/sdk may only import src/sdk and src/kernel; "${specifier}" is not allowed.${hint}`);
+        const hint = !bare && under(path, 'packages/platform-web/src/render/mini3') ? ' Only packages/sdk/src/render.ts may import the mini3 renderer.' : '';
+        add(line, specifier, 'sdk-surface', `packages/sdk/src may only import packages/sdk/src and packages/kernel/src; "${specifier}" is not allowed.${hint}`);
       }
     } else if (inPlatform) {
-      const ok = !bare && (under(path, 'src/platform') || under(path, 'src/kernel') || under(path, 'src/sdk'));
+      const ok = !bare && (under(path, 'packages/platform-web/src') || under(path, 'packages/kernel/src') || under(path, 'packages/sdk/src'));
       if (!ok) {
-        add(line, specifier, 'platform-layer', `src/platform may only import src/platform, src/kernel and src/sdk; "${specifier}" is not allowed (never plugins or app).`);
+        add(line, specifier, 'platform-layer', `packages/platform-web/src may only import packages/platform-web/src, packages/kernel/src and packages/sdk/src; "${specifier}" is not allowed (never plugins or app).`);
       }
     }
   }
@@ -292,7 +300,7 @@ function walk(dir: string, acc: string[]): void {
 
 export function listSourceFiles(root: string): string[] {
   const files: string[] = [];
-  for (const top of ['src', 'games']) {
+  for (const top of ['src', 'packages', 'games']) {
     const dir = resolve(root, top);
     if (existsSync(dir)) walk(dir, files);
   }
@@ -311,12 +319,25 @@ function readCapabilities(root: string, pluginDir: string): string[] {
   }
 }
 
+function readUses(root: string, family: string): string[] {
+  const p = join(root, 'games', family, 'family.json');
+  if (!existsSync(p)) return [];
+  try {
+    const f = JSON.parse(readFileSync(p, 'utf8')) as { uses?: unknown };
+    return Array.isArray(f.uses) ? f.uses.filter((u): u is string => typeof u === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
 export function checkRepo(root: string): Violation[] {
   const out: Violation[] = [];
   for (const rel of listSourceFiles(root)) {
-    const m = /^(?:src\/plugins|games\/[^/]+\/plugins)\/[^/]+\//.exec(rel);
+    const m = /^(?:packages\/std\/plugins|games\/[^/]+\/plugins)\/[^/]+\//.exec(rel);
     const capabilities = m ? readCapabilities(root, m[0].slice(0, -1)) : [];
-    out.push(...checkSource(rel, readFileSync(join(root, rel), 'utf8'), { capabilities }));
+    const fam = /^games\/([^/]+)\//.exec(rel);
+    const uses = fam ? readUses(root, fam[1]!) : [];
+    out.push(...checkSource(rel, readFileSync(join(root, rel), 'utf8'), { capabilities, uses }));
   }
   return out;
 }

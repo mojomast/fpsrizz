@@ -5,13 +5,13 @@ the shooter's planar `Transform` (x, z, yaw) or a hand-rolled presentation.
 
 | Piece | Where | What it does |
 |---|---|---|
-| `Transform3D` | `src/sdk/contracts/spatial.ts` | Local pose: `position`, unit-quaternion `rotation`, `scale`, optional `parent` entity |
+| `Transform3D` | `packages/sdk/src/contracts/spatial.ts` | Local pose: `position`, unit-quaternion `rotation`, `scale`, optional `parent` entity |
 | `PrevTransform` | same | The pose at the start of the current tick; written by `std/transform` |
 | `Renderable` | same | What to draw: `shape` (box, sphere, cylinder, capsule, plane) + `size` + `color`, a glTF `model` URL, or a `prefab` id; `instanced`, `visible` |
 | math | same | `vec3`, `quatFromEuler` (YXZ, like the shooter's yaw), `quatMultiply`, `rotateVec3`, `slerp`, `interpolatePose`, `composePose`, `worldPose`, `snapTransform`, `transform3d()` |
-| `std/transform` | `src/plugins/std-transform` | First system of every tick (`input` phase, order -1000): `PrevTransform := Transform3D` |
-| `std/render-sync` | `src/plugins/std-render-sync` | Frame system: creates/rebuilds/disposes scene objects from `Renderable` and poses them with the scheduler's `alpha` |
-| `RenderablePrefabs`, `Models` | `src/sdk/render.ts` | Render-side prefab factories, and the glTF model service (`std/assets`) |
+| `std/transform` | `packages/std/plugins/std-transform` | First system of every tick (`input` phase, order -1000): `PrevTransform := Transform3D` |
+| `std/render-sync` | `packages/std/plugins/std-render-sync` | Frame system: creates/rebuilds/disposes scene objects from `Renderable` and poses them with the scheduler's `alpha` |
+| `RenderablePrefabs`, `Models` | `packages/sdk/src/render.ts` | Render-side prefab factories, and the glTF model service (`std/assets`) |
 | `shooter/transform3d` | `games/shooter/plugins/shooter-transform3d` | Mirrors the shooter's planar `Transform` into `Transform3D` (compat bridge) |
 
 ```ts
@@ -37,7 +37,7 @@ Rules:
 
 ## Spatial index and instancing (P1.8)
 
-**`SpatialHash<K>`** (`src/sdk/contracts/spatial-index.ts`, exported from the SDK) is a uniform grid on the XZ plane
+**`SpatialHash<K>`** (`packages/sdk/src/contracts/spatial-index.ts`, exported from the SDK) is a uniform grid on the XZ plane
 with an optional Y range per box: `set(key, box)` (insert or move), `delete`, `query(box)`, `near(x, z, radius)`,
 `candidates(box)` (cell-level superset for callers with their own exact test) and `segment(x, z, dirX, dirZ,
 maxDist, pad)` (ray / swept-circle broad phase that walks only the cells the ray crosses). Results always come back

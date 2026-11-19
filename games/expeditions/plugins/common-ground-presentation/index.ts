@@ -1,4 +1,4 @@
-import { ExperienceRole, SessionControl, Ui, definePlugin, morphChildren } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, SessionControl, Ui, definePlugin, morphChildren } from '@bulkhead/sdk';
 import { Hearth } from '../../contracts/hearth-sim.ts';
 import type { HearthActivity, HearthCommand, HearthFinish, HearthRoom } from '../../contracts/hearth-sim.ts';
 

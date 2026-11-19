@@ -27,7 +27,7 @@ modelled on Godot's `.tscn`: small, diff-friendly JSON that people and agents ca
 Node fields: `prefab`, `name`, `transform` (`position` [x,y,z]; `rotation` Euler degrees [x,y,z] in YXZ order or a quaternion [x,y,z,w]; `scale` number or [x,y,z]), `overrides` (deep-merged into the prefab's components), `props` (free-form data) and `children`.
 
 ```ts
-import { spawnScene, spawnSceneFile, SceneNodeInfo } from '../../src/sdk/index.ts';
+import { spawnScene, spawnSceneFile, SceneNodeInfo } from '@bulkhead/sdk';
 const { root, byName, entities } = spawnScene(ctx, 'game/room', { at: pose });
 await spawnSceneFile(ctx, 'levels/room.scene.json'); // standalone file through the asset service
 ```

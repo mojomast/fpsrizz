@@ -2,10 +2,38 @@
   "name": "create-bulkhead",
   "version": "0.1.0",
   "description": "Scaffold a Bulkhead game from a genre template (npm create bulkhead).",
+  "keywords": [
+    "bulkhead",
+    "game-engine",
+    "scaffold",
+    "create",
+    "template",
+    "threejs",
+    "webgl"
+  ],
   "type": "module",
-  "private": true,
-  "bin": { "create-bulkhead": "./index.mjs" },
-  "files": ["index.mjs"],
-  "engines": { "node": ">=22" },
-  "license": "MIT"
+  "bin": {
+    "create-bulkhead": "./index.mjs"
+  },
+  "exports": {
+    ".": "./index.mjs"
+  },
+  "files": [
+    "index.mjs",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=22.18"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojomast/fpsrizz.git",
+    "directory": "packages/create-bulkhead"
+  },
+  "homepage": "https://github.com/mojomast/fpsrizz/blob/main/docs/guide/bulkhead-cli.md",
+  "bugs": "https://github.com/mojomast/fpsrizz/issues",
+  "publishConfig": {
+    "access": "public"
+  }
 }

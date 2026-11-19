@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "theme/assetrizz",
+  "name": "Assetrizz Dark Sci-Fi Theme",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Pinned Assetrizz hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops and ornate icons, plus sci-fi and Cinder/Hollowmere theme variants.",
+  "capabilities": [
+    "assets"
+  ]
+}

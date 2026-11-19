@@ -1,5 +1,5 @@
-import { PrevTransform, Transform, Transform3D, definePlugin, quatFromEuler } from '../../../../src/sdk/index.ts';
-import type { Pose, Quat } from '../../../../src/sdk/index.ts';
+import { PrevTransform, Transform, Transform3D, definePlugin, quatFromEuler } from '@bulkhead/sdk';
+import type { Pose, Quat } from '@bulkhead/sdk';
 
 const setQuat = (q: Quat, yaw: number): void => { const r = quatFromEuler(yaw); q.x = r.x; q.y = r.y; q.z = r.z; q.w = r.w; };
 const fresh = (x: number, z: number, yaw: number): Pose => ({ position: { x, y: 0, z }, rotation: quatFromEuler(yaw), scale: { x: 1, y: 1, z: 1 } });

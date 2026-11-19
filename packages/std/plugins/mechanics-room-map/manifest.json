@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "mechanics/room-map",
+  "name": "Explorable room map",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^2.0.0",
+  "description": "Validated room graph with current, visited and revealed state for metroidvania/adventure map UIs.",
+  "dependencies": {},
+  "capabilities": ["simulation"]
+}

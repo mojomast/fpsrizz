@@ -5,7 +5,7 @@ import { startRun } from '../../../../tests/helpers/replay.ts';
 import { Game } from '../plugins/game/index.ts';
 import preset from '../presets/default.json' with { type: 'json' };
 
-const spec = { preset, plugins: ['src/plugins/std-transform', 'src/plugins/std-render-sync', fileURLToPath(new URL('../plugins/game', import.meta.url))] };
+const spec = { preset, plugins: ['packages/std/plugins/std-transform', 'packages/std/plugins/std-render-sync', fileURLToPath(new URL('../plugins/game', import.meta.url))] };
 
 test('__TITLE__: the cube spins and the run snapshots', async () => {
   const run = await startRun(spec);

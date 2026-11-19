@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bulkhead.dev/schemas/family.schema.json",
+  "title": "Game family",
+  "description": "games/<family>/family.json: metadata for one game family. `uses` lists other families whose contracts (games/<other>/contracts/) this family's plugins and contracts may import.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "uses": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "uses"
+  ]
+}

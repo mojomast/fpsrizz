@@ -1,5 +1,5 @@
-import type { CellDesc, DoorDesc, Json, LightDesc, Reporter, SolidDesc, SpawnDesc, TriggerDesc, WorldDescription } from '../../../../src/sdk/index.ts';
-import { isObject, vArray, vBool, vJson, vNumber, vObject, vOneOf, vString } from '../../../../src/sdk/index.ts';
+import type { CellDesc, DoorDesc, Json, LightDesc, Reporter, SolidDesc, SpawnDesc, TriggerDesc, WorldDescription } from '@bulkhead/sdk';
+import { isObject, vArray, vBool, vJson, vNumber, vObject, vOneOf, vString } from '@bulkhead/sdk';
 
 export const GRID_MAP_SCHEMA = 1;
 const MAX_CELLS = 96;

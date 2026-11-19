@@ -1,15 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost } from '../../../src/kernel/host.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION } from '../../../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 import { Silt } from '../contracts/silt-archive.ts';
 import game from '../plugins/silt-game/manifest.json' with { type: 'json' };
-import roomMap from '../../../src/plugins/mechanics-room-map/manifest.json' with { type: 'json' };
-import inventory from '../../../src/plugins/mechanics-inventory/manifest.json' with { type: 'json' };
-import crafting from '../../../src/plugins/mechanics-crafting/manifest.json' with { type: 'json' };
-import progression from '../../../src/plugins/mechanics-progression/manifest.json' with { type: 'json' };
-import clock from '../../../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
-import conditions from '../../../src/plugins/mechanics-conditions/manifest.json' with { type: 'json' };
+import roomMap from '@bulkhead/std/mechanics-room-map/manifest.json' with { type: 'json' };
+import inventory from '@bulkhead/std/mechanics-inventory/manifest.json' with { type: 'json' };
+import crafting from '@bulkhead/std/mechanics-crafting/manifest.json' with { type: 'json' };
+import progression from '@bulkhead/std/mechanics-progression/manifest.json' with { type: 'json' };
+import clock from '@bulkhead/std/mechanics-clock/manifest.json' with { type: 'json' };
+import conditions from '@bulkhead/std/mechanics-conditions/manifest.json' with { type: 'json' };
 
 const chamber = { name: 'Open', rows: ['####D####', '#.......#', '#.......#', '#.......#', 'D.......D', '#.......#', '#.......#', '#.......#', '####D####'] };
 const pack = { schema: 1, id: 'test/combat-content', name: 'Combat', version: '1.0.0', kind: 'content', sdk: '^2.0.0', description: 'Combat', dependencies: { 'silt/game': '^1.0.0' }, capabilities: [] };
@@ -17,7 +17,7 @@ const content = [{ kind: 'silt-archive', id: 'test/combat', data: { name: 'Archi
 
 async function setup() {
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
-  assert.deepEqual(host.setCatalog([{ manifest: game, load: () => import('../plugins/silt-game/index.ts') }, { manifest: roomMap, load: () => import('../../../src/plugins/mechanics-room-map/index.ts') }, { manifest: inventory, load: () => import('../../../src/plugins/mechanics-inventory/index.ts') }, { manifest: crafting, load: () => import('../../../src/plugins/mechanics-crafting/index.ts') }, { manifest: progression, load: () => import('../../../src/plugins/mechanics-progression/index.ts') }, { manifest: clock, load: () => import('../../../src/plugins/mechanics-clock/index.ts') }, { manifest: conditions, load: () => import('../../../src/plugins/mechanics-conditions/index.ts') }, { manifest: pack, content }]), []);
+  assert.deepEqual(host.setCatalog([{ manifest: game, load: () => import('../plugins/silt-game/index.ts') }, { manifest: roomMap, load: () => import('@bulkhead/std/mechanics-room-map/index.ts') }, { manifest: inventory, load: () => import('@bulkhead/std/mechanics-inventory/index.ts') }, { manifest: crafting, load: () => import('@bulkhead/std/mechanics-crafting/index.ts') }, { manifest: progression, load: () => import('@bulkhead/std/mechanics-progression/index.ts') }, { manifest: clock, load: () => import('@bulkhead/std/mechanics-clock/index.ts') }, { manifest: conditions, load: () => import('@bulkhead/std/mechanics-conditions/index.ts') }, { manifest: pack, content }]), []);
   await host.apply({ schema: 1, id: 'test/combat', name: 'Combat', plugins: ['silt/game', 'mechanics/room-map', 'mechanics/inventory', 'mechanics/crafting', 'mechanics/progression', 'mechanics/clock', 'mechanics/conditions', 'test/combat-content'], roles: { 'sdk/experience': 'silt/archive', 'sdk/room-map': 'mechanics/room-map', 'sdk/mechanic-inventory': 'mechanics/inventory', 'sdk/mechanic-crafting': 'mechanics/crafting', 'sdk/mechanic-progression': 'mechanics/progression', 'sdk/mechanic-clock': 'mechanics/clock', 'sdk/mechanic-conditions': 'mechanics/conditions' }, options: { archive: 'test/combat' }, seed: 7 });
   const session = host.session!, service = session.services.get(Silt);
   const act = (command: Parameters<typeof service.enqueue>[0]) => { assert.equal(service.enqueue(command), true); session.scheduler.runTick(); };

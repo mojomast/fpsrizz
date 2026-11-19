@@ -1,7 +1,7 @@
 /** Independent progression implementation: one accepted-count authority, rather than a mutable round/index pair. */
-import { SequenceMechanicRole, SequenceProviders, SessionControl, createOwnedInstances } from '../../src/sdk/index.ts';
-import type { CatalogEntry } from '../../src/sdk/index.ts';
-import manifest from '../../src/plugins/mechanics-sequence/manifest.json' with { type: 'json' };
+import { SequenceMechanicRole, SequenceProviders, SessionControl, createOwnedInstances } from '@bulkhead/sdk';
+import type { CatalogEntry } from '@bulkhead/sdk';
+import manifest from '@bulkhead/std/mechanics-sequence/manifest.json' with { type: 'json' };
 import { codePlugin } from './host.ts';
 
 export interface SequenceProviderCase { readonly id: string; readonly entry: CatalogEntry }
@@ -39,6 +39,6 @@ const alternate = codePlugin(alternateId, { register(ctx) {
 } });
 
 export const sequenceProviders: readonly [SequenceProviderCase, SequenceProviderCase] = [
-  { id: 'mechanics/sequence', entry: { manifest, load: () => import('../../src/plugins/mechanics-sequence/index.ts') } },
+  { id: 'mechanics/sequence', entry: { manifest, load: () => import('@bulkhead/std/mechanics-sequence/index.ts') } },
   { id: alternateId, entry: alternate },
 ];

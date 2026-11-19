@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Run snapshot (quicksave)",
-  "description": "host.snapshot() output (src/kernel/snapshot.ts).",
+  "description": "host.snapshot() output (packages/kernel/src/snapshot.ts).",
   "type": "object",
   "required": [
     "format",

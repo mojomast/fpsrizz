@@ -1,5 +1,6 @@
-import { Died, Flow, Health, Maps, ModeRole, PickupEffects, Pickups, Player, Prefabs, Transform, World, defineComponent, definePlugin, spawnPrefab, vNumber } from '../../../../src/sdk/index.ts';
-import type { SessionContext } from '../../../../src/sdk/index.ts';
+import { Flow, Health, Maps, ModeRole, Player, Prefabs, Transform, defineComponent, definePlugin, spawnPrefab, vNumber } from '@bulkhead/sdk';
+import { Died, PickupEffects, Pickups, World } from '../../contracts/shooter.ts';
+import type { SessionContext } from '@bulkhead/sdk';
 
 const MODE = 'example/extraction';
 const LOOT = 'example/loot';

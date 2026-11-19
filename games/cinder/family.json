@@ -1,0 +1,7 @@
+{
+  "$schema": "../../schemas/family.schema.json",
+  "description": "Cinder Vault reuses the shooter family's combat, weapon, enemy and pickup contracts.",
+  "uses": [
+    "shooter"
+  ]
+}

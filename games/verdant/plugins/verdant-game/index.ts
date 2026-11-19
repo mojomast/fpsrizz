@@ -1,4 +1,4 @@
-import { ExperienceRole, MechanicKits, SessionControl, createDeadline, createMechanicKit, definePlugin, isObject, vArray, vNumber, vString } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, MechanicKits, SessionControl, createDeadline, createMechanicKit, definePlugin, isObject, vArray, vNumber, vString } from '@bulkhead/sdk';
 import { Verdant, VerdantWorlds } from '../../contracts/verdant.ts';
 import type { VerdantCommand, VerdantStation } from '../../contracts/verdant.ts';
 

@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
 import { buildReuseIndex, indexFiles, renderIndex } from './reuse-lib.mjs';
 import { root } from './tools.mjs';
+import { GALLERY_FILE, renderGallery } from './gallery-lib.mjs';
 
 try {
   const args = process.argv.slice(2);
@@ -33,11 +34,11 @@ try {
   for (const list of Object.values(maps)) list.sort((a, b) => a.id.localeCompare(b.id));
   const sortedMaps = Object.fromEntries(Object.keys(maps).sort().map(id => [id, maps[id]]));
   const providerText = JSON.stringify({ schema: 1, providers: sortedProviders, maps: sortedMaps }, null, 2) + '\n';
-  const outputs = [[indexFiles.json, JSON.stringify(index, null, 2) + '\n'], [indexFiles.markdown, renderIndex(index)], ['src/app/catalog-providers.json', providerText]];
+  const outputs = [[indexFiles.json, JSON.stringify(index, null, 2) + '\n'], [indexFiles.markdown, renderIndex(index)], ['src/app/catalog-providers.json', providerText], [GALLERY_FILE, renderGallery(index)]];
   for (const [file, text] of outputs) {
     if (args[0] === '--check') {
       if (!existsSync(resolve(root, file)) || readFileSync(resolve(root, file), 'utf8') !== text) throw new Error(`${file} is stale. Review relevant reuse.json metadata, then run npm run index-reuse.`);
-    } else writeFileSync(resolve(root, file), text);
+    } else { mkdirSync(dirname(resolve(root, file)), { recursive: true }); writeFileSync(resolve(root, file), text); }
   }
   console.log(`Reuse index ${args[0] === '--check' ? 'current' : 'generated'}: ${index.entries.filter(item => item.type === 'plugin').length} plugins, ${index.entries.filter(item => item.type === 'contract').length} SDK values, ${index.entries.filter(item => item.type === 'recipe').length} recipes.`);
 } catch (error) { console.error(error.message); process.exitCode = 1; }

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createProfileStore, PROFILE_KEY } from '../src/platform/profile-store.ts';
-import type { Profile, ProfileStorage } from '../src/platform/profile-store.ts';
+import { createProfileStore, PROFILE_KEY } from '@bulkhead/platform-web/profile-store.ts';
+import type { Profile, ProfileStorage } from '@bulkhead/platform-web/profile-store.ts';
 
 function memory() {
   const data = new Map<string, string>();

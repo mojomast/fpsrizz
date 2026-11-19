@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1,
+  "scope": "family",
+  "summary": "Seeded room-and-corridor dungeon map format. It emits multiple isolated wings in one bounded grid, with room markers, descent pads and lights for a game mode to populate.",
+  "keywords": ["dungeon", "procedural", "generator", "rooms", "corridors", "map format", "grid", "seeded", "level", "floor", "wing", "descent"],
+  "entryPoints": ["MapFormats", "Prefabs"],
+  "useWhen": "A grid shooter mode needs a larger repeatable room layout and will supply its own enemies, loot and floor-transition rules.",
+  "limitations": ["Shooter-family WorldDescription format only. Generates one map containing up to three isolated wings, not runtime map swaps.", "It places inert room markers and descent pads; the game owns spawn composition, objectives, navigation presentation and transitions.", "Layout is deterministic for a recipe seed; per-run encounter composition must be varied by the consuming game."],
+  "docs": ["docs/reference/dungeon-generator.md"],
+  "examples": ["games/cinder/plugins/cinder-content/content.json", "games/cinder/presets/cinder-vault.json"],
+  "tests": ["tests/dungeon-generator.test.ts", "games/cinder/tests/cinder-vault.test.ts"]
+}

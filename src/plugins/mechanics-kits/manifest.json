@@ -1,1 +1,0 @@
-{"$schema": "../../../schemas/plugin-manifest.schema.json", "schema":1,"id":"mechanics/kits","name":"Mechanic kit content","version":"1.0.0","kind":"code","sdk":"^2.0.0","description":"Strict shared mechanic definitions and provider validation.","dependencies":{},"capabilities":[]}

@@ -1,0 +1,122 @@
+/**
+ * Rendering SDK for presentation plugins. Import this ONLY from plugins that draw; simulation plugins must not.
+ *
+ * `THREE` is the official Three.js WebGL/core namespace (pinned, locally vendored with matching declarations).
+ * Rendering plugins get real
+ * scene-graph access - Groups, Meshes, materials, textures - inside scene roots they own.
+ */
+import * as THREE from '@bulkhead/platform-web/render/mini3/index.ts';
+import type { SessionContext, Painter } from './index.ts';
+import { defineService } from './core.ts';
+
+export { THREE };
+
+export interface TextureOptions {
+  /** Repeat wrapping for tiling surfaces (default false = clamp). */
+  repeat?: boolean;
+}
+
+export interface RenderService {
+  /**
+   * Creates a scene root owned by the calling plugin. Layer "world" is drawn with the world camera; layer "view" is
+   * drawn afterwards on a cleared depth buffer with a fixed camera (first-person weapon models).
+   * The root is detached automatically when the plugin's session scope is disposed - but geometries, materials and
+   * textures you create yourself must be released through `own()` or `shared()`.
+   */
+  createRoot(ctx: SessionContext, layer: 'world' | 'view'): THREE.Group;
+  /** World camera. The presentation plugin copies the active View into it each frame. */
+  readonly camera: THREE.PerspectiveCamera;
+  /**
+   * Selects a scoped primary world camera. Most recently set live selection wins; repeated calls from the same context
+   * replace that context's camera and move it to the top. Cleanup restores the previous selection, or `camera` when none
+   * remain. Does not own/dispose the camera. Resizing preserves an orthographic
+   * camera's vertical extent, horizontal center and zoom, adjusting left/right to the canvas aspect ratio.
+   */
+  setWorldCamera(ctx: SessionContext, camera: THREE.PerspectiveCamera | THREE.OrthographicCamera): void;
+  /** Camera of the "view" layer: at the origin looking down -Z, vertical fov 50. */
+  readonly viewCamera: THREE.PerspectiveCamera;
+  /** Scene-wide environment for the world layer. */
+  setEnvironment(env: { background: number; fog: { color: number; near: number; far: number } | null }): void;
+  /** Ties a disposable GPU resource to the plugin's session scope and returns it. */
+  own<T extends { dispose(): void }>(ctx: SessionContext, resource: T): T;
+  /**
+   * Shared, reference-counted resource keyed by `key`. Created on first use, disposed when the last owner's scope ends.
+   */
+  shared<T extends { dispose(): void }>(ctx: SessionContext, key: string, create: () => T): T;
+  /** Shared nearest-filtered texture painted by a theme Painter (keyed by `key`). */
+  texture(ctx: SessionContext, key: string, painter: Painter, opts?: TextureOptions): THREE.Texture;
+  readonly width: number;
+  readonly height: number;
+  readonly pixelRatio: number;
+  /**
+   * The WebGL renderer, for loaders that must query GPU support (KTX2). Absent in headless/test render services and
+   * when the opt-in WebGPU renderer is active (see `backend`).
+   */
+  readonly renderer?: THREE.WebGLRenderer;
+  /**
+   * Which renderer draws the frame: "webgl" (default WebGLRenderer), "webgpu" (WebGPURenderer on WebGPU) or
+   * "webgpu-webgl2" (WebGPURenderer on its WebGL2 fallback backend). Absent in headless/test render services.
+   */
+  readonly backend?: 'webgl' | 'webgpu' | 'webgpu-webgl2';
+  /** Stats of the last rendered frame. */
+  readonly stats: { calls: number; triangles: number; geometries: number; textures: number };
+}
+export const Render = defineService<RenderService>('sdk/render');
+
+// ---------------------------------------------------------------------------------------------------------------------
+// Custom actor renderers
+// ---------------------------------------------------------------------------------------------------------------------
+import type { EntityId, Visual } from './index.ts';
+import { defineRegistry } from './core.ts';
+
+/** Per-frame data handed to an actor renderer. Positions are already interpolated between simulation ticks. */
+export interface ActorFrame {
+  x: number;
+  y: number;
+  z: number;
+  yaw: number;
+  /** Yaw of the active view (billboards rotate to this). */
+  viewYaw: number;
+  /** Interpolated simulation time in seconds. */
+  time: number;
+  visual: Readonly<Visual>;
+}
+export interface ActorHandle {
+  /** Root object; the presentation plugin parents it under its actor root and removes it when the entity dies. */
+  readonly object: THREE.Object3D;
+  update(frame: ActorFrame): void;
+  /** Release everything this handle created that is not shared. */
+  dispose(): void;
+}
+/**
+ * Draws entities that carry a Visual component whose `renderer` equals this registry id ("" selects the active
+ * presentation plugin's default billboard). `start` runs once per session in the registering plugin's context.
+ */
+export interface ActorRenderer {
+  description: string;
+  start(ctx: SessionContext): (entity: EntityId, visual: Readonly<Visual>) => ActorHandle;
+}
+export const ActorRenderers = defineRegistry<ActorRenderer>('actor-renderer');
+
+// ---------------------------------------------------------------------------------------------------------------------
+// SDK 3: Renderable prefabs (drawn by std/render-sync)
+// ---------------------------------------------------------------------------------------------------------------------
+import type { Renderable } from './index.ts';
+
+/** Builds the scene object for entities whose Renderable has `prefab` equal to this registry id. */
+export interface RenderablePrefab {
+  description: string;
+  /** Called in the registering plugin's context. The object is posed by render sync every frame. */
+  create(ctx: SessionContext, renderable: Readonly<Renderable>, entity: EntityId): { object: THREE.Object3D; dispose?(): void };
+}
+export const RenderablePrefabs = defineRegistry<RenderablePrefab>('renderable-prefab');
+
+/**
+ * Model service (provided by std/assets). `instance` resolves to a fresh scene-graph copy of a glTF/GLB that shares
+ * geometry and materials with every other instance of the same URL; shared GPU resources are released when the
+ * last owning scope ends.
+ */
+export interface ModelService {
+  instance(ctx: SessionContext, url: string): Promise<THREE.Object3D>;
+}
+export const Models = defineService<ModelService>('sdk/models');

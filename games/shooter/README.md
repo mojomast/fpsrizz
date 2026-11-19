@@ -5,7 +5,7 @@ presentation) and the `example-*` extensions and genre slices (arena, survival, 
 roguelite, key dungeon, time trial, racing course and more). Presets are in `presets/`; `default.json` is the first
 experience the app opens.
 
-Its vocabulary, `src/sdk/contracts/shooter.ts`, stays in the SDK for now: the app's frame loop and the render SDK
+Its vocabulary, `games/shooter/contracts/shooter.ts`, stays in the SDK for now: the app's frame loop and the render SDK
 use it, and so do the shared presentation and mechanics plugins. Rules and content: [spec](../../docs/reference/spec.md)
 and [content format](../../docs/reference/content-format.md). Its tests stay in `tests/` because they double as the
 kernel and host acceptance suite.

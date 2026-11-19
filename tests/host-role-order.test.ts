@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import type { SessionContext } from '../src/kernel/host.ts';
-import { parseManifest } from '../src/kernel/manifest.ts';
-import { Reporter } from '../src/kernel/validate.ts';
-import type { Issue } from '../src/kernel/validate.ts';
-import { defineRegistry, defineRole } from '../src/sdk/core.ts';
+import type { SessionContext } from '@bulkhead/kernel/host.ts';
+import { parseManifest } from '@bulkhead/kernel/manifest.ts';
+import { Reporter } from '@bulkhead/kernel/validate.ts';
+import type { Issue } from '@bulkhead/kernel/validate.ts';
+import { defineRegistry, defineRole } from '@bulkhead/sdk/core.ts';
 import { codePlugin, hostFailure, newHost, presetOf, rawManifest, totals, zeroReport } from './helpers/host.ts';
 
 const ROLE = defineRole<{ activate?(ctx: SessionContext): void }>('test/factory-role');

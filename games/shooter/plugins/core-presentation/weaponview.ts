@@ -1,6 +1,8 @@
-import type { SessionContext, ViewState, WeaponDef } from '../../../../src/sdk/index.ts';
-import { Health, Inventory, Player, Weapons, yawDirX, yawDirZ } from '../../../../src/sdk/index.ts';
-import { THREE } from '../../../../src/sdk/render.ts';
+import type { SessionContext, ViewState } from '@bulkhead/sdk';
+import type { WeaponDef } from '../../contracts/shooter.ts';
+import { Health, Inventory, Player, yawDirX, yawDirZ } from '@bulkhead/sdk';
+import { Weapons } from '../../contracts/shooter.ts';
+import { THREE } from '@bulkhead/sdk/render.ts';
 import type { ThemeAssets } from './assets.ts';
 import { createQuadGeometry, parseColor } from './quads.ts';
 

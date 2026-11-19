@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3`
+Source digest: `bdb64febf96aa132caffe1ca3157c56a7ab5c8f2a13b2f1a18f3944aaa30b8de`
 
 ## Composition recipes
 
@@ -53,7 +53,7 @@ Source digest: `5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3
 | `core/player` | unreviewed | Player prefab, WASD + mouse-yaw controller and fixed-eye-height first-person camera. Movement is planar; jumping and vertical aim belong to future controller/camera providers. | [source](../../games/shooter/plugins/core-player) |
 | `core/presentation` | unreviewed | Draws the world (merged wall/floor/ceiling meshes, doors, switches), billboard actors, one-shot effects and the first-person weapon, and plays the sound hooks. Honors optional ViewModes to hide ceilings, first-person view models and fog for overhead presentations. | [source](../../games/shooter/plugins/core-presentation) |
 | `core/world` | family | Shooter-family planar collision, ray/sweep queries, pathfinding, doors, switches and trigger zones. | [source](../../games/shooter/plugins/core-world) |
-| `dungeon/generator` | family | Seeded room-and-corridor dungeon map format. It emits multiple isolated wings in one bounded grid, with room markers, descent pads and lights for a game mode to populate. | [source](../../src/plugins/dungeon-generator) |
+| `dungeon/generator` | family | Seeded room-and-corridor dungeon map format. It emits multiple isolated wings in one bounded grid, with room markers, descent pads and lights for a game mode to populate. | [source](../../packages/std/plugins/dungeon-generator) |
 | `ember/content` | content | Ash lane and three enemy waves. | [source](../../games/ember/plugins/ember-content) |
 | `ember/game` | family | Tower-defense orchestration with independent shared tower actions, construction and authored enemy waves. | [source](../../games/ember/plugins/ember-game) |
 | `ember/presentation` | unreviewed | Lit 3D bastion and accessible controls. | [source](../../games/ember/plugins/ember-presentation) |
@@ -82,23 +82,23 @@ Source digest: `5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3
 | `hollowmere/content` | content | Twelve-room Hollowmere world graph, five abilities, five items and seven enemy archetypes for the metroidvania family. | [source](../../games/hollowmere/plugins/hollowmere-content) |
 | `hollowmere/game` | family | Side-scrolling metroidvania authority composing reusable platforming, capabilities, room-map and inventory providers with combat, checkpoints, NPC services and a final boss. | [source](../../games/hollowmere/plugins/hollowmere-game) |
 | `hollowmere/presentation` | presentation | Canvas-rendered room view plus DOM field journal: world map, inventory, capabilities, stats and persisted options. | [source](../../games/hollowmere/plugins/hollowmere-presentation) |
-| `mechanics/actions` | cross-genre | Data-defined action costs, gains and cooldowns for abilities, crafting, repairs, attacks and production. | [source](../../src/plugins/mechanics-actions) |
-| `mechanics/capabilities` | cross-genre | Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects. | [source](../../src/plugins/mechanics-capabilities) |
-| `mechanics/clock` | cross-genre | Explicit, consumer-advanced seconds or turn clocks; the SDK createDeadline helper borrows compatible clocks for pollable duration windows. | [source](../../src/plugins/mechanics-clock) |
-| `mechanics/conditions` | cross-genre | Owner-scoped named target conditions with refreshable explicit-clock expiration. | [source](../../src/plugins/mechanics-conditions) |
-| `mechanics/crafting` | cross-genre | Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback. | [source](../../src/plugins/mechanics-crafting) |
-| `mechanics/hints` | cross-genre | Owned independent ordered reveal levels with explicit per-topic reset. | [source](../../src/plugins/mechanics-hints) |
-| `mechanics/inventory` | cross-genre | Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations. | [source](../../src/plugins/mechanics-inventory) |
-| `mechanics/kits` | cross-genre | Validated JSON mechanic kits combine resources, actions, clock domains and objectives without new gameplay code. | [source](../../src/plugins/mechanics-kits) |
-| `mechanics/navigation` | cross-genre | Pure deterministic unit-edge graph queries returning ordered shortest distances and canonical first steps. | [source](../../src/plugins/mechanics-navigation) |
-| `mechanics/objectives` | cross-genre | Objective counters, prerequisite unlocks and idempotent progress receipts for quests, deliveries, waves and restoration. | [source](../../src/plugins/mechanics-objectives) |
-| `mechanics/outcome-rating` | cross-genre | Deterministic outcome tiers from explicit finite metrics and immutable threshold conditions. | [source](../../src/plugins/mechanics-outcome-rating) |
-| `mechanics/platforming` | cross-genre | AABB side-scrolling movement with coyote/buffered jumps, variable height, double jump, dash, wall slide and wall jump. | [source](../../src/plugins/mechanics-platforming) |
-| `mechanics/progression` | cross-genre | Owned XP and level ledgers with deterministic linear curves, multi-level grants, capped levels and pending game-defined level rewards. | [source](../../src/plugins/mechanics-progression) |
-| `mechanics/relationships` | cross-genre | Owned bounded symmetric scores for explicit actor pairs. | [source](../../src/plugins/mechanics-relationships) |
-| `mechanics/resources` | cross-genre | Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation. | [source](../../src/plugins/mechanics-resources) |
-| `mechanics/room-map` | cross-genre | Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations. | [source](../../src/plugins/mechanics-room-map) |
-| `mechanics/sequence` | cross-genre | Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion. | [source](../../src/plugins/mechanics-sequence) |
+| `mechanics/actions` | cross-genre | Data-defined action costs, gains and cooldowns for abilities, crafting, repairs, attacks and production. | [source](../../packages/std/plugins/mechanics-actions) |
+| `mechanics/capabilities` | cross-genre | Named capability and rank ledger with idempotent unlocks, frozen observations and consumer-owned effects. | [source](../../packages/std/plugins/mechanics-capabilities) |
+| `mechanics/clock` | cross-genre | Explicit, consumer-advanced seconds or turn clocks; the SDK createDeadline helper borrows compatible clocks for pollable duration windows. | [source](../../packages/std/plugins/mechanics-clock) |
+| `mechanics/conditions` | cross-genre | Owner-scoped named target conditions with refreshable explicit-clock expiration. | [source](../../packages/std/plugins/mechanics-conditions) |
+| `mechanics/crafting` | cross-genre | Known item-to-item crafting recipes backed by the selected inventory handle, with atomic consume/output and rollback. | [source](../../packages/std/plugins/mechanics-crafting) |
+| `mechanics/hints` | cross-genre | Owned independent ordered reveal levels with explicit per-topic reset. | [source](../../packages/std/plugins/mechanics-hints) |
+| `mechanics/inventory` | cross-genre | Owned bounded stack inventories with item definitions, optional equipment slots and atomic add/remove/equip/unequip operations. | [source](../../packages/std/plugins/mechanics-inventory) |
+| `mechanics/kits` | cross-genre | Validated JSON mechanic kits combine resources, actions, clock domains and objectives without new gameplay code. | [source](../../packages/std/plugins/mechanics-kits) |
+| `mechanics/navigation` | cross-genre | Pure deterministic unit-edge graph queries returning ordered shortest distances and canonical first steps. | [source](../../packages/std/plugins/mechanics-navigation) |
+| `mechanics/objectives` | cross-genre | Objective counters, prerequisite unlocks and idempotent progress receipts for quests, deliveries, waves and restoration. | [source](../../packages/std/plugins/mechanics-objectives) |
+| `mechanics/outcome-rating` | cross-genre | Deterministic outcome tiers from explicit finite metrics and immutable threshold conditions. | [source](../../packages/std/plugins/mechanics-outcome-rating) |
+| `mechanics/platforming` | cross-genre | AABB side-scrolling movement with coyote/buffered jumps, variable height, double jump, dash, wall slide and wall jump. | [source](../../packages/std/plugins/mechanics-platforming) |
+| `mechanics/progression` | cross-genre | Owned XP and level ledgers with deterministic linear curves, multi-level grants, capped levels and pending game-defined level rewards. | [source](../../packages/std/plugins/mechanics-progression) |
+| `mechanics/relationships` | cross-genre | Owned bounded symmetric scores for explicit actor pairs. | [source](../../packages/std/plugins/mechanics-relationships) |
+| `mechanics/resources` | cross-genre | Atomic bounded resource balances: stamina, mana, money, health, cargo, scrap or water with one reusable implementation. | [source](../../packages/std/plugins/mechanics-resources) |
+| `mechanics/room-map` | cross-genre | Explorable room graph with current/visited/revealed state, neighbour reveal and detached map observations. | [source](../../packages/std/plugins/mechanics-room-map) |
+| `mechanics/sequence` | cross-genre | Owned ordered-step cursors with finite rounds, wrong-step rejection and terminal completion. | [source](../../packages/std/plugins/mechanics-sequence) |
 | `portfolio-cards/ash` | unreviewed | A glyph-seal hand management duel. | [source](../../games/puzzles/plugins/portfolio-cards-ash) |
 | `portfolio-cards/cloud` | unreviewed | A weather-card expedition planning game. | [source](../../games/puzzles/plugins/portfolio-cards-cloud) |
 | `portfolio-cards/piles` | cross-genre | Owned ordered unique-card draw, hand and discard partition. | [source](../../games/puzzles/plugins/portfolio-cards-piles) |
@@ -113,8 +113,8 @@ Source digest: `5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3
 | `portfolio/sky-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../games/sky/plugins/portfolio-sky-resource) |
 | `portfolio/verdant-resource` | content | Original portfolio scenario and mechanic kit. | [source](../../games/verdant/plugins/portfolio-verdant-resource) |
 | `portfolio/watch-puzzle` | content | Three pursuit chambers with shifting routes around stone and walls. | [source](../../games/puzzles/plugins/portfolio-watch-puzzle) |
-| `presentation/camera-modes` | cross-genre | Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service. | [source](../../src/plugins/presentation-camera-modes) |
-| `presentation/player-avatar` | cross-genre | Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes. | [source](../../src/plugins/presentation-player-avatar) |
+| `presentation/camera-modes` | cross-genre | Selectable first-person and orthographic isometric shooter camera provider with a follow camera, player floor marker and ViewModes service. | [source](../../packages/std/plugins/presentation-camera-modes) |
+| `presentation/player-avatar` | cross-genre | Uses the optional PlayerAvatar component and ViewModes service to present a class/theme body only in overhead camera modes. | [source](../../packages/std/plugins/presentation-player-avatar) |
 | `puzzle/chambers` | content | Three authored chambers introducing weight, pursuit and a double seal. | [source](../../games/puzzles/plugins/puzzle-chambers) |
 | `puzzle/presentation` | unreviewed | Lit low-poly ruins, articulated explorer and golems, orbiting camera, picking and puzzle HUD. | [source](../../games/puzzles/plugins/puzzle-presentation) |
 | `puzzle/rules` | family | Grid push puzzles composing selected graph navigation for deterministic pursuit, bounded command ingress and reversible turns. | [source](../../games/puzzles/plugins/puzzle-rules) |
@@ -122,6 +122,7 @@ Source digest: `5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3
 | `salt/game` | family | Salt Ledger party campaign, tracked side quests, equipment, party bonds and tactical battles with cover, hazards and obstacles. | [source](../../games/expeditions/plugins/salt-rpg-game) |
 | `salt/presentation` | presentation | Responsive Salt Ledger party and tactical board interface. | [source](../../games/expeditions/plugins/salt-rpg-presentation) |
 | `sandbox/game` | family | Physics sandbox game: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors). | [source](../../games/sandbox/plugins/sandbox-game) |
+| `sandbox/navmesh` | unreviewed | A follower that chases the sandbox hero across the walls, crates and glTF ramp on a navmesh built by std/navigation-recast, with its path shown as breadcrumbs. | [source](../../games/sandbox/plugins/sandbox-navmesh) |
 | `sandbox/presentation` | family | Physics sandbox presentation: the SDK 3 reference composition (Transform3D, Renderable, Rapier bodies, character controller, sensors). | [source](../../games/sandbox/plugins/sandbox-presentation) |
 | `shooter/transform3d` | family | Mirrors the shooter's planar Transform into SDK 3 Transform3D/PrevTransform. | [source](../../games/shooter/plugins/shooter-transform3d) |
 | `silt/content` | content | Three districts of four-socket chambers for The Silt Archive. | [source](../../games/expeditions/plugins/silt-content) |
@@ -130,19 +131,20 @@ Source digest: `5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3
 | `sky/content` | content | Courier resources, actions and delivery objectives. | [source](../../games/sky/plugins/sky-content) |
 | `sky/game` | family | Drone cargo-recovery orchestration composing shared resources/actions/objectives and explicit-clock boost and collision-immunity deadlines. | [source](../../games/sky/plugins/sky-game) |
 | `sky/presentation` | unreviewed | Volumetric floating islands and drone cockpit HUD. | [source](../../games/sky/plugins/sky-presentation) |
-| `std/assets` | cross-genre | glTF/GLB model loading (Meshopt, KTX2) for Renderable.model, with shared GPU resources and per-node instances. | [source](../../src/plugins/std-assets) |
-| `std/physics-rapier` | cross-genre | Rapier 3D physics: rigid bodies, colliders, sensors/triggers, raycasts and a kinematic character controller. | [source](../../src/plugins/std-physics-rapier) |
-| `std/render-sync` | presentation | Generic render sync: Renderable shapes, prefabs and glTF models posed from interpolated Transform3D. | [source](../../src/plugins/std-render-sync) |
-| `std/scene` | cross-genre | Data prefabs (component bags with extends/overrides), a Godot-style scene tree format, and Tiled / LDtk level importers. | [source](../../src/plugins/std-scene) |
-| `std/transform` | cross-genre | Previous-tick pose capture for Transform3D, enabling interpolated rendering. | [source](../../src/plugins/std-transform) |
+| `std/assets` | cross-genre | glTF/GLB model loading (Meshopt, KTX2) for Renderable.model, with shared GPU resources and per-node instances. | [source](../../packages/std/plugins/std-assets) |
+| `std/navigation-recast` | cross-genre | Navmesh pathfinding for non-grid 3D worlds (Recast/Detour): built from static colliders or triangles, path and nearest-point queries, NavAgent steering. | [source](../../packages/std/plugins/std-navigation-recast) |
+| `std/physics-rapier` | cross-genre | Rapier 3D physics: rigid bodies, colliders, sensors/triggers, raycasts and a kinematic character controller. | [source](../../packages/std/plugins/std-physics-rapier) |
+| `std/render-sync` | presentation | Generic render sync: Renderable shapes, prefabs and glTF models posed from interpolated Transform3D. | [source](../../packages/std/plugins/std-render-sync) |
+| `std/scene` | cross-genre | Data prefabs (component bags with extends/overrides), a Godot-style scene tree format, and Tiled / LDtk level importers. | [source](../../packages/std/plugins/std-scene) |
+| `std/transform` | cross-genre | Previous-tick pose capture for Transform3D, enabling interpolated rendering. | [source](../../packages/std/plugins/std-transform) |
 | `story/adventure` | family | Narrative room graph, dialogue, inventory item combinations, flags, journal and chapter save/load. | [source](../../games/adventure/plugins/story-adventure) |
 | `story/chapter` | content | A lighthouse mystery in three rooms. | [source](../../games/adventure/plugins/story-chapter) |
 | `story/presentation` | unreviewed | Illustrated point-and-click adventure interface. | [source](../../games/adventure/plugins/story-presentation) |
-| `theme/arcade` | unreviewed | Pinned Assetrizz synth tiles, pennant, city and scooter badge; original top-down vehicle and synthesized arcade cues. | [source](../../src/plugins/theme-arcade) |
-| `theme/assetrizz` | presentation | Pinned Assetrizz sci-fi and hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops, ornate icons, six original Gloamforge weapon views and Cinder/Hollowmere theme variants. | [source](../../src/plugins/theme-assetrizz) |
-| `theme/board` | unreviewed | Pinned Assetrizz voxel explorer, chalk golem, rock cover and timber tiles with synthesized tactile board-game cues. | [source](../../src/plugins/theme-board) |
-| `theme/industrial` | unreviewed | Procedural industrial-sci-fi art, sprites and synthesized sound effects. | [source](../../src/plugins/theme-industrial) |
-| `theme/story` | unreviewed | Pinned Assetrizz ink-watercolor observatory, keeper and loupe, a hand-painted brass key, and synthesized glass-like story cues. | [source](../../src/plugins/theme-story) |
+| `theme/arcade` | unreviewed | Pinned Assetrizz synth tiles, pennant, city and scooter badge; original top-down vehicle and synthesized arcade cues. | [source](../../packages/std/plugins/theme-arcade) |
+| `theme/assetrizz` | presentation | Pinned Assetrizz sci-fi and hand-painted fantasy terrain, expanded enemy/character strips, NPC portraits, region backdrops, ornate icons, six original Gloamforge weapon views and Cinder/Hollowmere theme variants. | [source](../../packages/std/plugins/theme-assetrizz) |
+| `theme/board` | unreviewed | Pinned Assetrizz voxel explorer, chalk golem, rock cover and timber tiles with synthesized tactile board-game cues. | [source](../../packages/std/plugins/theme-board) |
+| `theme/industrial` | unreviewed | Procedural industrial-sci-fi art, sprites and synthesized sound effects. | [source](../../packages/std/plugins/theme-industrial) |
+| `theme/story` | unreviewed | Pinned Assetrizz ink-watercolor observatory, keeper and loupe, a hand-painted brass key, and synthesized glass-like story cues. | [source](../../packages/std/plugins/theme-story) |
 | `vehicle/presentation` | unreviewed | Overhead race scene, HUD and sound. | [source](../../games/racing/plugins/vehicle-presentation) |
 | `vehicle/racing` | family | Arcade vehicle motion, drifting, directional gates and timeout, composing shared ordered sequence and lap progression. | [source](../../games/racing/plugins/vehicle-racing) |
 | `vehicle/track` | content | An authored neon circuit. | [source](../../games/racing/plugins/vehicle-track) |
@@ -154,232 +156,211 @@ Source digest: `5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3
 
 | ID | Scope | What exists | Source |
 |---|---|---|---|
-| `sdk/actionMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L137) |
-| `sdk/ActionMechanicRole` | contract | Public SDK value: sdk/mechanic-actions | [source](../../src/sdk/contracts/mechanics.ts#L102) |
-| `sdk/ActorRenderers` | contract | Public SDK value: actor-renderer | [source](../../src/sdk/render.ts#L91) |
-| `sdk/AiBehaviors` | contract | Public SDK value: ai-behavior | [source](../../src/sdk/contracts/shooter.ts#L534) |
-| `sdk/AmmoTypes` | contract | Public SDK value: ammo | [source](../../src/sdk/contracts/shooter.ts#L431) |
-| `sdk/angleDelta` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L732) |
-| `sdk/applyDeadzone` | contract | Public helper/class | [source](../../src/sdk/contracts/input.ts#L52) |
-| `sdk/applyPrefabComponents` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L220) |
-| `sdk/Assets` | contract | Public SDK value: sdk/assets | [source](../../src/sdk/contracts/assets.ts#L37) |
-| `sdk/AttackBehaviors` | contract | Public SDK value: attack-behavior | [source](../../src/sdk/contracts/shooter.ts#L390) |
-| `sdk/AttackFired` | contract | Public SDK value: sdk/attack-fired | [source](../../src/sdk/contracts/shooter.ts#L359) |
-| `sdk/Audio` | contract | Public SDK value: sdk/audio | [source](../../src/sdk/contracts/shooter.ts#L645) |
-| `sdk/AUDIO_BUSES` | contract | Public SDK value | [source](../../src/sdk/contracts/audio.ts#L34) |
-| `sdk/AudioSamples` | contract | Public SDK value: audio-sample | [source](../../src/sdk/contracts/audio.ts#L54) |
-| `sdk/base64ToBytes` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L85) |
-| `sdk/bytesToBase64` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L80) |
-| `sdk/CameraRole` | contract | Public SDK value: sdk/camera | [source](../../src/sdk/contracts/shooter.ts#L667) |
-| `sdk/capabilityMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/capabilities.ts#L53) |
-| `sdk/CapabilityRole` | contract | Public SDK value: sdk/capabilities | [source](../../src/sdk/contracts/capabilities.ts#L50) |
-| `sdk/CapabilityUnlocked` | contract | Public SDK value: sdk/capability-unlocked | [source](../../src/sdk/contracts/capabilities.ts#L51) |
-| `sdk/CharacterController` | contract | Public SDK value: sdk/character-controller | [source](../../src/sdk/contracts/physics.ts#L57) |
-| `sdk/CharacterMove` | contract | Public SDK value: sdk/character-move | [source](../../src/sdk/contracts/physics.ts#L61) |
-| `sdk/CharacterState` | contract | Public SDK value: sdk/character-state | [source](../../src/sdk/contracts/physics.ts#L65) |
-| `sdk/checkSceneReferences` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L163) |
-| `sdk/clockMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L132) |
-| `sdk/ClockMechanicRole` | contract | Public SDK value: sdk/mechanic-clock | [source](../../src/sdk/contracts/mechanics.ts#L101) |
-| `sdk/clonePose` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L116) |
-| `sdk/Collider` | contract | Public SDK value: sdk/collider | [source](../../src/sdk/contracts/shooter.ts#L36) |
-| `sdk/colliderFromBounds` | contract | Public helper/class | [source](../../src/sdk/contracts/gltf.ts#L254) |
-| `sdk/Combat` | contract | Public SDK value: sdk/combat | [source](../../src/sdk/contracts/shooter.ts#L479) |
-| `sdk/COMPONENT_ALIASES` | contract | Public SDK value | [source](../../src/sdk/contracts/scene.ts#L51) |
-| `sdk/componentId` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L55) |
-| `sdk/composePose` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L106) |
-| `sdk/conditionMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/conditions.ts#L23) |
-| `sdk/ConditionMechanicRole` | contract | Public SDK value: sdk/mechanic-conditions | [source](../../src/sdk/contracts/conditions.ts#L22) |
-| `sdk/ConditionProviders` | contract | Public SDK value: mechanic-condition-provider | [source](../../src/sdk/contracts/conditions.ts#L21) |
-| `sdk/ControllerRole` | contract | Public SDK value: sdk/controller | [source](../../src/sdk/contracts/shooter.ts#L665) |
-| `sdk/craftingMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/crafting.ts#L33) |
-| `sdk/CraftingMechanicRole` | contract | Public SDK value: sdk/mechanic-crafting | [source](../../src/sdk/contracts/crafting.ts#L31) |
-| `sdk/CraftingProviders` | contract | Public SDK value: mechanic-crafting-provider | [source](../../src/sdk/contracts/crafting.ts#L30) |
-| `sdk/CraftingRecipes` | contract | Public SDK value: crafting-recipe | [source](../../src/sdk/contracts/crafting.ts#L17) |
-| `sdk/createCommandQueue` | contract | Public helper/class | [source](../../src/sdk/contracts/command-queue.ts#L33) |
-| `sdk/createDeadline` | contract | Public helper/class | [source](../../src/sdk/contracts/deadlines.ts#L32) |
-| `sdk/createMechanicKit` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L148) |
-| `sdk/createOwnedInstances` | contract | Public helper/class | [source](../../src/sdk/contracts/owned-instances.ts#L15) |
-| `sdk/createPlatformerBody` | contract | Public helper/class | [source](../../src/sdk/contracts/platforming.ts#L123) |
-| `sdk/Damaged` | contract | Public SDK value: sdk/damaged | [source](../../src/sdk/contracts/shooter.ts#L357) |
-| `sdk/DamageModifiers` | contract | Public SDK value: damage-modifier | [source](../../src/sdk/contracts/shooter.ts#L439) |
-| `sdk/DealDamage` | contract | Public SDK value: sdk/deal-damage | [source](../../src/sdk/contracts/shooter.ts#L355) |
-| `sdk/debugDraw` | contract | Public helper/class | [source](../../src/sdk/contracts/debug-draw.ts#L40) |
-| `sdk/DebugDraw` | contract | Public SDK value: sdk/debug-draw | [source](../../src/sdk/contracts/debug-draw.ts#L36) |
-| `sdk/decomposeMatrix` | contract | Public helper/class | [source](../../src/sdk/contracts/gltf.ts#L92) |
-| `sdk/defineCommand` | contract | Public helper/class | [source](../../src/sdk/core.ts#L35) |
-| `sdk/defineComponent` | contract | Public helper/class | [source](../../src/sdk/core.ts#L33) |
-| `sdk/defineEvent` | contract | Public helper/class | [source](../../src/sdk/core.ts#L34) |
-| `sdk/definePlugin` | contract | Public helper/class | [source](../../src/sdk/core.ts#L40) |
-| `sdk/defineRegistry` | contract | Public helper/class | [source](../../src/sdk/core.ts#L37) |
-| `sdk/defineRole` | contract | Public helper/class | [source](../../src/sdk/core.ts#L38) |
-| `sdk/defineService` | contract | Public helper/class | [source](../../src/sdk/core.ts#L36) |
-| `sdk/Died` | contract | Public SDK value: sdk/died | [source](../../src/sdk/contracts/shooter.ts#L358) |
-| `sdk/DoorChanged` | contract | Public SDK value: sdk/door-changed | [source](../../src/sdk/contracts/shooter.ts#L312) |
-| `sdk/Enemies` | contract | Public SDK value: enemy | [source](../../src/sdk/contracts/shooter.ts#L525) |
-| `sdk/Enemy` | contract | Public SDK value: sdk/enemy | [source](../../src/sdk/contracts/shooter.ts#L105) |
-| `sdk/EnemyAi` | contract | Public SDK value: sdk/enemies | [source](../../src/sdk/contracts/shooter.ts#L553) |
-| `sdk/EnemyAlerted` | contract | Public SDK value: sdk/enemy-alerted | [source](../../src/sdk/contracts/shooter.ts#L365) |
-| `sdk/ExperienceRole` | contract | Public SDK value: sdk/experience | [source](../../src/sdk/contracts/experience.ts#L10) |
-| `sdk/Flow` | contract | Public SDK value: sdk/flow | [source](../../src/sdk/contracts/shooter.ts#L636) |
-| `sdk/FlowEnded` | contract | Public SDK value: sdk/flow-ended | [source](../../src/sdk/contracts/shooter.ts#L637) |
-| `sdk/fnv1a` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L65) |
-| `sdk/GAMEPAD_BUTTONS` | contract | Public SDK value | [source](../../src/sdk/contracts/input.ts#L20) |
-| `sdk/GltfExtras` | contract | Public SDK value: gltf-extras | [source](../../src/sdk/contracts/gltf.ts#L216) |
-| `sdk/gltfNodes` | contract | Public helper/class | [source](../../src/sdk/contracts/gltf.ts#L173) |
-| `sdk/hashSnapshot` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L75) |
-| `sdk/Health` | contract | Public SDK value: sdk/health | [source](../../src/sdk/contracts/shooter.ts#L43) |
-| `sdk/hintMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/hints.ts#L22) |
-| `sdk/HintMechanicRole` | contract | Public SDK value: sdk/mechanic-hints | [source](../../src/sdk/contracts/hints.ts#L21) |
-| `sdk/HintProviders` | contract | Public SDK value: mechanic-hint-provider | [source](../../src/sdk/contracts/hints.ts#L20) |
-| `sdk/HudRole` | contract | Public SDK value: sdk/hud | [source](../../src/sdk/contracts/shooter.ts#L671) |
-| `sdk/Impact` | contract | Public SDK value: sdk/impact | [source](../../src/sdk/contracts/shooter.ts#L361) |
-| `sdk/importLdtk` | contract | Public helper/class | [source](../../src/sdk/contracts/level-import.ts#L170) |
-| `sdk/importTiled` | contract | Public helper/class | [source](../../src/sdk/contracts/level-import.ts#L79) |
-| `sdk/Input` | contract | Public SDK value: sdk/input | [source](../../src/sdk/contracts/shooter.ts#L585) |
-| `sdk/InputActions` | contract | Public SDK value: input-action | [source](../../src/sdk/contracts/shooter.ts#L567) |
-| `sdk/InputAxes` | contract | Public SDK value: input-axis | [source](../../src/sdk/contracts/input.ts#L41) |
-| `sdk/InputBindings` | contract | Public SDK value: sdk/input-bindings | [source](../../src/sdk/contracts/input.ts#L82) |
-| `sdk/InputContexts` | contract | Public SDK value: sdk/input-contexts | [source](../../src/sdk/contracts/shooter.ts#L611) |
-| `sdk/Intent` | contract | Public SDK value: sdk/intent | [source](../../src/sdk/contracts/shooter.ts#L60) |
-| `sdk/Interactions` | contract | Public SDK value: sdk/interactions | [source](../../src/sdk/contracts/shooter.ts#L293) |
-| `sdk/interpolatePose` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L99) |
-| `sdk/Inventory` | contract | Public SDK value: sdk/inventory | [source](../../src/sdk/contracts/shooter.ts#L84) |
-| `sdk/inventoryMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/inventory.ts#L58) |
-| `sdk/InventoryMechanicRole` | contract | Public SDK value: sdk/mechanic-inventory | [source](../../src/sdk/contracts/inventory.ts#L48) |
-| `sdk/InventoryProviders` | contract | Public SDK value: mechanic-inventory-provider | [source](../../src/sdk/contracts/inventory.ts#L47) |
-| `sdk/isMeshCarrier` | contract | Public helper/class | [source](../../src/sdk/contracts/gltf.ts#L163) |
-| `sdk/isObject` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L36) |
-| `sdk/Items` | contract | Public SDK value: item | [source](../../src/sdk/contracts/inventory.ts#L16) |
-| `sdk/lerp` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L86) |
-| `sdk/lerpVec3` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L87) |
-| `sdk/loadStaticAsset` | contract | Public helper/class | [source](../../src/sdk/core.ts#L1) |
-| `sdk/makeTransform` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L738) |
-| `sdk/MapFormats` | contract | Public SDK value: map-format | [source](../../src/sdk/contracts/shooter.ts#L310) |
-| `sdk/Maps` | contract | Public SDK value: map | [source](../../src/sdk/contracts/shooter.ts#L303) |
-| `sdk/MechanicActionCommitted` | contract | Public SDK value: mechanics/action-committed | [source](../../src/sdk/contracts/mechanics.ts#L106) |
-| `sdk/MechanicActionProviders` | contract | Public SDK value: mechanic-action-provider | [source](../../src/sdk/contracts/mechanics.ts#L98) |
-| `sdk/MechanicClockProviders` | contract | Public SDK value: mechanic-clock-provider | [source](../../src/sdk/contracts/mechanics.ts#L97) |
-| `sdk/MechanicInventoryChanged` | contract | Public SDK value: mechanics/inventory-changed | [source](../../src/sdk/contracts/inventory.ts#L49) |
-| `sdk/MechanicKits` | contract | Public SDK value: mechanic-kit | [source](../../src/sdk/contracts/mechanics.ts#L116) |
-| `sdk/MechanicObjectiveChanged` | contract | Public SDK value: mechanics/objective-changed | [source](../../src/sdk/contracts/mechanics.ts#L107) |
-| `sdk/MechanicProgressionChanged` | contract | Public SDK value: mechanics/progression-changed | [source](../../src/sdk/contracts/progression.ts#L47) |
-| `sdk/MechanicResourcesChanged` | contract | Public SDK value: mechanics/resources-changed | [source](../../src/sdk/contracts/mechanics.ts#L105) |
-| `sdk/mergeJson` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L59) |
-| `sdk/migrateSnapshot` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L41) |
-| `sdk/Models` | contract | Public SDK value: sdk/models | [source](../../src/sdk/render.ts#L114) |
-| `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](../../src/sdk/contracts/shooter.ts#L669) |
-| `sdk/morphChildren` | contract | Public helper/class | [source](../../src/sdk/dom-morph.ts#L10) |
-| `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](../../src/sdk/contracts/navigation.ts#L34) |
-| `sdk/objectiveMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L142) |
-| `sdk/ObjectiveMechanicRole` | contract | Public SDK value: sdk/mechanic-objectives | [source](../../src/sdk/contracts/mechanics.ts#L103) |
-| `sdk/ObjectiveProviders` | contract | Public SDK value: mechanic-objective-provider | [source](../../src/sdk/contracts/mechanics.ts#L99) |
-| `sdk/opt` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L81) |
-| `sdk/outcomeRatingMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/outcome-rating.ts#L24) |
-| `sdk/OutcomeRatingProviders` | contract | Public SDK value: mechanic-outcome-rating-provider | [source](../../src/sdk/contracts/outcome-rating.ts#L22) |
-| `sdk/OutcomeRatingRole` | contract | Public SDK value: sdk/mechanic-outcome-rating | [source](../../src/sdk/contracts/outcome-rating.ts#L23) |
-| `sdk/parseGltf` | contract | Public helper/class | [source](../../src/sdk/contracts/gltf.ts#L53) |
-| `sdk/PHASES` | contract | Public SDK value | [source](../../src/sdk/core.ts#L30) |
-| `sdk/Physics` | contract | Public SDK value: sdk/physics | [source](../../src/sdk/contracts/physics.ts#L85) |
-| `sdk/PhysicsCollider` | contract | Public SDK value: sdk/physics-collider | [source](../../src/sdk/contracts/physics.ts#L38) |
-| `sdk/PhysicsCollision` | contract | Public SDK value: sdk/physics-collision | [source](../../src/sdk/contracts/physics.ts#L69) |
-| `sdk/Pickup` | contract | Public SDK value: sdk/pickup | [source](../../src/sdk/contracts/shooter.ts#L110) |
-| `sdk/PickupCollected` | contract | Public SDK value: sdk/pickup-collected | [source](../../src/sdk/contracts/shooter.ts#L364) |
-| `sdk/PickupEffects` | contract | Public SDK value: pickup-effect | [source](../../src/sdk/contracts/shooter.ts#L492) |
-| `sdk/Pickups` | contract | Public SDK value: pickup | [source](../../src/sdk/contracts/shooter.ts#L502) |
-| `sdk/planarToTransform3D` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L155) |
-| `sdk/PLATFORMER_DEFAULTS` | contract | Public SDK value | [source](../../src/sdk/contracts/platforming.ts#L29) |
-| `sdk/platformerMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/platforming.ts#L139) |
-| `sdk/PlatformerRole` | contract | Public SDK value: sdk/platformer | [source](../../src/sdk/contracts/platforming.ts#L121) |
-| `sdk/Player` | contract | Public SDK value: sdk/player | [source](../../src/sdk/contracts/shooter.ts#L70) |
-| `sdk/PlayerAvatar` | contract | Public SDK value: sdk/player-avatar | [source](../../src/sdk/contracts/shooter.ts#L140) |
-| `sdk/Prefabs` | contract | Public SDK value: prefab | [source](../../src/sdk/contracts/shooter.ts#L332) |
-| `sdk/prettyKey` | contract | Public helper/class | [source](../../src/sdk/contracts/input.ts#L90) |
-| `sdk/PrevTransform` | contract | Public SDK value: sdk/prev-transform | [source](../../src/sdk/contracts/spatial.ts#L23) |
-| `sdk/Profile` | contract | Public SDK value: sdk/profile | [source](../../src/sdk/contracts/profile.ts#L15) |
-| `sdk/progressionMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/progression.ts#L60) |
-| `sdk/ProgressionMechanicRole` | contract | Public SDK value: sdk/mechanic-progression | [source](../../src/sdk/contracts/progression.ts#L45) |
-| `sdk/ProgressionProviders` | contract | Public SDK value: mechanic-progression-provider | [source](../../src/sdk/contracts/progression.ts#L44) |
-| `sdk/quatFromEuler` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L55) |
-| `sdk/quatIdentity` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L52) |
-| `sdk/quatMultiply` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L66) |
-| `sdk/quatNormalize` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L75) |
-| `sdk/readAxis` | contract | Public helper/class | [source](../../src/sdk/contracts/input.ts#L47) |
-| `sdk/registerStandardControls` | contract | Public helper/class | [source](../../src/sdk/contracts/input.ts#L115) |
-| `sdk/relationshipMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/relationships.ts#L30) |
-| `sdk/RelationshipMechanicRole` | contract | Public SDK value: sdk/mechanic-relationships | [source](../../src/sdk/contracts/relationships.ts#L29) |
-| `sdk/RelationshipProviders` | contract | Public SDK value: mechanic-relationship-provider | [source](../../src/sdk/contracts/relationships.ts#L28) |
-| `sdk/Render` | contract | Public SDK value: sdk/render | [source](../../src/sdk/render.ts#L56) |
-| `sdk/Renderable` | contract | Public SDK value: sdk/renderable | [source](../../src/sdk/contracts/spatial.ts#L44) |
-| `sdk/RenderablePrefabs` | contract | Public SDK value: renderable-prefab | [source](../../src/sdk/render.ts#L104) |
-| `sdk/Reporter` | contract | Public helper/class | [source](../../src/sdk/core.ts#L52) |
-| `sdk/resolvePrefab` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L84) |
-| `sdk/resourceMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/mechanics.ts#L127) |
-| `sdk/ResourceMechanicRole` | contract | Public SDK value: sdk/mechanic-resources | [source](../../src/sdk/contracts/mechanics.ts#L100) |
-| `sdk/ResourcePoolProviders` | contract | Public SDK value: mechanic-resource-provider | [source](../../src/sdk/contracts/mechanics.ts#L96) |
-| `sdk/RigidBody` | contract | Public SDK value: sdk/rigid-body | [source](../../src/sdk/contracts/physics.ts#L23) |
-| `sdk/RoomMapChanged` | contract | Public SDK value: sdk/room-map-changed | [source](../../src/sdk/contracts/room-map.ts#L44) |
-| `sdk/roomMapMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/room-map.ts#L46) |
-| `sdk/RoomMapRole` | contract | Public SDK value: sdk/room-map | [source](../../src/sdk/contracts/room-map.ts#L43) |
-| `sdk/rotateVec3` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L81) |
-| `sdk/SceneError` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L81) |
-| `sdk/SceneNodeInfo` | contract | Public SDK value: sdk/scene-node | [source](../../src/sdk/contracts/scene.ts#L48) |
-| `sdk/scenePose` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L184) |
-| `sdk/ScenePrefabs` | contract | Public SDK value: scene-prefab | [source](../../src/sdk/contracts/scene.ts#L44) |
-| `sdk/Scenes` | contract | Public SDK value: scene | [source](../../src/sdk/contracts/scene.ts#L45) |
-| `sdk/Scope` | contract | Public helper/class | [source](../../src/sdk/core.ts#L50) |
-| `sdk/ScopeDisposedError` | contract | Public helper/class | [source](../../src/kernel/scope.ts#L4) |
-| `sdk/SDK_COMPAT` | contract | Public SDK value | [source](../../src/sdk/core.ts#L15) |
-| `sdk/SDK_VERSION` | contract | Public SDK value | [source](../../src/sdk/core.ts#L10) |
-| `sdk/sequenceMechanic` | contract | Public helper/class | [source](../../src/sdk/contracts/sequence.ts#L41) |
-| `sdk/SequenceMechanicRole` | contract | Public SDK value: sdk/mechanic-sequence | [source](../../src/sdk/contracts/sequence.ts#L38) |
-| `sdk/SequenceProviders` | contract | Public SDK value: mechanic-sequence-provider | [source](../../src/sdk/contracts/sequence.ts#L37) |
-| `sdk/SessionControl` | contract | Public SDK value: sdk/session-control | [source](../../src/sdk/contracts/experience.ts#L16) |
-| `sdk/Settings` | contract | Public SDK value: sdk/settings | [source](../../src/sdk/contracts/shooter.ts#L643) |
-| `sdk/slerp` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L90) |
-| `sdk/SNAPSHOT_FORMAT` | contract | Public SDK value | [source](../../src/kernel/snapshot.ts#L9) |
-| `sdk/SNAPSHOT_SCHEMA` | contract | Public SDK value | [source](../../src/kernel/snapshot.ts#L10) |
-| `sdk/snapTransform` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L149) |
-| `sdk/SpatialHash` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial-index.ts#L19) |
-| `sdk/spawnGltfScene` | contract | Public helper/class | [source](../../src/sdk/core.ts#L1) |
-| `sdk/spawnPrefab` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L335) |
-| `sdk/spawnScene` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L226) |
-| `sdk/spawnSceneFile` | contract | Public helper/class | [source](../../src/sdk/core.ts#L1) |
-| `sdk/stableStringify` | contract | Public helper/class | [source](../../src/kernel/snapshot.ts#L55) |
-| `sdk/ThemeRole` | contract | Public SDK value: sdk/theme | [source](../../src/sdk/contracts/shooter.ts#L720) |
-| `sdk/THREE` | contract | Public SDK value | [source](../../src/sdk/render.ts#L12) |
-| `sdk/TOUCH_BUTTONS` | contract | Public SDK value | [source](../../src/sdk/contracts/input.ts#L25) |
-| `sdk/Transform` | contract | Public SDK value: sdk/transform | [source](../../src/sdk/contracts/shooter.ts#L26) |
-| `sdk/transform3d` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L119) |
-| `sdk/Transform3D` | contract | Public SDK value: sdk/transform3d | [source](../../src/sdk/contracts/spatial.ts#L20) |
-| `sdk/TriggerFired` | contract | Public SDK value: sdk/trigger-fired | [source](../../src/sdk/contracts/shooter.ts#L313) |
-| `sdk/TurnControl` | contract | Public SDK value: sdk/turn-control | [source](../../src/sdk/contracts/turns.ts#L15) |
-| `sdk/Ui` | contract | Public SDK value: sdk/ui | [source](../../src/sdk/contracts/shooter.ts#L654) |
-| `sdk/UseFailed` | contract | Public SDK value: sdk/use-failed | [source](../../src/sdk/contracts/shooter.ts#L315) |
-| `sdk/validatePrefab` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L143) |
-| `sdk/validateScene` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L155) |
-| `sdk/validateSceneNode` | contract | Public helper/class | [source](../../src/sdk/contracts/scene.ts#L127) |
-| `sdk/vArray` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L69) |
-| `sdk/vBool` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L65) |
-| `sdk/vec3` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L51) |
-| `sdk/vId` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L51) |
-| `sdk/View` | contract | Public SDK value: sdk/view | [source](../../src/sdk/contracts/shooter.ts#L685) |
-| `sdk/ViewModeChanged` | contract | Public SDK value: sdk/view-mode-changed | [source](../../src/sdk/contracts/viewmodes.ts#L24) |
-| `sdk/ViewModes` | contract | Public SDK value: sdk/view-modes | [source](../../src/sdk/contracts/viewmodes.ts#L23) |
-| `sdk/Visual` | contract | Public SDK value: sdk/visual | [source](../../src/sdk/contracts/shooter.ts#L130) |
-| `sdk/vJson` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L86) |
-| `sdk/vNumber` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L57) |
-| `sdk/vObject` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L40) |
-| `sdk/vOneOf` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L76) |
-| `sdk/vString` | contract | Public helper/class | [source](../../src/kernel/validate.ts#L44) |
-| `sdk/WeaponDry` | contract | Public SDK value: sdk/weapon-dry | [source](../../src/sdk/contracts/shooter.ts#L363) |
-| `sdk/WeaponRuntime` | contract | Public SDK value: sdk/weapon-runtime | [source](../../src/sdk/contracts/shooter.ts#L91) |
-| `sdk/Weapons` | contract | Public SDK value: weapon | [source](../../src/sdk/contracts/shooter.ts#L423) |
-| `sdk/WeaponSwitched` | contract | Public SDK value: sdk/weapon-switched | [source](../../src/sdk/contracts/shooter.ts#L362) |
-| `sdk/World` | contract | Public SDK value: sdk/world | [source](../../src/sdk/contracts/shooter.ts#L271) |
-| `sdk/worldPose` | contract | Public helper/class | [source](../../src/sdk/contracts/spatial.ts#L130) |
-| `sdk/yawDirX` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L727) |
-| `sdk/yawDirZ` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L728) |
-| `sdk/yawOf` | contract | Public helper/class | [source](../../src/sdk/contracts/shooter.ts#L730) |
+| `sdk/actionMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/mechanics.ts#L137) |
+| `sdk/ActionMechanicRole` | contract | Public SDK value: sdk/mechanic-actions | [source](../../packages/sdk/src/contracts/mechanics.ts#L102) |
+| `sdk/ActorRenderers` | contract | Public SDK value: actor-renderer | [source](../../packages/sdk/src/render.ts#L99) |
+| `sdk/angleDelta` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/game.ts#L416) |
+| `sdk/appendBox` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/navmesh.ts#L90) |
+| `sdk/applyDeadzone` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/input.ts#L52) |
+| `sdk/applyPrefabComponents` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L220) |
+| `sdk/Assets` | contract | Public SDK value: sdk/assets | [source](../../packages/sdk/src/contracts/assets.ts#L37) |
+| `sdk/Audio` | contract | Public SDK value: sdk/audio | [source](../../packages/sdk/src/contracts/game.ts#L329) |
+| `sdk/AUDIO_BUSES` | contract | Public SDK value | [source](../../packages/sdk/src/contracts/audio.ts#L34) |
+| `sdk/AudioSamples` | contract | Public SDK value: audio-sample | [source](../../packages/sdk/src/contracts/audio.ts#L54) |
+| `sdk/base64ToBytes` | contract | Public helper/class | [source](../../packages/kernel/src/snapshot.ts#L85) |
+| `sdk/bytesToBase64` | contract | Public helper/class | [source](../../packages/kernel/src/snapshot.ts#L80) |
+| `sdk/CameraRole` | contract | Public SDK value: sdk/camera | [source](../../packages/sdk/src/contracts/game.ts#L351) |
+| `sdk/capabilityMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/capabilities.ts#L53) |
+| `sdk/CapabilityRole` | contract | Public SDK value: sdk/capabilities | [source](../../packages/sdk/src/contracts/capabilities.ts#L50) |
+| `sdk/CapabilityUnlocked` | contract | Public SDK value: sdk/capability-unlocked | [source](../../packages/sdk/src/contracts/capabilities.ts#L51) |
+| `sdk/CharacterController` | contract | Public SDK value: sdk/character-controller | [source](../../packages/sdk/src/contracts/physics.ts#L57) |
+| `sdk/CharacterMove` | contract | Public SDK value: sdk/character-move | [source](../../packages/sdk/src/contracts/physics.ts#L61) |
+| `sdk/CharacterState` | contract | Public SDK value: sdk/character-state | [source](../../packages/sdk/src/contracts/physics.ts#L65) |
+| `sdk/checkSceneReferences` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L163) |
+| `sdk/clockMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/mechanics.ts#L132) |
+| `sdk/ClockMechanicRole` | contract | Public SDK value: sdk/mechanic-clock | [source](../../packages/sdk/src/contracts/mechanics.ts#L101) |
+| `sdk/clonePose` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L116) |
+| `sdk/Collider` | contract | Public SDK value: sdk/collider | [source](../../packages/sdk/src/contracts/game.ts#L36) |
+| `sdk/colliderFromBounds` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/gltf.ts#L254) |
+| `sdk/COMPONENT_ALIASES` | contract | Public SDK value | [source](../../packages/sdk/src/contracts/scene.ts#L51) |
+| `sdk/componentId` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L55) |
+| `sdk/composePose` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L106) |
+| `sdk/conditionMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/conditions.ts#L23) |
+| `sdk/ConditionMechanicRole` | contract | Public SDK value: sdk/mechanic-conditions | [source](../../packages/sdk/src/contracts/conditions.ts#L22) |
+| `sdk/ConditionProviders` | contract | Public SDK value: mechanic-condition-provider | [source](../../packages/sdk/src/contracts/conditions.ts#L21) |
+| `sdk/ControllerRole` | contract | Public SDK value: sdk/controller | [source](../../packages/sdk/src/contracts/game.ts#L349) |
+| `sdk/craftingMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/crafting.ts#L33) |
+| `sdk/CraftingMechanicRole` | contract | Public SDK value: sdk/mechanic-crafting | [source](../../packages/sdk/src/contracts/crafting.ts#L31) |
+| `sdk/CraftingProviders` | contract | Public SDK value: mechanic-crafting-provider | [source](../../packages/sdk/src/contracts/crafting.ts#L30) |
+| `sdk/CraftingRecipes` | contract | Public SDK value: crafting-recipe | [source](../../packages/sdk/src/contracts/crafting.ts#L17) |
+| `sdk/createCommandQueue` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/command-queue.ts#L33) |
+| `sdk/createDeadline` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/deadlines.ts#L32) |
+| `sdk/createMechanicKit` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/mechanics.ts#L148) |
+| `sdk/createOwnedInstances` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/owned-instances.ts#L15) |
+| `sdk/createPlatformerBody` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/platforming.ts#L123) |
+| `sdk/debugDraw` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/debug-draw.ts#L40) |
+| `sdk/DebugDraw` | contract | Public SDK value: sdk/debug-draw | [source](../../packages/sdk/src/contracts/debug-draw.ts#L36) |
+| `sdk/decomposeMatrix` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/gltf.ts#L92) |
+| `sdk/defineCommand` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L35) |
+| `sdk/defineComponent` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L33) |
+| `sdk/defineEvent` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L34) |
+| `sdk/definePlugin` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L40) |
+| `sdk/defineRegistry` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L37) |
+| `sdk/defineRole` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L38) |
+| `sdk/defineService` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L36) |
+| `sdk/ExperienceRole` | contract | Public SDK value: sdk/experience | [source](../../packages/sdk/src/contracts/experience.ts#L10) |
+| `sdk/Flow` | contract | Public SDK value: sdk/flow | [source](../../packages/sdk/src/contracts/game.ts#L320) |
+| `sdk/FlowEnded` | contract | Public SDK value: sdk/flow-ended | [source](../../packages/sdk/src/contracts/game.ts#L321) |
+| `sdk/fnv1a` | contract | Public helper/class | [source](../../packages/kernel/src/snapshot.ts#L65) |
+| `sdk/GAMEPAD_BUTTONS` | contract | Public SDK value | [source](../../packages/sdk/src/contracts/input.ts#L20) |
+| `sdk/GltfExtras` | contract | Public SDK value: gltf-extras | [source](../../packages/sdk/src/contracts/gltf.ts#L216) |
+| `sdk/gltfNodes` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/gltf.ts#L173) |
+| `sdk/hashSnapshot` | contract | Public helper/class | [source](../../packages/kernel/src/snapshot.ts#L75) |
+| `sdk/Health` | contract | Public SDK value: sdk/health | [source](../../packages/sdk/src/contracts/game.ts#L43) |
+| `sdk/hintMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/hints.ts#L22) |
+| `sdk/HintMechanicRole` | contract | Public SDK value: sdk/mechanic-hints | [source](../../packages/sdk/src/contracts/hints.ts#L21) |
+| `sdk/HintProviders` | contract | Public SDK value: mechanic-hint-provider | [source](../../packages/sdk/src/contracts/hints.ts#L20) |
+| `sdk/HudRole` | contract | Public SDK value: sdk/hud | [source](../../packages/sdk/src/contracts/game.ts#L355) |
+| `sdk/importLdtk` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/level-import.ts#L170) |
+| `sdk/importTiled` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/level-import.ts#L79) |
+| `sdk/Input` | contract | Public SDK value: sdk/input | [source](../../packages/sdk/src/contracts/game.ts#L269) |
+| `sdk/InputActions` | contract | Public SDK value: input-action | [source](../../packages/sdk/src/contracts/game.ts#L251) |
+| `sdk/InputAxes` | contract | Public SDK value: input-axis | [source](../../packages/sdk/src/contracts/input.ts#L41) |
+| `sdk/InputBindings` | contract | Public SDK value: sdk/input-bindings | [source](../../packages/sdk/src/contracts/input.ts#L82) |
+| `sdk/InputContexts` | contract | Public SDK value: sdk/input-contexts | [source](../../packages/sdk/src/contracts/game.ts#L295) |
+| `sdk/Intent` | contract | Public SDK value: sdk/intent | [source](../../packages/sdk/src/contracts/game.ts#L60) |
+| `sdk/interpolatePose` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L99) |
+| `sdk/Inventory` | contract | Public SDK value: sdk/inventory | [source](../../packages/sdk/src/contracts/game.ts#L84) |
+| `sdk/inventoryMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/inventory.ts#L58) |
+| `sdk/InventoryMechanicRole` | contract | Public SDK value: sdk/mechanic-inventory | [source](../../packages/sdk/src/contracts/inventory.ts#L48) |
+| `sdk/InventoryProviders` | contract | Public SDK value: mechanic-inventory-provider | [source](../../packages/sdk/src/contracts/inventory.ts#L47) |
+| `sdk/isMeshCarrier` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/gltf.ts#L163) |
+| `sdk/isObject` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L36) |
+| `sdk/Items` | contract | Public SDK value: item | [source](../../packages/sdk/src/contracts/inventory.ts#L16) |
+| `sdk/lerp` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L86) |
+| `sdk/lerpVec3` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L87) |
+| `sdk/loadStaticAsset` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L1) |
+| `sdk/makeTransform` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/game.ts#L422) |
+| `sdk/MapFormats` | contract | Public SDK value: map-format | [source](../../packages/sdk/src/contracts/game.ts#L215) |
+| `sdk/Maps` | contract | Public SDK value: map | [source](../../packages/sdk/src/contracts/game.ts#L208) |
+| `sdk/MechanicActionCommitted` | contract | Public SDK value: mechanics/action-committed | [source](../../packages/sdk/src/contracts/mechanics.ts#L106) |
+| `sdk/MechanicActionProviders` | contract | Public SDK value: mechanic-action-provider | [source](../../packages/sdk/src/contracts/mechanics.ts#L98) |
+| `sdk/MechanicClockProviders` | contract | Public SDK value: mechanic-clock-provider | [source](../../packages/sdk/src/contracts/mechanics.ts#L97) |
+| `sdk/MechanicInventoryChanged` | contract | Public SDK value: mechanics/inventory-changed | [source](../../packages/sdk/src/contracts/inventory.ts#L49) |
+| `sdk/MechanicKits` | contract | Public SDK value: mechanic-kit | [source](../../packages/sdk/src/contracts/mechanics.ts#L116) |
+| `sdk/MechanicObjectiveChanged` | contract | Public SDK value: mechanics/objective-changed | [source](../../packages/sdk/src/contracts/mechanics.ts#L107) |
+| `sdk/MechanicProgressionChanged` | contract | Public SDK value: mechanics/progression-changed | [source](../../packages/sdk/src/contracts/progression.ts#L47) |
+| `sdk/MechanicResourcesChanged` | contract | Public SDK value: mechanics/resources-changed | [source](../../packages/sdk/src/contracts/mechanics.ts#L105) |
+| `sdk/mergeJson` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L59) |
+| `sdk/migrateSnapshot` | contract | Public helper/class | [source](../../packages/kernel/src/snapshot.ts#L41) |
+| `sdk/Models` | contract | Public SDK value: sdk/models | [source](../../packages/sdk/src/render.ts#L122) |
+| `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](../../packages/sdk/src/contracts/game.ts#L353) |
+| `sdk/morphChildren` | contract | Public helper/class | [source](../../packages/sdk/src/dom-morph.ts#L10) |
+| `sdk/NavAgent` | contract | Public SDK value: sdk/nav-agent | [source](../../packages/sdk/src/contracts/navmesh.ts#L70) |
+| `sdk/NavAgentState` | contract | Public SDK value: sdk/nav-agent-state | [source](../../packages/sdk/src/contracts/navmesh.ts#L80) |
+| `sdk/navGeometryFromColliders` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/navmesh.ts#L106) |
+| `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](../../packages/sdk/src/contracts/navigation.ts#L34) |
+| `sdk/NavMesh` | contract | Public SDK value: sdk/navmesh | [source](../../packages/sdk/src/contracts/navmesh.ts#L58) |
+| `sdk/NavMeshBuilt` | contract | Public SDK value: sdk/navmesh-built | [source](../../packages/sdk/src/contracts/navmesh.ts#L83) |
+| `sdk/objectiveMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/mechanics.ts#L142) |
+| `sdk/ObjectiveMechanicRole` | contract | Public SDK value: sdk/mechanic-objectives | [source](../../packages/sdk/src/contracts/mechanics.ts#L103) |
+| `sdk/ObjectiveProviders` | contract | Public SDK value: mechanic-objective-provider | [source](../../packages/sdk/src/contracts/mechanics.ts#L99) |
+| `sdk/opt` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L81) |
+| `sdk/outcomeRatingMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/outcome-rating.ts#L24) |
+| `sdk/OutcomeRatingProviders` | contract | Public SDK value: mechanic-outcome-rating-provider | [source](../../packages/sdk/src/contracts/outcome-rating.ts#L22) |
+| `sdk/OutcomeRatingRole` | contract | Public SDK value: sdk/mechanic-outcome-rating | [source](../../packages/sdk/src/contracts/outcome-rating.ts#L23) |
+| `sdk/parseGltf` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/gltf.ts#L53) |
+| `sdk/PHASES` | contract | Public SDK value | [source](../../packages/sdk/src/core.ts#L30) |
+| `sdk/Physics` | contract | Public SDK value: sdk/physics | [source](../../packages/sdk/src/contracts/physics.ts#L85) |
+| `sdk/PhysicsCollider` | contract | Public SDK value: sdk/physics-collider | [source](../../packages/sdk/src/contracts/physics.ts#L38) |
+| `sdk/PhysicsCollision` | contract | Public SDK value: sdk/physics-collision | [source](../../packages/sdk/src/contracts/physics.ts#L69) |
+| `sdk/planarToTransform3D` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L155) |
+| `sdk/PLATFORMER_DEFAULTS` | contract | Public SDK value | [source](../../packages/sdk/src/contracts/platforming.ts#L29) |
+| `sdk/platformerMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/platforming.ts#L139) |
+| `sdk/PlatformerRole` | contract | Public SDK value: sdk/platformer | [source](../../packages/sdk/src/contracts/platforming.ts#L121) |
+| `sdk/Player` | contract | Public SDK value: sdk/player | [source](../../packages/sdk/src/contracts/game.ts#L70) |
+| `sdk/PlayerAvatar` | contract | Public SDK value: sdk/player-avatar | [source](../../packages/sdk/src/contracts/game.ts#L114) |
+| `sdk/Prefabs` | contract | Public SDK value: prefab | [source](../../packages/sdk/src/contracts/game.ts#L232) |
+| `sdk/prettyKey` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/input.ts#L90) |
+| `sdk/PrevTransform` | contract | Public SDK value: sdk/prev-transform | [source](../../packages/sdk/src/contracts/spatial.ts#L23) |
+| `sdk/Profile` | contract | Public SDK value: sdk/profile | [source](../../packages/sdk/src/contracts/profile.ts#L15) |
+| `sdk/progressionMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/progression.ts#L60) |
+| `sdk/ProgressionMechanicRole` | contract | Public SDK value: sdk/mechanic-progression | [source](../../packages/sdk/src/contracts/progression.ts#L45) |
+| `sdk/ProgressionProviders` | contract | Public SDK value: mechanic-progression-provider | [source](../../packages/sdk/src/contracts/progression.ts#L44) |
+| `sdk/quatFromEuler` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L55) |
+| `sdk/quatIdentity` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L52) |
+| `sdk/quatMultiply` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L66) |
+| `sdk/quatNormalize` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L75) |
+| `sdk/readAxis` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/input.ts#L47) |
+| `sdk/registerStandardControls` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/input.ts#L115) |
+| `sdk/relationshipMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/relationships.ts#L30) |
+| `sdk/RelationshipMechanicRole` | contract | Public SDK value: sdk/mechanic-relationships | [source](../../packages/sdk/src/contracts/relationships.ts#L29) |
+| `sdk/RelationshipProviders` | contract | Public SDK value: mechanic-relationship-provider | [source](../../packages/sdk/src/contracts/relationships.ts#L28) |
+| `sdk/Render` | contract | Public SDK value: sdk/render | [source](../../packages/sdk/src/render.ts#L64) |
+| `sdk/Renderable` | contract | Public SDK value: sdk/renderable | [source](../../packages/sdk/src/contracts/spatial.ts#L44) |
+| `sdk/RenderablePrefabs` | contract | Public SDK value: renderable-prefab | [source](../../packages/sdk/src/render.ts#L112) |
+| `sdk/Reporter` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L52) |
+| `sdk/resolvePrefab` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L84) |
+| `sdk/resourceMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/mechanics.ts#L127) |
+| `sdk/ResourceMechanicRole` | contract | Public SDK value: sdk/mechanic-resources | [source](../../packages/sdk/src/contracts/mechanics.ts#L100) |
+| `sdk/ResourcePoolProviders` | contract | Public SDK value: mechanic-resource-provider | [source](../../packages/sdk/src/contracts/mechanics.ts#L96) |
+| `sdk/RigidBody` | contract | Public SDK value: sdk/rigid-body | [source](../../packages/sdk/src/contracts/physics.ts#L23) |
+| `sdk/RoomMapChanged` | contract | Public SDK value: sdk/room-map-changed | [source](../../packages/sdk/src/contracts/room-map.ts#L44) |
+| `sdk/roomMapMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/room-map.ts#L46) |
+| `sdk/RoomMapRole` | contract | Public SDK value: sdk/room-map | [source](../../packages/sdk/src/contracts/room-map.ts#L43) |
+| `sdk/rotateVec3` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L81) |
+| `sdk/SceneError` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L81) |
+| `sdk/SceneNodeInfo` | contract | Public SDK value: sdk/scene-node | [source](../../packages/sdk/src/contracts/scene.ts#L48) |
+| `sdk/scenePose` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L184) |
+| `sdk/ScenePrefabs` | contract | Public SDK value: scene-prefab | [source](../../packages/sdk/src/contracts/scene.ts#L44) |
+| `sdk/Scenes` | contract | Public SDK value: scene | [source](../../packages/sdk/src/contracts/scene.ts#L45) |
+| `sdk/Scope` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L50) |
+| `sdk/ScopeDisposedError` | contract | Public helper/class | [source](../../packages/kernel/src/scope.ts#L4) |
+| `sdk/SDK_COMPAT` | contract | Public SDK value | [source](../../packages/sdk/src/core.ts#L15) |
+| `sdk/SDK_VERSION` | contract | Public SDK value | [source](../../packages/sdk/src/core.ts#L10) |
+| `sdk/sequenceMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/sequence.ts#L41) |
+| `sdk/SequenceMechanicRole` | contract | Public SDK value: sdk/mechanic-sequence | [source](../../packages/sdk/src/contracts/sequence.ts#L38) |
+| `sdk/SequenceProviders` | contract | Public SDK value: mechanic-sequence-provider | [source](../../packages/sdk/src/contracts/sequence.ts#L37) |
+| `sdk/SessionControl` | contract | Public SDK value: sdk/session-control | [source](../../packages/sdk/src/contracts/experience.ts#L16) |
+| `sdk/Settings` | contract | Public SDK value: sdk/settings | [source](../../packages/sdk/src/contracts/game.ts#L327) |
+| `sdk/slerp` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L90) |
+| `sdk/SNAPSHOT_FORMAT` | contract | Public SDK value | [source](../../packages/kernel/src/snapshot.ts#L9) |
+| `sdk/SNAPSHOT_SCHEMA` | contract | Public SDK value | [source](../../packages/kernel/src/snapshot.ts#L10) |
+| `sdk/snapTransform` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L149) |
+| `sdk/SpatialHash` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial-index.ts#L19) |
+| `sdk/spawnGltfScene` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L1) |
+| `sdk/spawnPrefab` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/game.ts#L235) |
+| `sdk/spawnScene` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L226) |
+| `sdk/spawnSceneFile` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L1) |
+| `sdk/stableStringify` | contract | Public helper/class | [source](../../packages/kernel/src/snapshot.ts#L55) |
+| `sdk/ThemeRole` | contract | Public SDK value: sdk/theme | [source](../../packages/sdk/src/contracts/game.ts#L404) |
+| `sdk/THREE` | contract | Public SDK value | [source](../../packages/sdk/src/render.ts#L12) |
+| `sdk/TOUCH_BUTTONS` | contract | Public SDK value | [source](../../packages/sdk/src/contracts/input.ts#L25) |
+| `sdk/Transform` | contract | Public SDK value: sdk/transform | [source](../../packages/sdk/src/contracts/game.ts#L26) |
+| `sdk/transform3d` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L119) |
+| `sdk/Transform3D` | contract | Public SDK value: sdk/transform3d | [source](../../packages/sdk/src/contracts/spatial.ts#L20) |
+| `sdk/TurnControl` | contract | Public SDK value: sdk/turn-control | [source](../../packages/sdk/src/contracts/turns.ts#L15) |
+| `sdk/Ui` | contract | Public SDK value: sdk/ui | [source](../../packages/sdk/src/contracts/game.ts#L338) |
+| `sdk/validatePrefab` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L143) |
+| `sdk/validateScene` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L155) |
+| `sdk/validateSceneNode` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L127) |
+| `sdk/vArray` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L69) |
+| `sdk/vBool` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L65) |
+| `sdk/vec3` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L51) |
+| `sdk/vId` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L51) |
+| `sdk/View` | contract | Public SDK value: sdk/view | [source](../../packages/sdk/src/contracts/game.ts#L369) |
+| `sdk/ViewModeChanged` | contract | Public SDK value: sdk/view-mode-changed | [source](../../packages/sdk/src/contracts/viewmodes.ts#L24) |
+| `sdk/ViewModes` | contract | Public SDK value: sdk/view-modes | [source](../../packages/sdk/src/contracts/viewmodes.ts#L23) |
+| `sdk/Visual` | contract | Public SDK value: sdk/visual | [source](../../packages/sdk/src/contracts/game.ts#L104) |
+| `sdk/vJson` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L86) |
+| `sdk/vNumber` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L57) |
+| `sdk/vObject` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L40) |
+| `sdk/vOneOf` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L76) |
+| `sdk/vString` | contract | Public helper/class | [source](../../packages/kernel/src/validate.ts#L44) |
+| `sdk/worldPose` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/spatial.ts#L130) |
+| `sdk/yawDirX` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/game.ts#L411) |
+| `sdk/yawDirZ` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/game.ts#L412) |
+| `sdk/yawOf` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/game.ts#L414) |
 | `games/adventure/Adventure` | contract | Game-family contract value: sdk/adventure | [source](../../games/adventure/contracts/adventure.ts#L66) |
 | `games/adventure/AdventureActionResolved` | contract | Game-family contract value: sdk/adventure-action-resolved | [source](../../games/adventure/contracts/adventure.ts#L64) |
 | `games/adventure/AdventureChapters` | contract | Game-family contract value: adventure-chapter | [source](../../games/adventure/contracts/adventure.ts#L65) |
@@ -403,11 +384,39 @@ Source digest: `5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3
 | `games/puzzles/PuzzleResolved` | contract | Game-family contract value: puzzle/resolved | [source](../../games/puzzles/contracts/puzzle.ts#L46) |
 | `games/racing/Race` | contract | Game-family contract value: vehicle/race | [source](../../games/racing/contracts/racing.ts#L41) |
 | `games/racing/RaceTracks` | contract | Game-family contract value: vehicle/track | [source](../../games/racing/contracts/racing.ts#L21) |
-| `games/sandbox/DISPLAY_MODEL` | contract | Game-family contract value | [source](../../games/sandbox/contracts/sandbox.ts#L29) |
-| `games/sandbox/LEVEL_MODEL` | contract | Game-family contract value | [source](../../games/sandbox/contracts/sandbox.ts#L28) |
+| `games/sandbox/DISPLAY_MODEL` | contract | Game-family contract value | [source](../../games/sandbox/contracts/sandbox.ts#L33) |
+| `games/sandbox/LEVEL_MODEL` | contract | Game-family contract value | [source](../../games/sandbox/contracts/sandbox.ts#L32) |
 | `games/sandbox/Sandbox` | contract | Game-family contract value: sandbox/state | [source](../../games/sandbox/contracts/sandbox.ts#L18) |
-| `games/sandbox/SandboxGlow` | contract | Game-family contract value: sandbox/glow | [source](../../games/sandbox/contracts/sandbox.ts#L23) |
-| `games/sandbox/SandboxGoal` | contract | Game-family contract value: sandbox/goal | [source](../../games/sandbox/contracts/sandbox.ts#L25) |
+| `games/sandbox/SandboxGlow` | contract | Game-family contract value: sandbox/glow | [source](../../games/sandbox/contracts/sandbox.ts#L27) |
+| `games/sandbox/SandboxGoal` | contract | Game-family contract value: sandbox/goal | [source](../../games/sandbox/contracts/sandbox.ts#L29) |
+| `games/sandbox/SandboxNav` | contract | Game-family contract value: sandbox/nav | [source](../../games/sandbox/contracts/sandbox.ts#L22) |
+| `games/shooter/AiBehaviors` | contract | Game-family contract value: ai-behavior | [source](../../games/shooter/contracts/shooter.ts#L304) |
+| `games/shooter/AmmoTypes` | contract | Game-family contract value: ammo | [source](../../games/shooter/contracts/shooter.ts#L201) |
+| `games/shooter/AttackBehaviors` | contract | Game-family contract value: attack-behavior | [source](../../games/shooter/contracts/shooter.ts#L160) |
+| `games/shooter/AttackFired` | contract | Game-family contract value: sdk/attack-fired | [source](../../games/shooter/contracts/shooter.ts#L129) |
+| `games/shooter/Combat` | contract | Game-family contract value: sdk/combat | [source](../../games/shooter/contracts/shooter.ts#L249) |
+| `games/shooter/Damaged` | contract | Game-family contract value: sdk/damaged | [source](../../games/shooter/contracts/shooter.ts#L127) |
+| `games/shooter/DamageModifiers` | contract | Game-family contract value: damage-modifier | [source](../../games/shooter/contracts/shooter.ts#L209) |
+| `games/shooter/DealDamage` | contract | Game-family contract value: sdk/deal-damage | [source](../../games/shooter/contracts/shooter.ts#L125) |
+| `games/shooter/Died` | contract | Game-family contract value: sdk/died | [source](../../games/shooter/contracts/shooter.ts#L128) |
+| `games/shooter/DoorChanged` | contract | Game-family contract value: sdk/door-changed | [source](../../games/shooter/contracts/shooter.ts#L104) |
+| `games/shooter/Enemies` | contract | Game-family contract value: enemy | [source](../../games/shooter/contracts/shooter.ts#L295) |
+| `games/shooter/Enemy` | contract | Game-family contract value: sdk/enemy | [source](../../games/shooter/contracts/shooter.ts#L28) |
+| `games/shooter/EnemyAi` | contract | Game-family contract value: sdk/enemies | [source](../../games/shooter/contracts/shooter.ts#L323) |
+| `games/shooter/EnemyAlerted` | contract | Game-family contract value: sdk/enemy-alerted | [source](../../games/shooter/contracts/shooter.ts#L135) |
+| `games/shooter/Impact` | contract | Game-family contract value: sdk/impact | [source](../../games/shooter/contracts/shooter.ts#L131) |
+| `games/shooter/Interactions` | contract | Game-family contract value: sdk/interactions | [source](../../games/shooter/contracts/shooter.ts#L102) |
+| `games/shooter/Pickup` | contract | Game-family contract value: sdk/pickup | [source](../../games/shooter/contracts/shooter.ts#L33) |
+| `games/shooter/PickupCollected` | contract | Game-family contract value: sdk/pickup-collected | [source](../../games/shooter/contracts/shooter.ts#L134) |
+| `games/shooter/PickupEffects` | contract | Game-family contract value: pickup-effect | [source](../../games/shooter/contracts/shooter.ts#L262) |
+| `games/shooter/Pickups` | contract | Game-family contract value: pickup | [source](../../games/shooter/contracts/shooter.ts#L272) |
+| `games/shooter/TriggerFired` | contract | Game-family contract value: sdk/trigger-fired | [source](../../games/shooter/contracts/shooter.ts#L105) |
+| `games/shooter/UseFailed` | contract | Game-family contract value: sdk/use-failed | [source](../../games/shooter/contracts/shooter.ts#L107) |
+| `games/shooter/WeaponDry` | contract | Game-family contract value: sdk/weapon-dry | [source](../../games/shooter/contracts/shooter.ts#L133) |
+| `games/shooter/WeaponRuntime` | contract | Game-family contract value: sdk/weapon-runtime | [source](../../games/shooter/contracts/shooter.ts#L14) |
+| `games/shooter/Weapons` | contract | Game-family contract value: weapon | [source](../../games/shooter/contracts/shooter.ts#L193) |
+| `games/shooter/WeaponSwitched` | contract | Game-family contract value: sdk/weapon-switched | [source](../../games/shooter/contracts/shooter.ts#L132) |
+| `games/shooter/World` | contract | Game-family contract value: sdk/world | [source](../../games/shooter/contracts/shooter.ts#L80) |
 | `games/sky/Sky` | contract | Game-family contract value: sky/salvage | [source](../../games/sky/contracts/sky.ts#L16) |
 | `games/sky/SkyRoutes` | contract | Game-family contract value: sky-route | [source](../../games/sky/contracts/sky.ts#L7) |
 | `games/tactics/Tactics` | contract | Game-family contract value: board/tactics | [source](../../games/tactics/contracts/tactics.ts#L42) |

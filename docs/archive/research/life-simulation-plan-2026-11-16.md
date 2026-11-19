@@ -48,9 +48,9 @@ New independent family, with no shooter-family dependency:
 
 | Component | Proposed authority and responsibility |
 |---|---|
-| `src/sdk/contracts/life.ts` | `Life` service: immutable detached state/revision; read-only definitions; `enqueue(unknown)` for bounded semantic commands; explicit rejection/result feedback; content registry and types. No DOM, Three.js or game policy in kernel. |
+| `packages/sdk/src/contracts/life.ts` | `Life` service: immutable detached state/revision; read-only definitions; `enqueue(unknown)` for bounded semantic commands; explicit rejection/result feedback; content registry and types. No DOM, Three.js or game policy in kernel. |
 | `common/game` | Sole authoritative minute simulation, queue, schedule/needs policy, social effects, work, occupancy, reservations, layout transactions, goals and save orchestration. Provides `Life`, registers `life-household` loader and free-pointer `ExperienceRole`. |
-| `common/presentation` | Optional `Ui` and `Render` consumer; scoped orthographic Three.js diorama and DOM panels. Reads snapshots and issues commands only. `render` capability permits `src/sdk/render.ts`; owns camera lease, meshes and input contexts. |
+| `common/presentation` | Optional `Ui` and `Render` consumer; scoped orthographic Three.js diorama and DOM panels. Reads snapshots and issues commands only. `render` capability permits `packages/sdk/src/render.ts`; owns camera lease, meshes and input contexts. |
 | `common/content` | Validated resident, lot, object, career, project and gathering definitions using stable original IDs. Data contains no executable code. |
 | `common/household` preset | Enables all concrete providers and content; selects `sdk/experience: common/household`, the mechanics roles below, and the navigation provider. Add catalog registration and validate complete graph. |
 
@@ -64,7 +64,7 @@ One `control` system drains a bounded snapshot batch, then advances zero or more
 
 ## Reuse evidence and decisions
 
-The design reviewed `docs/guide/reuse.md`, `docs/reference/reuse-index.md`, `docs/reference/architecture.md`, `docs/guide/plugins.md`, `docs/reference/reusable-mechanics.md`, `src/sdk/contracts/mechanics.ts`, `navigation.ts`, `command-queue.ts`, `progression.ts`, `src/plugins/mechanics-resources/index.ts`, `games/verdant/plugins/verdant-game/index.ts`, `games/adventure/plugins/story-adventure/index.ts`, and `tests/mechanics-providers.test.ts`. Targeted `npm run -s find-reuse --` queries for needs, schedules, relationships, work, money, housing, objectives and persistence, plus `--show` for the candidate recipes/providers, were attempted but failed: available Node is 20.19.6 and cannot import the repository's TypeScript; repository requires Node ≥22.18. Repeat all searches and `--show` under a compatible runtime before implementation; the following IDs come from the checked-in index and direct inspection, not a successful live discovery run.
+The design reviewed `docs/guide/reuse.md`, `docs/reference/reuse-index.md`, `docs/reference/architecture.md`, `docs/guide/plugins.md`, `docs/reference/reusable-mechanics.md`, `packages/sdk/src/contracts/mechanics.ts`, `navigation.ts`, `command-queue.ts`, `progression.ts`, `packages/std/plugins/mechanics-resources/index.ts`, `games/verdant/plugins/verdant-game/index.ts`, `games/adventure/plugins/story-adventure/index.ts`, and `tests/mechanics-providers.test.ts`. Targeted `npm run -s find-reuse --` queries for needs, schedules, relationships, work, money, housing, objectives and persistence, plus `--show` for the candidate recipes/providers, were attempted but failed: available Node is 20.19.6 and cannot import the repository's TypeScript; repository requires Node ≥22.18. Repeat all searches and `--show` under a compatible runtime before implementation; the following IDs come from the checked-in index and direct inspection, not a successful live discovery run.
 
 | Need | Candidate IDs | Decision and limit |
 |---|---|---|

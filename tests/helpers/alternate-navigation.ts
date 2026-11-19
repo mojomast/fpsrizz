@@ -1,6 +1,6 @@
 /** Independent test replacement: stable whole-layer expansion, not the default provider's queue or code. */
-import { NavigationRole, definePlugin } from '../../src/sdk/index.ts';
-import type { CatalogEntry, NavigationNode, NavigationVisit } from '../../src/sdk/index.ts';
+import { NavigationRole, definePlugin } from '@bulkhead/sdk';
+import type { CatalogEntry, NavigationNode, NavigationVisit } from '@bulkhead/sdk';
 
 export const alternateNavigationId = 'test/layer-navigation';
 

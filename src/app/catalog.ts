@@ -1,6 +1,6 @@
 /**
  * Build-time plugin catalog. Adding a local plugin = add its folder (manifest.json plus index.ts or content.json)
- * under src/plugins (or games/<family>/plugins) and list it in a preset. `scripts/gen-catalog.mjs` discovers every
+ * under packages/std/plugins (or games/<family>/plugins) and list it in a preset. `scripts/gen-catalog.mjs` discovers every
  * folder and writes catalog.generated.ts; dev, build and check keep it fresh. Manifests are plain JSON so the host
  * can validate the whole graph BEFORE any plugin code is imported; `load` is only called for plugins in a validated
  * selection.
@@ -50,6 +50,7 @@ import commonGroundPreset from '../../games/expeditions/presets/common-ground.js
 import saltPreset from '../../games/expeditions/presets/salt-ledger.json' with { type: 'json' };
 import siltPreset from '../../games/expeditions/presets/silt-archive.json' with { type: 'json' };
 import sandboxPreset from '../../games/sandbox/presets/physics-sandbox.json' with { type: 'json' };
+import navmeshSandboxPreset from '../../games/sandbox/presets/navmesh-sandbox.json' with { type: 'json' };
 
 /** Built-in presets offered by the start screen and creator panel. The first one is the default. */
-export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset, hollowmerePreset, portfolioAtelierPreset, portfolioWatchPreset, portfolioSaltPreset, portfolioCopperPreset, portfolioSkyPreset, portfolioVerdantPreset, portfolioBreachPreset, portfolioCrossfirePreset, portfolioArchivePreset, portfolioOrchardPreset, portfolioCardsAshPreset, portfolioCardsCloudPreset, commonGroundPreset, saltPreset, siltPreset, sandboxPreset];
+export const presets: unknown[] = [defaultPreset, extendedPreset, annexPreset, survivalPreset, assetrizzPreset, timeTrialPreset, arenaScorePreset, observatoryPreset, blackoutPreset, holdoutPreset, keyDungeonPreset, stealthPreset, roguelitePreset, racingPreset, extractionPreset, tacticalPreset, overheadRacingPreset, turnTacticsPreset, narrativeAdventurePreset, stonewakePreset, skyPreset, emberPreset, verdantPreset, cinderPreset, hollowmerePreset, portfolioAtelierPreset, portfolioWatchPreset, portfolioSaltPreset, portfolioCopperPreset, portfolioSkyPreset, portfolioVerdantPreset, portfolioBreachPreset, portfolioCrossfirePreset, portfolioArchivePreset, portfolioOrchardPreset, portfolioCardsAshPreset, portfolioCardsCloudPreset, commonGroundPreset, saltPreset, siltPreset, sandboxPreset, navmeshSandboxPreset];

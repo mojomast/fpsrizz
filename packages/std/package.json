@@ -1,0 +1,26 @@
+{
+  "name": "@bulkhead/std",
+  "version": "3.0.0",
+  "description": "Bulkhead standard plugins: shared mechanics-*, presentation, physics, scene, themes.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojomast/fpsrizz.git",
+    "directory": "packages/std"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "exports": {
+    "./*": "./plugins/*"
+  },
+  "files": [
+    "plugins"
+  ],
+  "dependencies": {
+    "@bulkhead/sdk": "3.0.0",
+    "recast-navigation": "0.44.0"
+  }
+}

@@ -10,4 +10,4 @@ Content registers during staging; there is no pack-specific role, configuration,
 
 ## Verify
 
-Run `node --test tests/ext-pack.test.ts` from the repository root. See [content formats](../../../../docs/reference/content-format.md).
+Run `node --test games/shooter/tests/ext-pack.test.ts` from the repository root. See [content formats](../../../../docs/reference/content-format.md).

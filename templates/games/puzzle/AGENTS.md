@@ -11,7 +11,7 @@ Scaffolded from the `puzzle` template (`npm run bulkhead -- create <name> --temp
 The `__NS__/state` service (`Game` export) exposes `tiles`, `moves`, `won`, `shuffle`, `click(i)`. Read it in tests instead of poking at entities.
 
 ## Rules
-- Plugins import only from `src/sdk` (the boundaries check enforces it). Rendering imports (`sdk/render`) need the `render` capability.
+- Plugins import only from `packages/sdk/src` (the boundaries check enforces it). Rendering imports (`sdk/render`) need the `render` capability.
 - Gameplay goes in simulation systems (fixed step, `ctx.rng` for randomness), so runs are deterministic and replayable. Use `ctx.time.now`, never `Date.now()` or `Math.random()`.
 - UI is optional and skipped headless (`ctx.services.tryGet(Ui)`); mutate state only through queued commands or input actions.
 - Keep `ctx.persist` save/load in sync with new state so quicksave and hot reload keep working.

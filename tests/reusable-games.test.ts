@@ -1,19 +1,19 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost, HostError } from '../src/kernel/host.ts';
-import type { CatalogEntry, Session } from '../src/kernel/host.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, resourceMechanic } from '../src/sdk/index.ts';
+import { PluginHost, HostError } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry, Session } from '@bulkhead/kernel/host.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION, SessionControl, ResourceMechanicRole, ResourcePoolProviders, MechanicResourcesChanged, MechanicActionCommitted, MechanicObjectiveChanged, resourceMechanic } from '@bulkhead/sdk';
 import { Ember } from '../games/ember/contracts/ember.ts';
 import { Verdant } from '../games/verdant/contracts/verdant.ts';
 import { Sky } from '../games/sky/contracts/sky.ts';
-import type { ResourceTransaction, ResourcePool, ResourceAmounts, SessionContext } from '../src/sdk/index.ts';
+import type { ResourceTransaction, ResourcePool, ResourceAmounts, SessionContext } from '@bulkhead/sdk';
 import type { VerdantCommand } from '../games/verdant/contracts/verdant.ts';
 import { ALTERNATE, alternateEntry } from './helpers/alternate-resources.ts';
-import resources from '../src/plugins/mechanics-resources/manifest.json' with { type: 'json' };
-import clock from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
-import actions from '../src/plugins/mechanics-actions/manifest.json' with { type: 'json' };
-import objectives from '../src/plugins/mechanics-objectives/manifest.json' with { type: 'json' };
-import kits from '../src/plugins/mechanics-kits/manifest.json' with { type: 'json' };
+import resources from '@bulkhead/std/mechanics-resources/manifest.json' with { type: 'json' };
+import clock from '@bulkhead/std/mechanics-clock/manifest.json' with { type: 'json' };
+import actions from '@bulkhead/std/mechanics-actions/manifest.json' with { type: 'json' };
+import objectives from '@bulkhead/std/mechanics-objectives/manifest.json' with { type: 'json' };
+import kits from '@bulkhead/std/mechanics-kits/manifest.json' with { type: 'json' };
 import skyGame from '../games/sky/plugins/sky-game/manifest.json' with { type: 'json' };
 import skyPack from '../games/sky/plugins/sky-content/manifest.json' with { type: 'json' };
 import skyContent from '../games/sky/plugins/sky-content/content.json' with { type: 'json' };
@@ -29,11 +29,11 @@ import verdantPreset from '../games/verdant/presets/verdant-relay.json' with { t
 
 function sharedCatalog(replacement: boolean): CatalogEntry[] {
   return [
-    replacement ? alternateEntry : { manifest: resources, load: () => import('../src/plugins/mechanics-resources/index.ts') },
-    { manifest: clock, load: () => import('../src/plugins/mechanics-clock/index.ts') },
-    { manifest: actions, load: () => import('../src/plugins/mechanics-actions/index.ts') },
-    { manifest: objectives, load: () => import('../src/plugins/mechanics-objectives/index.ts') },
-    { manifest: kits, load: () => import('../src/plugins/mechanics-kits/index.ts') },
+    replacement ? alternateEntry : { manifest: resources, load: () => import('@bulkhead/std/mechanics-resources/index.ts') },
+    { manifest: clock, load: () => import('@bulkhead/std/mechanics-clock/index.ts') },
+    { manifest: actions, load: () => import('@bulkhead/std/mechanics-actions/index.ts') },
+    { manifest: objectives, load: () => import('@bulkhead/std/mechanics-objectives/index.ts') },
+    { manifest: kits, load: () => import('@bulkhead/std/mechanics-kits/index.ts') },
   ];
 }
 

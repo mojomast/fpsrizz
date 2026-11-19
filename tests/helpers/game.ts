@@ -1,10 +1,10 @@
 /** Headless game harness: the real gameplay plugins on the real host, with fake platform services. No DOM, no WebGL. */
-import { PluginHost } from '../../src/kernel/host.ts';
-import type { CatalogEntry, Session } from '../../src/kernel/host.ts';
-import { createFlow } from '../../src/platform/flow.ts';
-import { createInputCore } from '../../src/platform/input.ts';
-import type { InputCore } from '../../src/platform/input.ts';
-import { Flow, FlowEnded, Input, PHASES, SDK_COMPAT, SDK_VERSION } from '../../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry, Session } from '@bulkhead/kernel/host.ts';
+import { createFlow } from '@bulkhead/platform-web/flow.ts';
+import { createInputCore } from '@bulkhead/platform-web/input.ts';
+import type { InputCore } from '@bulkhead/platform-web/input.ts';
+import { Flow, FlowEnded, Input, PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 import combat from '../../games/shooter/plugins/core-combat/manifest.json' with { type: 'json' };
 import contentManifest from '../../games/shooter/plugins/core-content/manifest.json' with { type: 'json' };
 import content from '../../games/shooter/plugins/core-content/content.json' with { type: 'json' };

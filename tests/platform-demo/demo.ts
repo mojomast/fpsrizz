@@ -1,8 +1,8 @@
-import * as THREE from '../../src/platform/render/mini3/index.ts';
-import { createRenderHost } from '../../src/platform/render/service.ts';
-import { createInputCore, bindDomInput } from '../../src/platform/input.ts';
-import { Scope } from '../../src/kernel/scope.ts';
-import type { SessionContext } from '../../src/kernel/host.ts';
+import * as THREE from '@bulkhead/platform-web/render/mini3/index.ts';
+import { createRenderHost } from '@bulkhead/platform-web/render/service.ts';
+import { createInputCore, bindDomInput } from '@bulkhead/platform-web/input.ts';
+import { Scope } from '@bulkhead/kernel/scope.ts';
+import type { SessionContext } from '@bulkhead/kernel/host.ts';
 
 const mk = (id: string): { scope: Scope; ctx: SessionContext } => {
   const scope = new Scope(id, id);

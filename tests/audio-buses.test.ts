@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createAudioService } from '../src/platform/audio.ts';
-import type { SoundDef } from '../src/sdk/index.ts';
+import { createAudioService } from '@bulkhead/platform-web/audio.ts';
+import type { SoundDef } from '@bulkhead/sdk';
 
 // Minimal Web Audio fake: records the node graph and parameter values.
 class Param { value = 0; setValueAtTime(v: number) { this.value = v; } linearRampToValueAtTime(v: number) { this.value = v; } exponentialRampToValueAtTime(v: number) { this.value = v; } }

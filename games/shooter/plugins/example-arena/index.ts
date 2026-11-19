@@ -1,5 +1,6 @@
-import { Collider, Died, Enemies, Flow, Health, Maps, ModeRole, Prefabs, Profile, Transform, World, definePlugin, spawnPrefab, yawOf } from '../../../../src/sdk/index.ts';
-import type { EntityId, SessionContext, SpawnDesc } from '../../../../src/sdk/index.ts';
+import { Collider, Flow, Health, Maps, ModeRole, Prefabs, Profile, Transform, definePlugin, spawnPrefab, yawOf } from '@bulkhead/sdk';
+import { Died, Enemies, World } from '../../contracts/shooter.ts';
+import type { EntityId, SessionContext, SpawnDesc } from '@bulkhead/sdk';
 
 const ID = 'example/arena';
 const BEST_KEY = 'example/arena.best-score';

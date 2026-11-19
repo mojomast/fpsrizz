@@ -1,0 +1,22 @@
+{
+  "name": "@bulkhead/kernel",
+  "version": "3.0.0",
+  "description": "Bulkhead kernel: plugin host, resolver, ECS, scheduler, registries, snapshots. No DOM.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojomast/fpsrizz.git",
+    "directory": "packages/kernel"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "exports": {
+    "./*": "./src/*"
+  },
+  "files": [
+    "src"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "../../../../schemas/plugin-manifest.schema.json",
+  "schema": 1,
+  "id": "std/navigation-recast",
+  "name": "Navmesh navigation (Recast/Detour)",
+  "version": "1.0.0",
+  "kind": "code",
+  "sdk": "^3.0.0",
+  "description": "Builds a navmesh for non-grid 3D worlds from static box colliders or explicit triangles (Recast via recast-navigation-js), answers path and nearest-point queries, and walks NavAgent entities to their targets. Grids keep mechanics/navigation.",
+  "dependencies": { "std/transform": "^1.0.0" },
+  "capabilities": ["simulation", "navmesh"],
+  "config": {
+    "autoBuild": { "type": "boolean", "label": "Build from static colliders on the first tick", "default": true },
+    "cellSize": { "type": "number", "label": "Voxel size (m)", "default": 0.2, "min": 0.05, "max": 2 },
+    "agentRadius": { "type": "number", "label": "Agent radius (m)", "default": 0.4, "min": 0, "max": 5 },
+    "agentHeight": { "type": "number", "label": "Agent height (m)", "default": 1.8, "min": 0.2, "max": 10 },
+    "maxClimb": { "type": "number", "label": "Max step height (m)", "default": 0.4, "min": 0, "max": 5 },
+    "maxSlope": { "type": "number", "label": "Max slope (degrees)", "default": 45, "min": 0, "max": 89 },
+    "debugDraw": { "type": "boolean", "label": "Draw the navmesh and agent paths when debug drawing is on", "default": true }
+  }
+}

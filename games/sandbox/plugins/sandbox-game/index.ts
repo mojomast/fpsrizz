@@ -1,5 +1,5 @@
-import { CharacterController, CharacterMove, CharacterState, ExperienceRole, Input, PhysicsCollider, PhysicsCollision, Renderable, RigidBody, Transform3D, definePlugin, quatFromEuler, readAxis, registerStandardControls, spawnGltfScene, transform3d } from '../../../../src/sdk/index.ts';
-import type { EntityId, SessionContext } from '../../../../src/sdk/index.ts';
+import { CharacterController, CharacterMove, CharacterState, ExperienceRole, Input, PhysicsCollider, PhysicsCollision, Renderable, RigidBody, Transform3D, definePlugin, quatFromEuler, readAxis, registerStandardControls, spawnGltfScene, transform3d } from '@bulkhead/sdk';
+import type { EntityId, SessionContext } from '@bulkhead/sdk';
 import { DISPLAY_MODEL, LEVEL_MODEL, Sandbox, SandboxGoal } from '../../contracts/sandbox.ts';
 
 export const ACTIONS = { forward: 'sandbox/forward', back: 'sandbox/back', left: 'sandbox/left', right: 'sandbox/right', jump: 'sandbox/jump', move: 'sandbox/move' } as const;

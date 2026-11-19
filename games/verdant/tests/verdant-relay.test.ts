@@ -1,31 +1,31 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { MechanicActionCommitted, MechanicObjectiveChanged, SessionControl } from '../../../src/sdk/index.ts';
+import { MechanicActionCommitted, MechanicObjectiveChanged, SessionControl } from '@bulkhead/sdk';
 import { Verdant } from '../contracts/verdant.ts';
 import type { VerdantCommand } from '../contracts/verdant.ts';
 import preset from '../presets/verdant-relay.json' with { type:'json' };
-import resources from '../../../src/plugins/mechanics-resources/manifest.json' with { type:'json' };
-import clock from '../../../src/plugins/mechanics-clock/manifest.json' with { type:'json' };
-import actions from '../../../src/plugins/mechanics-actions/manifest.json' with { type:'json' };
-import objectives from '../../../src/plugins/mechanics-objectives/manifest.json' with { type:'json' };
-import kits from '../../../src/plugins/mechanics-kits/manifest.json' with { type:'json' };
+import resources from '@bulkhead/std/mechanics-resources/manifest.json' with { type:'json' };
+import clock from '@bulkhead/std/mechanics-clock/manifest.json' with { type:'json' };
+import actions from '@bulkhead/std/mechanics-actions/manifest.json' with { type:'json' };
+import objectives from '@bulkhead/std/mechanics-objectives/manifest.json' with { type:'json' };
+import kits from '@bulkhead/std/mechanics-kits/manifest.json' with { type:'json' };
 import rules from '../plugins/verdant-game/manifest.json' with { type:'json' };
 import presentation from '../plugins/verdant-presentation/manifest.json' with { type:'json' };
 import pack from '../plugins/verdant-content/manifest.json' with { type:'json' };
 import content from '../plugins/verdant-content/content.json' with { type:'json' };
-import theme from '../../../src/plugins/theme-board/manifest.json' with { type:'json' };
+import theme from '@bulkhead/std/theme-board/manifest.json' with { type:'json' };
 import { createHeadlessGame } from '../../../tests/helpers/game.ts';
 
 async function game(data = content) {
   const g = createHeadlessGame([
-    { manifest:resources, load:() => import('../../../src/plugins/mechanics-resources/index.ts') },
-    { manifest:clock, load:() => import('../../../src/plugins/mechanics-clock/index.ts') },
-    { manifest:actions, load:() => import('../../../src/plugins/mechanics-actions/index.ts') },
-    { manifest:objectives, load:() => import('../../../src/plugins/mechanics-objectives/index.ts') },
-    { manifest:kits, load:() => import('../../../src/plugins/mechanics-kits/index.ts') },
+    { manifest:resources, load:() => import('@bulkhead/std/mechanics-resources/index.ts') },
+    { manifest:clock, load:() => import('@bulkhead/std/mechanics-clock/index.ts') },
+    { manifest:actions, load:() => import('@bulkhead/std/mechanics-actions/index.ts') },
+    { manifest:objectives, load:() => import('@bulkhead/std/mechanics-objectives/index.ts') },
+    { manifest:kits, load:() => import('@bulkhead/std/mechanics-kits/index.ts') },
     { manifest:rules, load:() => import('../plugins/verdant-game/index.ts') },
     { manifest:presentation, load:() => import('../plugins/verdant-presentation/index.ts') },
-    { manifest:pack, content: data }, { manifest:theme, load:() => import('../../../src/plugins/theme-board/index.ts') },
+    { manifest:pack, content: data }, { manifest:theme, load:() => import('@bulkhead/std/theme-board/index.ts') },
   ]);
   await g.host.apply(preset);
   const service = () => g.session().services.get(Verdant);

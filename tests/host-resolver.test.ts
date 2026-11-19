@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { resolveGraph, dependentsOf } from '../src/kernel/resolver.ts';
+import { resolveGraph, dependentsOf } from '@bulkhead/kernel/resolver.ts';
 import { codePlugin, fullManifest, hostFailure, manifestMap, newHost, presetOf, PluginHost, PHASES, SDK_COMPAT, SDK_VERSION } from './helpers/host.ts';
 
 const A = 'test/a';

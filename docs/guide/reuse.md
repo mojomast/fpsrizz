@@ -135,7 +135,7 @@ Then exercise actual activation, gameplay and lifecycle through the normal check
 
 ### Plugin-local metadata
 
-Optional `src/plugins/<folder>/reuse.json` describes semantics that names/manifests cannot infer:
+Optional `packages/std/plugins/<folder>/reuse.json` describes semantics that names/manifests cannot infer:
 
 ```json
 {
@@ -195,3 +195,10 @@ recommendations; the current metadata schema remains the one documented above.
 
 Use the [capability design and evidence template](../cookbook/reusable-capability-template.md) for concrete implementation
 decisions. It connects the public behavioral promise to real consumers and named tests using the existing metadata fields.
+
+## Gallery
+
+People can browse the same data in the generated [plugin & mechanic gallery](../../public/gallery/index.html), shipped with the
+app at `/gallery/` (linked from the start screen). Search by intent, filter plugins / recipes / contracts or
+cross-genre entries, and press **Play** to open a built-in preset that uses a plugin. `npm run index-reuse`
+regenerates it with `docs/reuse-index.json`; `npm run check` fails when it is stale.

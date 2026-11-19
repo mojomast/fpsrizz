@@ -1,5 +1,7 @@
-import type { AttackBehavior, EntityId, Params, PickupEffect, Reporter, SessionContext } from '../../../../src/sdk/index.ts';
-import { AmmoTypes, Combat, Impact, Transform, Visual, Weapons, World, defineComponent, makeTransform, vId, vNumber, vString } from '../../../../src/sdk/index.ts';
+import type { EntityId, Params, Reporter, SessionContext } from '@bulkhead/sdk';
+import type { AttackBehavior, PickupEffect } from '../../contracts/shooter.ts';
+import { Transform, Visual, defineComponent, makeTransform, vId, vNumber, vString } from '@bulkhead/sdk';
+import { AmmoTypes, Combat, Impact, Weapons, World } from '../../contracts/shooter.ts';
 
 const num = (p: Params, k: string, fallback: number): number => (typeof p[k] === 'number' ? (p[k] as number) : fallback);
 const str = (p: Params, k: string, fallback: string): string => (typeof p[k] === 'string' ? (p[k] as string) : fallback);

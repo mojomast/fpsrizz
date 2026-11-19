@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { PluginHost } from '../src/kernel/host.ts';
-import type { CatalogEntry, SessionContext } from '../src/kernel/host.ts';
-import { PHASES, Physics, Renderable, RigidBody, SDK_COMPAT, SDK_VERSION, SceneError, SceneNodeInfo, Scenes, Transform3D, importLdtk, importTiled, mergeJson, resolvePrefab, spawnScene, worldPose } from '../src/sdk/index.ts';
-import type { PrefabDef, SpawnedScene } from '../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry, SessionContext } from '@bulkhead/kernel/host.ts';
+import { PHASES, Physics, Renderable, RigidBody, SDK_COMPAT, SDK_VERSION, SceneError, SceneNodeInfo, Scenes, Transform3D, importLdtk, importTiled, mergeJson, resolvePrefab, spawnScene, worldPose } from '@bulkhead/sdk';
+import type { PrefabDef, SpawnedScene } from '@bulkhead/sdk';
 import { codePlugin, contentPack, presetOf } from './helpers/host.ts';
 
 const real = (dir: string): CatalogEntry => ({ manifest: JSON.parse(readFileSync(`${dir}/manifest.json`, 'utf8') as string), load: () => import(`../${dir}/index.ts`) });
@@ -24,7 +24,7 @@ const PACK = [
 
 async function boot(pack: unknown, activate?: (ctx: SessionContext) => void) {
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES });
-  const issues = host.setCatalog([real('src/plugins/std-transform'), real('src/plugins/std-physics-rapier'), real('src/plugins/std-scene'),
+  const issues = host.setCatalog([real('packages/std/plugins/std-transform'), real('packages/std/plugins/std-physics-rapier'), real('packages/std/plugins/std-scene'),
     contentPack('test/levels', pack, { dependencies: { 'std/scene': '^1.0.0' } }), codePlugin('test/game', { activate }, { sdk: '^3.0.0' })]);
   assert.deepEqual(issues, []);
   const session = await host.apply(presetOf('test/p', ['std/transform', 'std/physics-rapier', 'std/scene', 'test/levels', 'test/game']));

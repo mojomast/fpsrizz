@@ -1,10 +1,10 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { PluginHost } from '../src/kernel/host.ts';
-import type { CatalogEntry } from '../src/kernel/host.ts';
-import { ClockMechanicRole, PHASES, SDK_COMPAT, SDK_VERSION, SessionControl, clockMechanic, createDeadline } from '../src/sdk/index.ts';
-import type { MechanicClock, MechanicTimeDomain, SessionContext } from '../src/sdk/index.ts';
-import clockManifest from '../src/plugins/mechanics-clock/manifest.json' with { type: 'json' };
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import type { CatalogEntry } from '@bulkhead/kernel/host.ts';
+import { ClockMechanicRole, PHASES, SDK_COMPAT, SDK_VERSION, SessionControl, clockMechanic, createDeadline } from '@bulkhead/sdk';
+import type { MechanicClock, MechanicTimeDomain, SessionContext } from '@bulkhead/sdk';
+import clockManifest from '@bulkhead/std/mechanics-clock/manifest.json' with { type: 'json' };
 
 async function fixture() {
   const owners: SessionContext[] = [], gate = { playing: true };
@@ -15,7 +15,7 @@ async function fixture() {
   const host = new PluginHost({ sdkVersion: SDK_VERSION, sdkCompat: SDK_COMPAT, phases: PHASES, installHostServices(session, scope) {
     session.services.provide(SessionControl, gate, 'test', scope);
   } });
-  assert.deepEqual(host.setCatalog([{ manifest: clockManifest, load: () => import('../src/plugins/mechanics-clock/index.ts') }, ...consumers]), []);
+  assert.deepEqual(host.setCatalog([{ manifest: clockManifest, load: () => import('@bulkhead/std/mechanics-clock/index.ts') }, ...consumers]), []);
   try { await host.apply({ schema: 1, id: 'test/deadlines', name: 'Deadlines', plugins: [clockManifest.id, 'test/deadline-a', 'test/deadline-b'], roles: { [ClockMechanicRole.id]: clockManifest.id } }); }
   catch (error) { host.stop(); throw error; }
   const clock = (domain: MechanicTimeDomain, owner = owners[0]!, id: string = domain) => clockMechanic(owner).create(owner, id, domain);

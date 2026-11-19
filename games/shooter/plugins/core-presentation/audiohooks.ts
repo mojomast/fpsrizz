@@ -1,5 +1,6 @@
-import type { AudioService, EntityId, SessionContext, ViewState } from '../../../../src/sdk/index.ts';
-import { AttackFired, Damaged, DoorChanged, Died, Enemies, Enemy, EnemyAlerted, FlowEnded, Impact, PickupCollected, Player, TriggerFired, UseFailed, View, WeaponDry, WeaponSwitched } from '../../../../src/sdk/index.ts';
+import type { AudioService, EntityId, SessionContext, ViewState } from '@bulkhead/sdk';
+import { FlowEnded, Player, View } from '@bulkhead/sdk';
+import { AttackFired, Damaged, DoorChanged, Died, Enemies, Enemy, EnemyAlerted, Impact, PickupCollected, TriggerFired, UseFailed, WeaponDry, WeaponSwitched } from '../../contracts/shooter.ts';
 
 const NEAR = 3;
 const FAR = 30;

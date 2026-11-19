@@ -1,14 +1,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createInputCore } from '../src/platform/input.ts';
-import { bindGamepads } from '../src/platform/gamepad.ts';
-import type { GamepadLike } from '../src/platform/gamepad.ts';
-import { createInputBindings } from '../src/platform/input-bindings.ts';
-import { createProfileStore } from '../src/platform/profile-store.ts';
-import type { ProfileStorage } from '../src/platform/profile-store.ts';
-import { InputActions, InputAxes, applyDeadzone, prettyKey, readAxis, registerStandardControls } from '../src/sdk/index.ts';
-import type { InputActionDef, InputAxisDef } from '../src/sdk/index.ts';
-import type { Scope } from '../src/kernel/scope.ts';
+import { createInputCore } from '@bulkhead/platform-web/input.ts';
+import { bindGamepads } from '@bulkhead/platform-web/gamepad.ts';
+import type { GamepadLike } from '@bulkhead/platform-web/gamepad.ts';
+import { createInputBindings } from '@bulkhead/platform-web/input-bindings.ts';
+import { createProfileStore } from '@bulkhead/platform-web/profile-store.ts';
+import type { ProfileStorage } from '@bulkhead/platform-web/profile-store.ts';
+import { InputActions, InputAxes, applyDeadzone, prettyKey, readAxis, registerStandardControls } from '@bulkhead/sdk';
+import type { InputActionDef, InputAxisDef } from '@bulkhead/sdk';
+import type { Scope } from '@bulkhead/kernel/scope.ts';
 
 const MOVE: InputAxisDef = { label: 'Move', x: ['l', 'r'], y: ['f', 'b'], sticks: ['gamepad:left', 'touch:left'] };
 const near = (a: number, b: number, eps = 1e-6): boolean => Math.abs(a - b) <= eps;

@@ -40,7 +40,7 @@ ports; agents can edit the same graph JSON without coordinates. See [game-compos
 
 ## Assemble the game
 
-1. Create a content pack under `src/plugins/`: a `manifest.json` with `kind: "content"` and a `content.json` array.
+1. Create a content pack under `packages/std/plugins/`: a `manifest.json` with `kind: "content"` and a `content.json` array.
    Copy the shape from `example-pack`, use fresh namespaced IDs, and follow the content format's validation rules.
    Declare dependencies on the plugins defining the kinds, behaviors and prefabs you reference.
 2. Define the map and its player start, spawns, doors and triggers. Match the selected mode's requirements: for
@@ -54,7 +54,7 @@ ports; agents can edit the same graph JSON without coordinates. See [game-compos
    Add `--pack path/to/wrapped-pack.json` for each external import-format pack; the preset still must enable the pack
    and its dependencies. `npm run validate-game -- --bundled` checks all shipped presets. This stages registration and
    validation only: it cannot detect activation or gameplay failures.
-5. Add focused headless tests using `tests/helpers/game.ts`. `tests/ext-pack.test.ts` and `tests/ext-ricochet.test.ts`
+5. Add focused headless tests using `tests/helpers/game.ts`. `games/shooter/tests/ext-pack.test.ts` and `games/shooter/tests/ext-ricochet.test.ts`
    show catalog entries, preset composition and assertions. The helper's preset overrides are shallow: specifying
    `plugins` replaces the default list. Test activation, gameplay and restart/disposal as appropriate. UI and rendering
    are optional in headless sessions and need browser verification.
@@ -76,7 +76,7 @@ Start from the experience brief and integration gates in [docs/archive/game-plat
 [docs/archive/parallel-build-plan.md](../archive/parallel-build-plan.md). The shooter plugin graph is one composition, not a prerequisite for
 every game. A family can define a track, board or room-graph content kind and its own authoritative state service.
 Keep simulation, presentation and authored content independently replaceable; shared public types/tokens belong in
-`src/sdk/contracts/` and are exported through `src/sdk/index.ts`.
+`packages/sdk/src/contracts/` and are exported through `packages/sdk/src/index.ts`.
 
 For parallel implementation, agree on those contracts, role IDs, theme keys and content ownership first. Give each
 agent distinct plugin folders and one integrator ownership of the catalog and public exports. Require an actual
@@ -87,7 +87,7 @@ completion route plus rejection, pause, restart and disposal checks for each sli
 Keep a family service for its movement, targeting and win rules; compose shared mechanics beneath it. Read
 [the cross-genre implementation plan](../archive/reusable-mechanics-plan.md) and
 [the dated research](../archive/research/reusable-mechanics-2026-11-16.md). The resource, clock, action and objective contracts
-live in `src/sdk/contracts/mechanics.ts`. Their implementations are selected by exclusive roles, and per-consumer
+live in `packages/sdk/src/contracts/mechanics.ts`. Their implementations are selected by exclusive roles, and per-consumer
 instances own their state separately from registered definitions.
 
 Declare selected mechanic roles in `roleDependencies` when factories are needed during activation. This lets a preset

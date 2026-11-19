@@ -1,5 +1,5 @@
 import type { AdventureAction, AdventureCommand, AdventureState } from '../../contracts/adventure.ts';
-import { ExperienceRole, Profile, createCommandQueue, definePlugin, isObject } from '../../../../src/sdk/index.ts';
+import { ExperienceRole, Profile, createCommandQueue, definePlugin, isObject } from '@bulkhead/sdk';
 import { Adventure, AdventureActionResolved, AdventureChapters } from '../../contracts/adventure.ts';
 import { loadChapter } from './validation.ts';
 

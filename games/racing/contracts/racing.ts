@@ -1,4 +1,4 @@
-import { defineRegistry, defineService } from '../../../src/sdk/index.ts';
+import { defineRegistry, defineService } from '@bulkhead/sdk';
 
 export interface RacePoint {
   readonly x: number;

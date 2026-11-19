@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ScopeDisposedError } from '../src/kernel/scope.ts';
-import type { CatalogEntry, HostStage, PluginModule, SessionContext } from '../src/kernel/host.ts';
-import type { SystemFault } from '../src/kernel/scheduler.ts';
-import { defineCommand, defineEvent, defineRegistry, defineRole, defineService } from '../src/sdk/core.ts';
+import { ScopeDisposedError } from '@bulkhead/kernel/scope.ts';
+import type { CatalogEntry, HostStage, PluginModule, SessionContext } from '@bulkhead/kernel/host.ts';
+import type { SystemFault } from '@bulkhead/kernel/scheduler.ts';
+import { defineCommand, defineEvent, defineRegistry, defineRole, defineService } from '@bulkhead/sdk/core.ts';
 import { codePlugin, contentPack, deferred, flush, hostFailure, newHost, presetOf, rejection, totals, zeroReport } from './helpers/host.ts';
 
 const REG = defineRegistry<{ label: string }>('test/thing');

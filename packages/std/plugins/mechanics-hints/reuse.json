@@ -1,0 +1,13 @@
+{
+  "$schema": "../../../../schemas/reuse.schema.json",
+  "schema": 1,
+  "scope": "cross-genre",
+  "summary": "Owned independent ordered reveal levels with explicit per-topic reset.",
+  "keywords": ["hints", "assist", "reveal", "graduated", "reset", "ledger"],
+  "entryPoints": ["HintProviders", "HintMechanicRole", "hintMechanic"],
+  "useWhen": "Track how many hints have been requested independently for consumer-selected topics.",
+  "limitations": ["The consumer owns hint text, ordering, eligibility, persistence and context-change policy; no automatic reveal or game rules."],
+  "docs": ["games/puzzles/docs/portfolio-assist.md", "packages/std/plugins/mechanics-hints/README.md"],
+  "examples": ["games/puzzles/plugins/portfolio-assist/index.ts"],
+  "tests": ["games/puzzles/tests/portfolio-assist.test.ts"]
+}

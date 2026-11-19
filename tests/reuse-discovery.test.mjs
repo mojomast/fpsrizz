@@ -6,8 +6,8 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { catalog } from '../src/app/catalog.ts';
-import { PluginHost } from '../src/kernel/host.ts';
-import { PHASES, SDK_COMPAT, SDK_VERSION } from '../src/sdk/index.ts';
+import { PluginHost } from '@bulkhead/kernel/host.ts';
+import { PHASES, SDK_COMPAT, SDK_VERSION } from '@bulkhead/sdk';
 import { buildReuseIndex, dependencyClosure, indexFiles, renderIndex, searchReuse, validateMetadata } from '../scripts/reuse-lib.mjs';
 
 const index = await buildReuseIndex();
@@ -22,7 +22,7 @@ test('discovery covers the compiled catalog and real default registrations with 
   assert.equal(byId('mechanics/resources').scope, 'cross-genre');
   assert.equal(byId('story/adventure').scope, 'family');
   assert.match(byId('story/adventure').limitations.join(' '), /not a general inventory/);
-  assert.equal(byId('sdk/Render').importFrom, 'src/sdk/render.ts');
+  assert.equal(byId('sdk/Render').importFrom, 'packages/sdk/src/render.ts');
   assert.equal(byId('sdk/ResourcePoolProviders').token, 'mechanic-resource-provider');
   assert.ok(byId('sdk/ResourcePoolProviders').implementations.includes('mechanics/resources'));
   assert.ok(byId('mechanics/actions').recipes.includes('recipe/resource-actions'));
@@ -78,7 +78,7 @@ test('recipe role/provider fragments stage with the real host', async () => {
 });
 
 test('metadata rejects stale references, unknown fields and unsupported reuse claims', () => {
-  const data = JSON.parse(readFileSync('src/plugins/mechanics-actions/reuse.json', 'utf8'));
+  const data = JSON.parse(readFileSync('packages/std/plugins/mechanics-actions/reuse.json', 'utf8'));
   assert.equal(validateMetadata(data, 'fixture', symbols), data);
   assert.throws(() => validateMetadata({ ...data, entryPoints: ['MadeUpApi'] }, 'fixture', symbols), /unknown public SDK value/);
   assert.throws(() => validateMetadata({ ...data, tests: ['tests/missing.test.ts'] }, 'fixture', symbols), /missing file/);
@@ -121,7 +121,7 @@ test('scaffolding shows real reusable candidates and creates metadata without mo
     const result = spawnSync(process.execPath, [join(directory, 'scripts/new-plugin.mjs'), 'test/stamina', 'Stamina cooldown'], { encoding: 'utf8' });
     assert.equal(result.status, 0, result.stderr);
     assert.match(result.stdout, /mechanics\/actions \[cross-genre\]/);
-    const metadata = JSON.parse(readFileSync(join(directory, 'src/plugins/test-stamina/reuse.json'), 'utf8'));
+    const metadata = JSON.parse(readFileSync(join(directory, 'packages/std/plugins/test-stamina/reuse.json'), 'utf8'));
     assert.equal(metadata.scope, 'unreviewed');
     assert.equal(metadata.summary, 'Stamina cooldown');
     assert.equal(validateMetadata(metadata, 'scaffold', symbols), metadata);
