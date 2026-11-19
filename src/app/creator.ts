@@ -9,6 +9,8 @@ import { Reporter } from '../kernel/validate.ts';
 import { CREATOR_CSS } from './creator-styles.ts';
 import { createGameComposer } from './game-composer.ts';
 import providerCatalog from './catalog-providers.json' with { type: 'json' };
+import type { DevTools } from '../platform/devtools.ts';
+import type { Inspector } from './inspector.ts';
 
 export interface FrameStats {
   fps: number;
@@ -38,6 +40,8 @@ export interface CreatorApi {
   frameStats(): FrameStats;
   assets(): { key: string; refs: number; owners: string[] }[];
   counts(): { uiRoots: number; sceneRoots: number; audioVoices: number };
+  /** Dev tools core (lazy). Enables the Inspect tab. */
+  dev?(): Promise<DevTools>;
 }
 
 export interface CreatorPanel {
@@ -281,7 +285,7 @@ function createDebugView(api: CreatorApi): DebugView {
 // Panel
 // ---------------------------------------------------------------------------------------------------------------------
 
-type TabId = 'plugins' | 'content' | 'canvas' | 'debug';
+type TabId = 'plugins' | 'content' | 'canvas' | 'debug' | 'inspect';
 type SurveyItem = { kind: string; id: string; owner: string; name: string };
 
 interface Draft {
@@ -357,7 +361,8 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
   const tabs = h('div', 'creator-tabs');
   tabs.setAttribute('role', 'tablist');
   const tabButtons = new Map<TabId, HTMLButtonElement>();
-  for (const [id, label] of [['plugins', 'Plugins & preset'], ['content', 'Content'], ['canvas', 'Canvas'], ['debug', 'Debug']] as const) {
+  for (const [id, label] of [['plugins', 'Plugins & preset'], ['content', 'Content'], ['canvas', 'Canvas'], ['debug', 'Debug'], ['inspect', 'Inspect']] as const) {
+    if (id === 'inspect' && !api.dev) continue;
     const b = h('button', 'creator-tab', label);
     b.type = 'button';
     b.setAttribute('role', 'tab');
@@ -376,6 +381,17 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
   container.append(root);
 
   const debug = createDebugView(api);
+  let inspector: Inspector | undefined;
+  let inspectorLoading = false;
+  const loadInspector = (): void => {
+    if (inspector || inspectorLoading || !api.dev) return;
+    inspectorLoading = true;
+    void Promise.all([api.dev(), import('./inspector.ts')]).then(([dev, m]) => {
+      if (disposed) return;
+      inspector = m.createInspector(dev, doc);
+      if (tab === 'inspect') render();
+    }, (e: unknown) => { inspectorLoading = false; console.warn('inspector failed to load', e); });
+  };
   const composer = createGameComposer({ host: api.host, builtinPresets: api.builtinPresets, apply: (preset, extra) => api.apply(preset, extra) });
 
   // ---- keyboard ------------------------------------------------------------------------------------------------------
@@ -402,10 +418,11 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
 
   // ---- timers --------------------------------------------------------------------------------------------------------
   function syncTimer(): void {
-    const want = isOpen && !disposed && tab === 'debug';
+    const want = isOpen && !disposed && (tab === 'debug' || tab === 'inspect');
     if (want && timer === undefined) {
-      debug.update();
-      timer = setInterval(() => debug.update(), REFRESH_MS);
+      const tickView = (): void => { if (tab === 'debug') debug.update(); else inspector?.update(); };
+      tickView();
+      timer = setInterval(tickView, REFRESH_MS);
     } else if (!want && timer !== undefined) {
       clearInterval(timer);
       timer = undefined;
@@ -1117,7 +1134,10 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
     if (tab === 'plugins') body.replaceChildren(renderPlugins());
     else if (tab === 'content') body.replaceChildren(renderContent());
     else if (tab === 'canvas') body.replaceChildren(renderCanvasTab());
-    else {
+    else if (tab === 'inspect') {
+      if (!inspector) { body.replaceChildren(h('p', 'creator-note', 'Loading inspector…')); loadInspector(); }
+      else if (body.firstChild !== inspector.el) body.replaceChildren(inspector.el);
+    } else {
       if (body.firstChild !== debug.el) body.replaceChildren(debug.el);
       debug.update();
     }
@@ -1160,6 +1180,7 @@ export function createCreatorPanel(container: HTMLElement, api: CreatorApi): Cre
     close();
     disposed = true;
     composer.dispose();
+    inspector?.dispose();
     surveyEpoch++;
     for (const t of timeouts) clearTimeout(t);
     timeouts.clear();

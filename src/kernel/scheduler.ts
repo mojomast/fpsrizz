@@ -47,6 +47,8 @@ export class Scheduler {
   readonly phases: readonly string[];
   tick = 0;
   paused = false;
+  /** Real-time multiplier for advance() (dev time controls: 0.25 = slow motion, 4 = fast). Ticks stay fixed-size. */
+  timeScale = 1;
   faulted = false;
   droppedTime = 0;
   lastFrameTicks = 0;
@@ -107,7 +109,7 @@ export class Scheduler {
     if (this.faulted) return 0;
     let ran = 0;
     if (!this.paused) {
-      this.acc += Math.max(0, frameDt);
+      this.acc += Math.max(0, frameDt) * Math.max(0, this.timeScale);
       const eps = this.step * 1e-6;
       while (this.acc + eps >= this.step && ran < this.maxTicksPerFrame && !this.paused && !this.faulted) {
         this.acc -= this.step;

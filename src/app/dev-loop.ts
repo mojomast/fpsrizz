@@ -5,12 +5,18 @@
  *   and the page reloads.
  * - Auto-resume: just before a live reload the app records whether a game was running. After the reload the stored
  *   preset (already persisted by the app) is applied and play resumes without going through the start menu.
+ * - State-preserving reload (P2.1 step 2): when the app can take a complete RunSnapshot (all-SDK-3 presets), it is
+ *   stored too and restored after the reload, so editing code or JSON content keeps your place in the game.
+ *   Restore refuses snapshots from another preset or plugin set, and the app then just restarts as before.
  */
 const RESUME_KEY = 'bulkhead.dev.resume';
+const SNAPSHOT_KEY = 'bulkhead.dev.snapshot';
 
 export interface DevLoopOptions {
   /** True when a game is running or paused and should resume after the reload. */
   shouldResume(): boolean;
+  /** The run's snapshot to restore after the reload, if complete. */
+  snapshot?(): unknown;
 }
 
 export function installLiveReload(options: DevLoopOptions): void {
@@ -18,7 +24,11 @@ export function installLiveReload(options: DevLoopOptions): void {
   const events = new EventSource('/esbuild');
   events.addEventListener('change', () => {
     try {
-      if (options.shouldResume()) sessionStorage.setItem(RESUME_KEY, '1');
+      if (options.shouldResume()) {
+        sessionStorage.setItem(RESUME_KEY, '1');
+        const snap = options.snapshot?.();
+        if (snap !== undefined) sessionStorage.setItem(SNAPSHOT_KEY, JSON.stringify(snap));
+      }
     } catch {
       // Storage can be unavailable (privacy mode); reloading is still useful.
     }
@@ -34,6 +44,17 @@ export function takeResumeRequest(): boolean {
     return want;
   } catch {
     return false;
+  }
+}
+
+/** The snapshot stored by the last live reload (once), or undefined. */
+export function takeResumeSnapshot(): unknown {
+  try {
+    const raw = sessionStorage.getItem(SNAPSHOT_KEY);
+    sessionStorage.removeItem(SNAPSHOT_KEY);
+    return raw ? JSON.parse(raw) : undefined;
+  } catch {
+    return undefined;
   }
 }
 

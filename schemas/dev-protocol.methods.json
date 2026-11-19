@@ -1,0 +1,40 @@
+{
+  "$comment": "Bulkhead dev protocol (P2.6): JSON-RPC 2.0 methods a running dev build answers. Shared by the in-page client (rpc.discover), the dev bridge and the MCP server (scripts/mcp-bulkhead.mjs). Modelled on Bevy's Remote Protocol (BRP).",
+  "version": 1,
+  "methods": {
+    "rpc.discover": { "description": "List the methods and their parameter schemas.", "params": { "type": "object", "properties": {} } },
+    "sim.state": { "description": "Session state: preset, tick, sim time, dev mode (auto|run|hold) and speed.", "params": { "type": "object", "properties": {} } },
+    "world.query": {
+      "description": "List live entities with their component ids. Filters combine with AND.",
+      "params": { "type": "object", "properties": {
+        "with": { "type": "array", "items": { "type": "string" }, "description": "Component ids the entity must have, e.g. [\"sdk/transform3d\"]." },
+        "without": { "type": "array", "items": { "type": "string" } },
+        "owner": { "type": "string", "description": "Owning plugin id." },
+        "name": { "type": "string", "description": "Substring of the scene node name (sdk/scene-node)." },
+        "limit": { "type": "integer", "minimum": 1, "maximum": 5000, "default": 200 },
+        "offset": { "type": "integer", "minimum": 0, "default": 0 } } }
+    },
+    "entity.get": {
+      "description": "One entity's components as JSON.",
+      "params": { "type": "object", "required": ["id"], "properties": { "id": { "type": "integer" }, "components": { "type": "array", "items": { "type": "string" }, "description": "Only these component ids." } } }
+    },
+    "entity.set": {
+      "description": "Replace one component (or deep-merge with merge: true). value null removes the component.",
+      "params": { "type": "object", "required": ["id", "component", "value"], "properties": { "id": { "type": "integer" }, "component": { "type": "string" }, "value": {}, "merge": { "type": "boolean", "default": false } } }
+    },
+    "sim.pause": { "description": "paused: true holds the simulation; false keeps it running even with menus open; omitted toggles.", "params": { "type": "object", "properties": { "paused": { "type": "boolean" } } } },
+    "sim.resume": { "description": "Back to normal: the simulation runs while the player is playing.", "params": { "type": "object", "properties": {} } },
+    "sim.step": { "description": "Run n fixed ticks now and stay held.", "params": { "type": "object", "properties": { "n": { "type": "integer", "minimum": 1, "maximum": 6000, "default": 1 } } } },
+    "sim.speed": { "description": "Time scale for real-time play (0.25 = slow motion, 4 = fast).", "params": { "type": "object", "required": ["speed"], "properties": { "speed": { "type": "number", "minimum": 0, "maximum": 16 } } } },
+    "input.press": { "description": "Hold or release a key / button by code (KeyW, Space, Mouse0, GamepadA). Ticks are needed for it to take effect.", "params": { "type": "object", "required": ["key"], "properties": { "key": { "type": "string" }, "down": { "type": "boolean", "default": true } } } },
+    "preset.get": { "description": "The active preset JSON (with config).", "params": { "type": "object", "properties": {} } },
+    "preset.apply": { "description": "Validate and start a preset. keepState re-applies the current snapshot when the preset id and plugin set match.", "params": { "type": "object", "required": ["preset"], "properties": { "preset": { "type": "object" }, "keepState": { "type": "boolean", "default": false } } } },
+    "config.describe": { "description": "Config fields (type, range, default) and current values of every active plugin.", "params": { "type": "object", "properties": {} } },
+    "config.set": { "description": "Set one plugin config value and restart, keeping state when possible. value null resets to the default.", "params": { "type": "object", "required": ["plugin", "key", "value"], "properties": { "plugin": { "type": "string" }, "key": { "type": "string" }, "value": {}, "keepState": { "type": "boolean", "default": true } } } },
+    "replay.run": { "description": "Re-simulate a .replay.json headlessly in the page and compare its final hash.", "params": { "type": "object", "required": ["file"], "properties": { "file": { "type": "object" } } } },
+    "screenshot": { "description": "PNG of the game view (with the debug-draw overlay when on) as a data URL.", "params": { "type": "object", "properties": {} } },
+    "log.tail": { "description": "Last n host log entries.", "params": { "type": "object", "properties": { "n": { "type": "integer", "minimum": 1, "maximum": 500, "default": 50 } } } },
+    "perf.systems": { "description": "Per-system average milliseconds per tick.", "params": { "type": "object", "properties": {} } },
+    "draw.set": { "description": "Toggle debug drawing and the physics collider overlay.", "params": { "type": "object", "properties": { "enabled": { "type": "boolean" }, "colliders": { "type": "boolean" } } } }
+  }
+}

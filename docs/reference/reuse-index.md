@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `800c7bf1d6dbc802829c04fb865c2d2667e59e7bf17461eb61c579b465558c04`
+Source digest: `5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3`
 
 ## Composition recipes
 
@@ -203,6 +203,8 @@ Source digest: `800c7bf1d6dbc802829c04fb865c2d2667e59e7bf17461eb61c579b465558c04
 | `sdk/Damaged` | contract | Public SDK value: sdk/damaged | [source](../../src/sdk/contracts/shooter.ts#L357) |
 | `sdk/DamageModifiers` | contract | Public SDK value: damage-modifier | [source](../../src/sdk/contracts/shooter.ts#L439) |
 | `sdk/DealDamage` | contract | Public SDK value: sdk/deal-damage | [source](../../src/sdk/contracts/shooter.ts#L355) |
+| `sdk/debugDraw` | contract | Public helper/class | [source](../../src/sdk/contracts/debug-draw.ts#L40) |
+| `sdk/DebugDraw` | contract | Public SDK value: sdk/debug-draw | [source](../../src/sdk/contracts/debug-draw.ts#L36) |
 | `sdk/decomposeMatrix` | contract | Public helper/class | [source](../../src/sdk/contracts/gltf.ts#L92) |
 | `sdk/defineCommand` | contract | Public helper/class | [source](../../src/sdk/core.ts#L35) |
 | `sdk/defineComponent` | contract | Public helper/class | [source](../../src/sdk/core.ts#L33) |

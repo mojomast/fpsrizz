@@ -10,6 +10,8 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Reuse](guide/reuse.md): find and compose existing capabilities before writing new ones.
 - [Bulkhead CLI and templates](guide/bulkhead-cli.md): `npm run bulkhead -- create <name> --template fps|platformer|topdown|puzzle|cards|blank`.
 - [Prefabs, scenes and level import](reference/scenes.md): data prefabs, scene trees, Tiled and LDtk importers.
+- [Inspector and debug draw](reference/inspector.md): entity inspector, live component editing, config tweaks, Debug.draw, time controls, state-preserving hot reload.
+- [Dev protocol and MCP server](reference/dev-protocol.md): JSON-RPC to a running dev build, MCP tools for agents.
 
 ## Reference (what exists, exactly)
 

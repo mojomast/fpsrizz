@@ -34,7 +34,9 @@
     "pack-painters": "node scripts/pack-painters.mjs",
     "move-to-game": "node scripts/move-to-game.mjs",
     "bench:ecs": "node scripts/bench-ecs.ts",
-    "assets": "node scripts/assets.mjs"
+    "assets": "node scripts/assets.mjs",
+    "mcp": "node scripts/mcp-bulkhead.mjs",
+    "dev:rpc": "node scripts/dev-rpc-bridge.mjs"
   },
   "devDependencies": {
     "@gltf-transform/core": "4.5.1",

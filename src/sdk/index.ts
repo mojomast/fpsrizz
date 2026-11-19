@@ -34,5 +34,6 @@ export * from './contracts/assets.ts';
 export * from './contracts/gltf.ts';
 export * from './contracts/scene.ts';
 export * from './contracts/level-import.ts';
+export * from './contracts/debug-draw.ts';
 export * from './contracts/input.ts';
 export * from '../kernel/snapshot.ts';

@@ -8,7 +8,7 @@ import type { Session } from '../kernel/host.ts';
 import { createAssetService, preloadManifestAssets } from '../platform/assets.ts';
 import { createAudioService } from '../platform/audio.ts';
 import { createFlow } from '../platform/flow.ts';
-import { bindDomInput, createInputCore, isInputEditableTarget } from '../platform/input.ts';
+import { bindDomInput, createActionLookup, createInputCore, isInputEditableTarget } from '../platform/input.ts';
 import { bindGamepads } from '../platform/gamepad.ts';
 import { createInputBindings } from '../platform/input-bindings.ts';
 import { bindTouchControls } from '../platform/touch.ts';
@@ -20,14 +20,17 @@ import type { RenderHost } from '../platform/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '../platform/storage.ts';
 import { createUiService } from '../platform/ui.ts';
 import { recordInput } from '../platform/replay.ts';
+import { createDebugDraw } from '../platform/debug-draw.ts';
+import type { DevEnv, DevSim, DevTools } from '../platform/devtools.ts';
+import { invertMatrix, mat4, multiplyMatrices } from '../platform/render/mini3/math.ts';
 import type { ReplayRecorder } from '../platform/replay.ts';
 import type { ExperienceProvider, FlowResult, SettingsService, ThemeProvider } from '../sdk/index.ts';
-import { Assets, Audio, AudioSamples, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputAxes, InputBindings, InputContexts, prettyKey, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
+import { Assets, Audio, DebugDraw, PhysicsCollider, worldPose, AudioSamples, ExperienceRole, Flow, FlowEnded, Input, InputActions, InputAxes, InputBindings, InputContexts, prettyKey, PHASES, Profile, SDK_COMPAT, SDK_VERSION, SessionControl, Settings, Ui } from '../sdk/index.ts';
 import { Render } from '../sdk/render.ts';
 import { catalog, presets } from './catalog.ts';
 import type { ApplyResult, FrameStats } from './creator.ts';
 import { createCreatorPanel } from './creator.ts';
-import { installLiveReload, seedOverride, takeResumeRequest, withSeed } from './dev-loop.ts';
+import { installLiveReload, seedOverride, takeResumeRequest, takeResumeSnapshot, withSeed } from './dev-loop.ts';
 import { createShell } from './shell.ts';
 import type { ShellSettings } from './shell.ts';
 
@@ -110,6 +113,11 @@ function boot(): void {
   applyVolumes();
 
   const assets = createAssetService();
+  // Dev tools (P2.5): debug drawing (`?debugdraw` or the Inspect tab) and time controls (pause/step/speed).
+  const params = new URLSearchParams(location.search);
+  const debugDraw = createDebugDraw(params.has('debugdraw'));
+  const overlays = { colliders: false };
+  const devSim: DevSim = { mode: 'auto', speed: 1 };
   // `?record` records every session's input for a `.replay.json` (F8 or __bulkhead.replay.download()).
   const recording = new URLSearchParams(location.search).has('record');
   let recorder: ReplayRecorder | undefined;
@@ -137,7 +145,9 @@ function boot(): void {
       session.services.provide(Profile, profile, 'host', scope);
       session.services.provide(Flow, createFlow((r) => session.events.emit(FlowEnded, r), () => session.scheduler.time), 'host', scope);
       session.services.provide(InputBindings, inputBindings, 'host', scope);
-      session.addBeforeTick(() => { gamepads.poll(); inputCore.beginTick(); }, scope);
+      session.services.provide(DebugDraw, debugDraw.service, 'host', scope);
+      session.scheduler.timeScale = devSim.speed;
+      session.addBeforeTick(() => { gamepads.poll(); inputCore.beginTick(); debugDraw.beginTick(session.scheduler.time); }, scope);
       if (recording) {
         recorder?.stop();
         const rec = recordInput(inputCore, { sdk: SDK_VERSION, preset: session.preset.id, seed: session.preset.seed });
@@ -353,6 +363,7 @@ function boot(): void {
     frameStats: () => stats,
     assets: () => renderHost.assets.report(),
     counts: () => ({ uiRoots: ui.mounted, sceneRoots: renderHost.liveRoots(), audioVoices: audio.activeVoices }),
+    dev: () => dev(),
   });
 
   // ---- quicksave / replays (SDK 3) ----------------------------------------------------------------------------------
@@ -426,6 +437,71 @@ function boot(): void {
   window.addEventListener('resize', onResize);
   renderHost.resize();
 
+  // ---- debug overlay + dev tools (P2.5 / P2.6) ----------------------------------------------------------------------
+  let overlay: HTMLCanvasElement | undefined;
+  const viewProj = mat4(), view = mat4();
+  let pendingShots: ((url: string) => void)[] = [];
+  function drawDebugOverlay(): void {
+    const s = host.session;
+    if (debugDraw.enabled && overlays.colliders && s) {
+      s.entities.each(PhysicsCollider, (id, c) => {
+        const p = worldPose(s.entities, id)?.position;
+        if (!p) return;
+        const o = c.offset ?? { x: 0, y: 0, z: 0 }, at = { x: p.x + o.x, y: p.y + o.y, z: p.z + o.z };
+        const size = c.size ?? { x: 1, y: 1, z: 1 }, color = c.sensor ? 0xffcc00 : 0x44ddff;
+        if (c.shape === 'ball') debugDraw.service.sphere(at, size.x / 2, { frame: true, color });
+        else debugDraw.service.box(at, c.shape === 'box' ? size : { x: size.x, y: size.y, z: size.x }, { frame: true, color });
+      });
+    }
+    const want = debugDraw.enabled && debugDraw.primitives().length > 0;
+    if (!want && !overlay) return;
+    if (!overlay) {
+      overlay = document.createElement('canvas');
+      overlay.className = 'debug-draw-overlay';
+      overlay.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1';
+      canvas.parentElement?.append(overlay);
+    }
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    if (overlay.width !== w || overlay.height !== h) { overlay.width = w; overlay.height = h; }
+    const g = overlay.getContext('2d');
+    if (!g) return;
+    // mini3 cameras keep `_proj` and a raw matrixWorld; Three.js cameras (render-three adapter) use `.elements`.
+    const cam = renderHost.activeCamera() as unknown as { matrixWorld: Float32Array | { elements: ArrayLike<number> }; _proj?: Float32Array; projectionMatrix?: { elements: ArrayLike<number> } };
+    const world = 'elements' in cam.matrixWorld ? cam.matrixWorld.elements : cam.matrixWorld;
+    const proj = cam._proj ?? cam.projectionMatrix?.elements;
+    if (!proj) return;
+    invertMatrix(view, world as Float32Array);
+    multiplyMatrices(viewProj, proj as Float32Array, view);
+    debugDraw.render(g, viewProj, w, h);
+  }
+  function takeShot(): void {
+    if (!pendingShots.length) return;
+    const shot = document.createElement('canvas');
+    shot.width = canvas.width; shot.height = canvas.height;
+    const g = shot.getContext('2d')!;
+    g.drawImage(canvas, 0, 0);
+    if (overlay && debugDraw.enabled) g.drawImage(overlay, 0, 0, shot.width, shot.height);
+    const url = shot.toDataURL('image/png');
+    for (const r of pendingShots) r(url);
+    pendingShots = [];
+  }
+  const devEnv: DevEnv = {
+    host, sim: devSim, debugDraw, overlays, snapshotReady: () => snapshotReady(),
+    applyPreset: (p) => applyPreset(p),
+    resume: () => begin(),
+    input: (() => {
+      const lookup = createActionLookup(() => inputBindings.effective());
+      return { press: (key: string, down: boolean) => { lookup.refresh(); if (down) inputCore.pressKey(key, lookup.get(key)); else inputCore.releaseKey(key); } };
+    })(),
+    screenshot: () => new Promise<string>((res) => { pendingShots.push(res); }),
+    async runReplay(file) {
+      const m = await import('../platform/replay-run.ts');
+      return m.runReplayHeadless({ catalog, presets, file });
+    },
+  };
+  let devTools: Promise<DevTools> | undefined;
+  const dev = (): Promise<DevTools> => (devTools ??= import('../platform/devtools.ts').then((m) => m.createDevTools(devEnv)));
+
   // ---- frame loop ----------------------------------------------------------------------------------------------------
   let last = performance.now();
   let frames = 0;
@@ -440,7 +516,8 @@ function boot(): void {
     const s = host.session;
     if (s && s.state === 'running') {
       // Simulation only advances while the player actually has control.
-      const run = (state === 'playing' && captured()) || state === 'ending';
+      const auto = (state === 'playing' && captured()) || state === 'ending';
+      const run = devSim.mode === 'auto' ? auto : devSim.mode === 'run' && state !== 'ended' && state !== 'error';
       if (s.scheduler.paused === run) setPaused(!run);
       s.scheduler.advance(dt);
       stats.ticksLastFrame = s.scheduler.lastFrameTicks;
@@ -453,6 +530,8 @@ function boot(): void {
       shell.showEnd(pendingEnd);
     }
     renderHost.render();
+    drawDebugOverlay();
+    takeShot();
     // 3D audio: the listener is the world camera.
     const cam = renderHost.activeCamera().matrixWorld.elements;
     audio.setListener({ position: { x: cam[12]!, y: cam[13]!, z: cam[14]! }, forward: { x: -cam[8]!, y: -cam[9]!, z: -cam[10]! }, up: { x: cam[4]!, y: cam[5]!, z: cam[6]! } });
@@ -503,6 +582,8 @@ function boot(): void {
     applyPreset,
     snapshots: { ready: snapshotReady, quicksave, quickload, take: () => host.snapshot(), restore: (s: unknown) => host.restore(s) },
     replay: { get recorder() { return recorder; }, download: downloadReplay },
+    /** Dev tools (same methods as the JSON-RPC protocol): `(await __bulkhead.dev())['world.query']({})`. */
+    dev,
     stop() {
       cancelAnimationFrame(raf);
     },
@@ -523,8 +604,16 @@ function boot(): void {
     if (!result.ok && (state as AppState) !== 'error') showHostError('The default preset is invalid', (result as { error: unknown }).error);
     if (__DEV__) {
       // Edit loop: reload on every rebuild and drop straight back into the game that was running.
-      if (result.ok && takeResumeRequest() && (await ensureFreshSession())) begin();
-      installLiveReload({ shouldResume: () => state === 'playing' || state === 'paused' || state === 'ending' });
+      // P2.1 step 2: the run's snapshot survives the reload when it is complete (all-SDK-3 presets).
+      if (result.ok && takeResumeRequest() && (await ensureFreshSession())) {
+        begin();
+        const snap = takeResumeSnapshot();
+        if (snap) try { host.restore(snap); flash('Reloaded — state kept'); } catch (e) { console.info('state not kept across reload:', errText(e)); }
+      }
+      installLiveReload({ shouldResume: () => state === 'playing' || state === 'paused' || state === 'ending', snapshot: () => (snapshotReady() ? host.snapshot() : undefined) });
+      // P2.6: the dev server's JSON-RPC bridge (port + 1). `?devrpc=off` opts out, `?devrpc=ws://…` points elsewhere.
+      const rpc = params.get('devrpc');
+      if (rpc !== 'off') void import('./dev-rpc.ts').then((m) => m.connectDevRpc(dev, rpc || `ws://${location.hostname}:${Number(location.port || 80) + 1}/game`));
     }
   })();
 }

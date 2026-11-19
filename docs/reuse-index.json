@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "800c7bf1d6dbc802829c04fb865c2d2667e59e7bf17461eb61c579b465558c04",
+  "sourceDigest": "5df57e6911d7253b0b01aaa37fe1053b98b75356081ad11a778bfd640253f4f3",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -14724,6 +14724,56 @@
       "documentedBy": [
         "core/combat"
       ],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/debugDraw",
+      "type": "contract",
+      "name": "debugDraw",
+      "scope": "contract",
+      "summary": "Public helper/class",
+      "importFrom": "src/sdk/index.ts",
+      "source": "src/sdk/contracts/debug-draw.ts:40",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "debugDraw"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
+      "recipes": [],
+      "implementations": []
+    },
+    {
+      "id": "sdk/DebugDraw",
+      "type": "contract",
+      "name": "DebugDraw",
+      "scope": "contract",
+      "summary": "Public SDK value: sdk/debug-draw",
+      "importFrom": "src/sdk/index.ts",
+      "token": "sdk/debug-draw",
+      "source": "src/sdk/contracts/debug-draw.ts:36",
+      "docs": [
+        "docs/guide/plugins.md"
+      ],
+      "examples": [],
+      "tests": [],
+      "keywords": [
+        "DebugDraw",
+        "sdk/debug-draw"
+      ],
+      "useWhen": "Read the linked declaration and consuming examples. A token is a contract, not an installed implementation.",
+      "limitations": [
+        "Rendering SDK imports require the render manifest capability."
+      ],
+      "documentedBy": [],
       "recipes": [],
       "implementations": []
     },
