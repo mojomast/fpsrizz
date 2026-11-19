@@ -108,7 +108,10 @@ jobs:
           if [ "${{ matrix.project }}" = chromium ]; then
             npm run test:visual -- --project=chromium
           else
-            npm run test:visual -- --project=${{ matrix.project }} --update-snapshots=missing
+            # Bootstrap any missing goldens (Playwright marks a freshly written golden as failed), then compare for
+            # real: a second render must match the first, which also catches non-deterministic frames.
+            npm run test:visual -- --project=${{ matrix.project }} --update-snapshots=missing || true
+            npm run test:visual -- --project=${{ matrix.project }}
           fi
       - name: Upload report, diffs and goldens
         if: always()

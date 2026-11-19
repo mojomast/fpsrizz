@@ -29,8 +29,8 @@ Failures write `actual`/`expected`/`diff` PNGs to `.build/visual-results/` and a
 CI: the `visual` job runs a matrix of chromium/firefox/webkit and uploads the report and goldens as `visual-<project>`
 artifacts. It is non-blocking (`continue-on-error`) for now. Only chromium-linux goldens are committed; Firefox and
 WebKit goldens are bootstrapped by CI with `--update-snapshots=missing` — download the artifact, review the images and
-commit them to make those projects compare too. (With `missing`, Playwright still marks a case whose golden it
-just wrote as failed; the rerun passes.) Font rendering can differ between a local machine and the hosted
+commit them to make those projects compare too. (With `missing`, Playwright marks a case whose golden it just
+wrote as failed, so CI runs a second, comparing pass right after; that pass also proves the frame is reproducible.) Font rendering can differ between a local machine and the hosted
 runner; if the chromium job reports small text-only diffs, regenerate the chromium goldens from the CI artifact.
 
 Add a case: append to `cases` in `tests/visual/scenes.spec.mjs`, run with `--update-snapshots`, and commit the PNG.
