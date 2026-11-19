@@ -1,0 +1,51 @@
+# P3.1: build, zip (npm run export:itch) and push to itch.io with butler. Manual only.
+# Needs a repository secret BUTLER_API_KEY (https://itch.io/user/settings/api-keys) and an existing itch.io HTML project.
+# Without the secret the zip is still built and attached to the run as an artifact for a manual upload.
+# https://itch.io/docs/butler/
+name: Deploy to itch.io
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'itch.io target as user/game (e.g. mojomast/bulkhead)'
+        required: true
+      channel:
+        description: butler channel
+        required: false
+        default: html5
+      preset:
+        description: Preset the exported build boots into (empty = main menu)
+        required: false
+        default: ''
+permissions:
+  contents: read
+jobs:
+  itch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Zip for the itch.io HTML5 player
+        env:
+          PRESET: ${{ inputs.preset }}
+        run: npm run export:itch -- ${PRESET:+--preset "$PRESET"}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bulkhead-itch
+          path: .export/bulkhead-itch.zip
+          retention-days: 14
+      - name: Push with butler
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+          TARGET: ${{ inputs.target }}
+          CHANNEL: ${{ inputs.channel }}
+        run: |
+          if [ -z "$BUTLER_API_KEY" ]; then echo "BUTLER_API_KEY is not set; skipping the push (download the artifact instead)."; exit 0; fi
+          curl -fsSL -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip -q butler.zip -d butler && chmod +x butler/butler
+          ./butler/butler push .export/bulkhead-itch.zip "$TARGET:$CHANNEL" --userversion "${GITHUB_SHA::7}"

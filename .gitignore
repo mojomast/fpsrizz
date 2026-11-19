@@ -6,3 +6,4 @@ dist
 .sourcemaps
 .build
 docs/reference/api
+.export

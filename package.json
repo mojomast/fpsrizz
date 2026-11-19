@@ -40,7 +40,8 @@
     "assets": "node scripts/assets.mjs",
     "mcp": "node scripts/mcp-bulkhead.mjs",
     "dev:rpc": "node scripts/dev-rpc-bridge.mjs",
-    "perf": "node scripts/perf-report.mjs"
+    "perf": "node scripts/perf-report.mjs",
+    "export:itch": "node scripts/export-itch.mjs"
   },
   "devDependencies": {
     "@gltf-transform/core": "4.5.1",
