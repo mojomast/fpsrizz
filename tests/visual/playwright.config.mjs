@@ -21,8 +21,9 @@ export default defineConfig({
   webServer: { command: 'node tests/visual/serve.mjs', cwd: '../..', url: `http://127.0.0.1:${PORT}/`, reuseExistingServer: !process.env.CI, env: { VISUAL_PORT: String(PORT) } },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'], viewport: { width: 960, height: 600 }, launchOptions: { executablePath: chrome, args: chromeArgs } } },
-    // VISUAL_HEADED=1 (CI, under xvfb-run) runs Firefox/WebKit headed so they get WebGL2 from Mesa on GPU-less runners.
+    // VISUAL_HEADED=1 (CI, under xvfb-run) runs Firefox headed so it gets WebGL2 from Mesa on GPU-less runners.
+    // WebKit stays headless: headed WebKit under xvfb hangs on the 3D scenes, headless already has WebGL2.
     { name: 'firefox', use: { ...devices['Desktop Firefox'], viewport: { width: 960, height: 600 }, headless: !process.env.VISUAL_HEADED, launchOptions: { firefoxUserPrefs: { 'webgl.force-enabled': true } } } },
-    { name: 'webkit', use: { ...devices['Desktop Safari'], viewport: { width: 960, height: 600 }, headless: !process.env.VISUAL_HEADED } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'], viewport: { width: 960, height: 600 }, headless: true } },
   ],
 });
