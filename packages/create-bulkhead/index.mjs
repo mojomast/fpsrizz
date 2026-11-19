@@ -10,11 +10,13 @@ import { pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
 export const ENGINE_REPO = 'https://github.com/mojomast/fpsrizz.git';
+/** The engine release this version of create-bulkhead clones by default, so scaffolds are reproducible. */
+export const ENGINE_REF = 'v0.1.0';
 export const TEMPLATE_NAMES = ['blank', 'platformer', 'topdown', 'fps', 'puzzle', 'cards'];
 const NAME = /^[a-z0-9][a-z0-9-]{0,40}$/;
 
 export function parseArgs(argv) {
-  const o = { name: undefined, template: 'blank', title: undefined, engine: undefined, ref: undefined, install: true, dryRun: false, help: false, repo: ENGINE_REPO };
+  const o = { name: undefined, template: 'blank', title: undefined, engine: undefined, ref: ENGINE_REF, install: true, dryRun: false, help: false, repo: ENGINE_REPO };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const val = () => { const v = argv[++i]; if (v === undefined || v.startsWith('--')) throw new Error(`${a} needs a value`); return v; };
@@ -58,7 +60,7 @@ export function plan(o, cwd) {
 }
 
 const usage = `Usage: npm create bulkhead@latest <name> -- [--template ${TEMPLATE_NAMES.join('|')}] [--title "Title"]
-       [--engine <checkout>] [--ref <git ref>] [--no-install] [--dry-run]
+       [--engine <checkout>] [--ref <git ref, default ${ENGINE_REF}>] [--no-install] [--dry-run]
 Inside an engine checkout: adds games/<name>/. Elsewhere: clones the engine into ./<name>, installs it, adds the game.`;
 
 async function main() {

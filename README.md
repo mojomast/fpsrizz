@@ -67,9 +67,9 @@ npm run dev                                          # open http://127.0.0.1:517
 ```
 
 This adds `games/my-game/`, which contains a plugin, a preset, headless tests and an `AGENTS.md` for coding agents.
-Outside a checkout, the `create-bulkhead` wrapper clones the engine and scaffolds into it.
-`npm create bulkhead@latest my-game -- --template fps` will work once the package is published; it is publish-ready
-but not yet on npm, so for now run `node packages/create-bulkhead/index.mjs my-game --template fps`. More commands:
+Outside a checkout, `npm create bulkhead@latest my-game -- --template fps` (the unscoped
+[`create-bulkhead`](https://www.npmjs.com/package/create-bulkhead) package) clones the engine release `v0.1.0` into
+`./my-game`, installs it and scaffolds the game there. More commands:
 `npm run bulkhead -- templates | new plugin | add | validate | graph` ([CLI guide](docs/guide/bulkhead-cli.md),
 [create a game](docs/guide/create-a-game.md)).
 
@@ -110,7 +110,7 @@ packages/                     npm workspaces (private until the @bulkhead scope 
   platform-web/src/           @bulkhead/platform-web: input, audio, storage, UI, Three.js render host, perf HUD, touch
   std/plugins/                @bulkhead/std: shared plugins (std-*, mechanics-*, presentation-*, theme-*)
   tools/                      @bulkhead/tools: the `bulkhead` CLI bin (forwards to scripts/bulkhead.mjs)
-  create-bulkhead/            `npm create bulkhead` wrapper (publish-ready, unpublished)
+  create-bulkhead/            `npm create bulkhead` wrapper (`create-bulkhead` on npm, clones `v0.1.0`)
 games/<family>/               plugins/, contracts/, presets/, tests/ (unit + browser demos), docs, family.json
 src/app/                      composition root: main.ts (frame loop), catalog, shell (menus), creator and inspector
 templates/                    genre templates (templates/games/*) and the plugin starter
@@ -380,7 +380,7 @@ Stated plainly. The full list is in [docs/reference/spec.md](docs/reference/spec
 - Code plugins are discovered at build time and are trusted; there is no sandbox. Imported content packs live in
   memory only.
 - KTX2 *encoding* in `npm run assets` is deferred (decoding works). PWA and desktop (Tauri) wrappers are deferred.
-- The npm packages are unpublished: the `@bulkhead/*` packages are `private` until the scope is claimed.
+- Only `create-bulkhead` is on npm; the `@bulkhead/*` engine packages are still `private` and unpublished.
 - The default theme uses procedural placeholder art and sound. Assetrizz themes replace a subset with bundled images.
 
 ## Contributing
