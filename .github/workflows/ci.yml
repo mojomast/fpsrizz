@@ -76,3 +76,48 @@ jobs:
           path: .smoke/perf-report.json
           if-no-files-found: ignore
           retention-days: 30
+
+  visual:
+    # P3.3: golden screenshots per genre template and a few presets (Playwright toHaveScreenshot), in Chromium, Firefox
+    # and WebKit. Non-blocking until the goldens are confirmed stable on hosted runners: Chromium compares against the
+    # committed linux goldens; Firefox/WebKit write any missing goldens ("missing") and upload them so they can be
+    # reviewed and committed. Download the "visual-*" artifact to inspect diffs (report + actual/expected/diff PNGs).
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Install the browser
+        run: |
+          if [ "${{ matrix.project }}" = chromium ]; then
+            if [ ! -x /usr/bin/google-chrome ]; then npx playwright install --with-deps chromium; fi
+          else
+            npx playwright install --with-deps ${{ matrix.project }}
+          fi
+      - name: Visual regression (${{ matrix.project }})
+        run: |
+          if [ "${{ matrix.project }}" = chromium ]; then
+            npm run test:visual -- --project=chromium
+          else
+            npm run test:visual -- --project=${{ matrix.project }} --update-snapshots=missing
+          fi
+      - name: Upload report, diffs and goldens
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-${{ matrix.project }}
+          path: |
+            .build/visual-report/
+            .build/visual-results/
+            tests/visual/__screenshots__/
+          if-no-files-found: ignore
+          retention-days: 14

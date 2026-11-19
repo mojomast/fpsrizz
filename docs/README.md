@@ -9,6 +9,8 @@ Three kinds of document, plus game guides and history. Agents: start with [`llms
 - [Plugins](guide/plugins.md): the SDK, manifests, lifecycle, roles, registries, events and services.
 - [Reuse](guide/reuse.md): find and compose existing capabilities before writing new ones.
 - [Bulkhead CLI and templates](guide/bulkhead-cli.md): `npm run bulkhead -- create <name> --template fps|platformer|topdown|puzzle|cards|blank`.
+- [Deploy and export](guide/deploy.md): GitHub Pages and itch.io workflows (manual dispatch), `npm run export:itch`.
+- [Visual tests](guide/visual-tests.md): Playwright golden screenshots per template, Chromium/Firefox/WebKit.
 - [Performance](guide/performance.md): perf HUD (F3), per-system timings JSON, perf budgets and CI job, Spector.js captures.
 - [Prefabs, scenes and level import](reference/scenes.md): data prefabs, scene trees, Tiled and LDtk importers.
 - [Inspector and debug draw](reference/inspector.md): entity inspector, live component editing, config tweaks, Debug.draw, time controls, state-preserving hot reload.

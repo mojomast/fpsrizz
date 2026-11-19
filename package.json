@@ -41,7 +41,8 @@
     "mcp": "node scripts/mcp-bulkhead.mjs",
     "dev:rpc": "node scripts/dev-rpc-bridge.mjs",
     "perf": "node scripts/perf-report.mjs",
-    "export:itch": "node scripts/export-itch.mjs"
+    "export:itch": "node scripts/export-itch.mjs",
+    "test:visual": "node scripts/visual.mjs"
   },
   "devDependencies": {
     "@changesets/cli": "3.0.3",
