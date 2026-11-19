@@ -44,9 +44,11 @@
     "export:itch": "node scripts/export-itch.mjs"
   },
   "devDependencies": {
+    "@changesets/cli": "3.0.3",
     "@gltf-transform/core": "4.5.1",
     "@gltf-transform/extensions": "4.5.1",
     "@gltf-transform/functions": "4.5.1",
+    "@playwright/test": "1.63.0",
     "@types/three": "0.187.0",
     "ajv": "8.20.0",
     "esbuild": "0.28.2",
@@ -57,6 +59,7 @@
   },
   "packageManager": "npm@10.9.9",
   "dependencies": {
-    "@dimforge/rapier3d-compat": "0.19.3"
+    "@dimforge/rapier3d-compat": "0.19.3",
+    "recast-navigation": "0.44.0"
   }
 }

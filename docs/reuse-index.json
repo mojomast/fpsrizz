@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "sourceDigest": "1bc02e04cc39b76b01128cb330694dd229bf0e093d002f32add4be598ab8b5d8",
+  "sourceDigest": "2b794943795975a1546d2c2f4686b8f955d4f5017d87ca609c393dc804b8c8db",
   "description": "Live built-in registration snapshots at default config, source manifests and curated reuse metadata. No activation. Validate a complete preset before use.",
   "entries": [
     {
@@ -13407,7 +13407,7 @@
       "summary": "Public SDK value: actor-renderer",
       "importFrom": "packages/sdk/src/render.ts",
       "token": "actor-renderer",
-      "source": "packages/sdk/src/render.ts:91",
+      "source": "packages/sdk/src/render.ts:99",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -16030,7 +16030,7 @@
       "summary": "Public SDK value: sdk/models",
       "importFrom": "packages/sdk/src/render.ts",
       "token": "sdk/models",
-      "source": "packages/sdk/src/render.ts:114",
+      "source": "packages/sdk/src/render.ts:122",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17116,7 +17116,7 @@
       "summary": "Public SDK value: sdk/render",
       "importFrom": "packages/sdk/src/render.ts",
       "token": "sdk/render",
-      "source": "packages/sdk/src/render.ts:56",
+      "source": "packages/sdk/src/render.ts:64",
       "docs": [
         "docs/guide/plugins.md"
       ],
@@ -17174,7 +17174,7 @@
       "summary": "Public SDK value: renderable-prefab",
       "importFrom": "packages/sdk/src/render.ts",
       "token": "renderable-prefab",
-      "source": "packages/sdk/src/render.ts:104",
+      "source": "packages/sdk/src/render.ts:112",
       "docs": [
         "docs/guide/plugins.md"
       ],

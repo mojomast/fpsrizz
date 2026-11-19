@@ -48,8 +48,16 @@ export interface RenderService {
   readonly width: number;
   readonly height: number;
   readonly pixelRatio: number;
-  /** The WebGL renderer, for loaders that must query GPU support (KTX2). Absent in headless/test render services. */
+  /**
+   * The WebGL renderer, for loaders that must query GPU support (KTX2). Absent in headless/test render services and
+   * when the opt-in WebGPU renderer is active (see `backend`).
+   */
   readonly renderer?: THREE.WebGLRenderer;
+  /**
+   * Which renderer draws the frame: "webgl" (default WebGLRenderer), "webgpu" (WebGPURenderer on WebGPU) or
+   * "webgpu-webgl2" (WebGPURenderer on its WebGL2 fallback backend). Absent in headless/test render services.
+   */
+  readonly backend?: 'webgl' | 'webgpu' | 'webgpu-webgl2';
   /** Stats of the last rendered frame. */
   readonly stats: { calls: number; triangles: number; geometries: number; textures: number };
 }

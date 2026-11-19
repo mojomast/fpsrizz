@@ -428,6 +428,8 @@
     "@types/webxr/LICENSE": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
     "three/build/three.core.js": "613e370f76638fdef83926642bf256dc9615684922de1ce1f63a8583e5d78578",
     "three/build/three.module.js": "104f56145899722094556490d787aae0617cc2fc3382f31df02d724ea1aee341",
+    "three/build/three.tsl.js": "d8f3cdb8b85b799a5631bd9a8d77e185d88ce1eb1bb051f48b332728a5423e3f",
+    "three/build/three.webgpu.js": "eafead3154ec06093f3108bddceab360f048a6fcebd7c085d5aae0ab5404bd25",
     "three/LICENSE": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc"
   },
   "outputs": {
@@ -435,6 +437,9 @@
     "three.core.js": "613e370f76638fdef83926642bf256dc9615684922de1ce1f63a8583e5d78578",
     "three.module.d.ts": "9940c58a18de5ff98c81f2826906560b09cafda0ae539a583deae763b3fbcc1b",
     "three.module.js": "104f56145899722094556490d787aae0617cc2fc3382f31df02d724ea1aee341",
+    "three.tsl.js": "d8f3cdb8b85b799a5631bd9a8d77e185d88ce1eb1bb051f48b332728a5423e3f",
+    "three.webgpu.d.ts": "2aff54adfc2b264ee75dab0c4dc687ee13e2665e2f2e591d518c40e022a06ee3",
+    "three.webgpu.js": "eafead3154ec06093f3108bddceab360f048a6fcebd7c085d5aae0ab5404bd25",
     "TYPES-LICENSE.txt": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
     "types/animation/AnimationAction.d.ts": "6086a8117a0ad8a317557ad7f8f07b6b8c5dea0540de8591c34bb8e26e7843d8",
     "types/animation/AnimationClip.d.ts": "e7e99099c73d2613878a20168e9267927b95c209089095724fbe6ef9295a9d24",

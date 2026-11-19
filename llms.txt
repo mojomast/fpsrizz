@@ -21,6 +21,7 @@ and their family's contracts; run `npm run check` after every change and never w
 ## Reference
 
 - [Architecture](docs/reference/architecture.md): layers, ownership, tick order, rendering decisions
+- [WebGPU renderer](docs/reference/webgpu.md): opt-in `?renderer=webgpu`, per-preset gate, parity suite
 - [Packages](docs/reference/packages.md): npm workspaces (@bulkhead/kernel, sdk, platform-web, std, tools), import rules, family.json
 - [Content format](docs/reference/content-format.md): manifests, content packs, presets, persistence keys
 - [Reuse index](docs/reference/reuse-index.md): generated catalog of plugins, recipes and contracts

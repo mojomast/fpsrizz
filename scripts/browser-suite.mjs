@@ -29,6 +29,7 @@ export const SUITES = [
   ['common-ground', 'games/expeditions/tests/common-ground-demo/run.mjs'],
   ['sandbox', 'games/sandbox/tests/sandbox-demo/run.mjs'],
   ['inspector', 'tests/inspector-demo/run.mjs'],
+  ['webgpu', 'tests/webgpu-demo/run.mjs'],
   ['reusable-games', 'tests/reusable-games-demo/run.mjs'],
   ['portfolio-qol', 'tests/portfolio-qol-demo/run.mjs'],
 ];

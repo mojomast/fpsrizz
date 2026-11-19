@@ -20,7 +20,28 @@ for (const pkg of ['three', '@types/three']) {
   const manifest = JSON.parse(await readFile(resolve(root, 'node_modules', pkg, 'package.json'), 'utf8'));
   if (manifest.version !== version) throw new Error(`${pkg}: expected ${version}, got ${manifest.version}; run npm ci`);
 }
-for (const name of ['three.module.js', 'three.core.js']) await copy(`three/build/${name}`, name);
+for (const name of ['three.module.js', 'three.core.js', 'three.webgpu.js', 'three.tsl.js']) await copy(`three/build/${name}`, name);
+// three.webgpu.js shares three.core.js with three.module.js, so both renderers see the same Scene/Mesh classes.
+// Only the small WebGPURenderer surface the render host uses is declared (the full @types WebGPU graph is large).
+files.set('three.webgpu.d.ts', Buffer.from(`// Minimal declarations for the opt-in WebGPURenderer (P3.2); see packages/platform-web/src/render/webgpu.ts.
+import type { Camera, Object3D, ToneMapping } from './three.module.js';
+export interface WebGPURendererParameters { canvas?: HTMLCanvasElement; antialias?: boolean; forceWebGL?: boolean; alpha?: boolean }
+export declare class WebGPURenderer {
+  constructor(parameters?: WebGPURendererParameters);
+  readonly isWebGPURenderer: true;
+  readonly backend: { readonly isWebGPUBackend?: boolean; readonly isWebGLBackend?: boolean };
+  readonly info: { autoReset: boolean; reset(): void; render: { calls: number; triangles: number }; memory: { geometries: number; textures: number } };
+  autoClear: boolean;
+  outputColorSpace: string;
+  toneMapping: ToneMapping;
+  init(): Promise<this>;
+  setPixelRatio(value: number): void;
+  setSize(width: number, height: number, updateStyle?: boolean): void;
+  render(scene: Object3D, camera: Camera): void;
+  clearDepth(): void;
+  dispose(): void;
+}
+`));
 await copy('three/LICENSE', 'THREE-LICENSE.txt');
 await copy('@types/three/LICENSE', 'TYPES-LICENSE.txt');
 await copy('@types/webxr/LICENSE', 'WEBXR-LICENSE.txt');

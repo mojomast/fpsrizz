@@ -7,6 +7,7 @@ import { createWorldCameraSelection, resizeCamera } from './cameras.ts';
 
 export interface RenderHost {
   service: RenderService;
+  readonly backend: RenderBackend;
   assets: AssetStore;
   setPixelRatioCap(n: number): void;
   resize(): void;
@@ -19,8 +20,38 @@ export interface RenderHost {
   dispose(): void;
 }
 
+/** The renderer surface the host uses; both WebGLRenderer and the opt-in WebGPURenderer provide it. */
+export interface HostRenderer {
+  readonly info: { autoReset: boolean; reset(): void; render: { calls: number; triangles: number }; memory: { geometries: number; textures: number } };
+  autoClear: boolean;
+  outputColorSpace: string;
+  toneMapping: THREE.ToneMapping;
+  setPixelRatio(value: number): void;
+  setSize(width: number, height: number, updateStyle?: boolean): void;
+  render(scene: THREE.Object3D, camera: THREE.Camera): void;
+  clearDepth(): void;
+  dispose(): void;
+}
+export type RenderBackend = 'webgl' | 'webgpu' | 'webgpu-webgl2';
+
+/** The default host: three.js WebGLRenderer (WebGL2). */
 export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCap: number }): RenderHost {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false });
+  return buildRenderHost(canvas, renderer, 'webgl', opts);
+}
+
+/**
+ * Opt-in host on three.js WebGPURenderer (P3.2). It uses WebGPU when `navigator.gpu` gives an adapter and falls back
+ * to its own WebGL2 backend otherwise (or always, with `forceWebGL`). Loaded lazily: the WebGPU build is its own chunk.
+ */
+export async function createWebGpuRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCap: number; forceWebGL?: boolean }): Promise<RenderHost> {
+  const { WebGPURenderer } = await import('./mini3/vendor/three.webgpu.js');
+  const renderer = new WebGPURenderer({ canvas, antialias: false, forceWebGL: opts.forceWebGL ?? false });
+  await renderer.init();
+  return buildRenderHost(canvas, renderer, renderer.backend.isWebGPUBackend ? 'webgpu' : 'webgpu-webgl2', opts);
+}
+
+function buildRenderHost(canvas: HTMLCanvasElement, renderer: HostRenderer, backend: RenderBackend, opts: { pixelRatioCap: number }): RenderHost {
   renderer.info.autoReset = false;
   renderer.autoClear = true;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -42,7 +73,8 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
   const stats = { calls: 0, triangles: 0, geometries: 0, textures: 0 };
   const cameras = createWorldCameraSelection(camera, () => service.width / service.height);
   const service: RenderService & { width: number; height: number; pixelRatio: number } = {
-    renderer,
+    ...(backend === 'webgl' ? { renderer: renderer as unknown as THREE.WebGLRenderer } : {}),
+    backend,
     camera,
     viewCamera,
     setWorldCamera: (ctx, selected) => cameras.set(ctx, selected),
@@ -119,6 +151,7 @@ export function createRenderHost(canvas: HTMLCanvasElement, opts: { pixelRatioCa
 
   return {
     service,
+    backend,
     assets,
     setPixelRatioCap(n) {
       cap = n;

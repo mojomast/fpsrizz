@@ -15,7 +15,8 @@ import { bindTouchControls } from '@bulkhead/platform-web/touch.ts';
 import { createProfileStore } from '@bulkhead/platform-web/profile-store.ts';
 import type { ProfileStorage } from '@bulkhead/platform-web/profile-store.ts';
 import { isWebGL2Available } from '@bulkhead/platform-web/render/mini3/index.ts';
-import { createRenderHost } from '@bulkhead/platform-web/render/service.ts';
+import { createRenderHost, createWebGpuRenderHost } from '@bulkhead/platform-web/render/service.ts';
+import { chooseRenderer } from '@bulkhead/platform-web/render/webgpu-gate.ts';
 import type { RenderHost } from '@bulkhead/platform-web/render/service.ts';
 import { loadSelectedPreset, loadSettings, saveSelectedPreset, saveSettings } from '@bulkhead/platform-web/storage.ts';
 import { createUiService } from '@bulkhead/platform-web/ui.ts';
@@ -39,7 +40,7 @@ type AppState = 'boot' | 'menu' | 'playing' | 'paused' | 'ending' | 'ended' | 'e
 const BASE_SENSITIVITY = 0.0024;
 const END_SCREEN_DELAY = 1.1;
 
-function boot(): void {
+async function boot(): Promise<void> {
   const root = document.getElementById('app');
   if (!root) throw new Error('#app element missing');
   // ?test disables the pointer-lock requirement so automated browsers can drive the game.
@@ -75,7 +76,12 @@ function boot(): void {
   }
   let renderHost: RenderHost;
   try {
-    renderHost = createRenderHost(canvas, { pixelRatioCap: settings.pixelRatioCap });
+    // P3.2: ?renderer=webgpu opts into three.js WebGPURenderer for presets that passed the parity suite.
+    const choice = chooseRenderer(location.search);
+    if (choice.refused) console.warn(choice.refused);
+    renderHost = choice.backend === 'webgpu'
+      ? await createWebGpuRenderHost(canvas, { pixelRatioCap: settings.pixelRatioCap, forceWebGL: choice.forceWebGL })
+      : createRenderHost(canvas, { pixelRatioCap: settings.pixelRatioCap });
   } catch (e) {
     shell.showUnsupported(`The renderer could not start: ${errText(e)}`);
     return;
@@ -539,7 +545,7 @@ function boot(): void {
       releasePointer();
       shell.showEnd(pendingEnd);
     }
-    if (perfHud.visible) gpu ??= createGpuTimer(canvas.getContext('webgl2'));
+    if (perfHud.visible) gpu ??= createGpuTimer(renderHost.backend === 'webgl' ? canvas.getContext('webgl2') : null);
     if (perfHud.visible) gpu?.begin();
     renderHost.render();
     if (perfHud.visible) gpu?.end();
@@ -565,7 +571,7 @@ function boot(): void {
       stats.height = renderHost.service.height;
       stats.pixelRatio = renderHost.service.pixelRatio;
       stats.gpuMs = gpu?.ms;
-      if (perfHud.visible) perfHud.update({ ...stats, entities: host.session?.entities.count() ?? 0, systems: host.session?.scheduler.describe() ?? [] });
+      if (perfHud.visible) perfHud.update({ ...stats, backend: renderHost.backend, entities: host.session?.entities.count() ?? 0, systems: host.session?.scheduler.describe() ?? [] });
       frames = 0;
       workMs = 0;
       worst = 0;
@@ -634,4 +640,4 @@ function boot(): void {
   })();
 }
 
-boot();
+void boot();

@@ -33,6 +33,8 @@ export function createGpuTimer(gl: WebGL2RenderingContext | null): GpuTimer {
 export interface PerfSample {
   fps: number; frameMs: number; worstMs: number; gpuMs?: number; ticksLastFrame: number; calls: number; triangles: number;
   entities: number; systems: readonly { id: string; ms: number }[];
+  /** Which renderer drew the frame ('webgl', 'webgpu', 'webgpu-webgl2'). */
+  backend?: string;
 }
 
 const BUDGET_MS = 1000 / 60;
@@ -69,6 +71,7 @@ export function createPerfHud(parent: HTMLElement): { readonly visible: boolean;
         line('ticks', String(s.ticksLastFrame)),
         line('draws', `${s.calls} · ${(s.triangles / 1000).toFixed(1)}k tris`),
         line('entities', String(s.entities)),
+        ...(s.backend ? [line('renderer', s.backend, s.backend === 'webgl' ? '#dfe' : '#8cf')] : []),
         ...top.map((t) => line(t.id, `${t.ms.toFixed(3)} ms`, tone(t.ms * 10))),
       ].join('');
     },

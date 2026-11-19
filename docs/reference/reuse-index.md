@@ -6,7 +6,7 @@ Start with [the reuse workflow](../guide/reuse.md). Search by intent with `npm r
 
 Metadata describes scope; registrations are observed at default config without activation or cross-reference validation. Enable lists include concrete dependencies only; select the required roles and validate the complete preset. `unreviewed` does not mean genre-neutral.
 
-Source digest: `1bc02e04cc39b76b01128cb330694dd229bf0e093d002f32add4be598ab8b5d8`
+Source digest: `2b794943795975a1546d2c2f4686b8f955d4f5017d87ca609c393dc804b8c8db`
 
 ## Composition recipes
 
@@ -156,7 +156,7 @@ Source digest: `1bc02e04cc39b76b01128cb330694dd229bf0e093d002f32add4be598ab8b5d8
 |---|---|---|---|
 | `sdk/actionMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/mechanics.ts#L137) |
 | `sdk/ActionMechanicRole` | contract | Public SDK value: sdk/mechanic-actions | [source](../../packages/sdk/src/contracts/mechanics.ts#L102) |
-| `sdk/ActorRenderers` | contract | Public SDK value: actor-renderer | [source](../../packages/sdk/src/render.ts#L91) |
+| `sdk/ActorRenderers` | contract | Public SDK value: actor-renderer | [source](../../packages/sdk/src/render.ts#L99) |
 | `sdk/angleDelta` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/game.ts#L416) |
 | `sdk/applyDeadzone` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/input.ts#L52) |
 | `sdk/applyPrefabComponents` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L220) |
@@ -250,7 +250,7 @@ Source digest: `1bc02e04cc39b76b01128cb330694dd229bf0e093d002f32add4be598ab8b5d8
 | `sdk/MechanicResourcesChanged` | contract | Public SDK value: mechanics/resources-changed | [source](../../packages/sdk/src/contracts/mechanics.ts#L105) |
 | `sdk/mergeJson` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L59) |
 | `sdk/migrateSnapshot` | contract | Public helper/class | [source](../../packages/kernel/src/snapshot.ts#L41) |
-| `sdk/Models` | contract | Public SDK value: sdk/models | [source](../../packages/sdk/src/render.ts#L114) |
+| `sdk/Models` | contract | Public SDK value: sdk/models | [source](../../packages/sdk/src/render.ts#L122) |
 | `sdk/ModeRole` | contract | Public SDK value: sdk/mode | [source](../../packages/sdk/src/contracts/game.ts#L353) |
 | `sdk/morphChildren` | contract | Public helper/class | [source](../../packages/sdk/src/dom-morph.ts#L10) |
 | `sdk/NavigationRole` | contract | Public SDK value: sdk/mechanic-navigation | [source](../../packages/sdk/src/contracts/navigation.ts#L34) |
@@ -288,9 +288,9 @@ Source digest: `1bc02e04cc39b76b01128cb330694dd229bf0e093d002f32add4be598ab8b5d8
 | `sdk/relationshipMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/relationships.ts#L30) |
 | `sdk/RelationshipMechanicRole` | contract | Public SDK value: sdk/mechanic-relationships | [source](../../packages/sdk/src/contracts/relationships.ts#L29) |
 | `sdk/RelationshipProviders` | contract | Public SDK value: mechanic-relationship-provider | [source](../../packages/sdk/src/contracts/relationships.ts#L28) |
-| `sdk/Render` | contract | Public SDK value: sdk/render | [source](../../packages/sdk/src/render.ts#L56) |
+| `sdk/Render` | contract | Public SDK value: sdk/render | [source](../../packages/sdk/src/render.ts#L64) |
 | `sdk/Renderable` | contract | Public SDK value: sdk/renderable | [source](../../packages/sdk/src/contracts/spatial.ts#L44) |
-| `sdk/RenderablePrefabs` | contract | Public SDK value: renderable-prefab | [source](../../packages/sdk/src/render.ts#L104) |
+| `sdk/RenderablePrefabs` | contract | Public SDK value: renderable-prefab | [source](../../packages/sdk/src/render.ts#L112) |
 | `sdk/Reporter` | contract | Public helper/class | [source](../../packages/sdk/src/core.ts#L52) |
 | `sdk/resolvePrefab` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/scene.ts#L84) |
 | `sdk/resourceMechanic` | contract | Public helper/class | [source](../../packages/sdk/src/contracts/mechanics.ts#L127) |
