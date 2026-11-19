@@ -4,7 +4,7 @@
 // scaffolder. Anywhere else it clones the engine into ./<name> (git, shallow), installs it, and scaffolds the game
 // there, so the result runs immediately with `npm run dev`. Once the @bulkhead/* packages are published, a
 // standalone-repo mode can replace the clone (templates already import the engine as `@bulkhead/sdk`).
-import { existsSync } from 'node:fs';
+import { existsSync, realpathSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -78,5 +78,6 @@ async function main() {
   return 0;
 }
 
-const isMain = process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url;
+// npm runs bins through a node_modules/.bin symlink, so compare real paths (import.meta.url is already resolved).
+const isMain = !!process.argv[1] && existsSync(process.argv[1]) && pathToFileURL(realpathSync(process.argv[1])).href === import.meta.url;
 if (isMain) process.exit(await main());

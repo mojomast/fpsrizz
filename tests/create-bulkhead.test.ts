@@ -71,3 +71,17 @@ test('create-bulkhead is publish-ready: npm pack contents and package metadata',
   assert.equal(help.status, 0);
   assert.match(help.stdout, /npm create bulkhead/);
 });
+
+test('create-bulkhead runs when invoked through a bin symlink (how npm create runs it)', () => {
+  const dir = `${root}/.build/create-bulkhead-bin-${process.pid}`;
+  rmSync(dir, { recursive: true, force: true });
+  try {
+    assert.equal(spawnSync('mkdir', ['-p', dir]).status, 0);
+    assert.equal(spawnSync('ln', ['-s', `${root}/packages/create-bulkhead/index.mjs`, `${dir}/create-bulkhead`]).status, 0);
+    const r = spawnSync(process.execPath, [`${dir}/create-bulkhead`, '--help'], { encoding: 'utf8' });
+    assert.equal(r.status, 0);
+    assert.match(r.stdout, /Usage: npm create bulkhead/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
